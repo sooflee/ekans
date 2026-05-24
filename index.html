@@ -318,6 +318,30 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <article class="card">
   <div class="card-head">
+    <div class="left"><span class="badge cat-F">V3</span><h3>★ Felder Margin Debt / GDP Regime Indicator</h3></div>
+    <div class="right">equities · quarterly signal · 31-year history</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.77</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">-36.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.66</div><div class="ml">SPY B&amp;H Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Jesse Felder's variant of margin-debt analysis: instead of raw YoY change, scale FINRA margin debt by nominal GDP. Above ~2.5% of GDP marks leverage-greed extremes. When 12-month rolling change in (margin debt / GDP) rolls over from extremes, the marginal levered buyer has stopped buying — a slow equity beta-cut signal.</p>
+    <h4>Rule</h4>
+    <div class="rule">Cut SPY exposure to 50% when 12-month change in (FINRA margin debt / nominal GDP) rolls negative from a level above 2.5% of GDP; restore to 100% only after a fresh 12-month positive change.</div>
+    <h4>Why it works</h4>
+    <p>Sharpe 0.77 beats SPY's 0.66 across a 31-year sample with materially shallower drawdown (-36.6% vs ~-55%). GDP normalization is more robust than raw YoY because it adjusts for the absolute scale of the economy — margin debt of $700B meant something very different in 2000 vs 2024.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Related variant of F03 (Margin Debt YoY, also in this sidebar at 11.5% CAGR). The two signals will have overlapping trade windows — picking one as primary makes more sense than running both at full size. V3's GDP-normalization is the more defensible variant. Quarterly publication lag delays the signal. Margin debt has structurally migrated to options + synthetic leverage post-2020, possibly weakening the FINRA proxy.</div>
+  </div>
+  <div class="card-foot"><span>Source: Jesse Felder (The Felder Report)</span><span><code>backtests/V3_felder_margin_debt_gdp.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
     <div class="left"><span class="badge cat-H">O5</span><h3>★ BTC Difficulty Drop → Long Miner Basket</h3></div>
     <div class="right">crypto / miner equities · 14-day hold · 48 events</div>
   </div>
