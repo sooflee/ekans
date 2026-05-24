@@ -1558,6 +1558,14 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">AC-4</span><span class="name">India Union Budget defense pre-drift</span><span class="why">t=3.28 excess vs NIFTY, 6/6 positive — real edge but only +4.9% per ~15-day window → portfolio CAGR ~2.2%</span></li>
 <li><span class="id">AC-10</span><span class="name">Norway GPFG equity-drift short MSCI World</span><span class="why">−30% CAGR — anti-signal; GPFG rebalancing flow swamped by QE-era beta</span></li>
 <li><span class="id">AC-12</span><span class="name">Dec tax-loss IWM bounce (coarse)</span><span class="why">no IWM-vs-SPY edge; real signal needs YTD-loser screen on individual names</span></li>
+<li><span class="id">AD-T4</span><span class="name">Trump "GREAT TIME TO BUY" → SPY</span><span class="why">+2.45%/event mean but N=5, t=1.47 below significance; entire signal driven by 2025-04-09 anchor (+5.7%)</span></li>
+<li><span class="id">AD-F1</span><span class="name">EPA Friday final-rule → XLE/XLU pair</span><span class="why">N=309, t=-0.83 — hypothesis cleanly disproven; most "Friday EPA rules" are routine state-plan approvals not dumps</span></li>
+<li><span class="id">AD-F3</span><span class="name">CMS Friday payment-rule reversion</span><span class="why">N=33, t=-0.19 — no insurer/hospital pair edge</span></li>
+<li><span class="id">AD-O1</span><span class="name">Crypto-mixer SDN add → COIN long</span><span class="why">N=4 (Blender, Tornado, Sinbad, Samourai), -1.77% mean</span></li>
+<li><span class="id">AD-O2</span><span class="name">OFAC SDN delisting → listed parent</span><span class="why">N=3 (Rusal/En+, Belarus, VZ partials); +3.71% mean / Sharpe 1.79 directionally consistent but N too small for confidence</span></li>
+<li><span class="id">AD-O3</span><span class="name">Venezuela General License → CVX basket</span><span class="why">N=4 GLs, -3.63% mean — wrong sign; basket fell on every GL except renewals</span></li>
+<li><span class="id">AD-O4</span><span class="name">EO 14114 secondary-sanctions → HK bank fade</span><span class="why">N=4, -1.56% mean — PBOC liquidity offsets the warning effect</span></li>
+<li><span class="id">AD-S2</span><span class="name">Bipartisan STOCK Act cluster (NANC∩KRUZ proxy)</span><span class="why">coarse ETF proxy shows no excess CAGR; real signal needs daily CapitolTrades scrape</span></li>
 </ul>
 </details>
 
@@ -1590,13 +1598,27 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">G14_jets</span><span class="name">Central-bank Jackson Hole jets</span><span class="why">N~1/year sample</span></li>
 <li><span class="id">G15_edgar</span><span class="name">EDGAR search traffic</span><span class="why">TB-scale logs; SEC anonymized post-2017</span></li>
 <li><span class="id">AC-7</span><span class="name">Italy BTP-Bund spread DBP fade</span><span class="why">FRED Italy/Germany yields are monthly (too coarse for 20-day window); BTP10.MI ETF only since Feb 2024</span></li>
+<li><span class="id">AD-T1</span><span class="name">Truth-Social → X cross-post latency arb</span><span class="why">no historical replay; needs real-time parallel feeds</span></li>
+<li><span class="id">AD-T2</span><span class="name">Trump burst-rate → VIX</span><span class="why">factba.se JSON removed, trumpstruth.org no RSS, thetrumparchive backend 401</span></li>
+<li><span class="id">AD-T3</span><span class="name">Trump named-leader caps filter</span><span class="why">same archive access barrier as AD-T2</span></li>
+<li><span class="id">AD-D1</span><span class="name">DoD sub-prime supplier NLP drift</span><span class="why">defense.gov returns 403 to scrapers; long-horizon contracts-wire archive heavy</span></li>
+<li><span class="id">AD-D2</span><span class="name">DoD contract-type regime pair</span><span class="why">needs full historical CPFF/FFP text classification across 10+ years of wire postings</span></li>
+<li><span class="id">AD-D3</span><span class="name">DoD modification polarity</span><span class="why">requires NLP-tagging every announcement's modification subtype across 10y history</span></li>
+<li><span class="id">AD-D4</span><span class="name">DoD late-Friday end-of-quarter posting</span><span class="why">needs publication timestamp scrape beyond what defense.gov exposes</span></li>
+<li><span class="id">AD-A1</span><span class="name">E-4B/E-6B simultaneous airborne</span><span class="why">adsbexchange historical not free at scale; events ~5/yr</span></li>
+<li><span class="id">AD-A2</span><span class="name">SecState C-32 country-ETF drift</span><span class="why">ADS-B 12-36mo history only; country mapping ambiguous</span></li>
+<li><span class="id">AD-A3</span><span class="name">KC-135/KC-46 tanker surge to CENTCOM/INDOPACOM</span><span class="why">tanker hex registry maintenance + no free history</span></li>
+<li><span class="id">AD-A4</span><span class="name">E-4B Doomsday cap-region loiter</span><span class="why">N≈2-4/yr; no free orbit-detection history</span></li>
+<li><span class="id">AD-F2</span><span class="name">OIRA "midnight" rule surge → reversal</span><span class="why">N=4 (only party-flip elections since 2008) — sample too small for honest backtest</span></li>
+<li><span class="id">AD-S1</span><span class="name">HASC/SASC defense cluster pre-NDAA markup</span><span class="why">needs joined PTR XML + committee roster + NDAA calendar; ongoing daily parse</span></li>
+<li><span class="id">AD-S3</span><span class="name">STOCK Act chronic-late-filer bunch fade</span><span class="why">requires per-member historical filing-lag computation</span></li>
 </ul>
 </details>
 
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 361-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 372-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
