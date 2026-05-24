@@ -251,6 +251,41 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   flex: 1; font-size: 11px; padding: 5px 6px;
 }
 
+/* CAGR threshold slider */
+.cagr-threshold {
+  display: flex; flex-direction: column; gap: 6px;
+  margin: 0 0 6px; padding: 8px 10px;
+  background: var(--bg-3); border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.cagr-threshold label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 10.5px; color: var(--fg-dim);
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+.cagr-threshold label span {
+  color: var(--accent); font-family: var(--mono);
+  text-transform: none; letter-spacing: 0;
+  font-size: 12px; font-weight: 600;
+}
+.cagr-threshold input[type="range"] {
+  width: 100%; height: 4px;
+  -webkit-appearance: none; appearance: none;
+  background: var(--bg-2); border-radius: 2px;
+  cursor: pointer;
+}
+.cagr-threshold input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); cursor: pointer;
+  border: 2px solid var(--bg-2);
+}
+.cagr-threshold input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); cursor: pointer;
+  border: 2px solid var(--bg-2);
+}
+
 /* tab toggle for non-crypto vs crypto */
 .sidebar .group-tabs {
   display: flex; gap: 0; margin: 0 0 6px;
@@ -295,6 +330,10 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="layout">
 
 <aside class="sidebar">
+  <div class="cagr-threshold">
+    <label>Min CAGR <span id="cagr-label">10%</span></label>
+    <input type="range" id="cagr-slider" min="0" max="50" step="1" value="10">
+  </div>
   <div class="group-tabs">
     <button data-group="noncrypto" class="active">Non-crypto</button>
     <button data-group="crypto">Crypto</button>
