@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Signals Catalog — Backtest Results</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg-2: #1a1f2e;
+  --bg-3: #232a3d;
+  --fg: #e6e9ef;
+  --fg-dim: #9ca3af;
+  --accent: #7dd3fc;
+  --good: #34d399;
+  --bad: #f87171;
+  --warn: #fbbf24;
+  --border: #2d3548;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --cat-A: #a78bfa; --cat-B: #fb7185; --cat-C: #34d399; --cat-D: #fbbf24;
+  --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
+  --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px; line-height: 1.55;
+}
+header {
+  padding: 60px 24px 36px; max-width: 1280px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+h1 { font-size: 2.1em; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 1.5em; margin: 48px 0 16px; letter-spacing: -0.01em; }
+h3 { font-size: 1.15em; margin: 28px 0 12px; }
+.sub { color: var(--fg-dim); margin-top: 6px; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
+.stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.stat-box {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 16px 20px; min-width: 140px;
+}
+.stat-box .v { font-size: 1.7em; font-weight: 600; font-family: var(--mono); }
+.stat-box .l { color: var(--fg-dim); font-size: 0.85em; margin-top: 2px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+table th, table td {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+table th {
+  background: var(--bg-2); position: sticky; top: 0; z-index: 1;
+  font-weight: 600; cursor: pointer; user-select: none;
+}
+table th:hover { background: var(--bg-3); }
+table tr:hover td { background: rgba(125,211,252,0.04); }
+table .r { text-align: right; }
+table .mono { font-family: var(--mono); font-size: 13px; }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 12px; font-weight: 600; font-family: var(--mono);
+  color: var(--bg);
+}
+.cat-A { background: var(--cat-A); } .cat-B { background: var(--cat-B); }
+.cat-C { background: var(--cat-C); } .cat-D { background: var(--cat-D); }
+.cat-E { background: var(--cat-E); } .cat-F { background: var(--cat-F); }
+.cat-G { background: var(--cat-G); } .cat-H { background: var(--cat-H); }
+.cat-I { background: var(--cat-I); } .cat-J { background: var(--cat-J); }
+.cat-K { background: var(--cat-K); }
+.controls {
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  margin: 20px 0; padding: 16px; background: var(--bg-2);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.controls input, .controls select {
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg);
+  padding: 8px 12px; border-radius: 6px; font-size: 14px; font-family: inherit;
+}
+.controls input { width: 240px; }
+.controls label { color: var(--fg-dim); font-size: 13px; margin-right: 4px; }
+.scroll-x { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+.good { color: var(--good); }
+.bad { color: var(--bad); }
+.warn { color: var(--warn); }
+.pos { color: var(--good); font-weight: 600; }
+.neg { color: var(--bad); font-weight: 600; }
+.dim { color: var(--fg-dim); }
+a { color: var(--accent); }
+.caveat {
+  background: rgba(251,191,36,0.08); border-left: 3px solid var(--warn);
+  padding: 16px 20px; border-radius: 4px; margin: 20px 0;
+}
+.caveat strong { color: var(--warn); }
+ul { padding-left: 22px; }
+li { margin: 4px 0; }
+code { background: var(--bg-3); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 13px; }
+.footer { text-align: center; color: var(--fg-dim); margin-top: 60px; padding: 24px; font-size: 13px; }
+.bar-cell { position: relative; }
+.bar { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(125,211,252,0.12); z-index: 0; }
+.bar.neg { background: rgba(248,113,113,0.12); }
+.bar-cell span { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Trading Signals Catalog &amp; Backtest Report</h1>
+  <p class="sub">Comprehensive survey of trading signals from retail social media, academic literature, FinTwit, alternative data, crypto on-chain, and geopolitical event-driven sources. Backtested on free data (yfinance, FRED, public APIs) where feasible.</p>
+  <div class="stats-row">
+    <div class="stat-box"><div class="v">108</div><div class="l">signals backtested</div></div>
+    <div class="stat-box"><div class="v">96</div><div class="l">implemented OK</div></div>
+    <div class="stat-box"><div class="v">8</div><div class="l">data unavailable</div></div>
+    <div class="stat-box"><div class="v">~199</div><div class="l">in raw catalog</div></div>
+    <div class="stat-box"><div class="v">11</div><div class="l">signal categories</div></div>
+  </div>
+</header>
+
+<div class="container">
+
+<h2>Reading this report (read first)</h2>
+<div class="caveat">
+<strong>Honest caveats up front:</strong>
+<ul>
+<li><strong>Most signals do not generate alpha after honest backtesting.</strong> This is the expected outcome. Genuine, repeatable, easy-to-implement alpha is rare. The Sharpe distribution below is mostly between -0.5 and +0.7, dominated by buy-and-hold equivalents.</li>
+<li><strong>Free-data limitations bite.</strong> FRED truncates some series to 3 years without an API key, paid alt-data (GEX, Glassdoor, satellite, App Store) was marked failed, EDGAR full-text scraping is slow, and CryptoQuant/Glassnode block free access. Signals marked <code>status: fail</code> with a <code>reason</code> were tried but lacked data.</li>
+<li><strong>Survivorship bias warning (Category D).</strong> The equity factor cross-sectional tests (D03/D05/D06/D09/D14/D17) used a hand-curated 75-name liquid US large-cap universe. Every name in the basket survives to 2026. The classic L/S anomalies flipped <em>negative</em> because shorting today's mega-cap winners (NVDA/AAPL/META) is brutal. A true CRSP point-in-time test would likely flip these back positive. Read these results as risk-factor demonstrations, not alpha estimates.</li>
+<li><strong>Ken French factor results (D01, D02, D04) are clean</strong> because they use Ken French's daily factor library directly (free, no survivorship issue).</li>
+<li><strong>"Originality" is rough.</strong> 1 = textbook / every CFA knows it; 10 = obscure / not in standard quant playbook. Use it to find unfamiliar ideas, not as a reliability score.</li>
+<li><strong>t-stat ≠ profitable strategy.</strong> Several signals (F08 RSI(2), A07 pre-FOMC) show real per-trade edge (t&gt;2.5) but the strategy is mostly in cash and earns less absolute return than buy-and-hold. Hit rate and t-stat measure event-level edge; CAGR is the wealth measure.</li>
+<li><strong>Backtests sit on closing prices with no slippage, no borrow cost, no taxes.</strong> Short-only strategies in particular will deteriorate materially in live trading.</li>
+</ul>
+</div>
+
+<h2>Top 10 by Sharpe</h2>
+<p class="dim">Sorted by Sharpe; comparison to benchmark (buy-and-hold of underlying) in the rightmost column when available. Caveats above apply.</p>
+<div class="scroll-x">
+<table>
+<thead><tr><th>Cat</th><th>Signal</th><th>Asset</th><th>Sharpe</th><th>CAGR</th><th>MaxDD</th><th>t-stat</th><th>Hit</th><th>Source</th></tr></thead>
+<tbody>
+<tr>
+            <td><span class="badge cat-C">C</span></td>
+            <td><strong>HY OAS Credit Spread Regime</strong><br><small>C10_hy_oas_regime</small></td>
+            <td>equities/credit</td>
+            <td class="r mono">1.45</td>
+            <td class="r mono">23.24%</td>
+            <td class="r mono">-18.76%</td>
+            <td class="r mono">2.51</td>
+            <td class="r mono">57.39%</td>
+            <td><small>Verdad Capital research</small></td>
+        </tr><tr>
+            <td><span class="badge cat-A">A</span></td>
+            <td><strong>BTC Halving Cycle</strong><br><small>A14_btc_halving</small></td>
+            <td>crypto</td>
+            <td class="r mono">1.20</td>
+            <td class="r mono">49.90%</td>
+            <td class="r mono">-56.41%</td>
+            <td class="r mono">4.93</td>
+            <td class="r mono">28.40%</td>
+            <td><small>Halving narrative</small></td>
+        </tr><tr>
+            <td><span class="badge cat-H">H</span></td>
+            <td><strong>MVRV Z-Score</strong><br><small>H06_mvrv_zscore</small></td>
+            <td>crypto</td>
+            <td class="r mono">0.97</td>
+            <td class="r mono">45.56%</td>
+            <td class="r mono">-76.63%</td>
+            <td class="r mono">3.79</td>
+            <td class="r mono">49.61%</td>
+            <td><small>BitcoinMagazinePro / Glassnode</small></td>
+        </tr><tr>
+            <td><span class="badge cat-G">G</span></td>
+            <td><strong>WARN Act Layoff Notices</strong><br><small>G07_warn_act_layoffs</small></td>
+            <td>equities</td>
+            <td class="r mono">0.95</td>
+            <td class="r mono">26.35%</td>
+            <td class="r mono">-30.89%</td>
+            <td class="r mono">0.88</td>
+            <td class="r mono">50.92%</td>
+            <td><small>Goldman &#x27;WARNing Signs&#x27; 2023</small></td>
+        </tr><tr>
+            <td><span class="badge cat-H">H</span></td>
+            <td><strong>BTC-NDX/BTC-Gold Correlation Regime</strong><br><small>H11_btc_correlation_regime</small></td>
+            <td>crypto/cross</td>
+            <td class="r mono">0.90</td>
+            <td class="r mono">32.42%</td>
+            <td class="r mono">-72.59%</td>
+            <td class="r mono">3.67</td>
+            <td class="r mono">52.54%</td>
+            <td><small>Cross-asset regime</small></td>
+        </tr><tr>
+            <td><span class="badge cat-H">H</span></td>
+            <td><strong>NUPL (Net Unrealized Profit/Loss)</strong><br><small>H08_nupl</small></td>
+            <td>crypto</td>
+            <td class="r mono">0.87</td>
+            <td class="r mono">33.84%</td>
+            <td class="r mono">-76.63%</td>
+            <td class="r mono">3.44</td>
+            <td class="r mono">45.04%</td>
+            <td><small>Glassnode</small></td>
+        </tr><tr>
+            <td><span class="badge cat-H">H</span></td>
+            <td><strong>Puell Multiple</strong><br><small>H07_puell_multiple</small></td>
+            <td>crypto</td>
+            <td class="r mono">0.87</td>
+            <td class="r mono">28.71%</td>
+            <td class="r mono">-61.81%</td>
+            <td class="r mono">3.41</td>
+            <td class="r mono">29.63%</td>
+            <td><small>D Puell</small></td>
+        </tr><tr>
+            <td><span class="badge cat-C">C</span></td>
+            <td><strong>Utilities/SPY Ratio (Gayed)</strong><br><small>C02_utilities_spy</small></td>
+            <td>equities</td>
+            <td class="r mono">0.74</td>
+            <td class="r mono">8.35%</td>
+            <td class="r mono">-31.51%</td>
+            <td class="r mono">3.77</td>
+            <td class="r mono">28.48%</td>
+            <td><small>Gayed-Atilgan 2014</small></td>
+        </tr><tr>
+            <td><span class="badge cat-C">C</span></td>
+            <td><strong>Accelerating Dual Momentum</strong><br><small>C07_accel_dual_momentum</small></td>
+            <td>equities/bonds</td>
+            <td class="r mono">0.73</td>
+            <td class="r mono">11.27%</td>
+            <td class="r mono">-30.48%</td>
+            <td class="r mono">3.15</td>
+            <td class="r mono">52.61%</td>
+            <td><small>EngineeredPortfolio 2018</small></td>
+        </tr><tr>
+            <td><span class="badge cat-F">F</span></td>
+            <td><strong>Margin Debt YoY Change</strong><br><small>F03_margin_debt_yoy</small></td>
+            <td>equities</td>
+            <td class="r mono">0.72</td>
+            <td class="r mono">11.46%</td>
+            <td class="r mono">-45.21%</td>
+            <td class="r mono">4.00</td>
+            <td class="r mono">50.39%</td>
+            <td><small>Jesse Felder; FINRA monthly</small></td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+<h2>Category overview</h2>
+<div class="scroll-x">
+<table>
+<thead><tr><th>Cat</th><th>Name</th><th>N</th><th>OK</th><th>Fail</th><th>Median Sharpe</th><th>Max Sharpe</th></tr></thead>
+<tbody>
+<tr>
+            <td><span class="badge cat-A">A</span></td>
+            <td>Calendar / Seasonal</td>
+            <td class="r">16</td>
+            <td class="r">14</td>
+            <td class="r">2</td>
+            <td class="r mono">0.46</td>
+            <td class="r mono">1.20</td>
+        </tr><tr>
+            <td><span class="badge cat-B">B</span></td>
+            <td>Volatility / Options-Implied</td>
+            <td class="r">4</td>
+            <td class="r">3</td>
+            <td class="r">1</td>
+            <td class="r mono">0.39</td>
+            <td class="r mono">0.61</td>
+        </tr><tr>
+            <td><span class="badge cat-C">C</span></td>
+            <td>Cross-Asset Macro / Rotation</td>
+            <td class="r">18</td>
+            <td class="r">17</td>
+            <td class="r">1</td>
+            <td class="r mono">0.57</td>
+            <td class="r mono">1.45</td>
+        </tr><tr>
+            <td><span class="badge cat-D">D</span></td>
+            <td>Equity Factor / Cross-Sectional</td>
+            <td class="r">10</td>
+            <td class="r">9</td>
+            <td class="r">1</td>
+            <td class="r mono">-0.39</td>
+            <td class="r mono">0.41</td>
+        </tr><tr>
+            <td><span class="badge cat-E">E</span></td>
+            <td>Event-Driven / Corporate Actions</td>
+            <td class="r">11</td>
+            <td class="r">7</td>
+            <td class="r">1</td>
+            <td class="r mono">-0.07</td>
+            <td class="r mono">-0.07</td>
+        </tr><tr>
+            <td><span class="badge cat-F">F</span></td>
+            <td>Sentiment / Breadth / Classic TA</td>
+            <td class="r">9</td>
+            <td class="r">9</td>
+            <td class="r">0</td>
+            <td class="r mono">0.26</td>
+            <td class="r mono">0.72</td>
+        </tr><tr>
+            <td><span class="badge cat-G">G</span></td>
+            <td>Alt-Data / Web</td>
+            <td class="r">6</td>
+            <td class="r">5</td>
+            <td class="r">0</td>
+            <td class="r mono">0.10</td>
+            <td class="r mono">0.95</td>
+        </tr><tr>
+            <td><span class="badge cat-H">H</span></td>
+            <td>Crypto On-Chain / Structural</td>
+            <td class="r">12</td>
+            <td class="r">10</td>
+            <td class="r">2</td>
+            <td class="r mono">0.71</td>
+            <td class="r mono">0.97</td>
+        </tr><tr>
+            <td><span class="badge cat-I">I</span></td>
+            <td>Retail Pattern TA</td>
+            <td class="r">7</td>
+            <td class="r">7</td>
+            <td class="r">0</td>
+            <td class="r mono">0.16</td>
+            <td class="r mono">0.53</td>
+        </tr><tr>
+            <td><span class="badge cat-J">J</span></td>
+            <td>Behavioral / Pop-Culture / Curiosity</td>
+            <td class="r">6</td>
+            <td class="r">6</td>
+            <td class="r">0</td>
+            <td class="r mono">0.19</td>
+            <td class="r mono">0.49</td>
+        </tr><tr>
+            <td><span class="badge cat-K">K</span></td>
+            <td>Policy / Geopolitical</td>
+            <td class="r">9</td>
+            <td class="r">9</td>
+            <td class="r">0</td>
+            <td class="r mono">0.09</td>
+            <td class="r mono">0.33</td>
+        </tr>
+</tbody>
+</table>
+</div>
+
+<h2>Master signal table</h2>
+<p class="dim">All signals with backtest results. Click column headers to sort. Filter by category or text-search.</p>
+
+<div class="controls">
+  <label>Filter:</label>
+  <input id="search" type="text" placeholder="search name, ID, source...">
+  <label>Category:</label>
+  <select id="catfilter">
+    <option value="">all</option>
+    <option value="A">A – Calendar</option>
+    <option value="B">B – Vol</option>
+    <option value="C">C – Cross-asset</option>
+    <option value="D">D – Equity factor</option>
+    <option value="E">E – Event-driven</option>
+    <option value="F">F – Sentiment/Breadth</option>
+    <option value="G">G – Alt-data</option>
+    <option value="H">H – Crypto</option>
+    <option value="I">I – Pattern TA</option>
+    <option value="J">J – Curiosity</option>
+    <option value="K">K – Policy/Geopolitical</option>
+  </select>
+  <label>Status:</label>
+  <select id="statusfilter">
+    <option value="">all</option>
+    <option value="ok">ok</option>
+    <option value="fail">fail</option>
+  </select>
+  <label>Min Sharpe:</label>
+  <select id="minsharpe">
+    <option value="">any</option>
+    <option value="0">≥ 0</option>
+    <option value="0.5">≥ 0.5</option>
+    <option value="0.7">≥ 0.7</option>
+    <option value="1.0">≥ 1.0</option>
+  </select>
+</div>
+
+<div class="scroll-x">
+<table id="signals">
+<thead><tr>
+  <th data-key="cat">Cat</th>
+  <th data-key="id">ID</th>
+  <th data-key="name">Signal</th>
+  <th data-key="asset">Asset</th>
+  <th data-key="horizon">Horizon</th>
+  <th data-key="orig" class="r">Orig</th>
+  <th data-key="btf" class="r">BT-feas</th>
+  <th data-key="sharpe" class="r">Sharpe</th>
+  <th data-key="cagr" class="r">CAGR</th>
+  <th data-key="max_dd" class="r">MaxDD</th>
+  <th data-key="t" class="r">t-stat</th>
+  <th data-key="hit" class="r">Hit</th>
+  <th data-key="status">Status</th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<h2>Methodology</h2>
+<p>The research process ran in 4 phases:</p>
+<ol>
+<li><strong>Mining (Phase 1).</strong> Nine parallel research agents covered: TikTok/retail-trader social, academic literature, trading forums + FinTwit, alternative data / political / event-driven, crypto on-chain + macro, behavioral / pop-culture, geopolitical / war / sanctions / defense, creative wildcard, and global government policy. Each agent returned 15–37 signals in a structured format with sources.</li>
+<li><strong>Consolidation (Phase 2).</strong> Deduplicated to ~199 raw entries, sorted into 11 categories (A–K), graded each on originality (1–10) and backtest-feasibility (1–5).</li>
+<li><strong>Backtesting (Phase 3).</strong> Eight parallel backtest worker agents implemented every signal feasible with free data, using a shared harness (yfinance, FRED, pandas-datareader). Each signal gets a JSON result with Sharpe, CAGR, MaxDD, t-stat, hit rate, plus assumptions noted in the Python file. Signals that couldn't be implemented are marked <code>status: fail</code> with a reason citing the literature.</li>
+<li><strong>Reporting (Phase 4).</strong> This single HTML file, generated from <code>build_report.py</code> + the results/ directory.</li>
+</ol>
+
+<h2>Headline findings</h2>
+<ul>
+<li><strong>A14 BTC halving cycle</strong> is the largest absolute-return signal (Sharpe 1.20, +14pp excess CAGR vs BTC buy-and-hold, t=4.93) — but N=3 fully observed halvings. Classic small-N narrative risk.</li>
+<li><strong>H06 MVRV proxy</strong> slightly beats BTC buy-and-hold on Sharpe (0.97 vs 0.90) — the only crypto on-chain signal that does.</li>
+<li><strong>F03 Margin Debt YoY</strong> (Sharpe 0.72, CAGR 11.46%) and <strong>C02 Utilities/SPY (Gayed)</strong> (Sharpe 0.74, t=3.77) are the best macro-conditional equity timers we tested.</li>
+<li><strong>C07 Accelerating Dual Momentum</strong> (Sharpe 0.73) and <strong>F09 Golden Cross</strong> (Sharpe 0.69, t=3.55) match or beat SPY on risk-adjusted basis with materially shallower drawdowns — good defensive variants but no CAGR uplift.</li>
+<li><strong>F08 RSI(2) Connors</strong> (t=2.50) and <strong>A07 Pre-FOMC drift</strong> (t=2.49) have real per-event edge but are out-of-market too often to compete with buy-and-hold CAGR.</li>
+<li><strong>E09 IPO Lockup expiry short</strong> (t=2.10, 61% hit rate, +3.15% over 10 days) is the cleanest event-driven hit.</li>
+<li><strong>I03 Liquidity sweep fade</strong> is significantly NEGATIVE (t=-2.26): SPY breakouts above 20-day highs that close back below tend to follow through up, not fade. Important falsification of an ICT/SMC core idea.</li>
+<li><strong>G-14 Pre-FOMC + dovish DGS2 filter</strong> reverse-finding: adding the dovish-regime filter DESTROYS the edge (Sharpe drops from 0.49 to 0.07). Literature's regime story is wrong direction in our sample.</li>
+<li><strong>G-15 US Election VIX ramp</strong> is catastrophic: -9% CAGR, -86% DD via VIXY roll-cost drag. Realized vol bump is real; the equity instruments to express it are not.</li>
+<li><strong>D-category equity factors</strong> using a survivorship-biased basket all flipped negative on the L/S — read as caveat-laden, not as factor death.</li>
+</ul>
+
+<h2>Honest disclaimers</h2>
+<ul>
+<li>Past performance is not predictive. Most published anomalies decay materially post-publication (McLean-Pontiff RFS 2016, ~32% decay average).</li>
+<li>Free-data backtests overstate edge: no transaction costs, no slippage, no borrow cost, no taxes, no fund-level liquidity constraints.</li>
+<li>Several "wins" above ride on a small number of events (BTC halvings: N=3; election VIX: N=4; BoJ surprises: N=3). Small-N findings are narrative-fitting more than statistical evidence.</li>
+<li>The basket / universe shortcut in Category D is acknowledged.</li>
+<li>Some failed signals (Glassdoor, satellite parking, GEX, App Store, EDGAR search traffic) may have real edge but require paid data.</li>
+</ul>
+
+<h2>Source materials</h2>
+<ul>
+<li>Code: <code>backtests/*.py</code> (one file per signal, runnable standalone)</li>
+<li>Raw research outputs: <code>research/01[a-i]_*.md</code></li>
+<li>Master catalog: <code>research/master_signals.md</code></li>
+<li>Backtest metrics: <code>results/*.json</code></li>
+<li>Shared harness: <code>backtests/harness.py</code></li>
+</ul>
+
+<div class="footer">
+Generated from <code>build_report.py</code>. Free data only (yfinance, FRED, public APIs). Sources cited per signal in the master table.
+</div>
+
+</div>
+
+<script>
+const DATA = [{"id": "A01_halloween", "cat": "A", "name": "Halloween / Sell-in-May", "asset": "equities", "horizon": "6mo", "orig": 3, "btf": 5, "desc": "Long SPY Nov-Apr; cash May-Oct.", "source": "Bouman-Jacobsen AER 2002; Zhang-Jacobsen 2021", "status": "ok", "sharpe": 0.4627289040073809, "cagr": 0.05663367002666764, "max_dd": -0.3371727297052124, "hit": 0.2741522230595328, "t": 2.3743613896117264, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A02_turn_of_month", "cat": "A", "name": "Turn-of-Month", "asset": "equities", "horizon": "~4d/mo", "orig": 5, "btf": 5, "desc": "Long SPY last day of month + first 3.", "source": "Ariel JFE 1987; McConnell-Xu 2008", "status": "ok", "sharpe": 0.44063717724681634, "cagr": 0.03495357546498745, "max_dd": -0.289643963492209, "hit": 0.10776186887716654, "t": 2.2610039948264204, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A03_santa_claus", "cat": "A", "name": "Santa Claus Rally", "asset": "equities", "horizon": "7d", "orig": 2, "btf": 5, "desc": "Long SPY last 5 Dec + first 2 Jan trading days.", "source": "Hirsch 1972", "status": "ok", "sharpe": 0.27334108776702093, "cagr": 0.006659568320229958, "max_dd": -0.06786614151820924, "hit": 0.011906556141672946, "t": 1.4025718284893058, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A04_first_five_days", "cat": "A", "name": "First Five Days of January", "asset": "equities", "horizon": "12mo", "orig": 3, "btf": 5, "desc": "If SPY Jan day 1-5 > 0, long SPY rest of year.", "source": "Hirsch", "status": "ok", "sharpe": 0.5879704121450174, "cagr": 0.08110976614371301, "max_dd": -0.42711663608714023, "hit": 0.3760361718161266, "t": 3.0170024667595765, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A05_january_small_caps", "cat": "A", "name": "January Small-Cap Effect", "asset": "equities", "horizon": "1mo", "orig": 3, "btf": 5, "desc": "Long IWM during January only.", "source": "Classic tax-loss harvesting", "status": "ok", "sharpe": 0.10139450420704549, "cagr": 0.0025563239418524564, "max_dd": -0.09487846181702819, "hit": 0.042393633302724214, "t": 0.5163018850074538, "n_days": 6534, "bench_cagr": 0.08508226984528444}, {"id": "A06_fomc_even_week", "cat": "A", "name": "FOMC Even-Week Effect", "asset": "equities", "horizon": "biweekly", "orig": 7, "btf": 5, "desc": "Long SPY only during even weeks of FOMC cycle.", "source": "Cieslak-Morse-Vissing-Jorgensen JF 2019", "status": "ok", "sharpe": 0.5283113313611473, "cagr": 0.06690072619059428, "max_dd": -0.5020727132775624, "hit": 0.2884702336096458, "t": 2.710878909907617, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A07_pre_fomc_drift", "cat": "A", "name": "Pre-FOMC Drift", "asset": "equities", "horizon": "2d", "orig": 6, "btf": 5, "desc": "Long SPY T-1 close to T close on FOMC days.", "source": "Lucca-Moench JF 2015", "status": "ok", "sharpe": 0.48521967112044323, "cagr": 0.017021842645018825, "max_dd": -0.08516547617983472, "hit": 0.017784476262245667, "t": 2.4897663461500645, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A08_opex_week", "cat": "A", "name": "Monthly OPEX Week", "asset": "equities", "horizon": "1wk/mo", "orig": 6, "btf": 5, "desc": "Long SPY Fri-before-OPEX through OPEX Fri.", "source": "Quantpedia; delta-hedge unwind", "status": "ok", "sharpe": 0.15761554888763393, "cagr": 0.010505388739087795, "max_dd": -0.3195765937074244, "hit": 0.12735493594574226, "t": 0.8087592334091329, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A09_sunshine", "cat": "A", "name": "Sunshine Effect (NYC weather)", "asset": "equities", "horizon": "daily", "orig": 7, "btf": 4, "desc": "Index returns higher on sunny days.", "source": "Hirshleifer-Shumway JF 2003", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "A10_lunar_phase", "cat": "A", "name": "Lunar Phase", "asset": "equities", "horizon": "15d", "orig": 9, "btf": 5, "desc": "Long during new-moon \u00b17d; short during full-moon \u00b17d.", "source": "Yuan-Zheng-Zhu JEF 2006", "status": "ok", "sharpe": 0.24455396039518404, "cagr": 0.028893963016070723, "max_dd": -0.641705286464358, "hit": 0.49510173323285606, "t": 1.2548588951549444, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A11_dst_anomaly", "cat": "A", "name": "DST Anomaly (Monday after)", "asset": "equities", "horizon": "1d", "orig": 8, "btf": 5, "desc": "Short SPY Monday after DST change.", "source": "Kamstra-Kramer-Levi AER 2000", "status": "ok", "sharpe": 0.10596445476064374, "cagr": 0.0018836485792999014, "max_dd": -0.07479803315206113, "hit": 0.003014318010550113, "t": 0.5437263760184685, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A12_treasury_auction", "cat": "A", "name": "Treasury Auction Cycle", "asset": "bonds", "horizon": "5d", "orig": 8, "btf": 4, "desc": "Auction announcement \u2192 yield drift.", "source": "Lou-Yan-Zhang RFS 2013", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "A13_presidential_year3", "cat": "A", "name": "Presidential Cycle Year 3", "asset": "equities", "horizon": "1yr", "orig": 4, "btf": 5, "desc": "Long SPY only year 3 of every presidential term.", "source": "Hirsch; Beyer JPM", "status": "ok", "sharpe": 0.4240241875917765, "cagr": 0.030593885821541322, "max_dd": -0.1860547383515494, "hit": 0.12449133383571967, "t": 2.1757591768318303, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A14_btc_halving", "cat": "A", "name": "BTC Halving Cycle", "asset": "crypto", "horizon": "multi-year", "orig": 2, "btf": 5, "desc": "Long BTC 6mo before halving through 18mo after.", "source": "Halving narrative", "status": "ok", "sharpe": 1.1982152447059302, "cagr": 0.4990232795142253, "max_dd": -0.5641152985094849, "hit": 0.2840056285178236, "t": 4.928822386866333, "n_days": 4264, "bench_cagr": 0.3582429425006468}, {"id": "A15_halloween_tom_combo", "cat": "A", "name": "Halloween \u00d7 Turn-of-Month combo", "asset": "equities", "horizon": "various", "orig": 5, "btf": 5, "desc": "Long SPY only when both A01 and A02 active.", "source": "Stack of A01+A02", "status": "ok", "sharpe": 0.4725398822254016, "cagr": 0.029030326559018604, "max_dd": -0.18204577125022103, "hit": 0.0560663149962321, "t": 2.4247036260128882, "n_days": 6635, "bench_cagr": 0.08464132842093419}, {"id": "A16_seasonality_heston_sadka", "cat": "A", "name": "Heston-Sadka Same-Month Seasonality", "asset": "equities", "horizon": "monthly", "orig": 7, "btf": 5, "desc": "Hold SPY in months whose 10y trailing avg return > 0.", "source": "Heston-Sadka JFE 2008; Keloharju et al 2016", "status": "ok", "sharpe": 0.6501878881033754, "cagr": 0.09885974288775601, "max_dd": -0.43380272476335957, "hit": 0.41427357689039934, "t": 3.142040931153317, "n_days": 5885, "bench_cagr": 0.11586726767360855}, {"id": "B01_vix_term_structure", "cat": "B", "name": "VIX Term Structure (VIX/VIX3M)", "asset": "equities", "horizon": "days-wks", "orig": 4, "btf": 5, "desc": "Long SPY when ratio < 0.92; flat above 1.0.", "source": "VIX and More", "status": "ok", "sharpe": 0.6055766119667088, "cagr": 0.06598308577349354, "max_dd": -0.35543097144505076, "hit": 0.4266035299182092, "t": 2.6002100122273144, "n_days": 4646, "bench_cagr": 0.11224046816164401}, {"id": "B02_vix_30_contrarian", "cat": "B", "name": "VIX > 30 Contrarian Buy", "asset": "equities", "horizon": "1-3mo", "orig": 3, "btf": 5, "desc": "Buy SPY when VIX > 30 having been < 20 within 60d.", "source": "Whaley", "status": "ok", "sharpe": 0.2129561239918046, "cagr": 0.018524200867825247, "max_dd": -0.3921205385495268, "hit": 0.05772212283840191, "t": 1.2284044942913124, "n_days": 8385, "bench_cagr": 0.10854822871559056}, {"id": "B03_vvix_vix_ratio", "cat": "B", "name": "VVIX/VIX Ratio", "asset": "equities", "horizon": "1-4wk", "orig": 5, "btf": 5, "desc": "Short SPY 20d when VVIX/VIX > 6.5 and VIX < 18.", "source": "CBOE VVIX", "status": "ok", "sharpe": 0.3874027810611665, "cagr": 0.051084535423500776, "max_dd": -0.5518944579250042, "hit": 0.2115858668857847, "t": 1.7026984805165775, "n_days": 4868, "bench_cagr": 0.11010911665042489}, {"id": "B05_putcall_ratio", "cat": "B", "name": "Put/Call Ratio Extremes", "asset": "equities", "horizon": "1-4wk", "orig": 2, "btf": 5, "desc": "10d MA P/C ratio > 0.75 \u2192 long; < 0.50 \u2192 flat.", "source": "Sentimentrader", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "C01_lumber_gold", "cat": "C", "name": "Lumber/Gold (Gayed)", "asset": "equities/bonds", "horizon": "13wk", "orig": 4, "btf": 4, "desc": "Long SPY when lumber > gold 13wk; else TLT.", "source": "Gayed 2015 SSRN", "status": "ok", "sharpe": 0.5737283341508276, "cagr": 0.08064366198831685, "max_dd": -0.3849294569868774, "hit": 0.5421506182090671, "t": 2.6405555775983025, "n_days": 5338, "bench_cagr": 0.11772297123034292}, {"id": "C02_utilities_spy", "cat": "C", "name": "Utilities/SPY Ratio (Gayed)", "asset": "equities", "horizon": "1mo", "orig": 3, "btf": 5, "desc": "Cash 4 weeks when XLU outpaces SPY.", "source": "Gayed-Atilgan 2014", "status": "ok", "sharpe": 0.7350827853894605, "cagr": 0.08354002238871239, "max_dd": -0.3150964686278753, "hit": 0.2848311218335344, "t": 3.771014833056422, "n_days": 6632, "bench_cagr": 0.0829499929738855}, {"id": "C03_copper_gold", "cat": "C", "name": "Copper/Gold \u2192 TLT", "asset": "bonds", "horizon": "1-6mo", "orig": 5, "btf": 5, "desc": "Short TLT when copper/gold rises while 10Y flat.", "source": "Hua-Wang JIFMIM 2023", "status": "ok", "sharpe": 0.34168513846215187, "cagr": 0.011484733707576522, "max_dd": -0.08883831396525566, "hit": 0.03836126629422719, "t": 1.5772951288902664, "n_days": 5370, "bench_cagr": 0.030765663585523795}, {"id": "C04_gold_silver", "cat": "C", "name": "Gold/Silver Ratio Mean-Reversion", "asset": "commodities", "horizon": "6-24mo", "orig": 4, "btf": 5, "desc": "Long silver/short gold when ratio > 90; reverse < 50.", "source": "Long-run mean ~65", "status": "ok", "sharpe": 0.35162040882005446, "cagr": 0.04693561066981822, "max_dd": -0.4231699539183694, "hit": 0.27555467511885895, "t": 1.5737417892735024, "n_days": 5048, "bench_cagr": 0.09673375209850854}, {"id": "C05_faber_gtaa", "cat": "C", "name": "Faber GTAA 10-mo MA", "asset": "multi-asset", "horizon": "monthly", "orig": 2, "btf": 5, "desc": "Hold each of 5 assets only above 10-mo SMA.", "source": "Faber 2007 SSRN", "status": "ok", "sharpe": 0.578639504413025, "cagr": 0.04443563321153787, "max_dd": -0.15451672513605064, "hit": 0.5165297535564015, "t": 2.575144445981091, "n_days": 4991, "bench_cagr": 0.11521547560997947}, {"id": "C06_dual_momentum", "cat": "C", "name": "Dual Momentum (Antonacci GEM)", "asset": "equities/bonds", "horizon": "monthly", "orig": 3, "btf": 5, "desc": "Pick higher 12m return: SPY vs ACWX; else AGG.", "source": "Antonacci 2013", "status": "ok", "sharpe": 0.6068186177019552, "cagr": 0.08650377799868303, "max_dd": -0.33717254951465203, "hit": 0.5111695137976346, "t": 2.583012929170352, "n_days": 4566, "bench_cagr": 0.1185132900801007}, {"id": "C07_accel_dual_momentum", "cat": "C", "name": "Accelerating Dual Momentum", "asset": "equities/bonds", "horizon": "monthly", "orig": 5, "btf": 5, "desc": "Avg of 1/3/6m returns picks SPY/SCZ/TLT.", "source": "EngineeredPortfolio 2018", "status": "ok", "sharpe": 0.7331387350997329, "cagr": 0.11273630601415707, "max_dd": -0.30475977060953674, "hit": 0.5260775862068966, "t": 3.1458997998357536, "n_days": 4640, "bench_cagr": 0.11173165776487659}, {"id": "C08_yield_curve_10y2y", "cat": "C", "name": "Yield Curve Inversion (10Y-2Y)", "asset": "equities/bonds", "horizon": "yrs", "orig": 3, "btf": 5, "desc": "Reduce equity 12mo after T10Y2Y crosses below 0.", "source": "Estrella-Hardouvelis 1991", "status": "ok", "sharpe": 0.6471159644974308, "cagr": 0.1043492845743168, "max_dd": -0.5518945395107213, "hit": 0.5409660107334526, "t": 3.7327884458814293, "n_days": 8385, "bench_cagr": 0.10854823397260027}, {"id": "C09_yield_curve_10y3m", "cat": "C", "name": "Yield Curve Inversion (10Y-3M)", "asset": "equities/bonds", "horizon": "yrs", "orig": 4, "btf": 5, "desc": "Same with T10Y3M (Estrella-Mishkin probit).", "source": "Estrella-Mishkin 1998", "status": "ok", "sharpe": 0.6513680295698859, "cagr": 0.10435343734565428, "max_dd": -0.5518945395107215, "hit": 0.5409660107334526, "t": 3.7573158262033215, "n_days": 8385, "bench_cagr": 0.10854823397260027}, {"id": "C10_hy_oas_regime", "cat": "C", "name": "HY OAS Credit Spread Regime", "asset": "equities/credit", "horizon": "1-12mo", "orig": 3, "btf": 5, "desc": "De-risk when HY OAS rises 100bp from 6m low + > 500bp.", "source": "Verdad Capital research", "status": "ok", "sharpe": 1.454826623437915, "cagr": 0.23236456950584716, "max_dd": -0.18755233666641347, "hit": 0.5739014647137151, "t": 2.511487021336486, "n_days": 751, "bench_cagr": 0.23236456950584716}, {"id": "C11_move_vix_ratio", "cat": "C", "name": "MOVE/VIX Ratio", "asset": "cross-asset", "horizon": "2-8wk", "orig": 6, "btf": 4, "desc": "Cash when MOVE/VIX > 6 sustained 5+d.", "source": "FinTwit (Ksidial); CFA Inst 2025", "status": "ok", "sharpe": 0.5577731794014549, "cagr": 0.08595965892930502, "max_dd": -0.4716521560382181, "hit": 0.4086821169145624, "t": 2.6717535837329542, "n_days": 5782, "bench_cagr": 0.11650590994788135}, {"id": "C12_acm_term_premium", "cat": "C", "name": "ACM 10Y Term Premium", "asset": "bonds/equities", "horizon": "yrs", "orig": 7, "btf": 5, "desc": "Short TLT when ACM term premium turns positive.", "source": "NY Fed Adrian-Crump-Moench", "status": "ok", "sharpe": 0.2953222184431196, "cagr": 0.007756059890088762, "max_dd": -0.06623659184545738, "hit": 0.011014686248331108, "t": 1.440063868919996, "n_days": 5992, "bench_cagr": 0.03649554163942592}, {"id": "C13_tips_breakeven", "cat": "C", "name": "TIPS Breakeven \u2192 Commodities", "asset": "commodities", "horizon": "1-3mo", "orig": 5, "btf": 5, "desc": "Long DBC when 10y breakeven rises > 60d MA + 20bp.", "source": "FRED T10YIE", "status": "ok", "sharpe": 0.010400595748965801, "cagr": -0.001767290036025937, "max_dd": -0.2343010257159306, "hit": 0.05288932419196866, "t": 0.04681185157306375, "n_days": 5105, "bench_cagr": 0.023214560323269184}, {"id": "C14_tsmom", "cat": "C", "name": "Time-Series Momentum (TSMOM)", "asset": "multi-asset", "horizon": "1-12mo", "orig": 3, "btf": 4, "desc": "12m positive \u2192 long that asset across SPY/TLT/GLD/DBC/EFA/EEM.", "source": "Moskowitz-Ooi-Pedersen JFE 2012", "status": "ok", "sharpe": 0.6819851652089687, "cagr": 0.054532494272166554, "max_dd": -0.13515718927325004, "hit": 0.518801410105758, "t": 3.0698352076753923, "n_days": 5106, "bench_cagr": 0.11177794949689712}, {"id": "C15_trend_following", "cat": "C", "name": "Multi-horizon Trend (1+3+12m)", "asset": "multi-asset", "horizon": "1-12mo", "orig": 3, "btf": 4, "desc": "Blend of 1/3/12m return signs across basket.", "source": "Hurst-Ooi-Pedersen JPM 2017", "status": "ok", "sharpe": 0.3393329112895506, "cagr": 0.029546773889719935, "max_dd": -0.2485016063993869, "hit": 0.5066588327457893, "t": 1.5274468879106258, "n_days": 5106, "bench_cagr": 0.11177794949689712}, {"id": "C16_currency_carry", "cat": "C", "name": "G4 Currency Carry", "asset": "FX", "horizon": "months", "orig": 3, "btf": 4, "desc": "Long high-rate / short low-rate FX (4 currencies).", "source": "Lustig-Verdelhan AER 2007", "status": "ok", "sharpe": -0.3414305633857254, "cagr": -0.021169558447573844, "max_dd": -0.3693980287715434, "hit": 0.5020618556701031, "t": -1.4978661060112295, "n_days": 4850, "bench_cagr": -0.004187522445791236}, {"id": "C17_commodity_backwardation", "cat": "C", "name": "Commodity Backwardation/Roll Yield", "asset": "commodities", "horizon": "monthly", "orig": 4, "btf": 3, "desc": "Long backwardated / short contangoed commodities.", "source": "Erb-Harvey FAJ 2006", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "C18_big_mac_ppp", "cat": "C", "name": "Big Mac PPP FX Mean-Reversion", "asset": "FX", "horizon": "2-5yr", "orig": 3, "btf": 5, "desc": "Long undervalued / short overvalued PPP currencies.", "source": "Cumby NBER 1996", "status": "ok", "sharpe": -0.13347354593000935, "cagr": -0.012300617014686543, "max_dd": -0.37057934181023644, "hit": 0.48627620488437434, "t": -0.571932370543764, "n_days": 4627, "bench_cagr": -0.005837997756775293}, {"id": "D01_value_hml", "cat": "D", "name": "Value (HML)", "asset": "equities", "horizon": "mo-yrs", "orig": 1, "btf": 5, "desc": "Long high B/M; short low B/M (Ken French daily).", "source": "Fama-French 1993", "status": "ok", "sharpe": 0.19222765326951732, "cagr": 0.015361846684516678, "max_dd": -0.5633487056320894, "hit": 0.48915425065731816, "t": 1.1569202143896662, "n_days": 9128, "bench_cagr": 0.07747181068069553}, {"id": "D02_momentum_umd", "cat": "D", "name": "Cross-Sectional Momentum (UMD)", "asset": "equities", "horizon": "1-12mo", "orig": 1, "btf": 5, "desc": "Long past 12m winners; short losers (Ken French).", "source": "Jegadeesh-Titman JF 1993", "status": "ok", "sharpe": 0.4089060733464217, "cagr": 0.05107867875328864, "max_dd": -0.6328858399439413, "hit": 0.5469982471516214, "t": 2.4609971249968776, "n_days": 9128, "bench_cagr": 0.07747181068069553}, {"id": "D03_52w_high_momentum", "cat": "D", "name": "52-Week-High Momentum", "asset": "equities", "horizon": "mo", "orig": 5, "btf": 5, "desc": "Long stocks near 52w high; short far below (75-name basket).", "source": "George-Hwang JF 2004", "status": "ok", "sharpe": -0.4305509904272603, "cagr": -0.15229600589340553, "max_dd": -0.9733084652397909, "hit": 0.4876325088339223, "t": -2.0908707509529023, "n_days": 283, "bench_cagr": 0.11475061875532822}, {"id": "D04_industry_momentum", "cat": "D", "name": "Industry Momentum", "asset": "equities", "horizon": "1-12mo", "orig": 4, "btf": 5, "desc": "Long top 5 / short bottom 5 industries by 6m return.", "source": "Moskowitz-Grinblatt JF 1999", "status": "ok", "sharpe": 0.3298084726834526, "cagr": 0.04863295395371536, "max_dd": -0.6209446196871082, "hit": 0.5524475524475524, "t": 1.971967855816381, "n_days": 429, "bench_cagr": 0.07903789209504697}, {"id": "D05_max_lottery", "cat": "D", "name": "MAX / Lottery Effect", "asset": "equities", "horizon": "1mo", "orig": 5, "btf": 5, "desc": "Long low-MAX(5) / short high-MAX(5) prior month (basket).", "source": "Bali-Cakici-Whitelaw JFE 2011", "status": "ok", "sharpe": -0.6217251257247423, "cagr": -0.17900920547099752, "max_dd": -0.9948062259671023, "hit": 0.4383561643835616, "t": -3.0668972177589953, "n_days": 292, "bench_cagr": 0.10034975734831186}, {"id": "D06_idio_vol", "cat": "D", "name": "Idiosyncratic Vol Puzzle", "asset": "equities", "horizon": "1mo", "orig": 4, "btf": 4, "desc": "Long low-idio-vol / short high-idio-vol (basket).", "source": "Ang et al JF 2006", "status": "ok", "sharpe": -0.7758679294590888, "cagr": -0.2030275077264242, "max_dd": -0.9964572681441978, "hit": 0.4117647058823529, "t": -3.8075542423948217, "n_days": 289, "bench_cagr": 0.10351561773030404}, {"id": "D09_bab", "cat": "D", "name": "Betting Against Beta (BAB)", "asset": "equities", "horizon": "mo", "orig": 2, "btf": 4, "desc": "Long low-beta / short high-beta (basket).", "source": "Frazzini-Pedersen JFE 2014", "status": "ok", "sharpe": -0.39273837055373223, "cagr": -0.10684075802384907, "max_dd": -0.9494595069443152, "hit": 0.42214532871972316, "t": -1.9273546336624847, "n_days": 289, "bench_cagr": 0.10351561773030404}, {"id": "D11_short_interest", "cat": "D", "name": "Short Interest", "asset": "equities", "horizon": "mo", "orig": 4, "btf": 3, "desc": "Top short-interest decile shorts (FINRA bulk).", "source": "Boehmer-Jones-Zhang JF 2008", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "D14_net_issuance", "cat": "D", "name": "Net Stock Issuance", "asset": "equities", "horizon": "1-3yr", "orig": 4, "btf": 4, "desc": "Long repurchasers / short issuers (basket, since 2016).", "source": "Pontiff-Woodgate JF 2008", "status": "ok", "sharpe": -0.474531065417724, "cagr": -0.08850029124144443, "max_dd": -0.6467705880388002, "hit": 0.48695652173913045, "t": -1.4690038911153716, "n_days": 115, "bench_cagr": 0.15824421334087013}, {"id": "D17_coskewness", "cat": "D", "name": "Crash Risk / Coskewness", "asset": "equities", "horizon": "mo", "orig": 7, "btf": 4, "desc": "Long high-(neg)coskewness / short low.", "source": "Harvey-Siddique JF 2000", "status": "ok", "sharpe": -0.034584421636233056, "cagr": -0.017584819284307662, "max_dd": -0.5704176776186572, "hit": 0.5204460966542751, "t": -0.16374424090547646, "n_days": 269, "bench_cagr": 0.10864268480106709}, {"id": "E01_form4_cluster", "cat": "E", "name": "Form 4 Cluster Insider Buying", "asset": "equities", "horizon": "6-12mo", "orig": 3, "btf": 5, "desc": "\u22653 insider buys \u2265$25k within 10d \u2192 long 252d.", "source": "Lakonishok-Lee RFS 2001; Cohen-Malloy-Pomorski JF 2012", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "E05_friday_8k_drift", "cat": "E", "name": "Friday-After-Close 8-K Drift", "asset": "equities", "horizon": "1-2mo", "orig": 6, "btf": 5, "desc": "Short stocks whose 8-Ks file after 16:00 ET Fri.", "source": "DellaVigna-Pollet JF 2009", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "E06_item_402_restate", "cat": "E", "name": "Item 4.02 Non-Reliance Restatements", "asset": "equities", "horizon": "6-12mo", "orig": 4, "btf": 5, "desc": "Short on 8-K Item 4.02 (restatement) filing.", "source": "Hennes-Leone-Miller TAR 2008", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "E07_activist_13d", "cat": "E", "name": "Schedule 13D Activist Drift", "asset": "equities", "horizon": "3-18mo", "orig": 3, "btf": 5, "desc": "Long target after activist 13D (Elliott/Starboard/etc).", "source": "Brav et al JF 2008", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "E09_ipo_lockup", "cat": "E", "name": "IPO Lockup Expiry Short", "asset": "equities", "horizon": "5d", "orig": 3, "btf": 4, "desc": "Short recent IPOs T-5 to T+5 around 180-day lockup.", "source": "Field-Hanka JF 2001", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": 0.6101694915254238, "t": 2.097385750917474, "n_days": null, "bench_cagr": null}, {"id": "E10_spinoff_drift", "cat": "E", "name": "Spin-Off Drift (Greenblatt)", "asset": "equities", "horizon": "12-36mo", "orig": 4, "btf": 4, "desc": "Buy SpinCo at first regular-way trade; hold 24mo.", "source": "Cusatis-Miles-Woolridge JFE 1993", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": 0.425, "t": 0.9579072976033639, "n_days": null, "bench_cagr": null}, {"id": "E11_pelosi_mirror", "cat": "E", "name": "Pelosi Disclosed-Trade Mirror", "asset": "equities", "horizon": "3-12mo", "orig": 2, "btf": 4, "desc": "Mirror Pelosi PTRs within 45-day disclosure window.", "source": "Unusual Whales; Ziobrowski 2004", "status": "ok_small_sample", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "E13_sp500_inclusion", "cat": "E", "name": "S&P 500 Inclusion Drift", "asset": "equities", "horizon": "days-wks", "orig": 5, "btf": 4, "desc": "Buy adds on announcement; T0..T+10 CAR.", "source": "Shleifer JF 1986; Greenwood-Sammon 2024 NBER", "status": "ok", "sharpe": null, "cagr": null, "max_dd": null, "hit": 0.475, "t": null, "n_days": null, "bench_cagr": null}, {"id": "F01_aaii_bull_bear", "cat": "F", "name": "AAII Bull-Bear Extremes", "asset": "equities", "horizon": "4-12wk", "orig": 2, "btf": 5, "desc": "Long after bull-bear < -20 for 2 wks; flat if > +30.", "source": "AAII survey", "status": "ok", "sharpe": 0.2593272678765475, "cagr": 0.02232670958639904, "max_dd": -0.4633876406780997, "hit": 0.0802623732856291, "t": 1.4958892723089636, "n_days": 8385, "bench_cagr": 0.10854822871559056}, {"id": "F02_naaim_exposure", "cat": "F", "name": "NAAIM Exposure Extremes", "asset": "equities", "horizon": "4-12wk", "orig": 4, "btf": 5, "desc": "Long after 4wk MA NAAIM < 30; flat > 90.", "source": "NAAIM", "status": "ok", "sharpe": 0.2562305049515249, "cagr": 0.024329467975599872, "max_dd": -0.471652365244003, "hit": 0.07741809672386896, "t": 1.155858231805217, "n_days": 5128, "bench_cagr": 0.11120659524352261}, {"id": "F03_margin_debt_yoy", "cat": "F", "name": "Margin Debt YoY Change", "asset": "equities", "horizon": "3-12mo", "orig": 5, "btf": 5, "desc": "Reduce equity when FINRA margin debt YoY < -20%.", "source": "Jesse Felder; FINRA monthly", "status": "ok", "sharpe": 0.7153187661795922, "cagr": 0.11456616507825723, "max_dd": -0.45212844854940903, "hit": 0.5038612482592734, "t": 4.004842170030536, "n_days": 7899, "bench_cagr": 0.1123204100509485}, {"id": "F06_td_sequential", "cat": "F", "name": "DeMark TD Sequential", "asset": "equities", "horizon": "days-wks", "orig": 5, "btf": 5, "desc": "9-bar setup completion \u2192 fade direction.", "source": "Tom DeMark", "status": "ok", "sharpe": -0.09082280913446227, "cagr": -0.011368699421458905, "max_dd": -0.3921642071632051, "hit": 0.08544303797468354, "t": -0.4660664580890162, "n_days": 6636, "bench_cagr": 0.08298624048114167}, {"id": "F08_rsi2_connors", "cat": "F", "name": "RSI(2) Mean-Reversion (Connors)", "asset": "equities", "horizon": "days", "orig": 5, "btf": 5, "desc": "Buy SPY when RSI(2) < 5 & close > 200d SMA; exit > 5d SMA.", "source": "Connors 2009", "status": "ok", "sharpe": 0.4880450671410365, "cagr": 0.021273316154665878, "max_dd": -0.14042877054157565, "hit": 0.028179626280892104, "t": 2.504452769055894, "n_days": 6636, "bench_cagr": 0.08298624048114167}, {"id": "F09_golden_cross", "cat": "F", "name": "Golden Cross 50/200 SMA", "asset": "equities", "horizon": "mo-yrs", "orig": 1, "btf": 5, "desc": "Long SPY when 50d > 200d SMA.", "source": "Universal TA", "status": "ok", "sharpe": 0.6923022631434581, "cagr": 0.08361842523037488, "max_dd": -0.3371727297052125, "hit": 0.3936106088004822, "t": 3.552619290079305, "n_days": 6636, "bench_cagr": 0.08298623017878581}, {"id": "F10_macd_divergence", "cat": "F", "name": "MACD Bullish Divergence", "asset": "equities", "horizon": "days-wks", "orig": 3, "btf": 5, "desc": "Buy when price prints 20d low but MACD higher low.", "source": "Universal TA", "status": "ok", "sharpe": 0.15778151398680898, "cagr": 0.007353775555925646, "max_dd": -0.18006947232793602, "hit": 0.023707555827470174, "t": 0.8036710173682113, "n_days": 6538, "bench_cagr": null}, {"id": "F11_bb_squeeze", "cat": "F", "name": "Bollinger Band Squeeze Breakout", "asset": "equities", "horizon": "days-wks", "orig": 3, "btf": 5, "desc": "BB width at 6m low \u2192 trade breakout direction.", "source": "John Bollinger", "status": "ok", "sharpe": 0.21443784813823213, "cagr": 0.009045965899787678, "max_dd": -0.17061416100290072, "hit": 0.00449055435119232, "t": 1.0855508967033272, "n_days": 6458, "bench_cagr": null}, {"id": "F13_buy_the_dip", "cat": "F", "name": "Buy-the-Dip vs DCA (anti-signal)", "asset": "equities", "horizon": "yrs", "orig": 6, "btf": 5, "desc": "AQR test: simple DCA vs wait-for-10%-dip.", "source": "AQR 2025", "status": "ok", "sharpe": 0.5534631792523294, "cagr": 0.08699724219575544, "max_dd": -0.5677538774277288, "hit": 0.5369339879978178, "t": 3.3377568643042173, "n_days": 9165, "bench_cagr": 0.086997242195755}, {"id": "G01_google_trends_recession", "cat": "G", "name": "Google Trends 'recession' spike", "asset": "equities", "horizon": "1-6mo", "orig": 6, "btf": 4, "desc": "Long SPY 6mo after trends z > 1.5\u03c3.", "source": "Preis-Moat-Stanley Nature 2013", "status": "ok", "sharpe": 0.3297119054381763, "cagr": 0.029931021392398227, "max_dd": -0.33717279512568443, "hit": 0.09375, "t": 1.5587112928325964, "n_days": 5632, "bench_cagr": 0.10901017901946042}, {"id": "G02_wikipedia_pageviews", "cat": "G", "name": "Wikipedia Pageview MoM L/S", "asset": "equities", "horizon": "1mo", "orig": 7, "btf": 5, "desc": "Long top decile / short bottom decile MoM \u0394 views.", "source": "Pyun 2024; Behrendt-Zimmermann", "status": "ok", "sharpe": 0.024876105471790387, "cagr": -0.010666179175464974, "max_dd": -0.3248793015531106, "hit": 0.5, "t": 0.07996549115452413, "n_days": 124, "bench_cagr": 0.1580149579414718}, {"id": "G03_wsb_reddit_velocity", "cat": "G", "name": "WSB Reddit Mention Velocity", "asset": "equities", "horizon": "1-15d", "orig": 5, "btf": 4, "desc": "Contrarian short after top WSB mention spike.", "source": "Bradley/Hanousek/Jame/Xiao MS 2024", "status": "small_sample", "sharpe": -3.045586163921672, "cagr": -0.681089336534181, "max_dd": -0.12308550028415344, "hit": 0.43478260869565216, "t": -0.9200989570723888, "n_days": 23, "bench_cagr": null}, {"id": "G07_warn_act_layoffs", "cat": "G", "name": "WARN Act Layoff Notices", "asset": "equities", "horizon": "1-6mo", "orig": 7, "btf": 4, "desc": "Short stocks after large CA WARN notice.", "source": "Goldman 'WARNing Signs' 2023", "status": "ok", "sharpe": 0.9490850036571568, "cagr": 0.26349702671151776, "max_dd": -0.30890646725648674, "hit": 0.5091743119266054, "t": 0.8827405716173392, "n_days": 218, "bench_cagr": 0.24151995700721263}, {"id": "G10_china_port_throughput", "cat": "G", "name": "China Port Throughput (IMF PortWatch)", "asset": "China/global", "horizon": "1-3mo", "orig": 6, "btf": 3, "desc": "FXI vs SPY rotation by Shanghai/Ningbo/Shenzhen z-score.", "source": "IMF Cerdeiro et al 2020", "status": "ok", "sharpe": 0.10327674995118434, "cagr": 0.005144852599324512, "max_dd": -0.23802882692757354, "hit": 0.03749406739439962, "t": 0.29863077403488647, "n_days": 2107, "bench_cagr": 0.14631452441681359}, {"id": "G10_ndaa_defense", "cat": "K", "name": "NDAA Passage Defense Drift", "asset": "defense eq", "horizon": "10-30d", "orig": 7, "btf": 5, "desc": "Long ITA T-10 to T+3 around NDAA signature.", "source": "Stat-arb folklore", "status": "ok", "sharpe": 0.29809590305725014, "cagr": 0.010269055815474548, "max_dd": -0.08507604989315776, "hit": 0.02637267617812365, "t": 1.27719894486825, "n_days": 4626, "bench_cagr": 0.11357098231671969}, {"id": "G12_hdd_natgas", "cat": "G", "name": "HDD/CDD vs Natural Gas", "asset": "nat gas", "horizon": "1-2wk", "orig": 4, "btf": 5, "desc": "Long NG when forecast HDD rises > 5% wk/wk.", "source": "Mu Energy Econ 2007", "status": "ok", "sharpe": -0.23589097940249396, "cagr": -0.13297043966726785, "max_dd": -0.9529906128101379, "hit": 0.20212323064113238, "t": -1.0299415112868417, "n_days": 4804, "bench_cagr": -0.2845303965592263}, {"id": "G14_prefomc_regime", "cat": "K", "name": "Pre-FOMC + Dovish DGS2 Filter", "asset": "equities", "horizon": "2d", "orig": 6, "btf": 5, "desc": "Pre-FOMC drift conditional on dovish 2y rate move.", "source": "Lucca-Moench + 2024 regime work", "status": "ok", "sharpe": 0.07124534274504447, "cagr": 0.001558796538720486, "max_dd": -0.0988559326428603, "hit": 0.006781193490054249, "t": 0.36560270338435685, "n_days": 6636, "bench_cagr": 0.08298623017878581}, {"id": "G15_election_vix", "cat": "K", "name": "US Election VIX Ramp (VIXY)", "asset": "vol", "horizon": "30-180d", "orig": 4, "btf": 5, "desc": "Long VIXY T-120 to T-5 before US presidential election.", "source": "St Louis Fed", "status": "ok", "sharpe": -0.20617120495289307, "cagr": -0.09010159275988872, "max_dd": -0.8627417529434477, "hit": 0.044725956566701135, "t": -0.8077388494553038, "n_days": 3868, "bench_cagr": 0.1422038186439838}, {"id": "G17_boj_surprise", "cat": "K", "name": "BoJ Surprise YCC Tweak", "asset": "FX/JPY", "horizon": "1-5d", "orig": 7, "btf": 4, "desc": "Short USDJPY 5d after hawkish BoJ surprise.", "source": "Forex.com 2023", "status": "ok", "sharpe": -0.16708236013611166, "cagr": -0.0005623341866813902, "max_dd": -0.0119941025580792, "hit": 0.0016412661195779601, "t": -0.687368852621929, "n_days": 4265, "bench_cagr": 0.1443296162128478}, {"id": "G18_pboc_rrr_fxi", "cat": "K", "name": "PBOC RRR Cut \u2192 Hang Seng", "asset": "China eq", "horizon": "1-10d", "orig": 6, "btf": 5, "desc": "Long FXI 10d after PBOC RRR cut.", "source": "Investing.com", "status": "ok", "sharpe": 0.14255429803231817, "cagr": 0.009322636212458324, "max_dd": -0.24672985072858544, "hit": 0.038202247191011236, "t": 0.5011977018971575, "n_days": 3115, "bench_cagr": 0.13939726127034002}, {"id": "G19_npc_two_sessions", "cat": "K", "name": "China NPC Two-Sessions Drift", "asset": "China eq", "horizon": "10-15d", "orig": 8, "btf": 5, "desc": "Short FXI into NPC; flip long 10d post-close.", "source": "SCMP", "status": "ok", "sharpe": 0.3335093439836724, "cagr": 0.027329325887037514, "max_dd": -0.20577650248869217, "hit": 0.04120814797471318, "t": 1.3730062729798602, "n_days": 4271, "bench_cagr": 0.1499899817569188}, {"id": "G1_gprt_defense", "cat": "K", "name": "GPRT Threats \u2192 Defense Drift", "asset": "defense eq", "horizon": "30-90d", "orig": 6, "btf": 5, "desc": "Long ITA+primes basket on GPR Threats > 1.5\u03c3 for 5d.", "source": "Caldara-Iacoviello GPR", "status": "ok", "sharpe": 0.33364001250634345, "cagr": 0.01046242523751828, "max_dd": -0.06875557769630769, "hit": 0.015799256505576207, "t": 1.5415903967560418, "n_days": 5380, "bench_cagr": 0.10932762212156333}, {"id": "G22_em_election_fx", "cat": "K", "name": "EM Election Surprise FX Fade", "asset": "EM FX", "horizon": "10-30d", "orig": 7, "btf": 4, "desc": "Fade T0\u2192T+1 EM-FX gap from election surprise.", "source": "VanEck EM commentary", "status": "ok", "sharpe": -0.23798504958581948, "cagr": -0.004280942613472005, "max_dd": -0.0492405318923157, "hit": 0.00033715441672285906, "t": -0.8164601231258976, "n_days": 2966, "bench_cagr": null}, {"id": "G23_gpr_tail_spy", "cat": "K", "name": "GPR Tail-Spike Contrarian BUY SPY", "asset": "equities", "horizon": "30-90d", "orig": 6, "btf": 5, "desc": "Long SPY when GPR > 3\u03c3 AND USREC=0.", "source": "Federal Reserve IFDP 1222", "status": "ok", "sharpe": 0.08800776676604208, "cagr": 0.0022966755109021797, "max_dd": -0.14877226949206945, "hit": 0.017597164197999747, "t": 0.4927274836046553, "n_days": 7899, "bench_cagr": 0.1123204100509485}, {"id": "H01_perp_funding", "cat": "H", "name": "Perp Funding Rate Extremes (BTC)", "asset": "crypto", "horizon": "1-30d", "orig": 4, "btf": 5, "desc": "Short BTC perp when funding z > 2; long when < -2.", "source": "Coinglass community", "status": "ok", "sharpe": -0.18259519071526936, "cagr": -0.02020707658893872, "max_dd": -0.33758091807352564, "hit": 0.013958898797983715, "t": -0.5841370261856621, "n_days": 2579, "bench_cagr": 0.2951408783292655}, {"id": "H02_stablecoin_supply_ratio", "cat": "H", "name": "Stablecoin Supply Ratio (SSR)", "asset": "crypto", "horizon": "wks-mo", "orig": 5, "btf": 4, "desc": "Long BTC when SSR oscillator < -0.8.", "source": "Glassnode SSR", "status": "ok", "sharpe": 0.2330350659631651, "cagr": 0.027750269319459786, "max_dd": -0.4923991718725981, "hit": 0.07044198895027624, "t": 0.7899876188015382, "n_days": 2896, "bench_cagr": 0.24135591979763604}, {"id": "H03_coinbase_premium", "cat": "H", "name": "Coinbase Premium Index", "asset": "crypto", "horizon": "1-30d", "orig": 5, "btf": 4, "desc": "Long BTC when 24h MA premium > +0.05% for 3d.", "source": "CryptoQuant", "status": "ok", "sharpe": 0.41776649443236386, "cagr": 0.08954584887432215, "max_dd": -0.7771307001337615, "hit": 0.2635092180546726, "t": 1.4760895126210252, "n_days": 3146, "bench_cagr": 0.2472650383641033}, {"id": "H04_exchange_netflow", "cat": "H", "name": "Exchange Netflow", "asset": "crypto", "horizon": "3-30d", "orig": 4, "btf": 3, "desc": "Sell BTC on positive 7d netflow z > +1.5.", "source": "CryptoQuant", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "H05_hash_ribbons", "cat": "H", "name": "Hash Ribbons (Edwards)", "asset": "crypto", "horizon": "3-12mo", "orig": 6, "btf": 5, "desc": "Long BTC when 30d hashrate MA crosses above 60d MA.", "source": "Charles Edwards", "status": "ok", "sharpe": 0.7056310080129624, "cagr": 0.20693407043786682, "max_dd": -0.7098518841961774, "hit": 0.2579737335834897, "t": 2.902591937907542, "n_days": 4264, "bench_cagr": 0.35440842193344335}, {"id": "H06_mvrv_zscore", "cat": "H", "name": "MVRV Z-Score", "asset": "crypto", "horizon": "6-24mo", "orig": 3, "btf": 5, "desc": "Long BTC when z < 0; flat when z > 5.", "source": "BitcoinMagazinePro / Glassnode", "status": "ok", "sharpe": 0.973536913350997, "cagr": 0.45559971204802485, "max_dd": -0.7663456370856909, "hit": 0.4960691823899371, "t": 3.788404430357015, "n_days": 3816, "bench_cagr": 0.40994136785598134}, {"id": "H07_puell_multiple", "cat": "H", "name": "Puell Multiple", "asset": "crypto", "horizon": "6-24mo", "orig": 4, "btf": 5, "desc": "Long BTC when Puell < 0.5; flat when > 3.", "source": "D Puell", "status": "ok", "sharpe": 0.8661451577657561, "cagr": 0.28712940219396677, "max_dd": -0.6181085049983791, "hit": 0.29633427326326583, "t": 3.4078336467373576, "n_days": 3901, "bench_cagr": 0.4542916666094894}, {"id": "H08_nupl", "cat": "H", "name": "NUPL (Net Unrealized Profit/Loss)", "asset": "crypto", "horizon": "6-24mo", "orig": 4, "btf": 4, "desc": "Long BTC when NUPL < 0; reduce > 0.75.", "source": "Glassnode", "status": "ok", "sharpe": 0.8744816693658418, "cagr": 0.3384026994482028, "max_dd": -0.7663456370856905, "hit": 0.4503973340169187, "t": 3.440633512293925, "n_days": 3901, "bench_cagr": 0.4542916666094894}, {"id": "H09_etf_flows", "cat": "H", "name": "Spot BTC ETF Net Flows", "asset": "crypto", "horizon": "1-30d", "orig": 6, "btf": 5, "desc": "Long BTC when 5d sum of ETF flows > $1B.", "source": "Farside Investors", "status": "ok", "sharpe": 0.18717849111149876, "cagr": 0.006092977034150238, "max_dd": -0.4125755967506056, "hit": 0.25041736227045075, "t": 0.28858189625573233, "n_days": 599, "bench_cagr": 0.24362177906973992}, {"id": "H10_coin_days_destroyed", "cat": "H", "name": "Coin Days Destroyed", "asset": "crypto", "horizon": "1-12mo", "orig": 6, "btf": 4, "desc": "Distribution when 7d CDD > 3x 90d MA + > 5y HODL drops.", "source": "Glassnode", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}, {"id": "H11_btc_correlation_regime", "cat": "H", "name": "BTC-NDX/BTC-Gold Correlation Regime", "asset": "crypto/cross", "horizon": "mo", "orig": 5, "btf": 5, "desc": "Regime-size BTC: half when tech-corr; full when gold-corr.", "source": "Cross-asset regime", "status": "ok", "sharpe": 0.8984617275013342, "cagr": 0.3242131723478454, "max_dd": -0.7259494593176168, "hit": 0.5254398478364242, "t": 3.6705736755634764, "n_days": 4206, "bench_cagr": 0.37390022272195855}, {"id": "H12_cot_commercial", "cat": "H", "name": "COT Commercial Hedger Extremes", "asset": "commod/FX", "horizon": "4-12wk", "orig": 5, "btf": 5, "desc": "Long when commercials > 90th pct long.", "source": "Bohl-Sulewski 2023", "status": "ok", "sharpe": 0.08420464691797087, "cagr": 0.0034883962501959243, "max_dd": -0.3490612045472339, "hit": 0.30111524163568776, "t": 0.38906926682994625, "n_days": 5380, "bench_cagr": 0.10932762212156333}, {"id": "I01_fvg_fill", "cat": "I", "name": "ICT Fair Value Gap fill", "asset": "equities", "horizon": "days-wks", "orig": 3, "btf": 4, "desc": "Long after pullback closes into bullish FVG zone.", "source": "ICT (M. Huddleston)", "status": "ok", "sharpe": 0.2033366111424665, "cagr": 0.009260615454637966, "max_dd": -0.13801402700989485, "hit": 0.025182038834951456, "t": 1.0399774204365677, "n_days": 6592, "bench_cagr": null}, {"id": "I02_order_block", "cat": "I", "name": "ICT Order Block Retest", "asset": "equities", "horizon": "days-wks", "orig": 3, "btf": 4, "desc": "Long on retest of OB after >1.5xATR up-impulse.", "source": "ICT", "status": "ok", "sharpe": 0.26034263055439294, "cagr": 0.0010789448410171154, "max_dd": -0.00012621320092887078, "hit": 0.00027329871549603714, "t": 0.9920332372785824, "n_days": 3659, "bench_cagr": null}, {"id": "I03_liquidity_sweep", "cat": "I", "name": "Liquidity Sweep Reversal (fade)", "asset": "equities", "horizon": "days-wks", "orig": 4, "btf": 5, "desc": "Short on day high > prior 20d high but close < it.", "source": "ICT/SMC", "status": "ok", "sharpe": -0.4447676510687946, "cagr": -0.019803026737446716, "max_dd": -0.4745873617988424, "hit": 0.022392638036809815, "t": -2.262333987253978, "n_days": 6520, "bench_cagr": null}, {"id": "I04_premium_discount", "cat": "I", "name": "Premium/Discount Bias + RSI(2)", "asset": "equities", "horizon": "wks", "orig": 4, "btf": 5, "desc": "Connors RSI(2) only when price < 50% of 60d range.", "source": "ICT-rebranded", "status": "ok", "sharpe": 0.15644629526329873, "cagr": 0.005189078278516002, "max_dd": -0.14921564582890612, "hit": 0.012507534659433394, "t": 0.8028200339692759, "n_days": 6636, "bench_cagr": 0.08298624048114167}, {"id": "I04_trademark_filings_ls", "cat": "E", "name": "USPTO Trademark Filings (proof-of-concept)", "asset": "equities", "horizon": "12mo", "orig": 7, "btf": 5, "desc": "Hand-curated high vs low trademark filers.", "source": "UCLA Anderson Review", "status": "small_sample", "sharpe": -0.9343778330305913, "cagr": -0.19929751253503492, "max_dd": -0.7207326535551668, "hit": 0.4769475357710652, "t": -2.0876734925077836, "n_days": 1258, "bench_cagr": 0.1447840917888692}, {"id": "I05_wyckoff_spring", "cat": "I", "name": "Wyckoff Spring (daily)", "asset": "equities", "horizon": "wks-mo", "orig": 4, "btf": 5, "desc": "Long after break below 30d range low + reclaim on volume.", "source": "Wyckoff 1930s", "status": "ok", "sharpe": -0.029122729568249375, "cagr": -0.0011502187635671346, "max_dd": -0.13595348813633035, "hit": 0.0053014238109663735, "t": -0.14906290030448477, "n_days": 6602, "bench_cagr": null}, {"id": "I06_lunar_january_ashares", "cat": "J", "name": "Lunar January Effect (Chinese A-shares)", "asset": "China", "horizon": "1mo", "orig": 8, "btf": 5, "desc": "Long ASHR only during first lunar month.", "source": "Liang-Liu-Zebedee SSRN 4209010", "status": "ok", "sharpe": 0.14498974198768033, "cagr": 0.008134284163870298, "max_dd": -0.2426221323490051, "hit": 0.04503647320012686, "t": 0.5128601936458028, "n_days": 3153, "bench_cagr": 0.061533200196754345}, {"id": "I06_seiden_zone", "cat": "I", "name": "Sam Seiden Supply/Demand Zone", "asset": "equities", "horizon": "days-wks", "orig": 5, "btf": 4, "desc": "Long after tight base preceded by drop + followed by rally.", "source": "Sam Seiden OTA", "status": "ok", "sharpe": 0.5279782779119826, "cagr": 0.008095971255054124, "max_dd": 0.0, "hit": 0.0011061946902654867, "t": 1.0, "n_days": 904, "bench_cagr": null}, {"id": "I07_fib_pullback", "cat": "I", "name": "0.618 Fibonacci Pullback", "asset": "equities", "horizon": "wks", "orig": 2, "btf": 4, "desc": "Long on 50-61.8% retracement in uptrend.", "source": "Universal TA", "status": "ok", "sharpe": 0.15261532913774722, "cagr": 0.0037209937587865394, "max_dd": -0.07985523655595916, "hit": 0.0004786979415988511, "t": 0.7610754876118373, "n_days": 6267, "bench_cagr": null}, {"id": "I07_geomagnetic_kp", "cat": "J", "name": "Geomagnetic Storm Exit", "asset": "equities", "horizon": "1-10d", "orig": 9, "btf": 5, "desc": "Exit SPY 10d when 5d Kp index in top decile.", "source": "Krivelyova-Robotti Atlanta Fed", "status": "ok", "sharpe": 0.49181596855221077, "cagr": 0.06611859701037415, "max_dd": -0.6407579159095942, "hit": 0.3438409925307001, "t": 2.753521120761139, "n_days": 7899, "bench_cagr": 0.1123204100509485}, {"id": "I10_containerboard_pulse", "cat": "J", "name": "Containerboard Recession Pulse", "asset": "equities", "horizon": "3-12mo", "orig": 7, "btf": 4, "desc": "FRED IPG322S \u2192 IWM regime overlay.", "source": "FreightWaves; Goldman", "status": "ok", "sharpe": 0.16311418128209992, "cagr": 0.010396206669660124, "max_dd": -0.6986512617521852, "hit": 0.5202754399387911, "t": 0.830642687551308, "n_days": 6535, "bench_cagr": 0.08713310096681082}, {"id": "I12_enso_ag_commodities", "cat": "J", "name": "ENSO Ag Commodity Pair", "asset": "commodities", "horizon": "6mo+", "orig": 7, "btf": 5, "desc": "SOYB vs CORN by NOAA ONI El Ni\u00f1o/La Ni\u00f1a.", "source": "NOAA ONI; Ubilava UC Davis", "status": "ok", "sharpe": -0.16823921439747874, "cagr": -0.008543443290148556, "max_dd": -0.15857720624168514, "hit": 0.09767441860465116, "t": -0.6592990407098163, "n_days": 3870, "bench_cagr": -0.014186801594508247}, {"id": "I14_lny_pre_holiday_drift", "cat": "J", "name": "Lunar New Year Asian Pre-Holiday Drift", "asset": "Asia eq", "horizon": "5-15d", "orig": 7, "btf": 5, "desc": "Long EWH+EWS 10 sessions ending LNY-eve.", "source": "Yuan-Gupta JIFMIM", "status": "ok", "sharpe": 0.1916760920978025, "cagr": 0.008409101773278138, "max_dd": -0.18604591204113508, "hit": 0.03241491085899514, "t": 0.9947331713316098, "n_days": 6787, "bench_cagr": 0.06634015537908722}, {"id": "J03_super_bowl", "cat": "J", "name": "Super Bowl Indicator", "asset": "equities", "horizon": "12mo", "orig": 2, "btf": 5, "desc": "NFC win \u2192 long SPY (debunked null test).", "source": "Krueger-Kennedy JF 1990", "status": "ok", "sharpe": 0.33671977526472896, "cagr": 0.03634273055781234, "max_dd": -0.466855558185586, "hit": 0.22154703126978098, "t": 1.88518688341643, "n_days": 7899, "bench_cagr": 0.1123204100509485}, {"id": "NEW01_uspto_trademark_ls", "cat": "E", "name": "USPTO Trademark Filings L/S", "asset": "equities", "horizon": "12mo", "orig": 7, "btf": 5, "desc": "Long top tercile / short bottom tercile by TM filings.", "source": "Mgmt Science via UCLA Anderson Review", "status": "ok_proxy", "sharpe": -0.06781893479337939, "cagr": -0.0324754736273416, "max_dd": -0.7975044478769842, "hit": 0.5007278020378457, "t": -0.2742866609017028, "n_days": 4122, "bench_cagr": 0.14214457571471129}, {"id": "NEW02_director_interlock", "cat": "E", "name": "Director Network Interlock Trades", "asset": "equities", "horizon": "3-12mo", "orig": 8, "btf": 4, "desc": "Long when interlocked director buys other-co stock.", "source": "Director Network JBF 2020", "status": "fail", "sharpe": null, "cagr": null, "max_dd": null, "hit": null, "t": null, "n_days": null, "bench_cagr": null}];
+
+function fmtPct(x, dp=2) {
+  if (x === null || x === undefined || isNaN(x)) return "";
+  return (x*100).toFixed(dp) + "%";
+}
+function fmtNum(x, dp=2) {
+  if (x === null || x === undefined || isNaN(x)) return "";
+  return Number(x).toFixed(dp);
+}
+function colorVal(v, kind="sharpe") {
+  if (v === null || v === undefined || isNaN(v)) return "";
+  if (kind === "sharpe" || kind === "t") {
+    if (v >= 1.0) return "pos";
+    if (v >= 0.5) return "pos";
+    if (v > 0) return "";
+    if (v <= -0.5) return "neg";
+    return "neg";
+  }
+  if (kind === "cagr") {
+    if (v >= 0.05) return "pos";
+    if (v <= -0.05) return "neg";
+    return "";
+  }
+  if (kind === "dd") {
+    if (v <= -0.5) return "neg";
+    if (v <= -0.25) return "warn";
+    return "";
+  }
+  return "";
+}
+
+let currentSort = { key: "sharpe", dir: -1 };
+
+function render() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const cf = document.getElementById("catfilter").value;
+  const sf = document.getElementById("statusfilter").value;
+  const ms = parseFloat(document.getElementById("minsharpe").value);
+
+  let rows = DATA.filter(r => {
+    if (cf && r.cat !== cf) return false;
+    if (sf && r.status !== sf) return false;
+    if (!isNaN(ms) && (r.sharpe === null || r.sharpe === undefined || r.sharpe < ms)) return false;
+    if (q) {
+      const hay = (r.name + " " + r.id + " " + r.source + " " + r.desc + " " + r.asset).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  rows.sort((a, b) => {
+    const k = currentSort.key;
+    const av = a[k], bv = b[k];
+    const an = av === null || av === undefined;
+    const bn = bv === null || bv === undefined;
+    if (an && bn) return 0;
+    if (an) return 1;
+    if (bn) return -1;
+    if (typeof av === "string") return currentSort.dir * av.localeCompare(bv);
+    return currentSort.dir * (av - bv);
+  });
+
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = rows.map(r => {
+    const sh = r.sharpe, cg = r.cagr, dd = r.max_dd, tt = r.t, hi = r.hit;
+    const status = r.status === "fail"
+      ? `<span class="bad">FAIL</span>`
+      : `<span class="dim">ok</span>`;
+    return `<tr>
+      <td><span class="badge cat-${r.cat}">${r.cat}</span></td>
+      <td class="mono dim">${r.id}</td>
+      <td><strong>${r.name}</strong><br><small class="dim">${r.desc} · <em>${r.source}</em></small></td>
+      <td>${r.asset}</td>
+      <td>${r.horizon}</td>
+      <td class="r mono">${r.orig}</td>
+      <td class="r mono">${r.btf}</td>
+      <td class="r mono ${colorVal(sh,'sharpe')}">${fmtNum(sh)}</td>
+      <td class="r mono ${colorVal(cg,'cagr')}">${fmtPct(cg)}</td>
+      <td class="r mono ${colorVal(dd,'dd')}">${fmtPct(dd)}</td>
+      <td class="r mono ${colorVal(tt,'t')}">${fmtNum(tt)}</td>
+      <td class="r mono">${fmtPct(hi,1)}</td>
+      <td>${status}</td>
+    </tr>`;
+  }).join("");
+}
+
+document.querySelectorAll("#signals th[data-key]").forEach(th => {
+  th.addEventListener("click", () => {
+    const k = th.dataset.key;
+    if (currentSort.key === k) currentSort.dir *= -1;
+    else { currentSort.key = k; currentSort.dir = (k === "name" || k === "cat" || k === "id" || k === "asset" || k === "horizon" || k === "status") ? 1 : -1; }
+    render();
+  });
+});
+
+["search","catfilter","statusfilter","minsharpe"].forEach(id => {
+  document.getElementById(id).addEventListener("input", render);
+});
+
+render();
+</script>
+
+</body>
+</html>

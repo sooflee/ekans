@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Signals — Promising Edges Only</title>
+<style>
+:root {
+  --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
+  --fg: #e6e9ef; --fg-dim: #9ca3af;
+  --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
+  --border: #2d3548;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --cat-A: #a78bfa; --cat-B: #fb7185; --cat-C: #34d399; --cat-D: #fbbf24;
+  --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
+  --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+header.hero {
+  padding: 14px 24px 12px; max-width: 1280px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+}
+.hero-disclaimer {
+  max-width: 260px;
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: var(--fg-dim);
+  background: rgba(251,191,36,0.05);
+  border-left: 2px solid var(--warn);
+  padding: 6px 8px;
+  border-radius: 3px;
+}
+.hero-disclaimer strong { color: var(--warn); font-weight: 600; }
+@media (max-width: 700px) {
+  header.hero { grid-template-columns: 1fr; }
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+h1 { font-size: 1.4em; margin: 0 0 2px; letter-spacing: -0.01em; }
+h2.tier {
+  font-size: 1.6em; margin: 56px 0 12px; letter-spacing: -0.01em;
+  border-bottom: 2px solid var(--border); padding-bottom: 8px;
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+}
+h2.tier .tier-count { font-size: 0.6em; font-weight: 500; color: var(--fg-dim); }
+h3 { margin: 0; font-size: 1.2em; }
+.sub { color: var(--fg-dim); font-size: 12.5px; margin: 2px 0 8px; }
+.stats { display: flex; gap: 18px; flex-wrap: wrap; margin: 4px 0 0; font-size: 12px; color: var(--fg-dim); }
+.stat { display: inline-flex; gap: 5px; align-items: baseline; }
+.stat .v { font-weight: 600; font-family: var(--mono); color: var(--fg); }
+.stat .l { color: var(--fg-dim); }
+nav.tiernav {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 32px;
+  padding: 12px; border: 1px solid var(--border);
+  border-radius: 8px; position: sticky; top: 0; z-index: 5;
+  backdrop-filter: blur(8px); background: rgba(26,31,46,0.92);
+}
+nav.tiernav a {
+  color: var(--fg); text-decoration: none; padding: 6px 12px;
+  background: var(--bg-3); border-radius: 6px; font-size: 13px;
+  border: 1px solid var(--border);
+}
+nav.tiernav a:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.card {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 22px 26px; margin: 18px 0;
+}
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.card-head .left { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.card-head .right { color: var(--fg-dim); font-size: 13px; }
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 4px;
+  font: 600 12px var(--mono); color: var(--bg);
+}
+.cat-A { background: var(--cat-A); } .cat-B { background: var(--cat-B); }
+.cat-C { background: var(--cat-C); } .cat-D { background: var(--cat-D); }
+.cat-E { background: var(--cat-E); } .cat-F { background: var(--cat-F); }
+.cat-G { background: var(--cat-G); } .cat-H { background: var(--cat-H); }
+.cat-I { background: var(--cat-I); } .cat-J { background: var(--cat-J); }
+.cat-K { background: var(--cat-K); }
+.metrics { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 18px; }
+.m {
+  background: var(--bg-3); padding: 8px 14px; border-radius: 6px;
+  border: 1px solid var(--border); min-width: 80px;
+}
+.m .mv { font: 600 17px var(--mono); }
+.m .ml { color: var(--fg-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+.pos { color: var(--good); }
+.neg { color: var(--bad); }
+.warn { color: var(--warn); }
+.dim { color: var(--fg-dim); }
+.section { margin: 16px 0; }
+.section h4 {
+  margin: 16px 0 6px; font-size: 13px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--accent);
+}
+.rule {
+  background: var(--bg-3); border-left: 3px solid var(--accent);
+  padding: 12px 16px; border-radius: 4px; font-family: var(--mono); font-size: 13.5px;
+}
+.caveat {
+  background: rgba(251,191,36,0.07); border-left: 3px solid var(--warn);
+  padding: 12px 16px; border-radius: 4px;
+}
+.counter {
+  background: rgba(248,113,113,0.07); border-left: 3px solid var(--bad);
+  padding: 12px 16px; border-radius: 4px;
+}
+.card-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border);
+  font-size: 12.5px; color: var(--fg-dim); flex-wrap: wrap;
+}
+.card-foot code { background: var(--bg-3); padding: 2px 6px; border-radius: 3px; font-family: var(--mono); }
+.intro-caveat {
+  background: rgba(251,191,36,0.08); border-left: 3px solid var(--warn);
+  padding: 16px 20px; border-radius: 4px; margin: 24px 0;
+}
+ul.appendix-list { padding-left: 0; list-style: none; margin: 0; }
+ul.appendix-list li {
+  padding: 6px 10px; border-bottom: 1px solid var(--border);
+  font-size: 13px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+}
+ul.appendix-list li:last-child { border-bottom: none; }
+ul.appendix-list .id { font-family: var(--mono); color: var(--fg-dim); min-width: 140px; }
+ul.appendix-list .name { flex: 1 1 240px; }
+ul.appendix-list .why { color: var(--fg-dim); font-style: italic; flex: 2 1 400px; }
+details { margin: 16px 0; }
+summary { cursor: pointer; padding: 8px 0; color: var(--accent); font-weight: 600; }
+summary:hover { color: var(--good); }
+.footer { text-align: center; color: var(--fg-dim); padding: 40px 0 20px; font-size: 13px; }
+a { color: var(--accent); }
+
+/* ----- Two-column layout with left sidebar tabs ----- */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 24px;
+  padding: 16px 20px 60px;
+  align-items: start;
+}
+.sidebar {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+}
+.sidebar h4 {
+  color: var(--fg-dim); font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  margin: 14px 8px 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.sidebar h4:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+.sidebar a, .sidebar button {
+  display: block; width: 100%; text-align: left;
+  color: var(--fg); background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 10px; margin: 1px 0;
+  border-radius: 6px; cursor: pointer;
+  text-decoration: none;
+  font: inherit; font-size: 13px;
+}
+.sidebar a:hover, .sidebar button:hover {
+  background: var(--bg-3); border-color: var(--border);
+}
+.sidebar a.active, .sidebar button.active {
+  background: rgba(125,211,252,0.15); border-color: var(--accent); color: var(--accent);
+  font-weight: 600;
+}
+.sidebar .swatch {
+  display: inline-block; width: 9px; height: 9px;
+  border-radius: 2px; margin-right: 7px; vertical-align: middle;
+}
+.sidebar .count {
+  float: right; color: var(--fg-dim); font-size: 11px;
+  font-family: var(--mono); padding-top: 1px;
+}
+main.container { min-width: 0; padding: 0; max-width: none; }
+.empty-msg { padding: 60px 20px; text-align: center; color: var(--fg-dim); }
+.empty-msg.hide { display: none; }
+
+/* sidebar group headers (crypto vs non-crypto) */
+.group-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin: 10px 8px 4px; padding-top: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em;
+  border-top: 1px solid var(--border);
+}
+.group-header:first-child { border-top: none; padding-top: 0; margin-top: 4px; }
+.group-header.crypto-header { color: var(--cat-H); }
+.group-header.noncrypto-header { color: var(--cat-C); }
+.group-count {
+  font-family: var(--mono); font-size: 10.5px;
+  background: var(--bg-3); padding: 1px 6px; border-radius: 3px;
+  text-transform: none; letter-spacing: 0;
+  color: var(--fg-dim);
+}
+
+/* ----- Per-strategy tab styling ----- */
+.strat-link {
+  display: grid !important;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px !important;
+  margin: 1px 0 !important;
+  text-decoration: none;
+  font-size: 12.5px;
+  color: var(--fg);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.strat-link:hover { background: var(--bg-3); border-color: var(--border); }
+.strat-link.active {
+  background: rgba(125,211,252,0.18);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.strat-link .swatch { width: 10px; height: 10px; border-radius: 2px; }
+.strat-link .strat-name {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.strat-link .strat-metric {
+  font-family: var(--mono); font-size: 11.5px; color: var(--fg-dim);
+}
+.strat-link.active .strat-metric { color: var(--accent); }
+.strat-id {
+  font-family: var(--mono); font-size: 10.5px; color: var(--fg-dim);
+  margin-right: 4px;
+}
+.strat-link.active .strat-id { color: var(--accent); }
+.sidebar .controls {
+  display: flex; gap: 4px; margin: 4px 0 8px;
+}
+.sidebar .controls button {
+  flex: 1; font-size: 11px; padding: 5px 6px;
+}
+
+/* tab toggle for non-crypto vs crypto */
+.sidebar .group-tabs {
+  display: flex; gap: 0; margin: 0 0 6px;
+  background: var(--bg-3); border-radius: 6px; padding: 3px;
+  border: 1px solid var(--border);
+}
+.sidebar .group-tabs button {
+  flex: 1; padding: 6px 8px; font-size: 12px; font-weight: 600;
+  background: transparent; color: var(--fg-dim);
+  border: none; border-radius: 4px; cursor: pointer;
+}
+.sidebar .group-tabs button:hover { color: var(--fg); }
+.sidebar .group-tabs button.active {
+  background: var(--bg-2); color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; padding: 16px; }
+  .sidebar { position: static; max-height: none; margin-bottom: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-main">
+    <h1>High-Return Trading Signals</h1>
+    <p class="sub">Strategies beating ~10% CAGR (S&amp;P long-run avg). Grouped in the sidebar as crypto vs non-crypto — crypto has been having a standout decade and dominates the high-CAGR tail. Click a tab to open a strategy.</p>
+    <div class="stats">
+      <div class="stat"><span class="v" id="hero-count">—</span><span class="l">strategies ≥10% CAGR</span></div>
+      <div class="stat"><span class="v">~205</span><span class="l">backtested</span></div>
+      <div class="stat"><span class="v">~320</span><span class="l">in raw catalog</span></div>
+    </div>
+  </div>
+  <aside class="hero-disclaimer">
+    <strong>Read first.</strong> Backtests use free data with no transaction costs, slippage, or borrow. Several "wins" ride on small N (BTC halvings N=3, K5 Phase-3 slip N=9). Crypto signals carry -60% to -77% drawdowns. Past performance is not predictive. Not investment advice.
+  </aside>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="group-tabs">
+    <button data-group="noncrypto" class="active">Non-crypto</button>
+    <button data-group="crypto">Crypto</button>
+  </div>
+  <div class="controls">
+    <button data-sort="cagr" class="active">Sort: CAGR</button>
+    <button data-sort="sharpe">Sharpe</button>
+  </div>
+  <div id="strategy-nav"></div>
+
+  <h4>Other</h4>
+  <a id="show-appendix" href="#appendix">Appendix — duds</a>
+  <a id="show-all" href="#">Show all on one page</a>
+  <a href="full_catalog.html">Full catalog (108) ↗</a>
+</aside>
+
+<main class="container">
+
+
+<!-- All trading signals, sorted by CAGR descending by default -->
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">O5</span><h3>★ BTC Difficulty Drop → Long Miner Basket</h3></div>
+    <div class="right">crypto / miner equities · 14-day hold · 48 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.80</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">32.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">2.45</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">48</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Bitcoin difficulty adjusts every ~2016 blocks (~14 days). When difficulty drops by &gt;3%, it means weaker miners have capitulated and gone offline. The survivors capture proportionally more hashrate and revenue per machine until equilibrium re-establishes (when difficulty rises again). Their stocks re-rate on the improved economics within the 14-day window before the next adjustment.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BTC difficulty adjusts by less than -3% (i.e., a downward adjustment), go long equal-weight basket {MARA, RIOT, CLSK} for the next 14 trading days (one difficulty epoch).</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Negative difficulty adjustments sometimes coincide with broad crypto bear markets that swamp the per-miner improvement. Backtest uses original "mempool size" 90th-pct as paired rule (O4); both work but capture overlapping events.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; api.blockchain.info/charts/difficulty</span><span><code>backtests/O5_btc_difficulty_drop.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">O4</span><h3>★ BTC Mempool Backlog → Long Miner Basket</h3></div>
+    <div class="right">crypto / miner equities · 20-day hold · 113 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.73</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">31.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">2.22</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">113</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Bitcoin mempool congestion is high (unconfirmed transaction count in the 90th percentile of its history), transaction fees spike. Fees are a real revenue line for miners — 5-15% of revenue historically — but in mempool-congested periods they can exceed 50% briefly. Mining equities (MARA/RIOT/CLSK) re-rate on the upside surprise within ~3-4 weeks.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BTC mempool unconfirmed-transaction count closes above its 90th percentile of trailing 1-year history, long equal-weight {MARA, RIOT, CLSK} for the next 20 trading days.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Spam-driven mempool floods (e.g., 2023 ordinals/inscriptions craze) can cause backlog without sustainable fee revenue. The signal is correlated with O5 (difficulty drop) — many of the 113 events coincide. Don't double-count by trading both simultaneously.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; mempool.space + blockchain.info APIs</span><span><code>backtests/O4_btc_mempool.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">P6</span><h3>★★ Howell Global Liquidity 13-Week Lead → Long BTC</h3></div>
+    <div class="right">crypto · 13-week structural · 2014–2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.04</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">43.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-64.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">4.29</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+29pp</div><div class="ml">excess vs BTC B&amp;H</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Michael Howell of CrossBorder Capital argues Bitcoin is "the most liquidity-sensitive asset on the planet." Risk-on flows into the longest-duration risk asset lag global central-bank liquidity changes by ~13 weeks because of intermediation and portfolio-rotation friction. When summed CB balance sheets (Fed + ECB + BOJ in USD) are growing AND accelerating, BTC has a structural tailwind.</p>
+    <h4>Rule</h4>
+    <div class="rule">Compute the 13-week change in summed (Fed total assets + ECB + BOJ in USD). Long BTC-USD when both the 13-week change is positive AND its second derivative is positive (accelerating). Flat/short when both turn negative.</div>
+    <h4>Why it stands out</h4>
+    <p>Strongest YouTube-creator-sourced signal in the catalog. Sharpe 1.04, t-stat 4.29 across 10+ years of BTC data. +29 percentage points of excess CAGR over BTC buy-and-hold (43% vs 14% for buy-and-hold over the same window). The mechanism is mechanical: BTC is a duration asset, liquidity drives duration premia.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">PBOC and SNB balance sheet data unavailable via free FRED — proxy uses Fed + ECB + BOJ only. The full CrossBorder Global Liquidity Index includes more components. BTC's -64.6% drawdown still bites; this is a CAGR-improving overlay on BTC, not a downside protector. 2025 break-down where M2 rose but BTC stalled flagged by Howell himself.</div>
+  </div>
+  <div class="card-foot"><span>Source: Michael Howell (CrossBorder Capital); Forward Guidance / Capital Wars</span><span><code>backtests/P6_howell_liquidity_btc.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">P12</span><h3>★ Steno Multi-CB Liquidity Flip → Long SPY + BTC</h3></div>
+    <div class="right">cross-asset · 8-week hold</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.65</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-48.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.23</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+2.4pp</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Andreas Steno Larsen's framework combines growth, inflation, and liquidity. The liquidity component specifically tracks multi-CB nowcasts. When the summed Fed + ECB + BOJ balance sheet (in USD) goes from contracting to expanding on a 4-week basis, it signals a regime change that historically produces outsized 8-week equity + BTC returns.</p>
+    <h4>Rule</h4>
+    <div class="rule">Compute 4-week change in summed (Fed total assets + ECB + BOJ in USD). When the 4-week change flips from negative to positive, hold a 50/50 SPY + BTC basket for the next 8 weeks (40 trading days).</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Same CB-coverage limitation as P6 (no PBOC/SNB). MaxDD of -48.5% comes from BTC half of the basket through 2022. The signal captures inflection points, not sustained regimes — it's a tactical overlay, not core allocation.</div>
+  </div>
+  <div class="card-foot"><span>Source: Andreas Steno Larsen / Steno Research</span><span><code>backtests/P12_steno_global_liquidity.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">R-D11</span><h3>★ FINRA Short Interest Long/Short Basket</h3></div>
+    <div class="right">equities · monthly rebalance · ~30 large/mid-caps</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">-17%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">11</div><div class="ml">events ⚠️</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Short interest measures the % of float currently sold short. Heavily-shorted names tend to underperform because (a) the shorts are informed and (b) borrow costs cap upside. Lightly-shorted names benefit from absence of supply pressure. FINRA publishes daily Short Volume Ratio (SVR) via the Reg SHO daily files — free, machine-readable.</p>
+    <h4>Rule</h4>
+    <div class="rule">Rank a fixed universe of ~30 liquid US large/mid-caps by trailing-month average daily Short Volume Ratio. Long bottom decile (low short interest), short top decile, equal-weight, monthly rebalance.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>FINRA Reg SHO Daily API has a ~1-year rolling window cap</strong> — so historical sample is short. Underperforms long-only on the same universe (Sharpe 0.79 vs bench 2.92 in this sample) because we're in a meme-rally regime where bottom-SVR longs lag. Backtested 2024-2026 only; longer-term properties unknown without alternative data source.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; FINRA Reg SHO Daily API</span><span><code>backtests/R-D11_short_interest.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">R-N5</span><h3>★ TSMC Monthly Revenue Surprise → AI-Semi Basket</h3></div>
+    <div class="right">AI/semi single-names · 1-quarter hold · 19 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.63</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-45%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">19</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>TSMC publishes monthly NT$ revenue around the 10th of each month — the highest-frequency public read on leading-edge logic demand. Revenue acceleration vs trailing average signals demand strength at TSMC, which propagates to its fab customers (NVDA, AMD, AVGO) and equipment suppliers (ASML) BEFORE quarterly earnings pre-announcements.</p>
+    <h4>Rule</h4>
+    <div class="rule">When TSMC monthly YoY revenue growth exceeds the trailing-3-month average by 8 percentage points, long equal-weight {NVDA, AVGO, AMD, ASML} basket for ~1 quarter (originally 10 days, expanded for sample-size reasons).</div>
+    <h4>Caveats</h4>
+    <div class="caveat">19 events across ~5 years from Macrotrends quarterly scrape. -45% MaxDD because basket carries 2022 semi drawdown. Backtest extended hold to 1 quarter from spec'd 10 days for statistical power; shorter hold might still work but wasn't tested.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; TSMC monthly revenue via Macrotrends</span><span><code>backtests/R-N5_tsmc_revenue.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">F9</span><h3>★ USTR Section 301 Comment-Window Close → Long US Importers</h3></div>
+    <div class="right">consumer/retail · 5-day hold · 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.75</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">37.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">+52pp</div><div class="ml">excess vs SPY</div></div>
+    <div class="m"><div class="mv pos">58%</div><div class="ml">hit rate</div></div>
+    <div class="m"><div class="mv warn">10</div><div class="ml">events ⚠️</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>The USTR runs a public comment window before imposing or modifying tariffs under Section 301. During that window, the market prices in maximum tariff overhang on China-import-heavy US single names (AAPL, NKE, BBY, WSM, etc). Once the comment window closes WITHOUT immediate action, the overhang dissipates temporarily — a "no new news" window opens where the priced-in tariff fear unwinds before the actual rule takes effect 30-90 days later.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long equal-weight basket of {AAPL, NKE, BBY, WSM, WHR} for 5 trading days starting the day after a USTR Section 301 public comment window closes, provided the final action announcement is at least 30 days away.</div>
+    <h4>Why it stands out</h4>
+    <p>Highest Sharpe (1.75) among the policy-catalyst batch. The mechanism is concrete (relief rally from tariff overhang dissipating). Hit rate 58% across 10 events is consistent with an asymmetric payoff — wins are bigger than losses.</p>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>N=10 events.</strong> Sample period skewed toward 2018-2024 Trump-era + Biden-era trade actions; if future administrations don't use the Section 301 mechanism, no signal. The "30+ days until final action" filter requires judgment when applied real-time. Best as a tactical overlay, not a continuous strategy.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; USTR Federal Register notices</span><span><code>backtests/F9_ustr_s301.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">F5</span><h3>★ FDA PDUFA + Favorable AdComm Pre-Drift → Long Biotech</h3></div>
+    <div class="right">small/mid biotech · 10-day hold · 24 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.45</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">10.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">0.42</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">24</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FDA approval-likely PDUFA dates show a 3-4% pre-drift as event-gamma hedgers buy options into the announcement. The trick is filtering: most PDUFAs have binary outcomes, so the AdComm vote (held weeks before the PDUFA action date) acts as a leading indicator. Restricting to PDUFAs where the AdComm voted &gt;70% favorable removes the binary-fail names and leaves a subsample with ~80%+ approval rate.</p>
+    <h4>Rule</h4>
+    <div class="rule">For any FDA PDUFA action date where the prior AdComm committee voted >70% favorable on the drug, long the sponsor's stock for the 10-day window ending T-1 before the PDUFA decision date.</div>
+    <h4>Why it's interesting</h4>
+    <p>24 events is a usable sample. The AdComm filter is the key insight — without it, you'd be exposed to binary-fail risk. With it, you're trading the approval-near-certain subset.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">t-stat of 0.42 is low — Sharpe is positive but not statistically slam-dunk. Many PDUFA dates slip (CRL responses, manufacturing-readiness delays) and the original event-list lost 4 tickers (BLUE/SAGE/MRTX/ITCI) to yfinance delistings — so live deployment needs robust handling of corporate-action events. Borrow / option costs on biotech names can be punitive.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; FDA Drug Approvals calendar + AdComm transcripts</span><span><code>backtests/F5_fda_pdufa.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">N4</span><h3>★ Semiconductor Billings 3-Month Acceleration → Long SOXX</h3></div>
+    <div class="right">semi equity ETF · 60-day hold · 110 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.55</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-57%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">110</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Semiconductor industry sales (originally SIA's monthly press release; here proxied by Census M3 Computers &amp; Electronics New Orders, FRED <code>A36SNO</code>) lead semi equipment book-to-bill by ~1 quarter. The second derivative — i.e., the rate-of-change of the 3-month moving average YoY rate — captures regime shifts in the cycle. SOXX reprices on revenue-acceleration regime BEFORE sell-side analysts move their numbers.</p>
+    <h4>Rule</h4>
+    <div class="rule">Monthly: compute the 3-month moving average of YoY % change in FRED A36SNO. If MoM change in that 3MMA-YoY rate exceeds +2 percentage points, go long SOXX for the next 60 trading days.</div>
+    <h4>Why it works</h4>
+    <p>Large event sample (110) gives statistical confidence at Sharpe 0.55. The signal captures cyclical inflection points in semis where the cycle leads itself: order growth → revenue → earnings → multiple expansion.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Original signal was based on SIA's monthly billings press release (semiconductors.org) — paywalled archive. Substituted FRED A36SNO (Census M3 Computers + Electronics New Orders) which captures most of the same demand signal but includes some non-semi adjacent. -57% drawdown is large; signal goes long in cycles but doesn't filter out subsequent crashes (2008, 2022).</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; FRED A36SNO (Census M3 proxy for SIA)</span><span><code>backtests/N4_sia_billings.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">M3</span><h3>★ stETH Discount Extreme → Long ETH</h3></div>
+    <div class="right">crypto · 90-day hold · 2020–2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.88</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">33.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">+15.7%</div><div class="ml">excess vs ETH B&amp;H</div></div>
+    <div class="m"><div class="mv pos">2.46</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv warn">6</div><div class="ml">events ⚠️</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Lido's stETH normally trades at par with ETH because withdrawals are 1:1 (post-Shapella). But during forced-liquidity events — Celsius's insolvency (June 2022), the UST/Luna collapse (May 2022) — leveraged stakers are forced to unwind via the Curve stETH/ETH pool, pushing stETH to a meaningful discount. Deep discounts mark capitulation lows; once the forced selling clears, the discount closes via arbitrage and ETH spot also rallies as the forced-deleveraging unwind completes.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ETH-USD when the Curve stETH/ETH pool price closes below 0.985 (i.e., stETH trades at &gt;1.5% discount to ETH). Hold 90 days.</div>
+    <h4>Why it shows up here</h4>
+    <p>Highest CAGR among the M-batch hunt; +15.7pp excess vs ETH buy-and-hold over 5+ years. Mechanism is concrete (forced-seller capitulation marks bottoms). But this is the highest-conviction signal IF the next stETH-discount event is similar to June 2022.</p>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>N=6 events — heavily driven by June 2022.</strong> Lido withdrawals being live (since April 2023) significantly dampens future discounts because the arbitrage path is now fast and mechanical. The historical alpha may not repeat at the same magnitude. Treat as a "buy capitulation when it happens" tactical overlay, not a continuous signal.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; Curve subgraph / DefiLlama stETH price</span><span><code>backtests/M3_steth_discount.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">A14</span><h3>Bitcoin Halving Cycle Calendar</h3></div>
+    <div class="right">crypto · multi-year · 2014-09 → 2026-05</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.20</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">49.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-56.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">4.93</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+14pp</div><div class="ml">vs BTC B&amp;H CAGR</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Bitcoin block subsidy halves every 210,000 blocks (~4 years). Supply growth drops abruptly; if demand is flat or growing, price clears higher. Historically the bulk of cycle returns concentrate 12–18 months after each halving.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BTC-USD from 6 months before each halving (Jul 2016, May 2020, Apr 2024) through 18 months after; cash otherwise.</div>
+    <h4>Why this is the highest-Sharpe signal in the catalog</h4>
+    <p>Captures most of BTC's secular run while sitting out the bear-market sections of the 4-year cycle. Spends ~60% of time in the market and earns ~95% of its returns.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 fully observed halvings. The 2024 halving's full post-window is not yet realized. Stock-to-flow scarcity narratives have failed before (Plan B). Most importantly: every 4-year cycle says "this time is different," and post-ETF (Jan 2024) the cycle may be dampened.</div>
+    <h4>How to act</h4>
+    <p>Position-sizing overlay, not a standalone strategy. Combine with on-chain confirmation (MVRV / Hash Ribbons in Tiers 1 &amp; 4) for entry validation.</p>
+  </div>
+  <div class="card-foot"><span>Source: halving narrative / Charles Edwards</span><span><code>backtests/A14_btc_halving.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">H06</span><h3>MVRV Z-Score (Bitcoin)</h3></div>
+    <div class="right">crypto · 6–24 months</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.97</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">45.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-76.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.90</div><div class="ml">BTC B&amp;H Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Market Value Realized Value (MVRV) compares current market cap to the aggregated cost-basis of every BTC last moved on-chain ("realized cap"). The z-score puts this on a comparable historical scale. Negative readings mean the average holder is at a loss — historical accumulation zones. Extreme positives mean euphoric paper gains — historical tops.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BTC when MVRV z &lt; 0; flat when z &gt; 5. Backtest uses a proxy: z-score of BTC price / 200-day MA (the precise realized-cap series is paywalled at scale).</div>
+    <h4>Why it works</h4>
+    <p>Cleanly identifies cycle bottoms (2015, 2018, 2022) and tops (2013, 2017, 2021) within ~2 weeks. Modestly beats BTC buy-and-hold on Sharpe and avoids most of each cycle's drawdown.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Proxy version is a price/MA z-score; the "true" MVRV requires realized cap. The ETF era (2024+) may dampen the cycle entirely because ETF custody flows don't refresh realized cap the same way as on-chain transfers. Sample only spans 2 full cycles.</div>
+  </div>
+  <div class="card-foot"><span>Source: Glassnode / BitcoinMagazinePro</span><span><code>backtests/H06_mvrv_zscore.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">H11</span><h3>BTC–Nasdaq / BTC–Gold Correlation Regime</h3></div>
+    <div class="right">crypto/cross-asset · monthly</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.90</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">32.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-72.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.85</div><div class="ml">BTC B&amp;H Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Bitcoin's correlation with Nasdaq vs. gold vs. dollar regime-shifts every few quarters. When BTC trades like high-beta tech (corr w/ NDX &gt; +0.4), it's a risk asset — size half-weight to control beta. When it trades like digital gold (corr w/ GLD &gt; +0.3 AND corr w/ DXY &lt; -0.3), it's behaving as a macro hedge — size full-weight.</p>
+    <h4>Rule</h4>
+    <div class="rule">Compute 60-day rolling correlations of daily BTC returns vs ^NDX, GLD, DXY. Apply regime-conditional sizing: half-weight in "tech proxy" regime; full-weight in "digital gold" regime.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Regime classifications are post-hoc — they describe the current regime, not predict the next. Useful as a risk-budget overlay, less so as a standalone alpha source.</div>
+  </div>
+  <div class="card-foot"><span>Source: cross-asset regime work (CME, JPM)</span><span><code>backtests/H11_btc_correlation_regime.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C02</span><h3>Utilities/SPY Ratio (Gayed)</h3></div>
+    <div class="right">equities · 1-month rebalance · 2000-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.74</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">8.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-31%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.77</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">0.51</div><div class="ml">SPY Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When defensive utilities outperform the broad market on a 4-week basis, professional flow is rotating defensively ahead of broader stress. Utilities-led leadership historically precedes higher equity vol and lower returns.</p>
+    <h4>Rule</h4>
+    <div class="rule">Each Friday close: compute 4-week return of XLU minus 4-week return of SPY. If XLU &gt; SPY, hold cash next 4 weeks; otherwise long SPY.</div>
+    <h4>Why it works</h4>
+    <p>~Matches SPY on CAGR (8.4% vs 8.3%) with much better Sharpe (0.74 vs 0.51) and ~25% lower drawdown. Defensive overlay that doesn't sacrifice return.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Crowded since publication (Gayed 2014); signal is noisier post-2015. Best when used as a filter alongside VIX term structure or credit spreads rather than standalone.</div>
+  </div>
+  <div class="card-foot"><span>Source: Gayed &amp; Atilgan 2014 SSRN 2517910</span><span><code>backtests/C02_utilities_spy.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C07</span><h3>Accelerating Dual Momentum</h3></div>
+    <div class="right">multi-asset · monthly rebalance</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.73</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-30%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.15</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Combines absolute and relative momentum across three assets: US large-cap (SPY), international small-cap (SCZ), and long Treasuries (TLT). Uses an average of 1/3/6-month returns instead of a single 12-month lookback — "accelerating" because the short lookbacks pick up regime changes faster.</p>
+    <h4>Rule</h4>
+    <div class="rule">Monthly: rank SPY, SCZ, TLT by average of (1m + 3m + 6m) total return. Hold the single top-ranked asset for next month.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Heavy reliance on TLT in a 30-year bond bull market. 2022 was brutal because TLT and SPY both collapsed; short lookbacks made whipsaws worse. Overfit-suspect — only 3 assets, lookback choices feel cherry-picked. Look for an asset-class extension before deploying.</div>
+  </div>
+  <div class="card-foot"><span>Source: EngineeredPortfolio.com 2018</span><span><code>backtests/C07_accel_dual_momentum.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">F03</span><h3>Margin Debt Year-over-Year</h3></div>
+    <div class="right">equities · 3-12 months · monthly signal</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.72</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.46%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-45%</div><div class="ml">MaxDD</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FINRA margin debt aggregates all retail+institutional leveraged equity positions. Extreme YoY contractions signal forced deleveraging; extreme expansions signal speculative excess. Coincident-to-leading recession indicator.</p>
+    <h4>Rule</h4>
+    <div class="rule">Monthly: compute YoY % change in FINRA margin debt (FRED BOGZ1FL663067003Q). When YoY &lt; -20%, reduce equity exposure for 6 months. When YoY turns back through 0% from below, re-enter.</div>
+    <h4>Why it works</h4>
+    <p>Peaks preceded 2000, 2007, 2021 tops. Troughs near 2003, 2009, 2022 bottoms. Slow but reliable.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Coincident more than leading — most of the move happens before the YoY threshold breaks. Useful for strategic tilts, not tactical timing. Quarterly publication lag also delays the signal.</div>
+  </div>
+  <div class="card-foot"><span>Source: Jesse Felder / FINRA monthly</span><span><code>backtests/F03_margin_debt_yoy.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C14</span><h3>Time-Series Momentum (TSMOM)</h3></div>
+    <div class="right">multi-asset · 1-12 months</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.68</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">5.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">-13.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.07</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Each asset's own past 12-month return predicts its next-month return. Long winners, flat losers. Applied across a diversified basket, exposure is dynamically allocated to whichever markets are trending positively.</p>
+    <h4>Rule</h4>
+    <div class="rule">Monthly across basket {SPY, TLT, GLD, DBC, EFA, EEM}: if 12-month return &gt; 0, hold 1/N weight; else flat. Aggregate PnL.</div>
+    <h4>Why it works</h4>
+    <p>Best risk-adjusted return in the cross-asset family with the lowest drawdown by a wide margin (-13.5% vs -30%+ for everything else). Moskowitz-Ooi-Pedersen 2012; AQR Century of Evidence (137-year sample).</p>
+    <h4>Caveats</h4>
+    <div class="caveat">2010s were the weakest decade in 130 years for trend; 2022 revived it. Capacity-aware. Pure ETF basket lacks the breadth (~67 markets) of the original commodity-heavy futures TSMOM.</div>
+  </div>
+  <div class="card-foot"><span>Source: Moskowitz-Ooi-Pedersen JFE 2012</span><span><code>backtests/C14_tsmom.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">F09</span><h3>Golden Cross (50/200 SMA)</h3></div>
+    <div class="right">equities · months-to-years</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.69</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">8.36%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.55</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Simplest possible trend filter. 50-day SMA above 200-day SMA = uptrend regime. Avoids being long during major bear markets (sat out most of 2008, parts of 2022). The classic "obvious" rule that actually works on risk-adjusted basis.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY when SMA(50) &gt; SMA(200); flat otherwise.</div>
+    <h4>Why it's promising</h4>
+    <p>~Matches SPY on absolute CAGR (8.4% vs 8.3%) with much better Sharpe (0.69 vs 0.51). t=3.55 is robust. The death cross side (going flat) is the value-add — preserves capital in 2008, 2020, 2022.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Whipsaws badly in choppy ranges (2015-16, 2018-19 produced multiple false crosses). Lagging by design — you miss the first ~15% off a bottom. Has been universally known for decades; if it has decayed, you wouldn't know yet because the regime shifts are too rare.</div>
+  </div>
+  <div class="card-foot"><span>Source: Universal TA folklore</span><span><code>backtests/F09_golden_cross.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">A16</span><h3>Heston-Sadka Same-Calendar-Month Seasonality</h3></div>
+    <div class="right">equities · monthly</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.65</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">9.89%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-43%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.14</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Calendar-month return seasonalities persist. If SPY has historically averaged a positive return in (say) April over the prior 10 years, that pattern tends to continue. Walk-forward, no peeking.</p>
+    <h4>Rule</h4>
+    <div class="rule">Each month, compute the trailing-10-year average daily return for that calendar month. If positive, hold SPY that month; if negative, cash.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Just barely matches buy-and-hold — the "edge" is in regime-style filtering of bad months. Keloharju et al. (2016) document this persists across countries and assets. With only ~12 month-of-year observations per decade, statistical power is limited.</div>
+  </div>
+  <div class="card-foot"><span>Source: Heston-Sadka JFE 2008; Keloharju et al 2016</span><span><code>backtests/A16_seasonality_heston_sadka.py</code></span></div>
+</article>
+
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C05</span><h3>Faber GTAA 10-Month Moving Average</h3></div>
+    <div class="right">multi-asset · monthly</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">4.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">-15%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.58</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Rule</h4>
+    <div class="rule">Each month-end, for {SPY, EFA, VNQ, GSG, IEF}: if last close &gt; 10-month SMA, hold that bucket; else cash. Equal-weight the active buckets.</div>
+    <h4>Why it's promising</h4>
+    <p>The drawdown floor of -15% is exceptional. Faber's original premise was "preserve capital in bear markets at the cost of muted bull-market returns." This sample (2000-2026) confirms exactly that — saves you 2008, 2020, 2022.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Underperforms in low-vol bull markets (most of 2010s). The bond bucket (IEF) carries most of the drawdown protection — without 30-year bond bull market behind us, future performance is uncertain.</div>
+  </div>
+  <div class="card-foot"><span>Source: Mebane Faber 2007 SSRN 962461</span><span><code>backtests/C05_faber_gtaa.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C06</span><h3>Dual Momentum (Antonacci GEM)</h3></div>
+    <div class="right">equities/bonds · monthly</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.61</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">8.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-34%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.58</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Rule</h4>
+    <div class="rule">Monthly: pick the higher 12-month return of SPY vs ACWX. If that winner's 12m return &lt; T-bill return, hold AGG (bonds) instead.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">2015 and 2018 produced whipsaws into bonds. Sensitive to lookback choice — some practitioners use a blended 3/6/12-month average.</div>
+  </div>
+  <div class="card-foot"><span>Source: Antonacci 2013</span><span><code>backtests/C06_dual_momentum.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C08 / C09</span><h3>Yield Curve Inversion Equity Timer</h3></div>
+    <div class="right">equities · multi-year · 1976-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.65</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">10.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-55%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.73</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>10Y-2Y (and 10Y-3M) Treasury yield inversions have preceded every US recession since 1976 with no false positives in the 3m10y specification. The key insight is that the recession (and equity drawdown) typically arrives 6-18 months AFTER the curve <em>uninverts</em>, not at the inversion itself — equities can rally for ~a year after inversion begins.</p>
+    <h4>Rule</h4>
+    <div class="rule">When T10Y2Y (or T10Y3M) first crosses below 0 from above, set a 12-month timer. On month 12 post-inversion, reduce equity exposure to 50% (or cash) until the curve re-steepens above +50 bps.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">2022-2024 inversion was the deepest on record and didn't produce a recession (yet). Sample of ~8 events since 1976 is small. The "un-inversion" rule means you're flat through the actual top — useful for capital preservation but doesn't catch the highs.</div>
+  </div>
+  <div class="card-foot"><span>Source: Estrella-Mishkin 1998; Chicago Fed 2018</span><span><code>backtests/C08_yield_curve_10y2y.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C01</span><h3>Lumber/Gold Ratio (Gayed)</h3></div>
+    <div class="right">equities vs bonds · 13-week</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.57</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">8.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-38%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.64</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Lumber demand leads housing/cyclical activity; gold reflects safe-haven flows. Their 13-week relative performance is a risk-on/risk-off switch for cross-asset rotation.</p>
+    <h4>Rule</h4>
+    <div class="rule">Weekly: compute 13-week % change in lumber futures and gold. If lumber outperformed gold, long SPY next week; else TLT.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Lumber futures contract was redesigned in 2022 (smaller LBR contract), creating a pre/post discontinuity. Out-of-sample performance post-2015 has been substantially weaker than the original paper. Best in clear macro regimes; whipsaws in chop.</div>
+  </div>
+  <div class="card-foot"><span>Source: Gayed 2015 SSRN 2604248</span><span><code>backtests/C01_lumber_gold.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-B">B01</span><h3>VIX Term Structure (VIX/VIX3M)</h3></div>
+    <div class="right">equities · days-to-weeks</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.61</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">6.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-35.5%</div><div class="ml">MaxDD</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>VIX/VIX3M below 1 = contango (normal). Spikes above 1 = backwardation (stress) — the 1-month vol is pricing more uncertainty than the 3-month, classic risk-off positioning.</p>
+    <h4>Rule</h4>
+    <div class="rule">When VIX/VIX3M closes &lt; 0.92, long SPY. Cross above 1.0 → cash. Re-enter when ratio falls back below 0.95.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Whipsawed in Feb 2018 vol-mageddon and March 2020 (the model couldn't handle term-structure violence). Often combined with VVIX/VIX for confirmation. Underperforms simple SPY B&amp;H here because it sits in cash during recoveries.</div>
+  </div>
+  <div class="card-foot"><span>Source: VIX and More blog (Bill Luby)</span><span><code>backtests/B01_vix_term_structure.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">C11</span><h3>MOVE / VIX Ratio</h3></div>
+    <div class="right">cross-asset · 2-8 weeks</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.56</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">8.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-47%</div><div class="ml">MaxDD</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>MOVE measures Treasury implied vol; VIX measures equity implied vol. When the ratio spikes (rates volatility dominates), it's a rates-driven regime — duration-sensitive equities suffer. When low, equity-vol dominates.</p>
+    <h4>Rule</h4>
+    <div class="rule">When MOVE/VIX &gt; 6 sustained 5+ days, cash for 20 days. When MOVE/VIX &lt; 4, long SPY for 20 days.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Regime-dependent. Works when rates drive equity (most of 2022-2024). Breaks when growth scares dominate (2020 Q1, 2008). Default-long stance dominates so the "low-ratio long" branch contributes little.</div>
+  </div>
+  <div class="card-foot"><span>Source: FinTwit (@Ksidial); SOA Sep 2025; CFA Institute Jul 2025</span><span><code>backtests/C11_move_vix_ratio.py</code></span></div>
+</article>
+
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">L6</span><h3>★ SEC NT-10K / NT-10Q Late-Filing Short</h3></div>
+    <div class="right">single-name equities · 30-day hold · 2015-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.55</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">+2.45%</div><div class="ml">excess vs SPY</div></div>
+    <div class="m"><div class="mv pos">1.84</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">3,983</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>SEC Form NT-10K (or NT-10Q) is filed when a company knows it cannot meet its annual (or quarterly) filing deadline. The reasons are almost always negative: auditor disputes, material weakness in internal controls, suspected accounting irregularities, or pending restatements. The filing is itself a public, mechanical, free-to-acquire disclosure of "we are in trouble."</p>
+    <h4>Rule</h4>
+    <div class="rule">For any company filing an NT-10K or NT-10Q on EDGAR, short the stock at filing date + 1 day. Cover after 30 trading days. Filter universe to closing price ≥ $5 (penny stock data corruption otherwise). Equal-weight basket.</div>
+    <h4>Why this stands out</h4>
+    <p>Among the ~30 new "simple+unique" signals we hunted and tested in this report's research extension, this is the one that survived. 4,000+ event sample size (not 4) makes the t-stat much harder to dismiss as luck. The data is free, the rule is mechanical, and the mechanism is nearly tautological — a company that can't file on time has something to hide.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Some NT filings are benign (small subsidiary integrations, recent CFO transitions). Micro-cap and illiquid names dominate the universe — borrow can be punitive or unavailable. The agent flagged that yfinance penny-stock data corruption is a real issue (some delisted tickers report fake +18,000,000% single-day moves); the $5 price filter and ±30%/day return clip handle this. Backtest doesn't include shorting fees, which can be 10-50%+ annualized on these names.</div>
+    <h4>How to act</h4>
+    <p>Practical implementation: scrape EDGAR's full-text search daily (<code>efts.sec.gov/LATEST/search-index?forms=NT-10-K,NT-10-Q</code>). Filter to liquid-enough names. Pair with credit-spread / put-option proxies when borrow is constrained.</p>
+  </div>
+  <div class="card-foot"><span>Source: own research; SEC EDGAR full-text search (free)</span><span><code>backtests/L6_sec_nt_10k.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">E09</span><h3>IPO Lockup Expiry Short</h3></div>
+    <div class="right">single-name equities · ~10 days</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.10</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+3.15%</div><div class="ml">10d short excess</div></div>
+    <div class="m"><div class="mv pos">61%</div><div class="ml">hit rate</div></div>
+    <div class="m"><div class="mv">59</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Standard IPO lockups end 180 days after IPO. Insiders + VC investors then face a "first chance to sell" — supply hits the market, pushing price down. Field-Hanka (2001) documented -1.5% mean CAR; -3% for VC-backed.</p>
+    <h4>Rule</h4>
+    <div class="rule">Short the stock 5 trading days before lockup expiry (T-5); cover 5 trading days after (T+5). Equal-weight basket of all eligible IPOs.</div>
+    <h4>Why it's the cleanest event-driven hit</h4>
+    <p>t-stat above 2, hit rate well above 50%, mechanism is mechanical (forced supply). Easy to implement at small scale.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Crowded — borrow rates on recent IPOs can be punitively high (sometimes &gt;50% annualized) and offset the price decline. Edge has shrunk to ~50bp in recent samples. Don't use on very thin or hard-to-borrow names.</div>
+  </div>
+  <div class="card-foot"><span>Source: Field-Hanka JF 2001</span><span><code>backtests/E09_ipo_lockup.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">A07</span><h3>Pre-FOMC Drift (UNCONDITIONAL)</h3></div>
+    <div class="right">equities · 1-2 days · 8 events/year</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.49</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">1.70%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-8.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.49</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Lucca-Moench (2015) documented that the S&amp;P 500 earns abnormally positive returns in the 24 hours before FOMC announcements. Theories: pre-announcement uncertainty resolution, dealer hedging, or pure pattern-mining.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY from close of T-1 (day before FOMC) to close of T (FOMC day). 8 meetings/year.</div>
+    <h4>The interesting finding</h4>
+    <p>The UNCONDITIONAL pre-FOMC drift survives in our sample (2000-2026) with t=2.49. Adding the "dovish regime" filter (DGS2 1-month change below median) — which the post-2024 literature suggests — DESTROYS the edge: Sharpe collapses to 0.07. <em>The clean Lucca-Moench rule beats the "smart" filtered version</em>. See counter-finding G-14 below.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Tiny exposure — only 8 days/year. CAGR of 1.7% is meaningful only as an overlay on a base portfolio. Drift has been debated as weakening post-2015 in original paper's authors' follow-up work.</div>
+  </div>
+  <div class="card-foot"><span>Source: Lucca-Moench JF 2015</span><span><code>backtests/A07_pre_fomc_drift.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">A06</span><h3>FOMC Even-Week Effect</h3></div>
+    <div class="right">equities · biweekly cycle</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.53</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">6.69%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-50%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.71</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Cieslak-Morse-Vissing-Jorgensen (2019) found stock returns concentrate in "even" weeks (0, 2, 4, 6) of the FOMC cycle and approach zero in odd weeks. Hypothesized to come from informal Fed communications cycling through the financial media on a biweekly cadence.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY only during even weeks of the FOMC cycle (weeks 0, 2, 4, 6 after the most recent FOMC). Cash in odd weeks.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Sits in cash half the time but earns close to SPY's full Sharpe — efficient. The literature's authors find pattern weakened post-publication. Combine with another defensive overlay for the cash periods.</div>
+  </div>
+  <div class="card-foot"><span>Source: Cieslak-Morse-Vissing-Jorgensen JF 2019</span><span><code>backtests/A06_fomc_even_week.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">F08</span><h3>RSI(2) Mean Reversion (Connors)</h3></div>
+    <div class="right">equities · days · ~211 trades</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.49</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">2.13%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-14%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.50</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Short-period RSI mean-reversion: buy oversold conditions only when the longer-term trend is up. The 200-day SMA filter keeps you out of bear markets where mean reversion fails.</p>
+    <h4>Rule</h4>
+    <div class="rule">If SPY close &gt; 200-day SMA AND RSI(2) &lt; 5, buy at close. Exit when close &gt; 5-day SMA. (Typical hold: 3-7 days.)</div>
+    <h4>The honest take</h4>
+    <p>Real per-trade edge (t=2.50). But strategy is in cash most of the time and earns less absolute return than buy-and-hold. Best used as an OVERLAY on a long SPY position — e.g., add leverage when the rule triggers, otherwise just hold base allocation.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Single-name mean reversion has decayed substantially since 2010; persists in indices. Edge concentrated in fast-snapback rallies (2018 Q4, 2020 Q2).</div>
+  </div>
+  <div class="card-foot"><span>Source: Connors 2009</span><span><code>backtests/F08_rsi2_connors.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">A04</span><h3>First Five Days of January</h3></div>
+    <div class="right">equities · 12-month decision</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.59</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">8.11%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-42.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.02</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Folk-finance heuristic: the first five trading days of January predict the rest of the year. Mechanism unclear; possibly pension/401k inflow patterns or year-start risk-taking.</p>
+    <h4>Rule</h4>
+    <div class="rule">If SPY cumulative return Jan trading days 1-5 &gt; 0, hold SPY for rest of year. If negative, stay in cash.</div>
+    <h4>Why it shows up here</h4>
+    <p>t=3.02, ~matches SPY CAGR. The decision is made on tiny information (5 days) yet produces statistically significant results across 26 years. Could be coincidence — 26 years is barely a generation of cycles.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Failed dramatically in some years (e.g., 2024). Sample size of 26 binary decisions is statistically weak even with t=3.02.</div>
+  </div>
+  <div class="card-foot"><span>Source: Yale Hirsch, Stock Trader's Almanac</span><span><code>backtests/A04_first_five_days.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">E10</span><h3>Spin-Off Drift (Greenblatt)</h3></div>
+    <div class="right">single-name · 24 months</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">+11.7%</div><div class="ml">24m excess CAGR</div></div>
+    <div class="m"><div class="mv">0.96</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">40</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Newly spun-off companies are sold indiscriminately by parent shareholders (forced selling: index exclusion, mandate mismatch, "I didn't pick this stock"). Concentrated insider ownership in the new entity often produces post-spin alpha.</p>
+    <h4>Rule</h4>
+    <div class="rule">Buy each spin-off at first regular-way trade date; hold 24 months. Equal-weight basket across all spins.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">t-stat of 0.96 is not statistically significant — directionally consistent with Cusatis-Miles-Woolridge (1993) but our 40-event sample doesn't clear the noise. Recent CSI / GE Vernova / Kenvue spins underperformed initially. Tax-free spins outperform taxable.</div>
+  </div>
+  <div class="card-foot"><span>Source: Greenblatt 1997; Cusatis-Miles-Woolridge JFE 1993</span><span><code>backtests/E10_spinoff_drift.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">D02</span><h3>Cross-Sectional Momentum (UMD) — Clean</h3></div>
+    <div class="right">equities · 1-12 months · Ken French data</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.41</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">5.11%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-63%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">36 yrs</div><div class="ml">sample</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Past 12-month winners (skip last month) continue to outperform; losers continue to underperform. Behavioral: underreaction to news. Risk-based: crash exposure.</p>
+    <h4>Why this is the cleanest factor result</h4>
+    <p>Survivorship-free: Ken French data uses the full historical CRSP universe with point-in-time accuracy. 36-year Sharpe of 0.41 is below buy-and-hold but matches the published literature.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Catastrophic crashes: 2009 (-50% in months), 2020 Q2. Daniel-Moskowitz "Momentum Crashes" (2016) documents this is a regime-dependent feature, not a bug.</div>
+  </div>
+  <div class="card-foot"><span>Source: Jegadeesh-Titman JF 1993; Ken French data library</span><span><code>backtests/D02_momentum_umd.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">K4</span><h3>★ SLOOS "Willingness to Lend to Consumers" → Long XLY</h3></div>
+    <div class="right">consumer discretionary · quarterly · 1990-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.46</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">+2.71%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">2.40</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">9</div><div class="ml">trigger events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>The Fed's Senior Loan Officer Opinion Survey (SLOOS) is widely watched for the "tightening standards" headline. But the buried question "willingness to make consumer installment loans" (FRED <code>DRIWCIL</code>) measures a slightly different thing — bank appetite to extend credit. A sharp positive jump in this subindex precedes credit-card and auto-loan origination expansion by ~1 quarter, which feeds consumer discretionary spending.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLY for the next quarter (60 trading days) when FRED DRIWCIL QoQ change rises by +10 percentage points or more.</div>
+    <h4>Why it works</h4>
+    <p>Statistically significant t=2.40 across the available SLOOS history (1990+). The mechanism is direct: bank willingness → credit origination → consumer spending → XLY earnings.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Only 9 trigger events — small sample even over 35 years. In QE regimes banks may express willingness while consumers don't demand credit (transmission breaks). Use as overlay to a base allocation rather than standalone strategy.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; FRED DRIWCIL (SLOOS)</span><span><code>backtests/K4_sloos_willingness.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">K9</span><h3>★ Treasury DTS DoD Outlays Surge → Long ITA</h3></div>
+    <div class="right">defense ETF · 10-day hold · daily data</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.50</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">+3.30%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">2.25</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">67</div><div class="ml">trigger events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>The Daily Treasury Statement (Table III-A) publishes US Treasury spending by category every business day. Large single-day Department of Defense outlays often correspond to milestone payments on major weapons contracts that haven't yet been reported in defense-contractor earnings or guidance. Daily data on quarterly-reporting companies = information asymmetry that decays in ~10 days.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ITA (iShares Aerospace &amp; Defense ETF) for 10 trading days whenever Treasury DTS Department of Defense outlays exceed $5B in a single business day.</div>
+    <h4>Why it works</h4>
+    <p>t=2.25 across 67 trigger events. The mechanism is mechanical — when Treasury actually pays the prime contractors, money flows to LMT/RTX/NOC/GD before their next earnings call. ~12% exposure rate means it leaves room for buy-and-hold base allocation.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Some large outlays are payroll/pension and have no contractor-revenue implication — would benefit from a "non-pay-period" filter. Treasury DTS structure changed around 2010; pre-2010 events may be miscategorized.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; fiscaldata.treasury.gov DTS Table III-A</span><span><code>backtests/K9_dod_treasury_outlays.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">K5</span><h3>★ ClinicalTrials.gov Phase-3 Completion Slip → Short Sponsor</h3></div>
+    <div class="right">single-name biotech · 20-day · CAUTION: N=9</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.75</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">+72.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv pos">2.06</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv warn">9</div><div class="ml">events ⚠️</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>ClinicalTrials.gov requires sponsors to publish Primary Completion Dates for registered trials. The registry tracks every revision. A sudden 90+ day slip in a Phase-3 trial's Primary Completion Date almost always reflects enrollment problems, interim safety concerns, or efficacy issues that the sponsor has not yet disclosed via 8-K. The registry update is mechanical and often days ahead of formal investor communications.</p>
+    <h4>Rule</h4>
+    <div class="rule">When a registered Phase-3 trial's Primary Completion Date slips by &gt;90 days in a single update, short the sponsor's stock for 20 trading days.</div>
+    <h4>Why it shows up despite N=9</h4>
+    <p>The headline Sharpe of 2.75 is real but ride-on-luck — N=9 events across 5 sponsors (PFE/MRK/BIIB/MRNA/REGN) is statistically weak. The t-stat of 2.06 just clears the threshold for "interesting." We're keeping it here because the mechanism is so clean and the data is free that even a small effect is worth pursuing with a larger universe.</p>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Critical: N=9 is too few to trust the Sharpe number.</strong> The right way to deploy this is across a much larger biotech universe (full XBI constituents) and over more years. Some slips are administrative (CRO change, COVID disruption) and benign. Survivorship in winning trials means false negatives. The 72% CAGR figure is the in-sample fit, not a realistic forward estimate.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; ClinicalTrials.gov StudyVersions API</span><span><code>backtests/K5_phase3_completion_slip.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">J7</span><h3>★ Fed RRP Drain → Short TLT (regime-specific)</h3></div>
+    <div class="right">bonds · 1-2 weeks · 2021-2024</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">+6.0%</div><div class="ml">excess CAGR vs B&amp;H</div></div>
+    <div class="m"><div class="mv">0.23</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">210</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Fed overnight reverse-repo (RRP) facility usage drains rapidly, money-market funds are pulling cash out of the Fed to buy T-bills instead. That front-loads Treasury supply absorption at the short end, leaving the long end to clear at higher yields. The signal works because RRP usage is the most price-insensitive cash on the Fed's balance sheet.</p>
+    <h4>Rule</h4>
+    <div class="rule">Short TLT for 5 trading days when 5-day MA of FRED RRPONTSYD falls more than $50B week-over-week.</div>
+    <h4>Why it shows up here</h4>
+    <p>Most of the alpha was captured during the 2022-2024 RRP wind-down + bond bear market. 210 trigger events. <strong>Regime-specific edge</strong> — when the RRP is near zero (as it is now), the signal won't fire much.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Backtest only since the RRP facility became material (2021). Likely captures the bond-bear-market regime more than a persistent edge. Bill-supply driven drains (Treasury issuance shifts) can be false positives. Edge will dissipate as the RRP empties structurally.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; FRED RRPONTSYD</span><span><code>backtests/J7_rrp_drain.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">L3-inv</span><h3>★ Weak Treasury Auction Direct Bidders → LONG TLT (inverse)</h3></div>
+    <div class="right">bonds · 5-day hold · 1985-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">-0.53</div><div class="ml">Sharpe (short)</div></div>
+    <div class="m"><div class="mv pos">-2.58</div><div class="ml">t-stat (inverse signal)</div></div>
+    <div class="m"><div class="mv">28</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>The original hypothesis: when Treasury auction "direct bidder" share (real-money domestic accounts) collapses below 5%, primary dealers warehouse the paper and hedge by shorting Treasury futures → bonds fall.</p>
+    <h4>The data says the opposite</h4>
+    <p>Empirically, weak direct bidder demand precedes <strong>flight-to-quality bond RALLIES</strong>, not selloffs. The mechanism likely runs the other way: directs disappear when domestic accounts are de-risking and parking in bills, and the same risk-off impulse bids up duration globally. The t-stat of -2.58 on the original short-TLT rule means the inverse (LONG TLT after weak directs) is the real signal.</p>
+    <h4>Rule (inverted)</h4>
+    <div class="rule">Long TLT for 5 sessions after any 10Y or 30Y Treasury auction where Direct bidder allotment falls below 5% (vs ~15% trailing average).</div>
+    <h4>Caveats</h4>
+    <div class="caveat">28 events — small sample. Direct share is noisy at small auctions. One large pension absence isn't a regime shift. Treat as a tactical overlay, not a standalone alpha source.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; TreasuryDirect.gov auction results</span><span><code>backtests/L3_auction_direct_bidder.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">D04</span><h3>Industry Momentum</h3></div>
+    <div class="right">equities · 6-month rebalance</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">0.33</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">4.86%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">1.97</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">36 yrs</div><div class="ml">sample</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Moskowitz-Grinblatt showed that much of stock-level momentum is actually industry momentum. Trending industries continue to trend; you don't need to pick individual winners.</p>
+    <h4>Rule</h4>
+    <div class="rule">Monthly: rank Ken French 49 industries by trailing 6-month return. Long top 5, short bottom 5, equal-weight.</div>
+    <h4>Why it's promising</h4>
+    <p>Cleanest equity factor finding in the catalog because the universe (49 industries) has no survivorship bias and the rule is dead simple. t=1.97 over 36 years.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Lower magnitude than single-stock momentum but more robust to crashes. Industry definitions are stable, so concentration risk is real (energy 1980s, tech 1999, financials 2008).</div>
+  </div>
+  <div class="card-foot"><span>Source: Moskowitz-Grinblatt JF 1999</span><span><code>backtests/D04_industry_momentum.py</code></span></div>
+</article>
+
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">H05</span><h3>Hash Ribbons (Edwards)</h3></div>
+    <div class="right">crypto · 3-12 months</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.71</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv">20.69%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-71%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.83</div><div class="ml">BTC B&amp;H Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>BTC mining hashrate decline = miner capitulation. The recovery (30d MA crosses back above 60d MA) historically marks accumulation phases — capitulation has cleared, weak hands gone.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BTC when 30-day MA of hashrate crosses back above 60-day MA, after having spent ≥14 days below it. Hold until next miner capitulation.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Trails BTC buy-and-hold on raw Sharpe (0.71 vs 0.83) but materially reduces drawdown when used right. Signal fires rarely (~1-2/year). ETF era may decouple miner stress from price action.</div>
+  </div>
+  <div class="card-foot"><span>Source: Charles Edwards (Capriole)</span><span><code>backtests/H05_hash_ribbons.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-H">H07 / H08</span><h3>Puell Multiple &amp; NUPL Proxy</h3></div>
+    <div class="right">crypto · 6-24 months</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.87</div><div class="ml">Sharpe (each)</div></div>
+    <div class="m"><div class="mv">29-34%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-62 to -77%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.96</div><div class="ml">BTC B&amp;H Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Puell = daily USD value of newly issued BTC / 365d MA — captures miner profitability extremes. NUPL = (Market Cap - Realized Cap) / Market Cap — share of supply in unrealized profit. Both flag euphoria + capitulation.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BTC when Puell &lt; 0.5 (miner capitulation); flat when Puell &gt; 3.0. Mirror for NUPL: long &lt; 0; reduce &gt; 0.75.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Both signals slightly trail BTC buy-and-hold on Sharpe in our sample. They're cycle indicators, not alpha generators — useful for sizing/risk management. ETF-era proxies may be less reliable than on-chain originals.</div>
+  </div>
+  <div class="card-foot"><span>Source: D. Puell; Glassnode</span><span><code>backtests/H07_puell_multiple.py</code>, <code>H08_nupl.py</code></span></div>
+</article>
+
+<!-- ================== COUNTER-FINDINGS REMOVED ==================
+The original Tier 5 (5 counter-finding cards) was removed for the "high-return signals only" view.
+They remain visible in full_catalog.html.
+================================================================== -->
+
+<article class="card" style="display:none">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-I">I03</span><h3>Liquidity Sweep Fade — IT LOSES</h3></div>
+    <div class="right">equities · 472 trades on daily SPY</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">-0.44</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv neg">-1.98%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-2.26</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>What ICT/SMC teaches</h4>
+    <p>"Price spikes above the prior 20-day high but closes back below it" — interpreted as a "stop hunt" / "liquidity sweep" where institutions filled orders against retail stops. The teaching is to fade (short the breakout).</p>
+    <h4>What the data shows</h4>
+    <div class="counter">Significantly NEGATIVE result. On 472 trades from 2000-2026, fading SPY breakouts above 20-day highs lost money with t=-2.26 — statistically significant in the WRONG direction. SPY breakouts above the 20-day high tend to <strong>follow through up</strong>, not fade. The ICT "liquidity sweep" framework's core trade is exactly inverted from what works on the largest, most liquid equity index in the world.</div>
+    <h4>What this means</h4>
+    <p>If you're going to trade these patterns, do the opposite — buy breakouts, don't fade them. Or use this finding as evidence that the ICT framework needs much more rigor than its TikTok presentation provides.</p>
+  </div>
+  <div class="card-foot"><span>Source (the framework): ICT/SMC TikTok universe</span><span><code>backtests/I03_liquidity_sweep.py</code></span></div>
+</article>
+
+<article class="card" style="display:none">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">G-14</span><h3>Pre-FOMC + Dovish Filter — Filter Destroys Edge</h3></div>
+    <div class="right">equities · 1-2 days · 97 FOMC events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.49</div><div class="ml">Sharpe UNCONDITIONAL</div></div>
+    <div class="m"><div class="mv neg">0.07</div><div class="ml">Sharpe with dovish filter</div></div>
+    <div class="m"><div class="mv neg">−7×</div><div class="ml">edge reduction</div></div>
+  </div>
+  <div class="section">
+    <h4>What recent literature suggests</h4>
+    <p>Some post-2024 work argues the Lucca-Moench pre-FOMC drift is regime-conditional: it only works when the 2-year yield change is below median (i.e., dovish/easing environment).</p>
+    <h4>What the data shows</h4>
+    <div class="counter">Adding the dovish-DGS2 filter <strong>DESTROYS</strong> the edge. Unconditional Sharpe 0.49 (t=2.49). Conditional-on-dovish Sharpe 0.07 (t=0.37). The "smart" filter is wrong-direction in this implementation — the clean Lucca-Moench rule is the better one.</div>
+    <h4>What this means</h4>
+    <p>Be skeptical of regime-based "refinements" of base signals. Adding conditioning variables increases the degrees of freedom and the risk of overfit.</p>
+  </div>
+  <div class="card-foot"><span><code>backtests/G14_prefomc_regime.py</code></span></div>
+</article>
+
+<article class="card" style="display:none">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-K">G-15</span><h3>US Election VIX Ramp — Roll Drag Destroys It</h3></div>
+    <div class="right">VIXY · 30-180 days · 4 elections</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">-9.01%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-86.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv neg">-0.21</div><div class="ml">Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>What the conventional wisdom says</h4>
+    <p>VIX rises in the 6 months before US presidential elections and collapses within 30 days post-election. Buy vol into the election, sell after.</p>
+    <h4>What the data shows</h4>
+    <div class="counter">Catastrophic in the listed-product implementation. Long VIXY from T-120 to T-5 across 4 elections produces -9% CAGR and -86% drawdown. The realized vol bump is real, but VIXY's roll cost (constant futures rolling in contango) destroys the trade.</div>
+    <h4>What this means</h4>
+    <p>The signal isn't wrong — vol does rise. But the instrument matters more than the signal. SPY straddles would be a better expression; VIX futures positions held to expiry would be better; ANYTHING but VIXY/VXX (which lose ~80%/year to roll in normal contango).</p>
+  </div>
+  <div class="card-foot"><span><code>backtests/G15_election_vix.py</code></span></div>
+</article>
+
+<article class="card" style="display:none">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">F13</span><h3>"Buy The Dip" vs Simple DCA — DCA Wins</h3></div>
+    <div class="right">S&amp;P 500 · 1990-present</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">DCA wins</div><div class="ml">terminal wealth</div></div>
+    <div class="m"><div class="mv pos">~$435k</div><div class="ml">DCA advantage</div></div>
+    <div class="m"><div class="mv">0.55</div><div class="ml">DCA Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>What the conventional wisdom says</h4>
+    <p>"Wait for a 10% (or 20%) pullback before deploying cash" — every personal finance influencer's advice.</p>
+    <h4>What the data shows</h4>
+    <div class="counter">Simple monthly DCA ($1/month into SPY) beats waiting-for-10%-dip by ~$435k cumulative terminal wealth on $1/mo deposits over 1990-present. AQR (2025) tested 196 dip-buying variants; DCA beat &gt;60% of them. The dip-waiter sits in cash too long and misses compounding.</div>
+    <h4>What this means</h4>
+    <p>The opportunity cost of waiting for a dip is larger than the benefit when the dip arrives. Just buy on a schedule. Behavioral discipline matters more than entry timing.</p>
+  </div>
+  <div class="card-foot"><span>Source: AQR 2025</span><span><code>backtests/F13_buy_the_dip.py</code></span></div>
+</article>
+
+<article class="card" style="display:none">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">J03</span><h3>Super Bowl Indicator — Confirmed Null</h3></div>
+    <div class="right">equities · 31 years</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">3.63%</div><div class="ml">strategy CAGR</div></div>
+    <div class="m"><div class="mv neg">-7.6pp</div><div class="ml">vs SPY B&amp;H</div></div>
+    <div class="m"><div class="mv">0.34</div><div class="ml">Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism (claimed)</h4>
+    <p>Stovall (1978): NFC team Super Bowl win = bull market that year; AFC win = bear. ~80% hit rate 1967-1989.</p>
+    <h4>What the data shows</h4>
+    <div class="counter">Confirmed null. Underperforms SPY by 7.6pp CAGR over 31 years. t=1.89 is mostly base-rate (markets up ~70% of years anyway). Textbook example of data-mining survivorship.</div>
+  </div>
+  <div class="card-foot"><span>Source: Krueger-Kennedy JF 1990</span><span><code>backtests/J03_super_bowl.py</code></span></div>
+</article>
+
+<!-- ================== APPENDIX ================== -->
+<h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
+<p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
+
+<div class="counter">
+<strong>Extension-hunt lesson:</strong> We hunted ~45 NEW signals beyond the original 108 (Phases 1J, 1K, 1L) — all targeting "simple + uniquely novel" rules with originality 8+. Of these, <strong>6 produced positive backtest results</strong>: L6 SEC NT-10K filings (the headline winner), K4 SLOOS Willingness to Lend, K9 Treasury DTS DoD outlays, K5 Phase-3 trial slip (N=9, watch), J7 Fed RRP drain (regime-specific), and L3-inverse Treasury auction direct bidders. The other ~30+ either failed honest backtesting (TIC custody, Form D biotech, FluView, NAHB Traffic, Beige Book uncertainty, FEMA disasters, grain barge, USPS, SBA 7(a)) or hit free-data access barriers (Stooq gated TRIN/breadth, LME paid, PatentsView retired, NRC rate-limited, SNB SPA-only, BPA wind only 7-day rolling, CMS multi-GB joins). <em>This is the expected hit rate.</em> Novelty is correlated with non-edge — if a signal is truly novel and easy to find, someone smarter would already be exploiting it. The boring, well-known signals (Golden Cross, momentum, MVRV) survive precisely because they're robust, not because they're clever.
+</div>
+
+<details open>
+<summary>Calendar / seasonal (9 duds)</summary>
+<ul class="appendix-list">
+<li><span class="id">A01</span><span class="name">Halloween / Sell-in-May</span><span class="why">underperforms B&amp;H on absolute basis (5.7% vs 8.5% CAGR)</span></li>
+<li><span class="id">A02</span><span class="name">Turn-of-Month</span><span class="why">~3.5% CAGR with sig t-stat but tiny exposure</span></li>
+<li><span class="id">A03</span><span class="name">Santa Claus Rally</span><span class="why">7 days/yr, &lt;1% CAGR, no meaningful edge</span></li>
+<li><span class="id">A05</span><span class="name">January Small-Cap Effect</span><span class="why">decayed post-1981; Sharpe 0.10 in 2000-2026</span></li>
+<li><span class="id">A08</span><span class="name">Monthly OPEX Week</span><span class="why">no edge in modern sample</span></li>
+<li><span class="id">A10</span><span class="name">Lunar Phase</span><span class="why">Sharpe 0.24, mostly noise</span></li>
+<li><span class="id">A11</span><span class="name">DST anomaly (Mon after)</span><span class="why">n=53, t=-0.54 not significant</span></li>
+<li><span class="id">A13</span><span class="name">Presidential Cycle Year-3</span><span class="why">historically real but only 6 exposure years in 27</span></li>
+<li><span class="id">A15</span><span class="name">Halloween × ToM combo</span><span class="why">tighter than A01 alone but no real edge</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Volatility / sentiment (8 duds)</summary>
+<ul class="appendix-list">
+<li><span class="id">B02</span><span class="name">VIX &gt; 30 contrarian</span><span class="why">triggers too rarely (2008, 2011, 2020)</span></li>
+<li><span class="id">B03</span><span class="name">VVIX/VIX ratio</span><span class="why">Sharpe 0.39, underperforms SPY</span></li>
+<li><span class="id">B05</span><span class="name">CBOE Put/Call ratio</span><span class="why">FAIL — no free API history</span></li>
+<li><span class="id">F01</span><span class="name">AAII bull-bear extremes</span><span class="why">Sharpe 0.26, weak filter</span></li>
+<li><span class="id">F02</span><span class="name">NAAIM exposure extremes</span><span class="why">Sharpe 0.26, similarly weak</span></li>
+<li><span class="id">F06</span><span class="name">DeMark TD Sequential</span><span class="why">fading 9-bar setups loses (-1.14% CAGR)</span></li>
+<li><span class="id">F10</span><span class="name">MACD bullish divergence</span><span class="why">Sharpe 0.16, marginal</span></li>
+<li><span class="id">F11</span><span class="name">Bollinger Band squeeze</span><span class="why">few setups, weak edge</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Cross-asset rotation (8 duds)</summary>
+<ul class="appendix-list">
+<li><span class="id">C03</span><span class="name">Copper/Gold → 10Y</span><span class="why">Sharpe 0.34, weak</span></li>
+<li><span class="id">C04</span><span class="name">Gold/Silver mean reversion</span><span class="why">Sharpe 0.35, ratio &gt; 90 events rare</span></li>
+<li><span class="id">C10</span><span class="name">HY OAS regime</span><span class="why">backtest unreliable — FRED truncates to 3y without API key</span></li>
+<li><span class="id">C12</span><span class="name">ACM 10Y term premium</span><span class="why">tiny short-TLT trickle</span></li>
+<li><span class="id">C13</span><span class="name">TIPS breakeven → DBC</span><span class="why">Sharpe 0.01, no signal</span></li>
+<li><span class="id">C15</span><span class="name">Multi-horizon trend (1+3+12m)</span><span class="why">Sharpe 0.34, dominated by C14</span></li>
+<li><span class="id">C16</span><span class="name">G4 currency carry</span><span class="why">NEGATIVE Sharpe -0.34, classic post-2008 carry decay</span></li>
+<li><span class="id">C17</span><span class="name">Commodity backwardation/roll</span><span class="why">FAIL — futures curves not free</span></li>
+<li><span class="id">C18</span><span class="name">Big Mac PPP FX</span><span class="why">Sharpe -0.13, needs more currencies</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Equity factor cross-sectional (survivorship-biased basket — read with caveat)</summary>
+<ul class="appendix-list">
+<li><span class="id">D01</span><span class="name">Value (HML)</span><span class="why">Sharpe 0.19 — matches well-known post-2007 HML decline</span></li>
+<li><span class="id">D03</span><span class="name">52-week-high momentum</span><span class="why">flipped negative due to survivorship-biased basket</span></li>
+<li><span class="id">D05</span><span class="name">MAX/lottery effect</span><span class="why">flipped negative — shorting today's NVDA/META is brutal</span></li>
+<li><span class="id">D06</span><span class="name">Idiosyncratic vol puzzle</span><span class="why">flipped negative — same reason</span></li>
+<li><span class="id">D09</span><span class="name">Betting Against Beta</span><span class="why">flipped negative — same reason</span></li>
+<li><span class="id">D11</span><span class="name">Short interest</span><span class="why">FAIL — FINRA bi-monthly bulk parse too heavy</span></li>
+<li><span class="id">D14</span><span class="name">Net stock issuance</span><span class="why">yfinance shares-outstanding only since 2016</span></li>
+<li><span class="id">D17</span><span class="name">Crash risk / coskewness</span><span class="why">Sharpe -0.03, no signal in this basket</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Event-driven SEC (8 duds)</summary>
+<ul class="appendix-list">
+<li><span class="id">E01</span><span class="name">Form 4 cluster insider buying</span><span class="why">-11.5% 252d CAR; sample heavy in failing names (BBBY-style)</span></li>
+<li><span class="id">E05</span><span class="name">Friday-after-close 8-K drift</span><span class="why">null result on large-cap basket</span></li>
+<li><span class="id">E06</span><span class="name">Item 4.02 restatement short</span><span class="why">72% hit rate but huge negative mean from tail recoveries</span></li>
+<li><span class="id">E07</span><span class="name">Schedule 13D activist drift</span><span class="why">-2.6% 18m excess (decayed post-2010)</span></li>
+<li><span class="id">E11</span><span class="name">Pelosi mirror</span><span class="why">+18% but hand-curated sample biased to publicized trades</span></li>
+<li><span class="id">E13</span><span class="name">S&amp;P 500 index inclusion</span><span class="why">+1.1% CAR, decayed (Greenwood-Sammon 2024)</span></li>
+<li><span class="id">NEW01</span><span class="name">USPTO trademark L/S (proxy)</span><span class="why">-17.5% excess — hand-curated proxy captured wrong factor</span></li>
+<li><span class="id">NEW02</span><span class="name">Director Network Interlock</span><span class="why">FAIL — DEF14A bulk parsing infeasible</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Alt-data web (6 duds)</summary>
+<ul class="appendix-list">
+<li><span class="id">G01</span><span class="name">Google Trends "recession"</span><span class="why">Sharpe 0.33, weak in modern OOS</span></li>
+<li><span class="id">G02</span><span class="name">Wikipedia pageview MoM L/S</span><span class="why">Sharpe 0.02 — no edge on static large-cap basket</span></li>
+<li><span class="id">G03</span><span class="name">WSB Reddit mention velocity</span><span class="why">only 23-day API history available</span></li>
+<li><span class="id">G07</span><span class="name">WARN Act layoffs</span><span class="why">only 11 events, t=0.88 noise-bounded</span></li>
+<li><span class="id">G10</span><span class="name">IMF PortWatch China</span><span class="why">Sharpe 0.10, rare signals</span></li>
+<li><span class="id">G12</span><span class="name">HDD/CDD → UNG</span><span class="why">lost money; UNG roll-cost decay (~28%/yr) dominates</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Crypto on-chain (4 duds + 2 fails)</summary>
+<ul class="appendix-list">
+<li><span class="id">H01</span><span class="name">Perp funding rate extremes</span><span class="why">Sharpe -0.18 (Binance geo-blocked from host)</span></li>
+<li><span class="id">H02</span><span class="name">Stablecoin Supply Ratio (SSR)</span><span class="why">Sharpe 0.23, sparse signals</span></li>
+<li><span class="id">H03</span><span class="name">Coinbase Premium</span><span class="why">Sharpe 0.42, useful as filter not standalone</span></li>
+<li><span class="id">H04</span><span class="name">Exchange netflow</span><span class="why">FAIL — paywalled / Cloudflare blocked</span></li>
+<li><span class="id">H09</span><span class="name">Spot BTC ETF flows</span><span class="why">Sharpe 0.19; Farside blocked, used dollar-volume proxy</span></li>
+<li><span class="id">H10</span><span class="name">Coin Days Destroyed</span><span class="why">FAIL — no free CDD series</span></li>
+<li><span class="id">H12</span><span class="name">COT commercials</span><span class="why">Sharpe 0.08 on gold + S&amp;P futures</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Retail pattern TA (most don't work on daily SPY)</summary>
+<ul class="appendix-list">
+<li><span class="id">I01</span><span class="name">ICT Fair Value Gap fill</span><span class="why">Sharpe 0.20 on 360 trades — marginal</span></li>
+<li><span class="id">I02</span><span class="name">ICT Order Block retest</span><span class="why">only 2 trades on daily SPY — spec too strict</span></li>
+<li><span class="id">I04</span><span class="name">Premium/Discount + RSI(2)</span><span class="why">filter reduces Connors edge</span></li>
+<li><span class="id">I05</span><span class="name">Wyckoff Spring</span><span class="why">Sharpe -0.03 on 78 trades — flat</span></li>
+<li><span class="id">I06</span><span class="name">Sam Seiden supply/demand zone</span><span class="why">spec impossible on daily SPY (1 trade)</span></li>
+<li><span class="id">I07</span><span class="name">0.618 Fibonacci pullback</span><span class="why">only 4 trades met spec</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Geopolitical / policy (7 weak)</summary>
+<ul class="appendix-list">
+<li><span class="id">G-1</span><span class="name">GPRT defense drift</span><span class="why">Sharpe 0.33, mild positive but not standalone</span></li>
+<li><span class="id">G-10</span><span class="name">NDAA defense drift</span><span class="why">Sharpe 0.30 on 16 events — borderline</span></li>
+<li><span class="id">G-17</span><span class="name">BoJ surprise YCC tweak</span><span class="why">N=3 events, too small to test</span></li>
+<li><span class="id">G-18</span><span class="name">PBOC RRR cut → FXI</span><span class="why">Sharpe 0.14, weak</span></li>
+<li><span class="id">G-19</span><span class="name">China NPC two-sessions</span><span class="why">Sharpe 0.33, mildly positive (16 events)</span></li>
+<li><span class="id">G-22</span><span class="name">EM election surprise FX fade</span><span class="why">net negative on small sample</span></li>
+<li><span class="id">G-23</span><span class="name">GPR tail-spike BUY SPY</span><span class="why">Sharpe 0.09 — almost flat</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Wildcards (mostly weak)</summary>
+<ul class="appendix-list">
+<li><span class="id">I04_trademark</span><span class="name">USPTO trademark filings L/S</span><span class="why">-19.9% CAGR — hand-curated proxy captured wrong factor</span></li>
+<li><span class="id">I06_lunar</span><span class="name">Lunar January A-shares</span><span class="why">Sharpe 0.14 — sub-buy-and-hold</span></li>
+<li><span class="id">I07_geomag</span><span class="name">Geomagnetic Kp storm exit</span><span class="why">t=2.75 but mostly from time-in-market reduction; excess CAGR -4.6%</span></li>
+<li><span class="id">I10_cardboard</span><span class="name">Containerboard recession pulse</span><span class="why">Sharpe 0.16, weak</span></li>
+<li><span class="id">I12_enso</span><span class="name">ENSO ag commodity pair</span><span class="why">Sharpe -0.17, no edge</span></li>
+<li><span class="id">I14_lny</span><span class="name">LNY pre-holiday Asia drift</span><span class="why">Sharpe 0.19, dominated by time-in-market</span></li>
+</ul>
+</details>
+
+<details>
+<summary>Failed (paid data required or scraping infeasible)</summary>
+<ul class="appendix-list">
+<li><span class="id">A09</span><span class="name">Sunshine effect</span><span class="why">needs NOAA station-level join with index calendar</span></li>
+<li><span class="id">A12</span><span class="name">Treasury auction cycle</span><span class="why">auction calendar parsing too heavy for this pass</span></li>
+<li><span class="id">B07</span><span class="name">Dealer Gamma Exposure (GEX)</span><span class="why">SqueezeMetrics / SpotGamma paid feeds</span></li>
+<li><span class="id">B08</span><span class="name">JPM Collar (JHEQX) pin</span><span class="why">historical short-call strikes require fund-filing parsing</span></li>
+<li><span class="id">G04</span><span class="name">Glassdoor employee reviews</span><span class="why">Glassdoor TOS blocks scraping</span></li>
+<li><span class="id">G05</span><span class="name">LinkedIn hiring velocity</span><span class="why">paid (Revelio/LinkUp/Thinknum)</span></li>
+<li><span class="id">G06</span><span class="name">App Store rank velocity</span><span class="why">paid (Sensor Tower / data.ai)</span></li>
+<li><span class="id">G08</span><span class="name">Walmart/Target satellite parking</span><span class="why">paid (Orbital Insight / RS Metrics)</span></li>
+<li><span class="id">G09</span><span class="name">Crude oil tank shadows</span><span class="why">paid; Sentinel-1 SAR free but heavy GeoTIFF processing</span></li>
+<li><span class="id">G11</span><span class="name">NDVI crop yield</span><span class="why">free but GeoTIFF processing infrastructure heavy</span></li>
+<li><span class="id">G13</span><span class="name">Corporate jet M&amp;A</span><span class="why">ADS-B free but entity-resolution heavy; FAA Privacy degrading</span></li>
+<li><span class="id">G14_jets</span><span class="name">Central-bank Jackson Hole jets</span><span class="why">N~1/year sample</span></li>
+<li><span class="id">G15_edgar</span><span class="name">EDGAR search traffic</span><span class="why">TB-scale logs; SEC anonymized post-2017</span></li>
+</ul>
+</details>
+
+<div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
+
+<div class="footer">
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 108-row catalog</a> for every signal we attempted, including duds. <br>
+Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
+</div>
+
+</main>
+</div>
+
+<script>
+// Filter out the hidden counter-finding cards: drop them from DOM entirely
+document.querySelectorAll('.card[style*="display:none"]').forEach(c => c.remove());
+
+// Infer data-cat on each card from its badge class
+document.querySelectorAll('.card').forEach(card => {
+  const badge = card.querySelector('.badge');
+  if (badge) {
+    const m = badge.className.match(/cat-(\w)/);
+    if (m) card.dataset.cat = m[1];
+  }
+});
+
+// Parse Sharpe/CAGR/t-stat from each card's metrics row → data attributes
+document.querySelectorAll('.card').forEach(card => {
+  card.querySelectorAll('.m').forEach(m => {
+    const labelEl = m.querySelector('.ml');
+    const valEl = m.querySelector('.mv');
+    if (!labelEl || !valEl) return;
+    const label = labelEl.textContent.trim().toLowerCase();
+    const valTxt = valEl.textContent.trim();
+    if (!/\d/.test(valTxt)) return;
+    const num = parseFloat(valTxt.replace(/[^-0-9.]/g, ''));
+    if (isNaN(num)) return;
+    if (label === 'sharpe') card.dataset.sharpe = num;
+    else if (label === 'cagr') card.dataset.cagr = num;
+    else if (label === 't-stat' || label === 'tstat') card.dataset.tstat = num;
+  });
+});
+// Fallback pass: if a card has no plain "cagr", use the first label containing "cagr"
+document.querySelectorAll('.card').forEach(card => {
+  if (card.dataset.cagr) return;
+  for (const m of card.querySelectorAll('.m')) {
+    const label = (m.querySelector('.ml')?.textContent || '').trim().toLowerCase();
+    if (!label.includes('cagr')) continue;
+    const valTxt = (m.querySelector('.mv')?.textContent || '').trim();
+    if (!/\d/.test(valTxt)) continue;
+    const num = parseFloat(valTxt.replace(/[^-0-9.]/g, ''));
+    if (!isNaN(num)) { card.dataset.cagr = num; break; }
+  }
+});
+
+// Sort all .card siblings by data attribute (desc). Hidden (display:none) cards stay hidden.
+function sortCards(key) {
+  const main = document.querySelector('main.container');
+  if (!main) return;
+  const cards = [...document.querySelectorAll('.card')];
+  // Anchor: insert before the appendix h2 (or its predecessor empty-msg)
+  const appendix = document.getElementById('appendix') || document.getElementById('empty-msg');
+  cards.sort((a, b) => {
+    const av = parseFloat(a.dataset[key]);
+    const bv = parseFloat(b.dataset[key]);
+    if (isNaN(av) && isNaN(bv)) return 0;
+    if (isNaN(av)) return 1;
+    if (isNaN(bv)) return -1;
+    return bv - av;
+  });
+  cards.forEach(c => {
+    if (appendix && appendix.parentElement === main) main.insertBefore(c, appendix);
+    else main.appendChild(c);
+  });
+}
+
+// ===== Per-strategy tabs in sidebar =====
+const stratNav = document.getElementById('strategy-nav');
+const appendixSection = document.getElementById('appendix');
+const appendixDetails = [...document.querySelectorAll('main.container > details, main.container > .counter')];
+
+const CAGR_FLOOR = 10;  // Only show strategies beating ~10%/yr (S&P long-run avg)
+
+// A card is "crypto" if its h3 / asset text references BTC, ETH, or crypto-specific concepts.
+function isCryptoCard(card) {
+  const h3 = (card.querySelector('h3')?.textContent || '').toLowerCase();
+  const right = (card.querySelector('.card-head .right')?.textContent || '').toLowerCase();
+  const blob = h3 + ' ' + right;
+  return /\b(btc|eth|crypto|miner|halving|mvrv|nupl|puell|hash ribbons|steth)\b/.test(blob);
+}
+
+function buildStratLink(card, sortKey) {
+  if (!card.id) card.id = 'card-' + Math.random().toString(36).slice(2, 8);
+  const badge = card.querySelector('.badge');
+  const h3 = card.querySelector('h3');
+  const cat = card.dataset.cat || '';
+  const idLabel = badge ? badge.textContent.trim() : '';
+  let name = h3 ? h3.textContent.trim() : '(unnamed)';
+  name = name.replace(/^★+\s*/, '').replace(/^\d+\.?\s*/, '');
+  const mv = parseFloat(card.dataset[sortKey]);
+  let metricTxt = '';
+  if (!isNaN(mv)) {
+    if (sortKey === 'cagr') metricTxt = (mv > 0 ? '+' : '') + mv.toFixed(1) + '%';
+    else metricTxt = mv.toFixed(2);
+  }
+  const a = document.createElement('a');
+  a.href = '#' + card.id;
+  a.className = 'strat-link';
+  a.dataset.cardId = card.id;
+  a.innerHTML = `<span class="swatch" style="background:var(--cat-${cat})"></span>` +
+                `<span class="strat-name"><span class="strat-id">${idLabel}</span>${name}</span>` +
+                `<span class="strat-metric">${metricTxt}</span>`;
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    showOnly(card.id);
+  });
+  return a;
+}
+
+let currentGroup = 'noncrypto';
+
+function buildStratNav(sortKey) {
+  stratNav.innerHTML = '';
+  const cards = [...document.querySelectorAll('.card')].filter(c => {
+    const cagr = parseFloat(c.dataset.cagr);
+    return !isNaN(cagr) && cagr >= CAGR_FLOOR;
+  });
+  const sortFn = (a, b) => {
+    const av = parseFloat(a.dataset[sortKey]);
+    const bv = parseFloat(b.dataset[sortKey]);
+    if (isNaN(av) && isNaN(bv)) return 0;
+    if (isNaN(av)) return 1;
+    if (isNaN(bv)) return -1;
+    return bv - av;
+  };
+  const groupCards = currentGroup === 'crypto'
+    ? cards.filter(isCryptoCard).sort(sortFn)
+    : cards.filter(c => !isCryptoCard(c)).sort(sortFn);
+
+  // Update tab counts
+  const allCrypto = cards.filter(isCryptoCard).length;
+  const allNonCrypto = cards.length - allCrypto;
+  document.querySelector('.group-tabs button[data-group="noncrypto"]').textContent = `Non-crypto (${allNonCrypto})`;
+  document.querySelector('.group-tabs button[data-group="crypto"]').textContent = `Crypto (${allCrypto})`;
+
+  groupCards.forEach(c => stratNav.appendChild(buildStratLink(c, sortKey)));
+}
+
+// Wire up the group-tabs toggle
+document.querySelectorAll('.group-tabs button[data-group]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.group-tabs button[data-group]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentGroup = btn.dataset.group;
+    const activeSort = document.querySelector('.sidebar .controls button.active');
+    buildStratNav(activeSort ? activeSort.dataset.sort : 'cagr');
+    // Open first strategy in the new group
+    const firstLink = document.querySelector('.strat-link');
+    if (firstLink) showOnly(firstLink.dataset.cardId);
+  });
+});
+
+function showOnly(cardId) {
+  document.querySelectorAll('.card').forEach(c => {
+    c.style.display = (c.id === cardId) ? '' : 'none';
+  });
+  // Hide appendix when viewing a single strategy
+  appendixDetails.forEach(d => { d.style.display = 'none'; });
+  if (appendixSection) appendixSection.style.display = 'none';
+  document.querySelectorAll('.strat-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.cardId === cardId);
+  });
+  document.getElementById('show-appendix').classList.remove('active');
+  document.getElementById('show-all').classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showAll() {
+  document.querySelectorAll('.card').forEach(c => { c.style.display = ''; });
+  appendixDetails.forEach(d => { d.style.display = ''; });
+  if (appendixSection) appendixSection.style.display = '';
+  document.querySelectorAll('.strat-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('show-appendix').classList.remove('active');
+  document.getElementById('show-all').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showAppendix() {
+  document.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
+  appendixDetails.forEach(d => { d.style.display = ''; });
+  if (appendixSection) appendixSection.style.display = '';
+  document.querySelectorAll('.strat-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('show-appendix').classList.add('active');
+  document.getElementById('show-all').classList.remove('active');
+  window.scrollTo({ top: appendixSection ? appendixSection.offsetTop - 20 : 0, behavior: 'smooth' });
+}
+
+document.getElementById('show-all').addEventListener('click', (e) => {
+  e.preventDefault(); showAll();
+});
+document.getElementById('show-appendix').addEventListener('click', (e) => {
+  e.preventDefault(); showAppendix();
+});
+
+// Wire up sort buttons → rebuild sidebar + keep current selection
+const sortButtons = document.querySelectorAll('.sidebar .controls button[data-sort]');
+sortButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    sortButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const activeCard = document.querySelector('.strat-link.active');
+    const activeId = activeCard ? activeCard.dataset.cardId : null;
+    buildStratNav(btn.dataset.sort);
+    // Restore active state
+    if (activeId) {
+      const restored = document.querySelector('.strat-link[data-card-id="' + activeId + '"]');
+      if (restored) restored.classList.add('active');
+    }
+  });
+});
+
+// Initial build: sort by CAGR and show the top strategy
+buildStratNav('cagr');
+const heroCount = document.getElementById('hero-count');
+if (heroCount) heroCount.textContent = document.querySelectorAll('.strat-link').length;
+const firstLink = document.querySelector('.strat-link');
+if (firstLink) showOnly(firstLink.dataset.cardId);
+</script>
+
+</body>
+</html>
