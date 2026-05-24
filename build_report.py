@@ -11,7 +11,7 @@ from html import escape
 ROOT = Path(__file__).resolve().parent
 RESULTS = ROOT / "results"
 RESEARCH = ROOT / "research"
-OUT = ROOT / "index.html"
+OUT = ROOT / "full_catalog.html"
 
 
 # ---------- catalog metadata ----------
@@ -157,12 +157,17 @@ def load_results():
         sid = fp.stem
         meta = CATALOG.get(sid)
         if not meta:
-            # try without trailing description: take first 3 segments split by _
             base = "_".join(sid.split("_")[:3])
             meta = CATALOG.get(base)
         if not meta:
-            print(f"no catalog entry for {sid}")
-            meta = ("?","(uncatalogued)","?","?",0,0,"","")
+            # Fall back to inferring from JSON extras + filename
+            cat_letter = sid[0] if sid and sid[0].isalpha() else "?"
+            # Derive a display name from the suffix after the prefix
+            parts = sid.split("_", 1)
+            name_part = parts[1].replace("_", " ").title() if len(parts) > 1 else sid
+            rule_or_mech = data.get("rule") or data.get("mechanism") or ""
+            src_str = data.get("source") or ""
+            meta = (cat_letter, name_part, "?", "?", 0, 0, rule_or_mech[:120], src_str[:120])
 
         cat, name, asset, horizon, orig, bt_feas, desc, src = meta
         results.append({
