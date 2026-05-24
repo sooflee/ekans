@@ -280,11 +280,11 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <header class="hero">
   <div class="hero-main">
     <h1>High-Return Trading Signals</h1>
-    <p class="sub">Strategies beating ~10% CAGR (S&amp;P long-run avg). Grouped in the sidebar as crypto vs non-crypto — crypto has been having a standout decade and dominates the high-CAGR tail. Click a tab to open a strategy.</p>
+    <p class="sub">Backtested strategies with positive CAGR (S&amp;P long-run benchmark ~10%/yr for reference). Grouped in the sidebar as crypto vs non-crypto — crypto has been having a standout decade and dominates the high-CAGR tail. Click a tab to open a strategy.</p>
     <div class="stats">
-      <div class="stat"><span class="v" id="hero-count">—</span><span class="l">strategies ≥10% CAGR</span></div>
-      <div class="stat"><span class="v">~205</span><span class="l">backtested</span></div>
-      <div class="stat"><span class="v">~320</span><span class="l">in raw catalog</span></div>
+      <div class="stat"><span class="v" id="hero-count">—</span><span class="l">strategies shown</span></div>
+      <div class="stat"><span class="v">234</span><span class="l">backtested OK</span></div>
+      <div class="stat"><span class="v">314</span><span class="l">total tested</span></div>
     </div>
   </div>
   <aside class="hero-disclaimer">
@@ -308,13 +308,83 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <h4>Other</h4>
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
-  <a href="full_catalog.html">Full catalog (108) ↗</a>
+  <a href="full_catalog.html">Full catalog (314) ↗</a>
 </aside>
 
 <main class="container">
 
 
 <!-- All trading signals, sorted by CAGR descending by default -->
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">Z4</span><h3>★ Wells Notice → Litigation Release Gap (Long Stressed Equity)</h3></div>
+    <div class="right">single-name equity · ~6 months hold · 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.66</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-65%</div><div class="ml">MaxDD ⚠</div></div>
+    <div class="m"><div class="mv">1.25</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv warn">10</div><div class="ml">events ⚠</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>SEC Wells Notice is a self-disclosed pre-litigation notification — the issuer reveals in its 10-Q risk factors that SEC staff intends to recommend enforcement. This is the moment of maximum uncertainty, and the market typically prices in a worst-case outcome. Subsequent negotiation usually narrows the charges (settlements + reduced penalties), and a "relief rally" of partial information accumulates between Wells disclosure and final litigation release (~6-month median gap).</p>
+    <h4>Rule</h4>
+    <div class="rule">Long the issuer between Wells Notice self-disclosure (in 10-Q) and SEC litigation release. Hold from Wells disclosure date to litigation release date (median ~6 months).</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Heavy caveats:</strong> N=10 events. Curated panel skewed to small-caps (NKLA, BLNK type names); 8 of 18 attempted tickers delisted from yfinance — survivorship bias likely <em>understates</em> the volatility (the survivors did well; the bankrupted ones drop out). -65% MaxDD is real. If the Wells results in a referred criminal parallel case, the relief rally never materializes. Position-size accordingly — this is not a "set and forget" strategy.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; SEC EDGAR Wells Notice 10-Q disclosures + Litigation Releases</span><span><code>backtests/Z4_wells_to_litigation_gap.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">Z6</span><h3>★ Antitrust Complaint Filing → Long Defendant (Reversion)</h3></div>
+    <div class="right">single-name equity · 90-day hold · 17 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.70</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-30%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.47</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+5.7%</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Government antitrust win rates in federal court have been below 50% over the last decade (DOJ + FTC combined). The market reacts negatively to complaint filings, often overweighting the loss probability — partly because most "probe" coverage has already leaked the case before filing. The actual complaint filing thus marks a local information low: the defendant files motions to dismiss within ~30 days, and 50%+ of these motions succeed at trial.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long the defendant single-name on the close of any day a federal antitrust complaint is filed by DOJ Antitrust Division or FTC; exit after 90 trading days.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">17 events curated from 2015-2024 (Microsoft-Activision, Visa, Google search, etc.). Sharpe 0.70, +5.7pp excess CAGR vs SPY. Cases where DOJ secures a rare preliminary injunction (e.g., some recent merger-block actions) cause permanent impairment, not reversion. The strategy implicitly bets on continued government weakness in antitrust litigation — a regime that may shift under future administrations.</div>
+  </div>
+  <div class="card-foot"><span>Source: own research; justice.gov/atr/antitrust-case-filings + ftc.gov/legal-library</span><span><code>backtests/Z6_antitrust_reversion.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">Y5</span><h3>★ De-SPAC Short Post High-Redemption Close</h3></div>
+    <div class="right">single-name equity short · 40-day hold · 16 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.58</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+14.2%</div><div class="ml">per-event excess vs SPY</div></div>
+    <div class="m"><div class="mv pos">75%</div><div class="ml">hit rate</div></div>
+    <div class="m"><div class="mv">16</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When a SPAC completes its merger with >85% redemption rate, the resulting public entity has a tiny float relative to the warrant overhang + sponsor-promote share unlocks. The early post-close window features pump-driven mispricing as the tiny remaining float gets squeezed by retail; then 90-180 days later, PIPE lockups expire and sponsor-promote shares hit the tape (Gahng-Ritter-Zhang RFS 2023). Klausner-Ohlrogge-Ruan also documented ~50% underperformance over 12 months for high-redemption de-SPACs.</p>
+    <h4>Rule</h4>
+    <div class="rule">Short the de-SPAC common stock at the close of day +5 after deal close, when redemption rate exceeded 85% and the stock closed above $10. Cover at day +45 or on a 30% decline.</div>
+    <h4>Why it stands out</h4>
+    <p>Strongest event-driven finding from this round. t=2.58 across 16 events. 75% hit rate. Mean +14.2% short excess per event over ~2 months. Mechanism is mechanical (forced supply unlock) and academically documented.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Hard-to-borrow names with low float can short-squeeze 200%+ before the structural decline begins — position sizing must cap individual exposure and pre-check borrow. The strategy is regime-dependent on the SPAC boom of 2020-2023; future SPAC cohorts will differ. Curated event list from 16 deals; broader basket may dilute the per-event edge.</div>
+  </div>
+  <div class="card-foot"><span>Source: Klausner-Ohlrogge-Ruan 2022; Gahng-Ritter-Zhang RFS 2023</span><span><code>backtests/Y5_de_spac_short.py</code></span></div>
+</article>
 
 <article class="card">
   <div class="card-head">
@@ -576,7 +646,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <article class="card">
   <div class="card-head">
-    <div class="left"><span class="badge cat-A">A14</span><h3>Bitcoin Halving Cycle Calendar</h3></div>
+    <div class="left"><span class="badge cat-A">A14</span><h3>★★ Bitcoin Halving Cycle Calendar</h3></div>
     <div class="right">crypto · multi-year · 2014-09 → 2026-05</div>
   </div>
   <div class="metrics">
@@ -603,7 +673,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <article class="card">
   <div class="card-head">
-    <div class="left"><span class="badge cat-H">H06</span><h3>MVRV Z-Score (Bitcoin)</h3></div>
+    <div class="left"><span class="badge cat-H">H06</span><h3>★ MVRV Z-Score (Bitcoin)</h3></div>
     <div class="right">crypto · 6–24 months</div>
   </div>
   <div class="metrics">
@@ -1292,114 +1362,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: D. Puell; Glassnode</span><span><code>backtests/H07_puell_multiple.py</code>, <code>H08_nupl.py</code></span></div>
 </article>
 
-<!-- ================== COUNTER-FINDINGS REMOVED ==================
-The original Tier 5 (5 counter-finding cards) was removed for the "high-return signals only" view.
-They remain visible in full_catalog.html.
-================================================================== -->
-
-<article class="card" style="display:none">
-  <div class="card-head">
-    <div class="left"><span class="badge cat-I">I03</span><h3>Liquidity Sweep Fade — IT LOSES</h3></div>
-    <div class="right">equities · 472 trades on daily SPY</div>
-  </div>
-  <div class="metrics">
-    <div class="m"><div class="mv neg">-0.44</div><div class="ml">Sharpe</div></div>
-    <div class="m"><div class="mv neg">-1.98%</div><div class="ml">CAGR</div></div>
-    <div class="m"><div class="mv neg">-2.26</div><div class="ml">t-stat</div></div>
-  </div>
-  <div class="section">
-    <h4>What ICT/SMC teaches</h4>
-    <p>"Price spikes above the prior 20-day high but closes back below it" — interpreted as a "stop hunt" / "liquidity sweep" where institutions filled orders against retail stops. The teaching is to fade (short the breakout).</p>
-    <h4>What the data shows</h4>
-    <div class="counter">Significantly NEGATIVE result. On 472 trades from 2000-2026, fading SPY breakouts above 20-day highs lost money with t=-2.26 — statistically significant in the WRONG direction. SPY breakouts above the 20-day high tend to <strong>follow through up</strong>, not fade. The ICT "liquidity sweep" framework's core trade is exactly inverted from what works on the largest, most liquid equity index in the world.</div>
-    <h4>What this means</h4>
-    <p>If you're going to trade these patterns, do the opposite — buy breakouts, don't fade them. Or use this finding as evidence that the ICT framework needs much more rigor than its TikTok presentation provides.</p>
-  </div>
-  <div class="card-foot"><span>Source (the framework): ICT/SMC TikTok universe</span><span><code>backtests/I03_liquidity_sweep.py</code></span></div>
-</article>
-
-<article class="card" style="display:none">
-  <div class="card-head">
-    <div class="left"><span class="badge cat-K">G-14</span><h3>Pre-FOMC + Dovish Filter — Filter Destroys Edge</h3></div>
-    <div class="right">equities · 1-2 days · 97 FOMC events</div>
-  </div>
-  <div class="metrics">
-    <div class="m"><div class="mv pos">0.49</div><div class="ml">Sharpe UNCONDITIONAL</div></div>
-    <div class="m"><div class="mv neg">0.07</div><div class="ml">Sharpe with dovish filter</div></div>
-    <div class="m"><div class="mv neg">−7×</div><div class="ml">edge reduction</div></div>
-  </div>
-  <div class="section">
-    <h4>What recent literature suggests</h4>
-    <p>Some post-2024 work argues the Lucca-Moench pre-FOMC drift is regime-conditional: it only works when the 2-year yield change is below median (i.e., dovish/easing environment).</p>
-    <h4>What the data shows</h4>
-    <div class="counter">Adding the dovish-DGS2 filter <strong>DESTROYS</strong> the edge. Unconditional Sharpe 0.49 (t=2.49). Conditional-on-dovish Sharpe 0.07 (t=0.37). The "smart" filter is wrong-direction in this implementation — the clean Lucca-Moench rule is the better one.</div>
-    <h4>What this means</h4>
-    <p>Be skeptical of regime-based "refinements" of base signals. Adding conditioning variables increases the degrees of freedom and the risk of overfit.</p>
-  </div>
-  <div class="card-foot"><span><code>backtests/G14_prefomc_regime.py</code></span></div>
-</article>
-
-<article class="card" style="display:none">
-  <div class="card-head">
-    <div class="left"><span class="badge cat-K">G-15</span><h3>US Election VIX Ramp — Roll Drag Destroys It</h3></div>
-    <div class="right">VIXY · 30-180 days · 4 elections</div>
-  </div>
-  <div class="metrics">
-    <div class="m"><div class="mv neg">-9.01%</div><div class="ml">CAGR</div></div>
-    <div class="m"><div class="mv neg">-86.3%</div><div class="ml">MaxDD</div></div>
-    <div class="m"><div class="mv neg">-0.21</div><div class="ml">Sharpe</div></div>
-  </div>
-  <div class="section">
-    <h4>What the conventional wisdom says</h4>
-    <p>VIX rises in the 6 months before US presidential elections and collapses within 30 days post-election. Buy vol into the election, sell after.</p>
-    <h4>What the data shows</h4>
-    <div class="counter">Catastrophic in the listed-product implementation. Long VIXY from T-120 to T-5 across 4 elections produces -9% CAGR and -86% drawdown. The realized vol bump is real, but VIXY's roll cost (constant futures rolling in contango) destroys the trade.</div>
-    <h4>What this means</h4>
-    <p>The signal isn't wrong — vol does rise. But the instrument matters more than the signal. SPY straddles would be a better expression; VIX futures positions held to expiry would be better; ANYTHING but VIXY/VXX (which lose ~80%/year to roll in normal contango).</p>
-  </div>
-  <div class="card-foot"><span><code>backtests/G15_election_vix.py</code></span></div>
-</article>
-
-<article class="card" style="display:none">
-  <div class="card-head">
-    <div class="left"><span class="badge cat-F">F13</span><h3>"Buy The Dip" vs Simple DCA — DCA Wins</h3></div>
-    <div class="right">S&amp;P 500 · 1990-present</div>
-  </div>
-  <div class="metrics">
-    <div class="m"><div class="mv pos">DCA wins</div><div class="ml">terminal wealth</div></div>
-    <div class="m"><div class="mv pos">~$435k</div><div class="ml">DCA advantage</div></div>
-    <div class="m"><div class="mv">0.55</div><div class="ml">DCA Sharpe</div></div>
-  </div>
-  <div class="section">
-    <h4>What the conventional wisdom says</h4>
-    <p>"Wait for a 10% (or 20%) pullback before deploying cash" — every personal finance influencer's advice.</p>
-    <h4>What the data shows</h4>
-    <div class="counter">Simple monthly DCA ($1/month into SPY) beats waiting-for-10%-dip by ~$435k cumulative terminal wealth on $1/mo deposits over 1990-present. AQR (2025) tested 196 dip-buying variants; DCA beat &gt;60% of them. The dip-waiter sits in cash too long and misses compounding.</div>
-    <h4>What this means</h4>
-    <p>The opportunity cost of waiting for a dip is larger than the benefit when the dip arrives. Just buy on a schedule. Behavioral discipline matters more than entry timing.</p>
-  </div>
-  <div class="card-foot"><span>Source: AQR 2025</span><span><code>backtests/F13_buy_the_dip.py</code></span></div>
-</article>
-
-<article class="card" style="display:none">
-  <div class="card-head">
-    <div class="left"><span class="badge cat-J">J03</span><h3>Super Bowl Indicator — Confirmed Null</h3></div>
-    <div class="right">equities · 31 years</div>
-  </div>
-  <div class="metrics">
-    <div class="m"><div class="mv">3.63%</div><div class="ml">strategy CAGR</div></div>
-    <div class="m"><div class="mv neg">-7.6pp</div><div class="ml">vs SPY B&amp;H</div></div>
-    <div class="m"><div class="mv">0.34</div><div class="ml">Sharpe</div></div>
-  </div>
-  <div class="section">
-    <h4>Mechanism (claimed)</h4>
-    <p>Stovall (1978): NFC team Super Bowl win = bull market that year; AFC win = bear. ~80% hit rate 1967-1989.</p>
-    <h4>What the data shows</h4>
-    <div class="counter">Confirmed null. Underperforms SPY by 7.6pp CAGR over 31 years. t=1.89 is mostly base-rate (markets up ~70% of years anyway). Textbook example of data-mining survivorship.</div>
-  </div>
-  <div class="card-foot"><span>Source: Krueger-Kennedy JF 1990</span><span><code>backtests/J03_super_bowl.py</code></span></div>
-</article>
-
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -1564,7 +1526,7 @@ They remain visible in full_catalog.html.
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 108-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 314-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
@@ -1639,7 +1601,7 @@ const stratNav = document.getElementById('strategy-nav');
 const appendixSection = document.getElementById('appendix');
 const appendixDetails = [...document.querySelectorAll('main.container > details, main.container > .counter')];
 
-const CAGR_FLOOR = 10;  // Only show strategies beating ~10%/yr (S&P long-run avg)
+const CAGR_FLOOR = 0;  // Show strategies with any positive backtested CAGR
 
 // A card is "crypto" if its h3 / asset text references BTC, ETH, or crypto-specific concepts.
 function isCryptoCard(card) {
@@ -1782,7 +1744,13 @@ sortButtons.forEach(btn => {
 // Initial build: sort by CAGR and show the top strategy
 buildStratNav('cagr');
 const heroCount = document.getElementById('hero-count');
-if (heroCount) heroCount.textContent = document.querySelectorAll('.strat-link').length;
+if (heroCount) {
+  const total = [...document.querySelectorAll('.card')].filter(c => {
+    const cagr = parseFloat(c.dataset.cagr);
+    return !isNaN(cagr) && cagr >= CAGR_FLOOR;
+  }).length;
+  heroCount.textContent = total;
+}
 const firstLink = document.querySelector('.strat-link');
 if (firstLink) showOnly(firstLink.dataset.cardId);
 </script>
