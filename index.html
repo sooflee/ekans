@@ -10,7 +10,7 @@
   --fg: #e6e9ef; --fg-dim: #9ca3af;
   --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
   --border: #2d3548;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --cat-A: #a78bfa; --cat-B: #fb7185; --cat-C: #34d399; --cat-D: #fbbf24;
   --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
@@ -1401,6 +1401,31 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: D. Puell; Glassnode</span><span><code>backtests/H07_puell_multiple.py</code>, <code>H08_nupl.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">AC-6</span><h3>★ Saudi Fiscal Breakeven → Brent</h3></div>
+    <div class="right">commodities · ~3 months (Q1 only) · 2018-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.84</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">~16%</div><div class="ml">CAGR (portfolio)</div></div>
+    <div class="m"><div class="mv pos">+27.2%</div><div class="ml">mean / event</div></div>
+    <div class="m"><div class="mv pos">3.38</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">6 / 9</div><div class="ml">events triggered</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Saudi Arabia publishes its annual budget in late December assuming an implicit oil price — the "fiscal breakeven." When that figure sits materially above market Brent, the Saudi government has fiscal and political incentive to engineer supply cuts or extensions at the next OPEC+ JMMC. The Saudi budget document is the most actionable forward indicator of OPEC+ supply policy — printed weeks before the analyst chatter and months before the meeting itself.</p>
+    <h4>Rule</h4>
+    <div class="rule">On Jan 2 each year: if (Saudi budget fiscal breakeven − front-month Brent) &gt; $12, long Brent (BZ=F) from Jan 2 through Mar 31. Otherwise stay in cash.</div>
+    <h4>Why it's promising</h4>
+    <p>5 of 6 triggered Q1 windows were positive: 2018 (+5.6%), 2019 (+24.5%), 2021 (+24.4%), 2024 (+15.3%), 2026 (+94.8%); only 2025 lost (−1.6%). Geometric portfolio CAGR holding cash in untriggered years is ~16%. Strip 2026 as an outlier and the mean per-window is still ~13%. The 3-month Saudi budget → JMMC reaction loop is fundamentally hard to arbitrage because the read requires patient calendar discipline, not infrastructure.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 triggered events — small sample. 2026's +94.8% return was amplified by simultaneous geopolitical shock to Brent ($60→$118); treat as a partial confound. Breakeven figures come from IMF Article IV reports (annual, published with ~6-month lag) and the Saudi MoF — these are estimates, not contracts. US shale supply growth can cap Brent even when Saudi cuts; gate down when US rig count is rising &gt;5%/quarter. Brent futures roll costs not included.</div>
+  </div>
+  <div class="card-foot"><span>Source: IMF Article IV MENA REO; Saudi MoF budget</span><span><code>backtests/AC6_saudi_breakeven_brent.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -1519,7 +1544,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 </details>
 
 <details>
-<summary>Geopolitical / policy (7 weak)</summary>
+<summary>Geopolitical / policy / budget cycles (12 — real edge but low magnitude or failed)</summary>
 <ul class="appendix-list">
 <li><span class="id">G-1</span><span class="name">GPRT defense drift</span><span class="why">Sharpe 0.33, mild positive but not standalone</span></li>
 <li><span class="id">G-10</span><span class="name">NDAA defense drift</span><span class="why">Sharpe 0.30 on 16 events — borderline</span></li>
@@ -1528,6 +1553,11 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">G-19</span><span class="name">China NPC two-sessions</span><span class="why">Sharpe 0.33, mildly positive (16 events)</span></li>
 <li><span class="id">G-22</span><span class="name">EM election surprise FX fade</span><span class="why">net negative on small sample</span></li>
 <li><span class="id">G-23</span><span class="name">GPR tail-spike BUY SPY</span><span class="why">Sharpe 0.09 — almost flat</span></li>
+<li><span class="id">AC-1</span><span class="name">US FY-end defense IT (Sep)</span><span class="why">t=2.24 excess vs SPY over 19 yrs, but +0.59% mean per Sep window → portfolio CAGR &lt;1%</span></li>
+<li><span class="id">AC-3</span><span class="name">UK Autumn Statement gilt fade</span><span class="why">0 of 8 statements met the −1.5% prior-drift gate; rule never fires</span></li>
+<li><span class="id">AC-4</span><span class="name">India Union Budget defense pre-drift</span><span class="why">t=3.28 excess vs NIFTY, 6/6 positive — real edge but only +4.9% per ~15-day window → portfolio CAGR ~2.2%</span></li>
+<li><span class="id">AC-10</span><span class="name">Norway GPFG equity-drift short MSCI World</span><span class="why">−30% CAGR — anti-signal; GPFG rebalancing flow swamped by QE-era beta</span></li>
+<li><span class="id">AC-12</span><span class="name">Dec tax-loss IWM bounce (coarse)</span><span class="why">no IWM-vs-SPY edge; real signal needs YTD-loser screen on individual names</span></li>
 </ul>
 </details>
 
@@ -1559,13 +1589,14 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">G13</span><span class="name">Corporate jet M&amp;A</span><span class="why">ADS-B free but entity-resolution heavy; FAA Privacy degrading</span></li>
 <li><span class="id">G14_jets</span><span class="name">Central-bank Jackson Hole jets</span><span class="why">N~1/year sample</span></li>
 <li><span class="id">G15_edgar</span><span class="name">EDGAR search traffic</span><span class="why">TB-scale logs; SEC anonymized post-2017</span></li>
+<li><span class="id">AC-7</span><span class="name">Italy BTP-Bund spread DBP fade</span><span class="why">FRED Italy/Germany yields are monthly (too coarse for 20-day window); BTP10.MI ETF only since Feb 2024</span></li>
 </ul>
 </details>
 
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 314-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 361-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
