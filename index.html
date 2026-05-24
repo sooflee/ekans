@@ -1640,7 +1640,7 @@ const stratNav = document.getElementById('strategy-nav');
 const appendixSection = document.getElementById('appendix');
 const appendixDetails = [...document.querySelectorAll('main.container > details, main.container > .counter')];
 
-const CAGR_FLOOR = 0;  // Show strategies with any positive backtested CAGR
+let CAGR_FLOOR = 10;  // Default; user-adjustable via slider
 
 // A card is "crypto" if its h3 / asset text references BTC, ETH, or crypto-specific concepts.
 function isCryptoCard(card) {
@@ -1780,16 +1780,32 @@ sortButtons.forEach(btn => {
   });
 });
 
+// Wire up the CAGR threshold slider
+const cagrSlider = document.getElementById('cagr-slider');
+const cagrLabel = document.getElementById('cagr-label');
+function updateCagrLabel() {
+  if (cagrLabel) cagrLabel.textContent = CAGR_FLOOR + '%';
+  const hc = document.getElementById('hero-count');
+  if (hc) hc.textContent = document.querySelectorAll('.strat-link').length;
+}
+if (cagrSlider) {
+  cagrSlider.addEventListener('input', () => {
+    CAGR_FLOOR = parseFloat(cagrSlider.value);
+    const activeSort = document.querySelector('.sidebar .controls button.active');
+    buildStratNav(activeSort ? activeSort.dataset.sort : 'cagr');
+    updateCagrLabel();
+    // If current selection is now filtered out, switch to first available
+    const stillActive = document.querySelector('.strat-link.active');
+    if (!stillActive) {
+      const first = document.querySelector('.strat-link');
+      if (first) showOnly(first.dataset.cardId);
+    }
+  });
+}
+
 // Initial build: sort by CAGR and show the top strategy
 buildStratNav('cagr');
-const heroCount = document.getElementById('hero-count');
-if (heroCount) {
-  const total = [...document.querySelectorAll('.card')].filter(c => {
-    const cagr = parseFloat(c.dataset.cagr);
-    return !isNaN(cagr) && cagr >= CAGR_FLOOR;
-  }).length;
-  heroCount.textContent = total;
-}
+updateCagrLabel();
 const firstLink = document.querySelector('.strat-link');
 if (firstLink) showOnly(firstLink.dataset.cardId);
 </script>
