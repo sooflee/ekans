@@ -372,7 +372,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <aside class="sidebar">
   <div class="cagr-threshold">
     <label>Min CAGR <span id="cagr-label">10%</span></label>
-    <input type="range" id="cagr-slider" min="0" max="50" step="1" value="10">
+    <input type="range" id="cagr-slider" min="0" max="50" step="1" value="12">
   </div>
   <div class="group-tabs">
     <button data-group="noncrypto" class="active">Non-crypto</button>
@@ -1847,7 +1847,7 @@ const stratNav = document.getElementById('strategy-nav');
 const appendixSection = document.getElementById('appendix');
 const appendixDetails = [...document.querySelectorAll('main.container > details, main.container > .counter')];
 
-let CAGR_FLOOR = 10;  // Default; user-adjustable via slider
+let CAGR_FLOOR = 12;  // Default; user-adjustable via slider
 
 // A card is "crypto" if its h3 / asset text references BTC, ETH, or crypto-specific concepts.
 function isCryptoCard(card) {
