@@ -1,0 +1,1041 @@
+<!-- Validation Cards — generated 2025-05-25 -->
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Wells Notice to Litigation Release Gap</h3></div>
+    <div class="right">Z4</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=10)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>N=10 surviving events from a curated panel where 8 of 18 tickers were delisted from yfinance -- classic survivorship bias that flatters returns. The t-stat of 1.25 does not clear significance. Max drawdown of -65% on small-cap stressed names makes this extremely difficult to hold live, and borrow/spread costs on names like NKLA and BLNK would materially erode the 23% CAGR.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A Wells Notice escalates to a parallel criminal referral, eliminating the "relief rally" entirely and producing total impairment.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Antitrust Complaint Filing Reversion</h3></div>
+    <div class="right">Z6</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=17)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Clean mechanism (government antitrust win rates below 50%) with 17 events across mostly mega-cap defendants (MSFT, GOOGL, META, AAPL) so transaction costs are negligible. t-stat of 1.47 is below the 1.96 threshold, and the strategy implicitly bets on continued weak government enforcement -- a policy regime that could shift. Rule is simple (one parameter: 90-day hold), so overfitting risk is low.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A future administration achieves a string of successful antitrust breakup orders, shifting the market's prior from "complaints are toothless" to "complaints are existential."</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>De-SPAC Short Post High-Redemption</h3></div>
+    <div class="right">Y5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=16)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Strongest event-driven t-stat in the catalog at 2.58 with 75% hit rate and a clear mechanical mechanism (warrant overhang + sponsor-promote unlock). However, this is entirely a 2020-2023 SPAC boom phenomenon -- future SPAC volume is a fraction of peak. Short borrow on low-float de-SPACs can exceed 50% annualized, which would consume most of the +14.2% per-event excess. Academic backing (Gahng-Ritter-Zhang RFS 2023) adds credibility.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The SPAC structure evolves or volume dries up entirely, eliminating the trade universe; alternatively, a short squeeze on a tiny float wipes out multiple events' gains in one position.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Felder Margin Debt / GDP Regime Indicator</h3></div>
+    <div class="right">V3</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=7900 days, 31yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>31-year sample with t-stat 4.33 is among the most robust in the catalog. The rule is dead simple (one threshold + GDP normalization) applied to quarterly data, making overfitting nearly impossible. Sharpe 0.77 beats SPY's 0.66 with materially lower drawdown (-36.6% vs -55%). The only caveat: excess CAGR is essentially zero -- the value is in risk-adjusted improvement, not absolute outperformance. Quarterly rebalance means near-zero transaction costs.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Margin debt migrates structurally to options, swaps, and crypto leverage not captured by the FINRA series, making the proxy uninformative.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>BTC Difficulty Drop to Long Miner Basket</h3></div>
+    <div class="right">O5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=48)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Strong sample size (48 events) and clear mechanical mechanism (difficulty drops = miner capitulation = survivors capture more revenue). t-stat 2.45 clears significance. However, the miner equity basket (MARA/RIOT/CLSK) carries extreme volatility with -55% MaxDD and actually underperforms BTC buy-and-hold (excess CAGR -12%). The 32.5% CAGR is largely beta to BTC's secular appreciation, not alpha from the signal itself.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Post-ETF institutional flows decouple miner equity prices from hashrate dynamics, or Bitcoin transitions to proof-of-stake (unlikely but structurally possible via fork).</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>BTC Mempool Backlog to Long Miner Basket</h3></div>
+    <div class="right">O4</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=113)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Largest event sample in the crypto batch (113 events) with t-stat 2.22 above significance. The fee-revenue mechanism is real but partially confounded by BTC price momentum (mempool fills during bull runs). MaxDD of -92.5% is catastrophic -- this is a levered BTC-beta play. Excess CAGR vs BTC B&H is -12.8%, meaning the signal adds no alpha over simply holding BTC. Many events overlap with O5 (difficulty drop), so running both double-counts.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Layer-2 adoption (Lightning Network, rollups) structurally reduces mempool congestion, eliminating the fee-spike mechanism.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Howell Global Liquidity 13-Week Lead (BTC)</h3></div>
+    <div class="right">P6</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4265 days, 10yr+)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Strongest crypto signal: Sharpe 1.04, t-stat 4.29, +29pp excess CAGR over BTC buy-and-hold across 10+ years. The mechanism (central bank liquidity drives BTC as a duration asset) has theoretical backing and a well-known proponent (Howell/CrossBorder Capital). The rule is simple (two conditions: level and acceleration) and uses free FRED data. MaxDD of -64.6% is still brutal, and the proxy omits PBOC/SNB. Howell himself flagged a 2025 breakdown where M2 rose but BTC stalled.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">BTC's correlation with global liquidity decouples as ETF flows create a separate demand dynamic, or central banks coordinate a permanent QT regime.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Steno Multi-CB Liquidity Flip (SPY + BTC)</h3></div>
+    <div class="right">P12</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (86 flips, 11yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Decent sample (86 flip events) with t-stat 2.23 above significance. The rule is straightforward (4-week CB balance sheet change flips sign). However, excess CAGR over SPY is only +2.4pp and MaxDD of -48.5% comes from the BTC half of the basket. The signal captures inflection points well but half the portfolio carries crypto-grade drawdowns. The same CB-coverage limitation as P6 applies (no PBOC/SNB).</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Central banks shift to passive balance-sheet management (no active QE/QT cycles), flattening the signal and producing only noise flips.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>FINRA Short Interest Long/Short Basket</h3></div>
+    <div class="right">R-D11</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Weak (N=11, 1yr only)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Only 1 year of history (2024-2026) due to FINRA Reg SHO API's rolling window cap. The Sharpe of 0.79 looks decent but the benchmark (same-universe long-only) achieved Sharpe 2.92 -- meaning the L/S strategy massively underperforms simple buy-and-hold of the same 30 names. The short leg bleeds in a meme-rally regime. 11 monthly rebalance events is insufficient for any statistical confidence. The academic literature (Diether/Lee/Werner) supports the concept but this implementation cannot be validated.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Continued bull market in heavily-shorted names (meme stocks, high-beta tech) causes the short leg to hemorrhage, overwhelming any long-side alpha.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>TSMC Monthly Revenue Surprise to AI-Semi Basket</h3></div>
+    <div class="right">R-N5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=19)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Mechanism is sound (TSMC as leading indicator for semi demand) and the basket is liquid (NVDA/AVGO/AMD/ASML). t-stat 2.29 clears significance with 19 events. However, excess CAGR vs the same basket buy-and-hold is deeply negative (-40%) -- the signal adds no timing value over simply owning the semi names. The 8pp threshold and quarterly hold expansion from the original 10-day spec introduce mild overfitting concern. MaxDD -45% is severe.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">TSMC stops publishing monthly revenue (they've discussed this), or the relationship between foundry revenue and fabless customer stock performance breaks as AI capex dominates the mix.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>USTR Section 301 Comment-Window Close</h3></div>
+    <div class="right">F9</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=10)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Highest Sharpe in the catalog at 1.75, but the t-stat is only 0.85 -- well below significance. The Sharpe is inflated by tiny exposure (only 60 days in-market total across 10 events). N=10 events entirely from the 2018-2025 Trump/Biden trade-war era. Hit rate is 58% with asymmetric payoffs, which is consistent with the mechanism, but the sample is too small and regime-specific to trust. The basket (AAPL/NKE/BBY/WSM) is liquid so costs are negligible.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Future administrations abandon Section 301 in favor of other trade mechanisms (executive orders, IEEPA), eliminating the specific event calendar this signal depends on.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>FDA PDUFA + Favorable AdComm Pre-Drift</h3></div>
+    <div class="right">F5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=24)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>The AdComm filter is clever (restricts to high-approval-probability PDUFAs), but the t-stat of 0.42 is far below significance -- the positive Sharpe of 0.45 is indistinguishable from noise. 24 events is a decent sample yet still fails to produce a reliable signal. Biotech names carry punitive borrow costs and wide bid-ask spreads. Lost 4 tickers to delistings, introducing survivorship concern. The mean per-event return of +0.4% barely covers a round-trip spread.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">FDA accelerates its review timeline (PDUFA VII goals), compressing the pre-decision drift window to zero, or the AdComm process is reformed to reduce the information advantage.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Semiconductor Billings 3-Month Acceleration (SOXX)</h3></div>
+    <div class="right">N4</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=110)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>One of the statistically strongest signals: 110 events over 24 years with t-stat 2.76. The rule is simple (one threshold on a public FRED series) and captures cyclical inflection points in semis with genuine economic logic. SOXX is highly liquid so costs are negligible. MaxDD of -57% reflects staying long through crashes (2008, 2022) -- the signal captures upswings but doesn't exit in time. Excess CAGR vs SOXX B&H is slightly negative (-2.2%), meaning the value is in risk-adjusted timing, not absolute alpha.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">AI-driven structural demand replaces cyclical order patterns, making historical billings acceleration irrelevant as a regime indicator.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>stETH Discount Extreme to Long ETH</h3></div>
+    <div class="right">M3</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Weak (N=6)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Only 6 events, heavily driven by the June 2022 Celsius/3AC collapse. The mechanism (forced-seller capitulation at stETH discount marks ETH bottoms) is intuitive but post-Shapella (April 2023) withdrawals are live, mechanically dampening future discounts via fast arbitrage. The t-stat of 2.46 looks strong but comes from a sample dominated by a single cluster event. This is a "buy capitulation when you see it" heuristic, not a systematic strategy with forward reliability.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Live stETH withdrawals (post-Shapella) mean the peg never breaks enough to trigger the signal again -- the structural condition that created the opportunity has been engineered away.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Bitcoin Halving Cycle Calendar</h3></div>
+    <div class="right">A14</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=3 halvings)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Headline metrics are spectacular (Sharpe 1.20, CAGR 49.9%, t-stat 4.93) but this is fundamentally a 3-observation strategy on the most trending asset of the decade. The t-stat benefits from BTC's secular appreciation, not from the timing rule's independent contribution. +14pp excess CAGR vs BTC B&H is real but derived from N=3 fully observed cycles (2016, 2020, 2024 incomplete). The 2024 halving post-window has not concluded. No amount of in-sample statistics can validate a rule with 3 independent observations.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The ETF era (Jan 2024+) introduces continuous institutional demand flow that dampens the 4-year scarcity cycle, and the diminishing block-subsidy halving impact becomes economically irrelevant.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>MVRV Z-Score (Bitcoin)</h3></div>
+    <div class="right">H06</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (3816 days, 10yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 3.79 is solid across 10 years. The z-score proxy (price/200d MA) is a reasonable approximation of the paywalled realized-cap MVRV. Sharpe 0.97 modestly exceeds BTC B&H's 0.90. However, -76.6% MaxDD means the signal doesn't meaningfully protect from drawdowns. Only ~2 full BTC cycles are observed. The signal adds marginal Sharpe improvement but with catastrophic drawdown, making it a sizing overlay rather than a standalone strategy.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">ETF custody flows don't refresh realized cap the way on-chain transfers do, making the MVRV denominator stale and the z-score unreliable as a valuation anchor.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>BTC-Nasdaq / BTC-Gold Correlation Regime</h3></div>
+    <div class="right">H11</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4206 days, 11yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Excess CAGR is negative (-5%) vs BTC B&H -- the correlation-regime sizing actually hurts returns. The "digital gold" regime occurs only 6.5% of the time, making it statistically untestable. The default 0.75x weight dominates (75% of days), so the strategy is mostly just a diluted BTC hold. Regime classifications are inherently backward-looking (60-day rolling correlations describe the past, not the future), limiting predictive value.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">BTC's correlation structure shifts rapidly between regimes, and the 60-day lookback is always late to the transition, producing whipsaw sizing changes at the worst moments.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Utilities/SPY Ratio (Gayed)</h3></div>
+    <div class="right">C02</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (6632 days, 26yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>26-year sample, t-stat 3.77, Sharpe 0.74 vs SPY's 0.51 with lower drawdown (-31% vs benchmark). Rule is dead simple (one comparison: 4-week XLU vs SPY return). Published and well-known since Gayed 2014, yet the out-of-sample performance has been noisier post-publication. CAGR roughly matches SPY (8.4% vs 8.3%) -- the value is entirely in risk adjustment. Monthly rebalance on liquid ETFs means costs are negligible. One of the most defensible signals in the catalog.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Utilities sector composition changes (AI power demand makes XLU a growth play rather than a defensive one), breaking the "utilities outperformance = risk-off" signal.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Accelerating Dual Momentum</h3></div>
+    <div class="right">C07</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4640 days, 18yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 3.15 over 18 years with Sharpe 0.73. The "accelerating" multi-lookback (1/3/6-month average) picks up regime changes faster than the classic 12-month Antonacci version. However, only 3 assets (SPY/SCZ/TLT) means heavy concentration risk and the lookback choice feels cherry-picked. Excess CAGR over SPY is approximately zero (+0.1%). The 30-year bond bull market turbocharged the TLT bucket -- future performance in a rising-rate environment is questionable.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A sustained period where all three assets decline simultaneously (as in 2022), leaving the model stuck in the worst performer with no defensive hedge.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Margin Debt Year-over-Year</h3></div>
+    <div class="right">F03</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (7899 days, 31yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>31-year sample with t-stat 4.00 and Sharpe 0.72 vs SPY's 0.66. Dead-simple rule (one YoY threshold on quarterly FRED data). Excess CAGR is near zero (+0.2%) -- this is a risk filter, not an alpha generator. Correctly identified peaks in 2000, 2007, 2021. The signal is coincident more than leading, which limits tactical value. Overlaps substantially with V3 (same data, different normalization). Publication lag on quarterly data delays the signal further.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Same as V3: leverage migrates to instruments not captured by FINRA margin statistics (options, crypto margin, synthetic leverage).</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Time-Series Momentum (TSMOM)</h3></div>
+    <div class="right">C14</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (5106 days, 20yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Best risk-adjusted result in the catalog: MaxDD of only -13.5% with Sharpe 0.68 and t-stat 3.07. Rule is textbook (12-month return sign, 1/N weighting) with zero free parameters to overfit. Backed by Moskowitz-Ooi-Pedersen (JFE 2012) and AQR's 137-year evidence. CAGR of 5.5% is modest but the drawdown floor is exceptional. ETF basket (SPY/TLT/GLD/DBC/EFA/EEM) is highly liquid. The 2010s were the weakest decade for trend in 130 years, so recent underperformance is within historical expectations.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A prolonged period of choppy, mean-reverting markets with no sustained trends across any asset class (essentially an extended version of 2011-2019).</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Golden Cross (50/200 SMA)</h3></div>
+    <div class="right">F09</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (6636 days, 26yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>The most boring and most defensible signal: t-stat 3.55 over 26 years with a rule that has exactly zero free parameters (50 and 200 are fixed by convention). Sharpe 0.69 vs SPY's 0.51 with lower drawdown (-34% vs -55%). Universally known for decades, yet continues to work because the value comes from avoiding bear markets, which are rare but catastrophic. Only 27 signal flips in 26 years -- very low turnover. CAGR matches SPY almost exactly (+0.06% excess).</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Extended choppy sideways markets (2015-2016, 2018-2019) produce multiple false crosses that whipsaw the signal, eroding the Sharpe advantage accumulated during clean trends.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Heston-Sadka Same-Calendar-Month Seasonality</h3></div>
+    <div class="right">A16</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (5885 days, 23yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 3.14 with 23 years of data. Walk-forward (no peeking) using a 10-year lookback for each calendar month. However, only ~12 month-of-year observations per decade makes each monthly estimate noisy. Excess CAGR is slightly negative (-1.7%) vs SPY B&H -- the edge is in filtering bad months, not in outperformance. The academic backing (Heston-Sadka JFE 2008, Keloharju et al 2016) is strong. Low-frequency rebalancing (monthly) means minimal costs.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Calendar-month seasonality is driven by institutional flow patterns (tax-loss selling, year-end window dressing) that shift as market microstructure evolves and passive investing dominates.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Faber GTAA 10-Month Moving Average</h3></div>
+    <div class="right">C05</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">High</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4991 days, 20yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>The exceptional -15% MaxDD makes this the best capital-preservation strategy in the catalog. t-stat 2.58 over 20 years. Rule is trivially simple (price above 10-month MA = hold, else cash) applied to 5 diversified ETFs. CAGR of 4.4% is well below SPY B&H (11.5%) -- you pay a heavy absolute-return cost for drawdown protection. The IEF (bonds) bucket carried disproportionate protective value during the 30-year bond bull market. Published and well-known since 2007.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">In a rising-rate environment, the bond bucket (IEF) no longer provides crisis protection (as in 2022), removing the key diversification leg that made the drawdown floor so low.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Dual Momentum (Antonacci GEM)</h3></div>
+    <div class="right">C06</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4566 days, 18yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Well-known published strategy (Antonacci 2013) with t-stat 2.58 over 18 years. Rule is clean (12-month relative + absolute momentum, 3 assets). Sharpe 0.61 is decent but underperforms SPY B&H on CAGR (8.7% vs 11.9%, excess -3.2%). The whipsaws in 2015 and 2018 (going to bonds then back) are characteristic of single-lookback momentum. Sensitive to lookback choice -- practitioners increasingly use blended 3/6/12-month averages (which is essentially C07).</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">US equity exceptionalism continues indefinitely, making the international rotation leg (ACWX) a perpetual drag and the bond fallback (AGG) a trap during rate hikes.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Yield Curve Inversion Equity Timer</h3></div>
+    <div class="right">C08/C09</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (8385 days, 33yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>33-year sample, t-stat 3.73, solid academic pedigree (Estrella-Mishkin 1998). Rule is simple and uses free FRED data. However, the 2022-2024 inversion was the deepest on record and did not produce a recession -- a potential regime break. MaxDD of -55% means the timer doesn't actually protect from crashes (the 12-month delay is too late). ~8 inversion events since 1976 is genuinely small. Excess CAGR is near zero (-0.4%).</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Structural changes in the Treasury market (QE distortions, term premium compression) make yield curve inversions a poor recession predictor going forward, as the 2022-2024 inversion may already demonstrate.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Lumber/Gold Ratio (Gayed)</h3></div>
+    <div class="right">C01</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (5338 days, 21yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.64 over 21 years. The economic logic (lumber = cyclical demand, gold = safe haven) is sound. However, Sharpe 0.57 underperforms SPY's 0.69, and CAGR of 8.1% vs SPY's 11.8% is a significant sacrifice. Lumber futures contract was redesigned in 2022 (smaller LBR contract) creating a data discontinuity. Out-of-sample performance since original 2015 publication has been weaker. Best in clear macro regimes; whipsaws in choppy markets.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The lumber market's structure changes (Canadian softwood tariffs, substitution to engineered wood, housing-start volatility) break the lumber-as-cyclical-barometer relationship.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>VIX Term Structure (VIX/VIX3M)</h3></div>
+    <div class="right">B01</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4646 days, 18yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.60 over 18 years with Sharpe 0.61. The two-threshold system (enter below 0.92, exit above 1.0, re-enter below 0.95) introduces mild parameter-fitting risk. CAGR of 6.6% substantially underperforms SPY B&H (11.2%) because the signal spends long stretches in cash during recoveries. The backwardation regime-detection is well-understood but the signal was catastrophically late during Feb 2018 vol-mageddon and March 2020. Best used as a filter alongside other signals.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">0DTE options and intraday vol dynamics change the VIX term structure's information content, making the 1-month vs 3-month relationship less reliable as a stress indicator.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>MOVE / VIX Ratio</h3></div>
+    <div class="right">C11</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (5782 days, 23yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.67 over 23 years, but Sharpe 0.56 underperforms SPY's 0.68 and CAGR trails by 3pp. The default-long stance means the "high ratio = cash" branch does all the work, while the "low ratio = long" branch is dominated by simply being long. The two threshold parameters (6 and 4) introduce fitting risk. Works well when rates drive equity markets (2022-2024) but fails when growth scares dominate (2020, 2008). Regime-dependent more than robust.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The MOVE index calculation methodology changes, or bond-equity correlation flips permanently positive, making rates volatility uninformative about equity risk.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>SEC NT-10K / NT-10Q Late-Filing Short</h3></div>
+    <div class="right">L6</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=3983)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Largest event sample in the catalog (3,983 events) makes the t-stat of 1.84 harder to dismiss as luck. The rule is dead simple and the data is free (EDGAR). The mechanism is nearly tautological -- companies that cannot file on time have something wrong. However, micro-cap and illiquid names dominate, and borrow costs on these names can be 10-50%+ annualized (not in the backtest). MaxDD of -90% reflects penny-stock data corruption risk. The +2.45% excess CAGR would likely be consumed by shorting fees.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Borrow costs and share availability on micro-cap short targets consume the entire edge, or SEC reforms the NT filing process to reduce the information content of late filings.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>IPO Lockup Expiry Short</h3></div>
+    <div class="right">E09</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=59)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.10, 61% hit rate, +3.15% per-event excess across 59 events. Academic backing (Field-Hanka JF 2001). The mechanism is mechanical (forced insider supply at lockup +180d). Rule is dead simple with zero free parameters. However, the edge has shrunk to ~50bp in recent samples as the trade is now very crowded. Borrow rates on recent IPOs are often punitive (>50% annualized), which would eat the +3.15% per-event excess in a 10-day holding period.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Crowded trade: borrow costs spike to punitively high levels around known lockup dates, converting the information edge into a borrow-cost transfer to the lending desk.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Pre-FOMC Drift (Unconditional)</h3></div>
+    <div class="right">A07</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=211 events, 26yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.49 over 211 events across 26 years -- solid academic pedigree (Lucca-Moench JF 2015). Rule is trivially simple (long SPY close-to-close around FOMC). Zero overfitting risk. However, CAGR is only 1.7% because the signal is active only 8 days per year. Useful only as an overlay on a base long-SPY position. The original authors' follow-up work suggests the drift weakened post-2015 publication. Adding "dovish regime" filters actually destroys the edge -- the clean unconditional rule is better.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The drift has already weakened post-publication as traders crowd into the pre-FOMC window, arbitraging away the anomaly; future FOMC surprises (hawkish shocks) add left-tail risk to a tiny-edge trade.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>FOMC Even-Week Effect</h3></div>
+    <div class="right">A06</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=212 events, 26yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.71 over 26 years with solid academic backing (Cieslak-Morse-Vissing-Jorgensen JF 2019). Sits in cash half the time but earns close to SPY's Sharpe (0.53 vs 0.52). CAGR of 6.7% trails SPY (8.5%) but MaxDD is brutal at -50% -- the cash weeks didn't protect from crashes. The authors themselves found the pattern weakened post-publication. Simple rule with no fitting risk. The mechanism (biweekly Fed communication cycle) is plausible but unverifiable.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The Fed changes its communications cadence (already happening with more frequent "unscheduled" remarks and SEP updates), scrambling the biweekly cycle structure.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>RSI(2) Mean Reversion (Connors)</h3></div>
+    <div class="right">F08</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=98 entries, 26yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.50 across 98 entry signals over 26 years. The 200-day SMA filter is key -- it keeps you out of bear markets where mean reversion fails. Rule is well-known (Connors 2009) and survives on indices though it has decayed on single names. CAGR of only 2.1% with 97% of the time in cash means this is purely an overlay strategy. Per-trade edge is real but the absolute contribution to a portfolio is small. -14% MaxDD is manageable.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">An extended grinding bear market (not a V-shaped crash) where SPY stays above its 200-day SMA while slowly declining, causing the RSI(2) entries to catch falling knives.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>First Five Days of January</h3></div>
+    <div class="right">A04</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=26 years)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 3.02 looks impressive but is built on only 26 binary decisions (positive or negative first five days). The information content of 5 trading days predicting the next 250 is implausibly high -- likely confounded by broader momentum. CAGR of 8.1% and Sharpe 0.59 roughly match SPY B&H. Failed dramatically in some years (2024). The mechanism is unclear (pension inflows? risk appetite?) and no credible economic theory supports it. Folk-finance heuristic that happens to have held in-sample.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A single dramatic year where January starts strong but the rest of the year crashes (e.g., 2008 pattern) destroys multiple years of accumulated Sharpe improvement.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Spin-Off Drift (Greenblatt)</h3></div>
+    <div class="right">E10</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=40)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat of only 0.96 across 40 events -- not statistically significant. The +11.7% mean excess is driven by extreme outliers (GE Vernova +337%, Chemours +123%, Lamb Weston +148%) while the median excess is actually -5.4%. Hit rate of 42.5% is below 50%. The academic theory (forced selling by index funds) is sound but the modern implementation is noisy. The Greenblatt era (1990s) may have been structurally different from the current index-reconstitution speed.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Index funds and ETFs now rebalance within days of a spin-off, compressing the forced-selling window from months to hours and eliminating the drift.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Cross-Sectional Momentum (UMD)</h3></div>
+    <div class="right">D02</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (36 yrs, Ken French)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Cleanest survivorship-free dataset (Ken French CRSP universe). t-stat 2.46 over 36 years. Sharpe 0.41 is below buy-and-hold (0.50) -- momentum has been a below-market factor in the recent era. MaxDD of -63% reflects the catastrophic momentum crashes of 2009 and 2020 Q2 documented by Daniel-Moskowitz (2016). The long-short structure implies meaningful transaction costs (monthly rebalancing of individual stocks). CAGR of 5.1% trails the market by 2.6pp.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Another momentum crash (sharp reversal where prior losers violently outperform prior winners) -- these happen during bear-market recoveries and can erase years of accumulated return in weeks.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>SLOOS "Willingness to Lend" to Long XLY</h3></div>
+    <div class="right">K4</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Weak (N=9 triggers)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Only 9 trigger events across 27 years with just 8% time in market (540 days of 6,894). t-stat 2.40 looks significant but comes from tiny, non-overlapping windows. Portfolio CAGR is only 2.7% -- the signal fires so rarely that its contribution to any real portfolio is negligible. The mechanism (bank willingness leads credit origination) is economically sound. The DRIWCIL series is genuinely obscure, which is interesting, but the sample is too small to trust.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">In QE/ZIRP regimes, banks express willingness to lend but consumers don't demand credit, breaking the transmission mechanism from SLOOS to consumer spending.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Treasury DTS DoD Outlays Surge to Long ITA</h3></div>
+    <div class="right">K9</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=67)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Solid sample (67 triggers) with t-stat 2.25 over 20 years. The mechanism (large DoD payments = contract milestones not yet in earnings) is logical and the data is free, daily, and machine-readable. ITA is liquid with low trading costs. However, portfolio CAGR is only 3.3% due to 12% exposure rate, and excess CAGR vs ITA B&H is -7.8% -- the signal underperforms simply holding the defense ETF. Some large outlays are payroll/pension, not contractor revenue.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Treasury changes the DTS reporting structure (as it did around 2010) or DoD shifts to continuous small payments rather than lumpy milestones, eliminating the information content of single-day spikes.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Phase-3 Completion Slip to Short Sponsor</h3></div>
+    <div class="right">K5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=9)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>N=9 is far too few to trust the spectacular Sharpe of 2.75 and 72.6% CAGR. The backtest spans only 141 active days across 5 large-cap sponsors (PFE/MRK/BIIB/MRNA/REGN). The signal is exploratory at best. The mechanism (Phase-3 date slips signal problems before disclosure) is genuinely clever and the data source (ClinicalTrials.gov) is free. But the per-event CAR of ~5.9% could easily reverse with a few more observations. Administrative slips (CRO changes, COVID) add noise. Borrow costs on biotech shorts can be severe.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Expanding the universe beyond 5 mega-cap biotechs reveals that most Phase-3 slips are administrative and benign, diluting the edge to zero.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Fed RRP Drain to Short TLT</h3></div>
+    <div class="right">J7</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (N=210)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Despite 210 trigger events, the t-stat is only 0.57 -- well below significance. The Sharpe of 0.23 is weak. The entire alpha came from riding the 2022-2024 bond bear market while the RRP was draining. Now that RRP is near zero, the signal rarely fires. The +6% excess CAGR over TLT B&H is real but entirely regime-specific to a unique period (post-COVID RRP wind-down). Not a persistent edge -- it's a coincident indicator of a bond bear market that has already ended.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The RRP facility is permanently near zero (as it currently is), meaning the signal never fires again -- the one-time structural drain has already occurred.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Weak Treasury Auction Direct Bidders to Long TLT (inverse)</h3></div>
+    <div class="right">L3-inv</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Moderate (N=28)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>The original short-TLT hypothesis was wrong (t-stat -2.58), but the inverse (long TLT) is statistically significant. 28 events from 2003-2026. The mechanism makes sense in hindsight: directs disappear when domestic accounts de-risk into bills, and the same risk-off impulse bids up duration. This is a discovered counter-signal, which is intellectually honest but introduces a subtle form of look-ahead bias (you tested one direction, found the opposite worked, and flipped it). TLT is liquid.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">The "weak directs = risk-off" relationship breaks if foreign central banks (not domestic accounts) become the marginal direct bidders, changing the information content of low direct share.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Industry Momentum</h3></div>
+    <div class="right">D04</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (36 yrs, Ken French)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Cleanest factor dataset (Ken French 49 industries, no survivorship bias). t-stat 1.97 is borderline significant over 36 years. Sharpe 0.33 and CAGR 4.9% are both below the market (0.58 Sharpe, 7.9% CAGR). The long-short spread underperforms on absolute metrics but is more crash-robust than single-stock momentum. Industry portfolios have stable definitions, making the backtest clean. Transaction costs from monthly rebalancing of 10 industry baskets would further reduce the 4.9% CAGR.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Industry concentration increases (as it has with tech dominance), making the top-5/bottom-5 industry spread less diversified and more subject to single-sector reversals.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Hash Ribbons (Edwards)</h3></div>
+    <div class="right">H05</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (4264 days, 11yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>t-stat 2.90 across 11 years. The hashrate-capitulation mechanism is mechanical and well-understood. However, Sharpe 0.71 trails BTC B&H's 0.83 and CAGR 20.7% vs 35.4% -- the signal underperforms simply holding BTC. MaxDD of -71% shows it doesn't meaningfully reduce drawdown. Best viewed as a cycle indicator for entry timing, not a standalone alpha source. The signal fires rarely (1-2x/year), limiting its utility. ETF era may decouple miner stress from price.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Hashrate becomes dominated by a few large publicly traded miners with treasury strategies (like MARA's BTC treasury), making miner capitulation events less frequent and less informative.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Puell Multiple and NUPL Proxy</h3></div>
+    <div class="right">H07/H08</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv">Medium</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Strong (3901 days, 10yr)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Both signals use proxy versions (Puell from halving-epoch subsidy, NUPL from price/365d MA) because the true on-chain data is paywalled. t-stats of 3.41 (Puell) and 3.44 (NUPL) over 10 years. Both trail BTC B&H on Sharpe and CAGR (excess CAGR -16.7% and -11.6% respectively). MaxDD of -62% to -77% is devastating. These are cycle-phase indicators, not alpha generators -- they identify accumulation zones and euphoria peaks but the practical value is in sizing, not in/out timing.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">ETF-era custody flows don't refresh the on-chain realized cap, making the proxy metrics (and the true metrics) less representative of actual holder cost basis and profit/loss distribution.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Hyperscaler Capex Ratchet to Power-Infra Basket</h3></div>
+    <div class="right">AE-2</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=5)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Only 5 quarterly events across 16 months of history. The 57.2% CAGR and 1.23 Sharpe are artifacts of catching the AI power buildout wave at its inception -- this is a momentum trade on a thematic narrative, not a systematic signal. t-stat of only 1.43 does not clear significance. One losing event (-22.2% in Q3-2024) shows the basket carries extreme drawdown risk (-42.5% MaxDD). AMSC is thinly traded and would suffer slippage. The trigger has fired every single quarter, which is suspicious.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Hyperscalers guide capex down even once, or shift to on-site nuclear/microgrids, and the power-infra basket collapses -- the entire thesis is one earnings call away from reversal.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Transformer Shortage OEM vs Utility Pair</h3></div>
+    <div class="right">AG-2</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=1 regime)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>This is fundamentally a single-observation regime trade (N=1 structural event: transformer shortage beginning mid-2022). t-stat of 1.29 is well below significance. The pair trade returned 17.5% CAGR but underperformed SPY by -3.3% -- you'd have been better off in the index. MaxDD -40% is steep. The logic (OEMs benefit from pricing power while utilities face delays) is sound but 977 days of one continuous trade is not a backtest, it's a case study. Not statistically validatable.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">A Defense Production Act invocation or hyperscaler shift to on-site generation normalizes transformer lead times below 60 weeks, ending the OEM pricing power regime overnight.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Saudi Fiscal Breakeven to Long Brent</h3></div>
+    <div class="right">AC-6</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Weak (N=6 triggered)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Headline Sharpe of 2.84 and t-stat 3.38 are heavily inflated by 2026's +94.8% return (a geopolitical outlier). Strip that and the mean per-window drops to ~13%. Only 6 triggered events across 9 years. The mechanism (Saudi fiscal pressure incentivizes OPEC+ cuts) is sound but the breakeven estimate is itself uncertain (IMF Article IV reports lag by 6 months). Brent futures roll costs not included. The $12 gap threshold is one more fitted parameter. A neat idea but statistically too thin.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Saudi Arabia diversifies revenue enough (Vision 2030) that fiscal breakeven no longer dictates OPEC+ supply policy, or US shale output responds faster than OPEC+ can cut.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>GLP-1 Mass Adoption to Short Premium Spirits</h3></div>
+    <div class="right">AI-4</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=1 regime)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Single regime trade (N=1) with only 747 days of history. The 13.1% CAGR looks decent but excess CAGR vs SPY is -10% -- you'd have made much more just holding the index. STZ's decline is confounded by Mexico tariff exposure (not purely GLP-1). The t-stat of 1.03 is not significant. Much of the spirits decline may already be priced in (STZ -45% from peak). The mechanism (GLP-1 reduces drinking) has clinical support but translating that to stock alpha is a stretch with N=1 and multiple confounds.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">GLP-1 supply constraints or insurance coverage limits slow the adoption curve, spirits volume stabilizes, and tariff rollback produces a sharp STZ rebound.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Office CMBS Stress to Regional Bank CRE Pair</h3></div>
+    <div class="right">AI-5</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=1 regime)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>Another N=1 regime trade (850 days). t-stat 0.89 is nowhere near significance. Excess CAGR vs SPY is -11.7% -- the long JPM/WFC leg carried the returns while the short OZK/NYCB leg barely contributed. MaxDD -34% is steep. NYCB restructured to Flagstar Financial mid-trade, creating a structural break in the backtest. The mechanism (office vacancy hits CRE-exposed regionals) is directionally correct but the pair construction doesn't isolate the thesis from general bank-sector beta.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Fed rate cuts reduce refinancing pain for office CMBS, narrowing the pair spread; or regional banks provision aggressively and the market rewards the clarity with a rerating.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Inference Cost Reversal to Custom Silicon (MRVL + CRDO)</h3></div>
+    <div class="right">AS-B</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=1 regime)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv neg">High</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>The 129% CAGR and 1.58 Sharpe come from a single 17-month trade (N=1). CRDO alone was up 1022% from entry -- this is a momentum trade on one stock, not a systematic signal. MaxDD of -60% (CRDO dropped from $80 to $30 in Q4-2024) is catastrophic. Both names trade at extreme multiples. The "trigger" (inference pricing reversal) is a narrative overlay on what amounts to "buy two high-beta semi names in a bull market." Not statistically validatable by any standard.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">NVIDIA cuts GPU pricing aggressively to compete with custom ASICs, or a single hyperscaler cancels its custom chip program, puncturing the narrative.</div>
+  </div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><h3>Copper Near Marginal Cost Floor</h3></div>
+    <div class="right">AQ-1</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv neg">Low</div><div class="ml">Confidence</div></div>
+    <div class="m"><div class="mv">Very Weak (N=3)</div><div class="ml">Sample Size</div></div>
+    <div class="m"><div class="mv pos">Low</div><div class="ml">Overfit Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Regime Risk</div></div>
+    <div class="m"><div class="mv warn">Medium</div><div class="ml">Cost Impact</div></div>
+  </div>
+  <div class="section">
+    <h4>Validation Summary</h4>
+    <p>3 for 3 positive trades with Sharpe 1.79 and t-stat 3.10 -- but N=3 is inherently untrustable regardless of in-sample metrics. The mechanism is nearly tautological (producers below cost stop producing, tightening supply), which is a genuine structural strength. However, the 90th-percentile AISC estimate is itself an estimate that changes annually and is published with lag. Portfolio CAGR including cash periods is ~12%. Futures roll costs not included. Each trade is a 12-month bet on a commodity.</p>
+    <h4>What Breaks This</h4>
+    <div class="caveat">Copper demand destruction from substitution (aluminum for wiring, fiber for copper in telecoms) or a global recession keeps copper at depressed levels longer than miners can sustain losses.</div>
+  </div>
+</article>

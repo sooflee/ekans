@@ -315,63 +315,206 @@ TEMPLATE = r"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trading Signals Catalog — Backtest Results</title>
+<title>Full Signal Catalog</title>
 <style>
 :root {
-  --bg: #0f1419;
-  --bg-2: #1a1f2e;
-  --bg-3: #232a3d;
-  --fg: #e6e9ef;
-  --fg-dim: #9ca3af;
-  --accent: #7dd3fc;
-  --good: #34d399;
-  --bad: #f87171;
-  --warn: #fbbf24;
+  --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
+  --fg: #e6e9ef; --fg-dim: #9ca3af;
+  --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
   --border: #2d3548;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --cat-A: #a78bfa; --cat-B: #fb7185; --cat-C: #34d399; --cat-D: #fbbf24;
   --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
 }
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; }
 body {
-  margin: 0; padding: 0; background: var(--bg); color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 15px; line-height: 1.55;
+  background: var(--bg); color: var(--fg);
+  font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
-header {
-  padding: 60px 24px 36px; max-width: 1280px; margin: 0 auto;
-  border-bottom: 1px solid var(--border);
+a { color: var(--accent); }
+.pos { color: var(--good); font-weight: 600; }
+.neg { color: var(--bad); font-weight: 600; }
+.warn { color: var(--warn); }
+.dim { color: var(--fg-dim); }
+.good { color: var(--good); }
+.bad { color: var(--bad); }
+
+/* ---------- Layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 0;
+  align-items: start;
+  min-height: 100vh;
 }
-h1 { font-size: 2.1em; margin: 0 0 8px; letter-spacing: -0.02em; }
-h2 { font-size: 1.5em; margin: 48px 0 16px; letter-spacing: -0.01em; }
-h3 { font-size: 1.15em; margin: 28px 0 12px; }
-.sub { color: var(--fg-dim); margin-top: 6px; }
-.container { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
-.stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
-.stat-box {
-  background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
-  padding: 16px 20px; min-width: 140px;
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--bg-2);
+  border-right: 1px solid var(--border);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
-.stat-box .v { font-size: 1.7em; font-weight: 600; font-family: var(--mono); }
-.stat-box .l { color: var(--fg-dim); font-size: 0.85em; margin-top: 2px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 2px; }
+.sb-title {
+  font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.sb-title .count {
+  font-size: 11px; font-weight: 400; color: var(--fg-dim);
+  background: var(--bg-3); padding: 1px 7px; border-radius: 8px;
+  font-family: var(--mono);
+}
+.sb-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--fg-dim); margin-bottom: 5px;
+}
+.sb-group { display: flex; flex-direction: column; gap: 4px; }
+
+/* Search */
+#search {
+  width: 100%; padding: 7px 10px; font-size: 13px; font-family: inherit;
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg);
+  border-radius: 6px; outline: none;
+}
+#search:focus { border-color: var(--accent); }
+#search::placeholder { color: var(--fg-dim); }
+
+/* Category pills */
+.cat-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.cat-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border-radius: 12px; font-size: 11px;
+  background: var(--bg-3); border: 1px solid var(--border);
+  color: var(--fg); cursor: pointer; font-family: inherit;
+  transition: background 0.12s, border-color 0.12s;
+}
+.cat-pill:hover { border-color: var(--fg-dim); }
+.cat-pill.active { background: rgba(125,211,252,0.15); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.cat-pill .swatch {
+  display: inline-block; width: 8px; height: 8px; border-radius: 2px;
+}
+.pill-count {
+  font-family: var(--mono); font-size: 10px; color: var(--fg-dim);
+  margin-left: 2px;
+}
+.cat-pill.active .pill-count { color: var(--accent); }
+
+/* Status toggle */
+.status-toggle {
+  display: flex; gap: 0; background: var(--bg-3); border-radius: 6px;
+  padding: 3px; border: 1px solid var(--border);
+}
+.status-toggle button {
+  flex: 1; padding: 5px 8px; font-size: 11px; font-weight: 600;
+  background: transparent; color: var(--fg-dim); border: none;
+  border-radius: 4px; cursor: pointer; font-family: inherit;
+}
+.status-toggle button:hover { color: var(--fg); }
+.status-toggle button.active {
+  background: var(--bg-2); color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Sliders */
+.slider-group {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 8px 10px; background: var(--bg-3); border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.slider-group label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 10px; color: var(--fg-dim); text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.slider-group label span {
+  color: var(--accent); font-family: var(--mono); text-transform: none;
+  letter-spacing: 0; font-size: 12px; font-weight: 600;
+}
+.slider-group input[type="range"] {
+  width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+  background: var(--bg-2); border-radius: 2px; cursor: pointer;
+}
+.slider-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); cursor: pointer; border: 2px solid var(--bg-2);
+}
+.slider-group input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); cursor: pointer; border: 2px solid var(--bg-2);
+}
+
+/* Reset button */
+#reset-btn {
+  padding: 7px 0; font-size: 12px; font-weight: 600;
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
+  border-radius: 6px; cursor: pointer; font-family: inherit; text-align: center;
+}
+#reset-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Sidebar summary counts */
+.sb-stats {
+  display: flex; gap: 8px; font-size: 11px; color: var(--fg-dim);
+  font-family: var(--mono);
+}
+.sb-stats .v { font-weight: 600; color: var(--fg); }
+.sb-stats .ok-v { color: var(--good); font-weight: 600; }
+.sb-stats .fail-v { color: var(--bad); font-weight: 600; }
+
+/* ---------- Main ---------- */
+main {
+  min-width: 0;
+  padding: 16px 20px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Summary row */
+.summary-row {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 12px; font-size: 12px; color: var(--fg-dim);
+}
+.summary-row .v { font-weight: 600; font-family: var(--mono); }
+.summary-row .all { color: var(--fg); }
+.summary-row .ok { color: var(--good); }
+.summary-row .fail { color: var(--bad); }
+#visible-count { color: var(--accent); font-weight: 600; font-family: var(--mono); }
+
+/* Table */
+.scroll-x {
+  overflow-x: auto; border-radius: 8px; border: 1px solid var(--border);
+  flex: 1;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
 table th, table td {
-  text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border);
-  vertical-align: top;
+  text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
+  vertical-align: top; white-space: nowrap;
 }
+table td:nth-child(3) { white-space: normal; min-width: 200px; max-width: 320px; }
 table th {
-  background: var(--bg-2); position: sticky; top: 0; z-index: 1;
-  font-weight: 600; cursor: pointer; user-select: none;
+  background: var(--bg-2); position: sticky; top: 0; z-index: 2;
+  font-weight: 600; cursor: pointer; user-select: none; font-size: 12px;
 }
 table th:hover { background: var(--bg-3); }
+table th.sorted-asc::after { content: " ▲"; font-size: 9px; color: var(--accent); }
+table th.sorted-desc::after { content: " ▼"; font-size: 9px; color: var(--accent); }
 table tr:hover td { background: rgba(125,211,252,0.04); }
 table .r { text-align: right; }
-table .mono { font-family: var(--mono); font-size: 13px; }
+table .mono { font-family: var(--mono); font-size: 12px; }
 .badge {
-  display: inline-block; padding: 2px 8px; border-radius: 4px;
-  font-size: 12px; font-weight: 600; font-family: var(--mono);
-  color: var(--bg);
+  display: inline-block; padding: 2px 7px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; font-family: var(--mono); color: var(--bg);
 }
 .cat-A { background: var(--cat-A); } .cat-B { background: var(--cat-B); }
 .cat-C { background: var(--cat-C); } .cat-D { background: var(--cat-D); }
@@ -379,243 +522,248 @@ table .mono { font-family: var(--mono); font-size: 13px; }
 .cat-G { background: var(--cat-G); } .cat-H { background: var(--cat-H); }
 .cat-I { background: var(--cat-I); } .cat-J { background: var(--cat-J); }
 .cat-K { background: var(--cat-K); }
-.controls {
-  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
-  margin: 20px 0; padding: 16px; background: var(--bg-2);
-  border: 1px solid var(--border); border-radius: 8px;
+.footer {
+  text-align: center; color: var(--fg-dim); margin-top: 32px;
+  padding: 16px; font-size: 12px;
 }
-.controls input, .controls select {
-  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg);
-  padding: 8px 12px; border-radius: 6px; font-size: 14px; font-family: inherit;
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static; height: auto; border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
 }
-.controls input { width: 240px; }
-.controls label { color: var(--fg-dim); font-size: 13px; margin-right: 4px; }
-.scroll-x { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
-.good { color: var(--good); }
-.bad { color: var(--bad); }
-.warn { color: var(--warn); }
-.pos { color: var(--good); font-weight: 600; }
-.neg { color: var(--bad); font-weight: 600; }
-.dim { color: var(--fg-dim); }
-a { color: var(--accent); }
-.caveat {
-  background: rgba(251,191,36,0.08); border-left: 3px solid var(--warn);
-  padding: 16px 20px; border-radius: 4px; margin: 20px 0;
-}
-.caveat strong { color: var(--warn); }
-ul { padding-left: 22px; }
-li { margin: 4px 0; }
-code { background: var(--bg-3); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 13px; }
-.footer { text-align: center; color: var(--fg-dim); margin-top: 60px; padding: 24px; font-size: 13px; }
-.bar-cell { position: relative; }
-.bar { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(125,211,252,0.12); z-index: 0; }
-.bar.neg { background: rgba(248,113,113,0.12); }
-.bar-cell span { position: relative; z-index: 1; }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Trading Signals Catalog &amp; Backtest Report</h1>
-  <p class="sub">Comprehensive survey of trading signals from retail social media, academic literature, FinTwit, alternative data, crypto on-chain, and geopolitical event-driven sources. Backtested on free data (yfinance, FRED, public APIs) where feasible.</p>
-  <div class="stats-row">
-    <div class="stat-box"><div class="v">__N_TOTAL__</div><div class="l">signals backtested</div></div>
-    <div class="stat-box"><div class="v">__N_OK__</div><div class="l">implemented OK</div></div>
-    <div class="stat-box"><div class="v">__N_FAIL__</div><div class="l">data unavailable</div></div>
-    <div class="stat-box"><div class="v">~199</div><div class="l">in raw catalog</div></div>
-    <div class="stat-box"><div class="v">11</div><div class="l">signal categories</div></div>
-  </div>
-</header>
+<div class="layout">
 
-<div class="container">
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+    <div class="sb-title">Full Catalog <span class="count">__N_TOTAL__</span></div>
+    <div class="sb-stats">
+      <span><span class="v">__N_TOTAL__</span> total</span>
+      <span><span class="ok-v">__N_OK__</span> ok</span>
+      <span><span class="fail-v">__N_FAIL__</span> fail</span>
+    </div>
 
-<h2>Reading this report (read first)</h2>
-<div class="caveat">
-<strong>Honest caveats up front:</strong>
-<ul>
-<li><strong>Most signals do not generate alpha after honest backtesting.</strong> This is the expected outcome. Genuine, repeatable, easy-to-implement alpha is rare. The Sharpe distribution below is mostly between -0.5 and +0.7, dominated by buy-and-hold equivalents.</li>
-<li><strong>Free-data limitations bite.</strong> FRED truncates some series to 3 years without an API key, paid alt-data (GEX, Glassdoor, satellite, App Store) was marked failed, EDGAR full-text scraping is slow, and CryptoQuant/Glassnode block free access. Signals marked <code>status: fail</code> with a <code>reason</code> were tried but lacked data.</li>
-<li><strong>Survivorship bias warning (Category D).</strong> The equity factor cross-sectional tests (D03/D05/D06/D09/D14/D17) used a hand-curated 75-name liquid US large-cap universe. Every name in the basket survives to 2026. The classic L/S anomalies flipped <em>negative</em> because shorting today's mega-cap winners (NVDA/AAPL/META) is brutal. A true CRSP point-in-time test would likely flip these back positive. Read these results as risk-factor demonstrations, not alpha estimates.</li>
-<li><strong>Ken French factor results (D01, D02, D04) are clean</strong> because they use Ken French's daily factor library directly (free, no survivorship issue).</li>
-<li><strong>"Originality" is rough.</strong> 1 = textbook / every CFA knows it; 10 = obscure / not in standard quant playbook. Use it to find unfamiliar ideas, not as a reliability score.</li>
-<li><strong>t-stat ≠ profitable strategy.</strong> Several signals (F08 RSI(2), A07 pre-FOMC) show real per-trade edge (t&gt;2.5) but the strategy is mostly in cash and earns less absolute return than buy-and-hold. Hit rate and t-stat measure event-level edge; CAGR is the wealth measure.</li>
-<li><strong>Backtests sit on closing prices with no slippage, no borrow cost, no taxes.</strong> Short-only strategies in particular will deteriorate materially in live trading.</li>
-</ul>
-</div>
+    <div class="sb-group">
+      <div class="sb-label">Search</div>
+      <input id="search" type="text" placeholder="name, ID, source...">
+    </div>
 
-<h2>Top 10 by Sharpe</h2>
-<p class="dim">Sorted by Sharpe; comparison to benchmark (buy-and-hold of underlying) in the rightmost column when available. Caveats above apply.</p>
-<div class="scroll-x">
-<table>
-<thead><tr><th>Cat</th><th>Signal</th><th>Asset</th><th>Sharpe</th><th>CAGR</th><th>MaxDD</th><th>t-stat</th><th>Hit</th><th>Source</th></tr></thead>
-<tbody>
-__TOP_ROWS__
-</tbody>
-</table>
-</div>
+    <div class="sb-group">
+      <div class="sb-label">Category</div>
+      <div class="cat-pills" id="cat-pills">
+        <button class="cat-pill active" data-cat=""><span class="swatch" style="background:var(--fg-dim)"></span>All <span class="pill-count" id="cnt-all">__N_TOTAL__</span></button>
+        <button class="cat-pill" data-cat="A"><span class="swatch" style="background:var(--cat-A)"></span>A <span class="pill-count" id="cnt-A"></span></button>
+        <button class="cat-pill" data-cat="B"><span class="swatch" style="background:var(--cat-B)"></span>B <span class="pill-count" id="cnt-B"></span></button>
+        <button class="cat-pill" data-cat="C"><span class="swatch" style="background:var(--cat-C)"></span>C <span class="pill-count" id="cnt-C"></span></button>
+        <button class="cat-pill" data-cat="D"><span class="swatch" style="background:var(--cat-D)"></span>D <span class="pill-count" id="cnt-D"></span></button>
+        <button class="cat-pill" data-cat="E"><span class="swatch" style="background:var(--cat-E)"></span>E <span class="pill-count" id="cnt-E"></span></button>
+        <button class="cat-pill" data-cat="F"><span class="swatch" style="background:var(--cat-F)"></span>F <span class="pill-count" id="cnt-F"></span></button>
+        <button class="cat-pill" data-cat="G"><span class="swatch" style="background:var(--cat-G)"></span>G <span class="pill-count" id="cnt-G"></span></button>
+        <button class="cat-pill" data-cat="H"><span class="swatch" style="background:var(--cat-H)"></span>H <span class="pill-count" id="cnt-H"></span></button>
+        <button class="cat-pill" data-cat="I"><span class="swatch" style="background:var(--cat-I)"></span>I <span class="pill-count" id="cnt-I"></span></button>
+        <button class="cat-pill" data-cat="J"><span class="swatch" style="background:var(--cat-J)"></span>J <span class="pill-count" id="cnt-J"></span></button>
+        <button class="cat-pill" data-cat="K"><span class="swatch" style="background:var(--cat-K)"></span>K <span class="pill-count" id="cnt-K"></span></button>
+      </div>
+    </div>
 
-<h2>Category overview</h2>
-<div class="scroll-x">
-<table>
-<thead><tr><th>Cat</th><th>Name</th><th>N</th><th>OK</th><th>Fail</th><th>Median Sharpe</th><th>Max Sharpe</th></tr></thead>
-<tbody>
-__CAT_OVERVIEW__
-</tbody>
-</table>
-</div>
+    <div class="sb-group">
+      <div class="sb-label">Status</div>
+      <div class="status-toggle" id="status-toggle">
+        <button class="active" data-status="">All</button>
+        <button data-status="ok">OK</button>
+        <button data-status="fail">Fail</button>
+      </div>
+    </div>
 
-<h2>Master signal table</h2>
-<p class="dim">All signals with backtest results. Click column headers to sort. Filter by category or text-search.</p>
+    <div class="sb-group">
+      <div class="slider-group">
+        <label>Min CAGR <span id="cagr-val">0%</span></label>
+        <input type="range" id="min-cagr" min="0" max="100" value="0" step="1">
+      </div>
+    </div>
 
-<div class="controls">
-  <label>Filter:</label>
-  <input id="search" type="text" placeholder="search name, ID, source...">
-  <label>Category:</label>
-  <select id="catfilter">
-    <option value="">all</option>
-    <option value="A">A – Calendar</option>
-    <option value="B">B – Vol</option>
-    <option value="C">C – Cross-asset</option>
-    <option value="D">D – Equity factor</option>
-    <option value="E">E – Event-driven</option>
-    <option value="F">F – Sentiment/Breadth</option>
-    <option value="G">G – Alt-data</option>
-    <option value="H">H – Crypto</option>
-    <option value="I">I – Pattern TA</option>
-    <option value="J">J – Curiosity</option>
-    <option value="K">K – Policy/Geopolitical</option>
-  </select>
-  <label>Status:</label>
-  <select id="statusfilter">
-    <option value="">all</option>
-    <option value="ok">ok</option>
-    <option value="fail">fail</option>
-  </select>
-  <label>Min Sharpe:</label>
-  <select id="minsharpe">
-    <option value="">any</option>
-    <option value="0">≥ 0</option>
-    <option value="0.5">≥ 0.5</option>
-    <option value="0.7">≥ 0.7</option>
-    <option value="1.0">≥ 1.0</option>
-  </select>
-</div>
+    <div class="sb-group">
+      <div class="slider-group">
+        <label>Min Sharpe <span id="sharpe-val">any</span></label>
+        <input type="range" id="min-sharpe" min="-10" max="30" value="-10" step="1">
+      </div>
+    </div>
 
-<div class="scroll-x">
-<table id="signals">
-<thead><tr>
-  <th data-key="cat">Cat</th>
-  <th data-key="id">ID</th>
-  <th data-key="name">Signal</th>
-  <th data-key="asset">Asset</th>
-  <th data-key="horizon">Horizon</th>
-  <th data-key="orig" class="r">Orig</th>
-  <th data-key="btf" class="r">BT-feas</th>
-  <th data-key="sharpe" class="r">Sharpe</th>
-  <th data-key="cagr" class="r">CAGR</th>
-  <th data-key="max_dd" class="r">MaxDD</th>
-  <th data-key="t" class="r">t-stat</th>
-  <th data-key="hit" class="r">Hit</th>
-  <th data-key="status">Status</th>
-</tr></thead>
-<tbody id="tbody"></tbody>
-</table>
-</div>
+    <button id="reset-btn">Reset filters</button>
+  </aside>
 
-<h2>Methodology</h2>
-<p>The research process ran in 4 phases:</p>
-<ol>
-<li><strong>Mining (Phase 1).</strong> Nine parallel research agents covered: TikTok/retail-trader social, academic literature, trading forums + FinTwit, alternative data / political / event-driven, crypto on-chain + macro, behavioral / pop-culture, geopolitical / war / sanctions / defense, creative wildcard, and global government policy. Each agent returned 15–37 signals in a structured format with sources.</li>
-<li><strong>Consolidation (Phase 2).</strong> Deduplicated to ~199 raw entries, sorted into 11 categories (A–K), graded each on originality (1–10) and backtest-feasibility (1–5).</li>
-<li><strong>Backtesting (Phase 3).</strong> Eight parallel backtest worker agents implemented every signal feasible with free data, using a shared harness (yfinance, FRED, pandas-datareader). Each signal gets a JSON result with Sharpe, CAGR, MaxDD, t-stat, hit rate, plus assumptions noted in the Python file. Signals that couldn't be implemented are marked <code>status: fail</code> with a reason citing the literature.</li>
-<li><strong>Reporting (Phase 4).</strong> This single HTML file, generated from <code>build_report.py</code> + the results/ directory.</li>
-</ol>
+  <!-- ===== Main ===== -->
+  <main>
+    <div class="summary-row">
+      <span>Showing <span id="visible-count">__N_TOTAL__</span> of <span class="v all">__N_TOTAL__</span> signals</span>
+      <span><span class="v ok">__N_OK__</span> ok</span>
+      <span><span class="v fail">__N_FAIL__</span> fail</span>
+    </div>
 
-<h2>Headline findings</h2>
-<ul>
-<li><strong>A14 BTC halving cycle</strong> is the largest absolute-return signal (Sharpe 1.20, +14pp excess CAGR vs BTC buy-and-hold, t=4.93) — but N=3 fully observed halvings. Classic small-N narrative risk.</li>
-<li><strong>H06 MVRV proxy</strong> slightly beats BTC buy-and-hold on Sharpe (0.97 vs 0.90) — the only crypto on-chain signal that does.</li>
-<li><strong>F03 Margin Debt YoY</strong> (Sharpe 0.72, CAGR 11.46%) and <strong>C02 Utilities/SPY (Gayed)</strong> (Sharpe 0.74, t=3.77) are the best macro-conditional equity timers we tested.</li>
-<li><strong>C07 Accelerating Dual Momentum</strong> (Sharpe 0.73) and <strong>F09 Golden Cross</strong> (Sharpe 0.69, t=3.55) match or beat SPY on risk-adjusted basis with materially shallower drawdowns — good defensive variants but no CAGR uplift.</li>
-<li><strong>F08 RSI(2) Connors</strong> (t=2.50) and <strong>A07 Pre-FOMC drift</strong> (t=2.49) have real per-event edge but are out-of-market too often to compete with buy-and-hold CAGR.</li>
-<li><strong>E09 IPO Lockup expiry short</strong> (t=2.10, 61% hit rate, +3.15% over 10 days) is the cleanest event-driven hit.</li>
-<li><strong>I03 Liquidity sweep fade</strong> is significantly NEGATIVE (t=-2.26): SPY breakouts above 20-day highs that close back below tend to follow through up, not fade. Important falsification of an ICT/SMC core idea.</li>
-<li><strong>G-14 Pre-FOMC + dovish DGS2 filter</strong> reverse-finding: adding the dovish-regime filter DESTROYS the edge (Sharpe drops from 0.49 to 0.07). Literature's regime story is wrong direction in our sample.</li>
-<li><strong>G-15 US Election VIX ramp</strong> is catastrophic: -9% CAGR, -86% DD via VIXY roll-cost drag. Realized vol bump is real; the equity instruments to express it are not.</li>
-<li><strong>D-category equity factors</strong> using a survivorship-biased basket all flipped negative on the L/S — read as caveat-laden, not as factor death.</li>
-</ul>
+    <div class="scroll-x">
+    <table id="signals">
+    <thead><tr>
+      <th data-key="cat">Cat</th>
+      <th data-key="id">ID</th>
+      <th data-key="name">Signal</th>
+      <th data-key="asset">Asset</th>
+      <th data-key="horizon">Horizon</th>
+      <th data-key="orig" class="r">Orig</th>
+      <th data-key="btf" class="r">BT-f</th>
+      <th data-key="sharpe" class="r">Sharpe</th>
+      <th data-key="cagr" class="r">CAGR</th>
+      <th data-key="max_dd" class="r">MaxDD</th>
+      <th data-key="t" class="r">t-stat</th>
+      <th data-key="hit" class="r">Hit</th>
+      <th data-key="status">Status</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+    </table>
+    </div>
 
-<h2>Honest disclaimers</h2>
-<ul>
-<li>Past performance is not predictive. Most published anomalies decay materially post-publication (McLean-Pontiff RFS 2016, ~32% decay average).</li>
-<li>Free-data backtests overstate edge: no transaction costs, no slippage, no borrow cost, no taxes, no fund-level liquidity constraints.</li>
-<li>Several "wins" above ride on a small number of events (BTC halvings: N=3; election VIX: N=4; BoJ surprises: N=3). Small-N findings are narrative-fitting more than statistical evidence.</li>
-<li>The basket / universe shortcut in Category D is acknowledged.</li>
-<li>Some failed signals (Glassdoor, satellite parking, GEX, App Store, EDGAR search traffic) may have real edge but require paid data.</li>
-</ul>
-
-<h2>Source materials</h2>
-<ul>
-<li>Code: <code>backtests/*.py</code> (one file per signal, runnable standalone)</li>
-<li>Raw research outputs: <code>research/01[a-i]_*.md</code></li>
-<li>Master catalog: <code>research/master_signals.md</code></li>
-<li>Backtest metrics: <code>results/*.json</code></li>
-<li>Shared harness: <code>backtests/harness.py</code></li>
-</ul>
-
-<div class="footer">
-Generated from <code>build_report.py</code>. Free data only (yfinance, FRED, public APIs). Sources cited per signal in the master table.
-</div>
+    <div class="footer">
+      Generated from <code>build_report.py</code>. Free data only (yfinance, FRED, public APIs).
+    </div>
+  </main>
 
 </div>
 
 <script>
 const DATA = __TABLE_DATA__;
 
-function fmtPct(x, dp=2) {
+// ---- Category metadata ----
+const CAT_NAMES = {
+  A:"Calendar",B:"Vol/Options",C:"Cross-Asset",D:"Equity Factor",
+  E:"Event-Driven",F:"Sentiment/TA",G:"Alt-Data",H:"Crypto",
+  I:"Pattern TA",J:"Curiosity",K:"Policy/Geo"
+};
+
+// ---- Compute per-category counts and populate pills ----
+(function initCounts() {
+  const counts = {};
+  DATA.forEach(r => { counts[r.cat] = (counts[r.cat] || 0) + 1; });
+  Object.keys(CAT_NAMES).forEach(c => {
+    const el = document.getElementById("cnt-" + c);
+    if (el) el.textContent = counts[c] || 0;
+  });
+})();
+
+// ---- Formatting helpers ----
+function fmtPct(x, dp) {
+  if (dp === undefined) dp = 2;
   if (x === null || x === undefined || isNaN(x)) return "";
-  return (x*100).toFixed(dp) + "%";
+  return (x * 100).toFixed(dp) + "%";
 }
-function fmtNum(x, dp=2) {
+function fmtNum(x, dp) {
+  if (dp === undefined) dp = 2;
   if (x === null || x === undefined || isNaN(x)) return "";
   return Number(x).toFixed(dp);
 }
-function colorVal(v, kind="sharpe") {
+function colorVal(v, kind) {
   if (v === null || v === undefined || isNaN(v)) return "";
   if (kind === "sharpe" || kind === "t") {
-    if (v >= 1.0) return "pos";
-    if (v >= 0.5) return "pos";
-    if (v > 0) return "";
-    if (v <= -0.5) return "neg";
-    return "neg";
+    return v >= 0.5 ? "pos" : v <= -0.5 ? "neg" : v < 0 ? "neg" : "";
   }
   if (kind === "cagr") {
-    if (v >= 0.05) return "pos";
-    if (v <= -0.05) return "neg";
-    return "";
+    return v >= 0.05 ? "pos" : v <= -0.05 ? "neg" : "";
   }
   if (kind === "dd") {
-    if (v <= -0.5) return "neg";
-    if (v <= -0.25) return "warn";
-    return "";
+    return v <= -0.5 ? "neg" : v <= -0.25 ? "warn" : "";
   }
   return "";
 }
 
+// ---- State ----
 let currentSort = { key: "sharpe", dir: -1 };
+let activeCat = "";
+let activeStatus = "";
 
+// ---- Sidebar wiring ----
+// Category pills
+document.querySelectorAll("#cat-pills .cat-pill").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#cat-pills .cat-pill").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCat = btn.dataset.cat;
+    render();
+  });
+});
+
+// Status toggle
+document.querySelectorAll("#status-toggle button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#status-toggle button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeStatus = btn.dataset.status;
+    render();
+  });
+});
+
+// Sliders
+const cagrSlider = document.getElementById("min-cagr");
+const cagrVal = document.getElementById("cagr-val");
+cagrSlider.addEventListener("input", () => {
+  const v = parseInt(cagrSlider.value);
+  cagrVal.textContent = v === 0 ? "0%" : v + "%";
+  render();
+});
+
+const sharpeSlider = document.getElementById("min-sharpe");
+const sharpeVal = document.getElementById("sharpe-val");
+sharpeSlider.addEventListener("input", () => {
+  const v = parseInt(sharpeSlider.value);
+  sharpeVal.textContent = v <= -10 ? "any" : (v / 10).toFixed(1);
+  render();
+});
+
+// Search
+document.getElementById("search").addEventListener("input", render);
+
+// Reset
+document.getElementById("reset-btn").addEventListener("click", () => {
+  document.getElementById("search").value = "";
+  activeCat = "";
+  document.querySelectorAll("#cat-pills .cat-pill").forEach(b => b.classList.remove("active"));
+  document.querySelector('#cat-pills .cat-pill[data-cat=""]').classList.add("active");
+  activeStatus = "";
+  document.querySelectorAll("#status-toggle button").forEach(b => b.classList.remove("active"));
+  document.querySelector('#status-toggle button[data-status=""]').classList.add("active");
+  cagrSlider.value = 0; cagrVal.textContent = "0%";
+  sharpeSlider.value = -10; sharpeVal.textContent = "any";
+  render();
+});
+
+// ---- Sort indicators ----
+function updateSortIndicators() {
+  document.querySelectorAll("#signals th[data-key]").forEach(th => {
+    th.classList.remove("sorted-asc", "sorted-desc");
+    if (th.dataset.key === currentSort.key) {
+      th.classList.add(currentSort.dir === 1 ? "sorted-asc" : "sorted-desc");
+    }
+  });
+}
+
+// ---- Render ----
 function render() {
   const q = document.getElementById("search").value.toLowerCase();
-  const cf = document.getElementById("catfilter").value;
-  const sf = document.getElementById("statusfilter").value;
-  const ms = parseFloat(document.getElementById("minsharpe").value);
+  const minCagr = parseInt(cagrSlider.value) / 100;   // 0..1
+  const minSharpeRaw = parseInt(sharpeSlider.value);   // -10..30  (tenths)
+  const minSharpe = minSharpeRaw <= -10 ? -Infinity : minSharpeRaw / 10;
 
   let rows = DATA.filter(r => {
-    if (cf && r.cat !== cf) return false;
-    if (sf && r.status !== sf) return false;
-    if (!isNaN(ms) && (r.sharpe === null || r.sharpe === undefined || r.sharpe < ms)) return false;
+    if (activeCat && r.cat !== activeCat) return false;
+    if (activeStatus && r.status !== activeStatus) return false;
+    if (minCagr > 0 && (r.cagr === null || r.cagr === undefined || r.cagr < minCagr)) return false;
+    if (minSharpe > -Infinity && (r.sharpe === null || r.sharpe === undefined || r.sharpe < minSharpe)) return false;
     if (q) {
-      const hay = (r.name + " " + r.id + " " + r.source + " " + r.desc + " " + r.asset).toLowerCase();
+      const hay = (r.name + " " + r.id + " " + (r.source||"") + " " + (r.desc||"") + " " + r.asset).toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -633,41 +781,45 @@ function render() {
     return currentSort.dir * (av - bv);
   });
 
+  document.getElementById("visible-count").textContent = rows.length;
+
   const tbody = document.getElementById("tbody");
   tbody.innerHTML = rows.map(r => {
     const sh = r.sharpe, cg = r.cagr, dd = r.max_dd, tt = r.t, hi = r.hit;
     const status = r.status === "fail"
-      ? `<span class="bad">FAIL</span>`
-      : `<span class="dim">ok</span>`;
-    return `<tr>
-      <td><span class="badge cat-${r.cat}">${r.cat}</span></td>
-      <td class="mono dim">${r.id}</td>
-      <td><strong>${r.name}</strong><br><small class="dim">${r.desc} · <em>${r.source}</em></small></td>
-      <td>${r.asset}</td>
-      <td>${r.horizon}</td>
-      <td class="r mono">${r.orig}</td>
-      <td class="r mono">${r.btf}</td>
-      <td class="r mono ${colorVal(sh,'sharpe')}">${fmtNum(sh)}</td>
-      <td class="r mono ${colorVal(cg,'cagr')}">${fmtPct(cg)}</td>
-      <td class="r mono ${colorVal(dd,'dd')}">${fmtPct(dd)}</td>
-      <td class="r mono ${colorVal(tt,'t')}">${fmtNum(tt)}</td>
-      <td class="r mono">${fmtPct(hi,1)}</td>
-      <td>${status}</td>
-    </tr>`;
+      ? '<span class="bad">FAIL</span>'
+      : '<span class="dim">ok</span>';
+    return '<tr>' +
+      '<td><span class="badge cat-' + r.cat + '">' + r.cat + '</span></td>' +
+      '<td class="mono dim">' + r.id + '</td>' +
+      '<td><strong>' + r.name + '</strong><br><small class="dim">' + (r.desc||"") + ' &middot; <em>' + (r.source||"") + '</em></small></td>' +
+      '<td>' + r.asset + '</td>' +
+      '<td>' + r.horizon + '</td>' +
+      '<td class="r mono">' + r.orig + '</td>' +
+      '<td class="r mono">' + r.btf + '</td>' +
+      '<td class="r mono ' + colorVal(sh,"sharpe") + '">' + fmtNum(sh) + '</td>' +
+      '<td class="r mono ' + colorVal(cg,"cagr") + '">' + fmtPct(cg) + '</td>' +
+      '<td class="r mono ' + colorVal(dd,"dd") + '">' + fmtPct(dd) + '</td>' +
+      '<td class="r mono ' + colorVal(tt,"t") + '">' + fmtNum(tt) + '</td>' +
+      '<td class="r mono">' + fmtPct(hi,1) + '</td>' +
+      '<td>' + status + '</td>' +
+      '</tr>';
   }).join("");
+
+  updateSortIndicators();
 }
 
+// ---- Column sort ----
 document.querySelectorAll("#signals th[data-key]").forEach(th => {
   th.addEventListener("click", () => {
     const k = th.dataset.key;
     if (currentSort.key === k) currentSort.dir *= -1;
-    else { currentSort.key = k; currentSort.dir = (k === "name" || k === "cat" || k === "id" || k === "asset" || k === "horizon" || k === "status") ? 1 : -1; }
+    else {
+      currentSort.key = k;
+      currentSort.dir = (k === "name" || k === "cat" || k === "id" || k === "asset" || k === "horizon" || k === "status") ? 1 : -1;
+    }
     render();
   });
-});
-
-["search","catfilter","statusfilter","minsharpe"].forEach(id => {
-  document.getElementById(id).addEventListener("input", render);
 });
 
 render();
