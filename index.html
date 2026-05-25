@@ -2925,15 +2925,22 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div><!-- end tab-validation -->
 
 <script>
-// ----- Page-level tab switching -----
+// ----- Page-level tab switching (with localStorage persistence) -----
+function switchTab(tabName) {
+  document.querySelectorAll('.page-tabs button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const btn = document.querySelector(`.page-tabs button[data-tab="${tabName}"]`);
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById('tab-' + tabName);
+  if (panel) panel.classList.add('active');
+  localStorage.setItem('ekans-tab', tabName);
+}
 document.querySelectorAll('.page-tabs button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.page-tabs button').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-  });
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
+// Restore saved tab
+const savedTab = localStorage.getItem('ekans-tab');
+if (savedTab && document.getElementById('tab-' + savedTab)) switchTab(savedTab);
 
 // Scope all card operations to the strategies tab only
 const stratPanel = document.getElementById('tab-strategies');
@@ -3005,7 +3012,7 @@ const stratNav = document.getElementById('strategy-nav');
 const appendixSection = document.getElementById('appendix');
 const appendixDetails = [...document.querySelectorAll('main.container > details, main.container > .counter')];
 
-let CAGR_FLOOR = 12;  // Default; user-adjustable via slider
+let CAGR_FLOOR = parseInt(localStorage.getItem('ekans-cagr') || '12');
 
 // A card is "crypto" if its h3 / asset text references BTC, ETH, or crypto-specific concepts.
 function isCryptoCard(card) {
@@ -3043,7 +3050,7 @@ function buildStratLink(card, sortKey) {
   return a;
 }
 
-let currentGroup = 'noncrypto';
+let currentGroup = localStorage.getItem('ekans-group') || 'noncrypto';
 
 function buildStratNav(sortKey) {
   stratNav.innerHTML = '';
@@ -3072,12 +3079,18 @@ function buildStratNav(sortKey) {
   groupCards.forEach(c => stratNav.appendChild(buildStratLink(c, sortKey)));
 }
 
+// Restore saved group tab active state
+document.querySelectorAll('.group-tabs button[data-group]').forEach(b => b.classList.remove('active'));
+const savedGroupBtn = document.querySelector(`.group-tabs button[data-group="${currentGroup}"]`);
+if (savedGroupBtn) savedGroupBtn.classList.add('active');
+
 // Wire up the group-tabs toggle
 document.querySelectorAll('.group-tabs button[data-group]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.group-tabs button[data-group]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentGroup = btn.dataset.group;
+    localStorage.setItem('ekans-group', currentGroup);
     const activeSort = document.querySelector('.sidebar .controls button.active');
     buildStratNav(activeSort ? activeSort.dataset.sort : 'cagr');
     // Open first strategy in the new group
@@ -3154,8 +3167,10 @@ function updateCagrLabel() {
   if (hc) hc.textContent = document.querySelectorAll('.strat-link').length;
 }
 if (cagrSlider) {
+  cagrSlider.value = CAGR_FLOOR;
   cagrSlider.addEventListener('input', () => {
     CAGR_FLOOR = parseFloat(cagrSlider.value);
+    localStorage.setItem('ekans-cagr', CAGR_FLOOR);
     const activeSort = document.querySelector('.sidebar .controls button.active');
     buildStratNav(activeSort ? activeSort.dataset.sort : 'cagr');
     updateCagrLabel();
@@ -3169,6 +3184,7 @@ if (cagrSlider) {
 }
 
 // Initial build: sort by CAGR and show the top strategy
+updateCagrLabel();
 buildStratNav('cagr');
 updateCagrLabel();
 const firstLink = document.querySelector('.strat-link');

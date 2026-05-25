@@ -230,20 +230,7 @@ CAT_NAMES = {
 
 
 def render_html(results):
-    # Sort by Sharpe desc with None last
-    def sort_key(r):
-        s = r.get("sharpe")
-        return (s is None, -(s or 0))
-
-    sorted_by_sharpe = sorted(results, key=sort_key)
-    top10 = [r for r in sorted_by_sharpe if r.get("sharpe") is not None][:10]
-
-    # group by category
-    by_cat = {}
-    for r in results:
-        by_cat.setdefault(r["cat"], []).append(r)
-
-    # build JSON for client-side table
+    # build JSON for client-side cards
     table_data = []
     for r in results:
         row = {
@@ -263,48 +250,16 @@ def render_html(results):
             "hit": r["hit_rate"],
             "t": r["t_stat"],
             "n_days": r["n_days"],
+            "start": r["start"],
+            "end": r["end"],
             "bench_cagr": r["bench_cagr"],
+            "fail_reason": r["fail_reason"],
         }
         table_data.append(row)
 
     table_json = json.dumps(table_data, default=str)
 
-    top_rows = ""
-    for r in top10:
-        top_rows += f"""<tr>
-            <td><span class="badge cat-{r['cat']}">{r['cat']}</span></td>
-            <td><strong>{escape(r['name'])}</strong><br><small>{escape(r['id'])}</small></td>
-            <td>{escape(r['asset'])}</td>
-            <td class="r mono">{fmt_num(r['sharpe'])}</td>
-            <td class="r mono">{fmt_pct(r['cagr'])}</td>
-            <td class="r mono">{fmt_pct(r['max_dd'])}</td>
-            <td class="r mono">{fmt_num(r['t_stat'])}</td>
-            <td class="r mono">{fmt_pct(r['hit_rate'])}</td>
-            <td><small>{escape(r['source'])}</small></td>
-        </tr>"""
-
-    cat_overview_rows = ""
-    for catkey, catname in CAT_NAMES.items():
-        rs = by_cat.get(catkey, [])
-        n = len(rs)
-        n_ok = sum(1 for r in rs if r["status"] == "ok")
-        n_fail = sum(1 for r in rs if r["status"] == "fail")
-        sharpes = [r["sharpe"] for r in rs if r.get("sharpe") is not None]
-        median_sh = sorted(sharpes)[len(sharpes)//2] if sharpes else None
-        max_sh = max(sharpes) if sharpes else None
-        cat_overview_rows += f"""<tr>
-            <td><span class="badge cat-{catkey}">{catkey}</span></td>
-            <td>{escape(catname)}</td>
-            <td class="r">{n}</td>
-            <td class="r">{n_ok}</td>
-            <td class="r">{n_fail}</td>
-            <td class="r mono">{fmt_num(median_sh) if median_sh is not None else "—"}</td>
-            <td class="r mono">{fmt_num(max_sh) if max_sh is not None else "—"}</td>
-        </tr>"""
-
-    return TEMPLATE.replace("__TOP_ROWS__", top_rows)\
-                   .replace("__CAT_OVERVIEW__", cat_overview_rows)\
-                   .replace("__TABLE_DATA__", table_json)\
+    return TEMPLATE.replace("__TABLE_DATA__", table_json)\
                    .replace("__N_TOTAL__", str(len(results)))\
                    .replace("__N_OK__", str(sum(1 for r in results if r["status"] == "ok")))\
                    .replace("__N_FAIL__", str(sum(1 for r in results if r["status"] == "fail")))
@@ -322,7 +277,8 @@ TEMPLATE = r"""<!DOCTYPE html>
   --fg: #e6e9ef; --fg-dim: #9ca3af;
   --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
   --border: #2d3548;
-  --mono: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --cat-A: #a78bfa; --cat-B: #fb7185; --cat-C: #34d399; --cat-D: #fbbf24;
   --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
@@ -330,7 +286,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 * { box-sizing: border-box; margin: 0; }
 body {
   background: var(--bg); color: var(--fg);
-  font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font: 14px/1.55 var(--sans);
 }
 a { color: var(--accent); }
 .pos { color: var(--good); font-weight: 600; }
@@ -455,6 +411,21 @@ a { color: var(--accent); }
   background: var(--accent); cursor: pointer; border: 2px solid var(--bg-2);
 }
 
+/* Sort buttons */
+.sort-btns {
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.sort-btn {
+  padding: 4px 8px; font-size: 10px; font-weight: 600;
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
+  border-radius: 4px; cursor: pointer; font-family: inherit;
+  transition: background 0.12s, border-color 0.12s;
+}
+.sort-btn:hover { color: var(--fg); border-color: var(--fg-dim); }
+.sort-btn.active { color: var(--accent); border-color: var(--accent); }
+.sort-btn.active::after { content: " \25BC"; font-size: 8px; }
+.sort-btn.active.asc::after { content: " \25B2"; font-size: 8px; }
+
 /* Reset button */
 #reset-btn {
   padding: 7px 0; font-size: 12px; font-weight: 600;
@@ -491,27 +462,124 @@ main {
 .summary-row .fail { color: var(--bad); }
 #visible-count { color: var(--accent); font-weight: 600; font-family: var(--mono); }
 
-/* Table */
-.scroll-x {
-  overflow-x: auto; border-radius: 8px; border: 1px solid var(--border);
-  flex: 1;
+/* ---------- Cards ---------- */
+#cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-table th, table td {
-  text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
-  vertical-align: top; white-space: nowrap;
+
+.signal-card {
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin: 2px 0;
+  cursor: pointer;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  transition: background 0.12s, border-color 0.12s;
+  overflow: hidden;
 }
-table td:nth-child(3) { white-space: normal; min-width: 200px; max-width: 320px; }
-table th {
-  background: var(--bg-2); position: sticky; top: 0; z-index: 2;
-  font-weight: 600; cursor: pointer; user-select: none; font-size: 12px;
+.signal-card:hover {
+  border-color: var(--fg-dim);
+  background: var(--bg-3);
 }
-table th:hover { background: var(--bg-3); }
-table th.sorted-asc::after { content: " ▲"; font-size: 9px; color: var(--accent); }
-table th.sorted-desc::after { content: " ▼"; font-size: 9px; color: var(--accent); }
-table tr:hover td { background: rgba(125,211,252,0.04); }
-table .r { text-align: right; }
-table .mono { font-family: var(--mono); font-size: 12px; }
+.signal-card.expanded {
+  border-color: var(--accent);
+  background: var(--bg-2);
+  cursor: default;
+}
+.signal-card.failed {
+  opacity: 0.55;
+}
+.signal-card.failed:hover {
+  opacity: 0.8;
+}
+.signal-card.failed.expanded {
+  opacity: 0.85;
+}
+
+/* Collapsed row */
+.card-collapsed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 29px;
+}
+.card-swatch {
+  width: 6px; height: 22px; border-radius: 2px; flex-shrink: 0;
+}
+.card-name {
+  font-size: 13px; font-weight: 600; flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-inline-metrics {
+  display: flex; gap: 12px; align-items: center; flex-shrink: 0;
+  font-family: var(--mono); font-size: 12px;
+}
+.card-inline-metrics .lbl {
+  color: var(--fg-dim); font-size: 10px; margin-right: 3px;
+}
+.card-status-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 6px;
+  border-radius: 3px; font-family: var(--mono);
+}
+.card-status-badge.ok {
+  background: rgba(52,211,153,0.12); color: var(--good);
+}
+.card-status-badge.fail {
+  background: rgba(248,113,113,0.15); color: var(--bad);
+}
+
+/* Expanded details */
+.card-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.signal-card.expanded .card-details {
+  max-height: 600px;
+}
+.card-details-inner {
+  padding: 12px 0 6px 16px;
+}
+
+/* Metrics grid inside expanded */
+.card-metrics {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.card-m {
+  background: var(--bg-3); padding: 5px 10px; border-radius: 5px;
+  border: 1px solid var(--border); min-width: 68px;
+}
+.card-m .mv { font: 600 14px var(--mono); }
+.card-m .ml { color: var(--fg-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Description sections */
+.card-section {
+  margin: 8px 0;
+}
+.card-section-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--fg-dim); margin-bottom: 3px;
+}
+.card-section-text {
+  font-size: 13px; color: var(--fg); line-height: 1.5;
+}
+.card-section-text.rule {
+  background: var(--bg-3); border-left: 3px solid var(--accent);
+  padding: 8px 12px; border-radius: 4px; font-family: var(--mono); font-size: 12px;
+}
+.card-section-text.fail-reason {
+  background: rgba(248,113,113,0.07); border-left: 3px solid var(--bad);
+  padding: 8px 12px; border-radius: 4px;
+}
+.card-meta {
+  display: flex; gap: 16px; flex-wrap: wrap; font-size: 11px; color: var(--fg-dim);
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
+}
+.card-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.card-meta .mlbl { font-weight: 600; color: var(--fg-dim); }
+
 .badge {
   display: inline-block; padding: 2px 7px; border-radius: 4px;
   font-size: 11px; font-weight: 600; font-family: var(--mono); color: var(--bg);
@@ -522,6 +590,7 @@ table .mono { font-family: var(--mono); font-size: 12px; }
 .cat-G { background: var(--cat-G); } .cat-H { background: var(--cat-H); }
 .cat-I { background: var(--cat-I); } .cat-J { background: var(--cat-J); }
 .cat-K { background: var(--cat-K); }
+
 .footer {
   text-align: center; color: var(--fg-dim); margin-top: 32px;
   padding: 16px; font-size: 12px;
@@ -534,6 +603,7 @@ table .mono { font-family: var(--mono); font-size: 12px; }
     position: static; height: auto; border-right: none;
     border-bottom: 1px solid var(--border);
   }
+  .card-inline-metrics { gap: 8px; }
 }
 </style>
 </head>
@@ -596,6 +666,18 @@ table .mono { font-family: var(--mono); font-size: 12px; }
       </div>
     </div>
 
+    <div class="sb-group">
+      <div class="sb-label">Sort by</div>
+      <div class="sort-btns" id="sort-btns">
+        <button class="sort-btn active" data-sort="sharpe">Sharpe</button>
+        <button class="sort-btn" data-sort="cagr">CAGR</button>
+        <button class="sort-btn" data-sort="t">t-stat</button>
+        <button class="sort-btn" data-sort="name">Name</button>
+        <button class="sort-btn" data-sort="cat">Cat</button>
+        <button class="sort-btn" data-sort="max_dd">MaxDD</button>
+      </div>
+    </div>
+
     <button id="reset-btn">Reset filters</button>
   </aside>
 
@@ -607,26 +689,7 @@ table .mono { font-family: var(--mono); font-size: 12px; }
       <span><span class="v fail">__N_FAIL__</span> fail</span>
     </div>
 
-    <div class="scroll-x">
-    <table id="signals">
-    <thead><tr>
-      <th data-key="cat">Cat</th>
-      <th data-key="id">ID</th>
-      <th data-key="name">Signal</th>
-      <th data-key="asset">Asset</th>
-      <th data-key="horizon">Horizon</th>
-      <th data-key="orig" class="r">Orig</th>
-      <th data-key="btf" class="r">BT-f</th>
-      <th data-key="sharpe" class="r">Sharpe</th>
-      <th data-key="cagr" class="r">CAGR</th>
-      <th data-key="max_dd" class="r">MaxDD</th>
-      <th data-key="t" class="r">t-stat</th>
-      <th data-key="hit" class="r">Hit</th>
-      <th data-key="status">Status</th>
-    </tr></thead>
-    <tbody id="tbody"></tbody>
-    </table>
-    </div>
+    <div id="cards-container"></div>
 
     <div class="footer">
       Generated from <code>build_report.py</code>. Free data only (yfinance, FRED, public APIs).
@@ -644,8 +707,13 @@ const CAT_NAMES = {
   E:"Event-Driven",F:"Sentiment/TA",G:"Alt-Data",H:"Crypto",
   I:"Pattern TA",J:"Curiosity",K:"Policy/Geo"
 };
+const CAT_COLORS = {
+  A:"var(--cat-A)",B:"var(--cat-B)",C:"var(--cat-C)",D:"var(--cat-D)",
+  E:"var(--cat-E)",F:"var(--cat-F)",G:"var(--cat-G)",H:"var(--cat-H)",
+  I:"var(--cat-I)",J:"var(--cat-J)",K:"var(--cat-K)"
+};
 
-// ---- Compute per-category counts and populate pills ----
+// ---- Compute per-category counts ----
 (function initCounts() {
   const counts = {};
   DATA.forEach(r => { counts[r.cat] = (counts[r.cat] || 0) + 1; });
@@ -658,15 +726,15 @@ const CAT_NAMES = {
 // ---- Formatting helpers ----
 function fmtPct(x, dp) {
   if (dp === undefined) dp = 2;
-  if (x === null || x === undefined || isNaN(x)) return "";
+  if (x === null || x === undefined || isNaN(x)) return "—";
   return (x * 100).toFixed(dp) + "%";
 }
 function fmtNum(x, dp) {
   if (dp === undefined) dp = 2;
-  if (x === null || x === undefined || isNaN(x)) return "";
+  if (x === null || x === undefined || isNaN(x)) return "—";
   return Number(x).toFixed(dp);
 }
-function colorVal(v, kind) {
+function colorCls(v, kind) {
   if (v === null || v === undefined || isNaN(v)) return "";
   if (kind === "sharpe" || kind === "t") {
     return v >= 0.5 ? "pos" : v <= -0.5 ? "neg" : v < 0 ? "neg" : "";
@@ -684,9 +752,9 @@ function colorVal(v, kind) {
 let currentSort = { key: "sharpe", dir: -1 };
 let activeCat = "";
 let activeStatus = "";
+let expandedIds = new Set();
 
 // ---- Sidebar wiring ----
-// Category pills
 document.querySelectorAll("#cat-pills .cat-pill").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll("#cat-pills .cat-pill").forEach(b => b.classList.remove("active"));
@@ -696,7 +764,6 @@ document.querySelectorAll("#cat-pills .cat-pill").forEach(btn => {
   });
 });
 
-// Status toggle
 document.querySelectorAll("#status-toggle button").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll("#status-toggle button").forEach(b => b.classList.remove("active"));
@@ -706,7 +773,6 @@ document.querySelectorAll("#status-toggle button").forEach(btn => {
   });
 });
 
-// Sliders
 const cagrSlider = document.getElementById("min-cagr");
 const cagrVal = document.getElementById("cagr-val");
 cagrSlider.addEventListener("input", () => {
@@ -723,8 +789,26 @@ sharpeSlider.addEventListener("input", () => {
   render();
 });
 
-// Search
 document.getElementById("search").addEventListener("input", render);
+
+// Sort buttons
+document.querySelectorAll("#sort-btns .sort-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const k = btn.dataset.sort;
+    if (currentSort.key === k) {
+      currentSort.dir *= -1;
+    } else {
+      currentSort.key = k;
+      currentSort.dir = (k === "name" || k === "cat" || k === "id") ? 1 : -1;
+    }
+    document.querySelectorAll("#sort-btns .sort-btn").forEach(b => {
+      b.classList.remove("active", "asc");
+    });
+    btn.classList.add("active");
+    if (currentSort.dir === 1) btn.classList.add("asc");
+    render();
+  });
+});
 
 // Reset
 document.getElementById("reset-btn").addEventListener("click", () => {
@@ -737,24 +821,100 @@ document.getElementById("reset-btn").addEventListener("click", () => {
   document.querySelector('#status-toggle button[data-status=""]').classList.add("active");
   cagrSlider.value = 0; cagrVal.textContent = "0%";
   sharpeSlider.value = -10; sharpeVal.textContent = "any";
+  currentSort = { key: "sharpe", dir: -1 };
+  document.querySelectorAll("#sort-btns .sort-btn").forEach(b => b.classList.remove("active", "asc"));
+  document.querySelector('#sort-btns .sort-btn[data-sort="sharpe"]').classList.add("active");
+  expandedIds.clear();
   render();
 });
 
-// ---- Sort indicators ----
-function updateSortIndicators() {
-  document.querySelectorAll("#signals th[data-key]").forEach(th => {
-    th.classList.remove("sorted-asc", "sorted-desc");
-    if (th.dataset.key === currentSort.key) {
-      th.classList.add(currentSort.dir === 1 ? "sorted-asc" : "sorted-desc");
-    }
+// ---- Build card HTML ----
+function buildCard(r) {
+  const isExp = expandedIds.has(r.id);
+  const isFail = r.status === "fail";
+  const cls = "signal-card" + (isExp ? " expanded" : "") + (isFail ? " failed" : "");
+  const swatchColor = CAT_COLORS[r.cat] || "var(--fg-dim)";
+
+  // Collapsed row
+  const shText = r.sharpe != null ? fmtNum(r.sharpe) : "—";
+  const cgText = r.cagr != null ? fmtPct(r.cagr, 1) : "—";
+  const shCls = colorCls(r.sharpe, "sharpe");
+  const cgCls = colorCls(r.cagr, "cagr");
+  const statusBadge = isFail
+    ? '<span class="card-status-badge fail">FAIL</span>'
+    : '<span class="card-status-badge ok">OK</span>';
+
+  let collapsed = '<div class="card-collapsed">' +
+    '<div class="card-swatch" style="background:' + swatchColor + '"></div>' +
+    '<span class="card-name">' + escHtml(r.name) + '</span>' +
+    '<div class="card-inline-metrics">' +
+      '<span><span class="lbl">Sh</span><span class="' + shCls + '">' + shText + '</span></span>' +
+      '<span><span class="lbl">CAGR</span><span class="' + cgCls + '">' + cgText + '</span></span>' +
+      statusBadge +
+    '</div>' +
+  '</div>';
+
+  // Expanded details
+  let details = '<div class="card-details"><div class="card-details-inner">';
+
+  // Metrics row
+  details += '<div class="card-metrics">';
+  const metrics = [
+    ["Sharpe", fmtNum(r.sharpe), colorCls(r.sharpe, "sharpe")],
+    ["CAGR", fmtPct(r.cagr), colorCls(r.cagr, "cagr")],
+    ["MaxDD", fmtPct(r.max_dd), colorCls(r.max_dd, "dd")],
+    ["t-stat", fmtNum(r.t), colorCls(r.t, "t")],
+    ["Hit", fmtPct(r.hit, 1), ""],
+    ["BenchCAGR", fmtPct(r.bench_cagr), ""],
+  ];
+  metrics.forEach(([label, val, cls]) => {
+    details += '<div class="card-m"><div class="ml">' + label + '</div><div class="mv ' + cls + '">' + val + '</div></div>';
   });
+  details += '</div>';
+
+  // Rule / description
+  if (r.desc) {
+    details += '<div class="card-section"><div class="card-section-label">Rule / Mechanism</div>' +
+      '<div class="card-section-text rule">' + escHtml(r.desc) + '</div></div>';
+  }
+
+  // Fail reason
+  if (isFail && r.fail_reason) {
+    details += '<div class="card-section"><div class="card-section-label">Fail Reason</div>' +
+      '<div class="card-section-text fail-reason">' + escHtml(r.fail_reason) + '</div></div>';
+  }
+
+  // Source
+  if (r.source) {
+    details += '<div class="card-section"><div class="card-section-label">Source</div>' +
+      '<div class="card-section-text">' + escHtml(r.source) + '</div></div>';
+  }
+
+  // Meta row
+  details += '<div class="card-meta">';
+  details += '<span><span class="mlbl">ID:</span> ' + escHtml(r.id) + '</span>';
+  details += '<span><span class="mlbl">Asset:</span> ' + escHtml(r.asset) + '</span>';
+  details += '<span><span class="mlbl">Horizon:</span> ' + escHtml(r.horizon) + '</span>';
+  if (r.n_days) details += '<span><span class="mlbl">N days:</span> ' + r.n_days + '</span>';
+  if (r.start) details += '<span><span class="mlbl">Start:</span> ' + escHtml(r.start) + '</span>';
+  if (r.end) details += '<span><span class="mlbl">End:</span> ' + escHtml(r.end) + '</span>';
+  details += '</div>';
+
+  details += '</div></div>';
+
+  return '<div class="' + cls + '" data-id="' + escHtml(r.id) + '">' + collapsed + details + '</div>';
+}
+
+function escHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
 // ---- Render ----
 function render() {
   const q = document.getElementById("search").value.toLowerCase();
-  const minCagr = parseInt(cagrSlider.value) / 100;   // 0..1
-  const minSharpeRaw = parseInt(sharpeSlider.value);   // -10..30  (tenths)
+  const minCagr = parseInt(cagrSlider.value) / 100;
+  const minSharpeRaw = parseInt(sharpeSlider.value);
   const minSharpe = minSharpeRaw <= -10 ? -Infinity : minSharpeRaw / 10;
 
   let rows = DATA.filter(r => {
@@ -783,44 +943,23 @@ function render() {
 
   document.getElementById("visible-count").textContent = rows.length;
 
-  const tbody = document.getElementById("tbody");
-  tbody.innerHTML = rows.map(r => {
-    const sh = r.sharpe, cg = r.cagr, dd = r.max_dd, tt = r.t, hi = r.hit;
-    const status = r.status === "fail"
-      ? '<span class="bad">FAIL</span>'
-      : '<span class="dim">ok</span>';
-    return '<tr>' +
-      '<td><span class="badge cat-' + r.cat + '">' + r.cat + '</span></td>' +
-      '<td class="mono dim">' + r.id + '</td>' +
-      '<td><strong>' + r.name + '</strong><br><small class="dim">' + (r.desc||"") + ' &middot; <em>' + (r.source||"") + '</em></small></td>' +
-      '<td>' + r.asset + '</td>' +
-      '<td>' + r.horizon + '</td>' +
-      '<td class="r mono">' + r.orig + '</td>' +
-      '<td class="r mono">' + r.btf + '</td>' +
-      '<td class="r mono ' + colorVal(sh,"sharpe") + '">' + fmtNum(sh) + '</td>' +
-      '<td class="r mono ' + colorVal(cg,"cagr") + '">' + fmtPct(cg) + '</td>' +
-      '<td class="r mono ' + colorVal(dd,"dd") + '">' + fmtPct(dd) + '</td>' +
-      '<td class="r mono ' + colorVal(tt,"t") + '">' + fmtNum(tt) + '</td>' +
-      '<td class="r mono">' + fmtPct(hi,1) + '</td>' +
-      '<td>' + status + '</td>' +
-      '</tr>';
-  }).join("");
+  const container = document.getElementById("cards-container");
+  container.innerHTML = rows.map(r => buildCard(r)).join("");
 
-  updateSortIndicators();
-}
-
-// ---- Column sort ----
-document.querySelectorAll("#signals th[data-key]").forEach(th => {
-  th.addEventListener("click", () => {
-    const k = th.dataset.key;
-    if (currentSort.key === k) currentSort.dir *= -1;
-    else {
-      currentSort.key = k;
-      currentSort.dir = (k === "name" || k === "cat" || k === "id" || k === "asset" || k === "horizon" || k === "status") ? 1 : -1;
-    }
-    render();
+  // Attach click handlers
+  container.querySelectorAll(".signal-card").forEach(card => {
+    card.addEventListener("click", (e) => {
+      const id = card.dataset.id;
+      if (expandedIds.has(id)) {
+        expandedIds.delete(id);
+        card.classList.remove("expanded");
+      } else {
+        expandedIds.add(id);
+        card.classList.add("expanded");
+      }
+    });
   });
-});
+}
 
 render();
 </script>
