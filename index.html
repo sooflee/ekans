@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trading Signals — Promising Edges Only</title>
+<title>Trading Signals Research</title>
 <style>
 :root {
   --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
@@ -341,6 +341,31 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   .layout { grid-template-columns: 1fr; padding: 16px; }
   .sidebar { position: static; max-height: none; margin-bottom: 12px; }
 }
+
+/* ----- Top-level page tabs ----- */
+.page-tabs {
+  display: flex; gap: 0; max-width: 1280px; margin: 0 auto;
+  padding: 0 20px; border-bottom: 2px solid var(--border);
+}
+.page-tabs button {
+  background: transparent; border: none; border-bottom: 2px solid transparent;
+  color: var(--fg-dim); font: 600 14px/1 var(--mono); padding: 12px 20px;
+  cursor: pointer; margin-bottom: -2px; transition: color 0.15s, border-color 0.15s;
+}
+.page-tabs button:hover { color: var(--fg); }
+.page-tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+.page-tabs .tab-count {
+  font-size: 11px; font-weight: 400; color: var(--fg-dim);
+  background: var(--bg-3); padding: 1px 6px; border-radius: 8px; margin-left: 6px;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+#tab-catalog { padding: 0; }
+#tab-catalog iframe {
+  width: 100%; border: none; min-height: calc(100vh - 100px);
+}
+#tab-validation .layout { grid-template-columns: 1fr; max-width: 900px; }
+#tab-validation .card { margin: 0 0 14px 0; }
 </style>
 <script>
 (function(){
@@ -354,12 +379,12 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <header class="hero">
   <div class="hero-main">
-    <h1>High-Return Trading Signals</h1>
-    <p class="sub">Backtested strategies with positive CAGR (S&amp;P long-run benchmark ~10%/yr for reference). Grouped in the sidebar as crypto vs non-crypto — crypto has been having a standout decade and dominates the high-CAGR tail. Click a tab to open a strategy.</p>
+    <h1>Trading Signals Research</h1>
+    <p class="sub">404 signals backtested across macro, crypto, commodities, geopolitics, OSINT, supply chains, and cross-domain causal chains. Free data only.</p>
     <div class="stats">
-      <div class="stat"><span class="v" id="hero-count">—</span><span class="l">strategies shown</span></div>
-      <div class="stat"><span class="v">234</span><span class="l">backtested OK</span></div>
-      <div class="stat"><span class="v">314</span><span class="l">total tested</span></div>
+      <div class="stat"><span class="v">404</span><span class="l">signals tested</span></div>
+      <div class="stat"><span class="v" id="hero-count">24</span><span class="l">high return</span></div>
+      <div class="stat"><span class="v">24</span><span class="l">validated</span></div>
     </div>
   </div>
   <aside class="hero-disclaimer">
@@ -367,6 +392,17 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   </aside>
 </header>
 
+<nav class="page-tabs">
+  <button data-tab="catalog">Full Catalog<span class="tab-count">404</span></button>
+  <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">24</span></button>
+  <button data-tab="validation">Validation</button>
+</nav>
+
+<div id="tab-catalog" class="tab-panel">
+  <iframe src="full_catalog.html" loading="lazy"></iframe>
+</div>
+
+<div id="tab-strategies" class="tab-panel active">
 <div class="layout">
 
 <aside class="sidebar">
@@ -387,7 +423,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <h4>Other</h4>
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
-  <a href="full_catalog.html">Full catalog (314) ↗</a>
+  <a href="#" onclick="document.querySelector('.page-tabs button[data-tab=catalog]').click();return false;">Full catalog (404) ↗</a>
   <button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 </aside>
 
@@ -1831,8 +1867,33 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 
 </main>
 </div>
+</div><!-- end tab-strategies -->
+
+<div id="tab-validation" class="tab-panel">
+<div class="layout" style="padding-top:24px;">
+<main class="container">
+<h2 style="margin-top:0;">Strategy Validation</h2>
+<p class="sub">Each high-return strategy assessed for sample size, overfitting, regime dependency, transaction costs, and survivorship bias. Confidence ratings help distinguish robust findings from lucky samples.</p>
+
+<div id="validation-cards">
+<p style="color:var(--fg-dim);text-align:center;padding:40px;">Loading validation data...</p>
+</div>
+
+</main>
+</div>
+</div><!-- end tab-validation -->
 
 <script>
+// ----- Page-level tab switching -----
+document.querySelectorAll('.page-tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.page-tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
 // Filter out the hidden counter-finding cards: drop them from DOM entirely
 document.querySelectorAll('.card[style*="display:none"]').forEach(c => c.remove());
 
