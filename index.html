@@ -16,21 +16,25 @@
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
 }
 [data-theme="light"] {
-  --bg: #ffffff; --bg-2: #f7f8fa; --bg-3: #ebedf0;
-  --fg: #1a1a2e; --fg-dim: #6b7280;
-  --accent: #2563eb; --good: #059669; --bad: #dc2626; --warn: #d97706;
-  --border: #d4d8de;
+  --bg: #ffffff; --bg-2: #f9fafb; --bg-3: #f3f4f6;
+  --fg: #1f2937; --fg-dim: #6b7280;
+  --accent: #2563eb; --good: #16a34a; --bad: #dc2626; --warn: #d97706;
+  --border: #e5e7eb;
   --cat-A: #7c3aed; --cat-B: #e11d48; --cat-C: #059669; --cat-D: #d97706;
   --cat-E: #2563eb; --cat-F: #db2777; --cat-G: #65a30d; --cat-H: #ea580c;
   --cat-I: #64748b; --cat-J: #9333ea; --cat-K: #0d9488;
 }
 #theme-toggle {
-  position: fixed; top: 12px; right: 16px; z-index: 100;
-  background: var(--bg-2); border: 1px solid var(--border);
-  color: var(--fg-dim); padding: 6px 14px; border-radius: 6px;
-  cursor: pointer; font: 13px inherit; line-height: 1;
+  margin-top: 8px;
+  background: var(--bg-3) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--fg-dim);
+  text-align: center;
 }
-#theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+#theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent) !important;
+}
 * { box-sizing: border-box; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
@@ -348,8 +352,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 </head>
 <body>
 
-<button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
-
 <header class="hero">
   <div class="hero-main">
     <h1>High-Return Trading Signals</h1>
@@ -386,6 +388,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
   <a href="full_catalog.html">Full catalog (314) ↗</a>
+  <button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 </aside>
 
 <main class="container">
@@ -1513,6 +1516,50 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: IMF Article IV MENA REO; Saudi MoF budget</span><span><code>backtests/AC6_saudi_breakeven_brent.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">AI-4</span><h3>GLP-1 Mass Adoption → Short Premium Spirits</h3></div>
+    <div class="right">consumer / healthcare · regime trade · 2023-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.60</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">747d</div><div class="ml">in-position</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>GLP-1 drugs (Ozempic, Wegovy, Zepbound) have reached mass adoption (~15M+ US patients). Clinical data shows a 29% reduction in drinking frequency among users. This creates a structural headwind for spirits volume that the market initially dismissed as "GLP-1 adherence is low." But adherence is improving and the prescriptions keep growing. Constellation Brands (STZ) faces a double whammy: GLP-1 volume drag PLUS tariff exposure on 85% Mexico-sourced revenue. Brown-Forman (BF-B) sees organic revenue stalling for the first time in decades.</p>
+    <h4>Rule</h4>
+    <div class="rule">Short equal-weight {BF-B, STZ} when GLP-1 cumulative prescriptions exceed 15M AND quarterly organic spirits volume declines &gt;3%. Regime trade — hold until prescription growth reverses or volume recovers.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">STZ already -45% from peak — much of the decline may be priced in. Excess CAGR vs SPY is -10% (SPY returned 23% over this period). The short thesis worked but a simple long-SPY position outperformed. GLP-1 supply constraints or coverage limits could stall the adoption curve. Tariff rollback would specifically help STZ.</div>
+  </div>
+  <div class="card-foot"><span>Source: STEP trial data; Nielsen spirits scanner; BF.B/STZ earnings</span><span><code>backtests/AI4_glp1_spirits_short.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">AI-5</span><h3>Office CMBS Stress → Regional Bank CRE Pair</h3></div>
+    <div class="right">financials · regime trade · 2023-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.49</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-34.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">850d</div><div class="ml">in-position</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Remote work has become structural — Kastle back-to-work barometer stuck below 50%. This feeds a 5-link chain: 1) structural vacancy → 2) office CMBS 60+ delinquency at 12.3% (exceeding 2009 GFC peak) → 3) $270B+ office CMBS matures 2026-2028 at 40-60% LTV haircuts → 4) regional banks with CRE &gt;300% of Tier 1 capital (OZK, NYCB/Flagstar) face write-downs → 5) pair spread widens vs diversified large banks (JPM, WFC).</p>
+    <h4>Rule</h4>
+    <div class="rule">When Trepp office CMBS 60+ DQ exceeds 10% AND specific regional bank CRE concentration exceeds 300% Tier 1: long {JPM, WFC} vs short {OZK, NYCB/FLG}, equal-weight pair.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Excess CAGR vs SPY is -12% — long JPM/WFC leg carried the return, the short leg underperformed. MaxDD -34% is steep. NYCB restructured to Flagstar Financial in 2024, muddying the backtest. A Fed rate-cutting cycle would reduce refinancing pain and narrow the spread. Office-to-residential conversion programs could stabilize valuations.</div>
+  </div>
+  <div class="card-foot"><span>Source: Trepp CMBS data; FDIC call reports; Kastle barometer</span><span><code>backtests/AI5_office_cmbs_regional_bank.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -1659,6 +1706,12 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">AG-5</span><span class="name">India monsoon failure → sugar #11</span><span class="why">54% in-position CAGR, Sharpe 1.46, mean +16.8%/window — but fires only on deficit years (1-in-3.5); portfolio CAGR ~9%</span></li>
 <li><span class="id">AF-1</span><span class="name">GLP-1 milestones → short RMD</span><span class="why">LOSER: -19.7% CAGR — market pre-priced GLP-1 risk mid-2023; each milestone was "sell rumor, buy news"</span></li>
 <li><span class="id">AG-1</span><span class="name">Rhine low water → short BASF / long DOW</span><span class="why">LOSER: -18.4% — US/EU chemical legs too correlated; logistics factor swamped by global demand</span></li>
+<li><span class="id">AJ-4</span><span class="name">USDA Crop Progress G+E drop → long corn</span><span class="why">48% in-position CAGR, Sharpe 1.13, 8 events over 20 yrs — spectacular per-event but fires ~once/3yr; portfolio CAGR ~1%</span></li>
+<li><span class="id">AJ-1</span><span class="name">Canada wildfire → long lumber</span><span class="why">38.8% in-pos, Sharpe 2.33, 100% win rate — but N=4 since 2017; portfolio CAGR ~2%</span></li>
+<li><span class="id">AI-3</span><span class="name">Patent cliff biosimilar → long MCOs</span><span class="why">11.1% in-position CAGR on 4 Jan-1 events — fires annually but 90d window = portfolio ~5%</span></li>
+<li><span class="id">AH-1</span><span class="name">Hydro drought → short Pacific NW utility</span><span class="why">6.3% CAGR marginal; only 2 testable drought events (2015, 2021)</span></li>
+<li><span class="id">AJ-2</span><span class="name">Peru anchovy quota → long soybean meal</span><span class="why">LOSER: 0.3% CAGR — fishmeal-to-soymeal substitution doesn't reliably move ZM=F</span></li>
+<li><span class="id">AI-2</span><span class="name">Negative equity → short subprime auto originators</span><span class="why">LOSER: -16% — CACC/ALLY rallied despite record DQ; credit thesis premature or priced in</span></li>
 </ul>
 </details>
 
@@ -1711,7 +1764,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 380-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 388-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
