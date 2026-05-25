@@ -1560,6 +1560,53 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: Trepp CMBS data; FDIC call reports; Kastle barometer</span><span><code>backtests/AI5_office_cmbs_regional_bank.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">AS-B</span><h3>★ Inference Cost Reversal → Custom Silicon (MRVL + CRDO)</h3></div>
+    <div class="right">semiconductors · regime trade · 2024-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">129%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-60.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">+107%</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Frontier LLM token pricing collapsed 97% from 2023-2025, then GPT-5.5 doubled pricing — signaling the deflationary era for frontier inference is ending. Unprofitable inference on general-purpose NVIDIA GPUs forces hyperscalers to accelerate custom ASIC adoption (Google TPUs via Broadcom, Amazon Trainium, Meta chips via Marvell). Custom silicon delivers 2-5x better cost-per-token. Marvell's data center revenue +46% YoY, Credo's +85% YoY. The value is migrating from GPU rental to inference-optimized custom silicon and optical interconnect.</p>
+    <h4>Rule</h4>
+    <div class="rule">When frontier model providers raise token pricing (reversing the deflationary trend) AND hyperscaler custom ASIC orders accelerate: long equal-weight {MRVL, CRDO}. Regime trade — hold while inference cost pressure drives custom silicon adoption.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only 17 months of data (Jan 2024 – May 2026). MaxDD -60% is extreme — CRDO dropped from $80 to $30 during the Oct-Dec 2024 selloff before recovering to $100+. CRDO alone up 1022% from entry. If NVIDIA cuts GPU pricing to compete with custom silicon, the thesis weakens. Both names trade at elevated multiples.</div>
+  </div>
+  <div class="card-foot"><span>Source: LLM pricing pages; hyperscaler ASIC announcements; own research</span><span><code>backtests/ASB_custom_silicon.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">AQ-1</span><h3>★ Copper Near Marginal Cost Floor → Long HG=F</h3></div>
+    <div class="right">commodities · event-driven · 2016-2023</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">45.8%</div><div class="ml">CAGR (in-pos)</div></div>
+    <div class="m"><div class="mv neg">-16.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.10</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">3 / 3</div><div class="ml">positive trades</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Copper ore grades are declining structurally (Escondida: 1.6% → 1.0%; Grasberg: -20% in Q1 2025). This pushes all-in sustaining costs up every year. When spot copper approaches the 90th-percentile cost curve (~$3.80-4.00/lb in 2026), high-cost mines curtail production, mechanically tightening supply. The floor mechanism caps downside while upside is uncapped. Each year Chilean desalination mandates push costs higher still (seawater share 36% → projected 66% by 2034). The floor only rises.</p>
+    <h4>Rule</h4>
+    <div class="rule">When spot copper (HG=F) trades within 15% of the estimated 90th-percentile AISC (from Cochilco + miner 10-Q cost disclosures), go long HG=F. Hold 12 months.</div>
+    <h4>Why it's promising</h4>
+    <p>3 for 3 positive trades: Jan 2016 entry at $1.94/lb (+80% in 18mo), Mar 2020 at $2.10/lb (+67%), Jul 2022 at $3.30/lb (+21%). t-stat 3.10 across the three events. The mechanism is nearly tautological — producers below their own cost of production stop producing.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 trades, each ~12 months. Portfolio CAGR including cash periods is ~12% — the signal only fires when copper is cheap. The floor estimate is itself an estimate — Cochilco publishes annually with lag. Recycling and substitution can dampen demand enough to keep copper at depressed levels longer than miners can sustain losses (2015 lasted ~18 months).</div>
+  </div>
+  <div class="card-foot"><span>Source: Cochilco cost reports; miner 10-Q ore grades; own research</span><span><code>backtests/AQ1_copper_marginal_cost.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -1720,6 +1767,12 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">AL-2</span><span class="name">Immigration freeze → short XHB vs long HD/LOW</span><span class="why">LOSER: -10% — XHB outperformed HD/LOW despite immigration thesis</span></li>
 <li><span class="id">AK-3</span><span class="name">Mississippi barge rate → long soybeans</span><span class="why">FALSIFIED: drought events returned -0.96% vs control +3.10%; negative edge</span></li>
 <li><span class="id">AM-5</span><span class="name">AWS outage → multi-cloud basket</span><span class="why">LOSER: -61% — Dec 2021 event coincided with tech selloff; no alpha isolated</span></li>
+<li><span class="id">AR-3</span><span class="name">Cass freight YoY positive → long LTL</span><span class="why">97.7% in-pos, Sharpe 2.58 — spectacular but N=1 cycle (Oct 2020 trigger only); portfolio ~10%</span></li>
+<li><span class="id">AR-1</span><span class="name">Freight trough → long ODFL/SAIA</span><span class="why">33% CAGR across 4 cycles but 2024 trade -29.7%; excess vs SPY only +3.2%</span></li>
+<li><span class="id">AR-2</span><span class="name">Freight trough → long KNX/WERN truckload</span><span class="why">19.6% CAGR but excess -10.2% vs SPY; 2024 trade -28.7%</span></li>
+<li><span class="id">ST-3</span><span class="name">Solar AD/CVD tariff → long FSLR / short JKS</span><span class="why">22.6% in-pos CAGR, 4 events — but portfolio ~6% (fires every 2-3yr, 6mo hold)</span></li>
+<li><span class="id">AN-2</span><span class="name">Mortgage lock-in → suburban builder vs urban luxury</span><span class="why">6% CAGR marginal, -9.1% excess vs SPY</span></li>
+<li><span class="id">AP-1</span><span class="name">NRMP FM fill rate → long AMN / short hospitals</span><span class="why">LOSER: -19% — AMN destroyed by post-COVID travel nursing normalization despite correct physician-shortage thesis</span></li>
 </ul>
 </details>
 
@@ -1772,7 +1825,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 396-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 404-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
