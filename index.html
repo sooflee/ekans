@@ -15,6 +15,22 @@
   --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
 }
+[data-theme="light"] {
+  --bg: #ffffff; --bg-2: #f7f8fa; --bg-3: #ebedf0;
+  --fg: #1a1a2e; --fg-dim: #6b7280;
+  --accent: #2563eb; --good: #059669; --bad: #dc2626; --warn: #d97706;
+  --border: #d4d8de;
+  --cat-A: #7c3aed; --cat-B: #e11d48; --cat-C: #059669; --cat-D: #d97706;
+  --cat-E: #2563eb; --cat-F: #db2777; --cat-G: #65a30d; --cat-H: #ea580c;
+  --cat-I: #64748b; --cat-J: #9333ea; --cat-K: #0d9488;
+}
+#theme-toggle {
+  position: fixed; top: 12px; right: 16px; z-index: 100;
+  background: var(--bg-2); border: 1px solid var(--border);
+  color: var(--fg-dim); padding: 6px 14px; border-radius: 6px;
+  cursor: pointer; font: 13px inherit; line-height: 1;
+}
+#theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
 * { box-sizing: border-box; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
@@ -137,6 +153,19 @@ summary { cursor: pointer; padding: 8px 0; color: var(--accent); font-weight: 60
 summary:hover { color: var(--good); }
 .footer { text-align: center; color: var(--fg-dim); padding: 40px 0 20px; font-size: 13px; }
 a { color: var(--accent); }
+
+/* ----- Light-mode overrides for hardcoded rgba backgrounds ----- */
+[data-theme="light"] nav.tiernav { background: rgba(255,255,255,0.92); }
+[data-theme="light"] .sidebar { background: var(--bg-2); }
+[data-theme="light"] .sidebar .group-tabs { background: var(--bg-3); }
+[data-theme="light"] .sidebar .group-tabs button.active { background: var(--bg); }
+[data-theme="light"] .sidebar a.active,
+[data-theme="light"] .sidebar button.active { background: rgba(37,99,235,0.1); border-color: var(--accent); color: var(--accent); }
+[data-theme="light"] .strat-link.active { background: rgba(37,99,235,0.08); border-color: var(--accent); }
+[data-theme="light"] .caveat { background: rgba(217,119,6,0.06); }
+[data-theme="light"] .counter { background: rgba(220,38,38,0.05); }
+[data-theme="light"] .intro-caveat { background: rgba(217,119,6,0.06); }
+[data-theme="light"] .hero-disclaimer { background: rgba(217,119,6,0.05); }
 
 /* ----- Two-column layout with left sidebar tabs ----- */
 .layout {
@@ -309,8 +338,17 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   .sidebar { position: static; max-height: none; margin-bottom: 12px; }
 }
 </style>
+<script>
+(function(){
+  var s = localStorage.getItem('theme');
+  if (s === 'light' || (!s && window.matchMedia('(prefers-color-scheme: light)').matches))
+    document.documentElement.setAttribute('data-theme','light');
+})();
+</script>
 </head>
 <body>
+
+<button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 
 <header class="hero">
   <div class="hero-main">
@@ -1403,6 +1441,55 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <article class="card">
   <div class="card-head">
+    <div class="left"><span class="badge cat-G">AE-2</span><h3>★ Hyperscaler Capex Ratchet → Power-Infra Basket</h3></div>
+    <div class="right">industrials · 90 days (quarterly) · 2024-2025</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.23</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">57.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-42.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">+37.9%</div><div class="ml">excess vs SPY</div></div>
+    <div class="m"><div class="mv">5</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When 3+ of {MSFT, GOOG, AMZN, META} guide capex UP &gt;20% YoY in the same earnings season, it signals an impending wave of transformer, switchgear, and power-distribution orders. Supply-chain stocks lag by 1-2 quarters because (a) orders haven't hit backlog disclosures yet, and (b) industrial sell-side models update on their own earnings cycle, not hyperscaler cycles. The cross-sector information gap is the edge.</p>
+    <h4>Rule</h4>
+    <div class="rule">Each earnings season: if ≥3 of {MSFT, GOOG, AMZN, META} report capex &gt;20% YoY in 10-Qs, long equal-weight {ETN, VRT, PWR, HUBB, AMSC, MOD} for 90 days from the last confirming earnings call.</div>
+    <h4>Why it's promising</h4>
+    <p>Fired every quarter since Q4-2023. Average per-event basket return +16.3%, average excess vs SPY +10.7%. Best events: Q4-2023 (+45.6%) and Q2-2024 (+41.9%) as the AI power buildout wave hit equipment backlogs. Q3-2024 was a loser (-22.2%) during the broad tech selloff — the basket carries high beta when sentiment reverses.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Only 16 months of history (Feb 2024 – Jun 2025). MaxDD -42.5% is brutal — the basket is volatile mid-caps. The trigger has fired every single quarter, which means either it's a structural regime (plausible — AI capex isn't slowing) or the signal will become crowded fast. If hyperscalers guide down, the basket collapses. No transaction costs, no slippage on AMSC (thin).</div>
+  </div>
+  <div class="card-foot"><span>Source: hyperscaler 10-Q capex filings; own research</span><span><code>backtests/AE2_hyperscaler_capex.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">AG-2</span><h3>Transformer Shortage → OEM vs Utility Pair</h3></div>
+    <div class="right">industrials · regime trade · 2022-2026</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.66</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-40.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">977d</div><div class="ml">in-position</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>US large power transformer lead times extended beyond 100 weeks (vs historical 30-50) in mid-2022, driven by AI data-center load + grid modernization + EV charging. Only ~4 domestic LPT factories exist. Transformer OEMs (Eaton, Hubbell) enjoy massive pricing power — ASPs up 30-50% with full backlogs. Meanwhile, utilities that promised 8-12% rate-base growth face project delays from physical transformer unavailability. The same bottleneck creates a winner (OEM) and a loser (growth utility) and no single analyst covers both sides.</p>
+    <h4>Rule</h4>
+    <div class="rule">When DOE reports transformer lead time &gt;100 weeks: long equal-weight {ETN, HUBB} vs short {NEE, AEP}. Hold until lead times normalize below 60 weeks.</div>
+    <h4>Why it's promising</h4>
+    <p>ETN +230% and HUBB +181% cumulative since Jul 2022. The pair trade returned 17.5% CAGR / Sharpe 0.66 over nearly 3 years. Long-only OEM basket would be ~33% CAGR. The regime persists because transformer manufacturing capacity takes 3-5 years to build.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">SPY returned 20.8% over the same period — the pair trade slightly underperforms SPY on excess basis (-3.3%), though the long-only OEM leg crushes it. MaxDD -40.3%. A Defense Production Act invocation to accelerate production or a hyperscaler shift to on-site nuclear/microgrids would end the regime. Only one regime window backtested (N=1 structural event).</div>
+  </div>
+  <div class="card-foot"><span>Source: DOE Transformer Availability Report; own research</span><span><code>backtests/AG2_transformer_shortage.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
     <div class="left"><span class="badge cat-G">AC-6</span><h3>★ Saudi Fiscal Breakeven → Brent</h3></div>
     <div class="right">commodities · ~3 months (Q1 only) · 2018-2026</div>
   </div>
@@ -1566,6 +1653,12 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <li><span class="id">AD-O3</span><span class="name">Venezuela General License → CVX basket</span><span class="why">N=4 GLs, -3.63% mean — wrong sign; basket fell on every GL except renewals</span></li>
 <li><span class="id">AD-O4</span><span class="name">EO 14114 secondary-sanctions → HK bank fade</span><span class="why">N=4, -1.56% mean — PBOC liquidity offsets the warning effect</span></li>
 <li><span class="id">AD-S2</span><span class="name">Bipartisan STOCK Act cluster (NANC∩KRUZ proxy)</span><span class="why">coarse ETF proxy shows no excess CAGR; real signal needs daily CapitolTrades scrape</span></li>
+<li><span class="id">AE-1</span><span class="name">PJM BRA capacity spike → generators</span><span class="why">+28.8% on Jun 2024 trigger (+833% clearing) but N=2 (effectively N=1) — single-event observation</span></li>
+<li><span class="id">AF-3</span><span class="name">Freight spike → short discount retail</span><span class="why">22% in-position CAGR but N=3, t=0.54, mixed (one event lost -11%); portfolio CAGR ~3%/yr</span></li>
+<li><span class="id">AF-4</span><span class="name">China rare earth controls → MP/TSLA vs F/GM</span><span class="why">8.4% CAGR; MP rallied on Apr 2025 event (+30%) but TSLA too noisy as co-leg; signal diluted</span></li>
+<li><span class="id">AG-5</span><span class="name">India monsoon failure → sugar #11</span><span class="why">54% in-position CAGR, Sharpe 1.46, mean +16.8%/window — but fires only on deficit years (1-in-3.5); portfolio CAGR ~9%</span></li>
+<li><span class="id">AF-1</span><span class="name">GLP-1 milestones → short RMD</span><span class="why">LOSER: -19.7% CAGR — market pre-priced GLP-1 risk mid-2023; each milestone was "sell rumor, buy news"</span></li>
+<li><span class="id">AG-1</span><span class="name">Rhine low water → short BASF / long DOW</span><span class="why">LOSER: -18.4% — US/EU chemical legs too correlated; logistics factor swamped by global demand</span></li>
 </ul>
 </details>
 
@@ -1618,7 +1711,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 372-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 380-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
@@ -1861,6 +1954,24 @@ buildStratNav('cagr');
 updateCagrLabel();
 const firstLink = document.querySelector('.strat-link');
 if (firstLink) showOnly(firstLink.dataset.cardId);
+
+// Theme toggle
+const themeToggle = document.getElementById('theme-toggle');
+function applyThemeLabel() {
+  themeToggle.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? 'Dark' : 'Light';
+}
+applyThemeLabel();
+themeToggle.addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }
+  applyThemeLabel();
+});
 </script>
 
 </body>
