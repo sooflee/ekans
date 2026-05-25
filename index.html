@@ -2935,11 +2935,14 @@ document.querySelectorAll('.page-tabs button').forEach(btn => {
   });
 });
 
+// Scope all card operations to the strategies tab only
+const stratPanel = document.getElementById('tab-strategies');
+
 // Filter out the hidden counter-finding cards: drop them from DOM entirely
-document.querySelectorAll('.card[style*="display:none"]').forEach(c => c.remove());
+stratPanel.querySelectorAll('.card[style*="display:none"]').forEach(c => c.remove());
 
 // Infer data-cat on each card from its badge class
-document.querySelectorAll('.card').forEach(card => {
+stratPanel.querySelectorAll('.card').forEach(card => {
   const badge = card.querySelector('.badge');
   if (badge) {
     const m = badge.className.match(/cat-(\w)/);
@@ -2948,7 +2951,7 @@ document.querySelectorAll('.card').forEach(card => {
 });
 
 // Parse Sharpe/CAGR/t-stat from each card's metrics row → data attributes
-document.querySelectorAll('.card').forEach(card => {
+stratPanel.querySelectorAll('.card').forEach(card => {
   card.querySelectorAll('.m').forEach(m => {
     const labelEl = m.querySelector('.ml');
     const valEl = m.querySelector('.mv');
@@ -2964,7 +2967,7 @@ document.querySelectorAll('.card').forEach(card => {
   });
 });
 // Fallback pass: if a card has no plain "cagr", use the first label containing "cagr"
-document.querySelectorAll('.card').forEach(card => {
+stratPanel.querySelectorAll('.card').forEach(card => {
   if (card.dataset.cagr) return;
   for (const m of card.querySelectorAll('.m')) {
     const label = (m.querySelector('.ml')?.textContent || '').trim().toLowerCase();
@@ -2978,9 +2981,9 @@ document.querySelectorAll('.card').forEach(card => {
 
 // Sort all .card siblings by data attribute (desc). Hidden (display:none) cards stay hidden.
 function sortCards(key) {
-  const main = document.querySelector('main.container');
+  const main = stratPanel.querySelector('main.container');
   if (!main) return;
-  const cards = [...document.querySelectorAll('.card')];
+  const cards = [...stratPanel.querySelectorAll('.card')];
   // Anchor: insert before the appendix h2 (or its predecessor empty-msg)
   const appendix = document.getElementById('appendix') || document.getElementById('empty-msg');
   cards.sort((a, b) => {
@@ -3044,7 +3047,7 @@ let currentGroup = 'noncrypto';
 
 function buildStratNav(sortKey) {
   stratNav.innerHTML = '';
-  const cards = [...document.querySelectorAll('.card')].filter(c => {
+  const cards = [...stratPanel.querySelectorAll('.card')].filter(c => {
     const cagr = parseFloat(c.dataset.cagr);
     return !isNaN(cagr) && cagr >= CAGR_FLOOR;
   });
@@ -3084,7 +3087,7 @@ document.querySelectorAll('.group-tabs button[data-group]').forEach(btn => {
 });
 
 function showOnly(cardId) {
-  document.querySelectorAll('.card').forEach(c => {
+  stratPanel.querySelectorAll('.card').forEach(c => {
     c.style.display = (c.id === cardId) ? '' : 'none';
   });
   // Hide appendix when viewing a single strategy
@@ -3099,7 +3102,7 @@ function showOnly(cardId) {
 }
 
 function showAll() {
-  document.querySelectorAll('.card').forEach(c => { c.style.display = ''; });
+  stratPanel.querySelectorAll('.card').forEach(c => { c.style.display = ''; });
   appendixDetails.forEach(d => { d.style.display = ''; });
   if (appendixSection) appendixSection.style.display = '';
   document.querySelectorAll('.strat-link').forEach(l => l.classList.remove('active'));
@@ -3109,7 +3112,7 @@ function showAll() {
 }
 
 function showAppendix() {
-  document.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
+  stratPanel.querySelectorAll('.card').forEach(c => { c.style.display = 'none'; });
   appendixDetails.forEach(d => { d.style.display = ''; });
   if (appendixSection) appendixSection.style.display = '';
   document.querySelectorAll('.strat-link').forEach(l => l.classList.remove('active'));
