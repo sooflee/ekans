@@ -1558,6 +1558,31 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 
 <article class="card">
   <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL5</span><h3>★ Housing Permits/Completions Ratio → Long Aggregates</h3></div>
+    <div class="right">equities · 6-month hold · 2012-2022</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.14</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">31.4%</div><div class="ml">CAGR (in-pos)</div></div>
+    <div class="m"><div class="mv neg">-27.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.53</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">92%</div><div class="ml">win rate (11/12)</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Census Bureau publishes monthly housing permits and completions (free on FRED). When the permits-to-completions ratio crosses above 1.3, it means more homes are being approved than finished — a construction backlog is building. Each permitted home requires 100-400 tons of aggregate and 10-30 cubic yards of concrete. Aggregate/cement producers (VMC, MLM, EXP) have local monopoly pricing power because trucking radius limits competition. Rising volume + pricing power = operating leverage — margins expand 200-400bps over the next 2-3 quarters.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED PERMIT/COMPUTSA ratio crosses above 1.3: long equal-weight {VMC, MLM, EXP} for 6 months (126 trading days).</div>
+    <h4>Why it's promising</h4>
+    <p>11 of 12 trigger events produced positive returns. Average 6-month basket return +18.1%, average excess vs SPY +14.0%. t-stat 2.53 across 12 events spanning 2012-2022. The only loser was Dec 2021 (entering into the 2022 rate shock). The mechanism is nearly structural: permits are a legal commitment to build, and each build requires physical aggregate that only local producers can supply.</p>
+    <h4>Caveats</h4>
+    <div class="caveat">The ratio can stay above 1.3 for extended periods (not just a momentary cross), so signal timing requires watching the first crossing. In a severe rate-hiking cycle (2022), even guaranteed demand doesn't prevent multiple compression. VMC/MLM/EXP are cyclical industrials with 25-30% drawdowns in downturns. FRED data has a 1-month publication lag.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PERMIT + COMPUTSA; own research</span><span><code>backtests/PL5_housing_permits_completions_aggregate.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
     <div class="left"><span class="badge cat-F">AI-4</span><h3>GLP-1 Mass Adoption → Short Premium Spirits</h3></div>
     <div class="right">consumer / healthcare · regime trade · 2023-2026</div>
   </div>
@@ -1865,7 +1890,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 404-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 410-row catalog</a> for every signal we attempted, including duds. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 

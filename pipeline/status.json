@@ -1,7 +1,7 @@
 {
   "loops": {
-    "idea_scout": { "last_run": "2026-05-26T03:30:00Z", "status": "running", "job_id": "2279e0a5", "interval": "10m" },
-    "strategy_developer": { "last_run": null, "status": "scheduled", "job_id": "dedda771", "interval": "10m" },
-    "backtester": { "last_run": null, "status": "scheduled", "job_id": "07d31082", "interval": "10m" }
+    "idea_scout": { "last_run": "2026-05-26T04:20:00Z", "status": "running", "job_id": "2279e0a5", "interval": "10m" },
+    "strategy_developer": { "last_run": "2026-05-26T04:20:00Z", "status": "running", "job_id": "dedda771", "interval": "10m" },
+    "backtester": { "last_run": "2026-05-26T04:20:00Z", "status": "running", "job_id": "07d31082", "interval": "10m" }
   }
 }

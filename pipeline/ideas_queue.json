@@ -2,7 +2,7 @@
   {
     "idea_id": "PL001",
     "created_at": "2026-05-26T03:15:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "US Heatwave CDD Spike \u2192 Data Center Cooling Cost \u2192 Cloud Margin Compression",
     "category": "G",
     "asset_class": "equities",
@@ -30,7 +30,7 @@
   {
     "idea_id": "PL002",
     "created_at": "2026-05-26T03:15:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "USDA Cattle on Feed Report Surprise \u2192 Feeder Cattle Futures",
     "category": "C",
     "asset_class": "commodities",
@@ -57,7 +57,7 @@
   {
     "idea_id": "PL003",
     "created_at": "2026-05-26T03:15:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "China PMI Manufacturing \u2192 Copper/Iron Ore 5-Day Momentum",
     "category": "C",
     "asset_class": "commodities",
@@ -83,7 +83,7 @@
   {
     "idea_id": "PL004",
     "created_at": "2026-05-26T03:30:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "USDA Food Recall Severity \u2192 Short Protein Processor",
     "category": "E",
     "asset_class": "equities",
@@ -110,7 +110,7 @@
   {
     "idea_id": "PL005",
     "created_at": "2026-05-26T03:30:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "US Housing Permits-to-Completions Ratio \u2192 Construction Aggregate Demand",
     "category": "C",
     "asset_class": "equities",
@@ -137,7 +137,7 @@
   {
     "idea_id": "PL006",
     "created_at": "2026-05-26T03:30:00Z",
-    "status": "new",
+    "status": "developed",
     "name": "CDC Wastewater Viral Surveillance \u2192 Pharma Demand Anticipation",
     "category": "G",
     "asset_class": "equities",
