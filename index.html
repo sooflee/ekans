@@ -2934,9 +2934,24 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 <h2 style="margin-top:0;">Pipeline Queues</h2>
 <p class="sub">Live view of the 3-loop research pipeline. Ideas flow left to right: Scout → Developer → Backtester. Load queue files to see current state.</p>
 
-<div style="display:flex;gap:12px;margin:16px 0;">
+<div id="pl-loop-status" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0;padding:12px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span id="pl-dot-scout" style="width:10px;height:10px;border-radius:50%;background:var(--fg-dim);display:inline-block;"></span>
+    <div style="font-size:12px;"><strong>Idea Scout</strong><br><span id="pl-ts-scout" style="color:var(--fg-dim);font-size:11px;">—</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span id="pl-dot-dev" style="width:10px;height:10px;border-radius:50%;background:var(--fg-dim);display:inline-block;"></span>
+    <div style="font-size:12px;"><strong>Developer</strong><br><span id="pl-ts-dev" style="color:var(--fg-dim);font-size:11px;">—</span></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span id="pl-dot-bt" style="width:10px;height:10px;border-radius:50%;background:var(--fg-dim);display:inline-block;"></span>
+    <div style="font-size:12px;"><strong>Backtester</strong><br><span id="pl-ts-bt" style="color:var(--fg-dim);font-size:11px;">—</span></div>
+  </div>
+</div>
+
+<div style="display:flex;gap:12px;margin:8px 0 16px;">
   <button id="pl-load" style="background:var(--accent);color:var(--bg);border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font:600 13px var(--mono);">Load Queue Files</button>
-  <span id="pl-status" style="color:var(--fg-dim);font-size:13px;line-height:32px;">Click to load pipeline/ideas_queue.json and pipeline/strategies_queue.json</span>
+  <span id="pl-status" style="color:var(--fg-dim);font-size:13px;line-height:32px;"></span>
 </div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px;" id="pipeline-grid">
@@ -3075,14 +3090,38 @@ function displayPipeline(ideas, strats) {
   document.getElementById('pl-status').textContent = `Loaded ${ideas.length} ideas, ${strats.length} strategies`;
 }
 
+function updateLoopDots(status) {
+  if (!status || !status.loops) return;
+  const now = Date.now();
+  const map = {idea_scout:['pl-dot-scout','pl-ts-scout'], strategy_developer:['pl-dot-dev','pl-ts-dev'], backtester:['pl-dot-bt','pl-ts-bt']};
+  for (const [key, [dotId, tsId]] of Object.entries(map)) {
+    const loop = status.loops[key];
+    if (!loop) continue;
+    const dot = document.getElementById(dotId);
+    const ts = document.getElementById(tsId);
+    if (loop.last_run) {
+      const ago = now - new Date(loop.last_run).getTime();
+      const mins = Math.floor(ago / 60000);
+      if (mins < 15) { dot.style.background = 'var(--good)'; ts.textContent = mins + 'm ago'; }
+      else if (mins < 30) { dot.style.background = 'var(--warn)'; ts.textContent = mins + 'm ago'; }
+      else { dot.style.background = 'var(--bad)'; ts.textContent = mins + 'm ago (stale)'; }
+    } else {
+      dot.style.background = loop.status === 'scheduled' ? 'var(--warn)' : 'var(--fg-dim)';
+      ts.textContent = loop.status === 'scheduled' ? 'scheduled, not yet run' : 'inactive';
+    }
+  }
+}
+
 document.getElementById('pl-load').addEventListener('click', async () => {
   document.getElementById('pl-status').textContent = 'Loading...';
   try {
-    const [ideasRes, stratsRes] = await Promise.all([
+    const [ideasRes, stratsRes, statusRes] = await Promise.all([
       fetch('pipeline/ideas_queue.json').then(r => r.ok ? r.json() : []),
-      fetch('pipeline/strategies_queue.json').then(r => r.ok ? r.json() : [])
+      fetch('pipeline/strategies_queue.json').then(r => r.ok ? r.json() : []),
+      fetch('pipeline/status.json').then(r => r.ok ? r.json() : null)
     ]);
     displayPipeline(ideasRes, stratsRes);
+    if (statusRes) updateLoopDots(statusRes);
   } catch(e) {
     document.getElementById('pl-status').textContent = 'Failed to load — are you running a local server? Try pasting JSON below.';
   }
@@ -3097,6 +3136,12 @@ document.getElementById('pl-parse-paste').addEventListener('click', () => {
     document.getElementById('pl-status').textContent = 'Parse error: ' + e.message;
   }
 });
+
+// Autoload when Pipeline tab becomes visible
+const plLoadBtn = document.getElementById('pl-load');
+new MutationObserver(() => {
+  if (document.getElementById('tab-pipeline').classList.contains('active')) plLoadBtn.click();
+}).observe(document.getElementById('tab-pipeline'), { attributes: true, attributeFilter: ['class'] });
 </script>
 
 </div><!-- end tab-pipeline -->

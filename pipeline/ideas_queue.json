@@ -1,1 +1,164 @@
-[]
+[
+  {
+    "idea_id": "PL001",
+    "created_at": "2026-05-26T03:15:00Z",
+    "status": "new",
+    "name": "US Heatwave CDD Spike \u2192 Data Center Cooling Cost \u2192 Cloud Margin Compression",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "Extreme summer heat spikes cooling costs for data centers (40% of DC energy is cooling). When NOAA CDD (Cooling Degree Days) spike >2\u03c3 in key DC corridors (Northern Virginia, Dallas, Phoenix), colocation REITs face margin compression while hyperscalers with owned facilities and liquid cooling absorb it. Short DLR/EQIX, long GOOGL/MSFT during extreme heat events.",
+    "causal_chain": [
+      "NOAA CPC forecasts above-normal summer heat for DC corridors",
+      "CDD spike >2\u03c3 above 10yr avg in Ashburn VA / Dallas TX / Phoenix AZ",
+      "Data center PUE (Power Usage Effectiveness) degrades \u2014 cooling draws 40%+ of total power",
+      "Colocation REITs (DLR, EQIX) face higher electricity bills on pass-through contracts with caps",
+      "Hyperscalers with custom liquid cooling (Google, Microsoft) absorb with lower PUE impact",
+      "DLR/EQIX operating margins compress 50-100bps in Q3 earnings"
+    ],
+    "data_sources": [
+      "NOAA CPC CDD forecasts (free)",
+      "EIA electricity prices by state (free)",
+      "yfinance DLR, EQIX, GOOGL, MSFT"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "Uptime Institute PUE surveys; DOE data center energy reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "heatwave_cdd_datacenter_cooling"
+  },
+  {
+    "idea_id": "PL002",
+    "created_at": "2026-05-26T03:15:00Z",
+    "status": "new",
+    "name": "USDA Cattle on Feed Report Surprise \u2192 Feeder Cattle Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-3 weeks",
+    "thesis": "USDA publishes monthly Cattle on Feed report (free, 3pm ET on reporting day). When placements exceed analyst estimates by >5%, feeder cattle futures (GF=F) drop 2-5% over the next 5 trading days as the market prices in future supply glut. When placements miss by >5%, GF=F rallies. The report is released after market close \u2014 overnight futures gap is the entry.",
+    "causal_chain": [
+      "USDA Cattle on Feed report published monthly (free at usda.library.cornell.edu)",
+      "Placements figure exceeds/misses pre-report estimates (CME/Reuters consensus)",
+      "Higher placements = more cattle entering feedlots = future supply increase in 4-6 months",
+      "Feeder cattle futures (GF=F) gap down overnight / rally on miss",
+      "Full repricing takes 3-5 trading days as cash market adjusts"
+    ],
+    "data_sources": [
+      "USDA Cattle on Feed (free monthly)",
+      "yfinance GF=F",
+      "CME/Reuters consensus estimates (free via trade press)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Cattle on Feed; Livestock Marketing Information Center",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_cattle_on_feed_surprise"
+  },
+  {
+    "idea_id": "PL003",
+    "created_at": "2026-05-26T03:15:00Z",
+    "status": "new",
+    "name": "China PMI Manufacturing \u2192 Copper/Iron Ore 5-Day Momentum",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-2 weeks",
+    "thesis": "China NBS Manufacturing PMI is released on the last day of each month (or 1st of next month). When PMI crosses above 50 (expansion) after being below 50 for 2+ months, industrial metals (copper HG=F, iron ore via BHP/VALE) rally 3-8% over the next 5-10 trading days as global commodity desks reprice China demand. The signal is the expansion threshold crossing, not the absolute level.",
+    "causal_chain": [
+      "China NBS releases monthly Manufacturing PMI (free at stats.gov.cn, 1st of month)",
+      "PMI crosses above 50 after 2+ months below (expansion regime shift)",
+      "Global commodity trading desks reprice China industrial demand expectations",
+      "Copper (HG=F) and iron ore proxies (BHP, VALE, RIO) rally 3-8% over 5-10 days",
+      "Base metals ETFs (COPX, PICK) follow with 1-2 day lag"
+    ],
+    "data_sources": [
+      "China NBS PMI (free monthly)",
+      "yfinance HG=F, BHP, VALE, COPX"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "China NBS; multiple commodity research desks",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "china_pmi_expansion_metals"
+  },
+  {
+    "idea_id": "PL004",
+    "created_at": "2026-05-26T03:30:00Z",
+    "status": "new",
+    "name": "USDA Food Recall Severity \u2192 Short Protein Processor",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "FDA/USDA FSIS publishes food recalls in real-time (free RSS). When a Class I recall (reasonable probability of serious health consequences) hits a publicly traded protein processor (TSN, PPC, JBSAY, SAFM acquirer), the stock drops 3-8% over 5 days as distribution partners pull product and media amplifies. The recall RSS feed leads Bloomberg/Reuters by 2-6 hours.",
+    "causal_chain": [
+      "USDA FSIS or FDA issues Class I recall on specific company product (free RSS at fsis.usda.gov/recalls)",
+      "Recalled product volume and distribution scope determine severity (nationwide vs regional)",
+      "Retailers (WMT, KR, COST) pull product from shelves within 24-48 hours",
+      "Media coverage amplifies consumer fear \u2014 protein processor brand takes reputational hit",
+      "Stock drops 3-8% over 5 trading days; recovery takes 2-4 weeks as replacement product ships"
+    ],
+    "data_sources": [
+      "USDA FSIS recall RSS (free, real-time)",
+      "FDA recall RSS (free)",
+      "yfinance TSN, PPC, HRL, JBSAY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA FSIS; FDA recall database; historical E. coli/Listeria events at Tyson/JBS",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_food_recall_protein_short"
+  },
+  {
+    "idea_id": "PL005",
+    "created_at": "2026-05-26T03:30:00Z",
+    "status": "new",
+    "name": "US Housing Permits-to-Completions Ratio \u2192 Construction Aggregate Demand",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "Census Bureau publishes monthly housing permits AND completions (free). When permits-to-completions ratio rises >1.3 (backlog building), it signals 6-12 months of guaranteed aggregate/cement/concrete demand. Long construction materials (VMC Vulcan, MLM Martin Marietta, EXP Eagle Materials) which have local monopoly pricing power and benefit from volume growth with operating leverage.",
+    "causal_chain": [
+      "Census Bureau publishes monthly permits and completions (free at census.gov/construction)",
+      "Permits-to-completions ratio rises above 1.3 \u2014 more homes approved than finished = backlog building",
+      "Each permitted home requires 100-400 tons of aggregate, 10-30 cubic yards of concrete",
+      "Aggregate/cement producers (VMC, MLM, EXP) have local monopoly pricing (trucking radius limits competition)",
+      "Volume growth + pricing power = operating leverage \u2014 margins expand 200-400bps over next 2-3 quarters",
+      "Stocks re-rate as quarterly earnings show both volume and ASP growth"
+    ],
+    "data_sources": [
+      "Census Bureau PERMITS/COMPLETIONS (free monthly, also on FRED)",
+      "yfinance VMC, MLM, EXP, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau Construction; Vulcan Materials investor presentations on local monopoly dynamics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "housing_permits_completions_aggregate"
+  },
+  {
+    "idea_id": "PL006",
+    "created_at": "2026-05-26T03:30:00Z",
+    "status": "new",
+    "name": "CDC Wastewater Viral Surveillance \u2192 Pharma Demand Anticipation",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "CDC NWSS (National Wastewater Surveillance System) publishes weekly viral concentration data for COVID, RSV, influenza, and norovirus across 1000+ sites (free). Wastewater data leads clinical case counts by 1-2 weeks. When wastewater viral load for flu/RSV spikes >2\u03c3 above seasonal baseline, long diagnostic/treatment companies (MRNA flu, AZN RSV Beyfortus, DGX/LH testing volume) before the clinical surge hits hospital systems and media coverage drives demand.",
+    "causal_chain": [
+      "CDC NWSS publishes weekly wastewater viral concentrations (free at cdc.gov/nwss)",
+      "Wastewater flu/RSV/COVID levels spike >2\u03c3 above seasonal baseline \u2014 leads clinical cases by 7-14 days",
+      "Diagnostic labs (DGX, LH) see testing volume surge 1-2 weeks after wastewater signal",
+      "Treatment/vaccine companies (MRNA flu booster, AZN Beyfortus RSV, GILD Tamiflu) see prescription demand surge",
+      "Media covers rising cases \u2192 consumer demand for testing/treatment amplifies the move",
+      "Pharma stocks rally 5-15% over the 4-6 week viral wave before plateauing"
+    ],
+    "data_sources": [
+      "CDC NWSS wastewater dashboard (free weekly)",
+      "yfinance MRNA, AZN, DGX, LH, GILD"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "CDC NWSS; Biobot Analytics; Nature Medicine wastewater surveillance studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cdc_wastewater_viral_pharma"
+  }
+]

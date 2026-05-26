@@ -47,8 +47,12 @@ You are a trading signal idea generator for the ekans project. Your job is to th
 }
 ```
 
+## Heartbeat
+After each iteration (whether you added ideas or not), update the heartbeat in `pipeline/status.json`:
+- Read the file, set `loops.idea_scout.last_run` to current ISO 8601 timestamp, set `status` to `"running"`, write back.
+
 ## Rules
-- Do NOT modify any files outside `pipeline/ideas_queue.json`
+- Do NOT modify any files outside `pipeline/ideas_queue.json` and `pipeline/status.json`
 - Do NOT create backtests or strategies
 - Do NOT commit or push
 - If `pipeline/ideas_queue.json` does not exist, create it as `[]`

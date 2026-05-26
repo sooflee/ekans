@@ -68,6 +68,9 @@ if __name__ == "__main__":
     main()
 ```
 
+## Heartbeat
+After each iteration, update `pipeline/status.json`: set `loops.backtester.last_run` to current ISO 8601 timestamp, set `status` to `"running"`.
+
 ## Rules
 - Process at most 1 strategy per iteration (backtests can be slow)
 - Do NOT commit or push — user reviews first

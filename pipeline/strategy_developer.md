@@ -50,6 +50,9 @@ You develop concrete, backtestable trading strategies from signal ideas.
 }
 ```
 
+## Heartbeat
+After each iteration, update `pipeline/status.json`: set `loops.strategy_developer.last_run` to current ISO 8601 timestamp, set `status` to `"running"`.
+
 ## Rules
 - Always include SPY in the tickers list (benchmark)
 - The `signal_id` must be a valid Python filename: `PL<N>_<snake_case_name>`
