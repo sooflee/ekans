@@ -366,6 +366,9 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 #tab-validation .layout { grid-template-columns: 1fr; max-width: 900px; }
 #tab-validation .card { margin: 0 0 14px 0; }
+@media (max-width: 900px) {
+  #pipeline-grid { grid-template-columns: 1fr !important; }
+}
 </style>
 <script>
 (function(){
@@ -396,6 +399,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <button data-tab="catalog">Full Catalog<span class="tab-count">404</span></button>
   <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">24</span></button>
   <button data-tab="validation">Validation</button>
+  <button data-tab="pipeline">Pipeline</button>
 </nav>
 
 <div id="tab-catalog" class="tab-panel">
@@ -2923,6 +2927,179 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </main>
 </div>
 </div><!-- end tab-validation -->
+
+<div id="tab-pipeline" class="tab-panel">
+<div style="max-width:1100px;margin:0 auto;padding:24px 20px 60px;">
+
+<h2 style="margin-top:0;">Pipeline Queues</h2>
+<p class="sub">Live view of the 3-loop research pipeline. Ideas flow left to right: Scout → Developer → Backtester. Load queue files to see current state.</p>
+
+<div style="display:flex;gap:12px;margin:16px 0;">
+  <button id="pl-load" style="background:var(--accent);color:var(--bg);border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font:600 13px var(--mono);">Load Queue Files</button>
+  <span id="pl-status" style="color:var(--fg-dim);font-size:13px;line-height:32px;">Click to load pipeline/ideas_queue.json and pipeline/strategies_queue.json</span>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px;" id="pipeline-grid">
+
+  <!-- Ideas Queue -->
+  <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px;min-height:300px;">
+    <h3 style="margin:0 0 4px;font-size:14px;color:var(--accent);">1. Ideas Queue</h3>
+    <div style="display:flex;gap:8px;margin:8px 0 12px;font-size:11px;">
+      <span id="pl-ideas-new" style="background:var(--good);color:var(--bg);padding:2px 8px;border-radius:10px;">new: 0</span>
+      <span id="pl-ideas-claimed" style="background:var(--warn);color:var(--bg);padding:2px 8px;border-radius:10px;">claimed: 0</span>
+      <span id="pl-ideas-developed" style="background:var(--fg-dim);color:var(--bg);padding:2px 8px;border-radius:10px;">developed: 0</span>
+      <span id="pl-ideas-rejected" style="background:var(--bad);color:var(--bg);padding:2px 8px;border-radius:10px;">rejected: 0</span>
+    </div>
+    <div id="pl-ideas-list" style="font-size:12px;max-height:500px;overflow-y:auto;"></div>
+  </div>
+
+  <!-- Strategies Queue -->
+  <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px;min-height:300px;">
+    <h3 style="margin:0 0 4px;font-size:14px;color:var(--warn);">2. Strategies Queue</h3>
+    <div style="display:flex;gap:8px;margin:8px 0 12px;font-size:11px;">
+      <span id="pl-strat-ready" style="background:var(--good);color:var(--bg);padding:2px 8px;border-radius:10px;">ready: 0</span>
+      <span id="pl-strat-progress" style="background:var(--warn);color:var(--bg);padding:2px 8px;border-radius:10px;">in_progress: 0</span>
+      <span id="pl-strat-done" style="background:var(--fg-dim);color:var(--bg);padding:2px 8px;border-radius:10px;">done: 0</span>
+      <span id="pl-strat-failed" style="background:var(--bad);color:var(--bg);padding:2px 8px;border-radius:10px;">failed: 0</span>
+    </div>
+    <div id="pl-strat-list" style="font-size:12px;max-height:500px;overflow-y:auto;"></div>
+  </div>
+
+  <!-- Backtest Results -->
+  <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px;min-height:300px;">
+    <h3 style="margin:0 0 4px;font-size:14px;color:var(--good);">3. Backtest Results</h3>
+    <div style="display:flex;gap:8px;margin:8px 0 12px;font-size:11px;">
+      <span id="pl-bt-winners" style="background:var(--good);color:var(--bg);padding:2px 8px;border-radius:10px;">winners: 0</span>
+      <span id="pl-bt-losers" style="background:var(--bad);color:var(--bg);padding:2px 8px;border-radius:10px;">losers: 0</span>
+      <span id="pl-bt-failed" style="background:var(--fg-dim);color:var(--bg);padding:2px 8px;border-radius:10px;">failed: 0</span>
+    </div>
+    <div id="pl-bt-list" style="font-size:12px;max-height:500px;overflow-y:auto;"></div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
+  <h3 style="margin:0 0 8px;font-size:14px;color:var(--fg-dim);">How it works</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:12px;color:var(--fg-dim);">
+    <div><strong style="color:var(--accent);">Loop 1 — Idea Scout</strong><br>Generates 2-3 signal ideas per cycle. Checks for duplicates against existing catalog. Writes to ideas queue.</div>
+    <div><strong style="color:var(--warn);">Loop 2 — Strategy Developer</strong><br>Picks oldest new idea. Validates tickers, defines entry/exit rules. Writes concrete strategy to strategies queue.</div>
+    <div><strong style="color:var(--good);">Loop 3 — Backtester</strong><br>Picks oldest ready strategy. Implements backtest script, runs it, records results. Winners get added to catalog.</div>
+  </div>
+</div>
+
+<p style="color:var(--fg-dim);font-size:11px;margin-top:16px;text-align:center;">
+  On GitHub Pages, queue files are not accessible (static hosting). Use this tab locally with <code>python3 -m http.server</code> from the project root, or paste queue JSON manually.
+</p>
+
+<div style="margin-top:16px;">
+  <details>
+    <summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:13px;">Paste queue JSON manually (for GitHub Pages)</summary>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div>
+        <label style="font-size:11px;color:var(--fg-dim);">Ideas Queue JSON</label>
+        <textarea id="pl-ideas-paste" style="width:100%;height:120px;background:var(--bg-3);color:var(--fg);border:1px solid var(--border);border-radius:6px;padding:8px;font:12px var(--mono);resize:vertical;" placeholder='Paste contents of pipeline/ideas_queue.json here'></textarea>
+      </div>
+      <div>
+        <label style="font-size:11px;color:var(--fg-dim);">Strategies Queue JSON</label>
+        <textarea id="pl-strat-paste" style="width:100%;height:120px;background:var(--bg-3);color:var(--fg);border:1px solid var(--border);border-radius:6px;padding:8px;font:12px var(--mono);resize:vertical;" placeholder='Paste contents of pipeline/strategies_queue.json here'></textarea>
+      </div>
+    </div>
+    <button id="pl-parse-paste" style="margin-top:8px;background:var(--bg-3);color:var(--accent);border:1px solid var(--border);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;">Parse Pasted JSON</button>
+  </details>
+</div>
+
+</div>
+</div><!-- end tab-pipeline -->
+
+<script>
+// ----- Pipeline tab logic -----
+function renderIdea(item) {
+  const statusColors = {new:'var(--good)',claimed:'var(--warn)',developed:'var(--fg-dim)',rejected:'var(--bad)',duplicate:'var(--fg-dim)'};
+  const c = statusColors[item.status] || 'var(--fg-dim)';
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+    <div><strong>${item.idea_id}</strong> ${item.name||''}</div>
+    <span style="color:${c};font-size:11px;font-weight:600;">${item.status}</span>
+  </div>`;
+}
+function renderStrat(item) {
+  const statusColors = {ready:'var(--good)',in_progress:'var(--warn)',done:'var(--fg-dim)',failed:'var(--bad)',skipped:'var(--fg-dim)'};
+  const c = statusColors[item.status] || 'var(--fg-dim)';
+  let metrics = '';
+  if (item.backtest_result && item.backtest_result.sharpe != null) {
+    const r = item.backtest_result;
+    metrics = ` · S:${(r.sharpe||0).toFixed(2)} C:${((r.cagr||0)*100).toFixed(1)}%`;
+  }
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+    <div><strong>${item.strategy_id||item.signal_id}</strong> ${item.name||''}${metrics}</div>
+    <span style="color:${c};font-size:11px;font-weight:600;">${item.status}</span>
+  </div>`;
+}
+function renderBtResult(item) {
+  if (!item.backtest_result) return '';
+  const r = item.backtest_result;
+  const isWinner = r.status === 'ok' && r.sharpe > 0.5 && r.cagr > 0.10;
+  const isFail = r.status === 'fail';
+  const c = isWinner ? 'var(--good)' : isFail ? 'var(--bad)' : 'var(--fg-dim)';
+  const label = isWinner ? 'WINNER' : isFail ? 'FAIL' : 'tested';
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+    <div><strong>${item.signal_id}</strong> ${item.name||''}</div>
+    <div style="text-align:right;">
+      <span style="color:${c};font-size:11px;font-weight:600;">${label}</span>
+      ${!isFail ? `<br><span style="font-size:10px;color:var(--fg-dim);">S:${(r.sharpe||0).toFixed(2)} C:${((r.cagr||0)*100).toFixed(1)}%</span>` : ''}
+    </div>
+  </div>`;
+}
+function displayPipeline(ideas, strats) {
+  const count = (arr, s) => arr.filter(x => x.status === s).length;
+  document.getElementById('pl-ideas-new').textContent = 'new: ' + count(ideas, 'new');
+  document.getElementById('pl-ideas-claimed').textContent = 'claimed: ' + count(ideas, 'claimed');
+  document.getElementById('pl-ideas-developed').textContent = 'developed: ' + count(ideas, 'developed');
+  document.getElementById('pl-ideas-rejected').textContent = 'rejected: ' + count(ideas, 'rejected');
+  document.getElementById('pl-ideas-list').innerHTML = ideas.slice().reverse().map(renderIdea).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
+
+  document.getElementById('pl-strat-ready').textContent = 'ready: ' + count(strats, 'ready');
+  document.getElementById('pl-strat-progress').textContent = 'in_progress: ' + count(strats, 'in_progress');
+  document.getElementById('pl-strat-done').textContent = 'done: ' + count(strats, 'done');
+  document.getElementById('pl-strat-failed').textContent = 'failed: ' + count(strats, 'failed');
+  document.getElementById('pl-strat-list').innerHTML = strats.slice().reverse().map(renderStrat).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
+
+  const btResults = strats.filter(s => s.backtest_result);
+  const winners = btResults.filter(s => s.backtest_result.status === 'ok' && s.backtest_result.sharpe > 0.5 && s.backtest_result.cagr > 0.10);
+  const fails = btResults.filter(s => s.backtest_result.status === 'fail');
+  const losers = btResults.length - winners.length - fails.length;
+  document.getElementById('pl-bt-winners').textContent = 'winners: ' + winners.length;
+  document.getElementById('pl-bt-losers').textContent = 'losers: ' + losers;
+  document.getElementById('pl-bt-failed').textContent = 'failed: ' + fails.length;
+  document.getElementById('pl-bt-list').innerHTML = btResults.slice().reverse().map(renderBtResult).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">No results yet</div>';
+
+  document.getElementById('pl-status').textContent = `Loaded ${ideas.length} ideas, ${strats.length} strategies`;
+}
+
+document.getElementById('pl-load').addEventListener('click', async () => {
+  document.getElementById('pl-status').textContent = 'Loading...';
+  try {
+    const [ideasRes, stratsRes] = await Promise.all([
+      fetch('pipeline/ideas_queue.json').then(r => r.ok ? r.json() : []),
+      fetch('pipeline/strategies_queue.json').then(r => r.ok ? r.json() : [])
+    ]);
+    displayPipeline(ideasRes, stratsRes);
+  } catch(e) {
+    document.getElementById('pl-status').textContent = 'Failed to load — are you running a local server? Try pasting JSON below.';
+  }
+});
+
+document.getElementById('pl-parse-paste').addEventListener('click', () => {
+  try {
+    const ideas = JSON.parse(document.getElementById('pl-ideas-paste').value || '[]');
+    const strats = JSON.parse(document.getElementById('pl-strat-paste').value || '[]');
+    displayPipeline(ideas, strats);
+  } catch(e) {
+    document.getElementById('pl-status').textContent = 'Parse error: ' + e.message;
+  }
+});
+</script>
+
+</div><!-- end tab-pipeline -->
 
 <script>
 // ----- Page-level tab switching (with localStorage persistence) -----
