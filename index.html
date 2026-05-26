@@ -3068,6 +3068,270 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED PERMIT1; yfinance</span><span><code>backtests/PL147_permit1_acceleration_supplier_stocks.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL172_nfci_easing_streak_high_beta</span><h3>NFCI Easing Streak 8+ Weeks &rarr; Long High-Beta Equities</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 15 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.71</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">36.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-13.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.91</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Chicago Fed NFCI staying negative (easing) for 8+ consecutive weeks after tightening signals financial conditions are loosening. High-beta equities outperform as credit/liquidity conditions improve. 5/15 events positive with strong avg returns.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long high-beta equity basket 63d when FRED NFCI stays negative for 8 consecutive weeks following a positive reading</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=15 events. t-stat 1.91 borderline significant. Generic z-score implementation &mdash; a bespoke version matching exact rule may differ. NFCI weekly data from 1971 provides long history. Contained drawdown (-13.6%) is notable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED NFCI; yfinance</span><span><code>backtests/PL172_nfci_easing_streak_high_beta.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL212_rsxfs_surge_payment_processors</span><h3>Retail Sales Control Group Surge &rarr; Long Payment Processors</h3></div>
+    <div class="right">macro &middot; ~2-month hold &middot; 24 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.52</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">44.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-25.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.05</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED RSXFS (retail sales control group) surging &gt;0.5% MoM for 2 consecutive months signals consumer spending acceleration. Payment processors (V, MA) capture transaction volume growth with operating leverage. t-stat 3.05 is highly significant.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long V+MA equal-weight 42d when FRED RSXFS MoM &gt; +0.5% for 2 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=24 events with t-stat 3.05 &mdash; strongest statistical result in this batch. SQ data spotty/delisted. V and MA are mega-cap, highly liquid. MaxDD -25.8% during COVID. Generic backtester implementation; bespoke version may differ slightly.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED RSXFS; yfinance</span><span><code>backtests/PL212_rsxfs_surge_payment_processors.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL205_cass_freight_inflection_ltl_truckers</span><h3>Cass Freight Index YoY Inflection &rarr; Long LTL Truckers</h3></div>
+    <div class="right">freight &middot; ~2-month hold &middot; 20 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.24</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">42.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-35.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.78</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Cass Freight Index shipments YoY rate of change improving for 3 consecutive months signals freight cycle trough. LTL truckers (ODFL, SAIA, XPO) have highest operating leverage to volume recovery. 16/20 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ODFL+SAIA+XPO equal-weight 42d when FRED freight shipments YoY improves 3 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=20 events, t-stat 2.78 is significant. Strong win rate (16/20). MaxDD -35.5% during deep downturns. Uses TSIFRGHT proxy on FRED. LTL stocks are high-beta industrials &mdash; part of return may be general market beta rather than alpha.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TSIFRGHT; yfinance</span><span><code>backtests/PL205_cass_freight_inflection_ltl_truckers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL209_ev_penetration_new_high_lithium_miners</span><h3>EV Adoption Proxy New High &rarr; Long Lithium Miners</h3></div>
+    <div class="right">thematic &middot; ~3-month hold &middot; 14 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.92</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">29.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-57.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.43</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Using FRED TOTALSA (total vehicle sales) as EV adoption proxy. When the metric crosses a new high, long TSLA+ALB+SQM. t-stat 3.43 is the highest in this batch. 13/14 events positive, avg +29.6%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long TSLA+ALB+SQM 60d when FRED TOTALSA proxy signals new quarterly high in EV adoption</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=14 events, t-stat 3.43 highly significant. Deep max drawdown (-57.0%) from TSLA/lithium volatility. The TOTALSA proxy is crude &mdash; actual EV penetration data would sharpen signal. Strong TSLA weighting dominates basket returns. Reverse causation risk.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TOTALSA; yfinance</span><span><code>backtests/PL209_ev_penetration_new_high_lithium_miners.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL193_altsales_17m_surge_dealer_groups</span><h3>Light Vehicle Sales &gt; 17M SAAR &rarr; Long Auto Dealers</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 29 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.80</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">30.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-77.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.15</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED ALTSALES crossing above 17M SAAR after 3+ months sub-16M signals auto demand recovery. Dealer groups (AN, PAG, LAD) benefit from volume and margin expansion. 18/29 events positive, avg +30.0%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long AN+PAG+LAD equal-weight 126d when FRED ALTSALES crosses above 17M SAAR after 3+ months below 16M</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=29 events, t-stat 2.15 significant. Very deep max drawdown (-77.5%) from GFC/COVID events. Generic backtester z-score implementation rather than bespoke 17M threshold. Auto dealer stocks are high-beta cyclicals. Recent EV transition may change dynamics.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED ALTSALES; yfinance</span><span><code>backtests/PL193_altsales_17m_surge_dealer_groups.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL160_revolsl_deceleration_xlp_defensive</span><h3>Revolving Credit Deceleration &rarr; Long XLP Defensive</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 23 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.86</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-28.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.03</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Revolving consumer credit (FRED REVOLSL) YoY decelerating by &gt;5pp over 2 months signals consumer credit stress ahead. Defensive rotation into XLP (consumer staples) outperforms. 17/23 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLP 126d when FRED REVOLSL YoY decelerates by &gt;5pp over 2 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=23 events, t-stat 2.03 significant. Good sample size with 74% win rate. MaxDD -28.9% manageable for a defensive strategy. XLP is a low-beta defensive play &mdash; excess return vs SPY is the key metric.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED REVOLSL; yfinance</span><span><code>backtests/PL160_revolsl_deceleration_xlp_defensive.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL194_indpro_yoy_cross_zero_xlb_long</span><h3>Industrial Production YoY Crosses Zero &rarr; Long Materials (XLB)</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 25 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.76</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-34.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.86</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Industrial production (FRED INDPRO) YoY crossing above zero after 6+ months of contraction signals manufacturing recovery. Materials sector (XLB) benefits from volume recovery and restocking. 17/25 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLB 63d when FRED INDPRO YoY crosses above 0% after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=25 events, t-stat 1.86 borderline significant. Large sample with data back to 1919. MaxDD -34.4% during recession events where recovery was false start. Simple, well-known macro signal &mdash; low originality but robust.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED INDPRO; yfinance</span><span><code>backtests/PL194_indpro_yoy_cross_zero_xlb_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL226_reserves_scarcity_dealer_repo_profit</span><h3>Bank Reserves Decline to Scarcity &rarr; Long Dealer Banks</h3></div>
+    <div class="right">monetary &middot; ~2-month hold &middot; 17 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.10</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">28.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-24.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.27</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED WRESBAL (reserve balances) declining toward scarcity threshold signals repo market stress. Primary dealer banks (GS, MS, JPM) profit from wider repo spreads in tight reserve environments. 14/17 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long GS+MS+JPM equal-weight 42d when FRED WRESBAL reserve balances approach scarcity threshold (~$3T)</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=17 events, t-stat 2.27 significant. Generic z-score implementation of reserve scarcity. Dealer bank profitability from repo is only one driver &mdash; other macro factors may dominate. Post-2008 regime with large balance sheets makes historical comparison difficult.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED WRESBAL; yfinance</span><span><code>backtests/PL226_reserves_scarcity_dealer_repo_profit.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL233_business_applications_surge_small_cap</span><h3>High-Propensity Business Applications Surge &rarr; Long Small-Cap</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.97</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">20.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-28.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.57</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED high-propensity business applications surging &gt;15% YoY for 3 consecutive months signals entrepreneurial confidence and new business formation. Small-cap stocks (IWM) benefit from the same economic optimism. 6/7 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long IWM 63d when FRED BABATOTALSAUS (high-propensity business applications) YoY &gt;15% for 3 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7 events only, but t-stat 2.57 is significant. Business applications data starts 2004. The surge may coincide with general economic expansion &mdash; disentangling from broad market beta is important. 2020-2021 COVID-era application surge was unprecedented.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED BABATOTALSAUS; yfinance</span><span><code>backtests/PL233_business_applications_surge_small_cap.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL228_multifamily_permit_collapse_reit_supply_cliff</span><h3>Multi-Family Permits Collapse &rarr; Long Apartment REITs</h3></div>
+    <div class="right">housing &middot; ~2-month hold &middot; 31 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.83</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-28.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.32</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED PERMIT5 (5+ unit building permits) collapsing &gt;30% YoY signals incoming supply cliff for apartments. Apartment REITs (EQR, AVB, MAA) benefit from tighter supply 12-18 months later. 22/31 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long EQR+AVB+MAA equal-weight 42d when FRED PERMIT5 YoY collapses &gt;30%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=31 events, t-stat 2.32 significant. Largest sample in this batch. Supply cliff thesis plays out over 12-18 months &mdash; 42-day hold may be too short. Rate sensitivity of REITs can overwhelm supply fundamentals. MaxDD -28.0% during rate shock periods.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PERMIT5; yfinance</span><span><code>backtests/PL228_multifamily_permit_collapse_reit_supply_cliff.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL245_manemp_acceleration_industrial_gas</span><h3>Manufacturing Employment Acceleration &rarr; Long Industrial Gas</h3></div>
+    <div class="right">macro &middot; ~2-month hold &middot; 9 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.39</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">21.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-12.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.09</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED MANEMP showing 3 consecutive months of manufacturing employment acceleration signals industrial recovery. Industrial gas companies (APD, LIN, ECL) have high fixed-cost structures and benefit from factory utilization increases. 8/9 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long APD+LIN+ECL equal-weight 42d when FRED MANEMP shows 3-month employment acceleration</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=9 events, t-stat 2.09 significant. Notably low max drawdown (-12.5%) &mdash; industrial gas companies are defensive industrials. Generic z-score implementation. Employment data has 1-month lag. APD/LIN/ECL are not pure-play manufacturing but benefit from industrial volume.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MANEMP; yfinance</span><span><code>backtests/PL245_manemp_acceleration_industrial_gas.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL243_nonrescons_surge_aggregates_cement</span><h3>Nonresidential Construction Spending Surge &rarr; Long Aggregates/Cement</h3></div>
+    <div class="right">construction &middot; ~2-month hold &middot; 11 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.11</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">26.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-23.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.85</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED TLNRESCONS surging &gt;8% YoY for 3 months signals sustained nonresidential construction boom (data centers, infrastructure, reshoring). Aggregates and cement companies (VMC, MLM, EXP) are direct beneficiaries. 10/11 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long VMC+MLM+EXP equal-weight 42d when FRED TLNRESCONS YoY &gt;8% for 3 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=11 events, t-stat 1.85 borderline. Excellent win rate (10/11). Construction spending data has 2-month publication lag. Related to PL137 (private nonres) and PL079 (resi construction cement) but uses total nonresidential including government.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TLNRESCONS; yfinance</span><span><code>backtests/PL243_nonrescons_surge_aggregates_cement.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -4673,8 +4937,9 @@ if (catIframe) {
   });
 }
 
-// Restore saved tab
-const savedTab = localStorage.getItem('ekans-tab');
+// URL ?tab= param takes priority over localStorage
+const urlTab = new URLSearchParams(location.search).get('tab');
+const savedTab = urlTab || localStorage.getItem('ekans-tab');
 if (savedTab && document.getElementById('tab-' + savedTab)) switchTab(savedTab);
 
 // Collect high-return catalog IDs from backtest code references

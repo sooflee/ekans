@@ -7288,7 +7288,7 @@
     "strategy_id": "PL222",
     "idea_id": "PL222",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL222_hdd_spike_propane_distributors_long",
     "name": "NOAA HDD Spike in Dec-Feb → Long Propane Distributors (SPH, NGL, GLP)",
     "category": "C",
@@ -7307,13 +7307,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long SPH+NGL+GLP for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:32.869080+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8394,
+      "cagr": 0.1713,
+      "max_dd": -0.3401,
+      "t_stat": 1.4538,
+      "n_events": 12,
+      "verdict": "WINNER — Sharpe 0.84, CAGR 17.1%"
+    }
   },
   {
     "strategy_id": "PL223",
     "idea_id": "PL223",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "failed",
     "signal_id": "PL223_texas_cotton_poor_condition_futures",
     "name": "USDA NASS Cotton Crop Condition 'Poor/Very Poor' >30% → Long Cotton Futures (CT=",
     "category": "C",
@@ -7330,13 +7340,18 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long CT=F (cotton futures) for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:34.536737+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED PCOTTIND load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCOTTIND\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"utf-8\">\\r\\n    "
+    }
   },
   {
     "strategy_id": "PL224",
     "idea_id": "PL224",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL224_used_car_cpi_spike_dealer_gpu",
     "name": "FRED CUSR0000SETB CPI Used Cars & Trucks 3-Month Annualized Spike → Long CVNA/KM",
     "category": "E",
@@ -7355,13 +7370,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long KMX+CVNA+SAH for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:35.244944+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4589,
+      "cagr": 0.115,
+      "max_dd": -0.6511,
+      "t_stat": 0.6585,
+      "n_events": 26,
+      "verdict": "Not a winner — Sharpe 0.46, CAGR 11.5%"
+    }
   },
   {
     "strategy_id": "PL225",
     "idea_id": "PL225",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "failed",
     "signal_id": "PL225_fdefx_surge_midcap_defense",
     "name": "FRED FDEFX Federal Defense Expenditures QoQ Surge → Long Mid-Cap Defense (LDOS, ",
     "category": "G",
@@ -7381,13 +7406,18 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long LDOS+BWXT+KTOS for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:36.807542+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED A824RC1Q027SBEA load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=A824RC1Q027SBEA\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"u"
+    }
   },
   {
     "strategy_id": "PL226",
     "idea_id": "PL226",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL226_reserves_scarcity_dealer_repo_profit",
     "name": "FRED TOTRESNS Total Bank Reserves Decline to Scarcity Threshold → Long Repo Desk",
     "category": "E",
@@ -7406,13 +7436,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long GS+MS+JPM for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 9,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:37.737972+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.1011,
+      "cagr": 0.2863,
+      "max_dd": -0.2465,
+      "t_stat": 2.2699,
+      "n_events": 17,
+      "verdict": "WINNER — Sharpe 1.10, CAGR 28.6%"
+    }
   },
   {
     "strategy_id": "PL227",
     "idea_id": "PL227",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL227_debt_gdp_quarterly_jump_defense",
     "name": "FRED GFDEGDQ188S Debt/GDP Quarterly Jump >3pp → Long Defense (ITA) as Fiscal Exp",
     "category": "G",
@@ -7429,13 +7469,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long ITA for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:37.839485+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7206,
+      "cagr": 0.2045,
+      "max_dd": -0.3641,
+      "t_stat": 1.0191,
+      "n_events": 3,
+      "verdict": "WINNER — Sharpe 0.72, CAGR 20.4%"
+    }
   },
   {
     "strategy_id": "PL228",
     "idea_id": "PL228",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL228_multifamily_permit_collapse_reit_supply_cliff",
     "name": "FRED PERMIT5MNED Multi-Family Permits (5+ Units) Collapse → Long Multi-Family RE",
     "category": "E",
@@ -7455,13 +7505,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long EQR+AVB+MAA for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:38.748385+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8332,
+      "cagr": 0.1695,
+      "max_dd": -0.2795,
+      "t_stat": 2.3195,
+      "n_events": 31,
+      "verdict": "WINNER — Sharpe 0.83, CAGR 16.9%"
+    }
   },
   {
     "strategy_id": "PL229",
     "idea_id": "PL229",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL229_cp_financial_spread_spike_tbill_safe",
     "name": "FRED CPFF Commercial Paper Financial Spread to Fed Funds Spike → Long Money Mark",
     "category": "C",
@@ -7480,13 +7540,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long BIL+SHV+SHY for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 8,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:43.127365+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.9034,
+      "cagr": 0.0159,
+      "max_dd": -0.0072,
+      "t_stat": 3.5609,
+      "n_events": 20,
+      "verdict": "Not a winner — Sharpe 1.90, CAGR 1.6%"
+    }
   },
   {
     "strategy_id": "PL230",
     "idea_id": "PL230",
     "created_at": "2026-05-26T23:36:20.045854+00:00",
-    "status": "ready",
+    "status": "failed",
     "signal_id": "PL230_wilshire_gdp_trough_mean_reversion",
     "name": "FRED WILL5000INDFC Wilshire 5000 Market Cap Relative to GDP (Buffett Indicator) ",
     "category": "G",
@@ -7502,6 +7572,621 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long SPY for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 6,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:44.126237+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED WILL5000INDFC load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=WILL5000INDFC\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"utf-8"
+    }
+  },
+  {
+    "strategy_id": "PL231",
+    "idea_id": "PL231",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL231_student_loan_restart_xlp_vs_xly",
+    "name": "FRED SLOAS Student Loan Repayment Restart → Long Consumer Staples (XLP) Relative",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using FRED SLOAS, FRED FGCCRELOAN: Student loan repayments restart after forbearance (FRED SLOAS reflects outstanding balance changes) Long XLP+XLY for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "XLP",
+      "XLY",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLP, XLY, SPY",
+      "fundamental": "FRED SLOAS, FRED FGCCRELOAN"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long XLP+XLY for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:44.486111+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3298,
+      "cagr": 0.1783,
+      "max_dd": -0.146,
+      "t_stat": 1.8806,
+      "n_events": 2,
+      "verdict": "WINNER — Sharpe 1.33, CAGR 17.8%"
+    }
+  },
+  {
+    "strategy_id": "PL232",
+    "idea_id": "PL232",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL232_cpi_rent_deceleration_homebuilders",
+    "name": "FRED CUSR0000SEHA CPI Rent of Primary Residence Deceleration → Long Homebuilders",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED CUSR0000SEHA, FRED CUSR0000SEHC: FRED CUSR0000SEHA (CPI rent of primary residence) YoY drops by >1pp in 3 months Long ITB+XHB+LEN for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "ITB",
+      "XHB",
+      "LEN",
+      "DHI",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance ITB, XHB, LEN, DHI, SPY",
+      "fundamental": "FRED CUSR0000SEHA, FRED CUSR0000SEHC"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long ITB+XHB+LEN for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:45.925556+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7879,
+      "cagr": 0.2603,
+      "max_dd": -0.4033,
+      "t_stat": 1.4739,
+      "n_events": 14,
+      "verdict": "WINNER — Sharpe 0.79, CAGR 26.0%"
+    }
+  },
+  {
+    "strategy_id": "PL233",
+    "idea_id": "PL233",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL233_business_applications_surge_small_cap",
+    "name": "FRED BUSAPPWNSAUS Business Applications (High-Propensity) Surge → Long Small Cap",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using FRED BABATOTALSAUS: FRED high-propensity business applications surge >15% YoY for 3 consecutive months Long IWM+IWN for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "IWM",
+      "IWN",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance IWM, IWN, SPY",
+      "fundamental": "FRED BABATOTALSAUS"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long IWM+IWN for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 9,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:47.229831+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9707,
+      "cagr": 0.2003,
+      "max_dd": -0.2875,
+      "t_stat": 2.5682,
+      "n_events": 7,
+      "verdict": "WINNER — Sharpe 0.97, CAGR 20.0%"
+    }
+  },
+  {
+    "strategy_id": "PL234",
+    "idea_id": "PL234",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "failed",
+    "signal_id": "PL234_ppi_pulp_paper_recovery_packaging",
+    "name": "FRED WPUSI0811 PPI Pulp, Paper & Products Recovery → Long Paper/Packaging (IP, P",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED WPU0911: FRED PPI for pulp/paper/packaging recovers >5% from trough over 3 months Long IP+WRK+PKG for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "IP",
+      "WRK",
+      "PKG",
+      "GPK",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance IP, WRK, PKG, GPK, SPY",
+      "fundamental": "FRED WPU0911"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long IP+WRK+PKG for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:48.834206+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED PPI load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=PPI\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"utf-8\">\\r\\n    <meta http"
+    }
+  },
+  {
+    "strategy_id": "PL235",
+    "idea_id": "PL235",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "failed",
+    "signal_id": "PL235_usgs_water_demand_divergence_treatment",
+    "name": "USGS Water Use Report → Long Water Treatment Equipment (XYL, WTS, FBIN)",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "rule": "Using FRED CUSR0000SEHG01: USGS water use data shows per-capita withdrawals declining but total demand rising Long XYL+WTS+FBIN for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "XYL",
+      "WTS",
+      "FBIN",
+      "PHO",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XYL, WTS, FBIN, PHO, SPY",
+      "fundamental": "FRED CUSR0000SEHG01"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long XYL+WTS+FBIN for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 9,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:50.574615+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED CUSR0000SEHG01 load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUSR0000SEHG01\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"utf"
+    }
+  },
+  {
+    "strategy_id": "PL236",
+    "idea_id": "PL236",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "failed",
+    "signal_id": "PL236_ism_prices_paid_collapse_industrials",
+    "name": "FRED NAPMS ISM Prices Paid Collapse Below 40 → Long Industrial Buyers (MMM, HON,",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED NAPMPRI, FRED NAPM: FRED NAPMPRI (ISM Prices Paid) drops below 40 — severe input cost deflation Long MMM+HON+GE for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "MMM",
+      "HON",
+      "GE",
+      "XLI",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance MMM, HON, GE, XLI, SPY",
+      "fundamental": "FRED NAPMPRI, FRED NAPM"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long MMM+HON+GE for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:38:52.145245+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED NAPM load: Unable to read URL: https://fred.stlouisfed.org/graph/fredgraph.csv?id=NAPM\nResponse Text:\nb'<!DOCTYPE html>\\r\\n<html lang=\"en\">\\r\\n<head>\\r\\n    <meta charset=\"utf-8\">\\r\\n    <meta ht"
+    }
+  },
+  {
+    "strategy_id": "PL237",
+    "idea_id": "PL237",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL237_krw_strengthening_korea_tech_long",
+    "name": "FRED DEXKOUS Korean Won Strengthening → Long Korean Tech/Semi (EWY, Samsung Prox",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED DEXKOUS: FRED DEXKOUS (USD/KRW) declines >5% over 3 months — won strengthening Long EWY+SKM+SSNLF (Samsung OTC) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "EWY",
+      "SKM",
+      "SSNLF (Samsung OTC)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EWY, SKM, SSNLF (Samsung OTC), SPY",
+      "fundamental": "FRED DEXKOUS"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long EWY+SKM+SSNLF (Samsung OTC) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:54.534686+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4108,
+      "cagr": 0.0845,
+      "max_dd": -0.4783,
+      "t_stat": 0.9185,
+      "n_events": 20,
+      "verdict": "Not a winner — Sharpe 0.41, CAGR 8.5%"
+    }
+  },
+  {
+    "strategy_id": "PL238",
+    "idea_id": "PL238",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL238_inr_stability_india_fii_inflows",
+    "name": "FRED DEXINUS Indian Rupee Stability → Long India Equity (INDA) as FII Confidence",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using FRED DEXINUS: FRED DEXINUS (USD/INR) trades in <2% range for 8+ consecutive weeks Long INDA+INDY+EPI for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "INDA",
+      "INDY",
+      "EPI",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance INDA, INDY, EPI, SPY",
+      "fundamental": "FRED DEXINUS"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long INDA+INDY+EPI for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:56.323688+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4079,
+      "cagr": 0.0814,
+      "max_dd": -0.4472,
+      "t_stat": 1.0923,
+      "n_events": 12,
+      "verdict": "Not a winner — Sharpe 0.41, CAGR 8.1%"
+    }
+  },
+  {
+    "strategy_id": "PL239",
+    "idea_id": "PL239",
+    "created_at": "2026-05-26T23:37:22.415992+00:00",
+    "status": "done",
+    "signal_id": "PL239_brl_strong_soybean_rising_ewz_double",
+    "name": "FRED DEXBZUS Brazilian Real Strengthening + Soybean Price Rising → Long EWZ Braz",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED DEXBZUS, FRED PSOYBUSDM: FRED DEXBZUS (USD/BRL) declines >5% in 3 months — Real strengthening Long EWZ+VALE+ITUB for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "EWZ",
+      "VALE",
+      "ITUB",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EWZ, VALE, ITUB, SPY",
+      "fundamental": "FRED DEXBZUS, FRED PSOYBUSDM"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long EWZ+VALE+ITUB for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:38:58.472100+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.501,
+      "cagr": 0.1202,
+      "max_dd": -0.401,
+      "t_stat": 0.9701,
+      "n_events": 16,
+      "verdict": "WINNER — Sharpe 0.50, CAGR 12.0%"
+    }
+  },
+  {
+    "strategy_id": "PL240",
+    "idea_id": "PL240",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "failed",
+    "signal_id": "PL240_noaa_cat_surge_reinsurer_premium_hardening",
+    "name": "NOAA Billion-Dollar Weather Disasters Count Surge → Long Reinsurers (RNR, ACGL, ",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: NOAA billion-dollar weather disaster count exceeds first-half historical average by >50% Long RNR+ACGL+RE for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "RNR",
+      "ACGL",
+      "RE",
+      "RGA",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance RNR, ACGL, RE, RGA, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long RNR+ACGL+RE for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 9,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:39:56.619942+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "Could not parse FRED series from strategy rule"
+    }
+  },
+  {
+    "strategy_id": "PL241",
+    "idea_id": "PL241",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL241_cad_strong_wti_rising_canadian_ep",
+    "name": "FRED DEXCAUS Canadian Dollar Strengthening + WTI Rising → Long Canadian Energy (",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED DEXCAUS, FRED DCOILWTICO: FRED DEXCAUS (USD/CAD) declines >3% AND WTI rises >15% simultaneously over 3 months Long CNQ+SU+IMO for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "CNQ",
+      "SU",
+      "IMO",
+      "XOP",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance CNQ, SU, IMO, XOP, SPY",
+      "fundamental": "FRED DEXCAUS, FRED DCOILWTICO"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long CNQ+SU+IMO for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:39:57.581738+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7985,
+      "cagr": 0.2271,
+      "max_dd": -0.4933,
+      "t_stat": 1.9148,
+      "n_events": 23,
+      "verdict": "WINNER — Sharpe 0.80, CAGR 22.7%"
+    }
+  },
+  {
+    "strategy_id": "PL242",
+    "idea_id": "PL242",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL242_oer_yoy_peak_rate_sensitive_sectors",
+    "name": "FRED CUSR0000SEHB CPI Owners' Equivalent Rent Inflection → Long Rate-Sensitive S",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED CUSR0000SEHB, FRED CPIAUCSL: FRED CUSR0000SEHB (OER) YoY peaks and declines for 3 consecutive months Long XLRE+VNQ+XLU for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "XLRE",
+      "VNQ",
+      "XLU",
+      "ITB",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLRE, VNQ, XLU, ITB, SPY",
+      "fundamental": "FRED CUSR0000SEHB, FRED CPIAUCSL"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long XLRE+VNQ+XLU for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:39:58.013647+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4722,
+      "cagr": 0.0875,
+      "max_dd": -0.4361,
+      "t_stat": 1.0672,
+      "n_events": 23,
+      "verdict": "Not a winner — Sharpe 0.47, CAGR 8.8%"
+    }
+  },
+  {
+    "strategy_id": "PL243",
+    "idea_id": "PL243",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL243_nonrescons_surge_aggregates_cement",
+    "name": "FRED TLNRESCONS Nonresidential Construction Spending Surge → Long Aggregates/Cem",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED TLNRESCONS, FRED TLRESCONS: FRED TLNRESCONS (nonresidential construction spending) surges >8% YoY for 3 months Long VMC+MLM+EXP for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "VMC",
+      "MLM",
+      "EXP",
+      "ITE",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance VMC, MLM, EXP, ITE, SPY",
+      "fundamental": "FRED TLNRESCONS, FRED TLRESCONS"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long VMC+MLM+EXP for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:39:58.971008+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.1133,
+      "cagr": 0.2617,
+      "max_dd": -0.237,
+      "t_stat": 1.8463,
+      "n_events": 11,
+      "verdict": "WINNER — Sharpe 1.11, CAGR 26.2%"
+    }
+  },
+  {
+    "strategy_id": "PL244",
+    "idea_id": "PL244",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "failed",
+    "signal_id": "PL244_highway_trust_fund_disbursement_contractors",
+    "name": "FRED TTLHHM DOT Highway Trust Fund Disbursements → Long Highway/Bridge Contracto",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: Federal Highway Trust Fund disbursements accelerate — IIJA funds flowing Long GVA+ACM+PRIM for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "GVA",
+      "ACM",
+      "PRIM",
+      "ROAD",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GVA, ACM, PRIM, ROAD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long GVA+ACM+PRIM for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:39:58.988256+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "Could not parse FRED series from strategy rule"
+    }
+  },
+  {
+    "strategy_id": "PL245",
+    "idea_id": "PL245",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL245_manemp_acceleration_industrial_gas",
+    "name": "FRED MANEMP Manufacturing Employment 3-Month Acceleration → Long Industrial Gas ",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED MANEMP, FRED IPMAN: FRED MANEMP shows 3 consecutive months of employment acceleration Long APD+LIN+ECL for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "APD",
+      "LIN",
+      "ECL",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance APD, LIN, ECL, SPY",
+      "fundamental": "FRED MANEMP, FRED IPMAN"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long APD+LIN+ECL for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:39:59.533065+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3941,
+      "cagr": 0.2184,
+      "max_dd": -0.1249,
+      "t_stat": 2.0911,
+      "n_events": 9,
+      "verdict": "WINNER — Sharpe 1.39, CAGR 21.8%"
+    }
+  },
+  {
+    "strategy_id": "PL246",
+    "idea_id": "PL246",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL246_jumbo_rate_cut_bitcoin_risk_on",
+    "name": "FRED DFF Fed Funds Rate Cut >50bps Single Meeting → Long Bitcoin (BTC-USD) Risk-",
+    "category": "G",
+    "asset_class": "multi-asset",
+    "horizon": "2-4 weeks",
+    "rule": "Using FRED DFF, FRED DFEDTARU: FRED DFF (effective fed funds rate) drops >50bps in a single meeting Long BTC-USD+IBIT for 21 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "BTC-USD",
+      "IBIT",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance BTC-USD, IBIT, SPY",
+      "fundamental": "FRED DFF, FRED DFEDTARU"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long BTC-USD+IBIT for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:39:59.810944+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8981,
+      "cagr": 0.3767,
+      "max_dd": -0.2046,
+      "t_stat": 0.6198,
+      "n_events": 17,
+      "verdict": "WINNER — Sharpe 0.90, CAGR 37.7%"
+    }
+  },
+  {
+    "strategy_id": "PL247",
+    "idea_id": "PL247",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL247_djia_ath_drought_end_small_cap",
+    "name": "FRED DJIA Dow Jones Industrials Average New All-Time High After >12mo Drought → ",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using FRED DJIA: FRED DJIA makes new all-time high after >12 months without one Long IWM+IWN for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "IWM",
+      "SPY",
+      "IWN"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance IWM, SPY, IWN",
+      "fundamental": "FRED DJIA"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long IWM+IWN for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:40:00.709456+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.0941,
+      "cagr": -0.0326,
+      "max_dd": -0.3652,
+      "t_stat": 0.1153,
+      "n_events": 6,
+      "verdict": "Not a winner — Sharpe 0.09, CAGR -3.3%"
+    }
+  },
+  {
+    "strategy_id": "PL248",
+    "idea_id": "PL248",
+    "created_at": "2026-05-26T23:38:50.044553+00:00",
+    "status": "done",
+    "signal_id": "PL248_fed_rate_pause_dividend_aristocrats",
+    "name": "FRED FEDFUNDS Rate Unchanged for 6+ Meetings → Long Dividend Aristocrats (NOBL) ",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using FRED DFEDTARU: FRED DFEDTARU unchanged for 6+ consecutive FOMC meetings Long NOBL+SDY+VIG for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "NOBL",
+      "SDY",
+      "VIG",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NOBL, SDY, VIG, SPY",
+      "fundamental": "FRED DFEDTARU"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long NOBL+SDY+VIG for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T23:40:01.479364+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.0548,
+      "cagr": -0.0106,
+      "max_dd": -0.3459,
+      "t_stat": 0.0949,
+      "n_events": 3,
+      "verdict": "Not a winner — Sharpe 0.05, CAGR -1.1%"
+    }
   }
 ]

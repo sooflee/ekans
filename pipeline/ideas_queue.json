@@ -6162,5 +6162,485 @@
     "source_reference": "Wilshire Associates; Buffett Indicator methodology; various Hussman funds research",
     "research_phase": "pipeline_scout",
     "dedup_key": "wilshire_gdp_trough_mean_reversion"
+  },
+  {
+    "idea_id": "PL231",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED SLOAS Student Loan Repayment Restart \u2192 Long Consumer Staples (XLP) Relative to Discretionary",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When student loan repayments restart after a forbearance period (trackable via FRED SLOAS or policy announcements), ~$5-10B/month in disposable income is redirected from discretionary spending to debt service. Consumer staples (XLP) outperform discretionary (XLY) by 5-8% in the 3 months following repayment restart as younger consumers cut discretionary spending first.",
+    "causal_chain": [
+      "Student loan repayments restart after forbearance (FRED SLOAS reflects outstanding balance changes)",
+      "~$5-10B/month in household disposable income redirected to debt service",
+      "Younger consumers (25-35) disproportionately affected \u2014 cut discretionary first",
+      "Restaurants, entertainment, apparel see same-store-sales decelerate",
+      "XLP outperforms XLY by 5-8% in 3 months following repayment restart"
+    ],
+    "data_sources": [
+      "FRED SLOAS (student loans outstanding)",
+      "FRED FGCCRELOAN (student loan delinquency)",
+      "yfinance XLP, XLY, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NY Fed Household Debt and Credit Report; Federal Student Aid portfolio data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "student_loan_restart_xlp_vs_xly"
+  },
+  {
+    "idea_id": "PL232",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SEHA CPI Rent of Primary Residence Deceleration \u2192 Long Homebuilders (ITB) Rate Sensitivity",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When CPI rent of primary residence (FRED CUSR0000SEHA) deceleration accelerates (YoY dropping by >1pp in 3 months), it signals shelter inflation is finally feeding into CPI. This is the missing piece for Fed rate cuts. Homebuilders (ITB) rally 10-15% as the market prices in rate cuts that will lower mortgage rates and boost housing demand.",
+    "causal_chain": [
+      "FRED CUSR0000SEHA (CPI rent of primary residence) YoY drops by >1pp in 3 months",
+      "Shelter inflation deceleration feeding into CPI \u2014 Fed's concern easing",
+      "Fed funds futures reprice to expect additional 50-75bps of cuts",
+      "Mortgage rate expectations decline \u2014 housing affordability improving",
+      "Homebuilders (ITB) rally 10-15% as demand outlook brightens from rate expectations"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SEHA (CPI rent of primary residence)",
+      "FRED CUSR0000SEHC (CPI owners equivalent rent)",
+      "yfinance ITB, XHB, LEN, DHI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI shelter components; Zillow Observed Rent Index (ZORI) as leading indicator",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_rent_deceleration_homebuilders"
+  },
+  {
+    "idea_id": "PL233",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED BUSAPPWNSAUS Business Applications (High-Propensity) Surge \u2192 Long Small Cap (IWM) New Business Cycle",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When high-propensity business applications (FRED BABATOTALSAUS or Census Bureau Business Formation Statistics) surge >15% YoY for 3 months, it signals a wave of new business formation. Small cap stocks (IWM) outperform because new businesses create demand for the types of products/services small caps provide (local services, SMB software, equipment rental). The business formation wave leads small cap earnings by 2-3 quarters.",
+    "causal_chain": [
+      "FRED high-propensity business applications surge >15% YoY for 3 consecutive months",
+      "New business formation wave underway \u2014 entrepreneurial activity accelerating",
+      "New businesses need equipment, software, insurance, accounting \u2014 small cap revenue drivers",
+      "Small cap earnings growth accelerates as new business demand flows through",
+      "IWM outperforms SPY by 5-10% over following quarter as small cap earnings inflect"
+    ],
+    "data_sources": [
+      "FRED BABATOTALSAUS (business applications total)",
+      "Census Bureau Business Formation Statistics (free)",
+      "yfinance IWM, IWN, SPY"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau Business Formation Statistics; Kauffman Foundation entrepreneurship research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "business_applications_surge_small_cap"
+  },
+  {
+    "idea_id": "PL234",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED WPUSI0811 PPI Pulp, Paper & Products Recovery \u2192 Long Paper/Packaging (IP, PKG, WRK)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When PPI for pulp, paper, and allied products (FRED WPU0911 or proxy) recovers >5% from trough over 3 months, paper and packaging companies (IP, WRK, PKG) rally as pricing power returns. Paper is a cyclical commodity \u2014 price recovery signals demand > supply (often from corrugated packaging for e-commerce). High fixed costs mean price recovery produces outsized margin expansion.",
+    "causal_chain": [
+      "FRED PPI for pulp/paper/packaging recovers >5% from trough over 3 months",
+      "Paper pricing recovery signals corrugated packaging demand exceeding supply",
+      "E-commerce growth and industrial packaging demand driving recovery",
+      "IP, WRK, PKG see revenue per ton increase while costs are largely fixed",
+      "Paper/packaging stocks rally 10-15% as pricing recovery drives margin expansion"
+    ],
+    "data_sources": [
+      "FRED WPU0911 (PPI pulp paper and allied products)",
+      "yfinance IP, WRK, PKG, GPK"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS PPI pulp and paper series; AF&PA (American Forest & Paper Association) statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ppi_pulp_paper_recovery_packaging"
+  },
+  {
+    "idea_id": "PL235",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "USGS Water Use Report \u2192 Long Water Treatment Equipment (XYL, WTS, FBIN)",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When USGS releases updated water use data showing per-capita water withdrawals declining while total demand is rising (due to population growth + data centers + industrial), water treatment and infrastructure companies (XYL, WTS, FBIN) benefit. The divergence signals that water efficiency investment must accelerate to prevent shortages, driving orders for treatment equipment and smart water infrastructure.",
+    "causal_chain": [
+      "USGS water use data shows per-capita withdrawals declining but total demand rising",
+      "Data center cooling, industrial, and population growth driving demand against conservation",
+      "Municipalities accelerate water infrastructure investment to prevent shortages",
+      "Water treatment equipment orders (XYL, WTS, FBIN) increase as infrastructure spending rises",
+      "Water infrastructure stocks rally 8-12% as capex pipeline builds"
+    ],
+    "data_sources": [
+      "USGS Water Use data (free)",
+      "FRED CUSR0000SEHG01 (water/sewer CPI)",
+      "yfinance XYL, WTS, FBIN, PHO"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "USGS Water Use in the United States; EPA Drinking Water Infrastructure Needs Survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_water_demand_divergence_treatment"
+  },
+  {
+    "idea_id": "PL236",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED NAPMS ISM Prices Paid Collapse Below 40 \u2192 Long Industrial Buyers (MMM, HON, GE)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When ISM Prices Paid (FRED NAPMPRI) drops below 40, it signals massive input cost deflation for manufacturers. Industrial conglomerates (MMM, HON, GE) with diversified cost structures see gross margin expansion of 200-300bps in the following quarter. The ISM Prices Paid <40 reading has occurred only 5-6 times in 30 years, and industrial stocks rally 10-15% each time.",
+    "causal_chain": [
+      "FRED NAPMPRI (ISM Prices Paid) drops below 40 \u2014 severe input cost deflation",
+      "Raw material, component, and energy costs declining sharply for manufacturers",
+      "Industrial conglomerates (MMM, HON, GE) have sticky pricing \u2014 revenues stable while COGS drops",
+      "Gross margin expansion of 200-300bps visible in following quarter earnings",
+      "Industrial stocks rally 10-15% as margin expansion drives earnings beats"
+    ],
+    "data_sources": [
+      "FRED NAPMPRI (ISM Prices Paid index)",
+      "FRED NAPM (ISM Manufacturing PMI)",
+      "yfinance MMM, HON, GE, XLI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "ISM Report on Business; IHS Markit manufacturing cost indices",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ism_prices_paid_collapse_industrials"
+  },
+  {
+    "idea_id": "PL237",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED DEXKOUS Korean Won Strengthening \u2192 Long Korean Tech/Semi (EWY, Samsung Proxy)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Korean Won strengthens vs USD (FRED DEXKOUS declining) by >5% over 3 months, it signals global risk-on and semiconductor cycle recovery (Korea is export-driven, 20% of exports are semiconductors). EWY (iShares MSCI Korea) rallies 10-15% as won strength reflects both EM inflows and semiconductor demand recovery.",
+    "causal_chain": [
+      "FRED DEXKOUS (USD/KRW) declines >5% over 3 months \u2014 won strengthening",
+      "Won strength signals global risk-on sentiment and Korean export demand improving",
+      "Korean semiconductor exports (20% of total exports) recovering \u2014 memory cycle turning",
+      "Foreign portfolio inflows to Korean equities as EM allocation increases",
+      "EWY rallies 10-15% as semiconductor cycle recovery + EM inflows compound"
+    ],
+    "data_sources": [
+      "FRED DEXKOUS (USD/KRW exchange rate)",
+      "yfinance EWY, SKM, SSNLF (Samsung OTC)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Bank of Korea; SIA semiconductor monthly sales data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "krw_strengthening_korea_tech_long"
+  },
+  {
+    "idea_id": "PL238",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED DEXINUS Indian Rupee Stability \u2192 Long India Equity (INDA) as FII Confidence Signal",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the Indian Rupee (FRED DEXINUS, USD/INR) trades in a <2% range for 8+ weeks, it signals RBI intervention providing FX stability. This stability encourages Foreign Institutional Investor (FII) inflows into Indian equities because FX risk is temporarily suppressed. INDA rallies 5-10% during periods of rupee stability as FII allocation to India increases.",
+    "causal_chain": [
+      "FRED DEXINUS (USD/INR) trades in <2% range for 8+ consecutive weeks",
+      "RBI FX intervention providing currency stability \u2014 reducing FII FX risk perception",
+      "Foreign Institutional Investors increase India equity allocation given low FX volatility",
+      "FII net buying drives Indian large-cap equity higher (Nifty 50 rally)",
+      "INDA rallies 5-10% during extended periods of rupee stability"
+    ],
+    "data_sources": [
+      "FRED DEXINUS (USD/INR exchange rate)",
+      "yfinance INDA, INDY, EPI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "RBI monetary policy data; SEBI FPI/FII flow data (free monthly)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "inr_stability_india_fii_inflows"
+  },
+  {
+    "idea_id": "PL239",
+    "created_at": "2026-05-26T23:36:58.132846+00:00",
+    "status": "developed",
+    "name": "FRED DEXBZUS Brazilian Real Strengthening + Soybean Price Rising \u2192 Long EWZ Brazil Double Tailwind",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Brazilian Real strengthens vs USD (FRED DEXBZUS declining) by >5% AND soybean prices (FRED PSOYBUSDM) are rising simultaneously, Brazil gets a double tailwind: commodity export revenue increases AND portfolio inflows accelerate. EWZ rallies 15-25% when both conditions align because Brazil's equity market is heavily weighted toward commodity exporters and banks that lend to them.",
+    "causal_chain": [
+      "FRED DEXBZUS (USD/BRL) declines >5% in 3 months \u2014 Real strengthening",
+      "Simultaneously FRED soybean price rising >10% \u2014 commodity tailwind for Brazil",
+      "Double tailwind: stronger currency + higher commodity prices = fiscal improvement",
+      "Foreign portfolio inflows surge as Brazil becomes attractive on both fundamentals and FX",
+      "EWZ rallies 15-25% as commodity exporters, banks, and Real appreciation compound"
+    ],
+    "data_sources": [
+      "FRED DEXBZUS (USD/BRL exchange rate)",
+      "FRED PSOYBUSDM (soybean price)",
+      "yfinance EWZ, VALE, ITUB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BCB monetary policy; USDA FAS Brazil soybean production data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "brl_strong_soybean_rising_ewz_double"
+  },
+  {
+    "idea_id": "PL240",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "NOAA Billion-Dollar Weather Disasters Count Surge \u2192 Long Reinsurers (RNR, ACGL, RE)",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When NOAA's count of billion-dollar weather disasters (free annual tracker, but real-time via individual event tracking) exceeds historical average by >50% through the first half of the year, reinsurance stocks (RNR, ACGL, RE) rally. Counterintuitively, elevated cat losses trigger premium hardening in the Jan-1 renewal cycle \u2014 reinsurers raise prices 15-30%, driving earnings growth the following year.",
+    "causal_chain": [
+      "NOAA billion-dollar weather disaster count exceeds first-half historical average by >50%",
+      "Elevated insured losses deplete reinsurer capital \u2014 but surviving reinsurers gain pricing power",
+      "Jan-1 treaty renewal cycle sees reinsurance premiums increase 15-30%",
+      "Reinsurers (RNR, ACGL, RE) that survive the cat year see massive premium growth next year",
+      "Reinsurance stocks rally 10-20% in Q4 as market anticipates Jan-1 premium increases"
+    ],
+    "data_sources": [
+      "NOAA NCEI Billion-Dollar Weather Events (free)",
+      "yfinance RNR, ACGL, RE, RGA"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA NCEI Billion-Dollar Weather and Climate Disasters; Aon Annual Global Catastrophe Report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_cat_surge_reinsurer_premium_hardening"
+  },
+  {
+    "idea_id": "PL241",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED DEXCAUS Canadian Dollar Strengthening + WTI Rising \u2192 Long Canadian Energy (XEG.TO proxy, CNQ, SU)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Canadian dollar strengthens (FRED DEXCAUS declining) by >3% while WTI rises >15% simultaneously, Canadian oil sands producers (CNQ, SU, IMO) get a triple tailwind: higher crude prices, narrower WCS-WTI differential, and CAD strength attracting foreign buyers. Canadian E&Ps outperform US XOP by 10-15% when both conditions align.",
+    "causal_chain": [
+      "FRED DEXCAUS (USD/CAD) declines >3% AND WTI rises >15% simultaneously over 3 months",
+      "Canadian dollar strength reflects improving terms of trade from oil exports",
+      "WCS-WTI differential typically narrows during strong crude markets (pipeline not bottleneck)",
+      "CNQ, SU see triple tailwind: higher benchmark + narrower diff + FX-driven foreign buying",
+      "Canadian E&P outperforms US XOP by 10-15% during dual CAD/WTI rally periods"
+    ],
+    "data_sources": [
+      "FRED DEXCAUS (USD/CAD exchange rate)",
+      "FRED DCOILWTICO (WTI crude)",
+      "yfinance CNQ, SU, IMO, XOP"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Bank of Canada; Alberta Energy Regulator WCS pricing data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cad_strong_wti_rising_canadian_ep"
+  },
+  {
+    "idea_id": "PL242",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SEHB CPI Owners' Equivalent Rent Inflection \u2192 Long Rate-Sensitive Stocks (XLRE, VNQ)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "OER (FRED CUSR0000SEHB) is the single largest component of CPI (~25%). When OER's YoY rate of change peaks and declines for 3 consecutive months, the entire CPI trajectory shifts lower. Rate-sensitive sectors (REITs, utilities, homebuilders) benefit disproportionately because OER deceleration is the necessary condition for Fed rate cuts.",
+    "causal_chain": [
+      "FRED CUSR0000SEHB (OER) YoY peaks and declines for 3 consecutive months",
+      "OER at 25% of CPI means its deceleration mechanically lowers headline CPI trend",
+      "Core CPI trajectory shifts lower \u2014 Fed's rate cut hurdle being met",
+      "Rate-sensitive equity sectors (XLRE, XLU, ITB) reprice for easier monetary policy",
+      "XLRE outperforms SPY by 5-10% in months following OER inflection point"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SEHB (CPI Owners' Equivalent Rent)",
+      "FRED CPIAUCSL (CPI headline)",
+      "yfinance XLRE, VNQ, XLU, ITB"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI shelter methodology; Zillow ZORI as leading indicator for OER",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "oer_yoy_peak_rate_sensitive_sectors"
+  },
+  {
+    "idea_id": "PL243",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED TLNRESCONS Nonresidential Construction Spending Surge \u2192 Long Aggregates/Cement (VMC, MLM, EXP)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When nonresidential construction spending (FRED TLNRESCONS) surges >8% YoY for 3 months, aggregates and cement producers (VMC, MLM, EXP) rally sharply. Aggregates are a local monopoly business (can't economically ship more than 50 miles) with inelastic demand \u2014 when construction volume increases, aggregates producers have pricing power and high operating leverage.",
+    "causal_chain": [
+      "FRED TLNRESCONS (nonresidential construction spending) surges >8% YoY for 3 months",
+      "Nonresidential construction boom = increased demand for aggregates, cement, ready-mix",
+      "Aggregates producers have local monopoly positions \u2014 pricing power with inelastic demand",
+      "VMC, MLM, EXP see both volume and price increases \u2014 double benefit",
+      "Aggregates stocks rally 10-15% as operating leverage amplifies earnings growth"
+    ],
+    "data_sources": [
+      "FRED TLNRESCONS (nonresidential construction spending)",
+      "FRED TLRESCONS (residential construction spending)",
+      "yfinance VMC, MLM, EXP, ITE"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau C30 Construction Spending; Portland Cement Association market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nonrescons_surge_aggregates_cement"
+  },
+  {
+    "idea_id": "PL244",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED TTLHHM DOT Highway Trust Fund Disbursements \u2192 Long Highway/Bridge Contractors (GVA, ACM, PRIM)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When Federal Highway Trust Fund disbursements accelerate (trackable via Treasury Monthly Treasury Statement, FHWA obligation data), highway and bridge contractors (Granite/GVA, AECOM/ACM, Primoris/PRIM) see their pipeline of federal-funded projects increase. HTF disbursement acceleration leads contractor revenue by 2-3 quarters as projects move from obligation to construction.",
+    "causal_chain": [
+      "Federal Highway Trust Fund disbursements accelerate \u2014 IIJA funds flowing",
+      "State DOTs increase project lettings as federal matching funds become available",
+      "Highway/bridge contractors (GVA, ACM, PRIM) bid on larger project pipeline",
+      "Backlog growth visible in quarterly earnings \u2014 forward revenue visibility improves",
+      "Highway construction stocks rally 8-12% as backlog growth drives confidence"
+    ],
+    "data_sources": [
+      "FHWA Highway Trust Fund data (free)",
+      "Treasury Monthly Treasury Statement (free)",
+      "yfinance GVA, ACM, PRIM, ROAD"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FHWA Highway Statistics; Treasury Monthly Treasury Statement; IIJA implementation tracking",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "highway_trust_fund_disbursement_contractors"
+  },
+  {
+    "idea_id": "PL245",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED MANEMP Manufacturing Employment 3-Month Acceleration \u2192 Long Industrial Gas (APD, LIN) Demand Signal",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When manufacturing employment (FRED MANEMP) shows 3 consecutive months of acceleration (positive 2nd derivative), industrial gas companies (APD, LIN) benefit as manufacturing gas consumption correlates directly with production activity. Industrial gases are 'picks and shovels' of manufacturing \u2014 every steel mill, chip fab, and food processor requires them. APD and LIN have take-or-pay contracts that ensure margin stability.",
+    "causal_chain": [
+      "FRED MANEMP shows 3 consecutive months of employment acceleration",
+      "Manufacturing hiring acceleration signals production ramp-up underway",
+      "Industrial gas consumption increases with manufacturing activity (oxygen, nitrogen, hydrogen)",
+      "APD, LIN see volume increases on existing take-or-pay contracts \u2014 pure margin expansion",
+      "Industrial gas stocks rally 5-8% as manufacturing demand recovery confirmed"
+    ],
+    "data_sources": [
+      "FRED MANEMP (manufacturing employment)",
+      "FRED IPMAN (manufacturing IP)",
+      "yfinance APD, LIN, ECL"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS Employment Situation; CGA Compressed Gas Association industry data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "manemp_acceleration_industrial_gas"
+  },
+  {
+    "idea_id": "PL246",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED DFF Fed Funds Rate Cut >50bps Single Meeting \u2192 Long Bitcoin (BTC-USD) Risk-On Spike",
+    "category": "G",
+    "asset_class": "multi-asset",
+    "horizon": "2-4 weeks",
+    "thesis": "When the Fed cuts the federal funds rate (FRED DFF) by >50bps in a single meeting (jumbo cut), Bitcoin rallies 15-30% over the following 3 weeks. The jumbo cut signals the Fed prioritizing growth over inflation, creating a 'risk-on' environment. Speculative assets benefit disproportionately because the rate cut simultaneously weakens the dollar and reduces the opportunity cost of holding non-yielding assets.",
+    "causal_chain": [
+      "FRED DFF (effective fed funds rate) drops >50bps in a single meeting",
+      "Jumbo rate cut signals Fed pivoting to growth/employment support mode",
+      "Dollar weakens as interest rate differential with other currencies narrows",
+      "Risk-on sentiment surges \u2014 speculative assets benefit from liquidity expansion",
+      "Bitcoin rallies 15-30% over following 3 weeks as risk appetite surges"
+    ],
+    "data_sources": [
+      "FRED DFF (effective federal funds rate)",
+      "FRED DFEDTARU (fed funds upper target)",
+      "yfinance BTC-USD, IBIT, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "FOMC rate decision history; CME FedWatch Tool",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "jumbo_rate_cut_bitcoin_risk_on"
+  },
+  {
+    "idea_id": "PL247",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED DJIA Dow Jones Industrials Average New All-Time High After >12mo Drought \u2192 Long Small Caps (IWM)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the DJIA (FRED DJIA) reaches a new all-time high after >12 months without one, small cap stocks (IWM) outperform over the following 2 months. The new DJIA ATH after a long drought signals a definitive end to the bear market/correction \u2014 confidence surge benefits high-beta small caps more than large caps as risk appetite broadens from mega-cap to the wider market.",
+    "causal_chain": [
+      "FRED DJIA makes new all-time high after >12 months without one",
+      "Long ATH drought ending signals definitive bear market conclusion",
+      "Investor confidence surges \u2014 risk appetite broadens beyond mega-cap safety",
+      "Rotation from large-cap quality to small-cap beta as broadening trade begins",
+      "IWM outperforms SPY by 5-10% over following 2 months as participation broadens"
+    ],
+    "data_sources": [
+      "FRED DJIA (Dow Jones Industrial Average)",
+      "yfinance IWM, SPY, IWN"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "DJIA historical ATH data; Ned Davis Research market breadth analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "djia_ath_drought_end_small_cap"
+  },
+  {
+    "idea_id": "PL248",
+    "created_at": "2026-05-26T23:38:17.288510+00:00",
+    "status": "developed",
+    "name": "FRED FEDFUNDS Rate Unchanged for 6+ Meetings \u2192 Long Dividend Aristocrats (NOBL) Yield Certainty",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the Fed holds rates unchanged for 6+ consecutive meetings (trackable via FRED DFEDTARU), rate uncertainty collapses. Dividend aristocrats (NOBL ETF) outperform SPY by 3-5% during extended rate pauses because yield investors gain confidence in dividend sustainability \u2014 the rate environment becomes predictable, making dividend yield more valuable as a fixed-income substitute.",
+    "causal_chain": [
+      "FRED DFEDTARU unchanged for 6+ consecutive FOMC meetings",
+      "Rate uncertainty collapses \u2014 MOVE index declines to low levels",
+      "Yield investors gain confidence in stable rate environment",
+      "Dividend aristocrats (NOBL) attract institutional inflows as yield certainty premium builds",
+      "NOBL outperforms SPY by 3-5% during extended rate pause periods"
+    ],
+    "data_sources": [
+      "FRED DFEDTARU (fed funds upper target)",
+      "yfinance NOBL, SDY, VIG, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "FOMC meeting decision history; S&P Dow Jones Dividend Aristocrats methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fed_rate_pause_dividend_aristocrats"
   }
 ]
