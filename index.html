@@ -370,6 +370,53 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 @media (max-width: 900px) {
   #pipeline-grid { grid-template-columns: 1fr !important; }
 }
+
+/* ----- Signals tab ----- */
+#tab-signals .sig-card {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 20px; margin: 0 0 10px;
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start;
+}
+#tab-signals .sig-name { font-weight: 700; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+#tab-signals .sig-meta { font-size: 12px; color: var(--fg-dim); margin-top: 2px; }
+#tab-signals .sig-rule {
+  font-size: 12px; margin-top: 8px; padding: 8px 12px;
+  background: var(--bg-3); border-left: 3px solid var(--accent);
+  border-radius: 4px; font-family: var(--mono); color: var(--fg-dim); line-height: 1.5;
+}
+#tab-signals .sig-trades { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+#tab-signals .sig-trade-tag {
+  padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;
+}
+#tab-signals .sig-trade-tag.long { background: rgba(52,211,153,0.12); color: var(--good); border: 1px solid rgba(52,211,153,0.25); }
+#tab-signals .sig-trade-tag.short { background: rgba(248,113,113,0.12); color: var(--bad); border: 1px solid rgba(248,113,113,0.25); }
+#tab-signals .sig-toggle {
+  display: flex; flex-direction: column; gap: 0; border-radius: 6px; overflow: hidden;
+  border: 1px solid var(--border); flex-shrink: 0;
+}
+#tab-signals .sig-toggle button {
+  background: var(--bg-3); border: none; padding: 7px 14px;
+  font-size: 11px; cursor: pointer; color: var(--fg-dim); font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+#tab-signals .sig-toggle button:last-child { border-bottom: none; }
+#tab-signals .sig-toggle button:hover { background: var(--bg); }
+#tab-signals .sig-toggle button.active-st { background: var(--good); color: var(--bg); }
+#tab-signals .sig-toggle button.unknown-st { background: var(--warn); color: var(--bg); }
+#tab-signals .sig-toggle button.inactive-st { background: var(--fg-dim); color: var(--bg); }
+.sig-filter {
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
+  padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+}
+.sig-filter:hover { border-color: var(--accent); color: var(--fg); }
+.sig-filter.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+#tab-signals .sig-viewfull { font-size: 12px; margin-top: 8px; display: inline-block; }
+[data-theme="light"] #tab-signals .sig-trade-tag.long { background: rgba(22,163,74,0.08); }
+[data-theme="light"] #tab-signals .sig-trade-tag.short { background: rgba(220,38,38,0.08); }
+@media (max-width: 700px) {
+  #tab-signals .sig-card { grid-template-columns: 1fr; }
+  #tab-signals .sig-toggle { flex-direction: row; }
+}
 </style>
 <script>
 (function(){
@@ -401,6 +448,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">24</span></button>
   <button data-tab="validation">Validation</button>
   <button data-tab="pipeline">Pipeline</button>
+  <button data-tab="signals">Signals<span class="tab-count" id="tab-sig-count">0</span></button>
 </nav>
 
 <div id="tab-catalog" class="tab-panel">
@@ -2553,6 +2601,314 @@ main.container { min-width: 0; padding: 0; max-width: none; }
     <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (40%) during adverse regimes. Low event count limits statistical confidence. t-stat 0.84 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-19.5pp) vs benchmark — alpha questionable.</div>
   </div>
   <div class="card-foot"><span>Source: FRED JTSQUR; yfinance</span><span><code>backtests/PL81_jolts_quits_staffing.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL107_semi_ppi_deflation_trough</span><h3>Semiconductor PPI Deflation Trough &rarr; Long SMH</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.84</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-23.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.69</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Semiconductor PPI YoY turning positive after 6+ months of deflation signals the chip cycle trough. Chip designers see ASP recovery = margin inflection.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SMH 126d when PCU33443344 YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=10 events. In-position CAGR. t-stat 1.69 approaching but below 2.0. Cyclical signal tied to semiconductor capex cycle timing.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PCU33443344; yfinance</span><span><code>backtests/PL107_semi_ppi_deflation_trough.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL112_vehicle_age_auto_parts</span><h3>Vehicle Sales Drought &rarr; Long Auto Parts (AZO+ORLY)</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.92</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">19.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-16.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.29</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Prolonged vehicle sales drought (SAAR &lt; 14M for 6+ months) ages the fleet, driving replacement parts demand to AZO/ORLY. Fewer new cars = more repairs on existing fleet.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long AZO+ORLY 252d when TOTALSA 12mo avg &lt; 14M SAAR for 6 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events only (GFC, COVID chip shortage). Strong per-event returns but very low statistical power. Needs more out-of-sample confirmation.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TOTALSA; yfinance</span><span><code>backtests/PL112_vehicle_age_auto_parts.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL113_motor_vehicle_ip_suppliers</span><h3>Motor Vehicle IP Recovery &rarr; Long OEM Suppliers (BWA+LEA)</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.07</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">30.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-39.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.10</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Motor vehicle industrial production YoY turning positive after 6+ months of decline signals production recovery. OEM suppliers (BorgWarner, Lear) see volume recovery with operating leverage.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BWA+LEA 126d when IPG3361T3S YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events. t-stat 2.10 is statistically significant. 39% max drawdown requires position sizing. Cyclical signal fires at production troughs.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED IPG3361T3S; yfinance</span><span><code>backtests/PL113_motor_vehicle_ip_suppliers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL114_cre_delinquency_trough_reits</span><h3>CRE Delinquency Trough &rarr; Long Office/Retail REITs (BXP+SPG)</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 11 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.77</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-32.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.42</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CRE loan delinquency rate peaking and declining for 2 consecutive quarters signals credit improvement. Office/retail REITs recover as refinancing risk ebbs.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BXP+SPG 252d when DRCLACBS peaks then declines 2 quarters</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=11 events. t-stat 2.42 is statistically significant. Quarterly data = slow signal. CRE cycle specific — structural shifts (WFH) may impair future applicability for office.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DRCLACBS; yfinance</span><span><code>backtests/PL114_cre_delinquency_trough_reits.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL116_nonres_construction_industrial_reits</span><h3>Nonres Construction Inflection &rarr; Long PLD</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.57</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-37.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.98</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Nonresidential construction spending YoY turning positive after prolonged decline signals warehouse/industrial demand recovery. PLD benefits as the largest industrial REIT.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long PLD 252d when TLNRESCONS YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. Low statistical power. t-stat 0.98 below significance. Deep drawdown (37%) during adverse regimes.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TLNRESCONS; yfinance</span><span><code>backtests/PL116_nonres_construction_industrial_reits.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL117_michigan_expectations_luxury</span><h3>Michigan Expectations Trough &rarr; Long Luxury Retail (RL+TPR)</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 63 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">15.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-67.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.66</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Michigan Consumer Expectations trough below 60 then bouncing for 3 months signals consumer confidence recovery. Luxury retail (Ralph Lauren, Tapestry) benefits from discretionary spending rebound.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long RL+TPR 126d when MICH hits trough below 60 then bounces 3 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=63 events (high statistical power). t-stat 2.66 is significant. However, deep drawdown (68%) and many overlapping signals suggest regime sensitivity. Position sizing critical.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MICH; yfinance</span><span><code>backtests/PL117_michigan_expectations_luxury.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL119_freight_rate_collapse_retailers</span><h3>Import Price Collapse &rarr; Long COST+TGT</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.10</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">37.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-32.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.72</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Import price index declining &gt;5% YoY for 3+ months signals falling input costs for import-dependent retailers. COST and TGT see margin expansion as COGS decline before shelf prices adjust.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long COST+TGT 126d when IR (import prices) YoY &lt; -5% for 3 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. Strong Sharpe (1.10) and CAGR (37%). t-stat 1.72 approaching significance. Import price deflation episodes are infrequent but powerful for retailers.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED IR; yfinance</span><span><code>backtests/PL119_freight_rate_collapse_retailers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL122_hdd_spike_utilities</span><h3>Natural Gas Price Spike &rarr; Long XLU</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 16 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.69</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-23.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.83</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Henry Hub crossing above $4 from below signals elevated energy costs. Regulated utilities pass through fuel costs to ratepayers with rate adjustments, benefiting from higher revenue base.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLU 126d when MHHNGSP crosses above $4 from below</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=16 events. t-stat 1.83 approaching significance. Moderate drawdown (24%). Utility rate adjustment lag means benefit is not immediate.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MHHNGSP; yfinance</span><span><code>backtests/PL122_hdd_spike_utilities.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL124_defense_spending_primes</span><h3>Federal Defense Spending Acceleration &rarr; Long LMT+RTX+NOC</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">18.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-28.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.12</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Federal defense spending YoY &gt;+5% for 2 consecutive quarters signals sustained budget growth. Defense primes (LMT, RTX, NOC) see backlog and revenue acceleration with multi-year contract visibility.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long LMT+RTX+NOC 252d when FDEFX YoY &gt; +5% for 2 quarters</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events (limited history of sustained acceleration). Strong per-event performance but very low statistical power. Government spending is lumpy and politically driven.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED FDEFX; yfinance</span><span><code>backtests/PL124_defense_spending_primes.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL126_fed_nondefense_invest_it</span><h3>Federal Nondefense Investment &rarr; Long ACN+LDOS</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.87</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">14.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-24.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.22</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Federal nondefense investment spending accelerating &gt;+5% YoY signals IT modernization and consulting demand. ACN (Accenture) and LDOS (Leidos) capture federal IT/consulting contract flow.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ACN+LDOS 252d when A782RX1Q020SBEA YoY &gt; +5% for 2 quarters</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events only. Limited statistical power despite strong risk-adjusted returns. Quarterly data means slow signal generation.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED A782RX1Q020SBEA; yfinance</span><span><code>backtests/PL126_fed_nondefense_invest_it.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL127_nfci_easing_small_cap_value</span><h3>NFCI Easing From Tight &rarr; Long Small-Cap Value (IWN)</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.93</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.93</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Chicago Fed NFCI dropping below 0 after sustained tightening (&gt;+0.5 for 3+ months) signals credit conditions easing. Small-cap value (IWN) is the most credit-sensitive equity segment and recovers aggressively.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long IWN 252d when NFCI drops below 0 after 3+ months above +0.5</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events (GFC recovery, post-COVID). Excellent risk-adjusted returns but minimal statistical confidence. Rare signal by design.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED NFCI; yfinance</span><span><code>backtests/PL127_nfci_easing_small_cap_value.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL128_m2_velocity_commodities</span><h3>M2 Velocity Inflection &rarr; Long Commodities (DJP)</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.34</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">24.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-16.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.30</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>M2 velocity (quarterly) YoY turning positive after sustained decline signals money flowing back into the real economy. Commodity demand accelerates as velocity recovers from monetary overhang.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long DJP 252d when M2V YoY turns positive after 4+ quarters decline</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. t-stat 2.30 is statistically significant. Strong Sharpe (1.34) with contained drawdown (17%). Quarterly data = slow signal but high quality. Velocity regime changes are rare and powerful.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED M2V; yfinance</span><span><code>backtests/PL128_m2_velocity_commodities.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL129_term_premium_positive_xlf</span><h3>Term Premium Turning Positive &rarr; Long Financials (XLF)</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 12 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.06</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">18.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-25.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">2.62</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>10Y term premium (ACM model) crossing positive after 6+ months below zero signals the yield curve is steepening via higher long-end compensation. Banks (XLF) benefit from wider NIM as the term structure normalizes.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLF 252d when THREEFYTP10 crosses above 0 after 6+ months below</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=12 events. t-stat 2.62 is statistically significant. Sharpe 1.06 with contained drawdown. Daily FRED data from 1961 provides long history. Strongest macro signal in this batch.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED THREEFYTP10; yfinance</span><span><code>backtests/PL129_term_premium_positive_xlf.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL132_bank_reserves_surge_qqq</span><h3>Bank Reserves Surge &rarr; Long QQQ</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">21.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-46.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.47</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Fed reserve injections (TOTRESNS surging &gt;15% in 3 months) signal liquidity flooding the banking system. Excess reserves flow into risk assets, with QQQ as the highest-beta large-cap beneficiary.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long QQQ 126d when TOTRESNS 3-month rolling change &gt; +15%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7 events. t-stat 1.47 below conventional significance. Deep drawdown (46%) during volatile liquidity-injection episodes. Post-GFC/COVID phenomenon — limited pre-2008 history at this scale.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TOTRESNS; yfinance</span><span><code>backtests/PL132_bank_reserves_surge_qqq.py</code></span></div>
 </article>
 
 <!-- ================== APPENDIX ================== -->

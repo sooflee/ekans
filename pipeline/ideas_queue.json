@@ -2689,7 +2689,7 @@
   {
     "idea_id": "PL102",
     "created_at": "2026-05-26T22:44:39.181307+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Soybean Oil PPI Spike -> Packaged Food Margin Squeeze -> Long Hedged Players (GIS/CPB)",
     "category": "C",
     "asset_class": "equities",
@@ -2717,7 +2717,7 @@
   {
     "idea_id": "PL103",
     "created_at": "2026-05-26T22:44:39.181307+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "USDA Corn Crush Margin Expansion -> Long Ethanol/Corn Processors (ADM/GPRE)",
     "category": "C",
     "asset_class": "equities",
@@ -2745,7 +2745,7 @@
   {
     "idea_id": "PL104",
     "created_at": "2026-05-26T22:44:39.181307+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Wheat PPI Collapse -> Long Restaurant/Food Service (DRI/MCD)",
     "category": "C",
     "asset_class": "equities",
@@ -2824,7 +2824,7 @@
   {
     "idea_id": "PL107",
     "created_at": "2026-05-26T22:45:06.223131+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Semiconductor PPI Deflation Trough -> Long Chip Designers (NVDA/AMD/AVGO)",
     "category": "C",
     "asset_class": "equities",
@@ -2852,7 +2852,7 @@
   {
     "idea_id": "PL108",
     "created_at": "2026-05-26T22:45:06.223131+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Computer/Electronic Parts Inventories Destock -> Long Tech Distributors (ARW/AVT)",
     "category": "C",
     "asset_class": "equities",
@@ -2879,7 +2879,7 @@
   {
     "idea_id": "PL109",
     "created_at": "2026-05-26T22:45:41.775043+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Health Services Employment Surge -> Long Hospital Operators (HCA/THC/UHS)",
     "category": "C",
     "asset_class": "equities",
@@ -2906,7 +2906,7 @@
   {
     "idea_id": "PL110",
     "created_at": "2026-05-26T22:45:41.775043+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Prescription Drug PPI Inflation -> Long Pharmacy Benefit Managers (CI/CVS/UNH)",
     "category": "C",
     "asset_class": "equities",
@@ -2934,7 +2934,7 @@
   {
     "idea_id": "PL111",
     "created_at": "2026-05-26T22:45:41.775043+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Medical Equipment Spending Recovery -> Long Medtech (SYK/ISRG/MDT)",
     "category": "C",
     "asset_class": "equities",
@@ -2962,7 +2962,7 @@
   {
     "idea_id": "PL112",
     "created_at": "2026-05-26T22:46:10.801954+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Vehicle Age Peak -> Long Auto Parts Retailers (AZO/ORLY/AAP)",
     "category": "C",
     "asset_class": "equities",
@@ -2990,7 +2990,7 @@
   {
     "idea_id": "PL113",
     "created_at": "2026-05-26T22:46:10.801954+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Motor Vehicle Output Recovery -> Long Auto OEM Suppliers (BWA/LEA/APTV)",
     "category": "C",
     "asset_class": "equities",
@@ -3018,7 +3018,7 @@
   {
     "idea_id": "PL114",
     "created_at": "2026-05-26T22:46:50.559502+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED CRE Loan Delinquency Trough -> Long Office/Retail REITs (BXP/SPG)",
     "category": "C",
     "asset_class": "equities",
@@ -3046,7 +3046,7 @@
   {
     "idea_id": "PL115",
     "created_at": "2026-05-26T22:46:50.559502+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED CMBS Spread Compression -> Long CRE-Exposed Regional Banks (KEY/CFG/ZION)",
     "category": "C",
     "asset_class": "equities",
@@ -3074,7 +3074,7 @@
   {
     "idea_id": "PL116",
     "created_at": "2026-05-26T22:46:50.559502+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Nonresidential Construction Spending Inflection -> Long Industrial REITs (PLD/REXR)",
     "category": "C",
     "asset_class": "equities",
@@ -3101,7 +3101,7 @@
   {
     "idea_id": "PL117",
     "created_at": "2026-05-26T22:47:17.424586+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Michigan Consumer Expectations Trough -> Long Luxury Retail (RL/TPR/CPRI)",
     "category": "C",
     "asset_class": "equities",
@@ -3129,7 +3129,7 @@
   {
     "idea_id": "PL118",
     "created_at": "2026-05-26T22:47:17.424586+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Consumer Confidence Present Situation Surge -> Long Travel/Leisure (MAR/H/EXPE)",
     "category": "C",
     "asset_class": "equities",
@@ -3156,7 +3156,7 @@
   {
     "idea_id": "PL119",
     "created_at": "2026-05-26T22:47:55.552381+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Container Freight Rate Collapse -> Long Import-Dependent Retailers (COST/TGT/WMT)",
     "category": "C",
     "asset_class": "equities",
@@ -3183,7 +3183,7 @@
   {
     "idea_id": "PL120",
     "created_at": "2026-05-26T22:47:55.552381+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Import Price Index Recovery -> Long Commodity Trading Houses (ADM/BG/GLNCY)",
     "category": "C",
     "asset_class": "equities",
@@ -3210,7 +3210,7 @@
   {
     "idea_id": "PL121",
     "created_at": "2026-05-26T22:47:55.552381+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Port-Level Import Surge -> Long Warehouse/Logistics REITs (PLD/STAG)",
     "category": "C",
     "asset_class": "equities",
@@ -3237,7 +3237,7 @@
   {
     "idea_id": "PL122",
     "created_at": "2026-05-26T22:48:25.469896+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED HDD Spike Above Normal -> Long Regulated Utilities (DUK/SO/NEE)",
     "category": "C",
     "asset_class": "equities",
@@ -3265,7 +3265,7 @@
   {
     "idea_id": "PL123",
     "created_at": "2026-05-26T22:48:25.469896+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Property Insurance CPI Acceleration -> Long P&C Reinsurers (RNR/ACGL/RE)",
     "category": "C",
     "asset_class": "equities",
@@ -3292,7 +3292,7 @@
   {
     "idea_id": "PL124",
     "created_at": "2026-05-26T22:49:03.220038+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Federal Defense Spending Acceleration -> Long Defense Primes (LMT/RTX/NOC/GD)",
     "category": "C",
     "asset_class": "equities",
@@ -3320,7 +3320,7 @@
   {
     "idea_id": "PL125",
     "created_at": "2026-05-26T22:49:03.220038+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED State/Local Construction Spending Surge -> Long Engineering/Construction (PWR/MTZ/PRIM)",
     "category": "C",
     "asset_class": "equities",
@@ -3347,7 +3347,7 @@
   {
     "idea_id": "PL126",
     "created_at": "2026-05-26T22:49:03.220038+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Federal Nondefense Investment Spike -> Long IT/Consulting (ACN/LDOS/BAH)",
     "category": "C",
     "asset_class": "equities",
@@ -3374,7 +3374,7 @@
   {
     "idea_id": "PL127",
     "created_at": "2026-05-26T22:49:41.566622+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Financial Conditions Easing From Tight -> Long Small-Cap Value (IWN)",
     "category": "C",
     "asset_class": "equities",
@@ -3401,7 +3401,7 @@
   {
     "idea_id": "PL128",
     "created_at": "2026-05-26T22:49:41.566622+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Excess Reserves + M2 Velocity Inflection -> Long Commodities (DJP/GSG)",
     "category": "C",
     "asset_class": "commodities",
@@ -3429,7 +3429,7 @@
   {
     "idea_id": "PL129",
     "created_at": "2026-05-26T22:49:41.566622+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Term Premium Turning Positive -> Long Financials (XLF) / Short Long Duration (TLT)",
     "category": "C",
     "asset_class": "multi-asset",
@@ -3456,7 +3456,7 @@
   {
     "idea_id": "PL130",
     "created_at": "2026-05-26T22:51:14.038475+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Wilshire 5000 / GDP Ratio Mean-Reversion \u2192 Long SPY from Undervaluation",
     "category": "C",
     "asset_class": "equities",
@@ -3482,7 +3482,7 @@
   {
     "idea_id": "PL131",
     "created_at": "2026-05-26T22:51:14.038475+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Owners Equivalent Rent Deceleration \u2192 Long TLT (Shelter CPI Lag)",
     "category": "C",
     "asset_class": "bonds",
@@ -3504,5 +3504,57 @@
     "source_reference": "BLS CPI methodology; shelter CPI lag research (Bolhuis-Cramer-Summers 2022)",
     "research_phase": "pipeline_scout",
     "dedup_key": "oer_deceleration_shelter_cpi_tlt"
+  },
+  {
+    "idea_id": "PL132",
+    "created_at": "2026-05-26T23:01:17.003103+00:00",
+    "status": "developed",
+    "name": "FRED Bank Reserves Surge \u2192 Long Risk Assets (Liquidity Injection)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED TOTRESNS (total reserves of depository institutions, biweekly) spikes when the Fed injects liquidity \u2014 QE, emergency lending, discount window usage. When reserves surge >15% in a rolling 3-month window, it floods the banking system with excess cash that flows into risk assets. Long QQQ for 6 months. Reserves surged in 2008-Q4 (TARP), 2020-Q1 (COVID QE), and 2023-Q1 (BTFP after SVB). Each preceded a major equity rally. Distinct from PL85 (WRESBAL reserve balances \u2014 different series, different threshold).",
+    "causal_chain": [
+      "FRED TOTRESNS (biweekly bank reserves) surges >15% in rolling 3 months",
+      "Fed liquidity injection = excess reserves flooding the banking system",
+      "Banks deploy excess reserves into Treasuries, agency MBS, and through lending",
+      "Asset prices rise as liquidity finds its way into financial markets",
+      "QQQ (highest-beta large-cap index) rallies 15-40% over 6 months"
+    ],
+    "data_sources": [
+      "FRED TOTRESNS (biweekly, free, back to 1959)",
+      "yfinance QQQ, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve H.3 Aggregate Reserves; Pozsar liquidity framework",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bank_reserves_surge_risk_assets"
+  },
+  {
+    "idea_id": "PL133",
+    "created_at": "2026-05-26T23:01:17.003103+00:00",
+    "status": "developed",
+    "name": "FRED Industrial Production Mining Recovery \u2192 Long Commodity Producers",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED IPN213111S (industrial production: mining, monthly) specifically tracks oil/gas/coal/metal extraction output. When mining IP YoY turns positive after 6+ months of decline, it confirms commodity supply recovery \u2014 production costs have been cut, marginal producers exited, survivors are lean. Long XOP+PICK (energy+metals miners) for 6 months. Mining IP recovery leads commodity equity earnings beats by 1-2 quarters as volume recovery compounds with lean cost structures.",
+    "causal_chain": [
+      "FRED IPN213111S (mining industrial production) YoY turns positive after 6+ months negative",
+      "Mining/extraction output recovering \u2014 surviving producers are lean from cost-cutting during downturn",
+      "Volume recovery on a lower cost base = operating leverage \u2192 margin expansion",
+      "XOP (energy producers) and PICK (metals miners) see earnings inflect positive",
+      "Commodity equity stocks re-rate 3-6 months as production recovery flows to earnings"
+    ],
+    "data_sources": [
+      "FRED IPN213111S (monthly, free, back to 1972)",
+      "yfinance XOP, PICK, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve Industrial Production; mining sector operating leverage research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mining_ip_recovery_commodity_producers"
   }
 ]
