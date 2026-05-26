@@ -2957,6 +2957,9 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 <div id="tab-pipeline" class="tab-panel">
 <div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
 
+<div id="pl-ghpages-notice" style="display:none;padding:16px 20px;background:rgba(251,191,36,0.08);border-left:3px solid var(--warn);border-radius:4px;margin-bottom:16px;">
+  <strong style="color:var(--warn);">GitHub Pages detected.</strong> Pipeline queues require local queue files that aren't available on static hosting. To use this tab, clone the repo and run <code>python3 -m http.server</code> from the project root, or paste queue JSON using the form below.
+</div>
 <h2 style="margin-top:0;">Pipeline Queues</h2>
 <p class="sub">Live view of the 3-loop research pipeline. Ideas flow left to right: Scout → Developer → Backtester. Load queue files to see current state.</p>
 
@@ -3179,6 +3182,11 @@ document.getElementById('pl-parse-paste').addEventListener('click', () => {
     document.getElementById('pl-status').textContent = 'Parse error: ' + e.message;
   }
 });
+
+// Show notice when not running locally
+if (location.protocol !== 'file:' && !['localhost','127.0.0.1',''].includes(location.hostname)) {
+  document.getElementById('pl-ghpages-notice').style.display = 'block';
+}
 
 // Autoload when Pipeline tab becomes visible
 const plLoadBtn = document.getElementById('pl-load');
