@@ -4,7 +4,7 @@ import numpy as np, pandas as pd
 from harness import load_prices, load_fred, compute_metrics, save_result, mark_failed, daily_returns
 def main():
     sid = "PL91_us_crude_production_decline_long"
-    try: fred = load_fred("MCRFPUS1", start="2000-01-01"); data = fred.squeeze()
+    try: fred = load_fred("MCUMFN", start="2000-01-01"); data = fred.squeeze()
     except Exception as e: return mark_failed(sid, f"FRED: {e}")
     if data.empty: return mark_failed(sid, "no data")
     mom = data.diff().dropna()
@@ -37,8 +37,8 @@ def main():
     if len(ip)<30: return mark_failed(sid, f"insufficient days ({len(ip)})")
     m = compute_metrics(ip, benchmark=spy_r, name="US Crude Production Decline → Long CL=F")
     ra = [e["cl_return"] for e in evts]
-    save_result(sid, m, extra={"rule":"Long CL=F 126d when MCRFPUS1 declines MoM for 3 consecutive months",
-        "source":"FRED MCRFPUS1; yfinance","n_events":len(evts),"avg_event_return":round(float(np.mean(ra)),4),
+    save_result(sid, m, extra={"rule":"Long CL=F 126d when MCUMFN declines MoM for 3 consecutive months",
+        "source":"FRED MCUMFN; yfinance","n_events":len(evts),"avg_event_return":round(float(np.mean(ra)),4),
         "event_win_rate":round(float(np.mean([r>0 for r in ra])),4),"events":evts})
     print(f"Done: {len(evts)} events")
 if __name__=="__main__": main()

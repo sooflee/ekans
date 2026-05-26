@@ -83,8 +83,7 @@ def load_prices(tickers, start="2000-01-01", end=None, cache=True):
 
 
 def load_fred(series, start="1990-01-01", end=None, cache=True):
-    """Load one or more series from FRED."""
-    from pandas_datareader import data as pdr
+    """Load one or more series from FRED. Uses fredapi if available (more reliable), falls back to pandas_datareader."""
     if isinstance(series, str):
         series = [series]
     end = end or dt.date.today().isoformat()
@@ -92,7 +91,18 @@ def load_fred(series, start="1990-01-01", end=None, cache=True):
     fp = DATA / key
     if cache and fp.exists():
         return pd.read_parquet(fp)
-    df = pdr.DataReader(series, "fred", start=start, end=end)
+    try:
+        from fredapi import Fred
+        import os
+        api_key = os.environ.get("FRED_API_KEY", "032756edd8cb0e81fc95bb23aeefc18a")
+        fred = Fred(api_key=api_key)
+        frames = {}
+        for s in series:
+            frames[s] = fred.get_series(s, observation_start=start, observation_end=end)
+        df = pd.DataFrame(frames)
+    except ImportError:
+        from pandas_datareader import data as pdr
+        df = pdr.DataReader(series, "fred", start=start, end=end)
     df = df.dropna(how="all").sort_index()
     if cache:
         df.to_parquet(fp)

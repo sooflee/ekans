@@ -1,5 +1,5 @@
 """PL103_corn_crush_margin_ethanol -- Corn Crush Margin -> Long ADM+GPRE
-Long ADM+GPRE 126d when GASREGW/PCORNUS ratio rises >20% from 6mo low
+Long ADM+GPRE 126d when GASREGW/PMAIZMTUSDM ratio rises >20% from 6mo low
 """
 import sys
 from pathlib import Path
@@ -15,21 +15,21 @@ def main():
     
     # Load FRED data
     try:
-        fred = load_fred(['GASREGW', 'PCORNUS'], start="1990-01-01")
+        fred = load_fred(['GASREGW', 'PMAIZMTUSDM'], start="1990-01-01")
     except Exception as e:
         return mark_failed(sid, f"FRED load: {e}")
     
     if fred is None or fred.empty:
         return mark_failed(sid, "FRED data empty")
     
-    if "GASREGW" not in fred.columns or "PCORNUS" not in fred.columns:
+    if "GASREGW" not in fred.columns or "PMAIZMTUSDM" not in fred.columns:
         return mark_failed(sid, "missing FRED series")
     
     # Align and compute ratio
-    both = fred[["GASREGW", "PCORNUS"]].dropna()
+    both = fred[["GASREGW", "PMAIZMTUSDM"]].dropna()
     if len(both) < 7:
         return mark_failed(sid, "insufficient data")
-    ratio = both["GASREGW"] / both["PCORNUS"]
+    ratio = both["GASREGW"] / both["PMAIZMTUSDM"]
     ratio = ratio.dropna()
     
     # Rolling 6-month low
@@ -112,8 +112,8 @@ def main():
     rets_arr = [e["return"] for e in event_results]
     
     save_result(sid, m, extra={
-        "rule": "Long ADM+GPRE 126d when GASREGW/PCORNUS ratio rises >20% from 6mo low",
-        "source": "FRED GASREGW, PCORNUS; yfinance",
+        "rule": "Long ADM+GPRE 126d when GASREGW/PMAIZMTUSDM ratio rises >20% from 6mo low",
+        "source": "FRED GASREGW, PMAIZMTUSDM; yfinance",
         "n_events": len(event_results),
         "avg_event_return": round(float(np.mean(rets_arr)), 4),
         "event_win_rate": round(float(np.mean([r > 0 for r in rets_arr])), 4),

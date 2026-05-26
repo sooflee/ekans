@@ -1,5 +1,5 @@
 """PL104_wheat_ppi_collapse_restaurants -- Wheat PPI Collapse -> Long DRI+MCD
-Long DRI+MCD 126d when WPU02110301 YoY < -15%
+Long DRI+MCD 126d when WPU027B YoY < -15%
 """
 import sys
 from pathlib import Path
@@ -15,14 +15,14 @@ def main():
     
     # Load FRED data
     try:
-        fred = load_fred(['WPU02110301'], start="1990-01-01")
+        fred = load_fred(['WPU027B'], start="1990-01-01")
     except Exception as e:
         return mark_failed(sid, f"FRED load: {e}")
     
     if fred is None or fred.empty:
         return mark_failed(sid, "FRED data empty")
     
-    series = fred["WPU02110301"].dropna()
+    series = fred["WPU027B"].dropna()
     if len(series) < 13:
         return mark_failed(sid, "insufficient data for YoY")
     yoy = series.pct_change(12) * 100
@@ -109,8 +109,8 @@ def main():
     rets_arr = [e["return"] for e in event_results]
     
     save_result(sid, m, extra={
-        "rule": "Long DRI+MCD 126d when WPU02110301 YoY < -15%",
-        "source": "FRED WPU02110301; yfinance",
+        "rule": "Long DRI+MCD 126d when WPU027B YoY < -15%",
+        "source": "FRED WPU027B; yfinance",
         "n_events": len(event_results),
         "avg_event_return": round(float(np.mean(rets_arr)), 4),
         "event_win_rate": round(float(np.mean([r > 0 for r in rets_arr])), 4),

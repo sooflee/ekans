@@ -6642,5 +6642,248 @@
     "source_reference": "FOMC meeting decision history; S&P Dow Jones Dividend Aristocrats methodology",
     "research_phase": "pipeline_scout",
     "dedup_key": "fed_rate_pause_dividend_aristocrats"
+  },
+  {
+    "idea_id": "PL249",
+    "created_at": "2026-05-26T23:48:52.218856+00:00",
+    "status": "claimed",
+    "name": "FEMA Major Disaster Declarations -> Rebuilding Materials Demand",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When FEMA issues major disaster declarations affecting large population centers, the subsequent rebuilding cycle creates sustained demand for roofing, lumber, and building materials companies. The market under-prices the duration and magnitude of reconstruction spending.",
+    "causal_chain": [
+      "1. FEMA declares major disaster in populous area (free FEMA OpenFEMA API)",
+      "2. Federal aid + insurance payouts flow within weeks",
+      "3. Rebuilding demand spikes for roofing (BECN), lumber, drywall",
+      "4. Building materials distributors see volume surge 4-12 weeks post-event",
+      "5. Long building materials distributors (BECN, OC, BLDR) on declaration"
+    ],
+    "data_sources": [
+      "FEMA OpenFEMA API (disaster declarations)",
+      "yfinance (BECN, OC, BLDR)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FEMA OpenFEMA public API historical disaster declarations dataset",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fema_disaster_building_materials_demand"
+  },
+  {
+    "idea_id": "PL250",
+    "created_at": "2026-05-26T23:48:52.218856+00:00",
+    "status": "claimed",
+    "name": "BLS QCEW County Employment Surge -> Sunbelt Industrial REITs",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "BLS Quarterly Census of Employment and Wages (QCEW) reveals county-level employment growth with a lag. Counties showing >5% YoY growth in warehouse/logistics NAICS codes signal rising industrial space demand, benefiting industrial REITs with Sunbelt exposure before the market connects the dots.",
+    "causal_chain": [
+      "1. BLS QCEW data released quarterly with ~6 month lag shows county employment",
+      "2. Filter for warehouse/logistics NAICS codes with >5% YoY growth",
+      "3. Identify metro areas with accelerating logistics employment",
+      "4. Industrial REITs with exposure to those metros benefit from rising occupancy",
+      "5. Long Sunbelt-heavy industrial REITs (STAG, PLD, REXR) on QCEW signal"
+    ],
+    "data_sources": [
+      "BLS QCEW public data (free)",
+      "yfinance (STAG, PLD, REXR)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "BLS Quarterly Census of Employment and Wages methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_qcew_county_employment_industrial_reit",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL251",
+    "created_at": "2026-05-26T23:48:52.218856+00:00",
+    "status": "rejected",
+    "name": "Gulf SST Anomaly -> Shrimp Harvest Collapse -> Seafood Restaurant Margin",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "Unusually warm Gulf of Mexico sea surface temperatures push shrimp populations into deeper, cooler waters, reducing domestic harvest yields. When Gulf SST anomalies exceed +1.5C during shrimp season (May-Oct), domestic supply drops and imported shrimp prices rise, but large seafood restaurant chains with locked-in contracts (DENN, DRI) benefit from competitor margin pressure on smaller operators.",
+    "causal_chain": [
+      "1. NOAA OISST shows Gulf of Mexico SST anomaly > +1.5C (free data)",
+      "2. Domestic shrimp harvest declines as populations shift deeper",
+      "3. Spot shrimp prices rise, squeezing small independent restaurants",
+      "4. Large chains with hedged/contracted supply gain market share",
+      "5. Long large casual dining chains (DRI) during extreme Gulf SST events"
+    ],
+    "data_sources": [
+      "NOAA OISST v2.1 (free)",
+      "USDA NASS fisheries data",
+      "yfinance (DRI)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA Gulf of Mexico SST monitoring and NMFS shrimp landings data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gulf_sst_shrimp_harvest_restaurant_margin",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL252",
+    "created_at": "2026-05-26T23:49:22.385931+00:00",
+    "status": "developed",
+    "name": "FDA Orange Book Patent Expiry Cluster -> PBM Rebate Revenue Surge",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When multiple blockbuster drugs lose patent protection within the same quarter (identifiable from FDA Orange Book expiry dates), generic entry creates a rebate windfall for pharmacy benefit managers who negotiate spread between branded and generic pricing. PBMs like CVS/Aetna and CI see margin expansion.",
+    "causal_chain": [
+      "1. FDA Orange Book shows cluster of patent expirations (free public data)",
+      "2. Generic manufacturers file ANDAs and receive tentative approvals",
+      "3. Generic entry creates large branded-to-generic price spreads",
+      "4. PBMs capture spread through formulary switching rebates",
+      "5. Long PBM-heavy insurers (CVS, CI) on patent cliff clusters"
+    ],
+    "data_sources": [
+      "FDA Orange Book (free)",
+      "FDA ANDA approvals (free)",
+      "yfinance (CVS, CI)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FDA Orange Book database and ANDA approval statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_orange_book_patent_cluster_pbm"
+  },
+  {
+    "idea_id": "PL253",
+    "created_at": "2026-05-26T23:49:22.385931+00:00",
+    "status": "rejected",
+    "name": "USGS Critical Mineral Import Reliance -> Domestic Producer Premium",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "USGS publishes annual Mineral Commodity Summaries showing import reliance for critical minerals. When import reliance exceeds 80% for a mineral facing supply disruption (export ban, mine closure, geopolitical event), domestic producers of that mineral or substitutes see re-rating. Track USGS data plus news triggers.",
+    "causal_chain": [
+      "1. USGS Mineral Commodity Summaries show >80% import reliance for mineral X",
+      "2. Supply disruption event occurs (export restriction, accident, sanctions)",
+      "3. Domestic producers become strategically critical overnight",
+      "4. Policy response (DPA invocations, subsidies) further supports domestic producers",
+      "5. Long domestic critical mineral producers (MP, LAC, ALB) on disruption triggers"
+    ],
+    "data_sources": [
+      "USGS Mineral Commodity Summaries (free annual)",
+      "news event triggers",
+      "yfinance"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USGS Mineral Commodity Summaries 2025 and Defense Production Act history",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_critical_mineral_import_reliance_domestic",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL254",
+    "created_at": "2026-05-26T23:49:22.385931+00:00",
+    "status": "rejected",
+    "name": "Census Regional Housing Starts Divergence -> Lagging Region Catch-Up",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When Census Bureau housing starts data shows one region (e.g., Midwest) lagging the national recovery by >2 standard deviations while other regions recover, the lagging region tends to catch up within 2-4 quarters. Homebuilders with exposure to lagging regions outperform as the gap closes.",
+    "causal_chain": [
+      "1. Census Bureau housing starts show regional divergence (free monthly data)",
+      "2. Identify region lagging national recovery by >2 sigma",
+      "3. Labor and materials shift to lagging region as other regions saturate",
+      "4. Homebuilders with lagging-region land banks see order acceleration",
+      "5. Long regionally-focused homebuilders in lagging region"
+    ],
+    "data_sources": [
+      "Census Bureau new residential construction (free)",
+      "yfinance (homebuilder tickers)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 3,
+    "source_reference": "Census Bureau regional housing starts historical data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_regional_starts_divergence_catchup",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL255",
+    "created_at": "2026-05-26T23:49:47.931086+00:00",
+    "status": "developed",
+    "name": "EIA Distillate Days Supply Critically Low -> Rail Freight Advantage",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "When EIA weekly petroleum status report shows distillate (diesel) days of supply dropping below 25 days (historically rare), diesel prices spike disproportionately vs gasoline. This crushes trucking margins but benefits railroads which are more fuel-efficient per ton-mile, creating a relative trade favoring Class I rails.",
+    "causal_chain": [
+      "1. EIA weekly petroleum status shows distillate days supply < 25 (free data)",
+      "2. Diesel spot prices spike relative to other refined products",
+      "3. Trucking companies face margin compression on fuel surcharge lag",
+      "4. Shippers shift marginal freight to more fuel-efficient rail",
+      "5. Long Class I railroads (UNP, CSX, NSC) on extreme low distillate supply"
+    ],
+    "data_sources": [
+      "EIA Weekly Petroleum Status Report (free)",
+      "yfinance (UNP, CSX, NSC)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "EIA petroleum supply data and DOT freight modal share elasticity studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_distillate_low_supply_rail_advantage"
+  },
+  {
+    "idea_id": "PL256",
+    "created_at": "2026-05-26T23:49:47.931086+00:00",
+    "status": "developed",
+    "name": "SEC EDGAR S-1 Filing Cluster -> Investment Bank IPO Revenue Surge",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When SEC EDGAR shows a cluster of S-1 filings (>10 in a 2-week window, above 90th percentile), it signals an IPO pipeline surge 4-8 weeks ahead. Investment banks with large ECM franchises (GS, MS, JPM) benefit from fee income that is not yet priced in.",
+    "causal_chain": [
+      "1. SEC EDGAR full-text search shows S-1 filing cluster (free EDGAR API)",
+      "2. Filing-to-pricing lag is typically 4-8 weeks",
+      "3. Bulge bracket banks with dominant ECM market share capture fees",
+      "4. Fee revenue recognized upon deal completion boosts quarterly EPS",
+      "5. Long GS/MS on S-1 filing cluster signal"
+    ],
+    "data_sources": [
+      "SEC EDGAR XBRL/full-text search API (free)",
+      "yfinance (GS, MS)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "SEC EDGAR filing database and Dealogic ECM fee pool analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sec_edgar_s1_cluster_ipo_underwriter"
+  },
+  {
+    "idea_id": "PL257",
+    "created_at": "2026-05-26T23:49:47.931086+00:00",
+    "status": "rejected",
+    "name": "NOAA Seasonal Drought Persistence Forecast -> Water Treatment Equipment",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When NOAA Climate Prediction Center issues drought persistence or intensification forecasts for multiple water basins, municipal water authorities accelerate capital spending on desalination, recycling, and treatment equipment. Water technology companies (XYL, WMS, FBIN water segment) see order acceleration.",
+    "causal_chain": [
+      "1. NOAA CPC issues seasonal drought outlook showing persistence/intensification",
+      "2. Municipal water authorities trigger emergency capital procurement",
+      "3. Water treatment and infrastructure equipment orders accelerate",
+      "4. Water technology companies see backlog growth within 1-2 quarters",
+      "5. Long water infrastructure companies (XYL, WMS) on drought persistence signal"
+    ],
+    "data_sources": [
+      "NOAA CPC seasonal drought outlook (free)",
+      "US Drought Monitor (free)",
+      "yfinance (XYL, WMS)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA CPC drought outlook methodology and EPA water infrastructure needs survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_drought_persistence_water_treatment_equipment",
+    "reject_reason": "bt_feasibility 3 < 4"
   }
 ]

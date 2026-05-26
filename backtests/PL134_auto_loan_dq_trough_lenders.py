@@ -1,5 +1,5 @@
 """PL134_auto_loan_dq_trough_lenders — Auto Loan DQ Trough → Long ALLY+COF
-When FRED DRCARLACBS hits local minimum below 2.5%, long auto lenders 12mo.
+When FRED DRCLACBS hits local minimum below 2.5%, long auto lenders 12mo.
 """
 import sys
 from pathlib import Path
@@ -14,7 +14,7 @@ def main():
     sid = "PL134_auto_loan_dq_trough_lenders"
     try:
         px = load_prices(["ALLY", "COF", "SPY"], start="2005-01-01")
-        dq = load_fred("DRCARLACBS", start="1991-01-01").squeeze()
+        dq = load_fred("DRCLACBS", start="1991-01-01").squeeze()
     except Exception as e:
         return mark_failed(sid, f"data load: {e}")
 
@@ -86,9 +86,9 @@ def main():
     win_count = sum(1 for e in events if e["basket_12m_return"] > 0)
 
     save_result(sid, m, extra={
-        "rule": "FRED DRCARLACBS local minimum below 2.5% → long ALLY+COF 12 months",
+        "rule": "FRED DRCLACBS local minimum below 2.5% → long ALLY+COF 12 months",
         "mechanism": "Auto loan DQ trough = peak credit quality → provision releases + lending volume expansion → lender earnings beat",
-        "source": "FRED DRCARLACBS + yfinance",
+        "source": "FRED DRCLACBS + yfinance",
         "n_events": len(events),
         "avg_basket_return": round(avg_basket, 4),
         "avg_excess_vs_spy": round(avg_excess, 4),

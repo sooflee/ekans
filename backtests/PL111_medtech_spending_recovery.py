@@ -1,5 +1,5 @@
 """PL111_medtech_spending_recovery -- Health Store Sales Recovery -> Long SYK+ISRG
-Long SYK+ISRG 126d when S4423SM YoY > +5% after 6+ months below +2%
+Long SYK+ISRG 126d when RSEAS YoY > +5% after 6+ months below +2%
 """
 import sys
 from pathlib import Path
@@ -15,14 +15,14 @@ def main():
     
     # Load FRED data
     try:
-        fred = load_fred(['S4423SM'], start="1990-01-01")
+        fred = load_fred(['RSEAS'], start="1990-01-01")
     except Exception as e:
         return mark_failed(sid, f"FRED load: {e}")
     
     if fred is None or fred.empty:
         return mark_failed(sid, "FRED data empty")
     
-    series = fred["S4423SM"].dropna()
+    series = fred["RSEAS"].dropna()
     if len(series) < 13:
         return mark_failed(sid, "insufficient data for YoY")
     yoy = series.pct_change(12) * 100
@@ -110,8 +110,8 @@ def main():
     rets_arr = [e["return"] for e in event_results]
     
     save_result(sid, m, extra={
-        "rule": "Long SYK+ISRG 126d when S4423SM YoY > +5% after 6+ months below +2%",
-        "source": "FRED S4423SM; yfinance",
+        "rule": "Long SYK+ISRG 126d when RSEAS YoY > +5% after 6+ months below +2%",
+        "source": "FRED RSEAS; yfinance",
         "n_events": len(event_results),
         "avg_event_return": round(float(np.mean(rets_arr)), 4),
         "event_win_rate": round(float(np.mean([r > 0 for r in rets_arr])), 4),

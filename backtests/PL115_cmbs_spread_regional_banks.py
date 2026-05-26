@@ -1,5 +1,5 @@
 """PL115_cmbs_spread_regional_banks -- HY Spread Compression -> Long KRE
-Long KRE 126d when BAMLHE0A0HYM2 drops below 400 after 3+ months above 500
+Long KRE 126d when BAMLH0A0HYM2 drops below 400 after 3+ months above 500
 """
 import sys
 from pathlib import Path
@@ -15,14 +15,14 @@ def main():
     
     # Load FRED data
     try:
-        fred = load_fred(['BAMLHE0A0HYM2'], start="1990-01-01")
+        fred = load_fred(['BAMLH0A0HYM2'], start="1990-01-01")
     except Exception as e:
         return mark_failed(sid, f"FRED load: {e}")
     
     if fred is None or fred.empty:
         return mark_failed(sid, "FRED data empty")
     
-    series = fred["BAMLHE0A0HYM2"].dropna()
+    series = fred["BAMLH0A0HYM2"].dropna()
     
     trigger_dates = []
     above_count = 0
@@ -106,8 +106,8 @@ def main():
     rets_arr = [e["return"] for e in event_results]
     
     save_result(sid, m, extra={
-        "rule": "Long KRE 126d when BAMLHE0A0HYM2 drops below 400 after 3+ months above 500",
-        "source": "FRED BAMLHE0A0HYM2; yfinance",
+        "rule": "Long KRE 126d when BAMLH0A0HYM2 drops below 400 after 3+ months above 500",
+        "source": "FRED BAMLH0A0HYM2; yfinance",
         "n_events": len(event_results),
         "avg_event_return": round(float(np.mean(rets_arr)), 4),
         "event_win_rate": round(float(np.mean([r > 0 for r in rets_arr])), 4),

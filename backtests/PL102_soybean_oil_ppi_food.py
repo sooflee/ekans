@@ -1,5 +1,5 @@
 """PL102_soybean_oil_ppi_food -- Soybean Oil PPI Spike -> Long GIS+CPB
-Long GIS+CPB 126d when WPU02220301 YoY > +20% for 3 months
+Long GIS+CPB 126d when WPU02230503 YoY > +20% for 3 months
 """
 import sys
 from pathlib import Path
@@ -15,14 +15,14 @@ def main():
     
     # Load FRED data
     try:
-        fred = load_fred(['WPU02220301'], start="1990-01-01")
+        fred = load_fred(['WPU02230503'], start="1990-01-01")
     except Exception as e:
         return mark_failed(sid, f"FRED load: {e}")
     
     if fred is None or fred.empty:
         return mark_failed(sid, "FRED data empty")
     
-    series = fred["WPU02220301"].dropna()
+    series = fred["WPU02230503"].dropna()
     if len(series) < 13:
         return mark_failed(sid, "insufficient data for YoY")
     yoy = series.pct_change(12) * 100
@@ -109,8 +109,8 @@ def main():
     rets_arr = [e["return"] for e in event_results]
     
     save_result(sid, m, extra={
-        "rule": "Long GIS+CPB 126d when WPU02220301 YoY > +20% for 3 months",
-        "source": "FRED WPU02220301; yfinance",
+        "rule": "Long GIS+CPB 126d when WPU02230503 YoY > +20% for 3 months",
+        "source": "FRED WPU02230503; yfinance",
         "n_events": len(event_results),
         "avg_event_return": round(float(np.mean(rets_arr)), 4),
         "event_win_rate": round(float(np.mean([r > 0 for r in rets_arr])), 4),

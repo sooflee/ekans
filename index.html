@@ -5438,7 +5438,7 @@ function render() {
     trades.forEach(function(t) {
       var key = t.d + '|' + t.g;
       if (!allGroups[key]) allGroups[key] = [];
-      allGroups[key].push({id: sig.id, name: sig.name, defensive: st === 'defensive'});
+      allGroups[key].push({id: sig.id, name: sig.name, sharpe: sig.sharpe, cagr: sig.cagr, cardId: sig.cardId, defensive: st === 'defensive'});
     });
   });
   var sortedGroups = Object.keys(allGroups)
@@ -5463,9 +5463,10 @@ function render() {
         html += '<span style="background:' + dc + ';color:var(--bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;">' + c.signals.length + ' signals agree</span>';
         html += '</div><div style="display:flex;gap:6px;flex-wrap:wrap;">';
         c.signals.forEach(function(s) {
-          var sn = s.name.length > 35 ? s.name.substring(0,35) + '…' : s.name;
+          var sn = s.name.length > 30 ? s.name.substring(0,30) + '…' : s.name;
           var defBadge = s.defensive ? ' <span style="color:var(--warn);font-size:10px;">(def)</span>' : '';
-          html += '<span style="background:var(--bg-3);padding:4px 10px;border-radius:4px;font-size:12px;border:1px solid var(--border);"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + defBadge + '</span>';
+          var metrics = ' <span style="color:var(--fg-dim);font-family:var(--mono);font-size:10.5px;">S:' + s.sharpe.toFixed(2) + ' C:' + s.cagr.toFixed(0) + '%</span>';
+          html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="background:var(--bg-3);padding:4px 10px;border-radius:4px;font-size:12px;border:1px solid var(--border);text-decoration:none;color:inherit;cursor:pointer;display:inline-block;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + metrics + defBadge + '</a>';
         });
         html += '</div></div>';
       });
@@ -5473,19 +5474,20 @@ function render() {
     }
     if (singleGroups.length > 0) {
       html += '<h3 style="margin:16px 0 12px;font-size:14px;color:var(--good);">Active trades — single signal</h3>';
-      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:0 0 16px;">';
+      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:0 0 16px;">';
       singleGroups.forEach(function(c) {
         var dc = c.dir === 'long' ? 'var(--good)' : 'var(--bad)';
         var s = c.signals[0];
-        var sn = s.name.length > 30 ? s.name.substring(0,30) + '…' : s.name;
+        var sn = s.name.length > 28 ? s.name.substring(0,28) + '…' : s.name;
         var defBadge = s.defensive ? ' <span style="color:var(--warn);font-size:10px;">(def)</span>' : '';
-        html += '<div style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:12px 16px;">';
-        html += '<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">';
-        html += '<span style="color:' + dc + ';font:700 13px var(--mono);">' + c.dir.toUpperCase() + '</span>';
-        html += '<span style="font-weight:600;font-size:13px;">' + c.group + '</span>';
+        var metrics = '<span style="color:var(--fg-dim);font-family:var(--mono);font-size:10.5px;">S:' + s.sharpe.toFixed(2) + ' C:' + s.cagr.toFixed(0) + '%</span>';
+        html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;cursor:pointer;display:block;">';
+        html += '<div style="display:flex;align-items:baseline;gap:8px;justify-content:space-between;flex-wrap:wrap;">';
+        html += '<span style="color:' + dc + ';font:700 13px var(--mono);">' + c.dir.toUpperCase() + ' ' + c.group + '</span>';
+        html += metrics;
         html += '</div>';
         html += '<div style="margin-top:6px;font-size:12px;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + defBadge + '</div>';
-        html += '</div>';
+        html += '</a>';
       });
       html += '</div>';
     }
@@ -5501,11 +5503,11 @@ function render() {
     var tradeClass = (st === 'defensive') ? 'defensive' : '';
     cards += '<div class="sig-card" data-sigid="' + sig.id + '">';
     cards += '<div>';
-    cards += '<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">';
+    cards += '<a href="#" class="sig-viewfull" data-cardid="' + sig.cardId + '" style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;text-decoration:none;color:inherit;">';
     cards += '<span class="sig-name">' + sig.id + '</span>';
     cards += '<span style="font-size:14px;">' + sig.name + '</span>';
-    cards += '</div>';
-    cards += '<div class="sig-meta">Sharpe ' + sig.sharpe.toFixed(2) + ' &middot; CAGR ' + sig.cagr.toFixed(1) + '%</div>';
+    cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%</span>';
+    cards += '</a>';
     cards += '<div class="sig-trades">';
     showTrades.forEach(function(t) {
       var cls = tradeClass || t.d;
@@ -5517,7 +5519,6 @@ function render() {
     cards += '</div>';
     var ruleShort = sig.rule.length > 200 ? sig.rule.substring(0,200) + '…' : sig.rule;
     cards += '<div class="sig-rule">' + ruleShort + '</div>';
-    cards += '<a href="#" class="sig-viewfull" data-cardid="' + sig.cardId + '">View in High Return →</a>';
     cards += '</div>';
     cards += '<div class="sig-toggle">';
     cards += '<button data-st="active" class="' + (st==='active'?'active-st':'') + '">Active</button>';
@@ -5540,6 +5541,16 @@ gridEl.addEventListener('click', function(e) {
     return;
   }
   var link = e.target.closest('.sig-viewfull');
+  if (link) {
+    e.preventDefault();
+    switchTab('strategies');
+    showOnly(link.dataset.cardid);
+  }
+});
+
+// Convergence box click-through to High Return tab
+convEl.addEventListener('click', function(e) {
+  var link = e.target.closest('.sig-goto');
   if (link) {
     e.preventDefault();
     switchTab('strategies');

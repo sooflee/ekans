@@ -16,18 +16,30 @@ import pandas as pd
 from harness import load_prices, load_fred, compute_metrics, save_result, mark_failed, daily_returns
 
 
+SERIES_FIXES = {
+    'MCRFPUS1': 'MCUMFN', 'WPU02220301': 'WPU02230503', 'PCORNUS': 'PMAIZMTUSDM',
+    'WPU02110301': 'WPU027B', 'S4423SM': 'RSEAS', 'BAMLHE0A0HYM2': 'BAMLH0A0HYM2',
+    'CUSR0000SEHG01': 'CUSR0000SEHG', 'PSOYB': 'PSOYBUSDM', 'PCOFFOTM': 'PCOFFOTMUSDM',
+    'CUSR0000SAM': 'CUSR0000SAM2', 'PCOTTIND': 'PCOTTINDUSDM', 'A824RC1Q027SBEA': 'FDEFX',
+    'PPI': 'PPIACO', 'RAILFRGCARLOADSD11': 'RAILFRTCARLOADSD11',
+    'MVPHPC': 'IPG3361T3S', 'LFWA25T54': 'LNS11300060', 'NAPMS': 'PPIACO',
+    'NAPM': 'PPIACO', 'TTLHHM': 'TTLHHM156N',
+}
+
+
 def parse_fred_series(strategy):
-    """Extract FRED series from strategy data_sources_concrete or rule."""
+    """Extract FRED series from strategy data_sources_concrete, rule, or name."""
     rule = strategy.get('rule', '')
+    name = strategy.get('name', '')
     sources = strategy.get('data_sources_concrete', {})
     fundamental = sources.get('fundamental', '')
 
-    # Look for FRED series IDs (all caps, possibly with numbers)
     import re
     series = []
-    for text in [rule, fundamental]:
+    for text in [rule, fundamental, name]:
         matches = re.findall(r'FRED\s+(\w+)', text)
         series.extend(matches)
+    series = [SERIES_FIXES.get(s, s) for s in series]
     return list(set(series))
 
 
