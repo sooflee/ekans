@@ -1850,12 +1850,17 @@
     "strategy_id": "PL063",
     "idea_id": "PL063",
     "created_at": "2026-05-26T21:57:50.395136+00:00",
-    "status": "ready",
+    "status": "failed",
     "category": "C",
     "asset_class": "equities",
     "horizon": "3-6 months",
     "originality": 8,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:08:33.375701+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED rate-limited on NAPMEI series"
+    }
   },
   {
     "signal_id": "PL64_bank_credit_reacceleration_xlf",
@@ -1870,12 +1875,20 @@
     "strategy_id": "PL064",
     "idea_id": "PL064",
     "created_at": "2026-05-26T21:57:50.395136+00:00",
-    "status": "ready",
+    "status": "done",
     "category": "C",
     "asset_class": "equities",
     "horizon": "6-12 months",
     "originality": 7,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:18:21.579486+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5974981352446356,
+      "cagr": 0.11343155874264088,
+      "max_dd": -0.32960974193973513,
+      "t_stat": 1.0348971276713692
+    }
   },
   {
     "signal_id": "PL65_vmt_surge_auto_parts",
@@ -1889,11 +1902,181 @@
     "strategy_id": "PL065",
     "idea_id": "PL065",
     "created_at": "2026-05-26T21:57:50.395136+00:00",
-    "status": "ready",
+    "status": "done",
     "category": "C",
     "asset_class": "equities",
     "horizon": "3-6 months",
     "originality": 8,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:28:21.463482+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.33140357596111286,
+      "cagr": 0.053696797364804816,
+      "max_dd": -0.2462530489656195,
+      "t_stat": 0.4058848300192059
+    }
+  },
+  {
+    "signal_id": "PL66_sloos_easing_small_cap_iwm",
+    "name": "SLOOS Easing for Small Firms → Long IWM",
+    "rule": "Load FRED SUBLPDRCSC (SLOOS net % easing for small-firm C&I loans, quarterly). When the series crosses from net-tightening (positive values = tightening) to net-easing (negative values) after 4+ quarters of tightening: long IWM for 252 trading days (12 months). The credit-cycle trough is the signal — small caps recover fastest when banks start lending again.",
+    "tickers": [
+      "IWM",
+      "SPY"
+    ],
+    "strategy_id": "PL066",
+    "idea_id": "PL066",
+    "created_at": "2026-05-26T22:09:17.274998+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.6983190489719472,
+      "cagr": 0.14724950793043878,
+      "max_dd": -0.41072376057683635,
+      "t_stat": 1.5614888634842787
+    }
+  },
+  {
+    "signal_id": "PL68_truck_tonnage_yoy_turn_transports",
+    "name": "ATA Truck Tonnage YoY Positive Turn → Long Transports",
+    "rule": "Load FRED TRUCKD11 (ATA For-Hire Truck Tonnage, monthly). Compute YoY growth. When YoY turns positive after 6+ consecutive months of negative readings: long IYT (transport ETF) for 126 trading days (6 months). Distinct from AR-3 (Cass freight, different index) and PL52 (INDPRO proxy, different series).",
+    "tickers": [
+      "IYT",
+      "UNP",
+      "ODFL",
+      "SPY"
+    ],
+    "strategy_id": "PL068",
+    "idea_id": "PL068",
+    "created_at": "2026-05-26T22:09:17.274998+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4563346048255928,
+      "cagr": 0.0761892860729605,
+      "max_dd": -0.24196786782779345,
+      "t_stat": 0.6453545871245201
+    }
+  },
+  {
+    "strategy_id": "PL069",
+    "idea_id": "PL069",
+    "created_at": "2026-05-26T22:19:04.000749+00:00",
+    "status": "done",
+    "signal_id": "PL69_capacity_utilization_recovery_xlb",
+    "name": "Capacity Utilization Crosses 76% from Below → Long XLB",
+    "rule": "Load FRED TCU (capacity utilization, monthly). When TCU crosses above 76% after 6+ months below 76%: long XLB for 126 trading days (6 months). Factories restarting = raw material demand recovering = materials stocks benefit.",
+    "tickers": [
+      "XLB",
+      "SPY"
+    ],
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7914792183934938,
+      "cagr": 0.17443712932580513,
+      "max_dd": -0.24541603218363162,
+      "t_stat": 1.1193206449885356
+    }
+  },
+  {
+    "strategy_id": "PL070",
+    "idea_id": "PL070",
+    "created_at": "2026-05-26T22:19:04.000749+00:00",
+    "status": "done",
+    "signal_id": "PL70_new_home_supply_spike_delayed_long",
+    "name": "New Home Months-Supply >8.0 → Long Homebuilders 12mo Later",
+    "rule": "Load FRED MNEWSRSA (new home months-supply, monthly). When MNEWSRSA crosses above 8.0: wait 12 months, then long XHB+LEN+DHI equal-weight for 252 trading days. The contrarian delayed-buy: glut NOW → supply discipline → 12mo later inventory clears → pricing power returns.",
+    "tickers": [
+      "XHB",
+      "LEN",
+      "DHI",
+      "SPY"
+    ],
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5505288272408042,
+      "cagr": 0.1605334125099367,
+      "max_dd": -0.5603962728405361,
+      "t_stat": 0.9535438998123819
+    }
+  },
+  {
+    "strategy_id": "PL071",
+    "idea_id": "PL071",
+    "created_at": "2026-05-26T22:28:57.349341+00:00",
+    "status": "done",
+    "signal_id": "PL71_consumer_credit_acceleration_xly",
+    "name": "Consumer Credit YoY Reaccelerates > +6% → Long XLY",
+    "rule": "Load FRED TOTALSL (total consumer credit, monthly). Compute YoY growth. When YoY crosses above +6% after 6+ months below +3%: long XLY for 126 trading days (6 months). Consumers borrowing again at above-trend rates → discretionary spending recovers.",
+    "tickers": [
+      "XLY",
+      "SPY"
+    ],
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.32587300837549904,
+      "cagr": 0.051168489601643996,
+      "max_dd": -0.18414306461062568,
+      "t_stat": 0.32587300837549904
+    }
+  },
+  {
+    "strategy_id": "PL072",
+    "idea_id": "PL072",
+    "created_at": "2026-05-26T22:28:57.349341+00:00",
+    "status": "done",
+    "signal_id": "PL72_retail_inventory_trough_restocking",
+    "name": "Retail Inventory-to-Sales Ratio Trough → Long WMT+TGT+COST",
+    "rule": "Load FRED RETAILIRSA (retail inventories/sales ratio, monthly). Find local minima (lower than both prior and next month). Long WMT+TGT+COST equal-weight for 126 trading days from the month after the trough. Lean shelves → restocking orders → supply chain revenue boost.",
+    "tickers": [
+      "WMT",
+      "TGT",
+      "COST",
+      "SPY"
+    ],
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:36:11.102755+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.25476851987802385,
+      "cagr": 0.03213709929237485,
+      "max_dd": -0.7807297584165329,
+      "t_stat": 1.1105102321437392
+    }
   }
 ]

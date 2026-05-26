@@ -1752,7 +1752,7 @@
   {
     "idea_id": "PL066",
     "created_at": "2026-05-26T22:01:21.741503+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Senior Loan Officer Survey Easing \u2192 Long Small Caps (IWM)",
     "category": "C",
     "asset_class": "equities",
@@ -1778,7 +1778,7 @@
   {
     "idea_id": "PL067",
     "created_at": "2026-05-26T22:01:21.741503+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "US Copper Imports Surge \u2192 Infrastructure Spending Confirmation \u2192 Long Steel/Infra",
     "category": "C",
     "asset_class": "equities",
@@ -1799,12 +1799,13 @@
     "bt_feasibility": 4,
     "source_reference": "Census Bureau FT900; copper demand as infrastructure leading indicator",
     "research_phase": "pipeline_scout",
-    "dedup_key": "copper_imports_surge_infra_demand"
+    "dedup_key": "copper_imports_surge_infra_demand",
+    "reject_reason": "Census commodity-level import data not available on FRED; requires Census API with HS code parsing"
   },
   {
     "idea_id": "PL068",
     "created_at": "2026-05-26T22:01:21.741503+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "US Trucking Tonnage YoY Positive After Decline \u2192 Long Transports",
     "category": "C",
     "asset_class": "equities",
@@ -1826,5 +1827,863 @@
     "source_reference": "ATA For-Hire Truck Tonnage; distinct from PL052 (AAR rail carloads) and AR-3 (Cass freight index)",
     "research_phase": "pipeline_scout",
     "dedup_key": "ata_truck_tonnage_yoy_turn_transports"
+  },
+  {
+    "idea_id": "PL069",
+    "created_at": "2026-05-26T22:11:11.069391+00:00",
+    "status": "developed",
+    "name": "FRED Capacity Utilization Recovery \u2192 Long Materials (XLB)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED TCU (total capacity utilization, monthly) measures how much of US industrial capacity is in use. When TCU crosses above 76% from below after 6+ months under 76%, it signals the industrial recovery \u2014 factories restarting, production expanding, raw material demand rising. Long XLB (materials ETF) for 6 months. Materials are the first beneficiary of rising utilization because they're consumed in production. TCU goes back to 1967.",
+    "causal_chain": [
+      "FRED TCU (capacity utilization) crosses above 76% after 6+ months below",
+      "Industrial recovery confirmed \u2014 factories restarting production",
+      "Rising utilization = rising demand for raw materials (chemicals, metals, paper, plastics)",
+      "XLB components (DOW, LIN, APD, NEM, FCX) see volume and pricing recovery",
+      "Materials stocks re-rate 3-6 months as order books fill"
+    ],
+    "data_sources": [
+      "FRED TCU (monthly, free, back to 1967)",
+      "yfinance XLB, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve capacity utilization; industrial cycle literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "capacity_utilization_recovery_materials"
+  },
+  {
+    "idea_id": "PL070",
+    "created_at": "2026-05-26T22:11:11.069391+00:00",
+    "status": "developed",
+    "name": "US New Home Sales Months-Supply Spike \u2192 Long Homebuilders 12mo Later",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "thesis": "FRED MNEWSRSA (new home months-supply) measures unsold inventory relative to sales pace. When months-supply spikes above 8.0 (distress level), it signals the builders are oversupplied NOW \u2014 but 12 months later, builders have slashed starts and the excess inventory clears. The supply discipline creates scarcity that powers the NEXT pricing cycle. Long XHB/LEN/DHI 12 months after the months-supply peak. The 2008 peak at 12.4 \u2192 builders cut starts \u2192 led to the 2012-2019 housing boom.",
+    "causal_chain": [
+      "FRED MNEWSRSA (new home months-supply) spikes above 8.0 months",
+      "Builders respond by slashing housing starts \u2014 production discipline",
+      "Excess inventory clears over 6-12 months as sales absorb unsold homes",
+      "12 months after the spike, supply is tight again \u2014 months-supply back below 6",
+      "Builders regain pricing power \u2192 long XHB/LEN/DHI captures the recovery cycle"
+    ],
+    "data_sources": [
+      "FRED MNEWSRSA (monthly, free, back to 1963)",
+      "yfinance XHB, LEN, DHI, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau new home sales; opposite of PL041 (which uses existing home scarcity as a BUY signal; this uses new home GLUT as a delayed buy signal 12mo later)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "new_home_months_supply_spike_delayed_long"
+  },
+  {
+    "idea_id": "PL071",
+    "created_at": "2026-05-26T22:21:10.467247+00:00",
+    "status": "developed",
+    "name": "FRED Consumer Credit Outstanding Acceleration \u2192 Long Consumer Discretionary",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED TOTALSL (total consumer credit outstanding, monthly) tracks non-mortgage consumer borrowing (auto loans, credit cards, student loans). When YoY growth reaccelerates above +6% after a deceleration period (<+3% for 6+ months), it signals consumer willingness to borrow is returning \u2014 a leading indicator for discretionary spending. Long XLY for 6 months. Consumer credit acceleration leads retail sales by 1-2 months because borrowed dollars get spent immediately on cars, electronics, travel.",
+    "causal_chain": [
+      "FRED TOTALSL YoY growth crosses above +6% after 6+ months below +3%",
+      "Consumers borrowing again at above-trend rates \u2014 confidence returning",
+      "Borrowed dollars flow directly to discretionary purchases (autos, electronics, dining)",
+      "Retail sales accelerate 1-2 months later as credit-funded spending hits registers",
+      "XLY (consumer discretionary) re-rates on earnings beats from credit-fueled demand"
+    ],
+    "data_sources": [
+      "FRED TOTALSL (monthly, free, back to 1943)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve G.19 Consumer Credit; consumer spending cycle research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "consumer_credit_acceleration_xly"
+  },
+  {
+    "idea_id": "PL072",
+    "created_at": "2026-05-26T22:21:10.467247+00:00",
+    "status": "developed",
+    "name": "FRED Retail Inventories-to-Sales Ratio Trough \u2192 Long Retail Restocking Basket",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED RETAILIRSA (retail inventories-to-sales ratio, monthly) measures how lean retail shelves are. When the ratio hits a cyclical trough and starts rising, retailers are entering a restocking cycle \u2014 placing orders with manufacturers and distributors. Long WMT+TGT+COST for 6 months from the trough. The restocking impulse drives revenue for the entire consumer supply chain. Distinct from PL005 (construction inventories \u2192 aggregates); this is RETAIL inventories \u2192 consumer goods.",
+    "causal_chain": [
+      "FRED RETAILIRSA hits local minimum (lower than both prior and next month)",
+      "Trough = shelves were too lean \u2192 stockouts hurting sales \u2192 retailers increase orders",
+      "Restocking cycle begins: manufacturers see order books fill, distributors see throughput rise",
+      "Retailers themselves benefit from having product on shelves \u2192 same-store sales improve",
+      "WMT/TGT/COST rally 3-6 months as restocking impulse flows through supply chain"
+    ],
+    "data_sources": [
+      "FRED RETAILIRSA (monthly, free, back to 1992)",
+      "yfinance WMT, TGT, COST, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau retail inventories; inventory cycle literature; distinct from PL005 (construction, not retail)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "retail_inventory_trough_restocking"
+  },
+  {
+    "idea_id": "PL073",
+    "created_at": "2026-05-26T22:31:20.186868+00:00",
+    "status": "new",
+    "name": "FRED Commercial Paper Outstanding Spike \u2192 Liquidity Stress \u2192 Long Gold",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "1-3 months",
+    "thesis": "FRED COMPOUT (commercial paper outstanding, weekly) spikes when corporations rush to secure short-term funding \u2014 a sign of backstage liquidity stress invisible in equity markets. When CP outstanding surges >10% in a rolling 4-week window, it signals funding stress that leads equity vol by 2-4 weeks. Long GLD for 60 days as a flight-to-quality hedge. CP market stress preceded both the 2008 GFC (Lehman) and 2020 March crash by 2-3 weeks.",
+    "causal_chain": [
+      "FRED COMPOUT (weekly CP outstanding) surges >10% in rolling 4-week window",
+      "Corporations scrambling for short-term funding = backstage liquidity stress",
+      "CP market stress leads equity vol by 2-4 weeks \u2014 visible before VIX spikes",
+      "Flight to quality begins: gold, treasuries bid up as risk assets wobble",
+      "GLD rallies 5-10% over 60 days as stress propagates to equity markets"
+    ],
+    "data_sources": [
+      "FRED COMPOUT (weekly, free, back to 2001)",
+      "yfinance GLD, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve CP data; Kacperczyk-Schnabl JF 2010 on CP market stress",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "commercial_paper_spike_gold_hedge"
+  },
+  {
+    "idea_id": "PL074",
+    "created_at": "2026-05-26T22:31:20.186868+00:00",
+    "status": "new",
+    "name": "FRED Heavy Truck Sales Surge \u2192 Long Truckload Carriers (KNX/WERN)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED HTRUCKSSAAR (heavy truck sales, annualized, monthly) tracks Class 5-8 truck purchases. When heavy truck sales surge >15% YoY for 3+ months, it signals fleet replacement/expansion cycle \u2014 carriers are investing in capacity because they expect freight demand to grow. Long KNX+WERN for 6 months. Heavy truck sales lead freight revenue by 2-3 quarters as new capacity gets deployed. Distinct from PL010 (Class 8 orders trough \u2192 delayed replacement) \u2014 this is the PURCHASE confirmation, not the order backlog.",
+    "causal_chain": [
+      "FRED HTRUCKSSAAR (heavy truck sales SAAR) rises >15% YoY for 3+ months",
+      "Carriers actively buying new trucks = fleet expansion/replacement underway",
+      "New trucks get deployed over 2-3 quarters \u2192 capacity + utilization improves",
+      "Truckload carriers (KNX, WERN) see revenue growth as new equipment earns",
+      "Stocks re-rate on improving fleet economics and revenue per truck metrics"
+    ],
+    "data_sources": [
+      "FRED HTRUCKSSAAR (monthly, free, back to 1967)",
+      "yfinance KNX, WERN, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau heavy truck sales; distinct from PL010 (order trough) and PL068 (tonnage turn)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "heavy_truck_sales_surge_truckload"
+  },
+  {
+    "idea_id": "PL075",
+    "created_at": "2026-05-26T22:31:20.186868+00:00",
+    "status": "new",
+    "name": "FRED Manufacturers New Orders Durable Goods ex-Transport \u2192 Long Industrials",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED NEWORDER (manufacturers new orders, durable goods ex-transportation, monthly) strips out volatile aircraft orders for a cleaner manufacturing demand signal. When ex-transport new orders YoY turns positive after 6+ months of decline, it confirms the capex cycle recovery without Boeing noise. Long XLI for 6 months. Distinct from PL059 (DGORDER with transport) \u2014 this is the CLEANER signal without aircraft volatility distortion.",
+    "causal_chain": [
+      "FRED NEWORDER (durable goods new orders ex-transport) YoY turns positive after 6+ months negative",
+      "Ex-transport strips Boeing orders \u2192 purer signal of broad manufacturing demand",
+      "Positive turn = machinery, computers, metals, electrical equipment orders recovering",
+      "Industrial production follows 1-2 months later as factories ramp",
+      "XLI re-rates as earnings revisions turn positive across the industrial sector"
+    ],
+    "data_sources": [
+      "FRED NEWORDER (monthly, free, back to 1992)",
+      "yfinance XLI, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau durable goods; cleaner than DGORDER (PL059) due to ex-transport",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "durable_goods_ex_transport_yoy_turn"
+  },
+  {
+    "idea_id": "PL076",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Yield Curve Un-Inversion (10Y-2Y) -> Long Cyclical Over Defensive Rotation",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED T10Y2Y (10Y-2Y Treasury spread) un-inverting after 12+ months of inversion has preceded every recession-to-recovery equity rotation since 1970. When the spread crosses back above 0 from deeply negative (-50bps+), long XLI/XLF (cyclicals) vs XLP/XLU (defensives) for 12 months. The un-inversion signals the recession is ending and cyclicals are about to outperform as economic growth re-accelerates. Markets anticipate recovery but underestimate the magnitude of cyclical earnings rebound.",
+    "causal_chain": [
+      "FRED T10Y2Y crosses above 0 after 12+ months below zero",
+      "Un-inversion signals Fed easing cycle underway and recession troughing",
+      "Short rates falling faster than long rates = economic recovery expectations building",
+      "Cyclical sectors (XLI, XLF) see earnings troughs before defensives feel late-cycle pain",
+      "Long cyclicals (XLI+XLF) vs short defensives (XLP+XLU) captures the rotation over 12 months"
+    ],
+    "data_sources": [
+      "FRED T10Y2Y (daily, free, back to 1976)",
+      "yfinance XLI, XLF, XLP, XLU, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "FRED yield curve; Campbell Harvey dissertation (1986); recession-rotation timing literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "yield_curve_uninversion_cyclical_rotation"
+  },
+  {
+    "idea_id": "PL077",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED ISM Services PMI Expansion Cross -> Long Consumer Discretionary (XLY)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED NMFBAI (ISM Non-Manufacturing/Services PMI) crossing above 55 after being below 50 for 3+ months signals a strong services sector recovery. Since the US is 70%+ services, this is a direct consumer demand signal. Long XLY for 6 months. ISM Services gets less attention than Manufacturing PMI but is far more relevant to consumer-facing equities. The expansion cross leads retail/hospitality earnings beats by 1-2 quarters.",
+    "causal_chain": [
+      "FRED NMFBAI (ISM Services PMI) crosses above 55 after 3+ months below 50",
+      "Services sector (70% of GDP) entering expansion = consumer demand recovering",
+      "Restaurant, hotel, travel, entertainment spending accelerates",
+      "Consumer discretionary companies (AMZN, HD, MCD, SBUX in XLY) see revenue recovery",
+      "XLY re-rates over 3-6 months as services-led consumer recovery flows to earnings"
+    ],
+    "data_sources": [
+      "FRED NMFBAI (monthly, free, back to 2008)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "ISM Non-Manufacturing Index; services-sector leading indicator research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ism_services_expansion_cross_xly"
+  },
+  {
+    "idea_id": "PL078",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED GDP Nowcast vs Consensus Gap -> Sector Surprise Trade",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Atlanta Fed GDPNow (FRED GDPNOW, updated biweekly) frequently diverges from Blue Chip consensus by >1.5pp. When GDPNow exceeds consensus by >1.5pp, the economy is stronger than the market expects. Long SPY for 60 days. GDPNow is mechanical (model-driven) while consensus is behavioral (anchoring bias). The model beats humans 60%+ of the time at nowcasting. The divergence closes at GDP release.",
+    "causal_chain": [
+      "FRED GDPNOW exceeds Blue Chip consensus GDP estimate by >1.5pp",
+      "Mechanical model incorporating latest data releases updating faster than humans",
+      "Positive surprise indicates economic momentum underpriced by consensus",
+      "Corporate earnings likely to beat as economy stronger than expected",
+      "SPY rallies 3-5% over 60 days as data confirms the nowcast"
+    ],
+    "data_sources": [
+      "FRED GDPNOW (biweekly, free)",
+      "yfinance SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Atlanta Fed GDPNow methodology; Higgins 2014 Atlanta Fed working paper",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gdpnow_consensus_gap_spy_long"
+  },
+  {
+    "idea_id": "PL079",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Private Residential Construction Spending Acceleration -> Long Cement/Concrete (EXP/SUM)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED PRRESCONS (private residential construction spending, monthly) captures actual dollars spent on housing construction. When 3-month annualized growth exceeds +15%, concrete/cement demand is surging because foundations and flatwork are the earliest construction phases. Long EXP (Eagle Materials, 50% cement/concrete) and SUM (Summit Materials, 100% aggregates/cement) for 6 months. Private resi construction spending leads cement shipments by 1 month because the dollars are committed when the pour is scheduled.",
+    "causal_chain": [
+      "FRED PRRESCONS 3-month annualized growth exceeds +15%",
+      "Residential construction spending surge = active home construction accelerating",
+      "Foundation/flatwork pours happen in month 1-2 of construction = cement demand immediate",
+      "EXP (50% cement/wallboard) and SUM (aggregates/cement) see volume growth",
+      "Pricing power + volume leverage = margin expansion over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED PRRESCONS (monthly, free, back to 2002)",
+      "yfinance EXP, SUM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau construction spending (C30); EXP/SUM investor presentations on residential exposure",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "resi_construction_spending_cement"
+  },
+  {
+    "idea_id": "PL080",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Building Permits Northeast Surge -> Long USG/JELD (Building Products)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "FRED PERMIT (building permits) has regional breakdowns. When Northeast permits surge >20% YoY while national is flat, it signals regional housing demand shift. Northeast builds require higher R-value insulation, triple-pane windows, and more interior finishing due to climate. Long building product companies with Northeast distribution: JELD (windows/doors), AZEK (decking/trim), BLDR (specialty distribution). Regional permit data is free on FRED but markets focus only on national totals.",
+    "causal_chain": [
+      "FRED PERMITNE (Northeast building permits) rises >20% YoY while PERMIT national is flat",
+      "Regional demand surge creates local supply bottleneck in building products",
+      "Northeast code requirements = higher-spec products (better windows, insulation, finishes)",
+      "JELD, AZEK, BLDR see regional order books fill with premium-spec products",
+      "Stocks re-rate as quarterly earnings show regional strength not in national consensus"
+    ],
+    "data_sources": [
+      "FRED PERMITNE (monthly, free)",
+      "yfinance JELD, AZEK, BLDR, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau regional permits; Northeast building code requirements; JELD regional revenue mix",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "northeast_permits_surge_building_products"
+  },
+  {
+    "idea_id": "PL081",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED JOLTS Quits Rate Recovery -> Long Staffing Companies (RHI/HAYS)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED JTSQUR (JOLTS quits rate, monthly) is a leading indicator of labor market confidence. When the quits rate rises >0.3pp from a cyclical trough, it signals workers are confident enough to leave jobs for better ones -- creating demand for staffing/temp agencies to fill vacancies. Long RHI (Robert Half) and HAYS for 6 months. Quits rate recovery leads staffing revenue by 1-2 quarters because every quit creates a vacancy that needs filling.",
+    "causal_chain": [
+      "FRED JTSQUR (quits rate) rises >0.3pp from trailing 6-month low",
+      "Workers regaining confidence to quit = labor market strengthening",
+      "Every voluntary quit creates a vacancy that employers need to fill quickly",
+      "Staffing firms (RHI, HAYS) see temp/perm placement demand surge",
+      "Staffing company revenue accelerates 1-2 quarters after quits rate turns up"
+    ],
+    "data_sources": [
+      "FRED JTSQUR (monthly, free, back to 2000)",
+      "yfinance RHI, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS JOLTS; quits rate as labor confidence indicator (Daly-Hobijn 2013); staffing cycle research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "jolts_quits_recovery_staffing_long"
+  },
+  {
+    "idea_id": "PL082",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Average Weekly Hours Manufacturing Recovery -> Long Cyclical Equities",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED AWHMAN (average weekly hours, manufacturing, monthly) is a leading indicator because employers increase hours BEFORE hiring new workers. When AWHMAN crosses above 41.0 hours after being below 40.5 for 4+ months, it signals manufacturers are ramping production. Long XLI for 6 months. Hours precede payrolls by 1-3 months and precede INDPRO by 2-4 months. This is one of the 10 LEI components but is rarely traded directly.",
+    "causal_chain": [
+      "FRED AWHMAN crosses above 41.0 after 4+ months below 40.5",
+      "Manufacturers increasing overtime hours = demand exceeding current workforce capacity",
+      "Hours increase 1-3 months before new hiring (cheaper to pay OT than onboard)",
+      "New hiring follows -> payrolls accelerate -> production ramps -> INDPRO rises",
+      "XLI/cyclicals re-rate as production and employment data confirm recovery"
+    ],
+    "data_sources": [
+      "FRED AWHMAN (monthly, free, back to 1939)",
+      "yfinance XLI, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CES; Conference Board LEI (AWHMAN is component #1); labor market leading indicators",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mfg_weekly_hours_recovery_cyclicals"
+  },
+  {
+    "idea_id": "PL083",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Continued Claims Declining Streak -> Long Small Caps (IWM)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED CCSA (continued claims, weekly) tracks the stock of unemployed workers receiving benefits. When continued claims decline for 8+ consecutive weeks after a peak, it signals the labor market is absorbing the unemployed -- a powerful recovery signal. Long IWM for 6 months. Small caps are the most employment-sensitive equities because small businesses account for 50%+ of US employment. Declining continued claims = small businesses hiring again = small cap revenue recovery.",
+    "causal_chain": [
+      "FRED CCSA (continued claims) declines for 8+ consecutive weeks from a cyclical peak",
+      "Sustained decline = labor market absorbing unemployed workers (not just claims expiration)",
+      "Small businesses (50%+ of employment) are rehiring = revenue recovery for small firms",
+      "Small-cap earnings most leveraged to employment recovery (high labor cost share)",
+      "IWM rallies 15-25% over 6 months as small-cap earnings inflect"
+    ],
+    "data_sources": [
+      "FRED CCSA (weekly, free, back to 1967)",
+      "yfinance IWM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS continued claims; small-cap employment sensitivity; DOL weekly claims report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "continued_claims_decline_small_cap"
+  },
+  {
+    "idea_id": "PL084",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED TED Spread Normalization -> Long Regional Banks (KRE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED TEDRATE (3-month LIBOR minus T-bill rate) measures interbank credit risk. When TED spread contracts below 30bps after being above 50bps for 3+ months, it signals interbank trust is restored and funding stress is easing. Long KRE (regional bank ETF) for 6 months. Regional banks are most sensitive to funding markets because they rely on wholesale funding more than money-center banks. TED normalization leads regional bank NIM recovery by 1-2 quarters.",
+    "causal_chain": [
+      "FRED TEDRATE contracts below 30bps after 3+ months above 50bps",
+      "Interbank lending normalization = funding stress easing, trust restored",
+      "Regional banks' wholesale funding costs decline -> NIM expands",
+      "Loan origination resumes as funding is available at reasonable cost",
+      "KRE rallies 15-25% over 6 months as NIM + loan growth compound"
+    ],
+    "data_sources": [
+      "FRED TEDRATE (daily, free, back to 1986)",
+      "yfinance KRE, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve TED spread; interbank credit risk literature; regional bank funding models",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ted_spread_normalization_regional_banks"
+  },
+  {
+    "idea_id": "PL085",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Excess Reserves Surge -> Long Risk Assets (SPY/QQQ)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED EXCSRESNW (excess reserves of depository institutions, weekly) tracks idle cash sitting at the Fed. When excess reserves surge >20% in a rolling 3-month period, it signals massive liquidity injection that will eventually flow into risk assets. Long SPY for 6 months. Excess reserves are the 'fuel tank' for risk assets -- banks eventually deploy excess reserves into lending and securities purchases. The 2020 excess reserves surge preceded the equity rally by 2-3 months.",
+    "causal_chain": [
+      "FRED WRESBAL (reserve balances, weekly) surges >20% in rolling 3 months",
+      "Fed liquidity injection creating excess reserves at depository institutions",
+      "Banks deploy excess into securities purchases and lending over 2-4 months",
+      "Capital flows from bank balance sheets to risk assets (equities, credit)",
+      "SPY/QQQ rally as excess liquidity transmission channel activates"
+    ],
+    "data_sources": [
+      "FRED WRESBAL (weekly, free, back to 1984)",
+      "yfinance SPY, QQQ"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve H.4.1 balance sheet; bank reserves -> risk asset transmission; Poszar 2019",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "excess_reserves_surge_risk_assets"
+  },
+  {
+    "idea_id": "PL086",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED C&I Loan Growth Inflection -> Long Bank Stocks (XLF)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED BUSLOANS (C&I loans at commercial banks, weekly) directly measures business lending. When C&I loan growth YoY turns positive after 6+ months of contraction, it confirms the credit cycle trough -- businesses are borrowing again. Long XLF for 12 months. C&I loan growth leads bank NII by 2-3 quarters and leads bank stock performance by 1-2 quarters. Distinct from PL064 (TOTBKCR total credit) -- this is specifically C&I loans, a purer business lending signal.",
+    "causal_chain": [
+      "FRED BUSLOANS (C&I loans) YoY growth turns positive after 6+ months negative",
+      "Business borrowing resuming = capex and working capital demand recovering",
+      "New C&I loans generate net interest income for banks over 3-5 year loan duration",
+      "NII growth leads bank earnings acceleration by 1-2 quarters",
+      "XLF re-rates as bank earnings inflect on the credit growth recovery"
+    ],
+    "data_sources": [
+      "FRED BUSLOANS (weekly, free, back to 1947)",
+      "yfinance XLF, JPM, BAC, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve H.8; C&I loan growth as credit cycle indicator; distinct from PL064 total credit",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ci_loan_growth_inflection_banks"
+  },
+  {
+    "idea_id": "PL087",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Trade-Weighted Dollar Decline -> Long US Industrial Exporters (HON/CAT/DE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED DTWEXBGS (trade-weighted dollar, broad, daily) declining >5% from a 6-month peak signals US export competitiveness improving. Industrial exporters (HON 55% intl, CAT 50% intl, DE 40% intl) benefit from both FX translation effects AND volume gains as US goods become cheaper overseas. Long HON+CAT+DE for 6 months. The dollar move leads export volume by 1-2 quarters (J-curve effect). Distinct from PL046 (DXY spike -> EM reversal) -- this is dollar WEAKNESS -> US exporter strength.",
+    "causal_chain": [
+      "FRED DTWEXBGS declines >5% from trailing 6-month peak",
+      "Weaker dollar = US manufactured goods cheaper for foreign buyers",
+      "US industrial exporters (HON, CAT, DE) see foreign order books fill",
+      "FX translation tailwind boosts reported earnings by 3-5% at 50% intl revenue",
+      "Volume + FX = double tailwind for earnings -> stocks re-rate over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED DTWEXBGS (daily, free, back to 2006)",
+      "yfinance HON, CAT, DE, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "FRED trade-weighted dollar; J-curve export lag; industrial company geographic revenue exposure",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "twd_decline_industrial_exporters"
+  },
+  {
+    "idea_id": "PL088",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED US Trade Deficit Widening -> Long Port/Logistics Equities",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED BOPGSTB (goods trade balance, monthly) widening beyond -$80B/month signals surging import volumes -- the US is pulling in massive physical goods. This import surge creates demand for port operators, logistics, and warehousing. Long EXPD (freight forwarder), CHRW (3PL), and ZIM/MATX (container shipping) for 6 months. Widening trade deficit = more physical goods hitting US ports = logistics revenue acceleration.",
+    "causal_chain": [
+      "FRED BOPGSTB (goods trade balance) widens beyond -$80B monthly",
+      "Surging imports = massive physical goods volumes hitting US ports",
+      "Port congestion rises, container throughput at peak, logistics pricing power increases",
+      "EXPD (freight forwarding), CHRW (logistics), MATX (Jones Act containers) see revenue surge",
+      "Logistics stocks re-rate on pricing power and volume growth over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED BOPGSTB (monthly, free, back to 1992)",
+      "yfinance EXPD, CHRW, MATX, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau FT900 trade; port throughput data; trade deficit -> logistics demand chain",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "trade_deficit_widening_logistics"
+  },
+  {
+    "idea_id": "PL089",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED WTI Crude Backwardation Steepening -> Long E&P Equities (XOP)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "When WTI futures curve shifts into steep backwardation (front-month > 6-month by >$3/bbl), it signals physical market tightness -- inventories drawing and current demand exceeding supply. Long XOP (E&P ETF) for 90 days. Backwardation rewards E&P producers because they sell at elevated spot prices while the market's forward expectations (which drive consensus models) are lower. This creates systematic earnings beats for spot-exposed producers.",
+    "causal_chain": [
+      "WTI front-month minus 6-month spread exceeds $3/bbl (steep backwardation)",
+      "Backwardation signals physical tightness: inventories drawing, supply < demand now",
+      "E&P producers sell at elevated spot prices -- higher than sell-side model assumptions",
+      "Models based on strip pricing underestimate E&P earnings in backwardated markets",
+      "XOP beats consensus for 1-2 quarters during sustained backwardation"
+    ],
+    "data_sources": [
+      "FRED DCOILWTICO (WTI spot, daily, free)",
+      "yfinance CL=F, XOP, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "EIA crude oil futures; backwardation as physical market signal; S&P GSCI backwardation research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wti_backwardation_steep_long_xop"
+  },
+  {
+    "idea_id": "PL090",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Henry Hub Natural Gas Below Cash Cost -> Long NG Producers (EQT/AR/RRC)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED MHHNGSP (Henry Hub spot price, monthly). When Henry Hub falls below $2.50/MMBtu (cash cost breakeven for marginal Appalachian producers), supply curtailments begin within 2-3 months. EQT (largest US gas producer) and AR (Antero) voluntarily shut-in production to defend price. Long EQT/AR/RRC for 12 months from the sub-$2.50 crossing. Sub-cash-cost pricing is self-correcting: supply curtailments + steady demand = price recovery. The 2020 and 2023-24 sub-$2.50 episodes both preceded 50%+ price recoveries.",
+    "causal_chain": [
+      "FRED MHHNGSP (Henry Hub monthly) drops below $2.50/MMBtu",
+      "Sub-cash-cost pricing triggers producer shut-ins and completion deferrals within 2-3 months",
+      "EQT, AR announce voluntary curtailments (they've done this in 2020, 2024)",
+      "Supply reduction + steady demand (power gen baseload) = price recovery",
+      "NG=F recovers to $3.50-4.50 over 6-12 months; EQT/AR re-rate on higher realizations"
+    ],
+    "data_sources": [
+      "FRED MHHNGSP (monthly, free, back to 1997)",
+      "yfinance EQT, AR, RRC, NG=F, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "EIA Henry Hub; EQT/AR curtailment press releases; natural gas cash cost analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "henry_hub_below_cash_cost_long_producers"
+  },
+  {
+    "idea_id": "PL091",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED US Crude Oil Production MoM Decline -> Long Crude Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-6 months",
+    "thesis": "FRED MCRFPUS1 (US crude production monthly). When US production declines MoM for 3+ consecutive months, it signals depletion/curtailment overwhelming new completions. Long CL=F for 6 months. US is the world's swing producer at 13M+ bpd; a sustained decline tightens global supply by 200-500Kbpd which is material to global balances. Distinct from PL030 (rig count -> production lag) -- this is actual PRODUCTION declining, not a leading indicator.",
+    "causal_chain": [
+      "FRED MCRFPUS1 (US crude production) declines MoM for 3 consecutive months",
+      "Actual production dropping = depletion + curtailments exceeding new completions",
+      "US produces 13M+ bpd; 200-500Kbpd decline is 0.2-0.5% of global supply",
+      "Global oil balance tightens -> inventories draw -> spot price rises",
+      "CL=F rallies 10-20% over 6 months as supply tightness is confirmed"
+    ],
+    "data_sources": [
+      "FRED MCRFPUS1 (monthly, free, back to 1920)",
+      "yfinance CL=F, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "EIA monthly crude production; distinct from PL030 (rig count leading indicator)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "us_crude_production_decline_long"
+  },
+  {
+    "idea_id": "PL092",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Air Revenue Passenger Miles Recovery -> Long Airlines (JETS ETF)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED AIRRPMTSI (air revenue passenger miles, monthly, seasonally adjusted) is the most direct measure of passenger airline demand. When RPM YoY crosses above +5% after a period of <0% for 6+ months, it confirms demand recovery. Long JETS (airline ETF) for 6 months. RPMs lead airline revenue by 1 quarter because tickets are sold 1-3 months before travel. Airlines have high operating leverage -- a 5% RPM increase can drive 15-20% EBIT growth if capacity is disciplined.",
+    "causal_chain": [
+      "FRED AIRRPMTSI (revenue passenger miles) YoY crosses above +5% after 6+ months negative",
+      "Air travel demand confirmed recovering -- passengers physically flying more",
+      "Airlines have fixed costs (aircraft leases, labor) -- revenue growth flows to EBIT with 3-4x leverage",
+      "Ticket pricing holds if capacity discipline maintained (DAL/UAL load factors above 85%)",
+      "JETS ETF rallies 15-25% over 6 months on operating leverage from demand recovery"
+    ],
+    "data_sources": [
+      "FRED AIRRPMTSI (monthly, free, back to 2000)",
+      "yfinance JETS, DAL, UAL, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BTS T-100 domestic; DOT air traffic statistics; airline operating leverage models",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "air_rpm_recovery_airlines_long"
+  },
+  {
+    "idea_id": "PL093",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Railroad Intermodal Traffic YoY Turn -> Long Intermodal/Rail (UNP/CSX)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED RAILFRTINTERam (railroad intermodal traffic) specifically tracks containerized freight moving by rail -- a proxy for consumer goods imports arriving at ports and moving inland. When intermodal YoY turns positive after 6+ months negative, it signals consumer demand recovery for physical goods. Long UNP+CSX for 6 months. Intermodal is the highest-margin freight for Class I rails. Distinct from PL052 (total carloads -> industrial production); intermodal tracks CONSUMER goods, not industrial bulk.",
+    "causal_chain": [
+      "FRED RAILFRTINTERAM intermodal traffic YoY turns positive after 6+ months negative",
+      "Intermodal = containerized consumer goods (electronics, apparel, furniture) moving inland",
+      "Consumer goods demand recovery confirmed by physical rail traffic",
+      "UNP/CSX see intermodal volume recovery -- highest-margin freight category",
+      "Rail stocks re-rate as intermodal revenue accelerates and pricing power returns"
+    ],
+    "data_sources": [
+      "FRED RAILFRTINTERAM (monthly, free)",
+      "yfinance UNP, CSX, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "AAR intermodal statistics; distinct from PL052 (total carloads); intermodal-consumer demand link",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "intermodal_traffic_yoy_turn_rails"
+  },
+  {
+    "idea_id": "PL094",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Consumer Sentiment (UMich) Extreme Low Reversal -> Long Retail (XRT)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED UMCSENT (U of Michigan Consumer Sentiment, monthly) at extreme lows (<55, bottom decile since 1978) is a contrarian BUY signal for retail stocks. When sentiment is this depressed, consumer expectations are already at rock bottom -- any stabilization drives spending surprise. Long XRT (retail ETF) for 6 months when UMCSENT drops below 55 and then rises for 2 consecutive months (trough confirmation). The signal fired in mid-2022 (UMCSENT=50) and preceded a 35% XRT rally.",
+    "causal_chain": [
+      "FRED UMCSENT drops below 55 then rises for 2 consecutive months (trough confirmed)",
+      "Extreme pessimism = consumer expectations at rock bottom, positioned for positive surprise",
+      "Consumers spending more than sentiment surveys imply (actions > words)",
+      "Retail revenue beats low expectations -> XRT earnings revisions turn positive",
+      "XRT rallies 15-30% over 6 months as sentiment normalization drives spending recovery"
+    ],
+    "data_sources": [
+      "FRED UMCSENT (monthly, free, back to 1978)",
+      "yfinance XRT, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "U of Michigan Consumer Sentiment; contrarian sentiment trading literature; 2022 case study",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "umich_sentiment_extreme_low_retail"
+  },
+  {
+    "idea_id": "PL095",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Personal Savings Rate Decline from Peak -> Long Leisure/Hospitality (PEJ)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED PSAVERT (personal savings rate, monthly). When savings rate declines >4pp from a cyclical peak (e.g., drops from 12% to 8%), it signals consumers are DIS-SAVING to fund spending. This spending surge benefits leisure/hospitality (restaurants, hotels, travel) most because these are the first discretionary categories consumers re-engage with. Long PEJ (leisure/hospitality ETF) or BKNG+MAR+H for 6 months. The 2021-2022 savings rate collapse (34% -> 3%) preceded the leisure spending boom.",
+    "causal_chain": [
+      "FRED PSAVERT declines >4pp from trailing 12-month peak",
+      "Consumers drawing down savings to fund spending = demand acceleration",
+      "Leisure/hospitality (restaurants, hotels, travel) are first beneficiaries of dis-saving",
+      "BKNG, MAR, H, restaurant chains see RevPAR/same-store sales acceleration",
+      "Leisure stocks re-rate on earnings beats over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED PSAVERT (monthly, free, back to 1959)",
+      "yfinance BKNG, MAR, H, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA personal income/savings; consumer spending cycle; 2021-2022 revenge spending precedent",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "savings_rate_decline_leisure_long"
+  },
+  {
+    "idea_id": "PL096",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Retail Sales ex-Auto ex-Gas MoM Beat -> Long Consumer Discretionary",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "FRED RSFSXMV (retail sales excluding motor vehicles) removes the volatile auto component. When MoM growth exceeds +0.5% for 2 consecutive months after 3+ months of flat/negative, it signals core consumer demand inflecting. Long XLY for 90 days. The retail sales report drops mid-month and moves markets same-day, but the FOLLOW-THROUGH over the next 60 days is under-traded because markets price the headline instantly but not the trend confirmation.",
+    "causal_chain": [
+      "FRED RSFSXMV (retail sales ex-auto) MoM > +0.5% for 2 consecutive months",
+      "Core consumer spending inflecting positively after a soft patch",
+      "Retailers see same-store sales accelerate, especially discretionary categories",
+      "Next month's retail report likely confirms the trend (momentum in consumer data)",
+      "XLY rallies 3-5% over 60-90 days as spending trend confirmation flows through"
+    ],
+    "data_sources": [
+      "FRED RSFSXMV (monthly, free, back to 1992)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau advance retail sales; retail sales ex-auto as cleaner demand signal",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "retail_sales_ex_auto_beat_xly"
+  },
+  {
+    "idea_id": "PL097",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Non-Defense Capital Goods Orders ex-Aircraft Inflection -> Long Capital Goods (ETN/ROK/AME)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED NEWORDER (core capital goods orders = non-defense ex-aircraft, monthly) is the purest measure of business investment demand. When 3-month MA turns positive YoY after 6+ months of decline, it signals the capex cycle recovery. Long ETN (Eaton, electrical equipment), ROK (Rockwell, factory automation), AME (AMETEK, electronic instruments) for 6 months. Core capex orders lead equipment-maker revenue by 2-3 quarters because orders become deliveries/revenue on a 6-9 month cycle.",
+    "causal_chain": [
+      "FRED NEWORDER (core capex orders) 3-month MA turns positive YoY after 6+ months negative",
+      "Business investment inflecting = companies ordering new equipment, machinery, automation",
+      "Equipment makers (ETN, ROK, AME) see order backlogs rebuild",
+      "Revenue accelerates 2-3 quarters later as orders convert to deliveries",
+      "Capital goods stocks re-rate on improving order books and revenue visibility"
+    ],
+    "data_sources": [
+      "FRED NEWORDER (monthly, free, back to 1992)",
+      "yfinance ETN, ROK, AME, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau core capital goods orders; Conference Board LEI component; capex cycle timing",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "core_capex_orders_inflection_capital_goods"
+  },
+  {
+    "idea_id": "PL098",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Industrial Production Manufacturing Index Breakout -> Long Factory Automation (ISRG/FANUY/ROK)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED IPMAN (Industrial Production: Manufacturing, monthly) crossing above its 12-month MA after being below for 6+ months is a confirmed manufacturing recovery signal. Long factory automation plays (ROK Rockwell, FANUY Fanuc, TER Teradyne) for 6 months. When manufacturing recovers, the first investment is in automation to boost productivity before hiring. Automation companies see order growth 1-2 quarters ahead of broader industrials because automation capex precedes expansion hiring.",
+    "causal_chain": [
+      "FRED IPMAN crosses above 12-month MA after 6+ months below",
+      "Manufacturing output recovery confirmed -- factories increasing production",
+      "First capex priority: automation/robotics to boost output without hiring (labor tight)",
+      "ROK (factory automation), FANUY (industrial robots), TER (test automation) see order surge",
+      "Automation stocks re-rate ahead of broader industrials by 1-2 quarters"
+    ],
+    "data_sources": [
+      "FRED IPMAN (monthly, free, back to 1972)",
+      "yfinance ROK, TER, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve IP; automation-first capex cycle pattern; IFR robot installation data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ipman_recovery_factory_automation"
+  },
+  {
+    "idea_id": "PL099",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED 5Y Breakeven Inflation Drop Below 2% -> Long TIPS (TIP ETF)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "6-12 months",
+    "thesis": "FRED T5YIE (5-year breakeven inflation rate, daily) below 2.0% signals the market is pricing inflation below the Fed's target. When T5YIE drops below 2.0% after being above 2.3% for 6+ months, TIPS are undervalued relative to nominal bonds. Long TIP (TIPS ETF) for 12 months. At sub-2% breakevens, TIPS outperform nominals if inflation comes in at or above the Fed's 2% target (which it has 80%+ of the time since 2000). The breakeven below target is a systematic mis-pricing.",
+    "causal_chain": [
+      "FRED T5YIE drops below 2.0% after 6+ months above 2.3%",
+      "Market pricing inflation below Fed target = deflationary expectations excessive",
+      "TIPS coupon adjusts for actual CPI; if CPI > breakeven, TIPS outperform nominals",
+      "Fed targets 2% inflation and has tools to deliver it (rate cuts, QE if needed)",
+      "TIP outperforms IEF (nominal intermediate) by 3-5% over 12 months as breakevens normalize"
+    ],
+    "data_sources": [
+      "FRED T5YIE (daily, free, back to 2003)",
+      "yfinance TIP, IEF, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "FRED breakeven inflation; TIPS vs nominal relative value; Fleckenstein-Longstaff-Lustig 2014 JFE",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "breakeven_below_target_long_tips"
+  },
+  {
+    "idea_id": "PL100",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED Real Fed Funds Rate Turning Negative -> Long Growth Equities (QQQ)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED DFF (fed funds rate) minus FRED PCEPILFE (core PCE YoY) = real fed funds rate. When real fed funds turns negative (Fed rate below inflation), monetary policy is accommodative and financial conditions are easy. Long QQQ for 12 months. Growth stocks (tech, biotech) are the highest-duration equities and benefit most from negative real rates because their DCF valuations are most sensitive to discount rates. Every period of negative real rates since 2000 has preceded growth outperformance.",
+    "causal_chain": [
+      "Real fed funds rate (DFF - core PCE) turns negative",
+      "Monetary policy accommodative = borrowing cost below inflation = free money in real terms",
+      "Financial conditions ease -> credit available -> speculative investment rises",
+      "Growth/tech stocks (longest duration equities) re-rate most on lower real discount rates",
+      "QQQ outperforms SPY by 10-20% over 12 months during negative real rate periods"
+    ],
+    "data_sources": [
+      "FRED DFF (daily, free), FRED PCEPILFE (monthly, free)",
+      "yfinance QQQ, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Taylor Rule; real rate regime and equity duration; negative real rate -> growth outperformance",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "negative_real_rate_long_growth"
+  },
+  {
+    "idea_id": "PL101",
+    "created_at": "2026-05-26T22:35:41.417923+00:00",
+    "status": "new",
+    "name": "FRED 10Y-3M Yield Curve Steepening After Inversion -> Long Duration Bonds (TLT)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "6-12 months",
+    "thesis": "FRED T10Y3M (10Y minus 3M spread) steepening from deeply inverted (below -100bps) back through zero signals the Fed cutting cycle is underway. Long TLT for 12 months from the zero-crossing. The 10Y-3M curve is the most reliable recession predictor (Estrella-Mishkin), and its UN-inversion signals the rate-cutting cycle. TLT rallies 15-25% during cutting cycles as long-end yields follow the front-end down with a lag.",
+    "causal_chain": [
+      "FRED T10Y3M crosses above 0 after being below -100bps for 6+ months",
+      "Un-inversion = Fed cutting aggressively, front-end yields falling fast",
+      "Long-end yields follow with a lag but also decline as recession fears ease",
+      "TLT price (inverse of 20Y+ yields) rallies on both rate expectations and duration bid",
+      "TLT returns 15-25% over 12 months during a typical Fed cutting cycle"
+    ],
+    "data_sources": [
+      "FRED T10Y3M (daily, free, back to 1982)",
+      "yfinance TLT, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Estrella-Mishkin 1998; FRED yield curve; cutting cycle -> duration rally pattern",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "yield_curve_steepening_long_tlt"
   }
 ]
