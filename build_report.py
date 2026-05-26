@@ -258,6 +258,7 @@ def render_html(results):
         table_data.append(row)
 
     table_json = json.dumps(table_data, default=str)
+    table_json = table_json.replace("</script>", r"<\/script>")
 
     return TEMPLATE.replace("__TABLE_DATA__", table_json)\
                    .replace("__N_TOTAL__", str(len(results)))\
@@ -961,7 +962,31 @@ function render() {
   });
 }
 
+// Read search from URL hash (used by cross-tab navigation)
+const _hq = (location.hash.match(/q=([^&]+)/) || [])[1];
+if (_hq) document.getElementById('search').value = decodeURIComponent(_hq);
+
 render();
+
+// Auto-expand first result if navigated from another tab
+if (_hq) {
+  const _fc = document.querySelector('.signal-card');
+  if (_fc) { expandedIds.add(_fc.dataset.id); _fc.classList.add('expanded'); }
+}
+
+// Listen for parent injecting search via postMessage
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'search') {
+    document.getElementById('search').value = e.data.query;
+    render();
+    const f = document.querySelector('.signal-card');
+    if (f) { expandedIds.add(f.dataset.id); f.classList.add('expanded'); }
+  }
+  if (e.data && e.data.type === 'highReturnIds' && e.data.ids) {
+    window._highReturnIds = new Set(e.data.ids);
+    render();
+  }
+});
 </script>
 
 </body>

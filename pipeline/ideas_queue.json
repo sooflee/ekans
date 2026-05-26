@@ -3556,5 +3556,2611 @@
     "source_reference": "Federal Reserve Industrial Production; mining sector operating leverage research",
     "research_phase": "pipeline_scout",
     "dedup_key": "mining_ip_recovery_commodity_producers"
+  },
+  {
+    "idea_id": "PL134",
+    "created_at": "2026-05-26T23:09:04.999361+00:00",
+    "status": "developed",
+    "name": "FRED Auto Loan Delinquency Rate Trough \u2192 Long Auto Lenders",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED DRCARLACBS (auto loan delinquency rate, quarterly) tracks consumer auto credit health. When the DQ rate hits a cyclical trough (local minimum AND level < 2.5%), auto lenders are at peak credit quality \u2014 losses are minimal, provisions are over-reserved, and earnings are about to beat. Long ALLY+COF for 12 months from the trough. The trough precedes the next credit expansion cycle where auto lending volumes ramp.",
+    "causal_chain": [
+      "FRED DRCARLACBS (quarterly auto loan DQ rate) hits local minimum below 2.5%",
+      "Peak credit quality = auto lenders' loss reserves are over-provisioned",
+      "Provision releases boost earnings 1-2 quarters after the DQ trough",
+      "Simultaneously, clean credit conditions support new auto lending volume growth",
+      "ALLY and COF (auto lending divisions) re-rate on earnings beats + volume growth"
+    ],
+    "data_sources": [
+      "FRED DRCARLACBS (quarterly, free, back to 1991)",
+      "yfinance ALLY, COF, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve; auto lending cycle research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "auto_loan_dq_trough_lenders"
+  },
+  {
+    "idea_id": "PL135",
+    "created_at": "2026-05-26T23:09:04.999361+00:00",
+    "status": "developed",
+    "name": "FRED Personal Income Growth Acceleration \u2192 Long Consumer Cyclicals",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED PI (personal income, monthly) is the broadest measure of household purchasing power. When PI YoY growth reaccelerates above +5% after a deceleration period (<+3% for 6+ months), consumers have more money to spend. Long XLY for 6 months. Personal income acceleration leads consumer spending by 1-2 months because income arrives before it's spent. Data back to 1959.",
+    "causal_chain": [
+      "FRED PI (monthly personal income) YoY crosses above +5% after 6+ months below +3%",
+      "Household purchasing power expanding \u2014 wages, transfers, investment income all rising",
+      "Consumer spending accelerates 1-2 months later as income flows to consumption",
+      "Discretionary sectors (restaurants, travel, electronics, autos) benefit first",
+      "XLY re-rates on improving consumer spending data"
+    ],
+    "data_sources": [
+      "FRED PI (monthly, free, back to 1959)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Personal Income and Outlays; consumer spending cycle",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "personal_income_acceleration_xly"
+  },
+  {
+    "idea_id": "PL136",
+    "created_at": "2026-05-26T23:09:04.999361+00:00",
+    "status": "developed",
+    "name": "FRED Corporate Profits After Tax Recovery \u2192 Long SPY (Earnings Cycle)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED CP (corporate profits after tax, quarterly BEA) is the definitive measure of aggregate earnings. When CP YoY turns positive after 2+ quarters of negative growth, the earnings recession is over. Long SPY for 12 months. Corporate profits lead S&P 500 earnings-per-share by 1-2 quarters because BEA captures the full economy while S&P EPS only covers 500 companies. The CP trough has preceded every equity rally since 1950.",
+    "causal_chain": [
+      "FRED CP (quarterly corporate profits after tax) YoY turns positive after 2+ quarters negative",
+      "Earnings recession over \u2014 profits recovering across the economy",
+      "S&P 500 EPS follows 1-2 quarters later as company-level reporting catches up",
+      "Equity multiples expand as investors price in earnings recovery",
+      "SPY rallies 15-30% over 12 months as the earnings upcycle broadens"
+    ],
+    "data_sources": [
+      "FRED CP (quarterly, free, back to 1947)",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "BEA NIPA corporate profits; earnings cycle research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "corporate_profits_recovery_spy"
+  },
+  {
+    "idea_id": "PL137",
+    "created_at": "2026-05-26T23:11:09.460356+00:00",
+    "status": "developed",
+    "name": "FRED Private Nonresidential Construction Surge \u2192 Long Infrastructure Contractors",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED PNRESCONS (private nonresidential construction spending, monthly) tracks commercial/industrial building. When PNRESCONS YoY growth crosses +10% for 3+ months, it signals a private capex boom \u2014 data centers, manufacturing plants, warehouses, retail. Long PWR+PRIM+ACM for 6 months. These contractors convert construction spending directly to revenue. The current boom is driven by reshoring (CHIPS Act fabs) + data center buildout. Data back to 2002.",
+    "causal_chain": [
+      "FRED PNRESCONS (monthly private nonres construction) YoY > +10% for 3 months",
+      "Private capex boom confirmed: data centers, fabs, warehouses, commercial buildings",
+      "Construction contractors (PWR electrical, PRIM specialty, ACM design-build) see backlog grow",
+      "Revenue acceleration as projects move from groundbreaking to active construction phase",
+      "Contractor stocks re-rate 3-6 months on improving backlog + margin expansion"
+    ],
+    "data_sources": [
+      "FRED PNRESCONS (monthly, free, back to 2002)",
+      "yfinance PWR, PRIM, ACM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau construction spending; CHIPS Act reshoring; data center capex wave",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "private_nonres_construction_contractors"
+  },
+  {
+    "idea_id": "PL138",
+    "created_at": "2026-05-26T23:11:09.460356+00:00",
+    "status": "developed",
+    "name": "FRED Real Disposable Income Trough \u2192 Long Staples (XLP) as Safe Haven",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED DSPIC96 (real disposable personal income, monthly) measures actual purchasing power after taxes and inflation. When DSPIC96 YoY turns negative (consumers getting poorer in real terms), staples outperform because people trade down from discretionary to essentials. Long XLP for 12 months from the first negative YoY month. The real income squeeze leads consumer behavior change by 1-2 months \u2014 people stop dining out and buying electronics before the data shows it.",
+    "causal_chain": [
+      "FRED DSPIC96 (real disposable income) YoY turns negative for first time in the cycle",
+      "Consumers are getting poorer in real terms \u2014 inflation eroding purchasing power",
+      "Behavioral shift: trade down from restaurants/electronics to groceries/household essentials",
+      "Staples companies (PG, KO, CL, WMT) see stable or growing volumes while discretionary suffers",
+      "XLP outperforms XLY/SPY over 6-12 months during the real income squeeze"
+    ],
+    "data_sources": [
+      "FRED DSPIC96 (monthly, free, back to 1959)",
+      "yfinance XLP, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Personal Income; consumer trade-down behavior research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "real_disposable_income_negative_xlp"
+  },
+  {
+    "idea_id": "PL139",
+    "created_at": "2026-05-26T23:21:27.248608+00:00",
+    "status": "developed",
+    "name": "FRED Advance Retail Sales MoM Surprise Streak \u2192 Long XRT",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "FRED RSAFS (advance retail sales, monthly) is released mid-month and is the first hard data on consumer spending. When advance retail sales beats the prior month's level for 3 consecutive months (positive MoM streak), it signals sustained consumer momentum. Long XRT (retail ETF) for 60 days. The 3-month streak filters out one-off bounces and confirms trend. XRT captures broad retail exposure (AMZN, HD, TJX, ROST) rather than picking individual names.",
+    "causal_chain": [
+      "FRED RSAFS (advance retail sales) posts positive MoM for 3 consecutive months",
+      "Sustained positive streak = consumer spending momentum confirmed, not a one-off bounce",
+      "Retail companies see same-store sales accelerate as spending broadens",
+      "Analyst revenue estimates get revised upward across the retail sector",
+      "XRT re-rates 5-15% over 60 days as earnings expectations improve"
+    ],
+    "data_sources": [
+      "FRED RSAFS (monthly, free, back to 1992)",
+      "yfinance XRT, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau advance retail sales; retail earnings cycle",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "advance_retail_sales_mom_streak_xrt"
+  },
+  {
+    "idea_id": "PL140",
+    "created_at": "2026-05-26T23:21:27.248608+00:00",
+    "status": "developed",
+    "name": "FRED Mortgage Application Index Surge \u2192 Long Homebuilders 3mo Lag",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED MORTGAGE30US tracks mortgage rates, but the MBA Mortgage Application Index (FRED MORTAPPW, weekly) tracks actual purchase applications \u2014 a direct demand signal. When purchase applications surge >20% from trailing 13-week low, housing demand is inflecting. Long LEN+DHI+NVR for 6 months with a 1-month lag (applications \u2192 closings \u2192 builder revenue takes 60-90 days). Distinct from PL041 (existing home supply) and PL070 (new home supply spike) \u2014 this is a DEMAND signal, not a supply signal.",
+    "causal_chain": [
+      "FRED mortgage application index surges >20% from 13-week trailing low",
+      "Purchase applications = buyers actively seeking homes \u2014 direct demand proxy",
+      "Applications lead closings by 45-60 days \u2192 builder contract signings accelerate",
+      "Homebuilders (LEN, DHI, NVR) see net new orders inflect 1-2 quarters later",
+      "Stocks re-rate 3-6 months as order books and backlog grow"
+    ],
+    "data_sources": [
+      "FRED MORTAPPW or MBA purchase index (weekly, free if available)",
+      "yfinance LEN, DHI, NVR, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "MBA Weekly Applications Survey; Census new home sales; builder earnings cycle",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mortgage_application_surge_homebuilders"
+  },
+  {
+    "idea_id": "PL141",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "BDTI Tanker Rate Spike \u2192 Long Crude Oil Tanker Equities",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 weeks",
+    "thesis": "The Baltic Dirty Tanker Index (BDTI) reflects spot charter rates for crude oil tankers. When BDTI spikes >40% in 2 weeks (geopolitical disruption, ton-mile increase from rerouting), tanker equities (FRO, STNG, INSW) lag by 3-7 days as earnings estimates adjust upward. FRED series DISCONTINUED but yfinance has tanker stocks; Clarksons data proxied via FRO earnings correlation.",
+    "causal_chain": [
+      "Geopolitical event or refinery maintenance shift increases crude ton-mile demand",
+      "BDTI spikes >40% in 2-week window as spot charter rates surge",
+      "Tanker equities (FRO, STNG, INSW) initially lag \u2014 market treats spike as transitory",
+      "Within 5-10 days, sell-side upgrades earnings estimates for tanker operators",
+      "Tanker stocks rally 8-15% over next 2-4 weeks as time-charter equivalent reprices"
+    ],
+    "data_sources": [
+      "yfinance FRO, STNG, INSW, TNK",
+      "Baltic Exchange BDTI (proxied via tanker ETF flows)",
+      "EIA weekly petroleum status report (free)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Baltic Exchange; Clarksons Shipping Intelligence; Fearnleys tanker market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bdti_tanker_spike_equities_long"
+  },
+  {
+    "idea_id": "PL142",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED SLOOS Credit Card Willingness \u2192 Long Consumer Discretionary",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "The Fed's SLOOS survey includes net percentage of banks willing to make consumer installment loans (FRED: DRTSCLCC). When willingness shifts from tightening to easing (crosses zero from negative), consumer discretionary (XLY) outperforms SPY by 3-5% over the following quarter as credit availability flows into spending. This is a leading indicator of consumer credit expansion.",
+    "causal_chain": [
+      "Fed SLOOS survey shows banks shifting from tightening to easing on consumer installment loans",
+      "FRED DRTSCLCC crosses from negative to positive territory",
+      "Consumer credit availability expands with 1-2 month lag (FRED TOTALSL accelerates)",
+      "Retail sales and consumer confidence improve as credit flows into spending",
+      "XLY outperforms SPY by 3-5% over the following quarter"
+    ],
+    "data_sources": [
+      "FRED DRTSCLCC (Senior Loan Officer Survey, consumer installment willingness)",
+      "FRED TOTALSL (total consumer credit)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve SLOOS; Haver Analytics consumer credit research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sloos_credit_card_willingness_xly"
+  },
+  {
+    "idea_id": "PL143",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "USDA Weekly Crop Progress Corn Silking Delay \u2192 Long Corn Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "thesis": "USDA publishes weekly Crop Progress reports (free). Corn silking is a critical growth stage vulnerable to heat stress. When the % of corn crop that has silked lags the 5-year average by >10 percentage points in mid-July, it signals delayed pollination and yield risk. Corn futures (ZC=F) rally 5-10% over 2-4 weeks as yield estimates are revised downward.",
+    "causal_chain": [
+      "USDA Weekly Crop Progress shows corn silking lagging 5-year avg by >10pp in mid-July",
+      "Delayed silking means pollination coincides with peak August heat, increasing kernel abortion risk",
+      "USDA lowers yield estimate in next WASDE report (typically August)",
+      "Corn futures (ZC=F) rally 5-10% as ending stocks projection drops",
+      "Downstream soybean meal and feed costs also reprice upward"
+    ],
+    "data_sources": [
+      "USDA Weekly Crop Progress (free, weekly during growing season)",
+      "yfinance ZC=F",
+      "FRED PCORN (corn price)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Crop Progress; Pro Farmer Midwest Crop Tour methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_corn_silking_delay_long"
+  },
+  {
+    "idea_id": "PL144",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED JTSJOL Job Openings Rate Decline \u2192 Long Staffing Firms Recovery",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When JOLTS job openings (FRED JTSJOL) decline >15% from cycle peak, the labor market is rebalancing. Counterintuitively, staffing firms (RHI, HAYS, MAN) rally 10-20% from trough because the decline in openings signals the end of the 'Great Resignation' era \u2014 workers stop quitting, temp-to-perm conversion slows, and companies return to staffing agencies for flexible labor.",
+    "causal_chain": [
+      "FRED JTSJOL declines >15% from cycle peak \u2014 labor market cooling",
+      "Quits rate (FRED JTSQUR) declines in sympathy \u2014 workers stop voluntarily leaving",
+      "Companies shift from permanent hiring back to temp/contract via staffing agencies",
+      "Staffing firm revenue per employee stabilizes then inflects upward",
+      "RHI, MAN rally 10-20% from trough as bill rates firm and volume recovers"
+    ],
+    "data_sources": [
+      "FRED JTSJOL (JOLTS job openings)",
+      "FRED JTSQUR (quits rate)",
+      "yfinance RHI, MAN, HAYS"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS JOLTS; Staffing Industry Analysts (SIA) Pulse Survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "jolts_openings_decline_staffing_recovery"
+  },
+  {
+    "idea_id": "PL145",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED DGORDER Durable Goods New Orders Acceleration \u2192 Long Semiconductor Equipment",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When FRED DGORDER (new orders for durable goods) shows 3 consecutive months of MoM acceleration, it signals a capex upcycle beginning. Semiconductor equipment makers (AMAT, LRCX, KLAC) lead the capex cycle and rally 10-15% over the next 2 months as fab buildout orders materialize. The durable goods report leads semi equipment revenue by 2-3 quarters.",
+    "causal_chain": [
+      "FRED DGORDER shows 3 consecutive months of MoM acceleration in new orders",
+      "Manufacturing capex cycle turns positive \u2014 companies replace aging equipment",
+      "Semiconductor fabs accelerate tool orders as utilization approaches 85%+",
+      "AMAT, LRCX, KLAC book-to-bill ratios improve, guidance revised upward",
+      "Semi equipment stocks rally 10-15% over 2 months as cycle turn confirms"
+    ],
+    "data_sources": [
+      "FRED DGORDER (durable goods new orders)",
+      "FRED NEWORDER (manufacturers new orders)",
+      "yfinance AMAT, LRCX, KLAC, SOXX"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau M3 survey; SEMI World Fab Forecast",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "dgorder_acceleration_semi_equipment"
+  },
+  {
+    "idea_id": "PL146",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "EIA Weekly Natural Gas Storage Injection Below 5yr Avg \u2192 Long UNG Pre-Winter",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "thesis": "EIA publishes weekly natural gas storage reports (free). When summer injection season (Apr-Oct) running total falls below the 5-year average by >200 Bcf by August, winter supply is at risk. Natural gas futures (NG=F) rally 15-30% from August through November as the market prices in potential winter tightness. This differs from existing natgas_storage_deficit_winter by focusing on summer injection shortfall specifically.",
+    "causal_chain": [
+      "EIA weekly storage report shows cumulative summer injections lagging 5yr avg by >200 Bcf",
+      "Low injection rate signals either higher-than-expected summer cooling demand or production decline",
+      "By August, market calculates probability of sub-3.5 Tcf storage entering winter",
+      "Natural gas futures (NG=F) enter backwardation as prompt month premium builds",
+      "NG=F rallies 15-30% Aug-Nov as heating season approaches with tight inventory"
+    ],
+    "data_sources": [
+      "EIA Weekly Natural Gas Storage Report (free)",
+      "yfinance NG=F, UNG",
+      "FRED DHHNGSP (Henry Hub spot)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "EIA Natural Gas Weekly Update; NOAA heating degree day forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_summer_injection_shortfall_natgas"
+  },
+  {
+    "idea_id": "PL147",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED PERMIT Single-Family Permits 3mo Acceleration \u2192 Long Homebuilder Suppliers",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When single-family building permits (FRED PERMIT1) show 3 consecutive months of YoY improvement (even if still negative YoY), it signals the housing cycle trough. Homebuilder material suppliers (SHW, VMC, MLM, BLDR) outperform by 8-12% over the next quarter as they benefit from the volume inflection before homebuilders themselves reprice.",
+    "causal_chain": [
+      "FRED PERMIT1 (single-family permits) shows 3mo trend of YoY rate of change improving",
+      "Rate of change improvement signals housing cycle trough even before permits go positive YoY",
+      "Material suppliers see orders inflect before revenue shows in quarterly earnings",
+      "SHW (paint), VMC/MLM (aggregates), BLDR (building products) lead the recovery",
+      "Supplier stocks outperform XHB by 8-12% over following quarter as volume recovers"
+    ],
+    "data_sources": [
+      "FRED PERMIT1 (single-family building permits)",
+      "FRED HOUST1F (single-family housing starts)",
+      "yfinance SHW, VMC, MLM, BLDR, XHB"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau New Residential Construction; NAHB/Wells Fargo Housing Market Index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "permit1_acceleration_supplier_stocks"
+  },
+  {
+    "idea_id": "PL148",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED TWEXBMTH Broad Trade-Weighted Dollar 6mo Decline \u2192 Long EM Equity (EEM)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the FRED Broad Trade-Weighted Dollar Index (TWEXBMTH) declines >5% over 6 months, emerging market equities rally as dollar-denominated debt burdens ease, commodity revenues increase in USD terms, and portfolio flows reverse toward EM. EEM outperforms SPY by 5-10% over the following quarter.",
+    "causal_chain": [
+      "FRED TWEXBMTH (broad trade-weighted dollar) declines >5% over 6-month window",
+      "EM sovereign and corporate dollar debt burden eases \u2014 reduced FX mismatch stress",
+      "Commodity exporters (Brazil, Chile, Indonesia) see revenue increase in USD terms",
+      "Global portfolio flows rotate from US to EM as carry trade becomes attractive",
+      "EEM outperforms SPY by 5-10% over following quarter"
+    ],
+    "data_sources": [
+      "FRED TWEXBMTH (Broad Trade-Weighted Dollar Index)",
+      "FRED DTWEXBGS (Broad Dollar Index daily)",
+      "yfinance EEM, SPY, VWO"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve Trade-Weighted Dollar Index; IIF Capital Flows Tracker",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "broad_dollar_decline_em_equity_long"
+  },
+  {
+    "idea_id": "PL149",
+    "created_at": "2026-05-26T23:23:43.573312+00:00",
+    "status": "developed",
+    "name": "FRED TLRESCONS Total Residential Construction Spending Inflection \u2192 Long Plumbing/HVAC Distributors",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When FRED TLRESCONS (total residential construction spending) shows 3 consecutive months of MoM growth after a decline period, plumbing/HVAC distributors (WSO, WMS, SWK) are early beneficiaries as they sit upstream in the supply chain. These mid-cap names rally 10-15% over 2 months before large-cap homebuilders fully reprice.",
+    "causal_chain": [
+      "FRED TLRESCONS shows 3 consecutive MoM increases after period of decline",
+      "Residential construction spending inflection signals new project starts ramping",
+      "Plumbing/HVAC distributors (WSO, WMS) see order books fill 4-6 weeks before revenue recognition",
+      "Distributor stocks rally 10-15% over 2 months as channel checks confirm volume recovery",
+      "Homebuilder stocks follow with 1-2 month lag as completions data confirms"
+    ],
+    "data_sources": [
+      "FRED TLRESCONS (residential construction spending)",
+      "FRED TTLCONS (total construction spending)",
+      "yfinance WSO, WMS, SWK"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau Construction Spending Survey (C30); PHCC industry reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rescons_inflection_plumbing_hvac"
+  },
+  {
+    "idea_id": "PL150",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED WTREGEN Treasury General Account Rebuild \u2192 Long Short-Duration Bonds",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Treasury General Account (FRED WTREGEN) rebuilds rapidly (>$100B in 4 weeks) after a debt ceiling resolution, it drains reserves from the banking system. This tightens short-term funding conditions, pushing T-bill yields higher and creating a buying opportunity in short-duration bond ETFs (SHV, BIL) once the drain stabilizes. Differs from TGA drain ideas by focusing on the rebuild phase.",
+    "causal_chain": [
+      "Debt ceiling resolved \u2014 Treasury begins rebuilding TGA (FRED WTREGEN) via T-bill issuance",
+      "TGA rebuild >$100B in 4 weeks drains bank reserves (FRED WRESBAL declines)",
+      "Short-term funding rates (SOFR, repo) rise 10-25bps above IORB target",
+      "T-bill yields overshoot as supply surge meets constrained demand",
+      "Once TGA stabilizes, T-bill yields normalize \u2014 long SHV/BIL at peak yield spread"
+    ],
+    "data_sources": [
+      "FRED WTREGEN (Treasury General Account)",
+      "FRED WRESBAL (reserve balances)",
+      "FRED SOFR (Secured Overnight Financing Rate)",
+      "yfinance SHV, BIL"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.4.1 release; Treasury DTS (Daily Treasury Statement)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tga_rebuild_short_duration_bonds"
+  },
+  {
+    "idea_id": "PL151",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED TOTCI Total Commercial & Industrial Loans YoY Trough \u2192 Long Regional Banks",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When C&I loan growth (FRED TOTCI, YoY change) troughs and begins to recover after a contraction period, regional banks (KRE) outperform as net interest income prospects improve. The trough in C&I loan growth has historically led regional bank equity recovery by 1-2 quarters. Different from existing ci_loan_growth_inflection_banks by using the specific trough detection on TOTCI rather than H.8 data.",
+    "causal_chain": [
+      "FRED TOTCI (total C&I loans) YoY change reaches trough and turns upward for 2 consecutive weeks",
+      "Loan demand recovery signals improving business confidence and capex intentions",
+      "Regional banks see loan pipeline improve \u2014 net interest income outlook brightens",
+      "Sell-side upgrades NII estimates for regional banks with high C&I concentration",
+      "KRE rallies 10-20% over following quarter as earnings estimates inflect"
+    ],
+    "data_sources": [
+      "FRED TOTCI (total C&I loans at commercial banks)",
+      "FRED BUSLOANS (C&I loans, all commercial banks)",
+      "yfinance KRE, ZION, CFG, KEY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve H.8 release; FDIC Quarterly Banking Profile",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "totci_yoy_trough_regional_banks"
+  },
+  {
+    "idea_id": "PL152",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED FRGSHPUSM649NCIS Real Government Spending Acceleration \u2192 Long Defense Primes",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When real federal government consumption expenditures (FRED FGCE) accelerate for 2 consecutive quarters, defense prime contractors (LMT, RTX, NOC, GD) rally as the spending acceleration flows through procurement pipelines. This is distinct from defense budget signals \u2014 it captures actual disbursement acceleration, not authorization.",
+    "causal_chain": [
+      "FRED FGCE (federal government consumption expenditures) accelerates 2 consecutive quarters",
+      "Actual disbursement acceleration means procurement pipeline is converting to revenue",
+      "Defense primes (LMT, RTX, NOC, GD) see backlog-to-revenue conversion improve",
+      "Quarterly earnings beats as revenue recognition accelerates ahead of estimates",
+      "Defense primes outperform SPY by 5-8% over following quarter"
+    ],
+    "data_sources": [
+      "FRED FGCE (federal government consumption expenditures)",
+      "FRED A091RC1Q027SBEA (government defense spending)",
+      "yfinance LMT, RTX, NOC, GD, ITA"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA GDP release; DoD Comptroller Green Book",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fgce_acceleration_defense_primes"
+  },
+  {
+    "idea_id": "PL153",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "NOAA Palmer Drought Severity Index Extreme \u2192 Long Water Utilities",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the Palmer Drought Severity Index (PDSI) hits extreme drought (<-4) across multiple Western US states, water utilities (AWK, WTR, SJW) outperform as municipalities accelerate infrastructure investment, conservation surcharges boost revenue per gallon, and regulated rate cases gain easier approval from sympathetic PUCs.",
+    "causal_chain": [
+      "NOAA PDSI hits extreme drought (<-4) across 3+ Western states (CA, CO, AZ, NV)",
+      "Municipalities declare water emergencies, accelerate infrastructure investment",
+      "Water utilities implement conservation surcharges \u2014 revenue per gallon increases",
+      "State PUCs expedite rate case approvals given infrastructure emergency framing",
+      "AWK, WTR, SJW outperform XLU by 5-10% over 3 months during drought events"
+    ],
+    "data_sources": [
+      "NOAA Climate Division PDSI (free monthly)",
+      "FRED CUSR0000SEHG01 (water/sewer CPI)",
+      "yfinance AWK, WTR, SJW, XLU"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA Climate Prediction Center; American Water Works Association annual survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "pdsi_extreme_drought_water_utilities"
+  },
+  {
+    "idea_id": "PL154",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "USDA World Ag Supply & Demand (WASDE) Soybean Ending Stocks Surprise \u2192 Long Soybean Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-2 weeks",
+    "thesis": "The USDA WASDE report is published monthly (free, 12pm ET). When US soybean ending stocks come in >50M bushels below the pre-report average trade estimate, soybean futures (ZS=F) rally 3-7% over the following 5 trading days as the market reprices the tighter supply/demand balance. The key is the surprise magnitude relative to consensus.",
+    "causal_chain": [
+      "USDA WASDE published monthly at 12pm ET (free at usda.gov)",
+      "US soybean ending stocks reported >50M bushels below pre-report trade estimate",
+      "Tighter-than-expected S&D balance triggers short covering in soybean futures",
+      "ZS=F rallies 3-7% over next 5 trading days as new supply/demand equilibrium found",
+      "Soybean meal (ZM=F) and soybean oil (ZL=F) rally in sympathy"
+    ],
+    "data_sources": [
+      "USDA WASDE report (free monthly)",
+      "yfinance ZS=F, ZM=F, ZL=F",
+      "FRED PSOYB (soybean price)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "USDA WASDE; CME Group pre-report trade estimates",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wasde_soybean_stocks_surprise_long"
+  },
+  {
+    "idea_id": "PL155",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED PCEPILFE Core PCE 3mo Annualized Below 2% \u2192 Long Growth/Tech (QQQ)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When Core PCE (FRED PCEPILFE) on a 3-month annualized basis drops below 2.0% for the first time in a tightening cycle, it signals the Fed's inflation target is within reach. Growth/tech stocks (QQQ) outperform value (VTV) by 8-12% over the following 2 months as the market prices in rate cuts and long-duration asset valuations expand.",
+    "causal_chain": [
+      "FRED PCEPILFE (Core PCE) 3mo annualized rate falls below 2.0% for first time in cycle",
+      "Market reprices Fed rate path \u2014 terminal rate expectations decline 50-75bps",
+      "Real yields decline as nominal rate expectations fall faster than inflation",
+      "Long-duration assets (growth/tech) benefit most from rate repricing",
+      "QQQ outperforms VTV by 8-12% over following 2 months"
+    ],
+    "data_sources": [
+      "FRED PCEPILFE (Core PCE price index)",
+      "FRED DFEDTARU (fed funds upper target)",
+      "yfinance QQQ, VTV, TLT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Personal Income and Outlays release; Fed minutes",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "core_pce_below_target_growth_long"
+  },
+  {
+    "idea_id": "PL156",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED RAILFRGCARLOADSD11 Railroad Carloads Chemical Group Surge \u2192 Long Specialty Chemical Producers",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "AAR weekly railroad data includes carloads by commodity group. When chemical carloads (a subset of FRED RAILFRGCARLOADSD11) surge >10% YoY for 3 consecutive weeks, it signals industrial chemical demand recovery. Specialty chemical producers (DD, LYB, CE, EMN) rally 8-12% over the following 2 months as volume recovery flows into earnings.",
+    "causal_chain": [
+      "AAR weekly railroad data shows chemical carloads surging >10% YoY for 3 weeks",
+      "Chemical shipment surge signals manufacturing/industrial demand recovery",
+      "Specialty chem producers (DD, LYB, CE, EMN) see volume and pricing improve",
+      "Quarterly earnings beats as operating leverage amplifies revenue growth",
+      "Specialty chem stocks rally 8-12% over 2 months"
+    ],
+    "data_sources": [
+      "FRED RAILFRGCARLOADSD11 (railroad freight carloads)",
+      "AAR Weekly Rail Traffic (free summary)",
+      "yfinance DD, LYB, CE, EMN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Association of American Railroads (AAR) weekly reports; American Chemistry Council",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rail_chemical_carloads_specialty_chem"
+  },
+  {
+    "idea_id": "PL157",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED ISRATIO Total Business Inventory/Sales Ratio Decline \u2192 Long Small Cap Value (IWN)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the total business inventory-to-sales ratio (FRED ISRATIO) declines for 3 consecutive months from elevated levels (>1.40), it signals businesses have worked through excess inventory. Small cap value (IWN) benefits disproportionately as these companies have higher operating leverage and the inventory destocking-to-restocking transition boosts earnings most for smaller firms.",
+    "causal_chain": [
+      "FRED ISRATIO declines for 3 consecutive months from elevated >1.40 level",
+      "Inventory destocking cycle ending \u2014 businesses begin restocking",
+      "Small manufacturers and distributors see orders inflect first",
+      "Higher operating leverage means EPS growth is amplified for small caps",
+      "IWN outperforms IWF by 5-10% over following quarter as restocking cycle begins"
+    ],
+    "data_sources": [
+      "FRED ISRATIO (total business inventories/sales ratio)",
+      "FRED MNFCTRIRSA (manufacturing inventories/sales)",
+      "yfinance IWN, IWF, IWM"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau MTIS (Manufacturing and Trade Inventories and Sales)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "isratio_decline_small_cap_value"
+  },
+  {
+    "idea_id": "PL158",
+    "created_at": "2026-05-26T23:25:08.229511+00:00",
+    "status": "developed",
+    "name": "FRED CPIAUCSL CPI Monthly Print Below Consensus \u2192 Long TLT Same-Day",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "1-5 days",
+    "thesis": "When the monthly CPI print (FRED CPIAUCSL, MoM change) comes in >0.1pp below Bloomberg consensus, 20+ year Treasuries (TLT) rally 1-3% on the day and follow through over 3-5 days. The magnitude of the move is proportional to the miss size. This is a pure event-driven signal with high backtestability using CPI release dates and consensus estimates.",
+    "causal_chain": [
+      "BLS CPI released at 8:30am ET \u2014 MoM print misses consensus by >0.1pp to downside",
+      "Bond market immediately reprices rate path \u2014 2yr yield drops 10-20bps intraday",
+      "Fed funds futures shift to price in additional 25bp cut within 6 months",
+      "TLT rallies 1-3% on the day as duration premium declines",
+      "Follow-through over 3-5 days as mutual funds and pension reallocate to duration"
+    ],
+    "data_sources": [
+      "FRED CPIAUCSL (CPI for all urban consumers)",
+      "FRED DGS10 (10yr Treasury yield)",
+      "yfinance TLT, IEF, SHY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI release calendar; Bloomberg consensus estimates (historical available via FRED)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_below_consensus_long_tlt_event"
+  },
+  {
+    "idea_id": "PL159",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED BOGZ1FL073164003Q Household Net Worth to GDP Trough \u2192 Long SPY Multi-Month",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "Household net worth as % of GDP (from Fed Z.1 Financial Accounts, FRED BOGZ1FL073164003Q or proxy via TNWBSHNO/GDP) troughing after a decline signals the wealth effect bottoming. When this ratio shows 2 consecutive quarterly increases after a decline, consumer spending and equity markets rally as the wealth effect turns positive. This is a slow-moving but high-conviction signal.",
+    "causal_chain": [
+      "Fed Z.1 Flow of Funds shows household net worth (FRED TNWBSHNO) troughing relative to GDP",
+      "Wealth effect bottoms \u2014 household balance sheets begin recovering",
+      "Consumer spending confidence improves as net worth stabilizes",
+      "Equity markets benefit from both improved fundamentals and portfolio rebalancing",
+      "SPY rallies 8-15% over following 2 quarters from the net worth trough signal"
+    ],
+    "data_sources": [
+      "FRED TNWBSHNO (household net worth)",
+      "FRED GDP (nominal GDP)",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve Z.1 Financial Accounts; Mian & Sufi wealth effect research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "household_networth_gdp_trough_spy"
+  },
+  {
+    "idea_id": "PL160",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED REVOLSL Revolving Consumer Credit Deceleration \u2192 Long XLP Defensive Rotation",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When revolving consumer credit (FRED REVOLSL, primarily credit cards) growth decelerates sharply (YoY drops by >3pp in 2 months), it signals consumer stress. Consumer staples (XLP) outperform consumer discretionary (XLY) by 5-8% over the following 2 months as the market rotates defensively. This is distinct from existing consumer credit ideas which focus on acceleration.",
+    "causal_chain": [
+      "FRED REVOLSL (revolving credit) YoY growth decelerates by >3pp in 2 months",
+      "Sharp deceleration signals either tightening credit standards or consumer pullback",
+      "Discretionary spending weakens as credit-dependent purchases decline",
+      "Market rotates from XLY to XLP as defensive positioning increases",
+      "XLP outperforms XLY by 5-8% over following 2 months"
+    ],
+    "data_sources": [
+      "FRED REVOLSL (revolving consumer credit outstanding)",
+      "FRED DTCOLNVHFNM (credit card delinquency rate)",
+      "yfinance XLP, XLY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve G.19 Consumer Credit release",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "revolsl_deceleration_xlp_defensive"
+  },
+  {
+    "idea_id": "PL161",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED PPIACO Producer Price Index Crude Materials Surge \u2192 Long Commodity Miners (XME)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the PPI for crude materials (FRED PPICRM) surges >5% MoM, it signals a broad commodity demand shock. Mining and metals ETF (XME) rallies with a 2-4 week lag as realized commodity price increases flow through to miner revenue and margin expansion. The PPI crude materials index captures the broad commodity complex better than individual commodity prices.",
+    "causal_chain": [
+      "FRED PPICRM (PPI crude materials) surges >5% MoM \u2014 broad commodity demand shock",
+      "Crude material price increase signals either supply disruption or demand surge",
+      "Mining companies see realized prices increase with 2-4 week lag (contract repricing)",
+      "Operating margins expand significantly due to high operating leverage in mining",
+      "XME rallies 8-15% over following month as revenue/margin benefits materialize"
+    ],
+    "data_sources": [
+      "FRED PPICRM (PPI crude materials for further processing)",
+      "FRED PPIACO (PPI all commodities)",
+      "yfinance XME, PICK, SLX"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS Producer Price Index news release; mining company quarterly reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ppicrm_surge_mining_etf_long"
+  },
+  {
+    "idea_id": "PL162",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED IPMAN Manufacturing IP 3mo Rate of Change Inflection \u2192 Long Factory Automation (ISRG, ROK, AME)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When manufacturing industrial production (FRED IPMAN) 3-month rate of change turns positive after being negative for 3+ months, it signals a manufacturing recovery. Factory automation and industrial technology companies (ROK, AME, EMR) rally 10-15% as capex budgets reopen. Distinct from existing ipman_recovery_factory_automation by using a specific 3mo RoC inflection trigger.",
+    "causal_chain": [
+      "FRED IPMAN 3-month rate of change crosses zero from below after 3+ months negative",
+      "Manufacturing recovery confirmed \u2014 capacity utilization begins to rise",
+      "Factory operators restart delayed capex projects \u2014 automation orders inflect",
+      "ROK, AME, EMR see order intake improve within 1-2 months",
+      "Industrial automation stocks rally 10-15% over 2 months as cycle turn confirmed"
+    ],
+    "data_sources": [
+      "FRED IPMAN (manufacturing industrial production)",
+      "FRED TCU (total capacity utilization)",
+      "yfinance ROK, AME, EMR, ISRG"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve G.17 Industrial Production report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ipman_3mo_roc_inflection_automation"
+  },
+  {
+    "idea_id": "PL163",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED DSPIC96 Real Disposable Personal Income 3mo Acceleration \u2192 Long Luxury/Premium Retail",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When real disposable personal income (FRED DSPIC96) shows 3 consecutive months of acceleration (2nd derivative positive), luxury and premium retailers (RL, TPR, CPRI, RH) outperform mass retail by 8-12% over the following quarter. Rising real income accelerates spending on aspirational goods before mass-market indicators catch up.",
+    "causal_chain": [
+      "FRED DSPIC96 (real DPI) shows 3 months of accelerating MoM growth (positive 2nd derivative)",
+      "Rising real incomes boost consumer purchasing power \u2014 aspirational spending first to benefit",
+      "Luxury/premium retail (RL, TPR, RH) see same-store sales improve ahead of guidance",
+      "Sell-side upgrades come with 4-6 week lag as channel checks confirm trend",
+      "Premium retail stocks outperform XRT by 8-12% over following quarter"
+    ],
+    "data_sources": [
+      "FRED DSPIC96 (real disposable personal income)",
+      "FRED W875RX1 (real personal income ex transfers)",
+      "yfinance RL, TPR, CPRI, RH, XRT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Personal Income and Outlays; NRF retail monitor",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "real_dpi_acceleration_luxury_retail"
+  },
+  {
+    "idea_id": "PL164",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED AWHMAN Average Weekly Hours Manufacturing Inflection \u2192 Long Temp Staffing Agencies",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "Average weekly hours in manufacturing (FRED AWHMAN) is the earliest labor market indicator \u2014 firms increase hours before hiring. When AWHMAN rises for 3 consecutive months after a decline, temporary staffing agencies (RHI, ASGN, KFY) rally 10-15% as hours growth signals impending hiring, which flows through temp agencies first before permanent hires.",
+    "causal_chain": [
+      "FRED AWHMAN rises for 3 consecutive months after period of decline",
+      "Firms extending hours = demand recovering, but uncertain about permanent hiring",
+      "Next step in labor demand sequence: temporary/contract workers before permanent FTEs",
+      "Temp staffing agencies (RHI, ASGN, KFY) see order volumes inflect upward",
+      "Staffing stocks rally 10-15% over 2 months as revenue growth accelerates"
+    ],
+    "data_sources": [
+      "FRED AWHMAN (avg weekly hours manufacturing)",
+      "FRED TEMPHELPS (temporary help services employment)",
+      "yfinance RHI, ASGN, KFY, MAN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS Employment Situation Report; SIA staffing industry reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "awhman_inflection_temp_staffing"
+  },
+  {
+    "idea_id": "PL165",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "EIA Weekly Petroleum Status Gasoline Days of Supply <22 \u2192 Long Refiner Margins (VLO, MPC)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "EIA Weekly Petroleum Status Report (free) includes gasoline days of supply. When days of supply drops below 22 (tight threshold) during summer driving season (May-Sept), refiner margins (crack spreads) surge and refiners (VLO, MPC, PSX) rally 8-15% over the following month as gasoline prices spike. This is a pure supply tightness signal.",
+    "causal_chain": [
+      "EIA weekly report shows gasoline days of supply drops below 22 during summer",
+      "Tight supply signals refinery capacity constraints or unexpected demand surge",
+      "Gasoline crack spread (RBOB - WTI) widens by $5-10/bbl",
+      "Refiners (VLO, MPC, PSX) see per-barrel margins surge \u2014 operating leverage kicks in",
+      "Refiner stocks rally 8-15% over following month as margin expansion flows to earnings"
+    ],
+    "data_sources": [
+      "EIA Weekly Petroleum Status Report (free)",
+      "yfinance VLO, MPC, PSX, CRAK",
+      "FRED GASDESW (gasoline days of supply estimate)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "EIA Weekly Petroleum Status Report; Baker Hughes refinery utilization data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_gasoline_days_supply_tight_refiners"
+  },
+  {
+    "idea_id": "PL166",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED DCOILWTICO WTI Crude Below $50 for 3 Months \u2192 Long E&P Recovery (XOP) Contrarian",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When WTI crude (FRED DCOILWTICO) trades below $50/bbl for 3+ consecutive months, it signals maximum pessimism in energy. E&P companies (XOP constituents) are priced for bankruptcy but survivors benefit from supply destruction (competitors shut in wells). When crude bounces >15% from trough, XOP rallies 20-40% as the market reprices survivor earnings.",
+    "causal_chain": [
+      "FRED DCOILWTICO below $50/bbl for 3+ consecutive months \u2014 maximum bearish sentiment",
+      "Marginal producers shut in wells \u2014 US rig count declines (Baker Hughes)",
+      "Supply destruction creates conditions for future price recovery",
+      "WTI bounces >15% from trough on OPEC cut or demand recovery signal",
+      "XOP rallies 20-40% from trough as survivors are repriced with improved margins"
+    ],
+    "data_sources": [
+      "FRED DCOILWTICO (WTI crude spot)",
+      "FRED RIGS (Baker Hughes rig count)",
+      "yfinance XOP, OIH, XLE"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Baker Hughes Rig Count; EIA Short-Term Energy Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wti_below_50_contrarian_xop_long"
+  },
+  {
+    "idea_id": "PL167",
+    "created_at": "2026-05-26T23:26:22.493136+00:00",
+    "status": "developed",
+    "name": "FRED MSPUS Median Home Sale Price YoY Deceleration \u2192 Long Mortgage REITs (NLY, AGNC)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When median existing home sale price (FRED MSPUS) YoY growth decelerates from >10% to <3% over 2 quarters, the Fed is likely at or near peak rates. Mortgage REITs (NLY, AGNC) benefit because: (1) rate volatility declines improving hedging costs, (2) mortgage spreads normalize, and (3) book value stabilizes after MBS mark-to-market losses. NLY/AGNC rally 15-25% from trough.",
+    "causal_chain": [
+      "FRED MSPUS YoY growth decelerates from >10% to <3% over 2 quarters",
+      "Housing price deceleration signals Fed tightening is working \u2014 peak rates near",
+      "Rate volatility (MOVE index) declines \u2014 mortgage REIT hedging costs fall",
+      "MBS spreads normalize \u2014 agency mortgage REITs see book value stabilize",
+      "NLY, AGNC rally 15-25% from trough as dividend sustainability improves"
+    ],
+    "data_sources": [
+      "FRED MSPUS (median sales price existing homes)",
+      "FRED MORTGAGE30US (30yr mortgage rate)",
+      "yfinance NLY, AGNC, REM"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NAR Existing Home Sales; Federal Reserve financial stability reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mspus_deceleration_mortgage_reit_long"
+  },
+  {
+    "idea_id": "PL168",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED EXPGS Real Exports of Goods & Services Recovery \u2192 Long Industrial Exporters (CAT, DE, CMI)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When real exports of goods & services (FRED EXPGS) show 2 consecutive quarters of acceleration after a downturn, US industrial exporters (CAT, DE, CMI) rally as the export recovery signals global demand improvement. These companies have 40-60% international revenue exposure and benefit from both volume recovery and weaker dollar tailwinds.",
+    "causal_chain": [
+      "FRED EXPGS shows 2 consecutive quarters of real export growth acceleration",
+      "Global demand improving \u2014 emerging markets and Europe recovering",
+      "US industrial exporters (CAT, DE, CMI) see international order books strengthen",
+      "Quarterly earnings beats on international revenue line items",
+      "Industrial exporter stocks outperform SPY by 5-10% over following quarter"
+    ],
+    "data_sources": [
+      "FRED EXPGS (real exports of goods & services)",
+      "FRED BOPGSTB (trade balance goods)",
+      "yfinance CAT, DE, CMI, XLI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA GDP release; Census Bureau FT-900 trade report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "expgs_recovery_industrial_exporters"
+  },
+  {
+    "idea_id": "PL169",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED DTBSPCKFR 5yr Breakeven Inflation Rate Rise Above 2.5% \u2192 Long TIPS ETF (TIP)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "4-8 weeks",
+    "thesis": "When the 5yr breakeven inflation rate (FRED T5YIE) rises above 2.5% and sustains for 2+ weeks, it signals the market is pricing in persistent above-target inflation. TIPS (TIP ETF) outperform nominal Treasuries (IEF) as the inflation premium embedded in TIPS becomes more valuable. The 5yr breakeven is more responsive than the 10yr to near-term inflation shifts.",
+    "causal_chain": [
+      "FRED T5YIE (5yr breakeven inflation) rises above 2.5% and sustains for 2+ weeks",
+      "Market pricing persistent above-target inflation \u2014 TIPS demand increases",
+      "Institutional investors shift from nominal to inflation-protected allocation",
+      "TIP outperforms IEF by 2-4% over following 2 months as inflation premium builds",
+      "Real yield compression benefits existing TIPS holders via price appreciation"
+    ],
+    "data_sources": [
+      "FRED T5YIE (5yr breakeven inflation rate)",
+      "FRED T10YIE (10yr breakeven)",
+      "yfinance TIP, IEF, VTIP"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve TIPS yield curve; Cleveland Fed inflation expectations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "t5yie_above_250_long_tips"
+  },
+  {
+    "idea_id": "PL170",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED USSTHPI US State Housing Price Index Divergence \u2192 Long Lagging-State Homebuilders",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When the spread between the fastest-appreciating and slowest-appreciating state HPIs (FRED FHFA state-level series) exceeds 2 standard deviations, the lagging states mean-revert over the following 2 quarters. Homebuilders with heavy exposure to lagging states (e.g., LEN in Florida, MDC in Mountain West) outperform as price appreciation catches up.",
+    "causal_chain": [
+      "FHFA state-level house price indices show divergence exceeding 2 standard deviations",
+      "Lagging states typically reflect temporary demand shock or affordability reset",
+      "Migration patterns (Census domestic migration data) show people moving to lagging/affordable states",
+      "Homebuilders concentrated in lagging states see demand and pricing improve",
+      "State-specific homebuilders outperform XHB by 5-10% as HPI convergence begins"
+    ],
+    "data_sources": [
+      "FRED state-level FHFA HPI series (e.g., FLSTHPI, TXSTHPI, AZSTHPI)",
+      "yfinance LEN, MDC, TOL, XHB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FHFA House Price Index; Census Bureau Population Estimates domestic migration",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "state_hpi_divergence_lagging_builders"
+  },
+  {
+    "idea_id": "PL171",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED USNIM Net Interest Margin Recovery \u2192 Long Community Banks (QABA)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the aggregate US bank net interest margin (FRED USNIM) bottoms and shows 2 consecutive quarterly increases, community bank ETFs (QABA) outperform KRE because community banks have higher NIM sensitivity (less hedging, more floating-rate assets). QABA rallies 12-20% from NIM trough as smaller banks benefit disproportionately from margin normalization.",
+    "causal_chain": [
+      "FRED USNIM (net interest margin) shows 2 consecutive quarterly increases from trough",
+      "NIM recovery signals deposit competition easing and asset repricing catching up",
+      "Community banks (QABA constituents) have higher NIM beta than large regionals",
+      "Earnings estimates revised upward for community banks as NIM expansion compounds",
+      "QABA outperforms KRE by 5-8% over following quarter due to higher NIM leverage"
+    ],
+    "data_sources": [
+      "FRED USNIM (net interest margin for US banks)",
+      "FRED EVANQ (bank equity capital)",
+      "yfinance QABA, KRE"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FDIC Quarterly Banking Profile; S&P Global community bank NIM analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usnim_recovery_community_banks"
+  },
+  {
+    "idea_id": "PL172",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED NFCI Financial Conditions Easing Streak 8+ Weeks \u2192 Long High-Beta Equities (SPHB)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Chicago Fed National Financial Conditions Index (FRED NFCI) shows easing (negative readings) for 8+ consecutive weeks after a period of tightening, high-beta equities (SPHB) outperform low-volatility (SPLV) by 8-12% over the following 2 months. Sustained financial easing removes the risk premium from high-beta names and encourages risk-on positioning.",
+    "causal_chain": [
+      "FRED NFCI shows negative (easing) readings for 8+ consecutive weeks post-tightening",
+      "Sustained financial easing removes systemic risk premium from equity market",
+      "Credit spreads tighten, leverage becomes cheaper \u2014 benefits high-beta business models",
+      "Quant funds and systematic strategies rotate to high-beta factor exposure",
+      "SPHB outperforms SPLV by 8-12% over following 2 months"
+    ],
+    "data_sources": [
+      "FRED NFCI (National Financial Conditions Index)",
+      "FRED ANFCI (Adjusted NFCI)",
+      "yfinance SPHB, SPLV, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Chicago Fed National Financial Conditions Index methodology paper",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nfci_easing_streak_high_beta"
+  },
+  {
+    "idea_id": "PL173",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED CPIMEDSL Medical Care CPI Acceleration \u2192 Long Healthcare Providers (XLV)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the CPI for medical care services (FRED CPIMEDSL) shows YoY acceleration of >1pp in 3 months, healthcare providers (hospitals, insurers, pharma distributors) benefit from pricing power expansion. XLV and specifically hospital operators (HCA, THC, UHS) rally as revenue per visit increases while cost structures adjust more slowly.",
+    "causal_chain": [
+      "FRED CPIMEDSL (medical care services CPI) YoY accelerates by >1pp in 3 months",
+      "Healthcare service price inflation signals improved provider pricing power",
+      "Hospital operators (HCA, THC, UHS) see revenue per admission increase",
+      "Managed care reimbursement rates follow CPI medical care with 6-12 month lag",
+      "Healthcare providers outperform SPY by 5-8% as pricing power flows to margins"
+    ],
+    "data_sources": [
+      "FRED CPIMEDSL (CPI medical care services)",
+      "FRED CUSR0000SAM2 (medical care commodities CPI)",
+      "yfinance XLV, HCA, THC, UHS"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS CPI medical care component; CMS National Health Expenditure data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpimedsl_acceleration_healthcare_long"
+  },
+  {
+    "idea_id": "PL174",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED WPUSI019011 PPI Softwood Lumber Collapse \u2192 Long Lumber-Exposed Homebuilders After Trough",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When softwood lumber PPI (FRED WPU0811) drops >30% from peak, it signals a massive input cost tailwind for homebuilders. Builders already sold homes at higher prices (backlog) but now build at lower material costs. LEN, DHI, PHM see gross margin expansion of 200-400bps in the quarter following the lumber price trough.",
+    "causal_chain": [
+      "FRED WPU0811 (PPI softwood lumber) drops >30% from cycle peak",
+      "Lumber price collapse reduces framing cost per home by $8,000-15,000",
+      "Homebuilders have backlog sold at higher ASP \u2014 cost decline = margin expansion",
+      "Gross margins expand 200-400bps in quarter following lumber trough",
+      "LEN, DHI, PHM rally 10-15% as margin expansion becomes visible in earnings"
+    ],
+    "data_sources": [
+      "FRED WPU0811 (PPI softwood lumber)",
+      "FRED WPU081 (PPI lumber and wood products)",
+      "yfinance LEN, DHI, PHM, XHB"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS PPI lumber series; Random Lengths lumber pricing; NAHB cost surveys",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "lumber_ppi_collapse_builder_margin"
+  },
+  {
+    "idea_id": "PL175",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED PCOFFOTM Coffee (Other Mild) Price Spike \u2192 Long Coffee Chain Hedgers (SBUX)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the ICO coffee price (FRED PCOFFOTM, Other Mild Arabicas) spikes >40% in 3 months, the market reflexively sells coffee chain stocks (SBUX, DNKN). However, major chains hedge 12-18 months forward. After the initial selloff (-5 to -10%), SBUX recovers and outperforms because hedged costs are locked in while competitors (indie cafes) face immediate margin pressure, driving market share gains.",
+    "causal_chain": [
+      "FRED PCOFFOTM spikes >40% in 3-month window (frost, drought, or supply shock)",
+      "Market reflexively sells SBUX, expecting margin compression",
+      "SBUX initial selloff of -5 to -10% as headline risk dominates",
+      "SBUX hedging program locks in costs 12-18 months forward \u2014 actual impact minimal",
+      "Independent cafes face immediate cost pressure \u2014 SBUX gains market share",
+      "SBUX recovers within 4-8 weeks as next earnings shows hedged COGS stable"
+    ],
+    "data_sources": [
+      "FRED PCOFFOTM (ICO coffee price, other mild arabicas)",
+      "yfinance SBUX, KC=F (coffee futures)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "ICO Coffee Market Report; SBUX 10-K commodity hedging disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "coffee_spike_sbux_hedged_recovery"
+  },
+  {
+    "idea_id": "PL176",
+    "created_at": "2026-05-26T23:27:35.610254+00:00",
+    "status": "developed",
+    "name": "FRED PNRGINDEXM IMF Energy Price Index Trough \u2192 Long Emerging Market Oil Exporters (ERUS, EWZ)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the IMF Energy Price Index (FRED PNRGINDEXM) troughs and rises >15% from its low over 2 months, EM oil-exporting country ETFs (EWZ Brazil, EWS Saudi proxy, ERUS Russia when available) rally sharply as fiscal balances improve, currencies strengthen, and sovereign credit spreads tighten. EM energy exporters have 2-3x the beta to energy price recovery vs. XLE.",
+    "causal_chain": [
+      "FRED PNRGINDEXM (IMF energy price index) rises >15% from trough over 2 months",
+      "Oil-exporting EM fiscal balances improve \u2014 budget deficit narrows",
+      "EM oil-exporter currencies strengthen vs USD as terms of trade improve",
+      "Sovereign credit spreads tighten \u2014 capital inflows resume",
+      "EM oil-exporter equity ETFs rally 15-30% from trough, outperforming XLE by 2-3x"
+    ],
+    "data_sources": [
+      "FRED PNRGINDEXM (IMF energy price index)",
+      "FRED DCOILWTICO (WTI crude)",
+      "yfinance EWZ, EWW, XLE"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "IMF Primary Commodity Prices; World Bank Commodity Markets Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "imf_energy_trough_em_exporters"
+  },
+  {
+    "idea_id": "PL177",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED UMTMNO Manufacturers Unfilled Orders Surge \u2192 Long Aerospace/Defense Backlog Plays",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When manufacturers' unfilled orders (FRED UMTMNO) for durable goods rise >5% YoY for 3 consecutive months, it signals an extended production cycle with pricing power. Aerospace & defense companies (BA, GE Aerospace, HWM, TDG) with multi-year backlogs benefit most as unfilled orders translate to guaranteed future revenue at locked-in prices.",
+    "causal_chain": [
+      "FRED UMTMNO (unfilled orders for durable goods) rises >5% YoY for 3 months",
+      "Growing backlog signals demand exceeding production capacity",
+      "Aerospace/defense companies (longest backlog durations) have most revenue visibility",
+      "Production rate increases boost operating leverage \u2014 fixed costs spread over more units",
+      "BA, HWM, TDG rally 8-12% as backlog-to-revenue conversion accelerates"
+    ],
+    "data_sources": [
+      "FRED UMTMNO (manufacturers unfilled orders)",
+      "FRED AMDMUO (unfilled orders durable goods)",
+      "yfinance BA, HWM, TDG, GE, ITA"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau M3 Manufacturers' Shipments, Inventories, and Orders",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "unfilled_orders_surge_aerospace_long"
+  },
+  {
+    "idea_id": "PL178",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED BOPTIMP Petroleum Import Value Decline \u2192 Long Transportation Margins (UAL, DAL, FDX)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the value of US petroleum imports (FRED BOPTIMP or IMP1000) declines >20% YoY, it reflects lower fuel costs for transportation companies. Airlines (UAL, DAL) and freight carriers (FDX, UPS) see operating margins expand 200-400bps as fuel is 20-35% of operating costs. The import value captures both price and volume declines, a broader signal than crude price alone.",
+    "causal_chain": [
+      "FRED IMP1000 (petroleum product imports value) declines >20% YoY",
+      "Lower petroleum import values reflect declining fuel costs for US businesses",
+      "Airlines (fuel = 25-35% of costs) and freight (fuel = 20-30%) see margin expansion",
+      "Operating margins expand 200-400bps \u2014 earnings estimates revised upward",
+      "UAL, DAL, FDX outperform SPY by 5-10% over following 2 months"
+    ],
+    "data_sources": [
+      "FRED IMP1000 (petroleum imports)",
+      "FRED MCOILWTICO (WTI monthly avg)",
+      "yfinance UAL, DAL, FDX, UPS, JETS"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau FT-900 Trade Report; BTS airline fuel cost data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "petroleum_import_decline_transport_margin"
+  },
+  {
+    "idea_id": "PL179",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED MVPHPC Motor Vehicle Parts Domestic Production Recovery \u2192 Long Auto Parts Retailers (AAP, ORLY, AZO)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When domestic motor vehicle parts production (FRED MVPHPC or proxy via IPNMAT) recovers after a decline, aftermarket auto parts retailers (ORLY, AZO, AAP) benefit as parts availability improves and fleet age remains high. The parts production recovery signals supply chain normalization that enables retailers to restock and meet pent-up demand.",
+    "causal_chain": [
+      "FRED auto parts IP index shows recovery \u2014 3 consecutive months of MoM growth",
+      "Parts supply chain normalization enables aftermarket retailers to restock shelves",
+      "US fleet age remains at record highs (>12.5 years) \u2014 sustained aftermarket demand",
+      "ORLY, AZO see same-store sales accelerate as parts availability matches demand",
+      "Auto parts retailers rally 8-12% as restocking cycle drives revenue growth"
+    ],
+    "data_sources": [
+      "FRED IPNMAT (IP: motor vehicles and parts)",
+      "FRED B149RC1A027NBEA (auto parts PCE)",
+      "yfinance ORLY, AZO, AAP"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve G.17 Industrial Production; BLS auto parts employment data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "auto_parts_production_recovery_retailers"
+  },
+  {
+    "idea_id": "PL180",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED LFWA25T54 Prime-Age Labor Force Participation Rise \u2192 Long Staffing & HR Tech (WDAY, PAYC)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When prime-age (25-54) labor force participation rate (FRED LNS11300060) rises >0.3pp in 3 months, it signals workers re-entering the labor force. HR tech and payroll companies (WDAY, PAYC, ADP) benefit as more employment means more payroll processing, benefits administration, and HCM software seats. This is a volume signal for HR tech revenue growth.",
+    "causal_chain": [
+      "FRED LNS11300060 (prime-age LFPR) rises >0.3pp in 3-month window",
+      "Workers re-entering labor force = new hires across economy",
+      "Each new hire generates revenue for payroll processors (ADP, PAYC) and HCM platforms (WDAY)",
+      "HR tech revenue is largely per-employee \u2014 more workers = more seats = more revenue",
+      "WDAY, PAYC, ADP outperform SPY by 5-8% as employment growth drives platform revenue"
+    ],
+    "data_sources": [
+      "FRED LNS11300060 (prime-age LFPR)",
+      "FRED CIVPART (overall LFPR)",
+      "yfinance WDAY, PAYC, ADP"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS Employment Situation Report; ADP National Employment Report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "prime_age_lfpr_rise_hr_tech"
+  },
+  {
+    "idea_id": "PL181",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED FEDMINNFRWG Minimum Wage Increase Announcement \u2192 Long Dollar Stores (DLTR, DG)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When federal or major-state minimum wage increases are enacted (tracked via FRED FEDMINNFRWG and state DOL announcements), dollar stores (DLTR, DG) actually benefit more than they're hurt. While labor costs rise modestly (already near-minimum-wage workforce), their core customers see income increases, driving traffic and basket size. Dollar stores outperform after minimum wage hikes.",
+    "causal_chain": [
+      "Federal or major-state minimum wage increase takes effect (FRED FEDMINNFRWG)",
+      "Low-income households (dollar store core customer) see disposable income increase",
+      "Dollar store traffic and basket size increase within 1-2 months of wage hike",
+      "Labor cost increase is modest \u2014 dollar stores already use lean staffing models",
+      "DLTR, DG outperform XRT by 5-8% in 3 months following wage hike implementation"
+    ],
+    "data_sources": [
+      "FRED FEDMINNFRWG (federal minimum wage)",
+      "FRED CES0500000003 (average hourly earnings)",
+      "yfinance DLTR, DG, XRT"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "BLS Minimum Wage Workers report; NRF retail spending analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "minimum_wage_hike_dollar_stores_long"
+  },
+  {
+    "idea_id": "PL182",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED PSAVERT Personal Savings Rate Spike Above 8% \u2192 Long Discretionary Spending Recovery 6mo Out",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When the personal savings rate (FRED PSAVERT) spikes above 8% (indicating forced or precautionary saving), it creates pent-up demand that unwinds 4-6 months later. XLY (consumer discretionary) outperforms SPY by 8-12% in the 6 months following the savings rate spike as consumers deploy accumulated savings. The higher the spike, the stronger the subsequent spending boom.",
+    "causal_chain": [
+      "FRED PSAVERT spikes above 8% \u2014 precautionary saving surge (recession fear or lockdown)",
+      "Pent-up demand builds as consumers defer discretionary purchases",
+      "Savings rate begins normalizing \u2014 accumulated savings deployed into spending",
+      "Consumer discretionary spending accelerates 4-6 months after savings rate peak",
+      "XLY outperforms SPY by 8-12% in the 6 months following the savings rate spike"
+    ],
+    "data_sources": [
+      "FRED PSAVERT (personal savings rate)",
+      "FRED PCE (personal consumption expenditures)",
+      "yfinance XLY, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Personal Income and Outlays; Federal Reserve SCF analysis of saving behavior",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "psavert_spike_discretionary_recovery"
+  },
+  {
+    "idea_id": "PL183",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED BAMLH0A0HYM2 High Yield Spread Compression Below 350bps \u2192 Long Equity Risk-On (SPHB)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the BofA High Yield OAS (FRED BAMLH0A0HYM2) compresses below 350bps after being above 500bps, it signals a credit cycle recovery. Equity risk-on strategies benefit as the same credit improvement that compresses HY spreads also lifts equity valuations. SPHB (high-beta S&P 500) outperforms SPLV by 10-15% in the 2 months following the spread compression breakthrough.",
+    "causal_chain": [
+      "FRED BAMLH0A0HYM2 (HY OAS) drops below 350bps after being >500bps",
+      "Credit cycle recovery confirmed \u2014 default risk repriced lower",
+      "Corporate refinancing conditions improve \u2014 balance sheet stress declines",
+      "Equity risk premium declines in sympathy with credit spread compression",
+      "SPHB outperforms SPLV by 10-15% over 2 months as risk-on regime established"
+    ],
+    "data_sources": [
+      "FRED BAMLH0A0HYM2 (BofA HY OAS)",
+      "FRED BAMLC0A4CBBB (BBB spread)",
+      "yfinance SPHB, SPLV, HYG, JNK"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BofA Global Research; Fed Financial Stability Report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hy_oas_below_350_risk_on_equity"
+  },
+  {
+    "idea_id": "PL184",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED AAA10Y Moody's AAA Corporate Bond Spread to 10yr Trough \u2192 Long Investment-Grade Corps (LQD)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Moody's AAA corporate bond spread (FRED AAA10Y) reaches a trough and begins widening by >20bps over 4 weeks, it signals credit conditions beginning to tighten. However, the initial widening from extremely tight levels is actually a buying opportunity for IG bonds (LQD) because absolute yields become more attractive while credit quality remains high. The yield pickup attracts institutional buyers.",
+    "causal_chain": [
+      "FRED AAA10Y (AAA spread to 10yr) troughs then widens >20bps over 4 weeks",
+      "Initial spread widening from tight levels increases absolute yield on IG corporates",
+      "Institutional investors (pensions, insurers) increase allocation to IG for yield pickup",
+      "LQD sees inflows as yield-hungry institutions buy the cheapening",
+      "LQD outperforms TLT by 2-4% over following 2 months as institutional demand supports prices"
+    ],
+    "data_sources": [
+      "FRED AAA10Y (Moody's AAA - 10yr Treasury spread)",
+      "FRED BAA10Y (Moody's BAA spread)",
+      "yfinance LQD, TLT, VCIT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Moody's credit spread data; Fed Flow of Funds insurance company allocations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "aaa_spread_widening_ig_opportunity"
+  },
+  {
+    "idea_id": "PL185",
+    "created_at": "2026-05-26T23:28:56.686154+00:00",
+    "status": "developed",
+    "name": "FRED TEDRATE TED Spread Normalization After Spike \u2192 Long Regional Bank Recovery (KRE)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the TED spread (FRED TEDRATE) spikes >50bps then normalizes back below 30bps within 8 weeks, it signals a funding stress event that has resolved. Regional banks (KRE) recover sharply from the stress-induced selloff as interbank funding conditions normalize. Different from existing ted_spread_normalization_regional_banks by using specific spike-and-normalize pattern rather than just normalization level.",
+    "causal_chain": [
+      "FRED TEDRATE spikes >50bps \u2014 interbank funding stress event",
+      "Regional bank stocks (KRE) sell off 10-20% on funding concerns",
+      "TED spread normalizes back below 30bps within 8 weeks \u2014 stress resolved",
+      "Interbank market functioning restored \u2014 depositors return to regional banks",
+      "KRE recovers 15-25% from stress trough as funding cost normalization restores NIM outlook"
+    ],
+    "data_sources": [
+      "FRED TEDRATE (TED spread)",
+      "FRED DTB3 (3-month T-bill)",
+      "yfinance KRE, ZION, CFG"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve interbank market analysis; BIS quarterly review",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ted_spike_normalize_kre_recovery"
+  },
+  {
+    "idea_id": "PL186",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED RBUSBIS Real Broad Effective Exchange Rate Extreme \u2192 Mean Reversion in US Equities",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "The BIS real broad effective exchange rate for the USD (FRED RBUSBIS) captures purchasing power parity deviation. When it exceeds 115 (>15% above equilibrium), the dollar is unsustainably strong. Over the following 6 months, the dollar weakens and US multinational equities (with high foreign revenue) outperform domestic-focused names as FX translation tailwinds emerge.",
+    "causal_chain": [
+      "FRED RBUSBIS (BIS real broad effective exchange rate USD) exceeds 115",
+      "Dollar is >15% above PPP equilibrium \u2014 unsustainably strong",
+      "Mean-reversion forces begin: trade deficit widens, Fed potentially eases",
+      "Dollar weakens over following 6 months \u2014 FX translation tailwind for US multinationals",
+      "S&P 500 companies with >50% foreign revenue outperform domestics by 5-10%"
+    ],
+    "data_sources": [
+      "FRED RBUSBIS (BIS real broad effective exchange rate)",
+      "FRED TWEXBMTH (broad trade-weighted dollar)",
+      "yfinance SPY, EFA"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BIS Effective Exchange Rate data; IMF External Balance Assessment",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rbusbis_extreme_multinational_outperform"
+  },
+  {
+    "idea_id": "PL187",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED GFDEBTN Federal Debt to GDP Crossing New High \u2192 Long Gold as Fiscal Hedge",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "8-16 weeks",
+    "thesis": "When federal debt to GDP (FRED GFDEGDQ188S) crosses a new all-time high and accelerates (debt growing faster than nominal GDP for 2+ quarters), gold rallies as the market prices in eventual fiscal dominance risk. Gold (GLD) outperforms SPY by 5-10% in the 6 months following new debt/GDP highs as sovereign credit risk premium builds.",
+    "causal_chain": [
+      "FRED GFDEGDQ188S (federal debt to GDP) crosses new all-time high",
+      "Debt growing faster than nominal GDP for 2+ consecutive quarters",
+      "Market begins pricing fiscal dominance risk \u2014 real yields less credible as anchor",
+      "Central bank gold purchases accelerate (WGC data) as reserve diversification",
+      "Gold (GLD) outperforms SPY by 5-10% in 6 months following new debt/GDP peak"
+    ],
+    "data_sources": [
+      "FRED GFDEGDQ188S (federal debt to GDP)",
+      "FRED GFDEBTN (federal debt total)",
+      "yfinance GLD, IAU, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Treasury Fiscal Data; CBO Budget and Economic Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "debt_gdp_new_high_gold_long"
+  },
+  {
+    "idea_id": "PL188",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED JPNASSETS Bank of Japan Total Assets Surge \u2192 Long Nikkei (EWJ) via Yen Weakness",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When Bank of Japan total assets (FRED JPNASSETS) show accelerating growth (>2% MoM for 3 months), it signals aggressive monetary easing that weakens the yen. Yen weakness is a direct tailwind for Japanese exporters (Toyota, Sony). EWJ (unhedged) benefits from both equity rally and FX tailwind for USD-based investors.",
+    "causal_chain": [
+      "FRED JPNASSETS (BOJ total assets) growth accelerates >2% MoM for 3 months",
+      "Aggressive BOJ balance sheet expansion signals sustained monetary easing",
+      "USD/JPY rises as interest rate differential widens \u2014 yen weakens",
+      "Japanese exporters see margins improve as domestic costs are yen-denominated",
+      "EWJ rallies 8-15% as equity appreciation + yen weakening compound for USD investors"
+    ],
+    "data_sources": [
+      "FRED JPNASSETS (BOJ total assets)",
+      "yfinance EWJ, DXJ (hedged Japan), FXY (yen)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Bank of Japan monetary policy statements; BOJ balance sheet data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "boj_assets_surge_ewj_long"
+  },
+  {
+    "idea_id": "PL189",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "USDA Weekly Export Inspections Wheat Above 5yr Avg \u2192 Long Wheat Futures Short-Term",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-3 weeks",
+    "thesis": "USDA publishes weekly Export Inspections (free, Monday). When wheat export inspections exceed the 5-year seasonal average by >30% for 2 consecutive weeks, it signals unexpected foreign demand (often from MENA countries after poor harvests). Wheat futures (ZW=F) rally 3-8% over the following 2 weeks as the market reprices export demand.",
+    "causal_chain": [
+      "USDA weekly export inspections for wheat exceed 5yr seasonal avg by >30% for 2 weeks",
+      "Elevated inspections signal unexpected foreign demand \u2014 likely MENA or Asian buyers",
+      "Foreign demand surge tightens US exportable surplus projections",
+      "USDA revises export forecast upward in next WASDE report",
+      "ZW=F rallies 3-8% over 2 weeks as export-driven tightness repriced"
+    ],
+    "data_sources": [
+      "USDA Export Inspections (free weekly)",
+      "yfinance ZW=F (wheat futures)",
+      "FRED PWHEAMTUSDM (IMF wheat price)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA FAS Export Inspections; GASC tender records",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_wheat_export_inspections_surge"
+  },
+  {
+    "idea_id": "PL190",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "NOAA US Drought Monitor D3+ Coverage Expansion \u2192 Long Ag Equipment (DE, AGCO, CNHI)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the US Drought Monitor shows D3 (Extreme) or D4 (Exceptional) drought coverage expanding across >15% of contiguous US cropland, agricultural equipment companies (DE, AGCO) counterintuitively benefit in the medium term. Drought triggers crop insurance payouts that fund equipment replacement, USDA disaster assistance increases farm liquidity, and post-drought years see accelerated planting/tilling driving equipment demand.",
+    "causal_chain": [
+      "NOAA US Drought Monitor shows D3/D4 coverage expands to >15% of US cropland",
+      "USDA activates emergency programs \u2014 disaster payments boost farm liquidity",
+      "Crop insurance payouts exceed premiums paid \u2014 farmers receive cash infusions",
+      "Post-drought year sees aggressive planting/soil remediation \u2014 equipment demand surges",
+      "DE, AGCO rally 8-15% as forward order books strengthen on anticipated post-drought demand"
+    ],
+    "data_sources": [
+      "NOAA US Drought Monitor (free weekly)",
+      "USDA crop insurance reports (free)",
+      "yfinance DE, AGCO, CNHI"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA/USDA US Drought Monitor; USDA RMA crop insurance data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "drought_d3_expansion_ag_equipment"
+  },
+  {
+    "idea_id": "PL191",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED PCEPILFE Core PCE Supercore (Services Ex-Housing) Deceleration \u2192 Long REITs (VNQ)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When 'supercore' PCE (core services ex-housing, derived from FRED PCEPILFE minus shelter and goods components) decelerates for 3 consecutive months, it signals the Fed's most-watched inflation measure is easing. REITs (VNQ) benefit disproportionately because they are the most rate-sensitive equity sector. Supercore deceleration = Fed rate cut expectations = REIT re-rating.",
+    "causal_chain": [
+      "Core PCE services ex-housing ('supercore') decelerates 3 consecutive months",
+      "Fed's preferred inflation measure easing \u2014 rate cut expectations build",
+      "Long-duration equities benefit most \u2014 REITs are effectively leveraged long-duration plays",
+      "Cap rate decompression expectations improve REIT NAV estimates",
+      "VNQ outperforms SPY by 5-10% over following 2 months as rate expectations ease"
+    ],
+    "data_sources": [
+      "FRED PCEPILFE (Core PCE)",
+      "FRED CUSR0000SASLE (services less energy CPI proxy)",
+      "yfinance VNQ, XLRE, SPY, TLT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BEA PCE release; Fed meeting minutes referencing supercore",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "supercore_pce_deceleration_reits"
+  },
+  {
+    "idea_id": "PL192",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED WPUSI0191RG PPI Copper & Copper Products Recovery \u2192 Long Electrical Infrastructure (EATON, NVT)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the PPI for copper and copper products (FRED WPUSI0191RG or proxy WPU1022) recovers >10% from trough, it signals a broad electrical infrastructure demand recovery. Companies making electrical distribution equipment (ETN/Eaton, NVT/nVent, HUBB) rally as copper demand recovery confirms grid modernization and data center buildout spending is accelerating.",
+    "causal_chain": [
+      "FRED copper/copper products PPI recovers >10% from recent trough",
+      "Copper demand recovery confirms electrical infrastructure spending acceleration",
+      "Grid modernization (IRA/IIJA funding), data center buildout, EV charging all drive copper demand",
+      "Electrical equipment makers (ETN, NVT, HUBB) see order books strengthen",
+      "Electrical infrastructure stocks rally 10-15% as demand acceleration confirmed"
+    ],
+    "data_sources": [
+      "FRED WPU1022 (PPI copper and copper products)",
+      "FRED PCOPPUSDM (copper price)",
+      "yfinance ETN, NVT, HUBB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS PPI metals series; EEI utility capex survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "copper_ppi_recovery_electrical_infra"
+  },
+  {
+    "idea_id": "PL193",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED ALTSALES Light Vehicle Sales Surge >17M SAAR \u2192 Long Auto Dealer Groups (AN, PAG, LAD)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When total light vehicle sales (FRED ALTSALES) surge above 17 million SAAR after a period below 15M, auto dealer groups (AN, PAG, LAD) rally sharply. Dealers benefit from both higher volume and elevated per-unit margins during recovery phases (pent-up demand allows pricing power). Dealer groups outperform OEMs because they capture both new and used vehicle margin expansion.",
+    "causal_chain": [
+      "FRED ALTSALES (light vehicle sales SAAR) crosses above 17M after being <15M",
+      "Pent-up demand surge \u2014 consumers who deferred purchases during downturn return",
+      "Auto dealer groups see both volume surge and per-unit margin expansion",
+      "Used vehicle prices remain elevated supporting trade-in values and used margins",
+      "AN, PAG, LAD rally 15-25% over 2 months as revenue and margin both expand"
+    ],
+    "data_sources": [
+      "FRED ALTSALES (light vehicle sales SAAR)",
+      "FRED AISRSA (auto inventory/sales ratio)",
+      "yfinance AN, PAG, LAD"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Vehicle Sales; NADA Data annual reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "altsales_17m_surge_dealer_groups"
+  },
+  {
+    "idea_id": "PL194",
+    "created_at": "2026-05-26T23:30:17.967372+00:00",
+    "status": "developed",
+    "name": "FRED INDPRO Industrial Production YoY Crossing Zero From Below \u2192 Long Materials Sector (XLB)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When total industrial production (FRED INDPRO) YoY growth crosses zero from negative territory (i.e., production stops contracting), the materials sector (XLB) outperforms SPY by 5-10% over the following 2 months. Materials have the highest operating leverage to production recovery \u2014 volume increases hit margins before pricing even improves.",
+    "causal_chain": [
+      "FRED INDPRO YoY growth crosses zero from negative \u2014 production contraction ending",
+      "Manufacturing demand recovery signals improving end-market conditions",
+      "Materials companies (chemicals, metals, packaging) see volume increase",
+      "High operating leverage means margin expansion precedes revenue growth",
+      "XLB outperforms SPY by 5-10% over following 2 months as cycle turns"
+    ],
+    "data_sources": [
+      "FRED INDPRO (total industrial production index)",
+      "FRED IPMAN (manufacturing IP)",
+      "yfinance XLB, SPY, VAW"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve G.17 Industrial Production release",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "indpro_yoy_cross_zero_xlb_long"
+  },
+  {
+    "idea_id": "PL195",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED XTEXVA01CNM667S China Exports Volume Surge \u2192 Long Dry Bulk Shippers (SBLK, GNK)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When China's export volume index (proxied by FRED XTEXVA01CNM667S or similar OECD trade series) surges >10% MoM, it signals a Chinese manufacturing recovery. Dry bulk shippers (SBLK, GNK, GOGL) benefit as increased Chinese manufacturing drives demand for raw material imports (iron ore, coal, grain), boosting freight rates with a 2-4 week lag.",
+    "causal_chain": [
+      "China export volume index surges >10% MoM \u2014 manufacturing recovery underway",
+      "Higher Chinese output = increased demand for imported raw materials (iron ore, coal)",
+      "Dry bulk freight demand rises \u2014 BDI increases with 2-4 week lag",
+      "Dry bulk shipper daily earnings improve significantly (high operating leverage)",
+      "SBLK, GNK rally 10-20% over following month as spot rate improvement flows to earnings"
+    ],
+    "data_sources": [
+      "FRED XTEXVA01CNM667S (China export volume)",
+      "yfinance SBLK, GNK, GOGL, BDRY (dry bulk ETF)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "OECD international trade data; Clarksons Shipping Intelligence",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "china_export_volume_dry_bulk_long"
+  },
+  {
+    "idea_id": "PL196",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED PCUOMFG PPI Output Manufacturing Acceleration \u2192 Long Packaging Companies (PKG, SEE, IP)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the PPI for total manufacturing output (FRED PCUOMFG or proxy PPIMAN) accelerates for 3 months, packaging companies (PKG, SEE, IP) rally as rising output means more goods need to be packaged. Packaging is a 'toll booth' on manufacturing activity \u2014 volume-sensitive with 60-70% fixed costs providing high operating leverage on incremental output.",
+    "causal_chain": [
+      "FRED PPI manufacturing output accelerates for 3 consecutive months",
+      "Higher manufacturing output = more goods produced = more packaging needed",
+      "Containerboard (PKG, IP) and flexible packaging (SEE) see volume improvement",
+      "High fixed-cost structure means incremental volume drops to bottom line at 60-70% margin",
+      "Packaging stocks rally 8-12% as volume recovery drives earnings leverage"
+    ],
+    "data_sources": [
+      "FRED PPIMAN (PPI manufacturing)",
+      "FRED IPMAN (manufacturing IP)",
+      "yfinance PKG, SEE, IP, GPK"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS PPI; Fibre Box Association (FBA) shipments data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ppi_mfg_acceleration_packaging_long"
+  },
+  {
+    "idea_id": "PL197",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED CUUR0000SAT1 CPI Transportation Services Surge \u2192 Long Auto Insurance Companies (ALL, PGR, CB)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When CPI transportation services (FRED CUSR0000SAS4, which includes motor vehicle insurance) surges >8% YoY, it signals auto insurers are successfully pushing through rate increases. P&C insurers with heavy auto lines (ALL, PGR, TRV) see combined ratios improve dramatically as earned premium grows faster than claims. Insurance stocks rally 8-15% as underwriting profitability improves.",
+    "causal_chain": [
+      "FRED CUSR0000SAS4 (CPI transportation services) surges >8% YoY",
+      "Auto insurance premium rate increases flowing through to CPI measurement",
+      "Earned premium growth exceeds loss cost growth for well-managed carriers",
+      "Combined ratios improve 3-5 points as rate adequacy established",
+      "ALL, PGR rally 8-15% as underwriting profitability visible in quarterly results"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SAS4 (CPI transportation services)",
+      "FRED CUSR0000SETC (motor vehicle insurance CPI)",
+      "yfinance ALL, PGR, TRV, CB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI transportation component; AM Best P&C underwriting data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_transport_surge_auto_insurers"
+  },
+  {
+    "idea_id": "PL198",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED B020RE1Q156NBEA Nonresidential Software Investment Acceleration \u2192 Long Cloud/SaaS (WCLD, SKYY)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When real private nonresidential fixed investment in software (FRED Y033RE1Q156NBEA or B020RE1Q156NBEA) accelerates for 2 consecutive quarters, it signals enterprise IT spending cycle recovery. Cloud/SaaS ETFs (WCLD, SKYY) rally 10-15% as enterprise software budgets are the first line item restored after a capex downturn.",
+    "causal_chain": [
+      "FRED real nonresidential software investment accelerates 2 consecutive quarters",
+      "Enterprise IT budget cycle turning positive \u2014 software spending first to recover",
+      "Cloud migration and SaaS subscription growth re-accelerate",
+      "CIOs increase annual recurring revenue commitments to cloud vendors",
+      "WCLD, SKYY rally 10-15% over following quarter as billings growth inflects"
+    ],
+    "data_sources": [
+      "FRED Y033RE1Q156NBEA (real software investment)",
+      "FRED B020RE1Q156NBEA (nominal software investment)",
+      "yfinance WCLD, SKYY, IGV"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA GDP release; Gartner IT Spending Forecast",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "software_investment_acceleration_cloud"
+  },
+  {
+    "idea_id": "PL199",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED DTCTHFNM Consumer Auto Loan Originations Recovery \u2192 Long Used Car Dealers (KMX, CVNA)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When auto loan originations (proxied by FRED DTCTHFNM finance company owned auto loans, or total motor vehicle loans outstanding) show 3 consecutive months of growth after decline, used car dealers (KMX, CVNA) rally sharply. Auto loan availability is the binding constraint on used car sales \u2014 when credit flows resume, transaction volumes surge before pricing improves.",
+    "causal_chain": [
+      "FRED motor vehicle loans outstanding shows 3 consecutive months of growth after decline",
+      "Auto loan credit availability improving \u2014 lenders easing standards",
+      "Used car transaction volume surges as credit-constrained buyers can now finance",
+      "KMX, CVNA see units sold inflect upward before GPU (gross profit per unit) improves",
+      "Used car dealer stocks rally 15-25% from trough as volume recovery drives revenue"
+    ],
+    "data_sources": [
+      "FRED DTCTHFNM (finance company motor vehicle loans)",
+      "FRED MVLOAS (motor vehicle loans outstanding)",
+      "yfinance KMX, CVNA, AN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve G.19 Consumer Credit; Manheim Used Vehicle Index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "auto_loan_origination_used_car_dealers"
+  },
+  {
+    "idea_id": "PL200",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED PCUA Personal Consumption on Computing/Communication Equipment Surge \u2192 Long Semiconductor (SMH)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When personal consumption expenditures on information processing equipment (FRED DODGRG3M086SBEA or computing/communication equipment PCE) surge >10% YoY, it signals a consumer tech upgrade cycle. Semiconductor companies (via SMH) benefit as consumer device demand drives chip orders. The PCE data leads semiconductor revenue by 1-2 quarters.",
+    "causal_chain": [
+      "FRED PCE on computing/communication equipment surges >10% YoY",
+      "Consumer tech upgrade cycle underway \u2014 PC, smartphone, tablet replacement demand",
+      "Consumer electronics OEMs increase chip orders to meet demand",
+      "Semiconductor companies see wafer starts and utilization rates increase",
+      "SMH rallies 8-15% over following 2 months as consumer demand flows to chip earnings"
+    ],
+    "data_sources": [
+      "FRED DODGRG3M086SBEA (PCE durable goods)",
+      "FRED PCEDG (PCE durable goods total)",
+      "yfinance SMH, SOXX, QCOM, AVGO"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA Personal Income and Outlays; SIA semiconductor sales data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "pce_computing_surge_semiconductor"
+  },
+  {
+    "idea_id": "PL201",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SAM CPI Medical Care Commodities Trough \u2192 Long Generic Pharma (TEVA, MYL proxy)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When CPI for medical care commodities (FRED CUSR0000SAM, which includes prescription drugs) troughs and begins rising after a deflationary period, generic pharma companies (TEVA, generic drug-exposed names) benefit. The trough signals generic drug pricing stabilization after competitive pressure, meaning margins stop compressing and earnings estimates stabilize.",
+    "causal_chain": [
+      "FRED CUSR0000SAM (CPI medical care commodities) troughs after deflationary period",
+      "Generic drug pricing stabilization signals end of competitive pricing pressure",
+      "Generic pharma companies see revenue per prescription stabilize",
+      "Earnings estimate revisions stop declining \u2014 bottoming process begins",
+      "TEVA and generic-exposed pharma rally 10-20% from trough as margin compression ends"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SAM (CPI medical care commodities)",
+      "FRED CUUR0000SAM1 (CPI prescription drugs)",
+      "yfinance TEVA, IHE, XBI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS CPI medical components; IQVIA prescription drug pricing trends",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_rx_commodities_trough_generic_pharma"
+  },
+  {
+    "idea_id": "PL202",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED HLTHSCPSA Healthcare Construction Spending Acceleration \u2192 Long Medical Device Companies (SYK, ZBH, MDT)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When healthcare construction spending (FRED HLTHSCPSA) accelerates for 3 consecutive months, it signals hospital systems are expanding capacity. New hospital wings and outpatient centers require medical equipment \u2014 surgical robots, imaging systems, hospital beds. Medical device companies (SYK, ZBH, MDT) rally with a 2-3 quarter lag as construction completion triggers equipment procurement.",
+    "causal_chain": [
+      "FRED HLTHSCPSA (healthcare construction spending) accelerates 3 consecutive months",
+      "Hospital systems expanding \u2014 new wings, outpatient centers, ambulatory surgery centers",
+      "Construction completion in 12-18 months triggers medical equipment procurement cycle",
+      "SYK (surgical robots), ZBH (orthopedic implants), MDT (cardiac devices) see order flow",
+      "Medical device stocks rally 8-12% as forward order visibility improves"
+    ],
+    "data_sources": [
+      "FRED HLTHSCPSA (healthcare construction spending)",
+      "FRED TLHLTHCONS (total health construction)",
+      "yfinance SYK, ZBH, MDT, IHI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau C30 Construction Spending; AHA Hospital Construction Survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "healthcare_construction_medical_device"
+  },
+  {
+    "idea_id": "PL203",
+    "created_at": "2026-05-26T23:31:29.133360+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SETA01 CPI New Vehicles YoY Deflation \u2192 Long Auto OEMs (F, GM, TM) Margin Recovery",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "Counterintuitively, when CPI new vehicles (FRED CUSR0000SETA01) goes YoY negative (vehicle price deflation), auto OEMs rally within 2 months. The price deflation signals inventory normalization \u2014 lots are full, incentives return to normal, and the market stops fearing demand destruction. Volume recovery from normalized pricing more than offsets lower per-unit margins.",
+    "causal_chain": [
+      "FRED CUSR0000SETA01 (CPI new vehicles) turns YoY negative \u2014 vehicle price deflation",
+      "Price deflation signals dealer inventory normalization after post-COVID shortage premium",
+      "Normalized pricing removes demand destruction from unaffordability",
+      "Vehicle sales volume recovers as average transaction prices become more accessible",
+      "F, GM rally 8-12% as volume recovery offsets per-unit margin normalization"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SETA01 (CPI new vehicles)",
+      "FRED ALTSALES (light vehicle sales SAAR)",
+      "yfinance F, GM, TM, CARZ"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI motor vehicle components; Ward's Auto SAAR data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_new_vehicles_deflation_oem_long"
+  },
+  {
+    "idea_id": "PL204",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED LOADFACTOR Airline Load Factor Peak \u2192 Long Airport/Ground Services (AENA analog: FLR, AECOM)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When BTS airline load factor (available free from BTS T-100) exceeds 87% for 3 consecutive months, it signals airports are capacity-constrained. Airport engineering and construction companies (FLR, AECOM, J) benefit as airport authorities accelerate terminal expansion capital programs. Load factor >87% is the inflection point where FAA runway delay data spikes, triggering Congressional and local pressure for airport investment.",
+    "causal_chain": [
+      "BTS airline load factor exceeds 87% for 3 consecutive months",
+      "FAA OPSNET data shows increasing runway delays at major hubs",
+      "Airport authorities accelerate terminal expansion and runway projects",
+      "Engineering/construction firms (FLR, AECOM, J) win airport infrastructure contracts",
+      "Infrastructure engineering stocks rally 8-12% as airport capex pipeline builds"
+    ],
+    "data_sources": [
+      "BTS T-100 load factor data (free)",
+      "FAA OPSNET delay data (free)",
+      "yfinance FLR, ACM, J, JETS"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "BTS Air Carrier Statistics T-100; FAA OPSNET runway delay database",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "airline_load_factor_airport_construction"
+  },
+  {
+    "idea_id": "PL205",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED CASS Cass Freight Index Shipments YoY Inflection \u2192 Long LTL Truckers (ODFL, SAIA, XPO)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Cass Freight Index shipments component (available free from Cass Information Systems) shows YoY rate of change improving for 3 consecutive months (even if still negative), LTL carriers (ODFL, SAIA, XPO) outperform truckload by 2:1. LTL has higher barriers to entry (terminal networks), meaning capacity stays disciplined even in downturns, so volume recovery drops straight to the bottom line.",
+    "causal_chain": [
+      "Cass Freight Index shipments YoY rate of change improves 3 consecutive months",
+      "Freight volume trough confirmed \u2014 manufacturing destocking cycle ending",
+      "LTL carriers (ODFL, SAIA, XPO) have disciplined capacity \u2014 terminal networks intact",
+      "Volume recovery flows directly to margins due to high fixed-cost terminal networks",
+      "LTL stocks rally 12-20% and outperform truckload (KNX, WERN) by 2:1 from freight trough"
+    ],
+    "data_sources": [
+      "Cass Freight Index (free monthly report)",
+      "FRED TSIFRGHT (TSI freight index)",
+      "yfinance ODFL, SAIA, XPO, KNX"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Cass Information Systems Cass Freight Index; ATA Truck Tonnage",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cass_freight_inflection_ltl_truckers"
+  },
+  {
+    "idea_id": "PL206",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED TTLHHM156N Total Household Mortgage Debt Stabilization \u2192 Long Mortgage Originators (RKT, UWMC)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When total household mortgage debt (FRED MDOAH or TTLHHM156N from NY Fed) stabilizes after a period of slowing growth (QoQ change near zero but positive), it signals the mortgage market trough. Non-bank mortgage originators (RKT, UWMC) rally 20-30% from trough as origination volumes bottom and refi activity begins to recover when rates ease even slightly.",
+    "causal_chain": [
+      "FRED household mortgage debt QoQ growth stabilizes near zero after deceleration",
+      "Mortgage origination market troughing \u2014 no further volume decline",
+      "Slight rate decrease (25-50bps) triggers wave of refinancing activity",
+      "Non-bank originators (RKT, UWMC) see application volume surge from trough",
+      "Mortgage originator stocks rally 20-30% from trough as volume recovery begins"
+    ],
+    "data_sources": [
+      "FRED MDOAH (mortgage debt outstanding)",
+      "FRED MORTGAGE30US (30yr mortgage rate)",
+      "yfinance RKT, UWMC"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NY Fed Household Debt and Credit Report; MBA Mortgage Applications Index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mortgage_debt_stabilization_originators"
+  },
+  {
+    "idea_id": "PL207",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "EIA Monthly Electric Power Renewable Generation Share Crossing New High \u2192 Long Clean Energy (ICLN, TAN)",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When EIA Monthly Electric Power data shows renewable generation (wind + solar) share of total US electricity crosses a new quarterly high, it signals acceleration in the energy transition. Clean energy ETFs (ICLN, TAN) rally as the data confirms deployment is accelerating and policy momentum is positive. The generation share data is a lagging confirmer that validates forward deployment expectations.",
+    "causal_chain": [
+      "EIA Electric Power Monthly shows renewable generation share crosses new quarterly high",
+      "Data confirms energy transition acceleration \u2014 policy and economics aligned",
+      "Investors increase allocation to clean energy as growth trajectory confirmed",
+      "Solar and wind developers (FSLR, ENPH, NEE) see valuation multiple expansion",
+      "ICLN, TAN rally 8-15% as generation data confirms deployment acceleration"
+    ],
+    "data_sources": [
+      "EIA Electric Power Monthly (free)",
+      "EIA electricity generation by source (free)",
+      "yfinance ICLN, TAN, FSLR, ENPH"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "EIA Electric Power Monthly; IRENA Renewable Capacity Statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_renewable_share_new_high_clean_energy"
+  },
+  {
+    "idea_id": "PL208",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED ELECT000000 PPI Electricity Surge \u2192 Long Regulated Utilities (NEE, DUK, SO) Revenue Growth",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When PPI for electricity (FRED WPU0542 or CUSR0000SEHF01 electricity CPI) surges >10% YoY, regulated utilities with fuel cost pass-through mechanisms see revenue growth accelerate without margin compression. Utilities (NEE, DUK, SO) with formula rate plans benefit because higher electricity prices flow directly to revenue while authorized returns are unchanged.",
+    "causal_chain": [
+      "FRED electricity PPI/CPI surges >10% YoY \u2014 electricity prices rising across the board",
+      "Regulated utilities with fuel adjustment clauses pass through higher costs to ratepayers",
+      "Revenue growth accelerates while authorized ROE remains unchanged by rate cases",
+      "Earnings per share benefit from revenue growth on flat or slowly growing rate base",
+      "Utility stocks rally 5-8% as revenue growth narrative attracts yield-seeking investors"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SEHF01 (CPI electricity)",
+      "FRED WPU0542 (PPI electric power)",
+      "yfinance NEE, DUK, SO, XLU"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS PPI electricity series; EEI Industry Statistical Yearbook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "electricity_ppi_surge_regulated_utilities"
+  },
+  {
+    "idea_id": "PL209",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED TOTALSA EV Adoption Proxy (via Tesla Sales Share) \u2192 Long Lithium Miners (ALB, SQM, LAC)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When total vehicle sales (FRED TOTALSA) show EV penetration crossing new high (proxied by Tesla quarterly deliveries as % of US light vehicle sales), lithium miners (ALB, SQM, LAC) benefit from forward demand expectations. Each 1pp of EV penetration increase represents ~150,000 additional vehicles annually requiring ~1,500 tonnes of lithium carbonate equivalent. Lithium miners rally as demand projections are revised upward.",
+    "causal_chain": [
+      "Tesla quarterly deliveries as % of FRED TOTALSA crosses new quarterly high",
+      "EV penetration acceleration confirmed \u2014 broader EV market growing even faster than Tesla alone",
+      "Each 1pp EV penetration = ~1,500 tonnes additional lithium carbonate demand annually",
+      "Lithium supply is constrained \u2014 new mines take 5-7 years to develop",
+      "Lithium miners (ALB, SQM, LAC) rally 10-20% as forward demand expectations increase"
+    ],
+    "data_sources": [
+      "FRED TOTALSA (total vehicle sales SAAR)",
+      "yfinance TSLA, ALB, SQM, LAC, LIT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "IEA Global EV Outlook; USGS Mineral Commodity Summaries (lithium)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ev_penetration_new_high_lithium_miners"
+  },
+  {
+    "idea_id": "PL210",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SAF11 CPI Food at Home Deceleration \u2192 Long Grocery Chains (KR, ACI, GO)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When CPI food at home (FRED CUSR0000SAF11) decelerates from >8% YoY to <4% YoY over 6 months, grocery chains (KR, ACI, GO/Grocery Outlet) benefit. The deceleration means input cost pressure is easing but shelf prices adjust slowly \u2014 creating a margin windfall. Grocery chains see gross margin expansion of 50-100bps during the deceleration phase.",
+    "causal_chain": [
+      "FRED CUSR0000SAF11 (CPI food at home) decelerates from >8% to <4% YoY over 6 months",
+      "Wholesale food input costs (PPI food) decelerate faster than shelf price adjustments",
+      "Grocery chains maintain elevated shelf prices while COGS decline \u2014 margin expansion",
+      "Gross margins expand 50-100bps during deceleration phase (prices sticky, costs falling)",
+      "KR, ACI outperform XLP by 5-8% during food inflation deceleration phase"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SAF11 (CPI food at home)",
+      "FRED WPU02 (PPI processed foods)",
+      "yfinance KR, ACI, GO, XLP"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI food components; USDA ERS Food Price Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cpi_food_deceleration_grocery_margin"
+  },
+  {
+    "idea_id": "PL211",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED PCUASERV PPI Airline Services Collapse \u2192 Long Airlines Contrarian (JETS) Post-Trough",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the PPI for airline services (proxy: FRED CPI air transportation CUSR0000SETG01) drops >15% YoY, it signals airlines are in a price war and demand trough. Counterintuitively, this is the signal to go long \u2014 capacity cuts follow within 2-3 months, and the stocks have already priced in the worst. JETS rallies 15-25% from the PPI trough as capacity discipline restores pricing power.",
+    "causal_chain": [
+      "FRED CUSR0000SETG01 (CPI airline fares) drops >15% YoY \u2014 fare war and demand trough",
+      "Airlines respond with capacity cuts \u2014 schedule reductions announced within 2-3 months",
+      "Weaker carriers reduce routes \u2014 surviving airlines see load factors improve",
+      "Fuel costs often declining at same time (correlated with demand weakness)",
+      "JETS ETF rallies 15-25% from trough as capacity discipline restores pricing"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SETG01 (CPI airline fares)",
+      "BTS T-100 data (free)",
+      "yfinance JETS, UAL, DAL, LUV"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS CPI air transportation; BTS airline statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "airline_fare_cpi_collapse_contrarian"
+  },
+  {
+    "idea_id": "PL212",
+    "created_at": "2026-05-26T23:32:51.215180+00:00",
+    "status": "developed",
+    "name": "FRED RSXFS Retail Sales ex-Food Services Control Group Surge \u2192 Long Payment Processors (V, MA, SQ)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the retail sales control group (FRED RSXFS, ex-food services, auto dealers, building materials, gas stations) surges >0.5% MoM for 2 consecutive months, payment processors (V, MA, SQ) rally as transaction volumes increase. Payment processors are 'toll booths' on consumer spending \u2014 they take a percentage of each transaction regardless of what's being sold.",
+    "causal_chain": [
+      "FRED RSXFS (retail sales control group) surges >0.5% MoM for 2 consecutive months",
+      "Consumer spending acceleration drives higher card transaction volumes",
+      "Payment processors take fixed % of each transaction \u2014 revenue scales linearly with spending",
+      "V, MA see cross-border volumes also improve as domestic spending strength correlates with travel",
+      "Payment processor stocks rally 5-10% as transaction volume growth accelerates"
+    ],
+    "data_sources": [
+      "FRED RSXFS (retail sales control group)",
+      "FRED RSAFS (total retail sales)",
+      "yfinance V, MA, SQ, PYPL"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau Advance Retail Sales; Visa/Mastercard quarterly earnings",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rsxfs_surge_payment_processors"
+  },
+  {
+    "idea_id": "PL213",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED ECOMPCTSA E-Commerce Share of Retail Sales New Quarterly High \u2192 Long Logistics REITs (PLD, REXR)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When e-commerce as % of total retail sales (FRED ECOMPCTSA) crosses a new quarterly high, logistics/warehouse REITs (PLD/Prologis, REXR) benefit as incremental e-commerce volume requires 3x the warehouse space of traditional retail. Each 1pp increase in e-commerce share represents ~300M sqft of additional warehouse demand. PLD and REXR outperform VNQ during e-commerce acceleration phases.",
+    "causal_chain": [
+      "FRED ECOMPCTSA (e-commerce % of retail) crosses new quarterly high",
+      "E-commerce acceleration confirmed \u2014 structural shift continuing",
+      "Each 1pp e-commerce share increase = ~300M sqft additional warehouse demand (CBRE estimate)",
+      "Logistics REITs (PLD, REXR) see occupancy and rent growth accelerate",
+      "PLD, REXR outperform VNQ by 5-8% in quarters with new e-commerce share highs"
+    ],
+    "data_sources": [
+      "FRED ECOMPCTSA (e-commerce as % of retail sales)",
+      "FRED RSAFS (total retail sales)",
+      "yfinance PLD, REXR, VNQ"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau Quarterly Retail E-Commerce Sales; CBRE warehouse demand research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ecommerce_share_high_logistics_reits"
+  },
+  {
+    "idea_id": "PL214",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED BOGZ1FA106130005Q Nonfinancial Corporate Profits Recovery \u2192 Long SPY Earnings Expansion",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When nonfinancial corporate profits (FRED CP or BOGZ1FA106130005Q) show 2 consecutive quarters of YoY growth after a decline, SPY rallies 8-12% over the following quarter as earnings expansion drives valuation support. Corporate profits from NIPA data lead S&P 500 EPS by 1-2 quarters because BEA captures the full universe of businesses, not just public companies.",
+    "causal_chain": [
+      "FRED CP (corporate profits with IVA and CCAdj) shows 2 quarters of YoY growth after decline",
+      "BEA NIPA profits lead S&P 500 EPS by 1-2 quarters \u2014 captures full economy",
+      "S&P 500 earnings estimates revised upward as economy-wide profitability recovers",
+      "Forward P/E appears more attractive as denominator (E) increases",
+      "SPY rallies 8-12% over following quarter as earnings expansion confirms"
+    ],
+    "data_sources": [
+      "FRED CP (corporate profits with IVA and CCAdj)",
+      "FRED A053RC1Q027SBEA (corporate profits after tax)",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA NIPA corporate profits; Federal Reserve Z.1 Financial Accounts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nipa_corp_profits_recovery_spy"
+  },
+  {
+    "idea_id": "PL215",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED LOANINV Bank Loan-to-Deposit Ratio Trough \u2192 Long KRE Bank Lending Cycle",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the bank loan-to-deposit ratio (computable from FRED TOTLL/DPSACBW027SBOG or similar H.8 data) troughs and begins rising, it signals banks are transitioning from hoarding deposits to deploying them into loans. This is the earliest signal of a new credit expansion cycle. Regional banks (KRE) rally 15-25% from loan-to-deposit trough as NII growth expectations improve.",
+    "causal_chain": [
+      "Bank loan-to-deposit ratio (FRED TOTLL / DPSACBW027SBOG) troughs and begins rising",
+      "Banks shifting from deposit hoarding to loan deployment \u2014 credit cycle turning",
+      "Loan growth drives net interest income expansion \u2014 banks' primary revenue driver",
+      "NII estimates revised upward for regional banks (higher loan/deposit sensitivity)",
+      "KRE rallies 15-25% from loan-to-deposit trough as credit expansion cycle begins"
+    ],
+    "data_sources": [
+      "FRED TOTLL (total loans and leases)",
+      "FRED DPSACBW027SBOG (deposits at commercial banks)",
+      "yfinance KRE, KBE"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.8 release; FDIC Quarterly Banking Profile",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "loan_deposit_ratio_trough_kre"
+  },
+  {
+    "idea_id": "PL216",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED PZINC IMF Zinc Price Recovery \u2192 Long Galvanized Steel Users (Automakers, Infrastructure)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4-8 weeks",
+    "thesis": "When IMF zinc price (FRED PZINCUSDM) recovers >20% from trough, it signals global industrial demand recovery (zinc is 60% used for galvanizing steel). This is a cleaner industrial cycle indicator than copper because zinc has less speculative/financial positioning. The zinc recovery signal leads XLI (industrials) by 4-6 weeks with 75%+ hit rate historically.",
+    "causal_chain": [
+      "FRED PZINCUSDM (IMF zinc price) recovers >20% from trough",
+      "Zinc recovery signals global galvanized steel demand improving",
+      "Galvanized steel demand = auto production + infrastructure construction recovering",
+      "Industrial sector earnings estimates revised upward as end-market demand improves",
+      "XLI rallies 5-8% over following 4-6 weeks, led by machinery and capital goods"
+    ],
+    "data_sources": [
+      "FRED PZINCUSDM (IMF zinc price)",
+      "FRED PZINC (zinc price)",
+      "yfinance XLI, CAT, URI, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "IMF Primary Commodity Prices; ILZSG zinc supply/demand balance",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "zinc_price_recovery_industrials"
+  },
+  {
+    "idea_id": "PL217",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED PLOGORE IMF Iron Ore Price 3-Month Surge \u2192 Long Australian Dollar (FXA) and BHP",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "2-6 weeks",
+    "thesis": "When IMF iron ore price (FRED PIORECRUSDM) surges >25% in 3 months, the Australian dollar (FXA) and Australian miners (BHP, RIO) rally with a 1-2 week lag. Australia's terms of trade are dominated by iron ore exports \u2014 a 25% price increase improves Australia's current account by ~0.5% of GDP, strengthening AUD. BHP has 60%+ EBITDA from iron ore.",
+    "causal_chain": [
+      "FRED PIORECRUSDM (iron ore price) surges >25% in 3-month window",
+      "Australia's terms of trade improve dramatically \u2014 iron ore is largest export",
+      "AUD strengthens vs USD as current account improves and hot money flows to Aussie assets",
+      "BHP (60%+ EBITDA from iron ore) sees earnings estimates revised up 20-30%",
+      "FXA rallies 3-5%, BHP rallies 10-15% over following 2-4 weeks"
+    ],
+    "data_sources": [
+      "FRED PIORECRUSDM (IMF iron ore price)",
+      "yfinance FXA, BHP, RIO, PICK"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "IMF Primary Commodity Prices; RBA Terms of Trade Index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "iron_ore_surge_aud_bhp_long"
+  },
+  {
+    "idea_id": "PL218",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED PNICKUSDM Nickel Price Collapse \u2192 Long Stainless Steel End-Users (SWK, SNA, GWW)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When IMF nickel price (FRED PNICKUSDM) collapses >25% in 3 months, stainless steel costs decline dramatically (nickel is 8-10% of stainless steel cost). Industrial distributors and tool makers that use stainless steel (SWK, SNA, GWW) see input costs decline while selling prices remain stable \u2014 creating a margin windfall visible in the next quarter's earnings.",
+    "causal_chain": [
+      "FRED PNICKUSDM (nickel price) collapses >25% in 3 months",
+      "Stainless steel prices decline with 4-8 week lag as mills pass through lower nickel costs",
+      "Industrial tool and equipment makers (SWK, SNA) see raw material costs decline",
+      "Selling prices remain stable (contract-based, slow to adjust) \u2014 margin windfall",
+      "SWK, SNA, GWW see gross margin expansion of 100-200bps in next quarterly earnings"
+    ],
+    "data_sources": [
+      "FRED PNICKUSDM (IMF nickel price)",
+      "yfinance SWK, SNA, GWW, XLI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "IMF Primary Commodity Prices; ISSF stainless steel production data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nickel_collapse_stainless_enduser_margin"
+  },
+  {
+    "idea_id": "PL219",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED WALCL Fed Balance Sheet Weekly Decline Pace Slowing \u2192 Long Duration (TLT) QT Tapering Signal",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "4-8 weeks",
+    "thesis": "When the pace of Fed balance sheet decline (FRED WALCL, weekly changes) slows \u2014 4-week rolling decline rate reduces by >50% \u2014 it signals QT tapering is imminent or underway. Long-duration Treasuries (TLT) rally 3-5% as the market prices in reduced Treasury supply pressure and eventual QT end. The balance sheet pace change leads the official QT taper announcement by 4-8 weeks.",
+    "causal_chain": [
+      "FRED WALCL (Fed total assets) 4-week rolling decline rate reduces by >50%",
+      "Slowing QT pace signals Fed approaching reserve scarcity threshold",
+      "Market anticipates official QT taper announcement \u2014 reduced Treasury supply ahead",
+      "Long-duration yields decline 15-25bps as term premium compresses",
+      "TLT rallies 3-5% over following month as QT tapering confirmed"
+    ],
+    "data_sources": [
+      "FRED WALCL (Fed total assets)",
+      "FRED WRESBAL (reserve balances)",
+      "yfinance TLT, IEF, SHY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.4.1 release; FOMC meeting minutes",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "walcl_qt_pace_slowing_long_tlt"
+  },
+  {
+    "idea_id": "PL220",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED WORAL Fed Total Repos Outstanding Surge \u2192 Short-Term Funding Stress Signal \u2192 Long Gold",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "thesis": "When the Fed's repo operations (FRED RRPONTSYD for reverse repo, or total repo facility usage) show a sudden surge in usage (>$50B increase in a week), it signals short-term funding stress in the banking system. Gold (GLD) rallies 2-5% over the following 2 weeks as the funding stress signal triggers safe-haven demand, even if the stress is 'contained'.",
+    "causal_chain": [
+      "Fed repo facility usage surges >$50B in a single week \u2014 funding stress signal",
+      "Interbank market shows signs of strain \u2014 SOFR spikes above IORB target",
+      "Financial media coverage amplifies concern about banking system liquidity",
+      "Safe-haven demand increases \u2014 gold and Treasuries benefit",
+      "GLD rallies 2-5% over following 2 weeks as funding stress triggers risk reduction"
+    ],
+    "data_sources": [
+      "FRED RRPONTSYD (overnight reverse repo facility)",
+      "FRED SOFR (Secured Overnight Financing Rate)",
+      "yfinance GLD, GDX, TLT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.4.1 repo operations; NY Fed repo data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fed_repo_surge_gold_safe_haven"
+  },
+  {
+    "idea_id": "PL221",
+    "created_at": "2026-05-26T23:34:11.940832+00:00",
+    "status": "developed",
+    "name": "FRED M1SL M1 Money Supply 6mo Rate of Change Positive After Contraction \u2192 Long Bitcoin (BTC-USD)",
+    "category": "G",
+    "asset_class": "multi-asset",
+    "horizon": "4-12 weeks",
+    "thesis": "When M1 money supply (FRED M1SL) 6-month rate of change turns positive after a contraction period, Bitcoin and risk assets rally as liquidity conditions improve. M1 growth leads Bitcoin price by 2-3 months because expanding narrow money supply signals increased transactional liquidity that eventually flows into speculative assets.",
+    "causal_chain": [
+      "FRED M1SL 6-month rate of change turns positive after period of contraction",
+      "Narrow money supply expansion signals improved liquidity conditions",
+      "Expanding M1 means more transactional balances available for deployment",
+      "Speculative assets (crypto, growth stocks) benefit from liquidity expansion with 2-3 month lag",
+      "BTC-USD rallies 20-40% over following quarter as liquidity cycle turns positive"
+    ],
+    "data_sources": [
+      "FRED M1SL (M1 money supply)",
+      "FRED M2SL (M2 money supply)",
+      "yfinance BTC-USD, IBIT, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.6 Money Stock Measures; Howell Global Liquidity Index methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "m1_growth_positive_bitcoin_long"
+  },
+  {
+    "idea_id": "PL222",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "NOAA HDD Spike in Dec-Feb \u2192 Long Propane Distributors (SPH, NGL, GLP)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "When winter HDD (Heating Degree Days, FRED CLVLNDCHDD or regional HDD data) spike >20% above normal for 2+ consecutive weeks during Dec-Feb, propane distributors benefit disproportionately. Propane is the primary heating fuel for 5.5M US homes (mostly rural). Distributors (SPH, NGL, GLP) see volume and per-gallon margin surge during cold spikes as retail propane prices spike faster than wholesale.",
+    "causal_chain": [
+      "NOAA HDD data shows 2+ consecutive weeks >20% above normal during Dec-Feb",
+      "Residential propane demand surges \u2014 5.5M US homes use propane for heating",
+      "Wholesale propane prices rise but retail prices rise faster \u2014 distributor margin expands",
+      "Propane distributors (SPH, NGL, GLP) see both volume and per-gallon margin increase",
+      "Distributor stocks rally 8-15% during cold spells as earnings expectations improve"
+    ],
+    "data_sources": [
+      "NOAA HDD data (free weekly)",
+      "FRED DPROPANEMBTX (propane spot price)",
+      "yfinance SPH, NGL, GLP"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "EIA Winter Fuels Outlook; NOAA Climate Prediction Center",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hdd_spike_propane_distributors_long"
+  },
+  {
+    "idea_id": "PL223",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "USDA NASS Cotton Crop Condition 'Poor/Very Poor' >30% \u2192 Long Cotton Futures (CT=F)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA NASS weekly crop condition reports rate cotton as Excellent/Good/Fair/Poor/Very Poor. When the combined 'Poor' and 'Very Poor' percentage exceeds 30% of the Texas cotton crop during July-August (peak growing season), US cotton production is at severe risk. Cotton futures (CT=F) rally 10-20% over the following month as abandonment rates increase and USDA cuts production estimates.",
+    "causal_chain": [
+      "USDA weekly crop condition shows Texas cotton 'Poor/Very Poor' >30% during Jul-Aug",
+      "Texas produces 40%+ of US cotton \u2014 crop stress signals major production shortfall",
+      "Abandonment rates increase as fields fail to reach economic yield threshold",
+      "USDA WASDE revises US cotton production estimate downward by >10%",
+      "Cotton futures (CT=F) rally 10-20% over following month as supply tightness confirmed"
+    ],
+    "data_sources": [
+      "USDA NASS Crop Progress/Condition (free weekly)",
+      "yfinance CT=F (cotton futures)",
+      "FRED PCOTTIND (cotton price)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS; NCC National Cotton Council; ICAC World Cotton Statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "texas_cotton_poor_condition_futures"
+  },
+  {
+    "idea_id": "PL224",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED CUSR0000SETB CPI Used Cars & Trucks 3-Month Annualized Spike \u2192 Long CVNA/KMX Short-Term",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-4 weeks",
+    "thesis": "When CPI used cars & trucks (FRED CUSR0000SETA02) shows a 3-month annualized rate exceeding 15%, used car dealers (KMX, CVNA) are in a seller's market. Rising used car prices mean higher gross profit per unit on existing inventory (bought at lower prices). The CPI confirmation of price acceleration leads same-store-sales beats. KMX and CVNA rally 5-10% on earnings beats driven by GPU expansion.",
+    "causal_chain": [
+      "FRED CUSR0000SETA02 (CPI used cars) 3-month annualized rate exceeds 15%",
+      "Used car price appreciation means existing inventory appreciates while sitting on lot",
+      "Gross profit per unit (GPU) expands as selling prices rise faster than acquisition costs",
+      "KMX, CVNA report earnings beats driven by GPU expansion",
+      "Used car dealer stocks rally 5-10% around earnings on margin surprise"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SETA02 (CPI used cars and trucks)",
+      "yfinance KMX, CVNA, SAH"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI used vehicles; Manheim Used Vehicle Value Index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "used_car_cpi_spike_dealer_gpu"
+  },
+  {
+    "idea_id": "PL225",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED FDEFX Federal Defense Expenditures QoQ Surge \u2192 Long Mid-Cap Defense (LDOS, BWXT, KTOS)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When federal defense expenditures (FRED FDEFX) show QoQ growth >5% (real, annualized), mid-cap defense contractors outperform primes. The spending surge signals procurement acceleration that favors specialty/niche contractors (LDOS for IT, BWXT for nuclear, KTOS for drones) because large primes are already backlogged while mid-caps have capacity to absorb incremental orders.",
+    "causal_chain": [
+      "FRED FDEFX (federal defense expenditures) shows QoQ growth >5% (real, annualized)",
+      "Defense spending acceleration signals procurement pipeline converting to contracts",
+      "Large primes (LMT, RTX) already backlogged \u2014 limited capacity for incremental orders",
+      "Mid-cap defense (LDOS, BWXT, KTOS) have capacity and specialization to absorb surge",
+      "Mid-cap defense outperforms ITA by 5-10% as orders flow to available capacity"
+    ],
+    "data_sources": [
+      "FRED FDEFX (federal defense consumption expenditures and gross investment)",
+      "FRED A824RC1Q027SBEA (national defense investment)",
+      "yfinance LDOS, BWXT, KTOS, ITA"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BEA GDP defense component; DoD Comptroller budget execution data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fdefx_surge_midcap_defense"
+  },
+  {
+    "idea_id": "PL226",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED TOTRESNS Total Bank Reserves Decline to Scarcity Threshold \u2192 Long Repo Desk Profits (GS, MS, JPM)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When total bank reserves (FRED TOTRESNS or WRESBAL) decline to the 'ample but approaching scarce' threshold (~$3T as of 2024-2025), repo desk spreads widen as banks compete for reserves. Dealer banks (GS, MS, JPM) with large repo operations see trading revenue increase as bid-ask spreads in the repo market widen. This is a niche revenue driver for FICC trading desks.",
+    "causal_chain": [
+      "FRED WRESBAL (reserve balances) decline toward scarcity threshold (~$3T)",
+      "Interbank reserve competition increases \u2014 SOFR volatility rises",
+      "Repo market bid-ask spreads widen as reserve scarcity creates friction",
+      "Dealer banks (GS, MS, JPM) earn higher spreads on matched-book repo activity",
+      "FICC trading revenue beats at money center banks in following quarter"
+    ],
+    "data_sources": [
+      "FRED WRESBAL (reserve balances)",
+      "FRED TOTRESNS (total reserves)",
+      "yfinance GS, MS, JPM"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "Federal Reserve H.4.1; Pozsar Reserve Scarcity Framework; Fed Staff Papers on Reserve Demand",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "reserves_scarcity_dealer_repo_profit"
+  },
+  {
+    "idea_id": "PL227",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED GFDEGDQ188S Debt/GDP Quarterly Jump >3pp \u2192 Long Defense (ITA) as Fiscal Expansion Signal",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When federal debt to GDP (FRED GFDEGDQ188S) jumps >3 percentage points in a single quarter, it signals a major fiscal expansion event (stimulus, emergency spending). Defense spending is historically protected during fiscal expansions while other discretionary is cut in subsequent austerity. Defense ETF (ITA) outperforms SPY by 5-8% in the 6 months following debt/GDP jumps.",
+    "causal_chain": [
+      "FRED GFDEGDQ188S jumps >3pp in single quarter \u2014 major fiscal expansion event",
+      "Fiscal expansion means government is spending aggressively \u2014 often emergency/defense",
+      "Defense budget historically protected during fiscal expansion then subsequent austerity",
+      "Defense contractors (ITA constituents) benefit from spending surge and sustained budgets",
+      "ITA outperforms SPY by 5-8% in 6 months following large debt/GDP quarterly jumps"
+    ],
+    "data_sources": [
+      "FRED GFDEGDQ188S (federal debt to GDP)",
+      "FRED FDEFX (defense expenditures)",
+      "yfinance ITA, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA GDP release; CBO Budget and Economic Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "debt_gdp_quarterly_jump_defense"
+  },
+  {
+    "idea_id": "PL228",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED PERMIT5MNED Multi-Family Permits (5+ Units) Collapse \u2192 Long Multi-Family REITs 18mo Out (EQR, AVB)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When multi-family building permits for 5+ units (FRED PERMIT5MNED or PERMIT5) collapse >30% YoY, it signals a future supply cliff 18-24 months later (construction-to-completion lag). Multi-family REITs (EQR, AVB, MAA) become attractive 12-18 months after the permit collapse because new apartment supply dries up, driving rent growth acceleration and occupancy improvement.",
+    "causal_chain": [
+      "FRED PERMIT5 (5+ unit building permits) collapse >30% YoY",
+      "Multi-family construction pipeline dries up with 18-24 month delivery lag",
+      "12-18 months later: new apartment completions cliff \u2014 supply growth decelerates sharply",
+      "Existing apartment owners (EQR, AVB, MAA) see occupancy and rent growth improve",
+      "Multi-family REITs rally 15-20% as supply cliff becomes visible in completion data"
+    ],
+    "data_sources": [
+      "FRED PERMIT5 (5+ unit building permits)",
+      "FRED UNDCONTSA (units under construction)",
+      "yfinance EQR, AVB, MAA, VNQ"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau New Residential Construction; RealPage apartment supply pipeline data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "multifamily_permit_collapse_reit_supply_cliff"
+  },
+  {
+    "idea_id": "PL229",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED CPFF Commercial Paper Financial Spread to Fed Funds Spike \u2192 Long Money Market (BIL) Safe Haven",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "1-4 weeks",
+    "thesis": "When the financial commercial paper rate minus fed funds rate (computable from FRED DCPF3M - DFEDTARU) spikes >50bps, it signals acute financial sector funding stress. Ultra-short duration Treasury ETFs (BIL, SHV) outperform as flight-to-quality drives T-bill yields down relative to everything else. The commercial paper spread spike is the earliest warning signal of financial stress.",
+    "causal_chain": [
+      "FRED DCPF3M (financial commercial paper 3mo) minus DFEDTARU spikes >50bps",
+      "Financial commercial paper spread spike = acute funding stress for financials",
+      "Flight to quality \u2014 money flows from commercial paper and bank deposits to T-bills",
+      "T-bill yields decline relative to fed funds as demand surges",
+      "BIL, SHV outperform as Treasury quality premium increases during stress episode"
+    ],
+    "data_sources": [
+      "FRED DCPF3M (financial commercial paper 3-month)",
+      "FRED DFEDTARU (fed funds upper target)",
+      "yfinance BIL, SHV, SHY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve CP rate data; Fed Staff Papers on commercial paper market stress",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cp_financial_spread_spike_tbill_safe"
+  },
+  {
+    "idea_id": "PL230",
+    "created_at": "2026-05-26T23:35:37.814857+00:00",
+    "status": "developed",
+    "name": "FRED WILL5000INDFC Wilshire 5000 Market Cap Relative to GDP (Buffett Indicator) Mean Reversion From Trough",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When the Wilshire 5000 to GDP ratio (FRED WILL5000INDFC / GDP) drops >1 standard deviation below its 10-year average, US equities are undervalued relative to the real economy. The ratio mean-reverts over 6-12 months with 80%+ probability. Long SPY when the ratio drops below the threshold and hold for 6 months for 10-15% outperformance vs. cash.",
+    "causal_chain": [
+      "FRED WILL5000INDFC / GDP drops >1 standard deviation below 10yr average",
+      "US equity market capitalization undervalued relative to GDP (real economy proxy)",
+      "Valuation mean-reversion forces: buybacks accelerate at low prices, institutional rebalancing",
+      "Fundamental recovery (GDP growth) eventually catches up with depressed valuations",
+      "SPY delivers 10-15% return over following 6 months as ratio mean-reverts"
+    ],
+    "data_sources": [
+      "FRED WILL5000INDFC (Wilshire 5000 Full Cap Price Index)",
+      "FRED GDP (nominal GDP)",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Wilshire Associates; Buffett Indicator methodology; various Hussman funds research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wilshire_gdp_trough_mean_reversion"
   }
 ]

@@ -402,8 +402,11 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 #tab-signals .sig-toggle button:last-child { border-bottom: none; }
 #tab-signals .sig-toggle button:hover { background: var(--bg); }
 #tab-signals .sig-toggle button.active-st { background: var(--good); color: var(--bg); }
-#tab-signals .sig-toggle button.unknown-st { background: var(--warn); color: var(--bg); }
+#tab-signals .sig-toggle button.defensive-st { background: var(--warn); color: var(--bg); }
+#tab-signals .sig-toggle button.unknown-st { background: var(--accent); color: var(--bg); }
 #tab-signals .sig-toggle button.inactive-st { background: var(--fg-dim); color: var(--bg); }
+#tab-signals .sig-trade-tag.defensive { background: rgba(251,191,36,0.12); color: var(--warn); border: 1px solid rgba(251,191,36,0.25); }
+[data-theme="light"] #tab-signals .sig-trade-tag.defensive { background: rgba(217,119,6,0.08); }
 .sig-filter {
   background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
   padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
@@ -2911,6 +2914,160 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED TOTRESNS; yfinance</span><span><code>backtests/PL132_bank_reserves_surge_qqq.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL135_personal_income_acceleration_xly</span><h3>Personal Income YoY Reaccelerates &gt; +5% &rarr; Long XLY</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.36</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">25.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.55</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Personal income YoY crossing above +5% after 6+ months below signals income acceleration. Rising income leads consumer spending by 1&ndash;2 months, boosting consumer discretionary stocks (XLY). 6/7 events positive, avg +12.7% per trade.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLY 126d when FRED PI YoY crosses above +5% after 6+ months below +5%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7 events (1999&ndash;2020). t-stat 2.55 is statistically significant. Excess vs SPY only +1.8% avg &mdash; XLY moves directionally with SPY. 2020 COVID stimulus event (PI YoY +13.6%) is an outlier that inflates returns. Remove that event and check robustness.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PI; yfinance</span><span><code>backtests/PL135_personal_income_acceleration_xly.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL136_corporate_profits_recovery_spy</span><h3>Corporate Profits YoY Turns Positive After 2Q Negative &rarr; Long SPY</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.75</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.99</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Corporate profit recovery (FRED CP YoY turning positive after 2+ quarters negative) signals cyclical expansion. Earnings growth drives equity re-rating. 6/7 events positive, avg +12.4% per trade.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY 252d when FRED CP YoY turns positive after 2+ quarters of negative YoY growth</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7 events (1999&ndash;2020). t-stat 1.99 borderline significant. CP data has ~2-month publication lag. 2020 event (COVID recovery, +32.6%) is an outlier. No excess return metric since benchmark IS SPY &mdash; the edge is timing vs buy-and-hold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CP; yfinance</span><span><code>backtests/PL136_corporate_profits_recovery_spy.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL138_real_disposable_income_negative_xlp</span><h3>Real Disposable Income YoY Turns Negative &rarr; Long XLP</h3></div>
+    <div class="right">macro &middot; ~12-month hold &middot; 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.37</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-8.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.74</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Real disposable income turning negative (FRED DSPIC96 YoY &lt; 0 after 12+ months positive) signals an income squeeze. Consumers trade down to staples, making XLP a relative outperformer. 4/4 events positive, avg +16.0%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLP 252d when FRED DSPIC96 YoY turns negative after 12+ months of positive YoY</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events only (2005, 2009, 2013, 2021). Perfect win rate but very small sample. Excess vs SPY only +0.7% avg &mdash; XLP rose but SPY rose nearly as much in most events. 2021 event (post-COVID stimulus distortion) may not be representative.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DSPIC96; yfinance</span><span><code>backtests/PL138_real_disposable_income_negative_xlp.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL140_mortgage_application_surge_homebuilders</span><h3>Mortgage Rate Drop &gt; 50bps &rarr; Long Homebuilders (1mo lag)</h3></div>
+    <div class="right">macro &middot; ~6-month hold &middot; 19 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.89</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">33.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-60.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.73</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Mortgage rate dropping &gt;50bps from 13-week high proxies an application surge. With a 1-month entry lag (applications-to-closings pipeline), long LEN+DHI+NVR captures the homebuilder revenue acceleration. 13/19 events positive, avg +18.1%, avg excess +12.6% vs SPY.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long LEN+DHI+NVR equal-weight 126d, entered 21 trading days after MORTGAGE30US drops &gt;50bps from 13-week high</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=19 events (1997&ndash;2025). t-stat 2.73 is significant. Deep max drawdown (-60.2%) driven by 2008 GFC event. Excluding GFC, metrics improve substantially. Recent events (2023&ndash;2025) show losses, suggesting post-COVID regime change. The 1-month entry lag is essential to the thesis.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MORTGAGE30US; yfinance</span><span><code>backtests/PL140_mortgage_application_surge_homebuilders.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL142_sloos_credit_card_willingness_xly</span><h3>SLOOS Credit Card Tightening Crosses Zero &rarr; Long XLY</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.65</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-16.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.80</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>SLOOS credit card tightening (FRED DRTSCLCC) crossing from negative to zero signals banks easing consumer credit standards. More available credit fuels discretionary spending, benefiting XLY. 5/6 events positive, avg +3.4%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLY 63d when FRED DRTSCLCC crosses from negative (tightening) to zero or positive (easing)</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events only (2000&ndash;2022). t-stat 0.80 is below statistical significance. Quarterly SLOOS data means very few events. Avg excess vs SPY +1.9% &mdash; modest edge. 2007 event was a loss during early GFC. Small sample makes this suggestive rather than conclusive.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DRTSCLCC; yfinance</span><span><code>backtests/PL142_sloos_credit_card_willingness_xly.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL145_dgorder_acceleration_semi_equipment</span><h3>Durable Goods 3mo MoM Acceleration &rarr; Long AMAT+LRCX+KLAC</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.43</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">66.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-35.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.60</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Three consecutive months of positive AND increasing durable goods MoM (FRED DGORDER) signals capex cycle inflection. Semi equipment makers (AMAT, LRCX, KLAC) are highest-beta beneficiaries. 3/5 events positive, avg +16.9%, avg excess +10.1% vs SPY.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long AMAT+LRCX+KLAC equal-weight 63d when FRED DGORDER MoM is positive and increasing for 3 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events only (2005&ndash;2025). t-stat 1.60 below conventional significance. CAGR heavily inflated by 2020 event (+59.5%). DGORDER includes volatile Boeing orders &mdash; consider ex-transport (NEWORDER) for cleaner signal. The strict 3-month acceleration filter fires rarely.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DGORDER; yfinance</span><span><code>backtests/PL145_dgorder_acceleration_semi_equipment.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL147_permit1_acceleration_supplier_stocks</span><h3>Single-Family Permits YoY Improving 3mo &rarr; Long SHW+VMC+MLM</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 26 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.68</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">15.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-41.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.63</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Single-family permits (FRED PERMIT1) second derivative turning positive for 3 months signals housing trough. Building material suppliers (SHW paint, VMC/MLM aggregates) benefit first as materials are ordered before construction starts. 15/26 events positive, avg +3.3%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SHW+VMC+MLM equal-weight 63d when FRED PERMIT1 YoY improves for 3 consecutive months (second derivative positive)</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=26 events (1991&ndash;2023) &mdash; good sample size. t-stat 1.63 borderline. Deep drawdown (-41.8%) from 2019 event hitting COVID crash. Second-derivative signal is noisy and fires frequently. Early events (pre-1994) used limited ticker universe. Consider adding BLDR from 2016 onward.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PERMIT1; yfinance</span><span><code>backtests/PL147_permit1_acceleration_supplier_stocks.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -4195,8 +4352,8 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 <div id="tab-pipeline" class="tab-panel">
 <div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
 
-<div id="pl-ghpages-notice" style="display:none;padding:16px 20px;background:rgba(251,191,36,0.08);border-left:3px solid var(--warn);border-radius:4px;margin-bottom:16px;">
-  <strong style="color:var(--warn);">GitHub Pages detected.</strong> Pipeline queues require local queue files that aren't available on static hosting. To use this tab, clone the repo and run <code>python3 -m http.server</code> from the project root, or paste queue JSON using the form below.
+<div id="pl-ghpages-notice" style="display:none;padding:16px 20px;background:rgba(248,113,113,0.1);border-left:3px solid var(--bad);border-radius:4px;margin-bottom:16px;">
+  <strong style="color:var(--bad);">Static snapshot.</strong> This data was captured when the site was last deployed and may be stale. For live pipeline data, clone the repo and run <code>python3 -m http.server</code> locally.
 </div>
 <h2 style="margin-top:0;">Pipeline Queues</h2>
 <p class="sub">Live view of the 3-loop research pipeline. Ideas flow left to right: Scout → Developer → Backtester. Load queue files to see current state.</p>
@@ -4452,9 +4609,11 @@ document.getElementById('pl-parse-paste').addEventListener('click', () => {
   }
 });
 
-// Show notice when not running locally
-if (location.protocol !== 'file:' && !['localhost','127.0.0.1',''].includes(location.hostname)) {
+// Show notice and gray out when not running locally
+const isRemote = location.protocol !== 'file:' && !['localhost','127.0.0.1',''].includes(location.hostname);
+if (isRemote) {
   document.getElementById('pl-ghpages-notice').style.display = 'block';
+  document.getElementById('pipeline-grid').style.opacity = '0.5';
 }
 
 // Autoload when Pipeline tab becomes visible
@@ -4465,6 +4624,22 @@ new MutationObserver(() => {
 </script>
 
 </div><!-- end tab-pipeline -->
+
+<div id="tab-signals" class="tab-panel">
+<div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
+  <h2 style="margin-top:0;">Active Signals</h2>
+  <p class="sub">Which high-return signals are firing right now? Toggle each signal's status. When multiple active signals agree on the same trade, they appear in the convergence section.</p>
+  <div id="sig-convergence"></div>
+  <div style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap;">
+    <button class="sig-filter active" data-sigfilter="all">All</button>
+    <button class="sig-filter" data-sigfilter="active">Active</button>
+    <button class="sig-filter" data-sigfilter="defensive">Defensive</button>
+    <button class="sig-filter" data-sigfilter="unknown">Watch</button>
+    <button class="sig-filter" data-sigfilter="inactive">Off</button>
+  </div>
+  <div id="sig-grid"></div>
+</div>
+</div><!-- end tab-signals -->
 
 <script>
 // ----- Page-level tab switching (with localStorage persistence) -----
@@ -4755,8 +4930,12 @@ const cagrSlider = document.getElementById('cagr-slider');
 const cagrLabel = document.getElementById('cagr-label');
 function updateCagrLabel() {
   if (cagrLabel) cagrLabel.textContent = CAGR_FLOOR + '%';
+  const totalCards = stratPanel.querySelectorAll('.card').length;
+  const visibleLinks = document.querySelectorAll('.strat-link').length;
   const hc = document.getElementById('hero-count');
-  if (hc) hc.textContent = document.querySelectorAll('.strat-link').length;
+  if (hc) hc.textContent = visibleLinks;
+  const tc = document.getElementById('tab-strat-count');
+  if (tc) tc.textContent = totalCards;
 }
 if (cagrSlider) {
   cagrSlider.value = CAGR_FLOOR;
@@ -4799,6 +4978,322 @@ themeToggle.addEventListener('click', () => {
   }
   applyThemeLabel();
 });
+</script>
+
+<script>
+// ----- Signals tab logic -----
+(function(){
+'use strict';
+
+// Trade metadata — statuses checked 2026-05-26 via live data
+// t: [[group, direction], ...], s: 'active'|'inactive'|'unknown' (default: unknown)
+var META = {
+  'V3':       {t:[['SPY','long']], s:'active'},             // YoY +38.7% → full 100% SPY (bullish state)
+  'F03':      {t:[['SPY','long']], s:'active'},             // YoY margin debt +38.7% > 0% bullish
+  'C02':      {t:[['SPY','long']], s:'active'},             // SPY 4wk +10.5% >> XLU -2% → long SPY
+  'F09':      {t:[['SPY','long']], s:'active'},             // 50d SMA 740 > 200d SMA 722
+  'A16':      {t:[['SPY','long']], s:'defensive'},           // Entering weak June → cash
+  'A07':      {t:[['SPY','long']], s:'inactive'},           // Next FOMC Jun 16-17, 3 weeks away
+  'A06':      {t:[['SPY','long']], s:'defensive'},           // Week 5 of FOMC cycle (odd = cash)
+  'F08':      {t:[['SPY','long']], s:'inactive'},           // RSI(2) ~90+, far above 5
+  'A04':      {t:[['SPY','long']], s:'active'},             // First 5 days of Jan 2026 positive
+  'B01':      {t:[['SPY','long']], s:'active'},             // VIX/VIX3M = 0.86 < 0.92 → long
+  'C11':      {t:[['SPY','long']], s:'inactive'},           // MOVE/VIX = 4.61, neutral band
+  'C07':      {t:[['SPY','long']], s:'active'},             // SPY top-ranked on blended momentum
+  'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active'}, // All 6 assets positive 12m
+  'C05':      {t:[['SPY','long']], s:'active'},             // 4/5 above 10mo SMA; IEF below
+  'C06':      {t:[['SPY','long']], s:'active'},             // SPY 12m +29.4% > ACWX +16.4%
+  'C08 / C09':{t:[['SPY','long']], s:'inactive'},           // 10Y-2Y +0.43%, normal
+  'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive'}, // Gold >> lumber → long TLT
+  'N4':       {t:[['Semis','long']], s:'active'},            // Electronics orders up 11/12 mo
+  'R-N5':     {t:[['Semis','long']], s:'inactive'},          // TSMC Apr YoY +17.5% decelerating vs ~35% trail
+  'R-D11':    {t:[['Equity L/S','long']]},
+  'Z4':       {t:[['Event Equity','long']]},                 // No known current Wells Notices
+  'Z6':       {t:[['Event Equity','long']], s:'active'},     // DOJ vs NYP Mar 26; FTC merger trials
+  'Y5':       {t:[['De-SPAC','short']], s:'active'},         // 85-95% redemption persist; 11 de-SPACs in Q1
+  'F9':       {t:[['US Importers','long']], s:'active'},     // S301 review comment windows open
+  'F5':       {t:[['Biotech','long']]},                      // No confirmed AdComm+PDUFA pair found
+  'L6':       {t:[['NT Filers','short']], s:'active'},       // Q1 2026 NT-10Q filings confirmed on EDGAR
+  'E09':      {t:[['IPO Lockups','short']], s:'active'},     // Medline lockup ~Jun 16
+  'E10':      {t:[['Spin-offs','long']], s:'active'},        // FedEx Freight + Enviri II completing Jun
+  'D02':      {t:[['Equity Momentum','long']], s:'active'},  // MTUM +21.5% YTD; momentum leading
+  'D04':      {t:[['Industry Momentum','long']], s:'active'},
+  'K4':       {t:[['XLY','long']], s:'inactive'},            // No +10pp DRIWCIL jump; banks tighter
+  'K9':       {t:[['ITA','long']]},                          // Daily DTS data not web-accessible
+  'K5':       {t:[['Biotech','short']]},                     // Needs ClinicalTrials.gov monitoring
+  'J7':       {t:[['TLT','short']], s:'inactive'},           // RRP drained to near-zero
+  'L3-inv':   {t:[['TLT','long']]},                         // Can't confirm direct bidder %
+  'AI-4':     {t:[['Spirits','short']], s:'active'},         // US spirits -15.4%; BF-B -26% 1yr
+  'AI-5':     {t:[['Large Banks','long'],['Regional CRE Banks','short']], s:'active'},
+  'AS-B':     {t:[['Custom Silicon','long']], s:'active'},   // MRVL +42% rev; CRDO +201%
+  'AE-2':     {t:[['Power Infra','long']], s:'active'},      // All 4 hyperscalers >20% YoY capex Q1
+  'AG-2':     {t:[['Power Infra','long'],['Growth Utilities','short']], s:'active'},
+  'AC-6':     {t:[['Brent Crude','long']], s:'inactive'},    // Q1-only window past
+  'PL5':      {t:[['Aggregates','long']], s:'inactive'},     // Permits/Completions = 0.99, below 1.3
+  'O5':       {t:[['BTC Miners','long']], s:'active'},       // -3.07% difficulty drop May 2
+  'O4':       {t:[['BTC Miners','long']], s:'inactive'},     // Mempool quiet, ~49K txns
+  'P6':       {t:[['BTC','long']], s:'inactive'},            // Global liquidity peaked Q4 2025
+  'P12':      {t:[['SPY','long'],['BTC','long']], s:'inactive'},
+  'M3':       {t:[['ETH','long']], s:'inactive'},            // stETH at parity, no discount
+  'A14':      {t:[['BTC','long']], s:'inactive'},            // Window closed Oct 2025
+  'H06':      {t:[['BTC','long']], s:'inactive'},            // MVRV Z=0.77; needs <0
+  'H11':      {t:[['BTC','long']], s:'active'},              // BTC-NDX corr 0.96 = tech proxy
+  'H05':      {t:[['BTC','long']], s:'active'},              // Hash Ribbons buy signal late Apr
+  'H07 / H08':{t:[['BTC','long']], s:'inactive'}            // Puell 0.79; NUPL 0.17
+};
+
+var PLMETA = {
+  'PL83': {t:[['IWM','long']]},
+  'PL3':  {t:[['Copper','long']], s:'active'},               // China PMI crossed 50 in Mar
+  'PL73': {t:[['GLD','long']], s:'inactive'},                // No +10% 4-week CP spike
+  'PL78': {t:[['SPY','long']], s:'active'},                  // GDPNow 4.3% > 3.0%
+  'PL97': {t:[['Industrials','long']]},
+  'PL41': {t:[['Homebuilders','long']], s:'inactive'},       // Months supply 4.4, above 3.0
+  'PL95': {t:[['Leisure','long']]},
+  'PL62': {t:[['GLD','long']], s:'inactive'},                // M2 YoY already >4% for 12mo
+  'PL42': {t:[['Semis','long']]},                            // SEMI B2B discontinued 2017
+  'PL48': {t:[['Alt Managers','long']]},
+  'PL49': {t:[['Soybeans','long']]},
+  'PL59': {t:[['XLI','long']]},
+  'PL76': {t:[['XLI','long'],['XLF','long']]},
+  'PL75': {t:[['XLI','long']]},
+  'PL38': {t:[['SPY','long']]},
+  'PL35': {t:[['Water Infra','long']]},
+  'PL87': {t:[['Exporters','long']], s:'active'},            // Broad TWD down 9.4% from peak
+  'PL10': {t:[['Trucks','long']]},
+  'PL102':{t:[['Industrials','long']]},
+  'PL82': {t:[['XLI','long']]},
+  'PL46': {t:[['EEM','long']]},
+  'PL57': {t:[['Lumber','long']]},
+  'PL14': {t:[['Soybeans','long']], s:'inactive'},
+  'PL60': {t:[['TLT','long']]},
+  'PL30': {t:[['XOP','long']], s:'inactive'},                // Only 5% decline, not 20%
+  'PL69': {t:[['XLB','long']]},
+  'PL79': {t:[['Aggregates','long']]},
+  'PL43': {t:[['SPY','long']], s:'inactive'},                // LEI 6mo rate still negative
+  'PL15': {t:[['Wheat','long']]},
+  'PL94': {t:[['XRT','long']]},
+  'PL34': {t:[['XLI','long']]},
+  'PL66': {t:[['IWM','long']]},
+  'PL23': {t:[['Semi Equipment','long']]},
+  'PL64': {t:[['XLF','long']]},
+  'PL54': {t:[['Restructuring','long']]},
+  'PL44': {t:[['Corn','long']]},
+  'PL70': {t:[['Homebuilders','long']]},
+  'PL31': {t:[['Auto Dealers','long']]},
+  'PL90': {t:[['NatGas Producers','long']]},
+  'PL81': {t:[['Staffing','long']]}
+};
+
+function getMeta(id) {
+  if (META[id]) return META[id];
+  var m = id.match(/^(PL\d+)/);
+  if (m && PLMETA[m[1]]) return PLMETA[m[1]];
+  return null;
+}
+
+// Parse signals from the High Return tab
+var signals = [];
+document.querySelectorAll('#tab-strategies .card').forEach(function(card) {
+  var badge = card.querySelector('.badge');
+  if (!badge) return;
+  var id = badge.textContent.trim();
+  var meta = getMeta(id);
+  if (!meta) return;
+  var h3 = card.querySelector('h3');
+  var name = h3 ? h3.textContent.trim().replace(/^[★]+\s*/, '') : '';
+  var sharpe = parseFloat(card.dataset.sharpe) || 0;
+  var cagr = parseFloat(card.dataset.cagr) || 0;
+  var ruleEl = card.querySelector('.rule');
+  var rule = ruleEl ? ruleEl.textContent.trim() : '';
+  if (!card.id) card.id = 'card-' + Math.random().toString(36).slice(2,8);
+  signals.push({
+    id: id, name: name, sharpe: sharpe, cagr: cagr, rule: rule, cardId: card.id,
+    trades: meta.t.map(function(pair) { return {g: pair[0], d: pair[1]}; }),
+    defTrades: meta.td ? meta.td.map(function(pair) { return {g: pair[0], d: pair[1]}; }) : null,
+    defaultStatus: meta.s || 'unknown'
+  });
+});
+signals.sort(function(a,b) { return b.cagr - a.cagr; });
+
+// State persistence (version key forces refresh when defaults change)
+var STORE = 'ekans-sig-status';
+var STORE_VER = 'ekans-sig-ver';
+var CUR_VER = '2026-05-26b';
+var state = {};
+try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
+if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
+signals.forEach(function(s) { if (!(s.id in state)) state[s.id] = s.defaultStatus; });
+function saveState() { localStorage.setItem(STORE, JSON.stringify(state)); }
+function getStatus(id) { return state[id] || 'unknown'; }
+
+// Convergence: group active + defensive signals by trade direction + asset
+function computeConvergence() {
+  var groups = {};
+  signals.forEach(function(sig) {
+    var st = getStatus(sig.id);
+    var trades;
+    if (st === 'active') trades = sig.trades;
+    else if (st === 'defensive' && sig.defTrades) trades = sig.defTrades;
+    else return;
+    trades.forEach(function(t) {
+      var key = t.d + '|' + t.g;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push({id: sig.id, name: sig.name, shortName: sig.name, defensive: st === 'defensive'});
+    });
+  });
+  return Object.keys(groups)
+    .filter(function(k) { return groups[k].length >= 2; })
+    .sort(function(a,b) { return groups[b].length - groups[a].length; })
+    .map(function(key) {
+      var parts = key.split('|');
+      return {dir: parts[0], group: parts[1], signals: groups[key]};
+    });
+}
+
+var convEl = document.getElementById('sig-convergence');
+var gridEl = document.getElementById('sig-grid');
+var countEl = document.getElementById('tab-sig-count');
+var currentFilter = 'all';
+
+function render() {
+  var conv = computeConvergence();
+  var activeCount = signals.filter(function(s) { return getStatus(s.id) === 'active'; }).length;
+  var defCount = signals.filter(function(s) { return getStatus(s.id) === 'defensive'; }).length;
+  if (countEl) countEl.textContent = activeCount + (defCount ? '/' + defCount : '');
+
+  // Build all active trade groups (convergence + singles)
+  var allGroups = {};
+  signals.forEach(function(sig) {
+    var st = getStatus(sig.id);
+    var trades;
+    if (st === 'active') trades = sig.trades;
+    else if (st === 'defensive' && sig.defTrades) trades = sig.defTrades;
+    else return;
+    trades.forEach(function(t) {
+      var key = t.d + '|' + t.g;
+      if (!allGroups[key]) allGroups[key] = [];
+      allGroups[key].push({id: sig.id, name: sig.name, defensive: st === 'defensive'});
+    });
+  });
+  var sortedGroups = Object.keys(allGroups)
+    .sort(function(a,b) { return allGroups[b].length - allGroups[a].length; })
+    .map(function(key) { var p = key.split('|'); return {dir: p[0], group: p[1], signals: allGroups[key]}; });
+
+  if (sortedGroups.length === 0) {
+    convEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--fg-dim);background:var(--bg-2);border:1px solid var(--border);border-radius:10px;margin:0 0 24px;">' +
+      'Toggle signals to <strong style="color:var(--good);">Active</strong> to see active trades and convergence.</div>';
+  } else {
+    var multiGroups = sortedGroups.filter(function(g) { return g.signals.length >= 2; });
+    var singleGroups = sortedGroups.filter(function(g) { return g.signals.length === 1; });
+    var html = '';
+    if (multiGroups.length > 0) {
+      html += '<h3 style="margin:0 0 12px;font-size:14px;color:var(--good);">Convergence — multiple signals agree</h3><div style="display:grid;gap:12px;margin:0 0 16px;">';
+      multiGroups.forEach(function(c) {
+        var dc = c.dir === 'long' ? 'var(--good)' : 'var(--bad)';
+        html += '<div style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:16px 20px;">';
+        html += '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap;">';
+        html += '<span style="color:' + dc + ';font:700 16px var(--mono);">' + c.dir.toUpperCase() + '</span>';
+        html += '<span style="font-weight:600;font-size:15px;">' + c.group + '</span>';
+        html += '<span style="background:' + dc + ';color:var(--bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;">' + c.signals.length + ' signals agree</span>';
+        html += '</div><div style="display:flex;gap:6px;flex-wrap:wrap;">';
+        c.signals.forEach(function(s) {
+          var sn = s.name.length > 35 ? s.name.substring(0,35) + '…' : s.name;
+          var defBadge = s.defensive ? ' <span style="color:var(--warn);font-size:10px;">(def)</span>' : '';
+          html += '<span style="background:var(--bg-3);padding:4px 10px;border-radius:4px;font-size:12px;border:1px solid var(--border);"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + defBadge + '</span>';
+        });
+        html += '</div></div>';
+      });
+      html += '</div>';
+    }
+    if (singleGroups.length > 0) {
+      html += '<h3 style="margin:16px 0 12px;font-size:14px;color:var(--good);">Active trades — single signal</h3>';
+      html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:0 0 16px;">';
+      singleGroups.forEach(function(c) {
+        var dc = c.dir === 'long' ? 'var(--good)' : 'var(--bad)';
+        var s = c.signals[0];
+        var sn = s.name.length > 30 ? s.name.substring(0,30) + '…' : s.name;
+        var defBadge = s.defensive ? ' <span style="color:var(--warn);font-size:10px;">(def)</span>' : '';
+        html += '<div style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:12px 16px;">';
+        html += '<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">';
+        html += '<span style="color:' + dc + ';font:700 13px var(--mono);">' + c.dir.toUpperCase() + '</span>';
+        html += '<span style="font-weight:600;font-size:13px;">' + c.group + '</span>';
+        html += '</div>';
+        html += '<div style="margin-top:6px;font-size:12px;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + defBadge + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    convEl.innerHTML = html;
+  }
+
+  // Signal cards
+  var filtered = currentFilter === 'all' ? signals : signals.filter(function(s) { return getStatus(s.id) === currentFilter; });
+  var cards = '';
+  filtered.forEach(function(sig) {
+    var st = getStatus(sig.id);
+    var showTrades = (st === 'defensive' && sig.defTrades) ? sig.defTrades : sig.trades;
+    var tradeClass = (st === 'defensive') ? 'defensive' : '';
+    cards += '<div class="sig-card" data-sigid="' + sig.id + '">';
+    cards += '<div>';
+    cards += '<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;">';
+    cards += '<span class="sig-name">' + sig.id + '</span>';
+    cards += '<span style="font-size:14px;">' + sig.name + '</span>';
+    cards += '</div>';
+    cards += '<div class="sig-meta">Sharpe ' + sig.sharpe.toFixed(2) + ' &middot; CAGR ' + sig.cagr.toFixed(1) + '%</div>';
+    cards += '<div class="sig-trades">';
+    showTrades.forEach(function(t) {
+      var cls = tradeClass || t.d;
+      cards += '<span class="sig-trade-tag ' + cls + '">' + (st === 'defensive' ? 'DEF ' : t.d.toUpperCase() + ' ') + t.g + '</span>';
+    });
+    if (st === 'defensive' && !sig.defTrades) {
+      cards += '<span class="sig-trade-tag defensive">CASH / FLAT</span>';
+    }
+    cards += '</div>';
+    var ruleShort = sig.rule.length > 200 ? sig.rule.substring(0,200) + '…' : sig.rule;
+    cards += '<div class="sig-rule">' + ruleShort + '</div>';
+    cards += '<a href="#" class="sig-viewfull" data-cardid="' + sig.cardId + '">View in High Return →</a>';
+    cards += '</div>';
+    cards += '<div class="sig-toggle">';
+    cards += '<button data-st="active" class="' + (st==='active'?'active-st':'') + '">Active</button>';
+    cards += '<button data-st="defensive" class="' + (st==='defensive'?'defensive-st':'') + '">Def</button>';
+    cards += '<button data-st="unknown" class="' + (st==='unknown'?'unknown-st':'') + '">?</button>';
+    cards += '<button data-st="inactive" class="' + (st==='inactive'?'inactive-st':'') + '">Off</button>';
+    cards += '</div></div>';
+  });
+  gridEl.innerHTML = cards || '<div style="padding:40px;text-align:center;color:var(--fg-dim);">No signals match this filter.</div>';
+}
+
+// Toggle buttons (event delegation)
+gridEl.addEventListener('click', function(e) {
+  var btn = e.target.closest('.sig-toggle button');
+  if (btn) {
+    var card = btn.closest('.sig-card');
+    state[card.dataset.sigid] = btn.dataset.st;
+    saveState();
+    render();
+    return;
+  }
+  var link = e.target.closest('.sig-viewfull');
+  if (link) {
+    e.preventDefault();
+    switchTab('strategies');
+    showOnly(link.dataset.cardid);
+  }
+});
+
+// Filter buttons
+document.querySelectorAll('.sig-filter').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.sig-filter').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentFilter = btn.dataset.sigfilter;
+    render();
+  });
+});
+
+render();
+})();
 </script>
 
 </body>
