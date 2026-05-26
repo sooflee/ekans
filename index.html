@@ -3332,6 +3332,50 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED TLNRESCONS; yfinance</span><span><code>backtests/PL243_nonrescons_surge_aggregates_cement.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL258_wasde_wheat_low_stocks_fertilizer_demand</span><h3>WASDE Global Wheat Stocks-to-Use &lt; 30% &rarr; Long Fertilizers</h3></div>
+    <div class="right">commodities &middot; ~2-month hold &middot; 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.46</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">73.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-26.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.88</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When USDA WASDE reports global wheat stocks-to-use ratio below 30%, tight supply incentivizes maximum-yield planting worldwide. Fertilizer companies (NTR, MOS, CF) benefit from both volume and pricing surges as farmers aggressively apply inputs. 6/10 events positive with avg +10.4% basket return and +7.4% excess vs SPY.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long NTR+MOS+CF equal-weight 42d when WASDE global wheat stocks-to-use &lt; 30%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=10 events, t-stat 1.88 borderline significant. Highly concentrated in 2007-2012 commodity supercycle (3 of top 4 returns). Win rate only 60% &mdash; 4 losing events including -5% in 2021. Fertilizer stocks are volatile (ann vol 44.6%). WASDE data is monthly with same-day release &mdash; signal may already be priced by open. Related to PL015 (wheat drought) and PL044 (corn planting delay).</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA WASDE; yfinance</span><span><code>backtests/PL258_wasde_wheat_low_stocks_fertilizer_demand.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL263_census_advance_import_surge_drayage_warehouse</span><h3>Census Advance Trade Goods Import Surge &rarr; Long Drayage &amp; Warehouse</h3></div>
+    <div class="right">macro &middot; ~2-week hold &middot; 22 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.76</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-27.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.69</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED IMPGS (real goods imports) surging &gt;3% MoM signals imminent drayage and warehouse demand spike. JBHT benefits from intermodal container volumes; PLD benefits from warehouse occupancy and rental rate growth. 13/22 events positive. Uses quarterly FRED data with automatic signal detection.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long JBHT+PLD equal-weight 10d when FRED IMPGS (real goods imports) surges &gt;3% MoM</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=22 events but t-stat only 0.69 &mdash; not statistically significant. Excess CAGR vs SPY is negative (-9.7%) meaning SPY outperformed in the same windows. Large sample (22 events) but inconsistent: several sharp losses in 2008-2009. Import data has 1-month lag. Strongest in 2020-2021 supply chain crunch era. Related to PL121 (import surge warehouse REITs) and PL088 (trade deficit logistics).</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED IMPGS; yfinance</span><span><code>backtests/PL263_census_advance_import_surge_drayage_warehouse.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>

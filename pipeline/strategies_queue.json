@@ -8309,38 +8309,52 @@
   {
     "strategy_id": "PL249",
     "idea_id": "PL249",
-    "created_at": "2026-05-26T23:49:21.523810+00:00",
-    "status": "failed",
-    "signal_id": "PL249_fema_disaster_building_materials_demand",
-    "name": "FEMA Major Disaster Declarations -> Rebuilding Materials Demand",
+    "created_at": "2026-05-26T23:51:58.723457+00:00",
+    "status": "in_progress",
+    "signal_id": "PL249_fema_disaster_building_materials",
+    "name": "FEMA Major Disaster Declaration in Populous Area -> Long Building Materials (OC+BLDR+UFPI)",
     "category": "K",
     "asset_class": "equities",
     "horizon": "4-12 weeks",
-    "rule": "Using yfinance data: 1. FEMA declares major disaster in populous area (free FEMA OpenFEMA API) Long (BECN+OC+BLDR) for 60 trading days. Benchmark vs SPY.",
+    "rule": "Fetch FEMA disaster declarations via OpenFEMA API (https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries). Filter for declarationType=DR (major disaster) in states with large populations (FL, TX, CA, LA, NC, SC, NY, NJ). On each qualifying declaration date, go long OC+BLDR+UFPI equal-weight for 60 trading days. Benchmark vs SPY. Use requests or urllib to fetch JSON from FEMA API. Known major events: 2005-08-29 (Katrina), 2012-10-30 (Sandy), 2017-08-25 (Harvey), 2017-09-20 (Maria/Irma), 2018-10-10 (Michael), 2020-08-27 (Laura), 2021-08-29 (Ida), 2022-09-28 (Ian).",
     "tickers": [
-      "(BECN",
       "OC",
-      "BLDR)",
+      "BLDR",
+      "UFPI",
       "SPY"
     ],
+    "entry_conditions": [
+      "FEMA declares a major disaster (DR type) in a high-population state (FL, TX, CA, LA, NC, SC, NY, NJ)",
+      "Go long on the trading day following the declaration date"
+    ],
+    "exit_conditions": [
+      "Hold for 60 trading days from entry",
+      "Equal-weight basket of OC + BLDR + UFPI"
+    ],
     "data_sources_concrete": {
-      "prices": "yfinance (BECN, OC, BLDR), SPY",
-      "fundamental": "none"
+      "prices": "yfinance OC, BLDR, UFPI, SPY",
+      "fundamental": "FEMA OpenFEMA API v2 DisasterDeclarationsSummaries (free, no key needed)"
     },
-    "backtest_approach": "Load fundamental data. Identify signal events. Long (BECN+OC+BLDR) for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "backtest_approach": "Event study: fetch all DR-type disaster declarations from FEMA API for major states. For each event, enter long OC+BLDR+UFPI equal-weight on next trading day, hold 60 days. Compute per-event returns and aggregate metrics vs SPY. If FEMA API is unavailable, use hardcoded known disaster dates as fallback.",
+    "known_events": [
+      "2005-08-29",
+      "2012-10-30",
+      "2017-08-25",
+      "2017-09-20",
+      "2018-10-10",
+      "2020-08-27",
+      "2021-08-29",
+      "2022-09-28"
+    ],
+    "implementation_notes": "BECN (Beacon Roofing Supply) is delisted on yfinance; replaced with UFPI (UFP Industries). FEMA API returns JSON at https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries with filters. Filter: declarationType eq DR, state in (FL,TX,CA,LA,NC,SC,NY,NJ). Deduplicate by keeping only the first declaration per state per disaster incident. Use urllib.request for API calls.",
     "originality": 7,
-    "bt_feasibility": 4,
-    "backtested_at": "2026-05-26T23:49:32.434254+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "Could not parse FRED series from strategy rule"
-    }
+    "bt_feasibility": 4
   },
   {
     "strategy_id": "PL252",
     "idea_id": "PL252",
     "created_at": "2026-05-26T23:49:51.399945+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL252_fda_orange_book_patent_cluster_pbm",
     "name": "FDA Orange Book Patent Expiry Cluster -> PBM Rebate Revenue Surge",
     "category": "F",
@@ -8358,13 +8372,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (CVS+CI) for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:51:34.920528+00:00",
+    "backtest_result": {
+      "status": "done",
+      "sharpe": 0.39,
+      "cagr": 0.062,
+      "max_dd": -0.185,
+      "t_stat": 0.62,
+      "n_events": 5,
+      "verdict": "Not a winner -- Sharpe 0.39, CAGR 6.2%"
+    }
   },
   {
     "strategy_id": "PL255",
     "idea_id": "PL255",
     "created_at": "2026-05-26T23:49:51.399945+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL255_eia_distillate_low_supply_rail_advantage",
     "name": "EIA Distillate Days Supply Critically Low -> Rail Freight Advantage",
     "category": "J",
@@ -8383,13 +8407,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (UNP+CSX+NSC) for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:51:34.920528+00:00",
+    "backtest_result": {
+      "status": "done",
+      "sharpe": -0.46,
+      "cagr": -0.132,
+      "max_dd": -0.095,
+      "t_stat": -0.61,
+      "n_events": 7,
+      "verdict": "Failed -- negative Sharpe, no edge in rail stocks during diesel shortages"
+    }
   },
   {
     "strategy_id": "PL256",
     "idea_id": "PL256",
     "created_at": "2026-05-26T23:49:51.399945+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL256_sec_edgar_s1_cluster_ipo_underwriter",
     "name": "SEC EDGAR S-1 Filing Cluster -> Investment Bank IPO Revenue Surge",
     "category": "E",
@@ -8406,6 +8440,635 @@
       "fundamental": "none"
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (GS+MS) for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:51:34.920528+00:00",
+    "backtest_result": {
+      "status": "done",
+      "sharpe": 0.26,
+      "cagr": 0.035,
+      "max_dd": -0.206,
+      "t_stat": 0.43,
+      "n_events": 11,
+      "verdict": "Not a winner -- Sharpe 0.26, CAGR 3.5%"
+    }
+  },
+  {
+    "strategy_id": "PL249",
+    "idea_id": "PL249",
+    "created_at": "2026-05-26T23:50:37.839876+00:00",
+    "status": "done",
+    "signal_id": "PL249_fema_disaster_building_materials",
+    "name": "FEMA Major Disaster Declarations -> Rebuilding Materials Demand",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FEMA OpenFEMA data: When FEMA issues a Major Disaster Declaration (type DR) for a state with population > 5M, go long an equal-weight basket of building materials stocks (OC, BLDR, BLD) on the declaration date. Hold for 40 trading days. Benchmark vs SPY. Filter: only declarations that include 'Hurricane', 'Severe Storm', 'Tornado', or 'Flood' as incident type (categories that drive physical rebuilding). Require at least 30 days between signals to avoid overlap.",
+    "tickers": [
+      "OC",
+      "BLDR",
+      "BLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FEMA Major Disaster Declaration (type DR) issued for state with population > 5M",
+      "Incident type is one of: Hurricane, Severe Storm(s), Tornado, Flood",
+      "At least 30 calendar days since last signal entry"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only, no stop-loss"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: OC, BLDR, BLD, SPY",
+      "fundamental": "FEMA OpenFEMA DisasterDeclarations API (bulk CSV at https://www.fema.gov/api/open/v2/DisasterDeclarations.csv) - fields: declarationDate, incidentType, state, declarationType"
+    },
+    "backtest_approach": "Event study: For each qualifying FEMA Major Disaster Declaration (2000-2025), compute cumulative return of equal-weight OC+BLDR+BLD basket over 40 trading days post-declaration vs SPY over same window. Calculate average excess return, win rate, and t-statistic across all events. Use FEMA bulk CSV download (free, no API key needed) to get historical declaration dates.",
+    "known_events": [
+      "2005-08-29 Hurricane Katrina",
+      "2012-10-30 Hurricane Sandy",
+      "2017-08-25 Hurricane Harvey",
+      "2017-09-10 Hurricane Irma",
+      "2018-10-10 Hurricane Michael",
+      "2021-08-29 Hurricane Ida",
+      "2022-09-28 Hurricane Ian"
+    ],
+    "implementation_notes": "BECN (Beacon Roofing) appears delisted on yfinance - replaced with BLD (TopBuild) as building materials proxy. FEMA API may be intermittently down; use bulk CSV download as fallback. Some tickers (BLDR, BLD) may not have data back to 2000; start backtest from earliest common date. State population filter uses Census data to ensure declarations are for significant population centers.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:53:49.379238+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.20289750448468702,
+      "cagr": -0.012216317924868436,
+      "max_dd": -0.49390662067506996,
+      "t_stat": 0.2914594271198991,
+      "n_events": 13,
+      "verdict": "Sharpe 0.20, CAGR -1.2%"
+    }
+  },
+  {
+    "strategy_id": "PL250",
+    "idea_id": "PL250",
+    "created_at": "2026-05-26T23:50:37.839876+00:00",
+    "status": "done",
+    "signal_id": "PL250_bls_qcew_employment_industrial_reit",
+    "name": "BLS QCEW County Employment Surge -> Sunbelt Industrial REITs",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and BLS QCEW data: When BLS QCEW quarterly release shows aggregate warehouse/logistics employment (NAICS 493 Warehousing and Storage) grew > 5% YoY nationally, go long an equal-weight basket of Sunbelt industrial REITs (STAG, PLD, REXR) on the QCEW release date. Hold for 30 trading days. Benchmark vs SPY. QCEW data releases quarterly with ~6 month lag (Q1 data released ~September). Use national aggregate to avoid sparse county-level data issues.",
+    "tickers": [
+      "STAG",
+      "PLD",
+      "REXR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS QCEW quarterly release shows NAICS 493 (Warehousing & Storage) national employment grew > 5% YoY",
+      "Use national-level aggregate (area_fips=US000, own_code=5 private, industry_code=493)",
+      "Signal fires on QCEW release date (approximately 6 months after quarter end)"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: STAG, PLD, REXR, SPY",
+      "fundamental": "BLS QCEW API: https://data.bls.gov/cew/data/api/{year}/{qtr}/area/US000.csv - filter industry_code=493, own_code=5. Release schedule at https://www.bls.gov/cew/schedule.htm"
+    },
+    "backtest_approach": "Event study: For each QCEW quarterly release (2010-2025) where NAICS 493 national employment grew > 5% YoY, compute cumulative return of equal-weight STAG+PLD+REXR basket over 30 trading days post-release vs SPY. QCEW release dates: Q1 data ~Sept, Q2 data ~Dec, Q3 data ~March, Q4 data ~June. Calculate average excess return, win rate, t-statistic. If fewer than 8 signal events, relax threshold to > 3% YoY growth.",
+    "known_events": [],
+    "implementation_notes": "BLS QCEW API is free and requires no key. QCEW has ~6 month publication lag which is the edge (market may not process this data promptly). STAG IPO was 2011, REXR IPO was 2013 - backtest start limited by earliest REIT availability. NAICS 493 is specifically warehousing/storage; broader logistics includes 484 (trucking) and 492 (couriers) which could be added if 493 alone yields too few signals. bt_feasibility is 3 due to potentially sparse signal count at >5% threshold.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-26T23:53:49.379238+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4868574708013126,
+      "cagr": 0.08464853761006541,
+      "max_dd": -0.20959519558410067,
+      "t_stat": 0.5819059777699129,
+      "n_events": 12,
+      "verdict": "Sharpe 0.49, CAGR 8.5%"
+    }
+  },
+  {
+    "strategy_id": "PL258",
+    "idea_id": "PL258",
+    "created_at": "2026-05-26T23:50:51.340007+00:00",
+    "status": "done",
+    "signal_id": "PL258_wasde_wheat_low_stocks_fertilizer_demand",
+    "name": "WASDE Global Wheat Stocks-to-Use Below 30% -> Fertilizer Demand Surge",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. USDA WASDE shows global wheat stocks-to-use < 30% (free monthly report) Long (NTR+MOS+CF) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(NTR",
+      "MOS",
+      "CF)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (NTR, MOS, CF), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (NTR+MOS+CF) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:53:49.379238+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.459481269301957,
+      "cagr": 0.7354700498543203,
+      "max_dd": -0.2597025101417615,
+      "t_stat": 1.8841822167027136,
+      "n_events": 10,
+      "verdict": "Sharpe 1.46, CAGR 73.5%"
+    }
+  },
+  {
+    "strategy_id": "PL262",
+    "idea_id": "PL262",
+    "created_at": "2026-05-26T23:50:51.340007+00:00",
+    "status": "done",
+    "signal_id": "PL262_noaa_pdsi_drought_hydro_collapse_natgas",
+    "name": "NOAA PDSI Extreme Drought -> Hydro Collapse -> Natgas Power Demand",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: 1. NOAA PDSI shows extreme drought in hydro-dependent regions (free data) Long (EQT+AR+RRC) for 60 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(EQT",
+      "AR",
+      "RRC)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (EQT, AR, RRC), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (EQT+AR+RRC) for 60 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:53:49.379238+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.1504583340944192,
+      "cagr": -0.14371234227271712,
+      "max_dd": -0.5467720656234583,
+      "t_stat": -0.20765222894916838,
+      "n_events": 8,
+      "verdict": "Sharpe -0.15, CAGR -14.4%"
+    }
+  },
+  {
+    "strategy_id": "PL263",
+    "idea_id": "PL263",
+    "created_at": "2026-05-26T23:50:51.340007+00:00",
+    "status": "done",
+    "signal_id": "PL263_census_advance_import_surge_drayage_warehouse",
+    "name": "Census Advance Trade Goods Import Surge -> Drayage & Warehouse Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance data: 1. Census advance trade data shows real goods imports surging >3% MoM (free) Long (JBHT+PLD) for 10 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(JBHT",
+      "PLD)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (JBHT, PLD), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (JBHT+PLD) for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:53:49.379238+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7559654451420831,
+      "cagr": 0.17197584435037627,
+      "max_dd": -0.27522109155648355,
+      "t_stat": 0.690098878331255,
+      "n_events": 22,
+      "verdict": "Sharpe 0.76, CAGR 17.2%"
+    }
+  },
+  {
+    "strategy_id": "PL266",
+    "idea_id": "PL266",
+    "created_at": "2026-05-26T23:51:52.175202+00:00",
+    "status": "in_progress",
+    "signal_id": "PL266_bea_pce_goods_services_rotation_discretionary",
+    "name": "BEA PCE Services-to-Goods Rotation -> Consumer Discretionary Pivot",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using BEA PCE detail via FRED: 1. BEA PCE detail shows goods spending 3mo RoC > services RoC (free FRED data) Long (XRT+HD+LOW for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(XRT",
+      "HD",
+      "LOW",
+      "TGT)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (XRT, HD, LOW, TGT), SPY",
+      "fundamental": "BEA PCE detail via FRED"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (XRT+HD+LOW for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL267",
+    "idea_id": "PL267",
+    "created_at": "2026-05-26T23:51:52.175202+00:00",
+    "status": "in_progress",
+    "signal_id": "PL267_fhwa_vmt_surge_auto_insurer_premium_growth",
+    "name": "FHWA Traffic Volume Surge -> Auto Insurance Premium Volume Growth",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. FHWA Traffic Volume Trends shows VMT >3% YoY for 3+ months (free) Long (PGR+ALL+TRV) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(PGR",
+      "ALL",
+      "TRV)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (PGR, ALL, TRV), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (PGR+ALL+TRV) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL250",
+    "idea_id": "PL250",
+    "created_at": "2026-05-26T23:51:58.723457+00:00",
+    "status": "in_progress",
+    "signal_id": "PL250_warehouse_employment_surge_industrial_reit",
+    "name": "FRED Warehouse Employment YoY Surge -> Long Industrial REITs (STAG+PLD+REXR)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Use FRED CES4349300001 (All Employees, Warehousing and Storage). When YoY growth > +5% for 3 consecutive months, warehouse labor demand is surging, signaling rising industrial space utilization. Long STAG+PLD+REXR equal-weight for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "STAG",
+      "PLD",
+      "REXR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED CES4349300001 (Warehousing & Storage Employment) YoY growth exceeds +5% for 3 consecutive months",
+      "Go long on the first trading day of the month following the signal"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days from entry",
+      "Equal-weight basket of STAG + PLD + REXR"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance STAG, PLD, REXR, SPY",
+      "fundamental": "FRED CES4349300001"
+    },
+    "backtest_approach": "Load FRED CES4349300001 monthly. Compute YoY % change. When YoY > +5% for 3 consecutive months (and not already in a position from recent signal), enter long STAG+PLD+REXR equal-weight. Hold 42 trading days. Compute per-trade returns and aggregate metrics vs SPY.",
+    "known_events": [],
+    "implementation_notes": "Original idea referenced BLS QCEW county-level data which is too granular. Using FRED CES4349300001 (national warehousing employment) as a more tractable proxy. STAG and REXR IPO dates may limit earlier backtest data (STAG: 2011, REXR: 2013). Use PLD as the primary ticker for longer history.",
+    "originality": 8,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL264",
+    "idea_id": "PL264",
+    "created_at": "2026-05-26T23:52:09.658412+00:00",
+    "status": "in_progress",
+    "signal_id": "PL264_sba_504_loan_community_bank",
+    "name": "SBA 504 Loan Approval Surge -> Community Bank Net Interest Income",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and SBA loan data: When SBA monthly 504 loan approval volume (dollar amount) exceeds its trailing 12-month average by > 20%, go long KRE (SPDR S&P Regional Banking ETF) on the first trading day after the SBA monthly data release. Hold for 30 trading days. Benchmark vs SPY. SBA publishes monthly approval data on its website with ~1 month lag. Use dollar volume rather than count to account for loan size trends.",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SBA monthly 504 loan approval dollar volume exceeds trailing 12-month average by > 20%",
+      "Enter on first trading day after SBA monthly data release (~1 month lag)",
+      "Minimum 60 calendar days between signals to avoid overlap"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KRE, SPY",
+      "fundamental": "SBA 504/7(a) loan approval data from SBA.gov open data (FOIA dataset, downloadable CSV). Historical data available back to 2006. Monthly frequency with ~30 day publication lag."
+    },
+    "backtest_approach": "Event study: For each month (2006-2025) where SBA 504 dollar volume exceeded trailing 12-month average by >20%, compute KRE return over 30 trading days post-release vs SPY. Calculate average excess return, win rate, t-statistic. SBA release dates can be approximated as end of following month (e.g., January data released ~end of February). If signal is too frequent, raise threshold to >30%.",
+    "known_events": [],
+    "implementation_notes": "KRE ETF inception was June 2006, so backtest starts mid-2006. SBA data may need to be scraped from SBA.gov FOIA datasets or downloaded as bulk CSV. The 504 program is specifically for fixed-asset lending (real estate, equipment), making it a cleaner signal for economic activity than 7(a) which includes working capital. bt_feasibility is 3 due to potential difficulty in automating SBA data retrieval and approximating exact release dates.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL265",
+    "idea_id": "PL265",
+    "created_at": "2026-05-26T23:52:09.658412+00:00",
+    "status": "in_progress",
+    "signal_id": "PL265_usda_soybean_blooming_condition",
+    "name": "USDA Crop Progress Soybean Blooming Poor Condition -> Soybean Long",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and USDA Crop Progress data: When USDA weekly Crop Progress report shows soybean good+excellent condition rating drops below 55% during July 1 - August 15 (R1-R3 blooming/pod-setting stages), go long SOYB (Teucrium Soybean Fund ETF) on the Monday following the report. Hold for 20 trading days. Benchmark vs SPY. Signal fires only once per growing season (first week condition drops below threshold). Use USDA NASS QuickStats API for historical crop progress data.",
+    "tickers": [
+      "SOYB",
+      "DBA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA weekly Crop Progress report shows soybean good+excellent condition < 55%",
+      "Report date falls between July 1 and August 15 (blooming/pod-setting stage)",
+      "Signal fires only on the first week threshold is breached each growing season",
+      "Enter on Monday following report release (reports released Monday afternoon)"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SOYB, DBA, ZS=F (soybean futures), SPY",
+      "fundamental": "USDA NASS Crop Progress via QuickStats API (free, API key required but free registration). Weekly data available back to 1986 for soybeans. Parameters: source_desc=SURVEY, commodity_desc=SOYBEANS, statisticcat_desc=CONDITION, unit_desc=PCT GOOD + PCT EXCELLENT."
+    },
+    "backtest_approach": "Event study: For each growing season (2012-2025, SOYB inception), identify weeks in July-August where soybean good+excellent first dropped below 55%. Compute SOYB return over 20 trading days post-signal vs SPY. Also test with ZS=F (soybean futures) for longer history (1986-2025). Calculate average excess return, win rate, t-statistic. Expected ~6-10 events where condition dropped below 55% during critical reproductive stages.",
+    "known_events": [
+      "2012 (severe drought, conditions crashed to ~29% G+E)",
+      "2019 (late planting, wet conditions degraded quality)",
+      "2023 (flash drought in August)"
+    ],
+    "implementation_notes": "SOYB ETF inception was September 2011. For longer history, use ZS=F (CBOT soybean futures continuous contract) on yfinance which has data back further. DBA included as broader agriculture ETF alternative. USDA NASS QuickStats API requires free registration for API key. The 55% threshold is based on historical analysis showing that condition below this level during R1-R3 stages correlates with >5% yield reduction. Reports are released Monday afternoon; entry is Tuesday open to avoid stale pricing.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL272",
+    "idea_id": "PL272",
+    "created_at": "2026-05-26T23:52:21.793966+00:00",
+    "status": "in_progress",
+    "signal_id": "PL272_usda_fsis_slaughter_recovery_packer_margins",
+    "name": "USDA FSIS Inspection Volume Recovery -> Protein Packer Margins",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance data: 1. USDA FSIS weekly slaughter data shows cattle >650K head recovery (free) Long (TSN+PPC) for 10 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(TSN",
+      "PPC)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (TSN, PPC), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (TSN+PPC) for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL275",
+    "idea_id": "PL275",
+    "created_at": "2026-05-26T23:52:51.907106+00:00",
+    "status": "in_progress",
+    "signal_id": "PL275_doe_spr_refill_procurement_crude_floor",
+    "name": "DOE SPR Refill Procurement Announcements -> Crude Price Floor Signal",
+    "category": "K",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance data: 1. DOE issues SPR refill solicitation at target price range (public announcement) Long (USO+XOP) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(USO",
+      "XOP)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (USO, XOP), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (USO+XOP) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL270",
+    "idea_id": "PL270",
+    "created_at": "2026-05-26T23:53:22.770051+00:00",
+    "status": "in_progress",
+    "signal_id": "PL270_nfip_claims_flood_mitigation_infra",
+    "name": "NFIP Claims Surge -> Flood Mitigation Infrastructure Spending",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FEMA OpenFEMA NFIP claims data: When monthly NFIP paid claims exceed $500M in a single month (indicating a major flood event), go long an equal-weight basket of water infrastructure stocks (AWK, ACM, MWA) on the first trading day of the month following the claims surge. Hold for 40 trading days. Benchmark vs SPY. The $500M threshold captures only major events (roughly top-decile months). Use FEMA OpenFEMA NFIP claims bulk CSV which has payment dates and amounts going back to 1970s.",
+    "tickers": [
+      "AWK",
+      "ACM",
+      "MWA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FEMA NFIP monthly paid claims total exceeds $500M",
+      "Enter on first trading day of the following month",
+      "Minimum 90 calendar days between signals to avoid overlap from multi-month events"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: AWK, ACM, MWA, SPY",
+      "fundamental": "FEMA OpenFEMA NFIP Claims dataset (bulk CSV: https://www.fema.gov/api/open/v2/FimaNfipClaims.csv). Fields: dateOfLoss, amountPaidOnBuildingClaim, amountPaidOnContentsClaim, totalAmountPaid. Aggregate monthly totalAmountPaid to get monthly claims volume."
+    },
+    "backtest_approach": "Event study: Aggregate NFIP claims by month. For months exceeding $500M in paid claims (2008-2025, constrained by AWK IPO 2008), compute equal-weight AWK+ACM+MWA basket return over 40 trading days vs SPY. Calculate average excess return, win rate, t-statistic. Key events: Hurricane Sandy (2012), Harvey (2017), Florence (2018), Ida (2021), Ian (2022). If fewer than 6 signal events at $500M, lower threshold to $300M.",
+    "known_events": [
+      "2012-10 Hurricane Sandy NFIP claims spike",
+      "2016-08 Louisiana floods major NFIP payouts",
+      "2017-08 Hurricane Harvey record NFIP claims",
+      "2017-09 Hurricane Irma NFIP surge",
+      "2018-09 Hurricane Florence claims",
+      "2021-08 Hurricane Ida claims",
+      "2022-09 Hurricane Ian claims"
+    ],
+    "implementation_notes": "AWK IPO was 2008, ACM IPO was 2007, MWA IPO was 2006. Backtest limited to 2008+. The FEMA NFIP dataset is very large (millions of claims); pre-aggregate by month before analysis. MWA (Mueller Water Products) focuses on water infrastructure products. ACM (AECOM) is engineering/construction. AWK (American Water Works) is the largest US water utility. The causal chain has a lag: mitigation spending takes 2-4 quarters to materialize, but stock prices may anticipate. bt_feasibility is 3 due to potentially low signal count.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL271",
+    "idea_id": "PL271",
+    "created_at": "2026-05-26T23:53:22.770051+00:00",
+    "status": "in_progress",
+    "signal_id": "PL271_ppi_construction_deflation_homebuilders",
+    "name": "BLS PPI Construction Inputs Deflation -> Homebuilder Margin Expansion",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FRED data: When FRED series WPUIP2300001 (PPI: Inputs to Construction Industries) shows 3-month annualized rate of change below -5%, go long an equal-weight basket of homebuilders (DHI, LEN, TOL) on the PPI release date. Hold for 30 trading days. Benchmark vs SPY. PPI is released monthly by BLS, typically around the 13th-15th of the month. Calculate 3-month annualized change as: ((current / 3-months-ago)^4 - 1) * 100.",
+    "tickers": [
+      "DHI",
+      "LEN",
+      "TOL",
+      "ITB",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED WPUIP2300001 (PPI Inputs to Construction) 3-month annualized rate of change < -5%",
+      "Enter on PPI release date (typically 13th-15th of month)",
+      "No minimum gap between signals (can fire consecutive months during deflation)"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: DHI, LEN, TOL, ITB (iShares US Home Construction ETF for robustness check), SPY",
+      "fundamental": "FRED series WPUIP2300001 (PPI: Inputs to Construction Industries, Goods). Monthly frequency, not seasonally adjusted. Alternative: WPUIP2300 if 2300001 unavailable. BLS PPI release schedule at https://www.bls.gov/schedule/news_release/ppi.htm"
+    },
+    "backtest_approach": "Event study: For each month (2000-2025) where WPUIP2300001 3-month annualized change < -5%, compute equal-weight DHI+LEN+TOL return over 30 trading days post-release vs SPY. Also test with ITB ETF (inception 2006) as single-ticker alternative. Calculate average excess return, win rate, t-statistic. Expected events: 2008-2009 (GFC commodity crash), 2015 (commodity deflation), 2019 (trade war), 2022-2023 (lumber price normalization).",
+    "known_events": [
+      "2008-2009 GFC commodity crash caused sharp construction input deflation",
+      "2015-2016 global commodity deflation impacted construction costs",
+      "2019 lumber price decline amid trade uncertainties",
+      "2022-2023 lumber normalization after pandemic spike"
+    ],
+    "implementation_notes": "DHI, LEN, TOL all have data back to 2000+. ITB ETF inception was 2006 for robustness check. The key insight is that homebuilders lock in sales prices 3-9 months before delivery, so falling input costs flow directly to margin on backlog. This is a well-understood mechanism in the industry but the PPI signal timing may offer an edge. FRED data is free but requires API key (free registration). The 3-month annualized rate smooths noise while being responsive enough to capture meaningful deflation episodes.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL281",
+    "idea_id": "PL281",
+    "created_at": "2026-05-26T23:54:17.201684+00:00",
+    "status": "ready",
+    "signal_id": "PL281_bts_ontime_deterioration_mro_demand_surge",
+    "name": "BTS Airline On-Time Performance Deterioration -> MRO Demand Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. BTS on-time performance shows industry arrival < 75% for 2+ months (free) Long (TDG+HEI+GE) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(TDG",
+      "HEI",
+      "GE)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (TDG, HEI, GE), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (TDG+HEI+GE) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL282",
+    "idea_id": "PL282",
+    "created_at": "2026-05-26T23:54:17.201684+00:00",
+    "status": "ready",
+    "signal_id": "PL282_cftc_bank_participation_net_long_flip_commodity",
+    "name": "CFTC Bank Participation Report Net Long Flip -> Commodity Trend Confirmation",
+    "category": "G",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance data: 1. CFTC Bank Participation Report shows net long flip after 12+ months short (free) Long commodity ETFs for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "commodity ETFs",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance commodity ETFs, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long commodity ETFs for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL279",
+    "idea_id": "PL279",
+    "created_at": "2026-05-26T23:54:23.454346+00:00",
+    "status": "ready",
+    "signal_id": "PL279_uspto_oncology_patent_biotech_ma",
+    "name": "USPTO Patent Grant Acceleration in Oncology CPC -> Biotech M&A Signal",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USPTO PatentsView data: When quarterly USPTO patent grants in CPC class A61P35 (antineoplastics/oncology) exceed trailing 4-quarter average by >30%, go long XBI (SPDR S&P Biotech ETF) on the first trading day of the following quarter. Hold for 40 trading days. Benchmark vs SPY. USPTO patent grant data available via PatentsView API (free, no key needed) with weekly updates. Aggregate to quarterly frequency. Signal fires at most once per quarter.",
+    "tickers": [
+      "XBI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Quarterly USPTO patent grants in CPC class A61P35 (oncology) exceed trailing 4-quarter average by >30%",
+      "Enter on first trading day of the following quarter",
+      "At most one signal per quarter"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XBI, SPY",
+      "fundamental": "USPTO PatentsView API (free): https://api.patentsview.org/patents/query - filter by CPC subclass A61P35. Alternatively, bulk download from https://patentsview.org/download/data-download-tables. Count patent grants per quarter in this CPC class."
+    },
+    "backtest_approach": "Event study: For each quarter (2006-2025, XBI inception Jan 2006) where oncology patent grants exceeded trailing 4-quarter average by >30%, compute XBI return over 40 trading days post-quarter-start vs SPY. Calculate average excess return, win rate, t-statistic. The hypothesis is that patent acceleration signals an innovation wave that leads to M&A activity 1-3 quarters later. If fewer than 6 events at 30% threshold, lower to 20%.",
+    "known_events": [],
+    "implementation_notes": "PatentsView API is free and well-documented. CPC A61P35 covers antineoplastic agents specifically. The backtester should query patents by grant date and CPC classification. XBI is equal-weighted so it better captures small-cap M&A premium than IBB (cap-weighted). bt_feasibility is 3 because: (a) patent grant data may show secular growth trends requiring detrending, (b) the causal link from patent grants to M&A is indirect, and (c) quarterly frequency gives few data points per year.",
+    "originality": 8,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL280",
+    "idea_id": "PL280",
+    "created_at": "2026-05-26T23:54:23.454346+00:00",
+    "status": "ready",
+    "signal_id": "PL280_usda_citrus_forecast_cut_fcoj",
+    "name": "USDA NASS Citrus Forecast Down-Revision -> FCOJ Futures Long",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and USDA NASS citrus data: When USDA NASS monthly citrus crop production forecast revises Florida orange production down > 15% from the initial October estimate (first forecast of the season), go long OJ=F (FCOJ futures) on the report release date. Hold for 20 trading days. Benchmark vs SPY. USDA NASS publishes citrus crop forecasts monthly October through July. Compare current month estimate to the initial October estimate for the same crop year.",
+    "tickers": [
+      "OJ=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA NASS Florida orange production forecast revised down > 15% from initial October estimate",
+      "Enter on USDA citrus report release date",
+      "Signal fires only once per crop year (on first month threshold is breached)"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: OJ=F (FCOJ continuous futures contract), SPY",
+      "fundamental": "USDA NASS Citrus Fruits Summary and monthly Crop Production reports. Free via USDA NASS QuickStats: https://quickstats.nass.usda.gov/ - commodity_desc=ORANGES, state=FLORIDA, statisticcat_desc=PRODUCTION. Historical data back to 1990s. Reports released around 10th-12th of each month."
+    },
+    "backtest_approach": "Event study: For each crop year (1995-2025), track USDA monthly Florida orange production estimates from October initial to final. When cumulative revision exceeds -15%, compute OJ=F return over 20 trading days post-report vs SPY. Expected significant events: 2004-2005 (multiple hurricanes), 2006-2010 (citrus canker), 2013-present (citrus greening disease causing persistent declines). Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2004-2005 crop year: Hurricanes Charley, Frances, Ivan, Jeanne devastated Florida citrus",
+      "2016-2017 crop year: Hurricane Irma damaged citrus groves",
+      "2018-2025: Citrus greening disease causing progressive production decline",
+      "2022-2023: Hurricane Ian further reduced production"
+    ],
+    "implementation_notes": "OJ=F on yfinance provides FCOJ continuous futures contract. Citrus greening (HLB) has caused a structural decline in Florida production since ~2005, so the 15% revision threshold must be measured within-season (vs initial October estimate), not YoY. USDA QuickStats is free. The NASS citrus report schedule varies; approximate release as 10th-12th of each month. FCOJ is a thin market -- position sizing should be small. Consider also tracking Brazil crop news as it affects global supply.",
     "originality": 7,
     "bt_feasibility": 4
   }

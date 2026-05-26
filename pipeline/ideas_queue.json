@@ -6646,7 +6646,7 @@
   {
     "idea_id": "PL249",
     "created_at": "2026-05-26T23:48:52.218856+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "FEMA Major Disaster Declarations -> Rebuilding Materials Demand",
     "category": "K",
     "asset_class": "equities",
@@ -6672,7 +6672,7 @@
   {
     "idea_id": "PL250",
     "created_at": "2026-05-26T23:48:52.218856+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "BLS QCEW County Employment Surge -> Sunbelt Industrial REITs",
     "category": "G",
     "asset_class": "equities",
@@ -6884,6 +6884,803 @@
     "source_reference": "NOAA CPC drought outlook methodology and EPA water infrastructure needs survey",
     "research_phase": "pipeline_scout",
     "dedup_key": "noaa_drought_persistence_water_treatment_equipment",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL258",
+    "created_at": "2026-05-26T23:50:14.007579+00:00",
+    "status": "developed",
+    "name": "WASDE Global Wheat Stocks-to-Use Below 30% -> Fertilizer Demand Surge",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When USDA WASDE report shows global wheat stocks-to-use ratio falling below 30%, governments and farmers respond by intensifying planting efforts for the next season. This creates a fertilizer demand surge as farmers maximize yield per acre, benefiting nitrogen/potash producers (NTR, MOS, CF).",
+    "causal_chain": [
+      "1. USDA WASDE shows global wheat stocks-to-use < 30% (free monthly report)",
+      "2. Wheat futures rally signals scarcity premium",
+      "3. Farmers globally expand planted acreage and increase fertilizer application",
+      "4. Fertilizer demand surges in the planting season following the report",
+      "5. Long fertilizer producers (NTR, MOS, CF) on low stocks-to-use signal"
+    ],
+    "data_sources": [
+      "USDA WASDE monthly report (free)",
+      "yfinance (NTR, MOS, CF)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "USDA WASDE supply and demand estimates methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wasde_wheat_low_stocks_fertilizer_demand"
+  },
+  {
+    "idea_id": "PL259",
+    "created_at": "2026-05-26T23:50:14.007579+00:00",
+    "status": "rejected",
+    "name": "FAA OPSNET Operations Surge -> Airport Concession Revenue Acceleration",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "FAA OPSNET data tracks daily aircraft operations at every US airport. When hub airports show operations exceeding 2019 peak levels by >5%, passenger throughput is at record levels. Airport concession operators and travel retail companies (MAR, ABNB affected secondarily, but HLT/MAR hotel RevPAR near airports correlates) benefit disproportionately.",
+    "causal_chain": [
+      "1. FAA OPSNET shows hub airport operations >5% above 2019 peak (free data)",
+      "2. Passenger throughput at record levels confirmed by TSA checkpoint data",
+      "3. Airport concession, parking, and duty-free revenue surges",
+      "4. Travel retail and airport-adjacent hotels see above-trend occupancy",
+      "5. Long airport-exposed companies and travel REITs on OPSNET surge"
+    ],
+    "data_sources": [
+      "FAA OPSNET (free)",
+      "TSA throughput data (free)",
+      "yfinance"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FAA OPSNET air traffic activity data system",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "faa_opsnet_hub_operations_travel_retail",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL260",
+    "created_at": "2026-05-26T23:50:14.007579+00:00",
+    "status": "rejected",
+    "name": "EPA TRI Toxic Release Drop -> Chemical Company ESG Re-Rating",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "EPA Toxics Release Inventory (TRI) data is published annually with significant lag. Chemical companies showing >20% YoY reduction in reportable toxic releases attract ESG fund inflows and avoid regulatory penalties. The lag in publication creates an information advantage for early readers who can anticipate ESG index inclusion upgrades.",
+    "causal_chain": [
+      "1. EPA TRI annual data published with ~18 month lag (free download)",
+      "2. Identify chemical companies with >20% YoY toxic release reductions",
+      "3. ESG rating agencies incorporate TRI data into scores with additional lag",
+      "4. ESG fund rebalancing creates buying pressure on upgraded names",
+      "5. Long chemical companies with large TRI reductions (anticipate ESG upgrade)"
+    ],
+    "data_sources": [
+      "EPA TRI Explorer (free)",
+      "yfinance (chemical company tickers)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "EPA Toxics Release Inventory program and ESG index methodology papers",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "epa_tri_toxic_reduction_esg_rerating",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL261",
+    "created_at": "2026-05-26T23:50:40.338891+00:00",
+    "status": "rejected",
+    "name": "CFPB Complaint Spike by Product -> Community Bank Market Share Gain",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When CFPB consumer complaint data shows a >50% YoY spike in complaints for a specific financial product category (e.g., BNPL, crypto lending), it presages enforcement actions against fintechs. Traditional community banks and credit unions gain market share as fintechs retrench. Long community bank ETFs on fintech complaint surges.",
+    "causal_chain": [
+      "1. CFPB complaint database shows >50% YoY spike in specific product complaints",
+      "2. CFPB initiates enforcement investigation (typical 3-6 month lag)",
+      "3. Fintech companies in that product category retrench/tighten standards",
+      "4. Traditional banks capture displaced customers and loan volume",
+      "5. Long community bank ETFs (KRE regional component) on complaint surge"
+    ],
+    "data_sources": [
+      "CFPB Consumer Complaint Database (free API)",
+      "yfinance (KRE)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "CFPB complaint database public API and enforcement action history",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cfpb_product_complaint_spike_community_bank",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL262",
+    "created_at": "2026-05-26T23:50:40.338891+00:00",
+    "status": "developed",
+    "name": "NOAA PDSI Extreme Drought -> Hydro Collapse -> Natgas Power Demand",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "thesis": "When NOAA Palmer Drought Severity Index shows extreme drought (PDSI < -4) across major hydroelectric regions (Pacific NW, TVA system), hydroelectric generation collapses and utilities substitute with natural gas-fired generation. This creates marginal gas demand that tightens already-lean storage, benefiting natgas producers.",
+    "causal_chain": [
+      "1. NOAA PDSI shows extreme drought in hydro-dependent regions (free data)",
+      "2. Reservoir levels drop, hydroelectric generation capacity falls 20-40%",
+      "3. Utilities dispatch natural gas combined-cycle plants to fill gap",
+      "4. Marginal gas demand of 2-4 Bcf/d tightens storage trajectory",
+      "5. Long natural gas producers (EQT, AR, RRC) on hydro-region drought signal"
+    ],
+    "data_sources": [
+      "NOAA PDSI (free)",
+      "EIA electric power monthly (free)",
+      "yfinance (EQT, AR, RRC)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA drought monitoring and EIA electricity generation fuel mix data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_pdsi_drought_hydro_collapse_natgas"
+  },
+  {
+    "idea_id": "PL263",
+    "created_at": "2026-05-26T23:50:40.338891+00:00",
+    "status": "developed",
+    "name": "Census Advance Trade Goods Import Surge -> Drayage & Warehouse Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "Census Bureau advance economic indicators report shows goods imports with only ~1 week lag. When real goods imports surge >3% MoM for 2+ consecutive months, port throughput and warehouse utilization spike. Drayage trucking, intermodal operators, and warehouse REITs benefit from the volume surge before it shows up in quarterly earnings.",
+    "causal_chain": [
+      "1. Census advance trade data shows real goods imports surging >3% MoM (free)",
+      "2. Container volumes at West Coast and East Coast ports spike",
+      "3. Drayage trucking and intermodal operators see utilization spike",
+      "4. Warehouse vacancy rates drop as importers need surge storage",
+      "5. Long intermodal/warehouse REITs (JBHT, PLD) on import surge signal"
+    ],
+    "data_sources": [
+      "Census Bureau advance economic indicators (free)",
+      "yfinance (JBHT, PLD)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau advance indicators methodology and BTS port statistics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_advance_import_surge_drayage_warehouse"
+  },
+  {
+    "idea_id": "PL264",
+    "created_at": "2026-05-26T23:51:11.956936+00:00",
+    "status": "developed",
+    "name": "SBA 504 Loan Approval Surge -> Community Bank Net Interest Income",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "SBA publishes weekly/monthly 504 and 7(a) loan approval data. A surge in 504 loan approvals (>20% YoY) signals accelerating small business fixed asset investment. The originating banks earn fees and the companion loans generate NII. Community banks with high SBA market share outperform.",
+    "causal_chain": [
+      "1. SBA loan approval data shows 504 volume >20% YoY (free SBA data)",
+      "2. Small businesses investing in fixed assets (equipment, real estate)",
+      "3. Originating banks earn guarantee fees and hold companion loans",
+      "4. Higher SBA volume indicates improving credit appetite and economic confidence",
+      "5. Long community bank ETFs (KRE) and SBA-active lenders on volume surge"
+    ],
+    "data_sources": [
+      "SBA loan approval data (free)",
+      "yfinance (KRE, community banks)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "SBA 504 and 7(a) loan program data and community bank lending analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sba_504_loan_surge_community_bank_nii"
+  },
+  {
+    "idea_id": "PL265",
+    "created_at": "2026-05-26T23:51:11.956936+00:00",
+    "status": "developed",
+    "name": "USDA Crop Progress Soybean Blooming Poor Condition -> Soybean Long",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA weekly crop progress reports track soybean blooming stage and condition ratings. When good/excellent condition during blooming (R1-R3 reproductive stages in July-August) drops below 55%, yield reduction becomes locked in. Soybean futures rally as the market prices in lower production. This is similar to corn silking but applied to soybeans.",
+    "causal_chain": [
+      "1. USDA Crop Progress shows soybean good/excellent < 55% during blooming (free)",
+      "2. Reproductive-stage stress reduces pod set and seed fill",
+      "3. Yield reduction of 5-15% becomes physiologically locked in",
+      "4. WASDE revises production estimates down in subsequent months",
+      "5. Long soybean futures or DBA during poor blooming conditions"
+    ],
+    "data_sources": [
+      "USDA Crop Progress (free weekly)",
+      "yfinance (SOYB, DBA)",
+      "CBOT soybeans via yfinance"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "USDA crop progress methodology and soybean phenology research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_soybean_blooming_poor_condition_long"
+  },
+  {
+    "idea_id": "PL266",
+    "created_at": "2026-05-26T23:51:11.956936+00:00",
+    "status": "developed",
+    "name": "BEA PCE Services-to-Goods Rotation -> Consumer Discretionary Pivot",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "BEA personal consumption expenditure detail shows spending by category. When the 3-month rate of change in goods PCE exceeds services PCE after a period of services dominance, it signals a consumer rotation back to goods. Goods-heavy retailers and consumer discretionary stocks outperform. The monthly detail is often overlooked vs the headline PCE deflator.",
+    "causal_chain": [
+      "1. BEA PCE detail shows goods spending 3mo RoC > services RoC (free FRED data)",
+      "2. Consumer wallet share shifting from experiences back to physical goods",
+      "3. Goods retailers see same-store sales acceleration",
+      "4. Consumer discretionary goods stocks re-rate on improved revenue trends",
+      "5. Long goods-heavy consumer discretionary (HD, LOW, TGT) on rotation signal"
+    ],
+    "data_sources": [
+      "BEA PCE detail via FRED (free)",
+      "yfinance (XRT, HD, LOW, TGT)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "BEA National Income and Product Accounts PCE methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bea_pce_goods_services_rotation_discretionary"
+  },
+  {
+    "idea_id": "PL267",
+    "created_at": "2026-05-26T23:51:39.311430+00:00",
+    "status": "developed",
+    "name": "FHWA Traffic Volume Surge -> Auto Insurance Premium Volume Growth",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "FHWA publishes monthly Traffic Volume Trends with ~2 month lag. When vehicle miles traveled (VMT) shows sustained >3% YoY growth for 3+ months, auto insurance companies benefit from both higher exposure-based premium growth and the hard market pricing cycle. Long auto insurers (PGR, ALL, TRV) on VMT acceleration.",
+    "causal_chain": [
+      "1. FHWA Traffic Volume Trends shows VMT >3% YoY for 3+ months (free)",
+      "2. More miles driven = more policies written and exposure-based premium growth",
+      "3. Frequency of claims also rises but lagged pricing captures this",
+      "4. Hard market pricing + volume growth creates double tailwind for earned premium",
+      "5. Long auto insurers (PGR, ALL) on sustained VMT acceleration"
+    ],
+    "data_sources": [
+      "FHWA Traffic Volume Trends (free)",
+      "yfinance (PGR, ALL, TRV)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "FHWA Traffic Volume Trends methodology and insurance industry analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fhwa_vmt_surge_auto_insurer_premium_growth"
+  },
+  {
+    "idea_id": "PL268",
+    "created_at": "2026-05-26T23:51:39.311430+00:00",
+    "status": "rejected",
+    "name": "USACE Lock Delay Hours Spike -> Barge Bottleneck -> Rail Grain Shipments",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "US Army Corps of Engineers publishes lock performance data including average delay hours. When major inland waterway locks (e.g., Lock 25 on Mississippi) show delay hours spiking >200% above seasonal average (due to maintenance, low water, or breakdowns), grain shippers divert to rail. Class I railroads with grain exposure see spot rate and volume surges.",
+    "causal_chain": [
+      "1. USACE lock performance data shows delay hours >200% above seasonal norm (free)",
+      "2. Barge shipments back up, transit times lengthen, costs rise",
+      "3. Grain shippers divert marginal volume to rail and truck",
+      "4. Rail grain carloads and spot rates spike on modal shift",
+      "5. Long grain-exposed railroads (UNP, BNSF via BRK.B) on lock delay signal"
+    ],
+    "data_sources": [
+      "USACE Lock Performance Monitoring System (free)",
+      "yfinance (UNP, BRK-B)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USACE Lock Performance Monitoring System (LPMS) and grain transportation reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usace_lock_delay_barge_bottleneck_rail_grain",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL269",
+    "created_at": "2026-05-26T23:51:39.311430+00:00",
+    "status": "rejected",
+    "name": "FDA Drug Shortage Count New High -> CDMO/Compounding Revenue Surge",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "FDA maintains a public drug shortage database updated in real-time. When total active shortages exceed previous cycle highs (>300 active), contract development and manufacturing organizations (CDMOs) and compounding pharmacies see demand surges as hospitals and health systems seek alternative supply. Long CDMOs (CTLT, WCG, PRXL legacy).",
+    "causal_chain": [
+      "1. FDA drug shortage database shows active shortages > 300 (free real-time data)",
+      "2. Hospitals unable to source standard generics seek CDMO alternatives",
+      "3. Compounding pharmacies receive emergency use authorization volume",
+      "4. CDMOs see fill/finish utilization spike and pricing power",
+      "5. Long CDMOs and specialty pharma manufacturers on shortage count signal"
+    ],
+    "data_sources": [
+      "FDA drug shortage database (free)",
+      "yfinance (CTLT equivalent CDMOs)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FDA drug shortage database and ASHP drug shortage survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_drug_shortage_count_high_cdmo_demand",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL270",
+    "created_at": "2026-05-26T23:52:06.376926+00:00",
+    "status": "developed",
+    "name": "NFIP Claims Surge -> Flood Mitigation Infrastructure Spending",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "FEMA NFIP claims data (publicly available) spikes after major flood events. Post-event, federal grants for flood mitigation (HMGP, BRIC) accelerate spending on stormwater infrastructure, levees, and elevation projects. Engineering/construction firms specializing in water infrastructure (MWA, AWK, AECOM via ACM) see revenue acceleration 2-4 quarters post-event.",
+    "causal_chain": [
+      "1. FEMA NFIP claims data shows major surge (free OpenFEMA data)",
+      "2. Federal hazard mitigation grant programs (HMGP, BRIC) activate",
+      "3. State/local governments fast-track flood mitigation construction",
+      "4. Water infrastructure and engineering firms see backlog growth",
+      "5. Long water/infrastructure firms (AWK, ACM, MWA) on NFIP claims surge"
+    ],
+    "data_sources": [
+      "FEMA OpenFEMA NFIP claims data (free)",
+      "yfinance (AWK, ACM)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FEMA NFIP claims data and HMGP/BRIC grant program history",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nfip_claims_surge_flood_mitigation_infra"
+  },
+  {
+    "idea_id": "PL271",
+    "created_at": "2026-05-26T23:52:06.376926+00:00",
+    "status": "developed",
+    "name": "BLS PPI Construction Inputs Deflation -> Homebuilder Margin Expansion",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "BLS PPI for inputs to construction (series WPUIP2300) tracks material costs for builders. When this index shows 3-month annualized deflation exceeding -5%, homebuilders see immediate gross margin expansion on homes already sold (since sales price was locked at higher cost expectations). This margin surprise drives earnings beats.",
+    "causal_chain": [
+      "1. BLS PPI inputs to construction shows 3-mo annualized < -5% (free FRED data)",
+      "2. Lumber, steel, concrete costs declining simultaneously",
+      "3. Homebuilders locked in sale prices at higher expected costs",
+      "4. Actual construction cost comes in below budget -> margin windfall",
+      "5. Long homebuilders (DHI, LEN, TOL) on construction input deflation"
+    ],
+    "data_sources": [
+      "BLS PPI via FRED (WPUIP2300, free)",
+      "yfinance (DHI, LEN, TOL)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS PPI for inputs to construction methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_ppi_construction_inputs_deflation_builders"
+  },
+  {
+    "idea_id": "PL272",
+    "created_at": "2026-05-26T23:52:06.376926+00:00",
+    "status": "developed",
+    "name": "USDA FSIS Inspection Volume Recovery -> Protein Packer Margins",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA FSIS publishes weekly meat inspection volumes (head counts). When weekly cattle slaughter recovers to >650K head after a drought-induced contraction, it signals herd rebuilding has reached a critical mass. Packer margins improve as throughput recovers and fixed costs are spread over more units. Long protein packers (TSN, PPC) on slaughter volume recovery.",
+    "causal_chain": [
+      "1. USDA FSIS weekly slaughter data shows cattle >650K head recovery (free)",
+      "2. Herd rebuilding phase delivers more finished cattle to feedlots",
+      "3. Packer utilization rates improve, spreading fixed costs",
+      "4. Per-head margins stabilize after drought-induced squeeze",
+      "5. Long protein packers (TSN, PPC) on slaughter volume recovery"
+    ],
+    "data_sources": [
+      "USDA FSIS weekly slaughter reports (free)",
+      "yfinance (TSN, PPC)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA FSIS slaughter inspection reports and cattle cycle analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_fsis_slaughter_recovery_packer_margins"
+  },
+  {
+    "idea_id": "PL273",
+    "created_at": "2026-05-26T23:52:34.348659+00:00",
+    "status": "rejected",
+    "name": "EIA Nuclear Capacity Factor Drop -> Refueling Outage -> Uranium Spot Bid",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "EIA monthly electricity data shows nuclear generation by plant. When aggregate nuclear capacity factor drops below 85% during spring/fall (scheduled refueling outage season), it signals above-average refueling activity. Utilities procure spot uranium for reload fuel assemblies, tightening an already thin spot market. Long uranium miners (CCJ, UEC, NXE).",
+    "causal_chain": [
+      "1. EIA monthly nuclear generation shows capacity factor < 85% in outage season",
+      "2. Above-average refueling outages signal larger-than-usual fuel assembly orders",
+      "3. Spot uranium procurement rises as utilities reload reactors",
+      "4. Thin spot market (few active sellers) amplifies price impact",
+      "5. Long uranium miners (CCJ, UEC, NXE) on low capacity factor signal"
+    ],
+    "data_sources": [
+      "EIA Electric Power Monthly nuclear data (free)",
+      "yfinance (CCJ, UEC, NXE)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "EIA Electric Power Monthly and NRC reactor status reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_nuclear_capacity_factor_uranium_spot",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL274",
+    "created_at": "2026-05-26T23:52:34.348659+00:00",
+    "status": "rejected",
+    "name": "Census E-Commerce Share New High -> Last-Mile Delivery Capex Surge",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "Census quarterly e-commerce as % of total retail sales shows secular growth but with cyclical swings. When the share hits new all-time highs (breaking above prior peaks), it signals a structural step-up in delivery infrastructure demand. Companies providing last-mile vehicles, routing software, and automated sorting benefit from accelerating capex.",
+    "causal_chain": [
+      "1. Census quarterly e-commerce retail share hits new all-time high (free data)",
+      "2. Step-change in package volume overwhelms existing last-mile capacity",
+      "3. Delivery companies and retailers invest in fleet expansion and automation",
+      "4. Last-mile vehicle OEMs and delivery tech companies see order acceleration",
+      "5. Long last-mile beneficiaries (WKHS alternatives, AMZN logistics) on share ATH"
+    ],
+    "data_sources": [
+      "Census Bureau quarterly e-commerce data (free)",
+      "yfinance"
+    ],
+    "originality": 6,
+    "bt_feasibility": 3,
+    "source_reference": "Census Bureau quarterly retail e-commerce sales estimates",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_ecommerce_share_ath_lastmile_capex",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL275",
+    "created_at": "2026-05-26T23:52:34.348659+00:00",
+    "status": "developed",
+    "name": "DOE SPR Refill Procurement Announcements -> Crude Price Floor Signal",
+    "category": "K",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "thesis": "DOE announces SPR refill purchases through public solicitations when WTI is below their target price (~$79/bbl historically). Each refill tranche of 3-6M barrels creates known demand that puts a floor under crude prices. Tracking DOE solicitation announcements and EIA weekly SPR inventory provides a lead signal for crude support.",
+    "causal_chain": [
+      "1. DOE issues SPR refill solicitation at target price range (public announcement)",
+      "2. Physical barrels purchased from market over 4-8 week delivery window",
+      "3. 3-6M barrel demand increment tightens prompt crude supply",
+      "4. Market recognizes government as price-insensitive buyer at target range",
+      "5. Long crude (USO, XOP) when DOE announces refill purchase solicitations"
+    ],
+    "data_sources": [
+      "DOE SPR solicitation announcements (public)",
+      "EIA weekly petroleum inventory (free)",
+      "yfinance (USO, XOP)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "DOE SPR annual plan and historical refill purchase documentation",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_spr_refill_procurement_crude_floor"
+  },
+  {
+    "idea_id": "PL276",
+    "created_at": "2026-05-26T23:53:03.033311+00:00",
+    "status": "rejected",
+    "name": "NRC Reactor Trip Cluster -> Regional Power Price Spike -> Peaker Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "NRC publishes daily reactor status reports for all US nuclear plants. When 3+ reactors in the same ISO region trip offline unexpectedly within a week (reducing baseload by >3 GW), regional power prices spike as gas peakers fill the gap. Independent power producers with peaker capacity in affected ISOs see margin windfall.",
+    "causal_chain": [
+      "1. NRC daily reactor status shows 3+ unplanned outages in same region (free)",
+      "2. Regional baseload generation drops by 3+ GW",
+      "3. Gas-fired peakers dispatched to fill gap at higher marginal cost",
+      "4. Regional power prices spike, peaker operators earn scarcity pricing",
+      "5. Long IPPs with peaker exposure in affected ISO (VST, NRG) on trip cluster"
+    ],
+    "data_sources": [
+      "NRC Power Reactor Status Reports (free daily)",
+      "yfinance (VST, NRG)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NRC reactor status reporting system and ISO market clearing mechanics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nrc_reactor_trip_cluster_peaker_ipp_long",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL277",
+    "created_at": "2026-05-26T23:53:03.033311+00:00",
+    "status": "rejected",
+    "name": "IRS SOI Interstate Migration AGI Flow -> Sunbelt Housing Demand",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "IRS Statistics of Income publishes county-to-county migration data with ~2 year lag showing AGI (adjusted gross income) flows. When net AGI inflow to a metro exceeds $2B/year, it signals sustained high-income migration creating durable housing demand. Homebuilders with land positions in receiving metros outperform as the migration becomes consensus with a lag.",
+    "causal_chain": [
+      "1. IRS SOI county-to-county migration shows net AGI inflow > $2B (free, lagged)",
+      "2. High-income households arriving drive housing demand at higher price points",
+      "3. Local labor market tightens, pushing wages and further attracting migration",
+      "4. Homebuilders with land banks in receiving metros see pricing power",
+      "5. Long Sunbelt-exposed homebuilders (TMHC, MTH, MDC) on migration AGI signal"
+    ],
+    "data_sources": [
+      "IRS SOI migration data (free, annual)",
+      "yfinance (homebuilder tickers)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "IRS Statistics of Income county-to-county migration data program",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "irs_soi_agi_migration_sunbelt_homebuilders",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL278",
+    "created_at": "2026-05-26T23:53:03.033311+00:00",
+    "status": "rejected",
+    "name": "USDA AMS Wholesale Produce Price Collapse -> Food Distributor Margin Expansion",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "USDA AMS publishes daily wholesale produce price reports at terminal markets. When key produce items (tomatoes, lettuce, berries) see wholesale prices drop >30% below seasonal averages simultaneously, food distributors (USFD, SYY) benefit from buying low while restaurant menu prices are sticky. The cost relief flows directly to distributor gross margins.",
+    "causal_chain": [
+      "1. USDA AMS terminal market reports show produce prices >30% below seasonal avg",
+      "2. Bumper harvest or import glut creates temporary supply surplus",
+      "3. Food distributors procure at depressed wholesale prices",
+      "4. Restaurant and institutional menu prices remain sticky (slow to adjust down)",
+      "5. Long food distributors (USFD, SYY) on wholesale produce price collapse"
+    ],
+    "data_sources": [
+      "USDA AMS Market News (free daily)",
+      "yfinance (USFD, SYY)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USDA AMS Market News Service terminal market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_ams_produce_price_collapse_food_distributor",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL279",
+    "created_at": "2026-05-26T23:53:30.761750+00:00",
+    "status": "developed",
+    "name": "USPTO Patent Grant Acceleration in Oncology CPC -> Biotech M&A Signal",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "USPTO weekly patent grants by CPC (Cooperative Patent Classification) class show innovation velocity. When patent grants in oncology-related CPC classes (A61P 35/00) accelerate >30% YoY, it signals a maturing pipeline that makes small biotechs attractive M&A targets for large pharma seeking pipeline replenishment. Long small-cap biotech ETF (XBI) on oncology patent acceleration.",
+    "causal_chain": [
+      "1. USPTO patent grants in oncology CPC classes accelerate >30% YoY (free bulk data)",
+      "2. Maturing IP portfolios signal clinical-stage compounds approaching commercial value",
+      "3. Large pharma with patent cliffs need pipeline replenishment via M&A",
+      "4. M&A premium bids lift small-cap biotech valuations across the sector",
+      "5. Long XBI on oncology patent grant acceleration signal"
+    ],
+    "data_sources": [
+      "USPTO bulk patent grant data by CPC class (free)",
+      "yfinance (XBI)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USPTO PatentsView data and CPC classification system",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "uspto_oncology_patent_acceleration_biotech_ma"
+  },
+  {
+    "idea_id": "PL280",
+    "created_at": "2026-05-26T23:53:30.761750+00:00",
+    "status": "developed",
+    "name": "USDA NASS Citrus Forecast Down-Revision -> Juice Processor Margin Squeeze",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "thesis": "USDA NASS publishes citrus crop forecasts monthly during the growing season. When Florida orange production forecast is revised down >15% from initial estimate (due to citrus greening, frost, or hurricanes), FCOJ futures spike. Companies with locked-in forward contracts for juice procurement (e.g., private-label juice makers) benefit while spot-dependent processors face margin pressure.",
+    "causal_chain": [
+      "1. USDA NASS revises Florida orange production down >15% (free monthly report)",
+      "2. FCOJ futures spike on reduced supply expectations",
+      "3. Processors with forward contracts locked at lower prices capture windfall",
+      "4. Spot-dependent processors face margin compression",
+      "5. Long FCOJ futures or Brazilian orange juice exporters on forecast cut"
+    ],
+    "data_sources": [
+      "USDA NASS citrus crop production forecasts (free)",
+      "yfinance/CBOT FCOJ futures"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS citrus crop estimates and FCOJ market analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_nass_citrus_forecast_downrevision_fcoj"
+  },
+  {
+    "idea_id": "PL281",
+    "created_at": "2026-05-26T23:53:30.761750+00:00",
+    "status": "developed",
+    "name": "BTS Airline On-Time Performance Deterioration -> MRO Demand Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "Bureau of Transportation Statistics publishes monthly airline on-time performance. When industry-wide on-time arrival rate drops below 75% for 2+ months (from mechanical delays, ATC issues, aging fleet), it signals that airlines must accelerate maintenance spending. Aircraft MRO providers (TDG, HEICO, GE Aerospace) see shop visit acceleration and aftermarket parts demand surge.",
+    "causal_chain": [
+      "1. BTS on-time performance shows industry arrival < 75% for 2+ months (free)",
+      "2. Mechanical delay rate rising signals deferred maintenance catching up",
+      "3. Airlines accelerate engine overhauls and component replacements",
+      "4. MRO providers see shop visit volume increase and parts pricing power",
+      "5. Long MRO/aftermarket plays (TDG, HEI, GE) on on-time deterioration"
+    ],
+    "data_sources": [
+      "BTS airline on-time performance data (free)",
+      "yfinance (TDG, HEI, GE)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BTS Air Travel Consumer Report and airline maintenance economics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bts_ontime_deterioration_mro_demand_surge"
+  },
+  {
+    "idea_id": "PL282",
+    "created_at": "2026-05-26T23:53:58.405505+00:00",
+    "status": "developed",
+    "name": "CFTC Bank Participation Report Net Long Flip -> Commodity Trend Confirmation",
+    "category": "G",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "thesis": "CFTC Bank Participation Report (published monthly, free) shows net positioning of large US banks in commodity futures. When banks flip from net short to net long in a commodity for the first time in 12+ months, it signals informed hedging flows consistent with physical supply tightness. This is a higher-conviction directional signal than COT alone.",
+    "causal_chain": [
+      "1. CFTC Bank Participation Report shows net long flip after 12+ months short (free)",
+      "2. Banks with physical commodity desks adjusting hedges signal supply tightness",
+      "3. Informed positioning precedes spot price moves by 2-6 weeks",
+      "4. Commodity futures trend confirms as fundamentals tighten",
+      "5. Long the commodity (via futures ETF) on bank net long flip signal"
+    ],
+    "data_sources": [
+      "CFTC Bank Participation Report (free monthly)",
+      "yfinance commodity ETFs"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "CFTC Bank Participation in Futures Markets report methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cftc_bank_participation_net_long_flip_commodity"
+  },
+  {
+    "idea_id": "PL283",
+    "created_at": "2026-05-26T23:53:58.405505+00:00",
+    "status": "rejected",
+    "name": "Census Data Center Construction Share New High -> Power Infra Demand",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "Census Bureau construction spending data (category: computer/electronic/data processing facilities) has surged as hyperscalers build out AI capacity. When data center construction spending hits new monthly records or crosses >5% of total nonresidential construction, it signals accelerating power infrastructure demand that benefits transformer manufacturers, electrical equipment makers, and utilities serving data center corridors.",
+    "causal_chain": [
+      "1. Census construction spending shows data center category new monthly high (free)",
+      "2. Hyperscaler datacenter buildout requires massive power infrastructure",
+      "3. Transformer lead times extend, electrical equipment demand spikes",
+      "4. Utilities in data center corridors (Virginia, Texas) see load growth acceleration",
+      "5. Long power infra (ETN, HUBB) and data center corridor utilities (D, NEE)"
+    ],
+    "data_sources": [
+      "Census Bureau construction spending by category (free)",
+      "yfinance (ETN, HUBB, D)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Census Bureau construction spending survey and datacenter power demand analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_datacenter_construction_share_power_infra",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL284",
+    "created_at": "2026-05-26T23:53:58.405505+00:00",
+    "status": "rejected",
+    "name": "PHMSA Pipeline Incident Cluster -> Crude-by-Rail Volume Surge -> Tank Car Lessors",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "DOT PHMSA publishes pipeline incident reports in real-time. When a cluster of significant pipeline incidents (spills, shutdowns) occurs in a major crude corridor (Permian-Gulf, Bakken-Cushing), crude shippers divert to rail transport. Tank car lessors and railroads with crude unit train capacity see utilization and rate spikes.",
+    "causal_chain": [
+      "1. PHMSA incident reports show pipeline shutdown in major crude corridor (free)",
+      "2. Pipeline capacity drops, crude producers need alternative transport",
+      "3. Crude-by-rail loadings spike at affected origin terminals",
+      "4. Tank car lease rates surge on tight availability",
+      "5. Long tank car lessors (GATX, TRN) and railroads on pipeline incident cluster"
+    ],
+    "data_sources": [
+      "DOT PHMSA pipeline incident database (free)",
+      "yfinance (GATX, TRN, UNP)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "DOT PHMSA pipeline incident reporting system",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "phmsa_pipeline_incident_crude_rail_tank_car",
+    "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL285",
+    "created_at": "2026-05-26T23:54:26.733494+00:00",
+    "status": "claimed",
+    "name": "NOAA Fisheries Landings Collapse -> Farmed Salmon Premium Expansion",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "NOAA Fisheries publishes monthly commercial landings data. When total wild-caught landings of key species (salmon, cod, pollock) drop >20% below 5-year average, farmed salmon becomes the marginal supply source. Norwegian aquaculture companies (MOWI, SALM on Oslo, or SalMar) and global salmon ETFs see earnings upgrades as farmed-to-wild premium expands.",
+    "causal_chain": [
+      "1. NOAA commercial fisheries landings drop >20% below 5-year average (free data)",
+      "2. Wild-caught supply shortage pushes buyers to farmed alternatives",
+      "3. Farmed salmon spot prices rise on increased demand",
+      "4. Aquaculture companies see revenue per kg increase with fixed cost base",
+      "5. Long aquaculture-exposed companies on wild-caught landings collapse"
+    ],
+    "data_sources": [
+      "NOAA Fisheries commercial landings statistics (free)",
+      "yfinance (global salmon stocks)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA Fisheries commercial landings statistics and FAO aquaculture reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_fisheries_landings_collapse_aquaculture_premium"
+  },
+  {
+    "idea_id": "PL286",
+    "created_at": "2026-05-26T23:54:26.733494+00:00",
+    "status": "claimed",
+    "name": "FDIC Quarterly Profile Unrealized Loss Improvement -> Regional Bank Recovery",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "FDIC Quarterly Banking Profile publishes aggregate unrealized gains/losses on bank securities portfolios. When aggregate unrealized losses narrow by >20% QoQ (driven by falling interest rates), banks' tangible book values improve materially. Regional banks with large HTM portfolios see the biggest NAV recovery, triggering re-rating.",
+    "causal_chain": [
+      "1. FDIC QBP shows aggregate unrealized losses narrowing >20% QoQ (free quarterly)",
+      "2. Rate decline reducing mark-to-market losses on bank bond portfolios",
+      "3. Tangible book value per share increases, reducing discount to TBV",
+      "4. Investor confidence in bank balance sheets improves",
+      "5. Long regional bank ETF (KRE) on FDIC unrealized loss improvement signal"
+    ],
+    "data_sources": [
+      "FDIC Quarterly Banking Profile (free)",
+      "yfinance (KRE)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FDIC Quarterly Banking Profile and bank securities portfolio analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fdic_qbp_unrealized_loss_improvement_kre"
+  },
+  {
+    "idea_id": "PL287",
+    "created_at": "2026-05-26T23:54:26.733494+00:00",
+    "status": "rejected",
+    "name": "CDC MMWR Respiratory Illness Severity Above Normal -> Telemedicine/Rapid Test Demand",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "CDC MMWR weekly reports track influenza-like illness (ILI) and respiratory virus activity. When ILI activity reaches 'very high' in >5 HHS regions simultaneously (above epidemic threshold), telemedicine platforms, rapid test manufacturers, and OTC cold/flu remedies see demand surges. The signal leads retail sales data by 2-4 weeks.",
+    "causal_chain": [
+      "1. CDC MMWR shows ILI 'very high' in >5 HHS regions simultaneously (free weekly)",
+      "2. Patients overwhelm primary care, driving telemedicine utilization",
+      "3. Rapid test and OTC remedy purchases spike at pharmacies and online",
+      "4. Telehealth platforms (TDOC, AMWL) and test makers see volume surge",
+      "5. Long telemedicine/diagnostics companies on extreme ILI severity signal"
+    ],
+    "data_sources": [
+      "CDC MMWR ILI data (free weekly)",
+      "yfinance (TDOC, AMWL, ABT)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "CDC FluView surveillance system and ILI activity level methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cdc_mmwr_ili_severity_telemedicine_demand",
     "reject_reason": "bt_feasibility 3 < 4"
   }
 ]
