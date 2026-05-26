@@ -1935,7 +1935,7 @@
   {
     "idea_id": "PL073",
     "created_at": "2026-05-26T22:31:20.186868+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Commercial Paper Outstanding Spike \u2192 Liquidity Stress \u2192 Long Gold",
     "category": "C",
     "asset_class": "multi-asset",
@@ -1961,7 +1961,7 @@
   {
     "idea_id": "PL074",
     "created_at": "2026-05-26T22:31:20.186868+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Heavy Truck Sales Surge \u2192 Long Truckload Carriers (KNX/WERN)",
     "category": "C",
     "asset_class": "equities",
@@ -1987,7 +1987,7 @@
   {
     "idea_id": "PL075",
     "created_at": "2026-05-26T22:31:20.186868+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Manufacturers New Orders Durable Goods ex-Transport \u2192 Long Industrials",
     "category": "C",
     "asset_class": "equities",
@@ -2013,7 +2013,7 @@
   {
     "idea_id": "PL076",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Yield Curve Un-Inversion (10Y-2Y) -> Long Cyclical Over Defensive Rotation",
     "category": "C",
     "asset_class": "equities",
@@ -2039,7 +2039,7 @@
   {
     "idea_id": "PL077",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED ISM Services PMI Expansion Cross -> Long Consumer Discretionary (XLY)",
     "category": "C",
     "asset_class": "equities",
@@ -2065,7 +2065,7 @@
   {
     "idea_id": "PL078",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED GDP Nowcast vs Consensus Gap -> Sector Surprise Trade",
     "category": "C",
     "asset_class": "equities",
@@ -2091,7 +2091,7 @@
   {
     "idea_id": "PL079",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Private Residential Construction Spending Acceleration -> Long Cement/Concrete (EXP/SUM)",
     "category": "C",
     "asset_class": "equities",
@@ -2117,7 +2117,7 @@
   {
     "idea_id": "PL080",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Building Permits Northeast Surge -> Long USG/JELD (Building Products)",
     "category": "C",
     "asset_class": "equities",
@@ -2143,7 +2143,7 @@
   {
     "idea_id": "PL081",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED JOLTS Quits Rate Recovery -> Long Staffing Companies (RHI/HAYS)",
     "category": "C",
     "asset_class": "equities",
@@ -2169,7 +2169,7 @@
   {
     "idea_id": "PL082",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Average Weekly Hours Manufacturing Recovery -> Long Cyclical Equities",
     "category": "C",
     "asset_class": "equities",
@@ -2195,7 +2195,7 @@
   {
     "idea_id": "PL083",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Continued Claims Declining Streak -> Long Small Caps (IWM)",
     "category": "C",
     "asset_class": "equities",
@@ -2221,7 +2221,7 @@
   {
     "idea_id": "PL084",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED TED Spread Normalization -> Long Regional Banks (KRE)",
     "category": "C",
     "asset_class": "equities",
@@ -2247,7 +2247,7 @@
   {
     "idea_id": "PL085",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Excess Reserves Surge -> Long Risk Assets (SPY/QQQ)",
     "category": "C",
     "asset_class": "equities",
@@ -2273,7 +2273,7 @@
   {
     "idea_id": "PL086",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED C&I Loan Growth Inflection -> Long Bank Stocks (XLF)",
     "category": "C",
     "asset_class": "equities",
@@ -2299,7 +2299,7 @@
   {
     "idea_id": "PL087",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Trade-Weighted Dollar Decline -> Long US Industrial Exporters (HON/CAT/DE)",
     "category": "C",
     "asset_class": "equities",
@@ -2325,7 +2325,7 @@
   {
     "idea_id": "PL088",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED US Trade Deficit Widening -> Long Port/Logistics Equities",
     "category": "C",
     "asset_class": "equities",
@@ -2351,7 +2351,7 @@
   {
     "idea_id": "PL089",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED WTI Crude Backwardation Steepening -> Long E&P Equities (XOP)",
     "category": "C",
     "asset_class": "equities",
@@ -2377,7 +2377,7 @@
   {
     "idea_id": "PL090",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Henry Hub Natural Gas Below Cash Cost -> Long NG Producers (EQT/AR/RRC)",
     "category": "C",
     "asset_class": "equities",
@@ -2403,7 +2403,7 @@
   {
     "idea_id": "PL091",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED US Crude Oil Production MoM Decline -> Long Crude Futures",
     "category": "C",
     "asset_class": "commodities",
@@ -2429,7 +2429,7 @@
   {
     "idea_id": "PL092",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Air Revenue Passenger Miles Recovery -> Long Airlines (JETS ETF)",
     "category": "C",
     "asset_class": "equities",
@@ -2455,7 +2455,7 @@
   {
     "idea_id": "PL093",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Railroad Intermodal Traffic YoY Turn -> Long Intermodal/Rail (UNP/CSX)",
     "category": "C",
     "asset_class": "equities",
@@ -2481,7 +2481,7 @@
   {
     "idea_id": "PL094",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Consumer Sentiment (UMich) Extreme Low Reversal -> Long Retail (XRT)",
     "category": "C",
     "asset_class": "equities",
@@ -2507,7 +2507,7 @@
   {
     "idea_id": "PL095",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Personal Savings Rate Decline from Peak -> Long Leisure/Hospitality (PEJ)",
     "category": "C",
     "asset_class": "equities",
@@ -2533,7 +2533,7 @@
   {
     "idea_id": "PL096",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Retail Sales ex-Auto ex-Gas MoM Beat -> Long Consumer Discretionary",
     "category": "C",
     "asset_class": "equities",
@@ -2559,7 +2559,7 @@
   {
     "idea_id": "PL097",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Non-Defense Capital Goods Orders ex-Aircraft Inflection -> Long Capital Goods (ETN/ROK/AME)",
     "category": "C",
     "asset_class": "equities",
@@ -2585,7 +2585,7 @@
   {
     "idea_id": "PL098",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Industrial Production Manufacturing Index Breakout -> Long Factory Automation (ISRG/FANUY/ROK)",
     "category": "C",
     "asset_class": "equities",
@@ -2611,7 +2611,7 @@
   {
     "idea_id": "PL099",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED 5Y Breakeven Inflation Drop Below 2% -> Long TIPS (TIP ETF)",
     "category": "C",
     "asset_class": "bonds",
@@ -2637,7 +2637,7 @@
   {
     "idea_id": "PL100",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED Real Fed Funds Rate Turning Negative -> Long Growth Equities (QQQ)",
     "category": "C",
     "asset_class": "equities",
@@ -2663,7 +2663,7 @@
   {
     "idea_id": "PL101",
     "created_at": "2026-05-26T22:35:41.417923+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FRED 10Y-3M Yield Curve Steepening After Inversion -> Long Duration Bonds (TLT)",
     "category": "C",
     "asset_class": "bonds",
@@ -2685,5 +2685,824 @@
     "source_reference": "Estrella-Mishkin 1998; FRED yield curve; cutting cycle -> duration rally pattern",
     "research_phase": "pipeline_scout",
     "dedup_key": "yield_curve_steepening_long_tlt"
+  },
+  {
+    "idea_id": "PL102",
+    "created_at": "2026-05-26T22:44:39.181307+00:00",
+    "status": "new",
+    "name": "FRED Soybean Oil PPI Spike -> Packaged Food Margin Squeeze -> Long Hedged Players (GIS/CPB)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED WPU02220301 (soybean oil PPI) is a key input cost for packaged food companies. When soybean oil PPI rises >25% YoY, margin pressure hits branded food companies 1-2 quarters later as contracted input prices roll over. Companies with strong hedging programs and pricing power (GIS, CPB) pass costs through faster than private-label competitors. Long GIS/CPB relative to the food sector (XLP) as their gross margins recover first while competitors still absorb cost headwinds.",
+    "causal_chain": [
+      "FRED WPU02220301 (soybean oil PPI) rises >25% YoY, signaling elevated fats/oils input costs",
+      "Packaged food companies face rising COGS as existing hedges roll off (6-12 month contracts)",
+      "Branded leaders (GIS, CPB) exercise pricing power - raise shelf prices within 1-2 quarters",
+      "Smaller/private-label competitors absorb costs longer, lose relative margin",
+      "GIS/CPB gross margins recover to pre-spike levels 2-3 quarters after pricing actions take effect",
+      "Long GIS/CPB outperforms broader food sector (XLP) by 5-10% over 6 months post-pricing"
+    ],
+    "data_sources": [
+      "FRED WPU02220301 (soybean oil PPI, monthly, free)",
+      "FRED PCU311311 (food manufacturing PPI, monthly, free)",
+      "yfinance GIS, CPB, XLP, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED PPI data; GIS/CPB 10-K input cost disclosures; food industry pricing pass-through literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "soybean_oil_ppi_food_margin_recovery"
+  },
+  {
+    "idea_id": "PL103",
+    "created_at": "2026-05-26T22:44:39.181307+00:00",
+    "status": "new",
+    "name": "USDA Corn Crush Margin Expansion -> Long Ethanol/Corn Processors (ADM/GPRE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "The corn crush margin (ethanol revenue + DDG revenue - corn input cost) is the key profitability driver for corn processors. When FRED PCORNUS (corn price) drops >20% while FRED GASREGW (regular gas price) stays flat or rises, the crush margin expands dramatically. Long ADM (corn processing division) and GPRE (Green Plains, pure-play ethanol) for 90 days as the margin expansion flows through to earnings. FRED data on both sides of the spread enables clean backtesting.",
+    "causal_chain": [
+      "FRED PCORNUS (corn received price) drops >20% from 6-month peak while FRED GASREGW stays flat",
+      "Corn crush margin (ethanol sales + DDG sales - corn cost) widens >/bushel above breakeven",
+      "Ethanol producers (ADM, GPRE) maximize throughput at expanded margins",
+      "Higher utilization rates compound margin expansion through fixed-cost leverage",
+      "Quarterly earnings surprise as crush margin flows through to P&L with 1-quarter lag",
+      "GPRE/ADM outperform SPY by 10-20% over 90 days from margin signal"
+    ],
+    "data_sources": [
+      "FRED PCORNUS (corn price, monthly, free)",
+      "FRED GASREGW (gasoline price, weekly, free)",
+      "yfinance ADM, GPRE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "USDA ERS corn ethanol economics; Iowa State CARD ethanol profitability model; ADM segment disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "corn_crush_margin_ethanol_processors"
+  },
+  {
+    "idea_id": "PL104",
+    "created_at": "2026-05-26T22:44:39.181307+00:00",
+    "status": "new",
+    "name": "FRED Wheat PPI Collapse -> Long Restaurant/Food Service (DRI/MCD)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED WPU02110301 (wheat flour PPI) directly impacts food service costs (flour = 5-8% of restaurant COGS). When wheat flour PPI drops >15% YoY, restaurant chains see margin tailwind 2-3 quarters later as supply contracts reprice. Long restaurant operators with high flour exposure (DRI Darden, MCD bakery items, SBUX pastry) for 6 months. Restaurants are slow to cut menu prices, so the input cost decline goes straight to margin expansion.",
+    "causal_chain": [
+      "FRED WPU02110301 (wheat flour PPI) drops >15% YoY signaling grain input cost relief",
+      "Restaurant supply chain contracts (typically quarterly/semi-annual) reprice at lower flour costs",
+      "Menu prices remain sticky - restaurants rarely lower prices when inputs decline",
+      "Gross margin expands 50-150bps as input savings flow through with no revenue offset",
+      "DRI, MCD, SBUX report margin expansion in Q+2 and Q+3 after flour decline",
+      "Long restaurant basket outperforms SPY by 5-12% over 6 months"
+    ],
+    "data_sources": [
+      "FRED WPU02110301 (wheat flour PPI, monthly, free)",
+      "yfinance DRI, MCD, SBUX, XLY, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED PPI wheat flour; NRA restaurant input cost surveys; DRI 10-K COGS breakdown",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "wheat_flour_ppi_drop_restaurant_margin"
+  },
+  {
+    "idea_id": "PL105",
+    "created_at": "2026-05-26T22:44:59.478376+00:00",
+    "status": "developed",
+    "name": "FRED Nondefense Capital Goods Orders ex-Aircraft \u2192 Long Capex Beneficiaries",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED NEWORDER already covers durable goods ex-transport (PL075). But FRED A34SNO is the even narrower 'core capex proxy' \u2014 nondefense capital goods orders excluding aircraft. When A34SNO 3mo MA YoY turns positive after 6+ months negative, it's the cleanest signal of business investment recovery. Long ROK+ETN+AME (automation + electrical equipment) for 6 months. This series is the one the Fed actually watches for business investment trends.",
+    "causal_chain": [
+      "FRED A34SNO (core capex orders) 3mo MA YoY turns positive after 6+ months negative",
+      "Business investment recovering \u2014 companies ordering machines, electrical equipment, instruments",
+      "Order-to-revenue lag: 2-4 quarters for capital goods manufacturers to deliver and book revenue",
+      "ROK (Rockwell Automation), ETN (Eaton), AME (Ametek) see backlog + revenue acceleration",
+      "Stocks re-rate as capex cycle broadens from orders to deliveries to earnings"
+    ],
+    "data_sources": [
+      "FRED A34SNO (monthly, free, back to 1992)",
+      "yfinance ROK, ETN, AME, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau M3; Fed speeches on core capex as investment proxy",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "core_capex_orders_a34sno_automation"
+  },
+  {
+    "idea_id": "PL106",
+    "created_at": "2026-05-26T22:44:59.478376+00:00",
+    "status": "developed",
+    "name": "FRED Residential Fixed Investment Share of GDP Rising \u2192 Long Homebuilders",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED A011RE1Q156NBEA (residential fixed investment as % of GDP, quarterly) captures housing's share of the economy. When RFI/GDP crosses above 4.0% from below after being depressed for 2+ years, it signals the housing cycle is entering its expansion phase. Long LEN+DHI+TOL for 12 months. RFI/GDP bottomed at 2.4% in 2010 (lowest since 1945) and the recovery to 4%+ preceded massive homebuilder outperformance.",
+    "causal_chain": [
+      "FRED A011RE1Q156NBEA (RFI/GDP) crosses above 4.0% after 2+ years below",
+      "Housing cycle entering expansion phase \u2014 construction activity accelerating faster than GDP",
+      "Homebuilders (LEN, DHI, TOL) are the direct beneficiaries of rising housing investment",
+      "Revenue growth + margin expansion as deliveries and ASPs both increase",
+      "Homebuilder stocks compound for 12+ months during the RFI/GDP expansion phase"
+    ],
+    "data_sources": [
+      "FRED A011RE1Q156NBEA (quarterly, free, back to 1947)",
+      "yfinance LEN, DHI, TOL, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BEA GDP components; housing cycle research; Bill McBride (Calculated Risk)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rfi_gdp_share_rising_homebuilders"
+  },
+  {
+    "idea_id": "PL107",
+    "created_at": "2026-05-26T22:45:06.223131+00:00",
+    "status": "new",
+    "name": "FRED Semiconductor PPI Deflation Trough -> Long Chip Designers (NVDA/AMD/AVGO)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED PCU33443344 (semiconductor manufacturing PPI) tracks chip pricing power. When semiconductor PPI YoY drops to -5% or worse then inflects upward (first positive MoM after 6+ months of declines), it signals the inventory glut is clearing and pricing power returning. Long fabless chip designers (NVDA, AMD, AVGO) which have highest operating leverage to ASP recovery. The PPI trough leads SIA monthly revenue inflection by 1-2 months.",
+    "causal_chain": [
+      "FRED PCU33443344 (semiconductor PPI) YoY trough below -5% then first positive MoM change",
+      "PPI inflection signals inventory destocking complete - channel pulling new orders at firmer prices",
+      "Fabless designers (NVDA, AMD, AVGO) have 60-70% gross margins highly sensitive to ASPs",
+      "Revenue beats materialize 1-2 quarters after pricing power returns",
+      "SMH/fabless basket rallies 15-30% from PPI trough as cycle turn confirmed",
+      "Long NVDA/AMD/AVGO for 6 months from inflection signal"
+    ],
+    "data_sources": [
+      "FRED PCU33443344 (semiconductor PPI, monthly, free)",
+      "FRED NEWORDER (manufacturers new orders, monthly, free)",
+      "yfinance NVDA, AMD, AVGO, SMH, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED semiconductor PPI; SIA monthly revenue data; IC Insights cycle analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "semi_ppi_deflation_trough_fabless_long"
+  },
+  {
+    "idea_id": "PL108",
+    "created_at": "2026-05-26T22:45:06.223131+00:00",
+    "status": "new",
+    "name": "FRED Computer/Electronic Parts Inventories Destock -> Long Tech Distributors (ARW/AVT)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED A33SNO (computer/electronic product manufacturers inventories) tracks tech supply chain inventory levels. When inventories drop >10% from peak over 6+ months and then stabilize (MoM change turns positive), the restocking cycle begins. Tech distributors (ARW Arrow Electronics, AVT Avnet) see order books recover first as OEMs rebuild safety stock. Long ARW/AVT for 6 months from inventory stabilization. Distributors are the earliest beneficiary of restocking because they sit between component makers and OEMs.",
+    "causal_chain": [
+      "FRED A33SNO (computer/electronic inventories) drops >10% from peak then MoM turns positive",
+      "Destocking complete - OEMs have drawn down excess and now reorder at market rates",
+      "Distributors (ARW, AVT) see billings and bookings inflect as restocking orders arrive",
+      "Book-to-bill ratio crosses above 1.0 at the distributor level",
+      "Revenue and margin recovery at ARW/AVT over the next 2-3 quarters",
+      "Long ARW/AVT captures 15-25% upside as cycle turns"
+    ],
+    "data_sources": [
+      "FRED A33SNO (computer/electronic inventories, monthly, free)",
+      "yfinance ARW, AVT, SMH, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED inventory data; Arrow/Avnet quarterly distribution metrics; SIA channel inventory analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tech_inventory_destock_distributor_restock"
+  },
+  {
+    "idea_id": "PL109",
+    "created_at": "2026-05-26T22:45:41.775043+00:00",
+    "status": "new",
+    "name": "FRED Health Services Employment Surge -> Long Hospital Operators (HCA/THC/UHS)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED CES6562000101 (health care employment, monthly) is a direct proxy for healthcare utilization since hospitals hire in response to patient volume. When health services employment rises >3% YoY for 3+ months after a period of contraction, it signals sustained utilization recovery. Long hospital operators HCA, THC (Tenet), UHS for 6 months. Hospital stocks are driven by volume (admissions/surgeries), and employment is the best free real-time volume proxy. Employment data leads quarterly admissions data by 1-2 months.",
+    "causal_chain": [
+      "FRED CES6562000101 (health care employment) rises >3% YoY for 3+ consecutive months",
+      "Rising healthcare employment signals hospitals are staffing up for sustained patient volume growth",
+      "More staff = more surgical suites open, more beds staffed = higher admissions capacity utilized",
+      "Revenue per adjusted admission rises as high-acuity surgical volumes recover",
+      "HCA/THC/UHS report admissions and revenue beats 1-2 quarters after employment surge",
+      "Long hospital operators for 6 months captures the utilization recovery trade"
+    ],
+    "data_sources": [
+      "FRED CES6562000101 (health care employment, monthly, free)",
+      "yfinance HCA, THC, UHS, XLV, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BLS health care employment; HCA 10-K volume metrics; AHA hospital utilization surveys",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "healthcare_employment_surge_hospital_long"
+  },
+  {
+    "idea_id": "PL110",
+    "created_at": "2026-05-26T22:45:41.775043+00:00",
+    "status": "new",
+    "name": "FRED Prescription Drug PPI Inflation -> Long Pharmacy Benefit Managers (CI/CVS/UNH)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED CUUR0000SEMF01 (CPI prescription drugs) or FRED PCU325411325411 (pharma PPI) rising >5% YoY signals drug price inflation. Counter-intuitively, PBMs (Cigna/Express Scripts, CVS/Caremark, UNH/Optum Rx) benefit from drug price inflation because their rebate revenue is a PERCENTAGE of list price. Higher list prices = higher rebate dollars even if rebate percentages stay constant. Long CI/CVS/UNH for 6 months when drug PPI accelerates.",
+    "causal_chain": [
+      "FRED PCU325411325411 (pharmaceutical PPI) rises >5% YoY for 3+ months",
+      "Drug manufacturers raising list prices across branded portfolio (annual January + mid-year increases)",
+      "PBMs negotiate rebates as % of WAC (wholesale acquisition cost) - typically 30-60%",
+      "Higher WAC = higher absolute rebate dollars per script even at same rebate %",
+      "PBM spread income (rebate retained - pass-through to plan) expands with price level",
+      "CI/CVS/UNH pharmacy services segments beat earnings expectations by 2-5%"
+    ],
+    "data_sources": [
+      "FRED PCU325411325411 (pharmaceutical PPI, monthly, free)",
+      "FRED CUUR0000SEMF01 (CPI prescription drugs, monthly, free)",
+      "yfinance CI, CVS, UNH, XLV, SPY"
+    ],
+    "originality": 9,
+    "bt_feasibility": 5,
+    "source_reference": "FRED pharmaceutical PPI; PBM rebate economics; Express Scripts/Caremark rebate retention literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "drug_ppi_inflation_pbm_rebate_income"
+  },
+  {
+    "idea_id": "PL111",
+    "created_at": "2026-05-26T22:45:41.775043+00:00",
+    "status": "new",
+    "name": "FRED Medical Equipment Spending Recovery -> Long Medtech (SYK/ISRG/MDT)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "FRED AMDMNO (durable goods new orders, nondefense capital goods) includes medical device capital spending signals. When FRED S4423SM (health/personal care store sales) rises >6% YoY alongside FRED CES6562000101 (healthcare employment) rising >2% YoY, it confirms a broad healthcare utilization recovery that drives elective surgical procedure volumes. Long surgical medtech (SYK orthopedics, ISRG robotic surgery, MDT implantables) for 9 months as deferred procedures accelerate.",
+    "causal_chain": [
+      "FRED S4423SM (health care store sales) rises >6% YoY for 3+ months",
+      "Rising health store sales proxies increasing outpatient/elective care utilization",
+      "Simultaneously FRED CES6562000101 (healthcare employment) confirms staffing recovery",
+      "Deferred elective procedures (knee/hip replacement, robotic surgery, cardiac implants) accelerate",
+      "Medtech companies (SYK, ISRG, MDT) see procedure volume and device revenue surge",
+      "Long surgical medtech basket for 9 months captures multi-quarter volume recovery"
+    ],
+    "data_sources": [
+      "FRED S4423SM (health care store sales, monthly, free)",
+      "FRED CES6562000101 (health care employment, monthly, free)",
+      "yfinance SYK, ISRG, MDT, XLV, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FRED retail sales health care; BLS employment; SYK/ISRG procedure volume disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "healthcare_utilization_recovery_medtech"
+  },
+  {
+    "idea_id": "PL112",
+    "created_at": "2026-05-26T22:46:10.801954+00:00",
+    "status": "new",
+    "name": "FRED Vehicle Age Peak -> Long Auto Parts Retailers (AZO/ORLY/AAP)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED TOTALSA (total vehicle sales, monthly) and FRED AISRSA (auto inventory/sales ratio) together proxy the new car purchase cycle. When TOTALSA stays below 15M SAAR for 12+ months while AISRSA remains below 2.0, consumers cannot buy new cars and the US fleet ages. Vehicles age 6-12 years = sweet spot for aftermarket parts demand (brakes, batteries, suspension). Long AZO/ORLY for 12 months when the purchase drought signal persists. The average US vehicle age hit 12.6 years in 2024 -- the oldest ever.",
+    "causal_chain": [
+      "FRED TOTALSA stays below 15M SAAR for 12+ months (depressed new car sales)",
+      "Simultaneously FRED AISRSA below 2.0 (dealers have no inventory to sell)",
+      "Consumers keep existing vehicles longer -- average fleet age continues rising",
+      "Vehicles age 6-12 years enter peak maintenance/repair demand window",
+      "AZO/ORLY/AAP same-store sales accelerate as repair frequency rises with fleet age",
+      "Long auto parts retailers for 12 months; compounding benefit until new car supply normalizes"
+    ],
+    "data_sources": [
+      "FRED TOTALSA (total vehicle sales, monthly, free)",
+      "FRED AISRSA (auto inventory/sales ratio, monthly, free)",
+      "yfinance AZO, ORLY, AAP, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED vehicle sales; BEA auto data; S&P Global Mobility average vehicle age study; AZO/ORLY investor day fleet age thesis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "vehicle_age_peak_auto_parts_long"
+  },
+  {
+    "idea_id": "PL113",
+    "created_at": "2026-05-26T22:46:10.801954+00:00",
+    "status": "new",
+    "name": "FRED Motor Vehicle Output Recovery -> Long Auto OEM Suppliers (BWA/LEA/APTV)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED IPG3361T3S (motor vehicle and parts manufacturing IP index) is the most direct measure of US auto production volume. When this index rises >8% from a cyclical trough (after being down >10% from peak), auto OEM suppliers see revenue recovery with high operating leverage. Long Tier 1 suppliers (BWA BorgWarner, LEA Lear, APTV Aptiv) for 6 months. Suppliers have 40-50% fixed costs, so production volume recovery amplifies earnings recovery 2-3x versus revenue growth.",
+    "causal_chain": [
+      "FRED IPG3361T3S (motor vehicle/parts IP) rises >8% from cyclical trough after >10% decline",
+      "Production recovery = OEMs ramping assembly lines, pulling more components from Tier 1 suppliers",
+      "Suppliers (BWA, LEA, APTV) have high fixed-cost structures (40-50%)",
+      "Volume recovery creates operating leverage -- margins expand 300-500bps on incremental units",
+      "Earnings rebound 2-3x the rate of revenue recovery due to fixed-cost absorption",
+      "Supplier stocks re-rate from trough multiples as volume recovery confirms"
+    ],
+    "data_sources": [
+      "FRED IPG3361T3S (motor vehicle IP, monthly, free)",
+      "FRED TOTALSA (vehicle sales for demand confirmation, monthly, free)",
+      "yfinance BWA, LEA, APTV, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED industrial production; BWA/LEA 10-K operating leverage disclosures; IHS Markit auto production forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "auto_production_recovery_supplier_leverage"
+  },
+  {
+    "idea_id": "PL114",
+    "created_at": "2026-05-26T22:46:50.559502+00:00",
+    "status": "new",
+    "name": "FRED CRE Loan Delinquency Trough -> Long Office/Retail REITs (BXP/SPG)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED DRCLACBS (commercial real estate loan delinquency rate at banks) is published quarterly. When CRE delinquency peaks and first declines QoQ after rising for 4+ quarters, it signals the worst of the CRE credit cycle is behind. Long high-quality REITs (BXP Boston Properties office, SPG Simon Property retail) for 12 months. These best-in-class operators are priced for disaster during peak delinquency, but they own trophy assets that recover first. The delinquency turn leads REIT FFO recovery by 2-3 quarters.",
+    "causal_chain": [
+      "FRED DRCLACBS (CRE loan delinquency) peaks and first declines QoQ after 4+ quarters of increases",
+      "Peak delinquency = worst credit losses priced in -- marginal improvement begins",
+      "Banks stop tightening CRE lending -- refinancing availability improves for quality assets",
+      "High-quality REITs (BXP trophy office, SPG A-mall retail) refinance maturing debt at improved terms",
+      "Occupancy stabilizes as tenant demand improves in the recovery",
+      "BXP/SPG re-rate from distressed multiples (10-12x FFO) toward normalized (15-18x) over 12 months"
+    ],
+    "data_sources": [
+      "FRED DRCLACBS (CRE delinquency rate, quarterly, free)",
+      "FRED DRTSCILM (bank lending standards, quarterly, free)",
+      "yfinance BXP, SPG, VNQ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FRED bank delinquency data; FDIC quarterly banking profile; GFC CRE cycle precedent (delinquency peaked Q4 2010)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cre_delinquency_peak_reit_recovery"
+  },
+  {
+    "idea_id": "PL115",
+    "created_at": "2026-05-26T22:46:50.559502+00:00",
+    "status": "new",
+    "name": "FRED CMBS Spread Compression -> Long CRE-Exposed Regional Banks (KEY/CFG/ZION)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED BAMLHE0A0HYM2 (ICE BofA high yield option-adjusted spread) contains a CRE credit signal. When HY spreads compress >100bps from their trailing 12mo peak while FRED DRTSCILM (SLOOS CRE lending standards) shows net tightening declining, CRE-exposed regional banks benefit. Their CRE loan portfolios stop seeing new impairments, and allowance reserves release into earnings. Long KEY/CFG/ZION for 6 months from the spread compression + lending easing dual signal.",
+    "causal_chain": [
+      "FRED BAMLHE0A0HYM2 (HY OAS) compresses >100bps from 12-month peak",
+      "Credit market stress easing broadly -- risk appetite returning for lower-quality assets including CRE",
+      "FRED DRTSCILM (SLOOS) shows net tightening declining from peak -- banks loosening CRE standards",
+      "CRE-heavy regional banks (KEY, CFG, ZION) see impairment rates stabilize on CRE book",
+      "Loan loss provision declines -> allowance reserve releases flow to EPS",
+      "Regional bank stocks re-rate as CRE tail risk reprices from catastrophic to manageable"
+    ],
+    "data_sources": [
+      "FRED BAMLHE0A0HYM2 (HY OAS, daily, free)",
+      "FRED DRTSCILM (SLOOS tightening, quarterly, free)",
+      "yfinance KEY, CFG, ZION, KRE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FRED credit spreads; Fed SLOOS; regional bank CRE exposure disclosures (KEY 20%+, ZION 25%+ of loans)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hy_spread_compression_cre_bank_recovery"
+  },
+  {
+    "idea_id": "PL116",
+    "created_at": "2026-05-26T22:46:50.559502+00:00",
+    "status": "new",
+    "name": "FRED Nonresidential Construction Spending Inflection -> Long Industrial REITs (PLD/REXR)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED TLNRESCONS (nonresidential construction spending) captures commercial, industrial, and institutional building. When nonresidential construction spending growth turns positive YoY after 6+ months of decline, industrial/logistics REITs (PLD Prologis, REXR Rexford) benefit from the demand side -- more factories/warehouses being built means more logistics space needed around them. Long PLD/REXR for 12 months. Industrial REIT occupancy and rent growth correlate with nonresidential construction because new factories generate warehouse demand in their supply chain radius.",
+    "causal_chain": [
+      "FRED TLNRESCONS (nonresidential construction spending) YoY turns positive after 6+ months negative",
+      "Recovery signals new factories, data centers, hospitals being built",
+      "Each new facility creates logistics/warehouse demand in surrounding supply chain radius",
+      "Industrial REITs (PLD, REXR) see leasing activity and occupancy improve",
+      "Same-store NOI growth reaccelerates as new leases signed at market rents",
+      "Long PLD/REXR for 12 months as construction-driven demand flows to industrial space"
+    ],
+    "data_sources": [
+      "FRED TLNRESCONS (nonresidential construction, monthly, free)",
+      "yfinance PLD, REXR, VNQ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED construction spending; Prologis research on factory-to-logistics demand multiplier; CBRE industrial demand studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nonres_construction_inflection_industrial_reit"
+  },
+  {
+    "idea_id": "PL117",
+    "created_at": "2026-05-26T22:47:17.424586+00:00",
+    "status": "new",
+    "name": "FRED Michigan Consumer Expectations Trough -> Long Luxury Retail (RL/TPR/CPRI)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED UMCSENT (U of Michigan consumer sentiment) has an expectations sub-component (FRED MICH). When expectations trough below 60 and then rise >10pts over 3 months, it signals a consumer confidence recovery that drives aspirational/luxury spending first. Luxury retail (RL Ralph Lauren, TPR Tapestry, CPRI Capri) has the highest sensitivity to sentiment because luxury purchases are entirely discretionary and deferred during pessimism. Long luxury retail basket for 6 months from expectations inflection.",
+    "causal_chain": [
+      "FRED MICH (Michigan expectations) troughs below 60 then rises >10pts in 3 months",
+      "Consumer confidence recovery = willingness to make discretionary/aspirational purchases returns",
+      "Luxury purchases (handbags, designer apparel) are most deferrable and recover most sharply",
+      "Luxury retail same-store sales accelerate 2-4 quarters after sentiment inflection",
+      "RL/TPR/CPRI earnings revisions turn positive as analysts see traffic/ASP recovery",
+      "Long luxury basket captures 15-25% upside as sentiment-driven demand reflation plays out"
+    ],
+    "data_sources": [
+      "FRED MICH (Michigan expectations, monthly, free)",
+      "FRED UMCSENT (Michigan sentiment headline, monthly, free)",
+      "yfinance RL, TPR, CPRI, XRT, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "U of Michigan consumer surveys; luxury retail sentiment elasticity; TPR/CPRI 10-K demand drivers",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "michigan_expectations_trough_luxury_retail"
+  },
+  {
+    "idea_id": "PL118",
+    "created_at": "2026-05-26T22:47:17.424586+00:00",
+    "status": "new",
+    "name": "FRED Consumer Confidence Present Situation Surge -> Long Travel/Leisure (MAR/H/EXPE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "Conference Board Consumer Confidence has two components: Present Situation (FRED CSCICP03USM665S) and Expectations. When Present Situation rises >20pts over 6 months from a trough below 100, consumers are feeling good about their CURRENT financial position and splurge on experiential spending (travel, hotels, dining). Long travel/leisure stocks (MAR Marriott, H Hyatt, EXPE Expedia) for 6 months. The Present Situation index specifically captures \"right now\" confidence, which directly drives booking behavior. It leads hotel RevPAR by 1-2 quarters.",
+    "causal_chain": [
+      "FRED CSCICP03USM665S (Conference Board Present Situation) rises >20pts over 6mo from trough below 100",
+      "Consumers feel good about current job/income situation -- willing to spend on experiences",
+      "Travel booking intent surges -- air bookings, hotel reservations, vacation spending rises",
+      "Hotel RevPAR accelerates as both occupancy and ADR improve with demand",
+      "MAR/H/EXPE report revenue beats 1-2 quarters after confidence recovery",
+      "Long travel/leisure basket for 6 months from Present Situation inflection"
+    ],
+    "data_sources": [
+      "FRED CSCICP03USM665S (CB Present Situation, monthly, free)",
+      "yfinance MAR, H, EXPE, PEJ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Conference Board consumer confidence; STR hotel RevPAR; travel booking lead times vs confidence",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cb_present_situation_surge_travel_leisure"
+  },
+  {
+    "idea_id": "PL119",
+    "created_at": "2026-05-26T22:47:55.552381+00:00",
+    "status": "new",
+    "name": "FRED Container Freight Rate Collapse -> Long Import-Dependent Retailers (COST/TGT/WMT)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED DHLSFRTI (DHL supply chain friction index) or Harpex/Freightos container rate indices track trans-Pacific shipping costs. When container freight rates collapse >50% from peak, import-dependent retailers see COGS relief with a 2-3 quarter lag as new lower-cost inventory cycles through. Long COST/TGT/WMT for 6 months from the rate collapse. These big-box importers ship 40-60% of goods from Asia; lower ocean freight is a pure margin tailwind that analysts are slow to model because they use trailing freight costs.",
+    "causal_chain": [
+      "Container freight rates (Freightos/Harpex) collapse >50% from trailing 12mo peak",
+      "New container bookings lock in lower rates -- 4-8 week transit time to US ports",
+      "Import-dependent retailers (COST, TGT, WMT) receive goods at 30-50% lower inbound logistics cost",
+      "New lower-cost inventory enters stores 2-3 months after rate decline",
+      "Gross margin expands 50-100bps without price changes -- goes straight to profit",
+      "Retailer earnings beat consensus 2-3 quarters after freight collapse as margin tailwind materializes"
+    ],
+    "data_sources": [
+      "FRED DHLSFRTI (DHL freight friction, monthly, free)",
+      "yfinance COST, TGT, WMT, XRT, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FRED supply chain indices; Freightos Baltic container index; WMT/TGT 10-K inbound freight cost disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "container_freight_collapse_retailer_margin"
+  },
+  {
+    "idea_id": "PL120",
+    "created_at": "2026-05-26T22:47:55.552381+00:00",
+    "status": "new",
+    "name": "FRED Import Price Index Recovery -> Long Commodity Trading Houses (ADM/BG/GLNCY)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED IR (import price index, monthly) captures the cost of goods entering the US including raw materials. When import prices rise >5% YoY after a period of decline (-5% or worse for 6+ months), it signals a global commodity demand recovery. Commodity trading/logistics firms (ADM Archer-Daniels, BG Bunge, GLNCY Glencore) benefit from rising physical commodity flows -- their margins are driven by VOLUME and VOLATILITY, not price direction alone. Long ADM/BG for 6 months from the import price inflection.",
+    "causal_chain": [
+      "FRED IR (import price index) YoY turns positive >+5% after 6+ months below -5%",
+      "Rising import prices signal recovering global demand for raw materials and commodities",
+      "Higher commodity prices increase the dollar value of physical flows through trading houses",
+      "ADM/BG earn origination/destination margins on larger-value cargoes + increased volumes",
+      "Trading volatility around the inflection creates additional spread-capture opportunities",
+      "ADM/BG earnings recover as commodity cycle turns -- stocks re-rate from trough multiples"
+    ],
+    "data_sources": [
+      "FRED IR (import price index, monthly, free, back to 1982)",
+      "yfinance ADM, BG, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED import price index; ADM/BG segment disclosures; commodity trading margin analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "import_price_recovery_commodity_traders"
+  },
+  {
+    "idea_id": "PL121",
+    "created_at": "2026-05-26T22:47:55.552381+00:00",
+    "status": "new",
+    "name": "FRED Port-Level Import Surge -> Long Warehouse/Logistics REITs (PLD/STAG)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED IMPGS (real goods imports, monthly) measures the physical volume of imports entering the US. When real goods imports rise >8% YoY for 3+ months, port-adjacent warehouse demand surges as importers need space to deconsolidate containers. Long logistics REITs (PLD Prologis, STAG Industrial) concentrated in port markets (LA/LB, Savannah, NJ). The import surge creates a 1-2 quarter lag to warehouse leasing because importers initially overflow into temporary space before signing long-term leases.",
+    "causal_chain": [
+      "FRED IMPGS (real goods imports) rises >8% YoY for 3+ consecutive months",
+      "Physical volume of inbound containers exceeds existing warehouse capacity in port markets",
+      "Importers initially use temporary/overflow space; within 1-2 quarters, sign long-term warehouse leases",
+      "PLD/STAG port-adjacent portfolios see occupancy rise and market rents accelerate",
+      "Same-store NOI growth accelerates as mark-to-market on renewals widens",
+      "Long logistics REITs for 6 months captures the import-driven demand wave"
+    ],
+    "data_sources": [
+      "FRED IMPGS (real goods imports, monthly, free)",
+      "yfinance PLD, STAG, VNQ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED trade data; Prologis IBI (Industrial Business Indicator); CBRE port market logistics research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "goods_import_surge_logistics_reit"
+  },
+  {
+    "idea_id": "PL122",
+    "created_at": "2026-05-26T22:48:25.469896+00:00",
+    "status": "new",
+    "name": "FRED HDD Spike Above Normal -> Long Regulated Utilities (DUK/SO/NEE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "NOAA publishes weekly HDD (heating degree days, free) and FRED tracks natural gas consumption. When cumulative HDD through Jan 31 exceeds the 10-year average by >15%, regulated electric/gas utilities see volumetric revenue uplift that is NOT offset by cost increases (because fuel costs are passed through to ratepayers). Long regulated utilities (DUK, SO, NEE) for 90 days from the HDD threshold crossing. The key insight: regulated utilities earn a MARGIN on each delivered unit -- higher volume = higher dollar margins at near-zero incremental cost.",
+    "causal_chain": [
+      "NOAA weekly HDD data shows cumulative season-to-date >15% above 10-year average by Jan 31",
+      "Colder winter drives higher heating demand -- more gas/electric delivered to customers",
+      "Regulated utilities pass fuel costs through to ratepayers (no margin impact from fuel)",
+      "Volumetric revenue rises because utilities earn a distribution margin per unit delivered",
+      "Higher volumes at same margin per unit = incremental profit at near-zero cost",
+      "DUK/SO/NEE beat Q4/Q1 EPS estimates as weather-driven volume bonus flows through"
+    ],
+    "data_sources": [
+      "NOAA HDD weekly (free, also FRED GHDDUSP for gas-weighted HDD)",
+      "FRED GASPRICE (natural gas citygate price for pass-through confirmation)",
+      "yfinance DUK, SO, NEE, XLU, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA CPC degree day data; utility rate case structure (volumetric margin); DUK/SO earnings weather adjustment disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hdd_spike_regulated_utility_volume"
+  },
+  {
+    "idea_id": "PL123",
+    "created_at": "2026-05-26T22:48:25.469896+00:00",
+    "status": "new",
+    "name": "FRED Property Insurance CPI Acceleration -> Long P&C Reinsurers (RNR/ACGL/RE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED CUSR0000SEHC (CPI tenants/household insurance) captures the retail insurance pricing cycle with a 6-12 month lag to wholesale reinsurance pricing. When insurance CPI rises >8% YoY for 6+ months, it confirms a hard market where primary insurers are raising premiums -- which means reinsurers are also charging higher rates on renewals. Long P&C reinsurers (RNR RenaissanceRe, ACGL Arch Capital, RE Everest) for 12 months. Reinsurers have the highest operating leverage to rate increases because their loss ratios are relatively fixed while premium income grows.",
+    "causal_chain": [
+      "FRED CUSR0000SEHC (CPI household insurance) rises >8% YoY for 6+ consecutive months",
+      "Insurance CPI confirms hard market -- primary insurers passing rate increases to consumers",
+      "Primary insurer rate increases flow through to reinsurance renewals (Jan 1 and Jun/Jul renewals)",
+      "Reinsurers (RNR, ACGL, RE) see premium income grow while loss ratios stay stable",
+      "Combined ratios improve 3-5 points on rate adequacy -- underwriting profit expands",
+      "Reinsurer stocks re-rate as hardening cycle confirms multi-year earnings expansion"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SEHC (CPI household insurance, monthly, free)",
+      "yfinance RNR, ACGL, RE, SPY"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "FRED CPI insurance; Guy Carpenter reinsurance rate-on-line surveys; hard market cycle literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "insurance_cpi_hard_market_reinsurer_long"
+  },
+  {
+    "idea_id": "PL124",
+    "created_at": "2026-05-26T22:49:03.220038+00:00",
+    "status": "new",
+    "name": "FRED Federal Defense Spending Acceleration -> Long Defense Primes (LMT/RTX/NOC/GD)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED FDEFX (federal defense consumption expenditures, quarterly, real) is the most direct measure of actual defense spending (not authorization/appropriation which leads by 12-24 months). When FDEFX QoQ annualized growth exceeds +5% for 2 consecutive quarters after a period of flat/negative spending, defense primes see backlog-to-revenue conversion accelerate. Long LMT/RTX/NOC/GD for 12 months. The key lag: Congress authorizes spending 1-3 years before it shows up in FDEFX, so when FDEFX inflects, the spending is already contractually committed and cannot be clawed back.",
+    "causal_chain": [
+      "FRED FDEFX (real defense spending) QoQ annualized >+5% for 2 consecutive quarters",
+      "Defense spending acceleration means prior-year appropriations are converting to actual outlays",
+      "Primes (LMT, RTX, NOC, GD) see existing backlog converting to recognized revenue faster",
+      "Production ramp on committed contracts = higher utilization on defense manufacturing lines",
+      "Revenue growth accelerates + operating leverage from higher utilization = earnings expansion",
+      "Defense stocks re-rate as multi-year spending trajectory confirmed by actual outlay data"
+    ],
+    "data_sources": [
+      "FRED FDEFX (federal defense spending, quarterly, free, back to 1947)",
+      "FRED A824RX1Q020SBEA (real federal spending, quarterly, free)",
+      "yfinance LMT, RTX, NOC, GD, ITA, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "FRED BEA NIPA defense spending; DoD budget execution reports; defense prime backlog disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "federal_defense_spending_acceleration_primes"
+  },
+  {
+    "idea_id": "PL125",
+    "created_at": "2026-05-26T22:49:03.220038+00:00",
+    "status": "new",
+    "name": "FRED State/Local Construction Spending Surge -> Long Engineering/Construction (PWR/MTZ/PRIM)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED TLPBLCONS (state and local public construction spending, monthly) tracks government infrastructure investment at the state/local level. When TLPBLCONS rises >12% YoY for 4+ months, it signals IIJA/state bond money flowing into road, bridge, water, and grid projects. Long specialty engineering contractors (PWR Quanta, MTZ MasTec, PRIM Primoris) for 12 months. These firms have 85%+ public-sector revenue and 18-24 month backlogs that grow with public spending commitments. The spending data confirms actual contract execution, not just legislative intent.",
+    "causal_chain": [
+      "FRED TLPBLCONS (state/local public construction) rises >12% YoY for 4+ months",
+      "Federal (IIJA) and state-level infrastructure dollars flowing into active construction contracts",
+      "Specialty contractors (PWR, MTZ, PRIM) awarded multi-year contracts for power grid, roads, bridges",
+      "Backlog grows to 18-24 months of revenue visibility -- highest certainty revenue stream",
+      "Revenue acceleration + scale efficiencies = margin expansion over 2-4 quarters",
+      "Long contractor basket for 12 months as public spending sustains multi-year growth"
+    ],
+    "data_sources": [
+      "FRED TLPBLCONS (state/local public construction, monthly, free)",
+      "yfinance PWR, MTZ, PRIM, PAVE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED construction spending; IIJA implementation tracker; PWR/MTZ backlog disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "state_local_construction_surge_contractors"
+  },
+  {
+    "idea_id": "PL126",
+    "created_at": "2026-05-26T22:49:03.220038+00:00",
+    "status": "new",
+    "name": "FRED Federal Nondefense Investment Spike -> Long IT/Consulting (ACN/LDOS/BAH)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED A782RX1Q020SBEA (real federal nondefense gross investment) tracks civilian agency capital spending. When this series rises >10% YoY for 2+ quarters, it signals accelerating federal IT modernization, cybersecurity, and consulting spending. Long government IT/consulting firms (ACN federal division, LDOS Leidos, BAH Booz Allen) for 12 months. These firms have GWACs (government-wide acquisition contracts) that allow rapid task order growth when agency budgets expand. The spending data leads contract award announcements by 1-2 quarters.",
+    "causal_chain": [
+      "FRED A782RX1Q020SBEA (real federal nondefense investment) rises >10% YoY for 2+ quarters",
+      "Civilian agencies (DHS, HHS, VA, DOE) accelerating IT modernization and cloud migration",
+      "Agencies issue task orders under existing GWAC/IDIQ vehicles to firms already qualified",
+      "ACN/LDOS/BAH see organic revenue growth accelerate from federal segments",
+      "Federal contract margins are stable at 8-12% EBIT -- volume growth drives profit",
+      "Long government IT basket for 12 months as spending ramp confirmed by actual outlays"
+    ],
+    "data_sources": [
+      "FRED A782RX1Q020SBEA (federal nondefense investment, quarterly, free)",
+      "yfinance ACN, LDOS, BAH, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FRED BEA nondefense spending; USASpending.gov; LDOS/BAH federal revenue segment reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "federal_nondefense_investment_govit"
+  },
+  {
+    "idea_id": "PL127",
+    "created_at": "2026-05-26T22:49:41.566622+00:00",
+    "status": "new",
+    "name": "FRED Financial Conditions Easing From Tight -> Long Small-Cap Value (IWN)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED NFCI (Chicago Fed National Financial Conditions Index) measures overall financial tightness. When NFCI drops below 0 (easing) after being above +0.3 (tight) for 6+ months, the loosening financial conditions benefit the most credit-sensitive segment: small-cap value stocks (IWN). These companies are dependent on bank lending and capital markets access. Long IWN for 12 months from the NFCI zero-crossing. Small-cap value has outperformed large-cap growth by 15-25% in the 12 months following financial conditions easing in every cycle since 1973.",
+    "causal_chain": [
+      "FRED NFCI drops below 0 (loose) after 6+ months above +0.3 (tight)",
+      "Financial conditions easing = bank lending expanding, credit spreads tightening, volatility declining",
+      "Small-cap value companies most credit-sensitive -- depend on bank loans and capital markets access",
+      "Easing conditions unlock refinancing, capex, M&A for small-cap value universe",
+      "Earnings recovery accelerates as financial constraint lifts -- highest operating leverage segment",
+      "IWN outperforms QQQ by 15-25% over 12 months as rotation from growth to value unfolds"
+    ],
+    "data_sources": [
+      "FRED NFCI (weekly, free, back to 1973)",
+      "yfinance IWN, QQQ, IWM, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Chicago Fed NFCI; financial conditions -> small-cap credit channel literature; Bernanke-Gertler financial accelerator",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nfci_easing_small_cap_value_rotation"
+  },
+  {
+    "idea_id": "PL128",
+    "created_at": "2026-05-26T22:49:41.566622+00:00",
+    "status": "new",
+    "name": "FRED Excess Reserves + M2 Velocity Inflection -> Long Commodities (DJP/GSG)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6-12 months",
+    "thesis": "FRED M2V (velocity of M2 money stock, quarterly) measures how actively money is circulating in the economy. When M2V inflects upward after multi-quarter decline AND FRED M2SL YoY is positive, it signals that the expanded money supply is finally being SPENT rather than hoarded. This dual signal (more money + faster circulation) is the strongest leading indicator for commodity demand. Long broad commodity baskets (DJP, GSG) for 12 months. The velocity inflection distinguishes inflationary money printing (velocity rising) from deflationary money printing (velocity falling).",
+    "causal_chain": [
+      "FRED M2V (M2 velocity) QoQ turns positive after 4+ quarters of decline",
+      "Simultaneously FRED M2SL YoY positive -- money supply still expanding",
+      "More money circulating faster = nominal GDP growth accelerating = commodity demand rising",
+      "Physical commodity demand (energy, metals, agriculture) responds to nominal GDP",
+      "Commodity prices rise as demand growth exceeds supply response",
+      "Long DJP/GSG broad commodity basket for 12 months from the velocity inflection"
+    ],
+    "data_sources": [
+      "FRED M2V (M2 velocity, quarterly, free, back to 1959)",
+      "FRED M2SL (M2 money supply, monthly, free)",
+      "yfinance DJP, GSG, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FRED M2 velocity; quantity theory of money; velocity + supply dual signal for commodity demand",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "m2_velocity_inflection_commodity_demand"
+  },
+  {
+    "idea_id": "PL129",
+    "created_at": "2026-05-26T22:49:41.566622+00:00",
+    "status": "new",
+    "name": "FRED Term Premium Turning Positive -> Long Financials (XLF) / Short Long Duration (TLT)",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "6-12 months",
+    "thesis": "FRED THREEFYTP10 (Adrian-Crump-Moench 10Y term premium, daily) measures the compensation investors demand for holding long-duration bonds. When term premium crosses above zero after being negative for 12+ months, it signals regime shift: investors demanding more compensation for duration risk. Banks (XLF) benefit from steeper yield curves (higher NIM) while long-duration bonds (TLT) underperform. Long XLF for 12 months from the zero-crossing. Rising term premium is the purest signal of a regime where banks outperform bonds.",
+    "causal_chain": [
+      "FRED THREEFYTP10 (ACM 10Y term premium) crosses above 0 after 12+ months negative",
+      "Positive term premium = investors demanding compensation for long-duration risk",
+      "Yield curve steepens as long-end yields rise faster than short-end (term premium widens the spread)",
+      "Banks earn wider NIM (net interest margin) as they borrow short and lend long at wider spread",
+      "XLF (financials) outperforms as bank earnings benefit from steeper curve",
+      "Long XLF captures the NIM expansion trade; financial sector re-rates higher"
+    ],
+    "data_sources": [
+      "FRED THREEFYTP10 (term premium, daily, free, back to 1961)",
+      "yfinance XLF, TLT, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "NY Fed ACM term premium model; Kim-Wright term premium; bank NIM vs yield curve slope literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "term_premium_positive_financials_long"
+  },
+  {
+    "idea_id": "PL130",
+    "created_at": "2026-05-26T22:51:14.038475+00:00",
+    "status": "new",
+    "name": "FRED Wilshire 5000 / GDP Ratio Mean-Reversion \u2192 Long SPY from Undervaluation",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "thesis": "The Buffett Indicator (total market cap / GDP) is the most famous valuation metric. FRED WILL5000INDFC / GDP (or proxy WILL5000PR / GDP). When the ratio drops below 1.0 (market cap < GDP = historically undervalued), long SPY for 12 months. The ratio hit 0.7 in 2009 and 0.85 in 2020 \u2014 both preceded massive rallies. The signal fires rarely but with extreme conviction. Data back to 1970.",
+    "causal_chain": [
+      "FRED WILL5000INDFC / GDP ratio drops below 1.0 (historically undervalued)",
+      "Market cap < GDP signals equities are cheap relative to the economy's productive capacity",
+      "Institutional investors recognize the valuation floor and increase equity allocation",
+      "Mean-reversion begins: equities rally as economy recovers and earnings normalize",
+      "SPY returns 20-50% over the following 12 months from deeply undervalued levels"
+    ],
+    "data_sources": [
+      "FRED WILL5000INDFC (daily, free) + FRED GDP (quarterly, free)",
+      "yfinance SPY"
+    ],
+    "originality": 5,
+    "bt_feasibility": 5,
+    "source_reference": "Warren Buffett / Fortune 2001; FRED Wilshire 5000",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "buffett_indicator_undervaluation_spy"
+  },
+  {
+    "idea_id": "PL131",
+    "created_at": "2026-05-26T22:51:14.038475+00:00",
+    "status": "new",
+    "name": "FRED Owners Equivalent Rent Deceleration \u2192 Long TLT (Shelter CPI Lag)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "3-6 months",
+    "thesis": "FRED CUSR0000SEHC (CPI Owners' Equivalent Rent, monthly) has ~40% weight in core CPI. OER lags actual market rents by 12-18 months because BLS surveys are slow. When OER YoY decelerates by >100bps from its peak (e.g., from 6.5% to 5.5%), the disinflation pipeline is confirmed \u2014 core CPI will keep falling for months. Long TLT for 6 months. The OER deceleration is visible NOW but the market waits for the actual CPI print to react, creating a predictable lag.",
+    "causal_chain": [
+      "FRED CUSR0000SEHC (OER) YoY decelerates >100bps from its trailing peak",
+      "OER = ~40% of core CPI; its deceleration mechanically pulls core CPI lower over coming months",
+      "BLS methodology means OER will keep decelerating for 6-12 months after market rents stabilize",
+      "Bond market gradually prices in the disinflation pipeline \u2192 yields decline",
+      "TLT rallies 5-15% over 6 months as the shelter disinflation flows through to CPI prints"
+    ],
+    "data_sources": [
+      "FRED CUSR0000SEHC (monthly, free, back to 1983)",
+      "yfinance TLT, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS CPI methodology; shelter CPI lag research (Bolhuis-Cramer-Summers 2022)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "oer_deceleration_shelter_cpi_tlt"
   }
 ]

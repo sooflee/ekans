@@ -386,7 +386,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
     <h1>Trading Signals Research</h1>
     <p class="sub">404 signals backtested across macro, crypto, commodities, geopolitics, OSINT, supply chains, and cross-domain causal chains. Free data only.</p>
     <div class="stats">
-      <div class="stat"><span class="v">404</span><span class="l">signals tested</span></div>
+      <div class="stat"><span class="v" id="hero-total">—</span><span class="l">signals tested</span></div>
       <div class="stat"><span class="v" id="hero-count">24</span><span class="l">high return</span></div>
       <div class="stat"><span class="v">24</span><span class="l">validated</span></div>
     </div>
@@ -397,7 +397,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 </header>
 
 <nav class="page-tabs">
-  <button data-tab="catalog">Full Catalog<span class="tab-count">404</span></button>
+  <button data-tab="catalog">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
   <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">24</span></button>
   <button data-tab="validation">Validation</button>
   <button data-tab="pipeline">Pipeline</button>
@@ -428,7 +428,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <h4>Other</h4>
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
-  <a href="#" onclick="document.querySelector('.page-tabs button[data-tab=catalog]').click();return false;">Full catalog (404) ↗</a>
+  <a href="#" onclick="document.querySelector('.page-tabs button[data-tab=catalog]').click();return false;">Full catalog ↗</a>
   <button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 </aside>
 
@@ -1671,6 +1671,888 @@ main.container { min-width: 0; padding: 0; max-width: none; }
     <div class="caveat">N=3 trades, each ~12 months. Portfolio CAGR including cash periods is ~12% — the signal only fires when copper is cheap. The floor estimate is itself an estimate — Cochilco publishes annually with lag. Recycling and substitution can dampen demand enough to keep copper at depressed levels longer than miners can sustain losses (2015 lasted ~18 months).</div>
   </div>
   <div class="card-foot"><span>Source: Cochilco cost reports; miner 10-Q ore grades; own research</span><span><code>backtests/AQ1_copper_marginal_cost.py</code></span></div>
+</article>
+
+
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL83_continued_claims_decline_iwm</span><h3>Continued Claims Decline → Long IWM</h3></div>
+    <div class="right">small-cap equities (IWM) · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.03</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">48.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-13.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.48</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long IWM 126d when CCSA declines 8+ weeks from near-peak.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long IWM 126d when CCSA declines 8+ weeks from near-peak</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CCSA; yfinance</span><span><code>backtests/PL83_continued_claims_decline_iwm.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL3_china_pmi_expansion_metals</span><h3>China PMI Expansion → Long Copper</h3></div>
+    <div class="right">copper futures · 10-day hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.81</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">86.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-17.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.72</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>China PMI expansion cross signals industrial demand recovery; copper reprices upward</p>
+    <h4>Rule</h4>
+    <div class="rule">Long HG=F for 10 trading days when China Manufacturing PMI crosses above 50 after 2+ months below</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 0.72 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-29.9pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: China NBS PMI; yfinance</span><span><code>backtests/PL3_china_pmi_expansion_metals.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL73_commercial_paper_spike_gold</span><h3>CP Spike → Long GLD</h3></div>
+    <div class="right">gold · ~8-week hold · 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">40.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-15.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.79</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CP market stress → backstage liquidity pressure → gold flight-to-quality</p>
+    <h4>Rule</h4>
+    <div class="rule">Long GLD 42 days when COMPOUT 4-week change &gt; +10%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events. In-position CAGR — portfolio contribution depends on trigger frequency.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED COMPOUT; yfinance</span><span><code>backtests/PL73_commercial_paper_spike_gold.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL78_gdpnow_consensus_gap_spy</span><h3>GDPNow &gt; 3% → Long SPY</h3></div>
+    <div class="right">equities (SPY) · 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.70</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">29.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-17.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.18</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long SPY 42d when GDPNOW &gt; 3.0%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY 42d when GDPNOW &gt; 3.0%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=10 events. In-position CAGR — portfolio contribution depends on trigger frequency.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED GDPNOW; yfinance</span><span><code>backtests/PL78_gdpnow_consensus_gap_spy.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL97_core_capex_orders_capital_goods</span><h3>Core Capex Orders Turn → Long ETN+ROK+AME</h3></div>
+    <div class="right">capital goods equities · 3-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.60</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">40.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.53</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long ETN+ROK+AME 126d when NEWORDER 3mo MA YoY turns positive after 6+ months negative.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ETN+ROK+AME 126d when NEWORDER 3mo MA YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED NEWORDER; yfinance</span><span><code>backtests/PL97_core_capex_orders_capital_goods.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL41_existing_home_low_supply_builders</span><h3>Existing Home Low Supply → Long Homebuilders</h3></div>
+    <div class="right">homebuilders · ~12-month hold · 1 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.54</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">61.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-15.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.54</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Extreme existing-home scarcity forces buyers to new construction → homebuilder pricing power</p>
+    <h4>Rule</h4>
+    <div class="rule">Long LEN+DHI+NVR for 252 days when MSACSR crosses below 3.0 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=1 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MSACSR; yfinance</span><span><code>backtests/PL41_existing_home_low_supply_builders.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL95_savings_rate_decline_leisure</span><h3>Savings Rate Decline → Long Leisure</h3></div>
+    <div class="right">leisure/travel equities · 12-month hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.51</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">55.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-25.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.85</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long BKNG+MAR+H 126d when PSAVERT drops &gt;4pp from 12mo peak.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BKNG+MAR+H 126d when PSAVERT drops &gt;4pp from 12mo peak</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (25%) during adverse regimes. Low event count limits statistical confidence. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PSAVERT; yfinance</span><span><code>backtests/PL95_savings_rate_decline_leisure.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL62_m2_reacceleration_gold</span><h3>M2 Reacceleration → Long Gold</h3></div>
+    <div class="right">gold · ~12-month hold · 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.38</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">40.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-19.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.30</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Monetary expansion drives gold with 6-12mo lag as liquidity flows to hard assets</p>
+    <h4>Rule</h4>
+    <div class="rule">Long GLD 252 days when M2 YoY crosses above +4% after 6+ months below +2%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.30 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED M2SL; yfinance</span><span><code>backtests/PL62_m2_reacceleration_gold.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL42_semi_b2b_crossing_one_smh</span><h3>SEMI B2B Cross 1.0 -&gt; Long SMH</h3></div>
+    <div class="right">semiconductors (SMH) · 6-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.36</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">46.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.15</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>B2B crossing 1.0 signals order book turning positive -&gt; semiconductor sector recovery begins -&gt; SMH rallies as earnings estimates inflect</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SMH 6mo when SEMI B2B crosses 1.0 from below after 3+ months under</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (34%) during adverse regimes. Low event count limits statistical confidence.</div>
+  </div>
+  <div class="card-foot"><span>Source: SEMI B2B press releases (hand-coded crossing dates); yfinance SMH</span><span><code>backtests/PL42_semi_b2b_crossing_one_smh.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL48_cre_distressed_alt_managers</span><h3>CRE Trough -&gt; Long Alt Managers</h3></div>
+    <div class="right">alt managers · 12-month hold · 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.32</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">44.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-21.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.87</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CRE distress cycle trough -&gt; alt managers deploy dry powder at discounted prices -&gt; AUM/fee re-rating -&gt; stock re-rates</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BX+ARES+KKR equal-weight 12mo, entry 12mo after CRE volume trough</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: MSCI RCA CRE volume (hand-coded trough dates); yfinance BX, ARES, KKR</span><span><code>backtests/PL48_cre_distressed_alt_managers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL49_plantings_corn_soy_spread</span><h3>Plantings Surprise -&gt; Long Soy</h3></div>
+    <div class="right">soybean futures · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.29</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-12.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.77</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Corn acreage expansion at soy expense -&gt; soy supply squeeze -&gt; soy/corn spread widens -&gt; soy rallies</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ZS=F 30d on Mar 31 when corn acreage surprises high / soy low</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 0.77 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA Prospective Plantings (hand-coded surprise years); yfinance ZS=F, ZC=F</span><span><code>backtests/PL49_plantings_corn_soy_spread.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL59_durable_goods_surge_industrials</span><h3>Durable Goods Surge → Long XLI</h3></div>
+    <div class="right">industrials (XLI) · ~6-month hold · 2 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.28</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">31.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.27</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Sustained durable goods strength → capex cycle inflection → industrials rally</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI 126 days when DGORDER &gt; 105% of trailing 6mo avg for 3 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=2 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.27 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DGORDER; yfinance</span><span><code>backtests/PL59_durable_goods_surge_industrials.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-B">PL76_yield_curve_uninversion_cyclicals</span><h3>Yield Curve Un-Inversion → Long XLI+XLF</h3></div>
+    <div class="right">industrials (XLI) · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.22</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-16.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.24</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Un-inversion signals recession troughing → cyclical recovery</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI+XLF 252d when T10Y2Y crosses above 0 after 12+ months inverted</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.24 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED T10Y2Y; yfinance</span><span><code>backtests/PL76_yield_curve_uninversion_cyclicals.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL75_durable_goods_ex_transport_xli</span><h3>Durable Goods ex-Transport Turn → Long XLI</h3></div>
+    <div class="right">industrials (XLI) · ~6-month hold · 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.19</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.04</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Core capex orders inflection → manufacturing demand recovery</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI 126 days when NEWORDER YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events. In-position CAGR — portfolio contribution depends on trigger frequency.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED NEWORDER; yfinance</span><span><code>backtests/PL75_durable_goods_ex_transport_xli.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL38_rrp_drain_equity_liquidity</span><h3>RRP Drain → Long SPY</h3></div>
+    <div class="right">equities (SPY) · ~12-month hold · 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.04</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">18.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.21</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>RRP drain → liquidity flowing back into banking system and risk assets</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY when ON RRP drains below $500B (after being &gt;$1T) for 252 days, or when draining &gt;$100B/month</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events. In-position CAGR — portfolio contribution depends on trigger frequency. t-stat 1.21 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED RRPONTSYD; yfinance</span><span><code>backtests/PL38_rrp_drain_equity_liquidity.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL35_drought_outlook_water_infra</span><h3>Drought Outlook -&gt; Long Water Infra</h3></div>
+    <div class="right">cross-asset · 6-month hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.99</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">19.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-21.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.40</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Drought -&gt; municipal/industrial water infrastructure capex accelerates -&gt; AWK/XYL revenue tailwind</p>
+    <h4>Rule</h4>
+    <div class="rule">Long AWK+XYL equal-weight 6mo when NOAA drought outlook flags 3+ Western states</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.40 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: NOAA seasonal drought outlook (hand-coded); yfinance AWK, XYL</span><span><code>backtests/PL35_drought_outlook_water_infra.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL87_twd_decline_industrial_exporters</span><h3>TWD Decline → Long Exporters</h3></div>
+    <div class="right">cross-asset · 6-month hold · 9 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.98</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">26.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-42.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.09</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long HON+CAT+DE 126d when DTWEXBGS drops &gt;5% from 6mo peak.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long HON+CAT+DE 126d when DTWEXBGS drops &gt;5% from 6mo peak</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=9 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (42%) requires position sizing discipline.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DTWEXBGS; yfinance</span><span><code>backtests/PL87_twd_decline_industrial_exporters.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL10_class8_truck_replacement</span><h3>Class 8 Replacement Cycle</h3></div>
+    <div class="right">truck/transport equities · 12-month hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.98</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-21.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.97</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Deferred truck replacement during downturn creates forced replacement cycle 18mo later</p>
+    <h4>Rule</h4>
+    <div class="rule">12 months after Class 8 order trough: long PCAR+CMI for 12 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-0.0pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: ACT Research Class 8 order data; yfinance</span><span><code>backtests/PL10_class8_truck_replacement.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL102_core_capex_orders_automation</span><h3>Core Capex A34SNO Turn → Long ROK+ETN+AME</h3></div>
+    <div class="right">capital goods equities · 3-month hold · 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.98</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">22.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-28.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.96</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long ROK+ETN+AME 126d when A34SNO 3mo MA YoY turns positive after 6+ months negative.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ROK+ETN+AME 126d when A34SNO 3mo MA YoY turns positive after 6+ months negative</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (28%) during adverse regimes. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED A34SNO; yfinance</span><span><code>backtests/PL102_core_capex_orders_automation.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL82_mfg_weekly_hours_cyclicals</span><h3>Mfg Hours → Long XLI</h3></div>
+    <div class="right">industrials (XLI) · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.98</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">19.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.37</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long XLI 126d when AWHMAN crosses 41.0 after 4+ months below 40.5.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI 126d when AWHMAN crosses 41.0 after 4+ months below 40.5</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.37 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED AWHMAN; yfinance</span><span><code>backtests/PL82_mfg_weekly_hours_cyclicals.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL46_dxy_spike_em_reversal</span><h3>DXY Spike → Long EEM</h3></div>
+    <div class="right">emerging markets · ~12-week hold · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.97</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">34.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-26.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.84</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>EM equities mean-revert after forced-selling exhaustion from dollar strength</p>
+    <h4>Rule</h4>
+    <div class="rule">Long EEM 63 days after DXY 63d return spikes &gt;+8% then rolls back below +4%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (26%) during adverse regimes. Low event count limits statistical confidence. t-stat 0.84 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED DTWEXBGS; yfinance</span><span><code>backtests/PL46_dxy_spike_em_reversal.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL57_housing_starts_lumber_lag</span><h3>Housing Starts → Long WOOD (lagged)</h3></div>
+    <div class="right">cross-asset · ~6-month hold · 14 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.90</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.96</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Housing starts surge → lumber demand peaks during framing phase 2-4 months later</p>
+    <h4>Rule</h4>
+    <div class="rule">Long WOOD 126 days, entering 63 days after HOUST YoY &gt; +15% for 2 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=14 events. In-position CAGR — portfolio contribution depends on trigger frequency. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-2.5pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED HOUST; yfinance</span><span><code>backtests/PL57_housing_starts_lumber_lag.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL14_soybean_export_season</span><h3>Soybean Export Season (Oct-Jan)</h3></div>
+    <div class="right">soybean futures · 16 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.88</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-20.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.05</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Peak US soybean export season — China/global buyers take new-crop delivery</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ZS=F Oct 1 through Jan 31 each year</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=16 events. In-position CAGR — portfolio contribution depends on trigger frequency. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-5.9pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance ZS=F; USDA export calendar</span><span><code>backtests/PL14_soybean_export_season.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL60_used_car_cpi_disinflation_tlt</span><h3>Used Car CPI Disinflation → Long TLT</h3></div>
+    <div class="right">bonds (TLT) · ~12-week hold · 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.86</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-16.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.29</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Used car deflation pulls headline CPI lower → supports disinflation expectations and bonds</p>
+    <h4>Rule</h4>
+    <div class="rule">Long TLT 63 days when CPI used cars YoY drops below -5%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=10 events. In-position CAGR — portfolio contribution depends on trigger frequency. t-stat 1.29 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CUSR0000SETA02; yfinance</span><span><code>backtests/PL60_used_car_cpi_disinflation_tlt.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL30_rig_count_production_lag</span><h3>Rig Count Lag → Long XOP</h3></div>
+    <div class="right">oil &amp; gas (XOP) · 6-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.80</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">27.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-41.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.26</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Rig decline → DUC depletion over 6mo → production stalls → supply tightens → oil/E&amp;P rallies</p>
+    <h4>Rule</h4>
+    <div class="rule">6mo after rig count crosses -20% from 12mo peak: long XOP for 6 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (41%) requires position sizing discipline. Low event count limits statistical confidence. t-stat 1.26 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-4.5pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: Baker Hughes rig count (hand-coded crossing dates); yfinance XOP</span><span><code>backtests/PL30_rig_count_production_lag.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL69_capacity_utilization_recovery_xlb</span><h3>CapUtil Recovery → Long XLB</h3></div>
+    <div class="right">materials (XLB) · 6-month hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.79</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-24.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.12</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Factory restarts → raw material demand recovers → materials stocks benefit</p>
+    <h4>Rule</h4>
+    <div class="rule">FRED TCU crosses above 76% after 6+ months below → long XLB 6mo</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 1.12 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-2.4pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TCU + yfinance</span><span><code>backtests/PL69_capacity_utilization_recovery_xlb.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL79_resi_construction_cement</span><h3>Resi Construction → Long EXP+SUM</h3></div>
+    <div class="right">cross-asset · 3-month hold · 22 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.77</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">21.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-38.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.54</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long EXP+SUM 126d when PRRESCONS 3mo ann. &gt; +15%.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long EXP+SUM 126d when PRRESCONS 3mo ann. &gt; +15%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=22 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (38%) during adverse regimes.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED PRRESCONS; yfinance</span><span><code>backtests/PL79_resi_construction_cement.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL43_lei_inflection_long_spy</span><h3>LEI Inflection → Long SPY</h3></div>
+    <div class="right">equities (SPY) · ~12-month hold · 13 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.75</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.70</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>LEI trough signals recession bottom → SPY rallies in early recovery</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SPY for 252 days when LEI 6mo RoC turns positive after 6+ negative months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=13 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (34%) during adverse regimes.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED USSLIND; yfinance</span><span><code>backtests/PL43_lei_inflection_long_spy.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL15_wheat_drought_abandonment</span><h3>Wheat Drought Abandonment (Mar-May)</h3></div>
+    <div class="right">wheat futures · 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.74</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">22.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-22.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.92</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Drought during dormancy → high abandonment (20-35% vs 10% normal) → WASDE cuts production → KC wheat rallies</p>
+    <h4>Rule</h4>
+    <div class="rule">Long KE=F Mar 1 - May 31 in years with USDA winter wheat poor/very-poor &gt;35% by March</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events. In-position CAGR — portfolio contribution depends on trigger frequency. t-stat 0.92 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA Crop Progress winter wheat conditions; yfinance KE=F</span><span><code>backtests/PL15_wheat_drought_abandonment.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL94_umich_sentiment_low_xrt</span><h3>UMich Sentiment Trough → Long XRT</h3></div>
+    <div class="right">retail (XRT) · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.74</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-15.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.75</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long XRT 126d when UMCSENT below 55 then rises 2 consecutive months.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XRT 126d when UMCSENT below 55 then rises 2 consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 0.75 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED UMCSENT; yfinance</span><span><code>backtests/PL94_umich_sentiment_low_xrt.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL34_ism_orders_inventories_spread</span><h3>ISM Orders-Inventories → Long XLI</h3></div>
+    <div class="right">industrials (XLI) · ~6-month hold · 10 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.72</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-31.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.61</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Strong orders + lean inventories = restocking cycle imminent → industrials rally</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI for 126 days when ISM New Orders - Inventories spread crosses above +10</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=10 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (31%) during adverse regimes. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: ISM Manufacturing Report (hand-coded); yfinance</span><span><code>backtests/PL34_ism_orders_inventories_spread.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL66_sloos_easing_small_cap_iwm</span><h3>SLOOS Easing → Long IWM</h3></div>
+    <div class="right">small-cap equities (IWM) · 12-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.70</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">14.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-41.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.56</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Credit cycle trough → small caps recover fastest when banks start lending again</p>
+    <h4>Rule</h4>
+    <div class="rule">SLOOS (hand-coded (SLOOS)) crosses from tightening to easing after 4+ quarters tight → long IWM 12mo</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (41%) requires position sizing discipline. Low event count limits statistical confidence. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED hand-coded (SLOOS) + yfinance</span><span><code>backtests/PL66_sloos_easing_small_cap_iwm.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL23_semi_b2b_specialty_chem</span><h3>SEMI B2B Inflection → Specialty Chem+Equip</h3></div>
+    <div class="right">cross-asset · 6-month hold · 4 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.69</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">23.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-40.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.98</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>B2B inflection signals fab reactivation → wafer starts ramp → consumable chemical demand rises linearly → specialty chem re-rates</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ENTG+AMAT+LRCX equal-weight 6mo when SEMI B2B crosses 1.05 from trough</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=4 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (41%) requires position sizing discipline. Low event count limits statistical confidence. t-stat 0.98 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: SEMI B2B press releases (hand-coded inflection dates); yfinance</span><span><code>backtests/PL23_semi_b2b_specialty_chem.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-B">PL64_bank_credit_reacceleration_xlf</span><h3>Bank Credit Reacceleration → Long XLF</h3></div>
+    <div class="right">financials (XLF) · 12-month hold · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.60</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">11.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.03</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Credit expansion = banks lending again → NIM improves → loan growth drives net interest income → banks re-rate</p>
+    <h4>Rule</h4>
+    <div class="rule">FRED TOTBKCR YoY crosses above +2% after 6+ months below → long XLF 12 months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (33%) during adverse regimes. Low event count limits statistical confidence. t-stat 1.03 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TOTBKCR (H.8 bank credit) + yfinance</span><span><code>backtests/PL64_bank_credit_reacceleration_xlf.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-B">PL54_bankruptcy_surge_restructuring</span><h3>Bankruptcy Surge → Long Restructuring</h3></div>
+    <div class="right">restructuring equities · ~12-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-50.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.23</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Bankruptcy surge → restructuring advisory fee boom with 2-3 quarter lag</p>
+    <h4>Rule</h4>
+    <div class="rule">Long HLI+LAZ+PJT for 252 days during bankruptcy surge periods</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (51%) requires position sizing discipline. Low event count limits statistical confidence. t-stat 1.23 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-3.9pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: ABI/US Courts data (hand-coded surge periods); yfinance</span><span><code>backtests/PL54_bankruptcy_surge_restructuring.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL44_corn_planting_delay_long</span><h3>Corn Planting Delay -&gt; Long ZC=F</h3></div>
+    <div class="right">corn futures · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.56</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-15.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.35</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Late planting -&gt; reduced acreage + lower yields -&gt; USDA cuts production estimates -&gt; corn prices rally into WASDE</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ZC=F May 15 - Jun 30 in years when planting &gt;15pp behind avg by May 15</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Low event count limits statistical confidence. t-stat 0.35 below conventional significance threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA Crop Progress (hand-coded delay years); yfinance ZC=F</span><span><code>backtests/PL44_corn_planting_delay_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL70_new_home_supply_spike_delayed_long</span><h3>New Home Supply Spike → Delayed Long Builders</h3></div>
+    <div class="right">homebuilders · 12-month hold · 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.55</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">16.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-56.0%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.95</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Housing glut → supply discipline → 12mo later inventory clears → builder pricing power returns</p>
+    <h4>Rule</h4>
+    <div class="rule">FRED MNEWSRSA crosses above 8.0 → wait 12 months → long XHB+LEN+DHI 12mo</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=3 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (56%) requires position sizing discipline. Low event count limits statistical confidence. t-stat 0.95 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-5.4pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MNEWSRSA + yfinance</span><span><code>backtests/PL70_new_home_supply_spike_delayed_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL31_auto_inventory_trough_dealers</span><h3>Auto Inventory Trough → Long Dealers</h3></div>
+    <div class="right">cross-asset · ~6-month hold · 15 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.54</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">14.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-57.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.48</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Extreme scarcity → maximum dealer pricing power → margin expansion not yet in earnings</p>
+    <h4>Rule</h4>
+    <div class="rule">Long AN+PAG+LAD equal-weight for 126 days when AISRSA hits local minimum below 0.40</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=15 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (58%) requires position sizing discipline. t-stat 1.48 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-1.3pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED AISRSA; yfinance</span><span><code>backtests/PL31_auto_inventory_trough_dealers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-D">PL90_henry_hub_below_cash_cost_producers</span><h3>HH Below Cash Cost → Long NatGas Producers</h3></div>
+    <div class="right">natural gas · 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.54</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">15.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-76.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.20</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long EQT+AR+RRC 252d when MHHNGSP &lt; $2.50.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long EQT+AR+RRC 252d when MHHNGSP &lt; $2.50</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events. In-position CAGR — portfolio contribution depends on trigger frequency. Deep drawdown (76%) requires position sizing discipline. t-stat 1.20 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED MHHNGSP; yfinance</span><span><code>backtests/PL90_henry_hub_below_cash_cost_producers.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL81_jolts_quits_staffing</span><h3>JOLTS Quits → Long RHI</h3></div>
+    <div class="right">cross-asset · 6-month hold · 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.53</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-39.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.84</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Signal based on Long RHI 126d when JTSQUR &gt; 6mo low + 0.3pp.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long RHI 126d when JTSQUR &gt; 6mo low + 0.3pp</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=5 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (40%) during adverse regimes. Low event count limits statistical confidence. t-stat 0.84 below conventional significance threshold. Underperforms benchmark on risk-adjusted basis in this sample window. Negative excess CAGR (-19.5pp) vs benchmark — alpha questionable.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED JTSQUR; yfinance</span><span><code>backtests/PL81_jolts_quits_staffing.py</code></span></div>
 </article>
 
 <!-- ================== APPENDIX ================== -->
@@ -3057,11 +3939,40 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 
 <script>
 // ----- Pipeline tab logic -----
+function goToCatalog(signalId) {
+  switchTab('catalog');
+  const iframe = document.querySelector('#tab-catalog iframe');
+  function inject() {
+    try {
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      const searchBox = doc.getElementById('search');
+      if (searchBox) {
+        searchBox.value = signalId;
+        searchBox.dispatchEvent(new Event('input'));
+      }
+    } catch(e) {
+      // Cross-origin: fall back to reloading with hash
+      iframe.src = 'full_catalog.html#q=' + encodeURIComponent(signalId);
+    }
+  }
+  // If already loaded, inject immediately; otherwise wait for load
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    if (doc.readyState === 'complete' && doc.getElementById('search')) {
+      inject();
+    } else {
+      iframe.addEventListener('load', () => setTimeout(inject, 100), {once: true});
+    }
+  } catch(e) {
+    iframe.addEventListener('load', () => setTimeout(inject, 100), {once: true});
+  }
+}
 function renderIdea(item) {
   const statusColors = {new:'var(--good)',claimed:'var(--warn)',developed:'var(--fg-dim)',rejected:'var(--bad)',duplicate:'var(--fg-dim)'};
   const c = statusColors[item.status] || 'var(--fg-dim)';
-  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-    <div><strong>${item.idea_id}</strong> ${item.name||''}</div>
+  const id = item.idea_id || '';
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="goToCatalog('${id.replace(/'/g,"\\'")}')">
+    <div><strong>${id}</strong> ${item.name||''}</div>
     <span style="color:${c};font-size:11px;font-weight:600;">${item.status}</span>
   </div>`;
 }
@@ -3073,8 +3984,9 @@ function renderStrat(item) {
     const r = item.backtest_result;
     metrics = ` · S:${(r.sharpe||0).toFixed(2)} C:${((r.cagr||0)*100).toFixed(1)}%`;
   }
-  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-    <div><strong>${item.strategy_id||item.signal_id}</strong> ${item.name||''}${metrics}</div>
+  const id = item.strategy_id || item.signal_id || '';
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="goToCatalog('${id.replace(/'/g,"\\'")}')">
+    <div><strong>${id}</strong> ${item.name||''}${metrics}</div>
     <span style="color:${c};font-size:11px;font-weight:600;">${item.status}</span>
   </div>`;
 }
@@ -3085,8 +3997,9 @@ function renderBtResult(item) {
   const isFail = r.status === 'fail';
   const c = isWinner ? 'var(--good)' : isFail ? 'var(--bad)' : 'var(--fg-dim)';
   const label = isWinner ? 'WINNER' : isFail ? 'FAIL' : 'tested';
-  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-    <div><strong>${item.signal_id}</strong> ${item.name||''}</div>
+  const id = item.signal_id || '';
+  return `<div style="padding:6px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="goToCatalog('${id.replace(/'/g,"\\'")}')">
+    <div><strong>${id}</strong> ${item.name||''}</div>
     <div style="text-align:right;">
       <span style="color:${c};font-size:11px;font-weight:600;">${label}</span>
       ${!isFail ? `<br><span style="font-size:10px;color:var(--fg-dim);">S:${(r.sharpe||0).toFixed(2)} C:${((r.cagr||0)*100).toFixed(1)}%</span>` : ''}
@@ -3211,9 +4124,59 @@ function switchTab(tabName) {
 document.querySelectorAll('.page-tabs button').forEach(btn => {
   btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
+// Sync catalog count from iframe
+const catIframe = document.querySelector('#tab-catalog iframe');
+if (catIframe) {
+  catIframe.addEventListener('load', () => {
+    try {
+      const doc = catIframe.contentDocument || catIframe.contentWindow.document;
+      const countEl = doc.querySelector('.sb-title .count');
+      if (countEl) {
+        const n = countEl.textContent.trim();
+        const heroTotal = document.getElementById('hero-total');
+        const tabCount = document.getElementById('tab-catalog-count');
+        if (heroTotal) heroTotal.textContent = n;
+        if (tabCount) tabCount.textContent = n;
+      }
+    } catch(e) {}
+  });
+}
+
 // Restore saved tab
 const savedTab = localStorage.getItem('ekans-tab');
 if (savedTab && document.getElementById('tab-' + savedTab)) switchTab(savedTab);
+
+// Collect high-return catalog IDs from backtest code references
+const highReturnIds = new Set();
+const highReturnIdToCard = {};
+document.querySelectorAll('#tab-strategies .card-foot code').forEach(code => {
+  const m = code.textContent.match(/backtests\/(.+)\.py/);
+  if (m) {
+    highReturnIds.add(m[1]);
+    const card = code.closest('.card');
+    if (card) highReturnIdToCard[m[1]] = card;
+  }
+});
+
+// Send high-return IDs to catalog iframe on load
+const catalogIframe = document.querySelector('#tab-catalog iframe');
+if (catalogIframe) {
+  catalogIframe.addEventListener('load', () => {
+    catalogIframe.contentWindow.postMessage({type: 'highReturnIds', ids: [...highReturnIds]}, '*');
+  });
+}
+
+// Listen for messages from catalog iframe
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'showHighReturn' && e.data.catalogId) {
+    const card = highReturnIdToCard[e.data.catalogId];
+    if (card) {
+      switchTab('strategies');
+      if (!card.id) card.id = 'card-' + Math.random().toString(36).slice(2, 8);
+      showOnly(card.id);
+    }
+  }
+});
 
 // Scope all card operations to the strategies tab only
 const stratPanel = document.getElementById('tab-strategies');
