@@ -5,7 +5,7 @@
     "created_at": "2026-05-26T03:45:00Z",
     "status": "done",
     "signal_id": "PL1_heatwave_dc_cooling",
-    "name": "US Heatwave CDD Spike \u2192 Data Center Cooling Cost",
+    "name": "US Heatwave CDD Spike → Data Center Cooling Cost",
     "category": "G",
     "asset_class": "equities",
     "horizon": "4-8 weeks",
@@ -34,7 +34,7 @@
       "2023 (record hot)",
       "2024 (hot)"
     ],
-    "implementation_notes": "CDD data may not be on FRED directly \u2014 use temperature proxy or just test the seasonal short without conditioning on heat.",
+    "implementation_notes": "CDD data may not be on FRED directly — use temperature proxy or just test the seasonal short without conditioning on heat.",
     "originality": 9,
     "bt_feasibility": 4,
     "backtested_at": "2026-05-26T03:50:00Z",
@@ -57,10 +57,19 @@
     "asset_class": "commodities",
     "horizon": "1-3 weeks",
     "rule": "Without consensus estimates, compute monthly return of feeder cattle futures proxy during USDA Cattle on Feed report week (3rd Friday of each month) vs non-report weeks. If GF=F unavailable, try COW ETF. If no livestock data on yfinance, mark_failed.",
-    "tickers": ["GF=F", "COW"],
-    "entry_conditions": ["3rd Friday of each month (USDA Cattle on Feed release date)"],
-    "exit_conditions": ["5 trading days after entry"],
-    "data_sources_concrete": {"prices": "yfinance GF=F or COW"},
+    "tickers": [
+      "GF=F",
+      "COW"
+    ],
+    "entry_conditions": [
+      "3rd Friday of each month (USDA Cattle on Feed release date)"
+    ],
+    "exit_conditions": [
+      "5 trading days after entry"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GF=F or COW"
+    },
     "backtest_approach": "Identify 3rd Friday of each month 2015-2025. Compute 5-day return of feeder cattle proxy starting that day. Compare to average 5-day return for non-report weeks. Test via t-test of report-week vs non-report-week returns.",
     "originality": 7,
     "bt_feasibility": 4,
@@ -87,10 +96,19 @@
     "asset_class": "commodities",
     "horizon": "1-2 weeks",
     "rule": "Hand-code months when China Manufacturing PMI crossed above 50 after 2+ months below: 2016-03, 2020-04, 2023-01, 2025-04. For each event: long HG=F (copper) for 10 trading days from the 1st of that month. Compute per-event and aggregate metrics.",
-    "tickers": ["HG=F", "SPY"],
-    "entry_conditions": ["China PMI crosses above 50 after 2+ months below"],
-    "exit_conditions": ["10 trading days after entry"],
-    "data_sources_concrete": {"prices": "yfinance HG=F, SPY"},
+    "tickers": [
+      "HG=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "China PMI crosses above 50 after 2+ months below"
+    ],
+    "exit_conditions": [
+      "10 trading days after entry"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance HG=F, SPY"
+    },
     "backtest_approach": "Hand-coded event dates. Long copper for 10 trading days per event. Compute per-event return and aggregate Sharpe/CAGR from event-driven PnL series.",
     "originality": 7,
     "bt_feasibility": 5,
@@ -118,10 +136,20 @@
     "asset_class": "equities",
     "horizon": "2-6 weeks",
     "rule": "Hand-code major Class I recalls at publicly traded protein processors. Short the named ticker from T+1 for 5 trading days. Events: 2018-10-04 JBSAY, 2019-04-12 TSN, 2021-11-09 TSN, 2022-04-16 JBSAY, 2024-07-19 JBSAY. If JBSAY data spotty, use TSN as sector proxy for all.",
-    "tickers": ["TSN", "JBSAY", "SPY"],
-    "entry_conditions": ["Class I food recall announcement at a publicly traded protein processor"],
-    "exit_conditions": ["5 trading days after T+1"],
-    "data_sources_concrete": {"prices": "yfinance TSN, JBSAY, SPY"},
+    "tickers": [
+      "TSN",
+      "JBSAY",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Class I food recall announcement at a publicly traded protein processor"
+    ],
+    "exit_conditions": [
+      "5 trading days after T+1"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TSN, JBSAY, SPY"
+    },
     "backtest_approach": "Event study: short from T+1 for 5 days per recall event. Compute per-event return and aggregate stats.",
     "originality": 8,
     "bt_feasibility": 4,
@@ -149,10 +177,22 @@
     "asset_class": "equities",
     "horizon": "3-9 months",
     "rule": "Use FRED series PERMIT and COMPUTSA. Compute monthly ratio. When ratio crosses above 1.3: long equal-weight VMC+MLM+EXP for 6 months. Compare to SPY.",
-    "tickers": ["VMC", "MLM", "EXP", "SPY"],
-    "entry_conditions": ["PERMIT/COMPUTSA ratio crosses above 1.3"],
-    "exit_conditions": ["6 months (126 trading days) after entry"],
-    "data_sources_concrete": {"prices": "yfinance VMC, MLM, EXP, SPY", "fundamental": "FRED PERMIT, COMPUTSA"},
+    "tickers": [
+      "VMC",
+      "MLM",
+      "EXP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "PERMIT/COMPUTSA ratio crosses above 1.3"
+    ],
+    "exit_conditions": [
+      "6 months (126 trading days) after entry"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance VMC, MLM, EXP, SPY",
+      "fundamental": "FRED PERMIT, COMPUTSA"
+    },
     "backtest_approach": "Load FRED data for PERMIT and COMPUTSA. Compute ratio monthly. Identify cross-above-1.3 events. Long aggregates basket for 126 trading days. Compute metrics vs SPY benchmark.",
     "originality": 8,
     "bt_feasibility": 5,
@@ -181,10 +221,21 @@
     "asset_class": "equities",
     "horizon": "2-6 weeks",
     "rule": "Hand-code known viral surge events: 2021-12-01 Omicron, 2022-12-01 winter tripledemic, 2023-09-01 fall COVID wave, 2024-12-01 winter RSV/flu. For each: long equal-weight DGX+LH+MRNA for 30 trading days from surge start. Compute per-event and aggregate metrics vs SPY.",
-    "tickers": ["DGX", "LH", "MRNA", "SPY"],
-    "entry_conditions": ["CDC wastewater viral load spikes >2σ above seasonal baseline"],
-    "exit_conditions": ["30 trading days after entry"],
-    "data_sources_concrete": {"prices": "yfinance DGX, LH, MRNA, SPY"},
+    "tickers": [
+      "DGX",
+      "LH",
+      "MRNA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CDC wastewater viral load spikes >2σ above seasonal baseline"
+    ],
+    "exit_conditions": [
+      "30 trading days after entry"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance DGX, LH, MRNA, SPY"
+    },
     "backtest_approach": "Hand-coded event dates. Long pharma basket for 30 trading days per event. Compute per-event return and aggregate Sharpe/CAGR vs SPY.",
     "originality": 9,
     "bt_feasibility": 3,
@@ -201,5 +252,1648 @@
       "event_win_rate": 0.25,
       "verdict": "failed — pharma basket (esp MRNA) fell during 3/4 viral surges; MRNA drag dominates"
     }
+  },
+  {
+    "strategy_id": "PL007",
+    "idea_id": "PL007",
+    "created_at": "2026-05-26T19:40:20.963625+00:00",
+    "status": "done",
+    "signal_id": "PL7_jet_fuel_crack_airline",
+    "name": "Jet Fuel Crack Spread → Short Airlines vs Long XLE",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Compute jet fuel crack proxy: FRED series WPU0572 (PPI kerosene-type jet fuel) minus DCOILWTICO (WTI). When 3-month rolling z-score of the spread > 1.5: short equal-weight UAL+DAL+LUV, long XLE; hold 60 trading days.",
+    "tickers": [
+      "UAL",
+      "DAL",
+      "LUV",
+      "XLE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "3-month z-score of jet-fuel-crack-proxy > 1.5"
+    ],
+    "exit_conditions": [
+      "60 trading days",
+      "or z-score reverts below 0.5"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance UAL, DAL, LUV, XLE, SPY",
+      "fundamental": "FRED DCOILWTICO (WTI crude)"
+    },
+    "backtest_approach": "Compute monthly jet fuel PPI vs WTI spread. Z-score over 36mo rolling window. When z > 1.5, enter short airlines/long XLE pair. Track pair return over 60 trading days.",
+    "known_events": [],
+    "implementation_notes": "FRED WPU0572 is monthly PPI — use as regime indicator not daily signal. If WPU0572 unavailable, use DJETNY (NY Harbor kerosene spot) or DJFUELUSGULF.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T19:41:56.184614+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.10886297292438336,
+      "cagr": -0.16344699852219569,
+      "max_dd": -0.41653608989924107,
+      "t_stat": -0.0920060047494379
+    }
+  },
+  {
+    "strategy_id": "PL008",
+    "idea_id": "PL008",
+    "created_at": "2026-05-26T19:41:56.184614+00:00",
+    "status": "done",
+    "signal_id": "PL8_bnpl_delinquency_affirm",
+    "name": "BNPL Delinquency → Short AFRM / Long JPM+WFC",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "rule": "Regime trade: short AFRM vs long (JPM+WFC)/2 from Jan 2023 (when BNPL DQ started rising per CFPB) through present.",
+    "tickers": [
+      "AFRM",
+      "JPM",
+      "WFC",
+      "SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T19:42:43.057062+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.8477596844008655,
+      "cagr": -0.6129879359804588,
+      "max_dd": -0.9630328523768119,
+      "t_stat": -1.5560599837953584
+    }
+  },
+  {
+    "strategy_id": "PL009",
+    "idea_id": "PL009",
+    "created_at": "2026-05-26T19:41:56.184614+00:00",
+    "status": "done",
+    "signal_id": "PL9_scrap_steel_hrc_spread",
+    "name": "Scrap Steel / HRC Spread → Long EAF Mills",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Use FRED WPUSI019011 (steel PPI) as HRC proxy. When 6mo rolling return of steel PPI > 10% while NUE/STLD are flat/down (spread divergence), long NUE+STLD equal-weight for 120 trading days.",
+    "tickers": [
+      "NUE",
+      "STLD",
+      "SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T19:42:43.057062+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.2546892605113649,
+      "cagr": -0.49034126204985506,
+      "max_dd": -0.9978673930242169,
+      "t_stat": 0.6279712261858456
+    }
+  },
+  {
+    "strategy_id": "PL010",
+    "idea_id": "PL010",
+    "created_at": "2026-05-26T19:47:36.156770+00:00",
+    "status": "done",
+    "signal_id": "PL10_class8_truck_replacement",
+    "name": "Class 8 Truck Order Trough → Long PCAR+CMI",
+    "rule": "Hand-code Class 8 order trough months from ACT Research: 2009-05 (GFC), 2016-01 (industrial recession), 2019-10 (freight recession), 2023-01 (post-COVID normalization). Entry: 12 months after trough. Long PCAR+CMI equal-weight for 12 months.",
+    "tickers": [
+      "PCAR",
+      "CMI",
+      "SPY"
+    ],
+    "backtested_at": "2026-05-26T19:49:12.953263+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9839304738498756,
+      "cagr": 0.235238790703717,
+      "max_dd": -0.21358277690293437,
+      "t_stat": 1.9678609476997513
+    }
+  },
+  {
+    "strategy_id": "PL011",
+    "idea_id": "PL011",
+    "created_at": "2026-05-26T19:47:36.156770+00:00",
+    "status": "failed",
+    "signal_id": "PL11_rental_vacancy_trough_reit",
+    "name": "Rental Vacancy Trough → Long Apartment REITs",
+    "rule": "Use FRED RRVRUSQ156N. When quarterly vacancy rate hits local minimum (lower than both prior and next quarter) AND level < 5.5%: long EQR+AVB+MAA equal-weight for 12 months from the quarter following the trough.",
+    "tickers": [
+      "EQR",
+      "AVB",
+      "MAA",
+      "VNQ",
+      "SPY"
+    ],
+    "backtested_at": "2026-05-26T19:49:12.953263+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null,
+      "max_dd": null,
+      "t_stat": null
+    }
+  },
+  {
+    "strategy_id": "PL012",
+    "idea_id": "PL012",
+    "created_at": "2026-05-26T19:47:36.156770+00:00",
+    "status": "done",
+    "signal_id": "PL12_bdi_spike_dry_bulk",
+    "name": "BDI Spike → Long Dry Bulk Shippers",
+    "rule": "Use BDRY ETF as BDI proxy (or FRED if available). When BDRY 60-day return > +50%: long SBLK+GOGL equal-weight for 60 trading days.",
+    "tickers": [
+      "SBLK",
+      "GOGL",
+      "BDRY",
+      "SPY"
+    ],
+    "backtested_at": "2026-05-26T19:49:12.953263+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": null,
+      "cagr": null,
+      "max_dd": null,
+      "t_stat": null
+    }
+  },
+  {
+    "strategy_id": "PL013",
+    "idea_id": "PL013",
+    "created_at": "2026-05-26T19:50:25.960863+00:00",
+    "status": "done",
+    "signal_id": "PL13_initial_claims_recession_hedge",
+    "name": "Initial Claims Acceleration → Long TLT / Short XLY",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "3-6 months",
+    "rule": "Load FRED ICSA weekly. Compute 4-week MA. When 4wk MA rises >15% from its trailing 26-week low AND level > 250k: long TLT, short XLY equal-weight. Exit when 4wk MA falls back below the 26-week low +10% (recovery confirmed). If both TLT and XLY unavailable for early periods, start from 2003.",
+    "tickers": [
+      "TLT",
+      "XLY",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "ICSA 4wk MA > 1.15 * trailing 26wk low",
+      "ICSA 4wk MA > 250000"
+    ],
+    "exit_conditions": [
+      "ICSA 4wk MA < 1.10 * trailing 26wk low (recovery)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TLT, XLY, SPY",
+      "fundamental": "FRED ICSA"
+    },
+    "backtest_approach": "Daily pair PnL: long TLT return - short XLY return. Only in-position when claims signal is active.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T19:58:19.841630+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.5077352974235071,
+      "cagr": -0.29791704633055294,
+      "max_dd": -0.7172201469212839,
+      "t_stat": -0.715191078155543
+    }
+  },
+  {
+    "strategy_id": "PL014",
+    "idea_id": "PL014",
+    "created_at": "2026-05-26T19:59:08.071016+00:00",
+    "status": "done",
+    "signal_id": "PL14_soybean_export_season",
+    "name": "Soybean Export Season Momentum (Oct-Jan)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4 months",
+    "rule": "Long ZS=F (soybean futures) from Oct 1 through Jan 31 each year. This captures the peak US soybean export season when China/global buyers take delivery of the new-crop harvest. Compare to holding ZS=F year-round.",
+    "tickers": [
+      "ZS=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "October 1 each year"
+    ],
+    "exit_conditions": [
+      "January 31 each year"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance ZS=F, SPY",
+      "fundamental": "none (calendar-based seasonal)"
+    },
+    "backtest_approach": "Compute Oct 1 - Jan 31 return of ZS=F each year 2010-2025. Compare to full-year ZS=F return and to same-period SPY. Build event-year series.",
+    "implementation_notes": "Original idea needed USDA Export Inspections weekly data (not freely available in machine-readable format). Pivoted to seasonal proxy capturing the same export demand window.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T20:08:26.647439+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8843721316219502,
+      "cagr": 0.16068722652137812,
+      "max_dd": -0.2053824170306945,
+      "t_stat": 2.0537354829121073
+    }
+  },
+  {
+    "strategy_id": "PL015",
+    "idea_id": "PL015",
+    "created_at": "2026-05-26T20:09:26.667679+00:00",
+    "status": "done",
+    "signal_id": "PL15_wheat_drought_abandonment",
+    "name": "Winter Wheat Drought Abandonment → Long KC Wheat",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 months",
+    "rule": "Hand-code years when USDA winter wheat condition ratings showed poor/very-poor >35% by March (drought stress during dormancy). In those years: long KE=F from March 1, hold through May 31 (spans WASDE production cut). Known drought-abandonment years: 2011, 2013, 2014, 2018, 2022, 2023. Control: same trade in non-drought years.",
+    "tickers": [
+      "KE=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "March 1 in drought-abandonment years (USDA poor/very-poor > 35% by March)"
+    ],
+    "exit_conditions": [
+      "May 31 (post-WASDE)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance KE=F, SPY",
+      "fundamental": "USDA Crop Progress winter wheat conditions (hand-coded drought years)"
+    },
+    "backtest_approach": "Event study: compute KE=F Mar 1 - May 31 return in drought years vs non-drought years. Drought years hand-coded from USDA Crop Progress historical data.",
+    "known_events": [
+      "2011-03-01",
+      "2013-03-01",
+      "2014-03-01",
+      "2018-03-01",
+      "2022-03-01",
+      "2023-03-01"
+    ],
+    "implementation_notes": "Original thesis used NASA SMAP soil moisture (geospatial processing heavy). Pivoted to USDA Crop Progress poor/very-poor ratings as proxy — same information content, available historically. KE=F is KC HRW wheat futures.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T20:18:27.686907+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7445020714463573,
+      "cagr": 0.2269911235920985,
+      "max_dd": -0.22208121160986094,
+      "t_stat": 0.9178358713778757
+    }
+  },
+  {
+    "strategy_id": "PL016",
+    "idea_id": "PL016",
+    "created_at": "2026-05-26T20:19:54.342952+00:00",
+    "status": "done",
+    "signal_id": "PL16_great_lakes_ice_steel_pair",
+    "name": "Great Lakes Heavy Ice → Long EAF Mills / Short BF Mills",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-10 weeks",
+    "rule": "Hand-code heavy ice years (NOAA GLERL peak ice >60%): 2014, 2015, 2018, 2019. In each heavy-ice year: long NUE+STLD equal-weight, short CLF from Mar 1 through May 15 (covers delayed Soo Locks opening + pellet shortage window). Compare to same pair trade in light-ice years.",
+    "tickers": [
+      "NUE",
+      "STLD",
+      "CLF",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "March 1 in heavy-ice years (GLERL peak >60%)"
+    ],
+    "exit_conditions": [
+      "May 15 (Soo Locks fully operational + pellet shipments resume)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NUE, STLD, CLF, SPY",
+      "fundamental": "NOAA GLERL peak ice cover (hand-coded by year)"
+    },
+    "backtest_approach": "Event study: long (NUE+STLD)/2 - short CLF Mar 1 to May 15. Compare heavy-ice years (2014, 2015, 2018, 2019) to light-ice control years (2012, 2016, 2017, 2020, 2021, 2023). X (US Steel) is delisted; CLF (Cleveland-Cliffs) is the remaining integrated BF steel maker.",
+    "known_events": [
+      "2014-03-01",
+      "2015-03-01",
+      "2018-03-01",
+      "2019-03-01"
+    ],
+    "implementation_notes": "X delisted (Nippon Steel acquisition). Use CLF as BF short leg. CLF acquired AK Steel (2020) and ArcelorMittal USA (2020) — now the dominant US blast-furnace operator. Pre-2020 CLF was a pure iron ore miner, which actually makes it a better proxy for pellet-shortage exposure.",
+    "originality": 9,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T20:28:20.037889+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4317977985729582,
+      "cagr": 0.09398478453354397,
+      "max_dd": -0.4437101034048011,
+      "t_stat": 0.3969812136991492
+    }
+  },
+  {
+    "strategy_id": "PL017",
+    "idea_id": "PL017",
+    "created_at": "2026-05-26T20:29:21.201286+00:00",
+    "status": "done",
+    "signal_id": "PL17_hurricane_season_refiners",
+    "name": "Gulf Hurricane Season → Long Refiners (Jul-Oct)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4 months",
+    "rule": "In hyperactive hurricane years (CSU Jun forecast >17 named storms): long equal-weight VLO+PSX+MPC from Jul 1 through Oct 31. Refiners capture crack spread spikes from Gulf crude shut-ins while their own refineries (Gulf Coast + Midwest) continue running on pipeline-delivered crude. Hand-coded hyperactive years: 2005, 2008, 2017, 2020, 2021.",
+    "tickers": [
+      "VLO",
+      "PSX",
+      "MPC",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "July 1 in hyperactive hurricane years (CSU Jun forecast >17 named storms)"
+    ],
+    "exit_conditions": [
+      "October 31"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance VLO, PSX, MPC, SPY",
+      "fundamental": "CSU June hurricane forecast (free); BSEE shut-in reports (free)"
+    },
+    "backtest_approach": "Event study: refiner basket Jul 1 - Oct 31 return in hyperactive years vs non-hyperactive. Also compare to SPY same window. PSX only listed since 2012 — use VLO+MPC for pre-2012 events.",
+    "known_events": [
+      "2005-07-01",
+      "2008-07-01",
+      "2017-07-01",
+      "2020-07-01",
+      "2021-07-01"
+    ],
+    "implementation_notes": "PSX IPO'd Apr 2012. For 2005/2008 events use VLO+MPC only. MPC IPO'd Jul 2011 — for 2005/2008 use VLO+SUN (Sunoco, pre-2012 refiner)... actually just use VLO alone for pre-2012.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T20:38:15.516276+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.3875045510057958,
+      "cagr": -0.30345606109297873,
+      "max_dd": -0.6966388722033269,
+      "t_stat": -0.5050081901641648
+    }
+  },
+  {
+    "strategy_id": "PL020",
+    "idea_id": "PL020",
+    "created_at": "2026-05-26T20:39:46.548176+00:00",
+    "status": "done",
+    "signal_id": "PL20_nhtsa_ea_auto_short",
+    "name": "NHTSA Engineering Analysis → Short Auto OEM",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "When NHTSA opens an Engineering Analysis on a model with >500K affected units: short the OEM for 60 trading days. Hand-coded EA events: 2019-01 TSLA (suspension), 2020-10 F (transmission), 2022-06 TSLA (Autopilot 830K units), 2023-03 GM (Bolt battery recall extension).",
+    "tickers": [
+      "TSLA",
+      "F",
+      "GM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NHTSA EA opened on model with >500K affected units"
+    ],
+    "exit_conditions": [
+      "60 trading days"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TSLA, F, GM, SPY",
+      "fundamental": "NHTSA investigations database (free, hand-coded)"
+    },
+    "backtest_approach": "Event study: short the named OEM on EA opening date for 60 trading days. Compute per-event return and aggregate. Compare short return to SPY return same window.",
+    "known_events": [
+      "2019-01-18 TSLA",
+      "2020-10-15 F",
+      "2022-06-09 TSLA",
+      "2023-03-15 GM"
+    ],
+    "implementation_notes": "Small N (4 events). Some EAs don't lead to recalls (false positives). TSLA appears twice — weight events equally regardless of OEM.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T20:48:28.791633+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.36785656652393983,
+      "cagr": -0.23196760134647065,
+      "max_dd": -0.4442285912654812,
+      "t_stat": -0.3589912501053098
+    }
+  },
+  {
+    "strategy_id": "PL021",
+    "idea_id": "PL021",
+    "created_at": "2026-05-26T20:49:40.245104+00:00",
+    "status": "done",
+    "signal_id": "PL21_poultry_cold_storage_glut",
+    "name": "Poultry Cold Storage Glut → Short TSN+PPC",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "rule": "Hand-code months when USDA Cold Storage frozen poultry stocks exceeded 5yr avg by >15%: 2017-02, 2018-08, 2019-02, 2022-08, 2024-02. Short equal-weight TSN+PPC for 60 trading days from the Cold Storage report date (~22nd of month). Compare to SPY same period.",
+    "tickers": [
+      "TSN",
+      "PPC",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA Cold Storage frozen poultry >15% above 5yr avg"
+    ],
+    "exit_conditions": [
+      "60 trading days"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TSN, PPC, SPY",
+      "fundamental": "USDA Cold Storage (hand-coded glut months)"
+    },
+    "backtest_approach": "Event study: short TSN+PPC equal-weight on glut month report date for 60 trading days. 5 hand-coded events. Short return = -(stock return).",
+    "known_events": [
+      "2017-02-22",
+      "2018-08-22",
+      "2019-02-22",
+      "2022-08-22",
+      "2024-02-22"
+    ],
+    "implementation_notes": "PPC (Pilgrim's Pride) IPO was 2009 — data available for all events. Cold Storage report typically released ~22nd of each month.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T20:58:21.699499+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.4139118796334709,
+      "cagr": -0.2789542072122083,
+      "max_dd": -0.33189086000734114,
+      "t_stat": -1.5427043367661122
+    }
+  },
+  {
+    "strategy_id": "PL023",
+    "idea_id": "PL023",
+    "created_at": "2026-05-26T20:59:54.475759+00:00",
+    "status": "done",
+    "signal_id": "PL23_semi_b2b_specialty_chem",
+    "name": "SEMI B2B Inflection → Long Specialty Chem + Equipment",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6 months",
+    "rule": "When SEMI NA B2B crosses above 1.05 from a downcycle trough (prior 3+ months below 0.95): long equal-weight ENTG+AMAT+LRCX for 6 months (126 trading days). Hand-coded inflection dates: 2013-07, 2016-11, 2019-12, 2024-03.",
+    "tickers": [
+      "ENTG",
+      "AMAT",
+      "LRCX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SEMI B2B crosses above 1.05 after 3+ months below 0.95"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance ENTG, AMAT, LRCX, SPY",
+      "fundamental": "SEMI B2B press releases (hand-coded inflection dates)"
+    },
+    "backtest_approach": "Event study: long basket on inflection date for 126 days. 4 events. CCMP acquired by ENTG 2022 — use ENTG for all periods. Pre-2014 ENTG data may be thin (IPO 1999 but small-cap).",
+    "known_events": [
+      "2013-07-15",
+      "2016-11-15",
+      "2019-12-15",
+      "2024-03-15"
+    ],
+    "implementation_notes": "CCMP delisted (acquired by ENTG Jul 2022). ENTG is now the dominant specialty consumables play. AMAT/LRCX are equipment — include to diversify the basket but the thesis is really about consumables volume lagging equipment orders.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:08:32.458124+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.6938832797202361,
+      "cagr": 0.23039076084408827,
+      "max_dd": -0.405841516675838,
+      "t_stat": 0.9812991448842819
+    }
+  },
+  {
+    "strategy_id": "PL025",
+    "idea_id": "PL025",
+    "created_at": "2026-05-26T21:09:42.981016+00:00",
+    "status": "done",
+    "signal_id": "PL25_cfpb_complaint_enforcement",
+    "name": "CFPB Complaint Surge → Short Target Before Enforcement",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "rule": "Hand-code dates when CFPB complaint surges led to enforcement. Short the company from complaint-surge detection (6-12mo before enforcement). Events: 2016-04 WFC (enforcement Sep 2016), 2022-01 SYF (consent order Nov 2022), 2023-06 SQ (enforcement Jan 2025), 2024-01 ALLY (consent order Mar 2025). Hold until enforcement announcement or 12 months.",
+    "tickers": [
+      "WFC",
+      "SYF",
+      "SQ",
+      "ALLY",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CFPB complaint volume for company >3σ above 12mo baseline for 2+ months"
+    ],
+    "exit_conditions": [
+      "Enforcement action announced OR 12 months"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance WFC, SYF, SQ, ALLY, SPY",
+      "fundamental": "CFPB Complaint Database (free API, hand-coded surge dates)"
+    },
+    "backtest_approach": "Event study: short named company on complaint-surge date, hold 6 months (126 days). 4 events. Compute per-event short return vs SPY.",
+    "known_events": [
+      "2016-04-01 WFC",
+      "2022-01-15 SYF",
+      "2023-06-01 SQ",
+      "2024-01-15 ALLY"
+    ],
+    "implementation_notes": "Small N (4). The signal is hard to detect in real-time without parsing the CFPB API daily. But the complaint database is free and the surge→enforcement link is well-documented. Insider selling often co-occurs (check Form 4 as confirmation).",
+    "originality": 9,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:18:14.726175+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.06339304075868797,
+      "cagr": -0.035097836111140035,
+      "max_dd": -0.4179555063781295,
+      "t_stat": 0.07764030155112105
+    }
+  },
+  {
+    "strategy_id": "PL030",
+    "idea_id": "PL030",
+    "created_at": "2026-05-26T21:19:33.431168+00:00",
+    "status": "done",
+    "signal_id": "PL30_rig_count_production_lag",
+    "name": "Rig Count -20% → Long Crude/XOP 6mo Later",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6 months",
+    "rule": "When Baker Hughes US oil rig count drops >20% from trailing 12mo peak: wait 6 months (DUC depletion window), then long equal-weight CL=F + XOP for 6 months (126 trading days). The 6mo wait captures the production lag — rigs drop immediately but production holds on DUCs before declining.",
+    "tickers": [
+      "CL=F",
+      "XOP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Baker Hughes rigs crossed -20% from 12mo peak",
+      "Entry 6 months after the -20% crossing"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance CL=F, XOP, SPY",
+      "fundamental": "Baker Hughes rig count (hand-coded threshold crossing dates)"
+    },
+    "backtest_approach": "Event study: entry 6mo after rig -20% threshold. Long CL=F + XOP equal-weight for 126 days. 5 events: 2009, 2015, 2016, 2020, 2024.",
+    "known_events": [
+      "2009-04-01",
+      "2015-08-01",
+      "2016-11-01",
+      "2020-11-01",
+      "2024-04-01"
+    ],
+    "implementation_notes": "XOP ETF started Jan 2006 — available for all events. CL=F has longer history. Use both in equal-weight basket. The key insight is the 6-month DELAY between rig decline and production response — this is the DUC depletion lag that the market consistently misprices.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T21:28:34.772573+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7972059829763302,
+      "cagr": 0.2751077825212678,
+      "max_dd": -0.41116587878914945,
+      "t_stat": 1.2604933352593108
+    }
+  },
+  {
+    "strategy_id": "PL029",
+    "idea_id": "PL029",
+    "created_at": "2026-05-26T21:30:01.846343+00:00",
+    "status": "done",
+    "signal_id": "PL29_patent_cliff_generic_long",
+    "name": "Major Patent Cliff Year → Long Generic Pharma",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "rule": "In years when >$20B of branded drug revenue faces patent expiry (hand-coded from FDA Orange Book): long TEVA+VTRS equal-weight from Jan 1 for 12 months. Generic pharma benefits from launch of high-value ANDAs. Cliff years: 2012, 2016, 2023. Non-cliff control years for comparison.",
+    "tickers": [
+      "TEVA",
+      "VTRS",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Jan 1 of major patent cliff year (>$20B branded revenue expiring)"
+    ],
+    "exit_conditions": [
+      "Dec 31 (full calendar year)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TEVA, VTRS, SPY",
+      "fundamental": "FDA Orange Book patent expiry (hand-coded cliff years)"
+    },
+    "backtest_approach": "Event study: long TEVA+VTRS Jan-Dec in cliff years vs control years. VTRS (Viatris) was Mylan pre-Nov 2020 — use MYL for pre-2020.",
+    "known_events": [
+      "2012-01-01",
+      "2016-01-01",
+      "2023-01-01"
+    ],
+    "implementation_notes": "VTRS spun out of Pfizer/Mylan Nov 2020. Use MYL ticker for pre-2020. TEVA data back to 2006. Small N (3 cliff years).",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:38:18.966766+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.5514086379323625,
+      "cagr": -0.1613070899837067,
+      "max_dd": -0.6131757488126933,
+      "t_stat": -0.9525377913216846
+    }
+  },
+  {
+    "strategy_id": "PL031",
+    "idea_id": "PL031",
+    "created_at": "2026-05-26T21:30:01.846343+00:00",
+    "status": "done",
+    "signal_id": "PL31_auto_inventory_trough_dealers",
+    "name": "Auto Inventory Days-Supply Trough → Long Dealers",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-9 months",
+    "rule": "Use FRED AISRSA (auto inventory/sales ratio). When the ratio hits a local minimum AND the level is below 0.40 (representing <40 days supply vs ~60 normal): long equal-weight AN+PAG+LAD for 6 months (126 trading days). The trough means dealers have maximum pricing power right now — margins are already fat but haven't hit earnings yet.",
+    "tickers": [
+      "AN",
+      "PAG",
+      "LAD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED AISRSA hits local minimum (lower than both prior and next month)",
+      "AISRSA level < 0.40"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance AN, PAG, LAD, SPY",
+      "fundamental": "FRED AISRSA (monthly, free)"
+    },
+    "backtest_approach": "Load FRED AISRSA monthly. Find local minima below 0.40. Long dealer basket for 126 days from the month after the trough. Compare to SPY.",
+    "known_events": [],
+    "implementation_notes": "AISRSA ratio of ~1.0 = ~30 days supply. Below 0.40 is extreme scarcity. Should fire during chip shortage era (2021-2022) and any prior inventory squeezes.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.539357633474915,
+      "cagr": 0.14109122800826124,
+      "max_dd": -0.5785136251523968,
+      "t_stat": 1.4759189515084792
+    }
+  },
+  {
+    "strategy_id": "PL034",
+    "idea_id": "PL034",
+    "created_at": "2026-05-26T21:39:07.530524+00:00",
+    "status": "done",
+    "signal_id": "PL34_ism_orders_inventories_spread",
+    "name": "ISM New Orders − Inventories Spread > +10 → Long XLI",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "rule": "Compute monthly ISM Manufacturing New Orders index minus Inventories index using FRED NAPMNOI and NAPMII. When the spread crosses above +10 (strong orders, lean inventories = restocking imminent): long XLI for 126 trading days. Markets focus on headline PMI; the internal spread is a purer demand signal.",
+    "tickers": [
+      "XLI",
+      "CAT",
+      "DE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED NAPMNOI - NAPMII > +10 (crossing from below)"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLI, CAT, DE, SPY",
+      "fundamental": "FRED NAPMNOI (ISM New Orders), NAPMII (ISM Inventories) — both monthly, free"
+    },
+    "backtest_approach": "Load FRED NAPMNOI and NAPMII monthly. Compute spread. Identify months where spread first crosses above +10 from below. Long XLI for 126 days from the first trading day of the following month. Compare to SPY.",
+    "known_events": [],
+    "implementation_notes": "FRED NAPMNOI and NAPMII go back to 1948 — extremely long history for backtest. The spread crosses +10 approximately 2-4 times per decade, typically at the start of restocking cycles. XLI ETF starts Sep 1998.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7228917813861313,
+      "cagr": 0.11791545291257344,
+      "max_dd": -0.3130285599423428,
+      "t_stat": 1.6074298836619363
+    }
+  },
+  {
+    "strategy_id": "PL038",
+    "idea_id": "PL038",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL38_rrp_drain_equity_liquidity",
+    "name": "Fed ON RRP Drain Below $500B → Long SPY",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "rule": "Use FRED RRPONTSYD (daily ON RRP balance). When the balance crosses below $500B for the first time after being above $1T: long SPY for 252 trading days (12 months). The drain signals liquidity flowing from the Fed facility back into the banking system and risk assets. Compare to unconditional SPY buy-and-hold.",
+    "tickers": [
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED RRPONTSYD crosses below $500B",
+      "Must have been above $1T within the prior 12 months (confirms a drain, not perpetually low)"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY",
+      "fundamental": "FRED RRPONTSYD (daily, free)"
+    },
+    "backtest_approach": "Load FRED RRPONTSYD daily. Find dates where balance crosses below $500B from above. Long SPY for 252 days. Given RRP facility only large since 2021, this has very few events (possibly just 2024). Supplement with a broader test: SPY returns when RRP is declining >$100B/month vs stable/rising.",
+    "known_events": [],
+    "implementation_notes": "The ON RRP facility was near zero before 2021, peaked at $2.6T Dec 2022, drained through 2023-2024. Very limited backtest history — the facility at scale is a post-COVID phenomenon. Consider also testing: monthly change in RRPONTSYD as a continuous signal (negative = draining = bullish).",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.0379399482638272,
+      "cagr": 0.18935003244847892,
+      "max_dd": -0.1875524187429931,
+      "t_stat": 1.2144552162106246
+    }
+  },
+  {
+    "strategy_id": "PL040",
+    "idea_id": "PL040",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL40_la_nina_winter_natgas",
+    "name": "La Niña Winter → Long Natural Gas Oct-Mar",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6 months",
+    "rule": "Hand-code La Niña winters from NOAA CPC ENSO advisories: 2007-08, 2008-09, 2010-11, 2011-12, 2016-17 (weak), 2017-18 (weak), 2020-21, 2021-22, 2022-23. In La Niña years: long NG=F from Oct 1 through Mar 31. In El Niño years (2009-10, 2014-15, 2015-16, 2018-19, 2023-24): stay flat. Compare La Niña winter NG returns to neutral/El Niño winters.",
+    "tickers": [
+      "NG=F",
+      "UNG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA CPC La Niña Advisory/Watch issued by July",
+      "Long NG=F on Oct 1"
+    ],
+    "exit_conditions": [
+      "Mar 31"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NG=F, UNG, SPY",
+      "fundamental": "NOAA CPC ENSO Advisory (hand-coded La Niña years)"
+    },
+    "backtest_approach": "Event study: compute NG=F Oct-Mar return in La Niña years vs El Niño/neutral years. 9 La Niña winters since 2007. Use UNG as fallback if NG=F data is spotty on yfinance.",
+    "known_events": [
+      "2007-10-01",
+      "2008-10-01",
+      "2010-10-01",
+      "2011-10-01",
+      "2016-10-01",
+      "2017-10-01",
+      "2020-10-01",
+      "2021-10-01",
+      "2022-10-01"
+    ],
+    "implementation_notes": "NG=F on yfinance is the front-month Henry Hub contract — subject to roll yield drag. UNG ETF has the same issue. The signal is about seasonal demand, not the contango cost. For a cleaner test, compare La Niña vs El Niño returns rather than absolute returns to control for structural contango.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.3011446032367862,
+      "cagr": -0.338709690809725,
+      "max_dd": -0.9064107739075633,
+      "t_stat": -0.6348685675306396
+    }
+  },
+  {
+    "strategy_id": "PL041",
+    "idea_id": "PL041",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL41_existing_home_low_supply_builders",
+    "name": "Existing Home Months-Supply < 3.0 → Long Homebuilders",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "rule": "Use FRED MSACSR (monthly supply of existing homes). When the ratio crosses below 3.0 months for the first time in a cycle (after being above 3.5 for 6+ months): long equal-weight LEN+DHI+NVR for 252 trading days. Extreme scarcity of existing homes forces buyers to new construction, giving homebuilders pricing power. Compare to SPY.",
+    "tickers": [
+      "LEN",
+      "DHI",
+      "NVR",
+      "XHB",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED MSACSR crosses below 3.0 months",
+      "Must have been above 3.5 within prior 6 months (confirms a new tightening cycle)"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance LEN, DHI, NVR, XHB, SPY",
+      "fundamental": "FRED MSACSR (monthly, free)"
+    },
+    "backtest_approach": "Load FRED MSACSR monthly. Identify months where ratio first crosses below 3.0 from above 3.5. Long homebuilder basket for 252 days. MSACSR data on FRED goes back to 1999. Key events likely: 2004-05, 2020-21, 2022.",
+    "known_events": [],
+    "implementation_notes": "NVR has been public since 1993 but is pricey — equal-weight basket normalizes this. XHB ETF (started 2006) can serve as a broader alternative. The thesis is fundamentally long-side: scarcity = pricing power = margin expansion.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.5445619628861182,
+      "cagr": 0.6154211645625898,
+      "max_dd": -0.15006658945130846,
+      "t_stat": 1.5445619628861182
+    }
+  },
+  {
+    "strategy_id": "PL043",
+    "idea_id": "PL043",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL43_lei_inflection_long_spy",
+    "name": "Conference Board LEI 6mo RoC Turns Positive → Long SPY",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "rule": "Use FRED USSLIND (Conference Board LEI). Compute 6-month annualized rate of change: ((LEI_t / LEI_{t-6})^2 - 1) * 100. When this turns positive after 6+ consecutive months of negative readings: long SPY for 252 trading days. The positive inflection signals the recession/slowdown trough is past. Compare to unconditional buy-and-hold.",
+    "tickers": [
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED USSLIND 6-month RoC turns positive",
+      "After 6+ consecutive months of negative 6mo RoC"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY",
+      "fundamental": "FRED USSLIND (monthly, free, back to 1959)"
+    },
+    "backtest_approach": "Load FRED USSLIND monthly. Compute 6mo annualized RoC. Find months where RoC first turns positive after 6+ negative months. Long SPY for 252 days. Very long history — should capture 1960s, 1970s, 1980s, 1990s, 2000s, 2010s, 2020s recessions. SPY only from 1993 — use ^GSPC for earlier periods.",
+    "known_events": [],
+    "implementation_notes": "SPY starts 1993. For pre-1993, use ^GSPC (S&P 500 index from yfinance). USSLIND on FRED goes to 1959 — very long history gives statistical power. Expect ~8-10 events since 1960.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.749798265919583,
+      "cagr": 0.12186427406366707,
+      "max_dd": -0.33717281233344465,
+      "t_stat": 2.697653336401959
+    }
+  },
+  {
+    "strategy_id": "PL046",
+    "idea_id": "PL046",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL46_dxy_spike_em_reversal",
+    "name": "DXY 3-Month Spike > +8% → Long EEM After Rollover",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3 months",
+    "rule": "Use FRED DTWEXBGS (trade-weighted dollar, broad, daily). Compute rolling 63-day (3-month) return. When the 63-day return exceeds +8%: mark a DXY spike event. Wait until the 63-day return rolls below +4% (confirmed rollover). Then long EEM for 63 trading days (3 months). The thesis is mean reversion in EM equities after forced-selling exhaustion.",
+    "tickers": [
+      "EEM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED DTWEXBGS 63-day return exceeds +8% (spike event flagged)",
+      "Entry on the day 63-day return falls back below +4% (confirmed rollover)"
+    ],
+    "exit_conditions": [
+      "63 trading days (3 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EEM, SPY",
+      "fundamental": "FRED DTWEXBGS (daily, free, back to 2006)"
+    },
+    "backtest_approach": "Load FRED DTWEXBGS daily. Compute 63-day rolling return. Find spike events (>+8%) and subsequent rollovers (<+4%). Long EEM for 63 days from rollover confirmation. EEM data from 2003. DTWEXBGS from 2006.",
+    "known_events": [],
+    "implementation_notes": "The 30-day wait from the original idea is replaced by a rollover confirmation (63d return < +4%) which is more mechanically precise. This ensures entry after the DXY has peaked, not during the spike.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9727890154855314,
+      "cagr": 0.34174880665000407,
+      "max_dd": -0.2642065462145998,
+      "t_stat": 0.8357470642674332
+    }
+  },
+  {
+    "strategy_id": "PL050",
+    "idea_id": "PL050",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL50_sloos_tightening_long_tlt",
+    "name": "SLOOS Net Tightening > +40% → Long TLT (Rate Cut Anticipation)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "9 months",
+    "rule": "Use FRED DRTSCILM (net % banks tightening C&I loan standards, quarterly). When DRTSCILM crosses above +40: long TLT for 189 trading days (9 months). Major credit tightening leads Fed rate cuts by 2-4 quarters as the credit contraction slows the economy. LONG-SIDE ONLY: original idea included short HYG; converted to pure long TLT to avoid short-side drag.",
+    "tickers": [
+      "TLT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED DRTSCILM crosses above +40 (net % tightening)"
+    ],
+    "exit_conditions": [
+      "189 trading days (9 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TLT, SPY",
+      "fundamental": "FRED DRTSCILM (quarterly, free, back to 1990)"
+    },
+    "backtest_approach": "Load FRED DRTSCILM quarterly. Identify quarters where net tightening first crosses +40 from below. Long TLT from the first trading day of the following quarter for 189 days. TLT from 2002. For pre-2002, use long-duration Treasury return proxy or just backtest 2002+.",
+    "known_events": [],
+    "implementation_notes": "Original thesis was long TLT / short HYG pair. Converted to long-only TLT per pipeline rule (0/8 short-side wins). The TLT leg alone should capture the rate-cut anticipation premium. DRTSCILM data quarterly — low frequency signal, expect 4-6 events since 1990 (2001, 2007-08, 2020, 2022-23).",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.20986603402520343,
+      "cagr": 0.021602921579042533,
+      "max_dd": -0.3821211387630352,
+      "t_stat": 0.3257138534327757
+    }
+  },
+  {
+    "strategy_id": "PL051",
+    "idea_id": "PL051",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL51_maturity_wall_long_vcsh",
+    "name": "High-Rate Regime + Maturity Wall → Long VCSH (Short-Duration IG Outperformance)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "6-12 months",
+    "rule": "Use FRED DGS10 (10Y yield) and DGS2 (2Y yield). When DGS10 > 4.5% AND the yield curve is inverted (DGS2 > DGS10): long VCSH for 252 trading days. In a high-rate inverted-curve regime, short-duration IG credit earns higher carry with less duration risk, while long-duration issuers face refinancing pressure. Compare to LQD (long-duration IG) and SPY.",
+    "tickers": [
+      "VCSH",
+      "LQD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED DGS10 > 4.5%",
+      "FRED DGS2 > DGS10 (curve inverted)"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)",
+      "OR DGS10 drops below 3.5% (rate regime change)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance VCSH, LQD, SPY",
+      "fundamental": "FRED DGS10, DGS2 (daily, free)"
+    },
+    "backtest_approach": "Load FRED DGS10 and DGS2 daily. Identify periods where DGS10 > 4.5% AND DGS2 > DGS10. Long VCSH for 252 days from entry. VCSH ETF from 2009. Need high-rate + inverted curve periods: 2006-2007, 2023-2024. Limited events post-GFC given low rates.",
+    "known_events": [],
+    "implementation_notes": "Original thesis was short LQD / long VCSH. Converted to long-only VCSH per pipeline rule. VCSH carries positive yield regardless of market direction. The regime filter (high rates + inversion) ensures we only enter when refinancing stress is real. LQD tracked as benchmark for comparison, not traded.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.660146379932611,
+      "cagr": 0.07370777264647899,
+      "max_dd": -0.012917804605588334,
+      "t_stat": 3.3598376416938254
+    }
+  },
+  {
+    "strategy_id": "PL054",
+    "idea_id": "PL054",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL54_bankruptcy_surge_restructuring",
+    "name": "Bankruptcy Filings Surge → Long Restructuring Advisors (HLI/LAZ/PJT)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "12 months",
+    "rule": "Use FRED TNBCBSL (total nonfarm business bankruptcy filings, quarterly) as proxy. When quarterly filings rise >30% YoY for 2+ consecutive quarters: long equal-weight HLI+LAZ+PJT for 252 trading days. Restructuring advisory fees surge with a 2-3 quarter lag after filings jump. Compare to SPY.",
+    "tickers": [
+      "HLI",
+      "LAZ",
+      "PJT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED TNBCBSL YoY change > +30% for 2 consecutive quarters"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance HLI, LAZ, PJT, SPY",
+      "fundamental": "FRED TNBCBSL (quarterly, free)"
+    },
+    "backtest_approach": "Load FRED TNBCBSL quarterly. Compute YoY change. Identify quarters where YoY > +30% for 2+ consecutive quarters. Long restructuring basket for 252 days. HLI IPO 2015, PJT IPO 2015, LAZ available longer. Pre-2015 use LAZ only. Key event clusters: 2008-2009, 2015-2016 (energy), 2020, 2023-2024.",
+    "known_events": [],
+    "implementation_notes": "HLI is the purest restructuring play (#1 by number of mandates). LAZ restructuring is ~20% of total revenue. PJT Partners spun from Blackstone in 2015. For pre-2015 events use LAZ alone. TNBCBSL on FRED may have limited history — check availability, may need ABI data as supplement.",
+    "originality": 8,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5826403198568317,
+      "cagr": 0.17518041834162523,
+      "max_dd": -0.5094525418357966,
+      "t_stat": 1.234876364721898
+    }
+  },
+  {
+    "strategy_id": "PL055",
+    "idea_id": "PL055",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL55_stlfsi_stress_long_gold",
+    "name": "STLFSI4 Spike > +1.0 → Long Gold (Flight to Quality)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2 months",
+    "rule": "Use FRED STLFSI4 (St. Louis Fed Financial Stress Index, weekly). When STLFSI4 crosses above +1.0: long GLD for 42 trading days (2 months). Flight-to-quality drives gold higher during broad financial stress events. LONG-SIDE ONLY: original idea included short IWM; converted to pure long GLD per pipeline rule. Compare to SPY same period.",
+    "tickers": [
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED STLFSI4 crosses above +1.0 (stressed territory)"
+    ],
+    "exit_conditions": [
+      "42 trading days (2 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GLD, SPY",
+      "fundamental": "FRED STLFSI4 (weekly, free, back to 1994)"
+    },
+    "backtest_approach": "Load FRED STLFSI4 weekly. Identify weeks where index first crosses above +1.0 from below. Long GLD for 42 trading days. GLD from Nov 2004. For pre-2004, use gold price proxy from yfinance (GC=F). Events expected: 2008 (GFC), 2010 (Euro crisis), 2011 (US downgrade), 2020 (COVID), 2023 (SVB).",
+    "known_events": [],
+    "implementation_notes": "Original thesis was long GLD / short IWM. Converted to long-only GLD. Existing signal AB-10 uses STLFSI4 differently (equity reduction); this is a distinct implementation targeting gold. STLFSI4 replaced STLFSI2 in 2023 — use STLFSI4 for backtest continuity.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4536076171771242,
+      "cagr": 0.07997946724906502,
+      "max_dd": -0.30919454737469854,
+      "t_stat": 0.5555536027618422
+    }
+  },
+  {
+    "strategy_id": "PL056",
+    "idea_id": "PL056",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL56_real_retail_sales_negative_long_xlp",
+    "name": "Real Retail Sales YoY Negative → Long XLP (Staples Outperformance)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6 months",
+    "rule": "Use FRED RRSFS (real retail and food services sales, monthly). Compute YoY change. When YoY turns negative for the first time after 12+ months positive: long XLP (consumer staples) for 126 trading days. Consumer staples outperform during consumer spending contractions as staples demand is inelastic. LONG-SIDE ONLY: original idea was short XLY / long XLP; converted to pure long XLP. Compare to SPY.",
+    "tickers": [
+      "XLP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED RRSFS YoY turns negative",
+      "After 12+ months of positive YoY readings"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLP, SPY",
+      "fundamental": "FRED RRSFS (monthly, free, back to 1992)"
+    },
+    "backtest_approach": "Load FRED RRSFS monthly. Compute YoY change. Find months where YoY first goes negative after 12+ positive months. Long XLP for 126 days. XLP from 1998. RRSFS from 1992. Expected events: 2001, 2008-2009, 2020 (brief). May also fire in 2022 when real retail sales declined due to inflation outpacing nominal growth.",
+    "known_events": [],
+    "implementation_notes": "Original thesis was long XLP / short XLY pair. Converted to long-only XLP. The outperformance thesis should work on a standalone basis — staples have lower drawdowns during consumer contractions. XLP includes PG, KO, WMT, COST, PEP — defensive names.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.49613390152525116,
+      "cagr": 0.06904999023938863,
+      "max_dd": -0.17595539585974085,
+      "t_stat": 0.7825865940426074
+    }
+  },
+  {
+    "strategy_id": "PL057",
+    "idea_id": "PL057",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL57_housing_starts_lumber_lag",
+    "name": "Housing Starts Surge > +15% YoY → Long WOOD ETF 3mo Later",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6 months",
+    "rule": "Use FRED HOUST (housing starts, monthly). When HOUST YoY change exceeds +15% for 2 consecutive months: wait 63 trading days (3 months for framing phase lag), then long WOOD (iShares Global Timber & Forestry ETF) for 126 trading days (6 months). Lumber demand peaks during framing, 2-4 months after the foundation pour date implied by starts. Compare to SPY.",
+    "tickers": [
+      "WOOD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED HOUST YoY > +15% for 2 consecutive months",
+      "Entry 63 trading days after the second consecutive month"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance WOOD, SPY",
+      "fundamental": "FRED HOUST (monthly, free, back to 1959)"
+    },
+    "backtest_approach": "Load FRED HOUST monthly. Compute YoY change. Find months where YoY >+15% for 2 consecutive months. Entry 63 days later. Long WOOD 126 days. WOOD ETF from Jun 2008. Pre-2008 could use LBS=F (lumber futures) if available on yfinance, otherwise backtest 2008+. HOUST has very long history.",
+    "known_events": [],
+    "implementation_notes": "WOOD ETF includes Weyerhaeuser (WY), Rayonier (RYN), West Fraser — lumber producers + timber REITs. LBS=F (random-length lumber futures) is a purer play but may have spotty data on yfinance. Distinct from PL005 which uses permits/completions → aggregates (cement/stone); this is starts → lumber (different material, different construction phase).",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9014823920430273,
+      "cagr": 0.17878475425648088,
+      "max_dd": -0.18489601346723183,
+      "t_stat": 1.9598049883426703
+    }
+  },
+  {
+    "strategy_id": "PL058",
+    "idea_id": "PL058",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL58_natgas_storage_deficit_winter",
+    "name": "Natural Gas Storage Deficit > 10% Below 5yr Avg in Oct → Long NG=F Oct-Jan",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4 months",
+    "rule": "Use FRED NGTRSTUS (weekly natural gas in underground storage). On or near Oct 1 each year, check if the current storage level is >10% below the 5-year average for that week. If yes: long NG=F from Oct 1 through Jan 31. Storage deficit entering winter = supply cushion is thin = prices must rise to balance. Compare deficit-year returns to surplus-year returns.",
+    "tickers": [
+      "NG=F",
+      "UNG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED NGTRSTUS on Oct 1 is >10% below the 5-year average for that week"
+    ],
+    "exit_conditions": [
+      "Jan 31"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NG=F, UNG, SPY",
+      "fundamental": "FRED NGTRSTUS (weekly, free)"
+    },
+    "backtest_approach": "Load FRED NGTRSTUS weekly. For each year, compute Oct 1 storage as % of 5yr avg. Classify years as deficit (>10% below) vs non-deficit. Compute NG=F Oct 1 - Jan 31 return for each group. T-test deficit vs non-deficit returns. Data from ~2010+ for 5yr avg calculation.",
+    "known_events": [],
+    "implementation_notes": "NGTRSTUS data goes back to 2010+ on FRED. The 5-year rolling average is the industry-standard benchmark (used by EIA in their weekly report chart). Oct-Jan captures the core injection-season-end through peak-winter-withdrawal period. UNG ETF as fallback for NG=F.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.0065465093787154,
+      "cagr": -0.633641630068845,
+      "max_dd": -0.8279180146660721,
+      "t_stat": -1.2932433145919549
+    }
+  },
+  {
+    "strategy_id": "PL059",
+    "idea_id": "PL059",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL59_durable_goods_surge_industrials",
+    "name": "Durable Goods Orders Surge > +10% Above 6mo Avg → Long XLI",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6 months",
+    "rule": "Use FRED DGORDER (manufacturers' new orders: durable goods, monthly). Compute ratio of current month to trailing 6-month average. When DGORDER exceeds the 6-month average by >10% for 3 consecutive months: long XLI for 126 trading days. Sustained durable goods strength signals capex cycle inflection. Compare to SPY.",
+    "tickers": [
+      "XLI",
+      "CAT",
+      "HON",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED DGORDER > 1.10 * trailing 6-month average",
+      "For 3 consecutive months"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLI, CAT, HON, SPY",
+      "fundamental": "FRED DGORDER (monthly, free, back to 1992)"
+    },
+    "backtest_approach": "Load FRED DGORDER monthly. Compute trailing 6mo MA. Find 3-month streaks where current/MA > 1.10. Long XLI for 126 days from the third month. XLI from 1998. DGORDER from 1992. Should fire at capex cycle inflections: late 2003, 2010, 2013, 2017, 2021.",
+    "known_events": [],
+    "implementation_notes": "DGORDER includes volatile aircraft orders (Boeing). Consider also testing ADXTNO (ex-transportation durable goods) for a cleaner signal. CAT and HON tracked as individual proxies for industrials but XLI is the primary trade.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.2761517127978366,
+      "cagr": 0.3149820026840011,
+      "max_dd": -0.1863647665874647,
+      "t_stat": 1.2710775308225521
+    }
+  },
+  {
+    "strategy_id": "PL060",
+    "idea_id": "PL060",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL60_used_car_cpi_disinflation_tlt",
+    "name": "CPI Used Cars Declining > 5% YoY → Long TLT (Disinflation)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "3 months",
+    "rule": "Use FRED CUSR0000SETA02 (CPI used cars and trucks, monthly). When YoY change drops below -5%: long TLT for 63 trading days (3 months). Used cars ~3.5% CPI weight — a -5% YoY drag pulls headline CPI ~0.18pp lower, supporting disinflation expectations and bond prices. Compare to SPY.",
+    "tickers": [
+      "TLT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED CUSR0000SETA02 YoY < -5%"
+    ],
+    "exit_conditions": [
+      "63 trading days (3 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TLT, SPY",
+      "fundamental": "FRED CUSR0000SETA02 (monthly, free)"
+    },
+    "backtest_approach": "Load FRED CUSR0000SETA02 monthly. Compute YoY change. Find months where YoY first drops below -5%. Long TLT for 63 days. TLT from 2002. Used car CPI data from BLS goes back decades. Key periods: 2009 (crisis deflation), 2020 (brief COVID deflation), 2023-2024 (post-spike normalization).",
+    "known_events": [],
+    "implementation_notes": "Manheim leads CPI used cars by 1-2 months, but Manheim is not on FRED. Using CPI used cars directly is 1-2 months late vs Manheim but still actionable for the TLT trade because the bond market prices CPI prints, not Manheim. The signal is about the CPI impact, not the used car market itself.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8616106937588012,
+      "cagr": 0.1290009819673803,
+      "max_dd": -0.16629432118498133,
+      "t_stat": 1.2867049387210316
+    }
+  },
+  {
+    "strategy_id": "PL061",
+    "idea_id": "PL061",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL61_construction_spending_heavy_equip",
+    "name": "Construction Spending YoY > +10% for 3mo → Long CAT+DE+URI",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6 months",
+    "rule": "Use FRED TTLCONS (total construction spending, monthly). Compute YoY change. When YoY exceeds +10% for 3 consecutive months: long equal-weight CAT+DE+URI for 126 trading days. Sustained construction growth drives equipment demand with a 1-2 quarter lag. Compare to SPY.",
+    "tickers": [
+      "CAT",
+      "DE",
+      "URI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED TTLCONS YoY > +10% for 3 consecutive months"
+    ],
+    "exit_conditions": [
+      "126 trading days (6 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance CAT, DE, URI, SPY",
+      "fundamental": "FRED TTLCONS (monthly, free, back to 2002)"
+    },
+    "backtest_approach": "Load FRED TTLCONS monthly. Compute YoY change. Find 3-month streaks of >+10% YoY. Long basket for 126 days. URI IPO 2006 — use CAT+DE for pre-2006 events. TTLCONS from 2002 so limited pre-2002 history. Expected firing: 2004-2005 (housing boom), 2012-2013 (recovery), 2021-2022 (post-COVID), 2023-2024 (IIJA/CHIPS spending).",
+    "known_events": [],
+    "implementation_notes": "URI (United Rentals) is the purest construction equipment play — 100% rental fleet, volume directly tied to active jobsites. CAT sells equipment (order book lead time); DE construction division is smaller than ag. Equal-weight normalizes the different business models.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.44473207482661137,
+      "cagr": 0.09620999887731552,
+      "max_dd": -0.49951761178879095,
+      "t_stat": 0.8894641496532228
+    }
+  },
+  {
+    "strategy_id": "PL062",
+    "idea_id": "PL062",
+    "created_at": "2026-05-26T22:00:00.000000+00:00",
+    "status": "done",
+    "signal_id": "PL62_m2_reacceleration_gold",
+    "name": "M2 YoY Reaccelerates Above +5% → Long GLD 12mo",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "12 months",
+    "rule": "Use FRED M2SL (M2 money supply, monthly). Compute YoY change. When M2 YoY crosses above +5% after 6+ months below +3%: long GLD for 252 trading days (12 months). Monetary expansion drives gold with a 6-12 month lag as excess liquidity flows into hard assets. Compare to SPY.",
+    "tickers": [
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED M2SL YoY crosses above +5%",
+      "After 6+ months of M2SL YoY below +3%"
+    ],
+    "exit_conditions": [
+      "252 trading days (12 months)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GLD, SPY",
+      "fundamental": "FRED M2SL (monthly, free, back to 1959)"
+    },
+    "backtest_approach": "Load FRED M2SL monthly. Compute YoY change. Find months where YoY first crosses above +5% after 6+ months below +3%. Long GLD for 252 days. GLD from Nov 2004. For pre-2004, use GC=F (gold futures). M2SL has history to 1959 — long enough for multiple cycles. Distinct from P6 Howell M2/BTC signal which targets crypto, not gold.",
+    "known_events": [],
+    "implementation_notes": "M2 was negative YoY in 2022-2023 (first time since 1930s). Reacceleration to +5% would be a significant regime shift. GLD is the cleanest gold exposure. GC=F (gold futures) for pre-2004. The thesis is distinct from existing P6 (M2 → BTC) — different asset, different mechanism (inflation hedge vs digital speculation).",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-26T22:00:49.478744+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3750797315164218,
+      "cagr": 0.4061328613714015,
+      "max_dd": -0.19209514099718172,
+      "t_stat": 1.302212410096213
+    }
+  },
+  {
+    "signal_id": "PL35_drought_outlook_water_infra",
+    "name": "NOAA Drought Outlook → Long Water Infra",
+    "rule": "Hand-code years when NOAA seasonal drought outlook flagged 3+ Western states for drought development/persistence by June. Long AWK+XYL equal-weight for 6 months. Events: 2012, 2015, 2021, 2022.",
+    "tickers": [
+      "AWK",
+      "XYL",
+      "SPY"
+    ],
+    "strategy_id": "PL035",
+    "idea_id": "PL035",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9873,
+      "cagr": 0.1945,
+      "max_dd": -0.2165,
+      "t_stat": 1.3962
+    }
+  },
+  {
+    "signal_id": "PL36_treasury_auction_tail_vol",
+    "name": "Treasury Auction Tail >3bps → Long VIX Calls Proxy",
+    "rule": "Hand-code 10Y/30Y auctions that tailed >3bps. Long VIXY for 20 trading days. Events: 2023-10-12 (30Y tail 5.3bps), 2023-11-09 (30Y tail 3.7bps), 2024-01-11 (10Y tail 3.1bps), 2025-01-08 (10Y tail 3.6bps).",
+    "tickers": [
+      "VIXY",
+      "SPY"
+    ],
+    "strategy_id": "PL036",
+    "idea_id": "PL036",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "1-4 weeks",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.9824,
+      "cagr": -0.7147,
+      "max_dd": -0.46,
+      "t_stat": -1.117
+    }
+  },
+  {
+    "signal_id": "PL42_semi_b2b_crossing_one_smh",
+    "name": "SEMI B2B Crosses 1.0 from Below → Long SMH",
+    "rule": "Hand-code months when SEMI NA B2B crossed above 1.0 from below (after 3+ months under). Long SMH for 6 months. Events: 2009-07, 2013-05, 2016-08, 2019-11, 2024-01.",
+    "tickers": [
+      "SMH",
+      "SPY"
+    ],
+    "strategy_id": "PL042",
+    "idea_id": "PL042",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3619,
+      "cagr": 0.4673,
+      "max_dd": -0.3362,
+      "t_stat": 2.1534
+    }
+  },
+  {
+    "signal_id": "PL44_corn_planting_delay_long",
+    "name": "Corn Planting >15pp Behind Avg by May 15 → Long ZC=F",
+    "rule": "Hand-code years when USDA Crop Progress showed corn planting >15pp behind 5yr avg by May 15. Long ZC=F from May 15 to Jun 30. Events: 2013 (36% vs 65% avg), 2019 (49% vs 80% avg), 2022 (22% vs 49% avg).",
+    "tickers": [
+      "ZC=F",
+      "SPY"
+    ],
+    "strategy_id": "PL044",
+    "idea_id": "PL044",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5644,
+      "cagr": 0.1333,
+      "max_dd": -0.1544,
+      "t_stat": 0.3483
+    }
+  },
+  {
+    "signal_id": "PL48_cre_distressed_alt_managers",
+    "name": "CRE Transaction Volume Trough → Long Alt Managers 12mo Later",
+    "rule": "Hand-code CRE transaction volume troughs (from MSCI RCA summaries). Entry 12 months after trough. Long BX+ARES+KKR equal-weight for 12 months. Events: entry 2010-06 (GFC trough Jun 2009), entry 2024-03 (rate-hike trough Mar 2023).",
+    "tickers": [
+      "BX",
+      "ARES",
+      "KKR",
+      "SPY"
+    ],
+    "strategy_id": "PL048",
+    "idea_id": "PL048",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3213,
+      "cagr": 0.4432,
+      "max_dd": -0.2126,
+      "t_stat": 1.8685
+    }
+  },
+  {
+    "signal_id": "PL49_plantings_corn_soy_spread",
+    "name": "USDA Prospective Plantings Surprise → Corn/Soy Spread",
+    "rule": "When USDA Mar 31 Prospective Plantings shows corn acres >2M above estimate AND soy below: long ZS=F for 30 days (soy benefits from scarcity). Events: 2017, 2019, 2021 (corn up/soy down surprises).",
+    "tickers": [
+      "ZS=F",
+      "ZC=F",
+      "SPY"
+    ],
+    "strategy_id": "PL049",
+    "idea_id": "PL049",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.2916,
+      "cagr": 0.2297,
+      "max_dd": -0.1274,
+      "t_stat": 0.7719
+    }
+  },
+  {
+    "signal_id": "PL52_aar_carloads_yoy_turn",
+    "name": "AAR Carloads YoY Positive Turn → Long XLI",
+    "rule": "Use FRED RAILFRTCARLOADSD11 or proxy: when total carloads YoY turns positive after 12+ weeks negative, long XLI 6 months. Since AAR weekly not on FRED, proxy with INDPRO monthly (when INDPRO YoY turns positive after 6+ months negative). Events scan FRED INDPRO.",
+    "tickers": [
+      "XLI",
+      "SPY"
+    ],
+    "strategy_id": "PL052",
+    "idea_id": "PL052",
+    "created_at": "2026-05-26T21:51:16.731367+00:00",
+    "status": "done",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T21:54:46.565689+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4794,
+      "cagr": 0.0822,
+      "max_dd": -0.2453,
+      "t_stat": 0.8304
+    }
+  },
+  {
+    "signal_id": "PL63_ism_export_orders_industrials",
+    "name": "ISM Export Orders > 55 from Below 50 → Long Industrial Exporters",
+    "rule": "Load FRED NAPMEI (ISM New Export Orders, monthly). When NAPMEI crosses above 55 after 4+ months below 50: long equal-weight HON+EMR+ITW+PH for 126 trading days. Markets focus on headline PMI; the export sub-index is a purer foreign demand signal.",
+    "tickers": [
+      "HON",
+      "EMR",
+      "ITW",
+      "PH",
+      "SPY"
+    ],
+    "strategy_id": "PL063",
+    "idea_id": "PL063",
+    "created_at": "2026-05-26T21:57:50.395136+00:00",
+    "status": "ready",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 8,
+    "bt_feasibility": 5
+  },
+  {
+    "signal_id": "PL64_bank_credit_reacceleration_xlf",
+    "name": "Bank Credit YoY Reaccelerates → Long XLF",
+    "rule": "Load FRED TOTBKCR (weekly bank credit). Resample monthly, compute YoY growth. When YoY crosses above +2% after 6+ months below +2%: long XLF for 252 trading days (12 months). Credit expansion = NIM + loan growth.",
+    "tickers": [
+      "XLF",
+      "JPM",
+      "BAC",
+      "SPY"
+    ],
+    "strategy_id": "PL064",
+    "idea_id": "PL064",
+    "created_at": "2026-05-26T21:57:50.395136+00:00",
+    "status": "ready",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "originality": 7,
+    "bt_feasibility": 5
+  },
+  {
+    "signal_id": "PL65_vmt_surge_auto_parts",
+    "name": "Vehicle Miles Traveled +3% YoY → Long Auto Parts Retailers",
+    "rule": "Load FRED TRFVOLUSM227NFWA (monthly VMT). Compute YoY growth. When YoY > +3% for 3 consecutive months: long AZO+ORLY equal-weight for 126 trading days. More driving → more wear → parts demand lags 1-2 quarters.",
+    "tickers": [
+      "AZO",
+      "ORLY",
+      "SPY"
+    ],
+    "strategy_id": "PL065",
+    "idea_id": "PL065",
+    "created_at": "2026-05-26T21:57:50.395136+00:00",
+    "status": "ready",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "originality": 8,
+    "bt_feasibility": 5
   }
 ]

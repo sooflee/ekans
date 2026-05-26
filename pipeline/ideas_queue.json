@@ -160,5 +160,1671 @@
     "source_reference": "CDC NWSS; Biobot Analytics; Nature Medicine wastewater surveillance studies",
     "research_phase": "pipeline_scout",
     "dedup_key": "cdc_wastewater_viral_pharma"
+  },
+  {
+    "idea_id": "PL007",
+    "created_at": "2026-05-26T19:40:00.292613+00:00",
+    "status": "developed",
+    "name": "Jet Fuel Crack Spread Spike \u2192 Airline Margin Compression",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Airlines hedge fuel 6-18 months forward but imperfectly. When jet fuel crack spread (kerosene vs crude) spikes >$5/bbl above 2yr avg, unhedged fuel exposure compresses airline operating margins 1-2 quarters later. Short UAL/DAL/LUV vs long XLE as a pair.",
+    "causal_chain": [
+      "Refinery turnaround season or geopolitical shock spikes distillate cracks",
+      "Jet fuel crack (kerosene vs WTI) widens >$5/bbl above 2yr rolling average",
+      "Airlines hedged at lower crack levels face margin compression on unhedged portion (typically 30-50%)",
+      "Fuel cost surprise flows through to Q+1 and Q+2 earnings as hedges roll off",
+      "Airline stocks underperform energy stocks for 1-3 months"
+    ],
+    "data_sources": [
+      "EIA kerosene-type jet fuel spot (free)",
+      "yfinance UAL, DAL, LUV, XLE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "EIA petroleum data; airline 10-Q fuel hedge disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "jet_fuel_crack_airline_margin"
+  },
+  {
+    "idea_id": "PL008",
+    "created_at": "2026-05-26T19:40:00.292613+00:00",
+    "status": "developed",
+    "name": "BNPL Delinquency Spike \u2192 Short Affirm/Consumer Credit",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "CFPB publishes BNPL market reports showing delinquency rates (free). When BNPL 30+ DPD rises >100bps QoQ, it signals deteriorating consumer credit quality among young borrowers before it shows up in traditional bank NIM compression. Short AFRM, long traditional banks (JPM/WFC) as a spread.",
+    "causal_chain": [
+      "CFPB BNPL market report shows 30+ DPD rising >100bps QoQ",
+      "BNPL borrowers are younger, lower-FICO \u2014 canary in the coal mine for broader consumer stress",
+      "AFRM provision expense spikes 1-2 quarters after DPD rises as losses crystallize",
+      "Traditional banks with tighter underwriting see relative outperformance",
+      "Long JPM/WFC vs short AFRM captures the credit-quality divergence"
+    ],
+    "data_sources": [
+      "CFPB BNPL reports (free)",
+      "yfinance AFRM, JPM, WFC, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CFPB BNPL market report 2024; NY Fed consumer credit panel",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bnpl_delinquency_affirm_short"
+  },
+  {
+    "idea_id": "PL009",
+    "created_at": "2026-05-26T19:40:00.292613+00:00",
+    "status": "developed",
+    "name": "US Scrap Steel Price \u2192 Long Steel Mills on Margin Expansion",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "US EAF (electric arc furnace) steel mills use scrap as primary input (~70% of US steel production). When scrap prices drop >15% from peak while finished steel HRC prices stay elevated (spread widens), steel mill margins expand dramatically. Long NUE/STLD (EAF mills) for 3-6 months. AMM scrap prices are partially free via trade press.",
+    "causal_chain": [
+      "Scrap steel prices decline >15% from trailing 6mo peak (tracked by AMM/Fastmarkets, partially free)",
+      "Finished HRC steel prices remain elevated due to demand/trade protection (FRED WPUSI019011)",
+      "HRC-scrap spread widens beyond $400/ton (vs avg ~$300)",
+      "EAF mills (NUE, STLD) see raw material cost drop while selling price holds \u2192 margin expansion",
+      "Earnings beat consensus 1-2 quarters later as the spread flows through to P&L"
+    ],
+    "data_sources": [
+      "FRED WPUSI019011 (steel HRC PPI, free)",
+      "yfinance NUE, STLD, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "AMM scrap index; Nucor/Steel Dynamics 10-Q metal margin disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "scrap_steel_hrc_spread_mills"
+  },
+  {
+    "idea_id": "PL010",
+    "created_at": "2026-05-26T19:43:59.325415+00:00",
+    "status": "developed",
+    "name": "Class 8 Truck Orders Collapse \u2192 Freight Capacity Shortage 18mo Later",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "12-18 months",
+    "thesis": "ACT Research publishes monthly Class 8 truck net orders (free summary via trade press). When orders collapse >40% YoY for 3+ consecutive months, it signals carriers are not replacing aging fleet. 18 months later, the average fleet age rises past replacement threshold, capacity tightens, and truckload rates spike. Long PCAR (Paccar, Class 8 OEM) 12-18mo after order trough \u2014 replacement cycle demand is deferred, not destroyed.",
+    "causal_chain": [
+      "ACT Research reports Class 8 net orders collapse >40% YoY for 3+ months",
+      "Carriers defer fleet replacement during freight recession (average truck is 7+ years old)",
+      "12-18 months later: aging fleet hits DOT compliance limits, maintenance costs spike",
+      "Forced replacement cycle begins \u2014 Class 8 orders surge from trough",
+      "PCAR/CMI (Cummins engines) see order book rebuild \u2192 revenue acceleration \u2192 stock re-rates"
+    ],
+    "data_sources": [
+      "ACT Research monthly (free summary via FreightWaves/trade press)",
+      "FRED IPMAN (manufacturing IP as cycle proxy)",
+      "yfinance PCAR, CMI, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "ACT Research; FTR Transportation Intelligence; DOT FMCSA age-of-fleet reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "class8_truck_order_replacement_cycle"
+  },
+  {
+    "idea_id": "PL011",
+    "created_at": "2026-05-26T19:43:59.325415+00:00",
+    "status": "developed",
+    "name": "US Rental Vacancy Rate Trough \u2192 Long Apartment REITs",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "Census Bureau publishes quarterly rental vacancy rate (free, FRED RRVRUSQ156N). When vacancy hits a cyclical trough (<5.5%) and starts rising, it paradoxically signals PEAK RENT GROWTH is about to hit REIT earnings \u2014 because the vacancy trough means landlords had maximum pricing power for the prior 2-3 quarters, and those rents flow through to earnings with a 1-2 quarter lag. Long apartment REITs (EQR, AVB, MAA) when vacancy bottoms.",
+    "causal_chain": [
+      "Census Bureau rental vacancy rate hits trough (below 5.5%) \u2014 published quarterly on FRED",
+      "Trough vacancy = landlords had maximum pricing power for prior 6-12 months",
+      "Lease renewals at peak rents flow through to REIT same-store NOI with 1-2 quarter lag",
+      "Apartment REITs (EQR, AVB, MAA) report earnings beats as peak rents hit financials",
+      "Stock re-rates on NOI acceleration even as vacancy starts rising (the market watches vacancy, not the lagged rent)"
+    ],
+    "data_sources": [
+      "FRED RRVRUSQ156N (quarterly rental vacancy, free)",
+      "yfinance EQR, AVB, MAA, VNQ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau Housing Vacancies; NMHC apartment market surveys",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rental_vacancy_trough_reit_lag"
+  },
+  {
+    "idea_id": "PL012",
+    "created_at": "2026-05-26T19:43:59.325415+00:00",
+    "status": "developed",
+    "name": "Baltic Dry Index Spike \u2192 Dry Bulk Shipper Earnings Surprise \u2192 Long SBLK/GOGL",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "The Baltic Dry Index (BDI) is a real-time measure of shipping rates for dry bulk commodities (iron ore, coal, grain). When BDI spikes >50% from 3-month low, dry bulk shipper spot earnings jump but stock prices lag by 2-4 weeks because sell-side models use contract-rate assumptions, not spot. Long SBLK/GOGL (spot-exposed shippers) for 60 days after BDI spike.",
+    "causal_chain": [
+      "BDI spikes >50% from trailing 3-month low (tracked daily, free via FRED DBDI or yfinance BDIY)",
+      "Spot charter rates for Capesize/Panamax vessels surge \u2014 daily TCE revenue doubles",
+      "Spot-exposed shippers (SBLK, GOGL) earn windfall rates on open vessels immediately",
+      "Sell-side models update with 2-4 week lag (use contract/average rates, not spot)",
+      "Earnings surprise materializes at next quarterly report \u2192 stock re-rates"
+    ],
+    "data_sources": [
+      "FRED DBDI or Baltic Exchange (free summary)",
+      "yfinance SBLK, GOGL, BDRY (dry bulk ETF), SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Baltic Exchange; Clarksons shipping research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bdi_spike_dry_bulk_shipper_lag"
+  },
+  {
+    "idea_id": "PL013",
+    "created_at": "2026-05-26T19:50:09.165388+00:00",
+    "status": "developed",
+    "name": "US Initial Jobless Claims 4-Week Acceleration \u2192 Recession Hedge Pair",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "3-6 months",
+    "thesis": "FRED ICSA (weekly initial claims) is the fastest official labor market indicator. When the 4-week MA of claims rises >15% from its trailing 26-week low AND the level crosses 250k, it signals labor market deterioration 2-3 months before NBER recession dating. Long TLT + short XLY (cyclical consumer) as a recession hedge pair. The signal has led every recession since 1970.",
+    "causal_chain": [
+      "FRED ICSA 4-week MA rises >15% from 26-week trailing low AND crosses 250k",
+      "Labor market weakening confirmed before payrolls data (claims = leading, payrolls = lagging)",
+      "Consumer spending expectations deteriorate \u2192 cyclical discretionary (XLY) sells off",
+      "Fed pivots dovish \u2192 long-duration bonds (TLT) rally on rate-cut expectations",
+      "Pair (long TLT / short XLY) captures both legs of the recession trade"
+    ],
+    "data_sources": [
+      "FRED ICSA (weekly, free)",
+      "yfinance TLT, XLY, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Sahm Rule adjacent; FRED initial claims; NBER recession dating",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "initial_claims_acceleration_recession_hedge"
+  },
+  {
+    "idea_id": "PL014",
+    "created_at": "2026-05-26T19:50:09.165388+00:00",
+    "status": "developed",
+    "name": "USDA Crop Export Inspections Weekly Surprise \u2192 Grain Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-2 weeks",
+    "thesis": "USDA publishes weekly Export Inspections every Monday (free). When actual inspections exceed the prior 4-week average by >20% for corn or soybeans, it signals unexpected demand (often from China). Grain futures rally 1-3% over the next 5 trading days as the market adjusts supply/demand balance sheets. The Monday publication leads the Thursday Export Sales report by 3 days.",
+    "causal_chain": [
+      "USDA Export Inspections published Monday 11am ET (free at usda.library.cornell.edu)",
+      "Weekly inspections for corn/soybeans exceed 4-week MA by >20%",
+      "Unexpected demand signal \u2014 often China buying in size",
+      "Grain futures (ZC=F, ZS=F) rally 1-3% over next 5 trading days",
+      "Thursday Export Sales report confirms the trend with 3-day lag"
+    ],
+    "data_sources": [
+      "USDA Export Inspections (free weekly)",
+      "yfinance ZC=F, ZS=F, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FAS Export Inspections; USDA Export Sales reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_export_inspections_grain_surprise"
+  },
+  {
+    "idea_id": "PL015",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "NASA SMAP Soil Moisture Deficit -> Winter Wheat Abandonment -> KC Wheat Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-8 weeks",
+    "thesis": "NASA SMAP provides daily soil moisture at 9km resolution (free). When topsoil moisture in the HRW wheat belt (KS, OK, TX panhandle) falls below the 10th percentile during Oct-Mar dormancy, winter wheat abandonment spikes to 20-35% (vs 10% normal). This supply destruction is not priced until the May WASDE. Long KC wheat (KE=F) on early soil moisture signal, 2-3 months before WASDE catches up.",
+    "causal_chain": [
+      "NASA SMAP satellite soil moisture shows HRW wheat belt below 10th percentile (free daily via nsidc.org)",
+      "USDA Crop Progress weekly condition ratings confirm poor/very poor rising above 40%",
+      "Winter wheat fails to establish root systems under prolonged dormancy moisture stress",
+      "Spring green-up reveals extensive winterkill - abandonment 20-35% vs 10% normal",
+      "May WASDE slashes US HRW production estimate by 100-200M bushels",
+      "KC wheat futures rally 15-30% as importers scramble for alternative origins"
+    ],
+    "data_sources": [
+      "NASA SMAP soil moisture (free daily via nsidc.org)",
+      "USDA Crop Progress (free weekly)",
+      "USDA WASDE (free monthly)",
+      "yfinance KE=F"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NASA SMAP; USDA NASS Crop Progress; Kansas Wheat Commission abandonment data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "soil_moisture_wheat_abandonment"
+  },
+  {
+    "idea_id": "PL016",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "Great Lakes Ice Cover -> Soo Locks Delay -> Blast Furnace Steel Mill Squeeze",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-10 weeks",
+    "thesis": "NOAA GLERL publishes daily Great Lakes ice cover (free). When peak ice exceeds 60% (~1 in 3 winters), Soo Locks opening delays 2-4 weeks. This delays 70% of US iron ore pellet shipments from MN/MI to Gary/Indiana Harbor mills. Blast furnace operators (X, CLF) face pellet shortage while EAF mills (NUE, STLD) on scrap are unaffected. Long NUE/STLD, short X during heavy ice years.",
+    "causal_chain": [
+      "NOAA GLERL daily ice analysis shows peak ice cover above 60% (free at glerl.noaa.gov)",
+      "US Army Corps delays Soo Locks opening 2-4 weeks beyond normal March 25",
+      "Iron ore pellet shipments from Mesabi/Marquette ranges delayed",
+      "Blast furnace mills (X, CLF legacy) face pellet drawdown and spot premium spikes",
+      "EAF mini-mills (NUE, STLD) run on scrap - no lake shipping dependency",
+      "HRC firms as BF production curtailed; NUE/STLD gain relative margin advantage"
+    ],
+    "data_sources": [
+      "NOAA GLERL Great Lakes ice cover (free daily)",
+      "USACE Soo Locks traffic (free)",
+      "yfinance NUE, STLD, X, CLF"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA GLERL; Lake Carriers Association; USACE Soo Locks data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "great_lakes_ice_iron_ore"
+  },
+  {
+    "idea_id": "PL017",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "Gulf of Mexico Pre-Season SST -> Hurricane Crude Shut-in -> Crack Spread Spike",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "NOAA daily Gulf SST maps (free). When June SSTs in Main Development Region exceed 27.5C (80th pctile), hurricane season produces 40% more major storms. Each Cat 3+ Gulf hurricane shuts 1-2M bpd offshore production. Long 3-2-1 crack spread when pre-season SSTs signal hyperactive year, before individual storms form.",
+    "causal_chain": [
+      "NOAA daily SST shows Gulf MDR above 27.5C by June (free at ospo.noaa.gov)",
+      "CSU/NOAA outlooks confirm above-average season",
+      "Cat 3+ hurricane enters Gulf - platforms evacuate, 1-2M bpd shut-in",
+      "Crude tightens regionally but refinery demand persists from pipeline/SPR",
+      "Gasoline/distillate crack spreads spike 30-60%",
+      "Long 3-2-1 crack spread for 2-6 weeks post-storm"
+    ],
+    "data_sources": [
+      "NOAA SST daily maps (free)",
+      "BSEE Gulf shut-in reports (free)",
+      "yfinance CL=F, RB=F, HO=F"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "NOAA OSPO SST; BSEE shut-in archives; CSU tropical meteorology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gulf_sst_hurricane_crack_spread"
+  },
+  {
+    "idea_id": "PL018",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "EPA ECHO Consent Decree Pipeline -> Environmental Services Backlog Growth",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "EPA ECHO database updates weekly with consent decrees (free API). When rolling 12-month consent decree dollar value exceeds 2 sigma above trend, mandated remediation flows to environmental services firms (ECL, RSG, WM). Court-ordered timelines create non-discretionary capex. Long environmental services basket on decree surge.",
+    "causal_chain": [
+      "EPA ECHO database shows consent decree surge (free at echo.epa.gov)",
+      "Major decrees mandate >M remediation at industrial facilities",
+      "Court-ordered timelines create non-discretionary spending regardless of cycle",
+      "ECL, RSG, WM win remediation contracts",
+      "Backlog growth visible 1-2 quarters after decree publication",
+      "Long ECL/RSG when 12-month decree value exceeds 2 sigma above trend"
+    ],
+    "data_sources": [
+      "EPA ECHO API (free weekly)",
+      "DOJ ENRD press releases (free)",
+      "yfinance ECL, RSG, WM"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "EPA ECHO database; DOJ ENRD consent decree archives",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "epa_echo_consent_decree_capex",
+    "reject_reason": "EPA ECHO consent decree dollar amounts require complex API parsing; not tractable for automated backtest"
+  },
+  {
+    "idea_id": "PL019",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "USITC Section 337 Preliminary Determination -> Import Exclusion -> Long Complainant",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-12 months",
+    "thesis": "USITC publishes Section 337 dockets on patent infringement of imports (free). ALJ preliminary determination of violation has 70%+ probability of final exclusion order banning imports. Domestic patent holder gains import monopoly. Long complainant on preliminary determination - market underprices exclusion probability.",
+    "causal_chain": [
+      "USITC publishes ALJ preliminary determinations (free at usitc.gov/EDIS)",
+      "Preliminary violation signals 70%+ probability of final exclusion order",
+      "Exclusion order bans infringing imports at border - CBP enforces",
+      "Domestic complainant gains monopoly pricing in US market",
+      "Revenue uplift 6-12 months post-exclusion as import channel dries up",
+      "Long complainant stock - market underprices exclusion probability"
+    ],
+    "data_sources": [
+      "USITC EDIS (free)",
+      "Federal Register 337 notices (free)",
+      "yfinance for complainant tickers"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USITC Section 337 docket; historical exclusion order conversion rates",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usitc_337_exclusion_order",
+    "reject_reason": "ITC Section 337 events too rare and complainant tickers vary; not systematically backtestable"
+  },
+  {
+    "idea_id": "PL020",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "NHTSA Engineering Analysis -> Auto OEM Warranty Reserve Shortfall",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-4 months",
+    "thesis": "NHTSA publishes recall investigations in real-time (free). When NHTSA opens an Engineering Analysis on a high-volume model (>500K units), the OEM faces M-B warranty costs not yet accrued. EA opening is public but market discounts slowly. Short OEM on EA opening; warranty charge hits 1-3 quarters later.",
+    "causal_chain": [
+      "NHTSA opens Engineering Analysis on high-volume model (free at nhtsa.gov)",
+      "EA status means defect is safety-critical - recall likely within 6-12 months",
+      "Affected population >500K implies recall cost M-B",
+      "OEM warranty reserve inadequate for EA-scale recall",
+      "Warranty accrual charge compresses EPS 1-3 quarters after recall order",
+      "Short OEM on EA opening; cover when cost fully accrued"
+    ],
+    "data_sources": [
+      "NHTSA investigations database (free)",
+      "NHTSA complaints database (free)",
+      "yfinance F, GM, STLA, TM"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NHTSA Office of Defects Investigation; auto OEM 10-K warranty disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nhtsa_ea_recall_warranty_cost"
+  },
+  {
+    "idea_id": "PL021",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "USDA Cold Storage Poultry Glut -> Processor Liquidation -> Short TSN/PPC",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA Cold Storage report (free monthly) shows frozen protein inventories. When frozen poultry exceeds 5-year average by >15%, processors face mounting storage costs (/bin/zsh.02-0.04/lb/month) forcing liquidation. Spot chicken prices fall 10-20% over 4-8 weeks. Short TSN (33% chicken) and PPC (80% chicken) on extreme builds.",
+    "causal_chain": [
+      "USDA Cold Storage shows frozen poultry >15% above 5-year average (free monthly)",
+      "High inventories signal overproduction; storage costs compound pressure",
+      "Processors liquidate at discounted spot to reduce carrying costs",
+      "USDA AMS poultry spot prices decline 10-20% over 4-8 weeks",
+      "TSN (~33% chicken) and PPC (~80% chicken) see margin compression",
+      "Short TSN/PPC; cover when inventories normalize"
+    ],
+    "data_sources": [
+      "USDA Cold Storage (free monthly)",
+      "USDA AMS poultry spot (free weekly)",
+      "yfinance TSN, PPC, HRL"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "USDA NASS Cold Storage; Urner Barry poultry indices",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cold_storage_poultry_glut"
+  },
+  {
+    "idea_id": "PL022",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "China PE Export Surge -> Global Polyethylene Margin Compression -> Short LYB/DOW",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "China Customs monthly trade data (free). When China PE exports rise >30% YoY for 2+ months, new coal-to-olefins capacity is dumping into global markets. US PE producers (LYB, DOW, WLK) face -100/ton benchmark erosion as Chinese volumes suppress Asian prices that arbitrage to US Gulf Coast. Short LYB/DOW on confirmed surge.",
+    "causal_chain": [
+      "China Customs shows PE exports >30% YoY for 2+ months (free at customs.gov.cn)",
+      "New CTO capacity in interior China reaches full production",
+      "Chinese PE floods SE Asian, Middle Eastern, US Gulf Coast markets",
+      "US PE contract prices decline -100/ton over 2-3 months",
+      "LYB, DOW, WLK face integrated margin compression",
+      "EBITDA downgrades 10-15% drive 10-20% stock declines"
+    ],
+    "data_sources": [
+      "China GAC monthly data (free)",
+      "ICIS PE benchmark (trade press free)",
+      "yfinance LYB, DOW, WLK"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "GACC trade data; ICIS Asia PE; Wood Mackenzie CTO tracker",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "china_pe_export_margin_compression",
+    "reject_reason": "China GAC PE export data not free/machine-readable"
+  },
+  {
+    "idea_id": "PL023",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "SEMI Fab Equipment B2B Inflection -> Specialty Chemical Demand Lead",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "SEMI monthly semiconductor equipment book-to-bill (free summary). When B2B crosses above 1.05 from downcycle trough (<0.95 for 3+ months), fab utilization recovery drives consumable chemical demand (photoresists, CMP slurries, etch gases) within 2-4 quarters. ENTG/CCMP have 80%+ revenue tied to wafer starts. Long on inflection.",
+    "causal_chain": [
+      "SEMI monthly B2B crosses above 1.05 from trough below 0.95 (free press release)",
+      "Equipment delivery signals fab reactivation within 6-12 months",
+      "Wafer starts ramp as tools installed and qualified",
+      "Each wafer pass requires photoresist, CMP slurry, etch gases - linear with starts",
+      "ENTG, CCMP see volume recovery 2-4 quarters after inflection",
+      "Revenue acceleration re-rates from trough 18-22x to 25-30x forward"
+    ],
+    "data_sources": [
+      "SEMI B2B monthly (free summary)",
+      "yfinance ENTG, CCMP, AMAT, LRCX"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "SEMI Industry Statistics; Entegris/CMC investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "semi_b2b_specialty_chem_demand"
+  },
+  {
+    "idea_id": "PL024",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "TikTok Viral Food Trend -> Ingredient Commodity Spike -> Restaurant Margin Squeeze",
+    "category": "G",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "When a food goes viral on TikTok (>50M views/week), consumer demand spikes 200-500% within 2-4 weeks. Supply chain cannot adjust. Google Trends food-specific surges >400% WoW proxy TikTok virality. Long the underlying commodity (cottage cheese 2023, Dubai chocolate 2024). Supply chain lag creates 2-6 week tradeable window.",
+    "causal_chain": [
+      "TikTok food trend crosses 50M views - confirmed via Google Trends >400% WoW",
+      "Consumer demand at grocery/restaurants spikes 200-500% within 2-4 weeks",
+      "Commodity supply chain has 4-8 week lead time - cannot scale instantly",
+      "Spot ingredient prices spike 30-80% (cottage cheese +40% 2023, feta +60% 2021)",
+      "Restaurants with fixed menus face input cost squeeze on that ingredient",
+      "Demand normalizes 8-16 weeks as trend fades - exit before reversion"
+    ],
+    "data_sources": [
+      "Google Trends (free daily)",
+      "TikTok trending data (free)",
+      "USDA AMS weekly prices (free)",
+      "yfinance restaurant tickers"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "Google Trends; viral food case studies; USDA ERS demand elasticity",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "viral_food_trend_commodity_spike",
+    "reject_reason": "TikTok viral food trends not systematically backtestable; Google Trends data is noisy and retrospective"
+  },
+  {
+    "idea_id": "PL025",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "CFPB Complaint Surge by Company -> Fintech Enforcement Prediction",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "CFPB Complaint Database updates daily (free, 500K+/year). When company-specific complaints spike >3 sigma for 2+ months, it signals consumer harm triggering enforcement within 6-18 months. 65%+ hit rate historically. Short fintech/bank on complaint surge - market does not systematically monitor this free database.",
+    "causal_chain": [
+      "CFPB Complaint DB shows company complaints >3 sigma for 2+ months (free daily)",
+      "Surge indicates systematic consumer harm (unauthorized fees, deceptive practices)",
+      "CFPB opens investigation (confidential, but complaints are leading)",
+      "Enforcement action announced 6-18 months later (consent order, fine)",
+      "Stock drops 10-25% on enforcement plus compliance costs",
+      "Short on complaint surge; catalyst within 6-18 month window"
+    ],
+    "data_sources": [
+      "CFPB Complaint API (free daily)",
+      "CFPB enforcement releases (free)",
+      "yfinance for target tickers"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "CFPB Complaint Database; academic complaint-enforcement literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cfpb_complaint_surge_enforcement"
+  },
+  {
+    "idea_id": "PL026",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "Lichess Concurrent Users Spike -> Stay-at-Home Economy Proxy -> Long NFLX/RBLX",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "Lichess publishes real-time concurrent player counts (free API). When players spike >2 sigma above seasonal baseline (outside tournaments), it proxies macro stay-at-home shift (weather, illness, economic pullback). Leads quarterly engagement for NFLX, RBLX, TTWO, SPOT. Long stay-at-home basket on sustained chess surge.",
+    "causal_chain": [
+      "Lichess API shows concurrent players >2 sigma above baseline for 5+ days (free)",
+      "Surge reflects broad stay-at-home shift (weather, illness, economic pullback)",
+      "Stay-at-home beneficiaries see engagement spike concurrently",
+      "NFLX, RBLX, TTWO, SPOT beat quarterly engagement consensus",
+      "Long stay-at-home basket; hold through next earnings cycle"
+    ],
+    "data_sources": [
+      "Lichess API (free at lichess.org/api)",
+      "Google Trends (free)",
+      "yfinance NFLX, RBLX, TTWO, SPOT"
+    ],
+    "originality": 10,
+    "bt_feasibility": 3,
+    "source_reference": "Lichess open API; COVID-era online activity correlations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "chess_activity_stayhome_proxy",
+    "reject_reason": "Lichess concurrent users not a reliable macro proxy; correlation with stay-at-home is spurious post-2021"
+  },
+  {
+    "idea_id": "PL027",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "FCC BDC Starlink Coverage -> Rural ISP Subscriber Churn -> Short LUMN/CNSL",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "FCC Broadband Data Collection (quarterly, free) shows Starlink coverage by county. When Starlink median speed exceeds 100 Mbps in counties served only by 10-25 Mbps DSL, rural ISPs (LUMN, CNSL) face 15-30% subscriber churn over 12-18 months. FCC data leads earnings by 2-3 quarters. Short rural ISPs when Starlink crosses 50% of their territory.",
+    "causal_chain": [
+      "FCC BDC shows Starlink expanding in rural counties at 100+ Mbps (free quarterly)",
+      "Starlink 5-10x speed advantage over incumbent DSL/fixed wireless",
+      "Rural subscribers switch - 15-30% churn over 12-18 months",
+      "LUMN rural and CNSL report subscriber losses with 2-3 quarter lag",
+      "Fixed-cost network means losses drop directly to bottom line",
+      "Short rural ISPs when Starlink crosses 50% of service territory"
+    ],
+    "data_sources": [
+      "FCC BDC (free quarterly)",
+      "Ookla Speedtest (free summary)",
+      "yfinance LUMN, CNSL"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "FCC BDC; Ookla; SpaceX FCC filings",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "starlink_rural_isp_churn",
+    "reject_reason": "bt_feasibility 3 too low; pipeline winners all have bt>=4 with FRED/yfinance data"
+  },
+  {
+    "idea_id": "PL028",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "rejected",
+    "name": "EV DCFC Utilization Threshold -> Grid Upgrade Capex -> Transformer OEM Backlog",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "DOE AFDC EV charger data and OCPP utilization reports. When DCFC utilization crosses 70% peak hours in a metro (vs 30% avg), it triggers utility distribution upgrade applications within 3-6 months. Each DCFC cluster needs 2-5MW. Long distribution utilities (PPL, ES) and transformer OEMs (ETN, HUBB) on utilization threshold crossing.",
+    "causal_chain": [
+      "DOE AFDC/OCPP shows DCFC utilization crossing 70% in metro clusters",
+      "High utilization signals EV adoption inflection - more capacity needed",
+      "Each DCFC hub requires 2-5MW distribution upgrade to local utility",
+      "Utility files rate case for distribution capex at regulated return",
+      "Transformer OEMs (ETN, HUBB) see backlog growth from utility procurement",
+      "Long utility plus transformer OEM basket on threshold crossing"
+    ],
+    "data_sources": [
+      "DOE AFDC API (free)",
+      "ChargePoint/EVgo disclosures (public)",
+      "yfinance ETN, HUBB, PPL, ES"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "DOE AFDC; RMI DCFC studies; utility IRP EV load forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ev_dcfc_grid_transformer_orders",
+    "reject_reason": "bt_feasibility 3 too low; pipeline winners all have bt>=4 with FRED/yfinance data"
+  },
+  {
+    "idea_id": "PL029",
+    "created_at": "2026-05-26T15:00:00Z",
+    "status": "developed",
+    "name": "FDA Patent Cliff Year -> Generic ANDA Filing Surge -> Long TEVA/VTRS",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "FDA Orange Book patent expiry dates are public. When >\\B branded revenue faces expiry in a single year, track ANDA Paragraph IV first-to-file certifications. When filings on top-10 expiring drugs spike >50% YoY, long TEVA/VTRS 6-12 months before launch. Market underprices 180-day first-to-file exclusivity revenue ramp.",
+    "causal_chain": [
+      "FDA Orange Book shows >\\B branded revenue facing expiry in 12-24 months (free)",
+      "Generic makers file ANDA Paragraph IV first-to-file certifications (public, free)",
+      "First-to-file winner gets 180-day exclusivity at 80% discount to brand",
+      "Generic captures 40-70% market share within 6 months of launch",
+      "TEVA/VTRS see 5-15% revenue growth from cliff drugs",
+      "Long when cliff pipeline exceeds \\B and their filings target top drugs"
+    ],
+    "data_sources": [
+      "FDA Orange Book (free)",
+      "FDA ANDA via Drugs@FDA (free)",
+      "yfinance TEVA, VTRS"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FDA Orange Book; Hatch-Waxman 180-day exclusivity; IQVIA patent cliff data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "patent_cliff_anda_generic_surge"
+  },
+  {
+    "idea_id": "PL030",
+    "created_at": "2026-05-26T19:51:20.301947+00:00",
+    "status": "developed",
+    "name": "US Rig Count Decline \u2192 Delayed Oil Production Drop \u2192 Long Crude 6mo",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-6 months",
+    "thesis": "Baker Hughes publishes weekly US rig count (free). When active oil rigs drop >20% from trailing 12mo peak, new well completions decline with a 4-6 month lag (DUC inventory buffers initially). Once DUCs deplete, production growth stalls and oil prices firm. Long CL=F or XOP 6 months after rig count crosses -20% threshold. The lag between rigs and production is the edge \u2014 the market watches rigs but misprices the production lag.",
+    "causal_chain": [
+      "Baker Hughes weekly rig count shows active oil rigs down >20% from 12mo peak",
+      "Initially, production holds steady as operators complete DUCs (drilled-but-uncompleted wells)",
+      "DUC inventory depletes over 4-6 months \u2014 EIA DUC report tracks this (free monthly)",
+      "New well completions decline \u2192 production growth flattens or declines",
+      "Supply tightening supports oil prices \u2192 CL=F / XOP rally over following 6 months"
+    ],
+    "data_sources": [
+      "Baker Hughes rig count (free weekly via FRED RIGS or bakerhughes.com)",
+      "EIA DUC report (free monthly)",
+      "yfinance CL=F, XOP, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Baker Hughes; EIA Drilling Productivity Report; DUC inventory analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rig_count_decline_production_lag_crude"
+  },
+  {
+    "idea_id": "PL031",
+    "created_at": "2026-05-26T19:51:20.301947+00:00",
+    "status": "developed",
+    "name": "US Auto Inventory Days-Supply Trough \u2192 Long Auto Dealers",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "BEA publishes monthly auto inventory-to-sales ratio (FRED AISRSA). When dealer inventory days-supply hits a cyclical trough (<40 days vs 60-day normal), auto dealers have maximum pricing power \u2014 no discounts, fat per-unit margins. Long auto dealer stocks (AN Autonation, PAG Penske, LAD Lithia, ABG Asbury) for 6-9 months as elevated margins flow through to earnings. The trough is the signal, not the recovery.",
+    "causal_chain": [
+      "FRED AISRSA (auto inventory/sales ratio) hits cyclical trough \u2014 days-supply drops below 40",
+      "Dealers have no inventory to discount \u2014 buyer demand exceeds available vehicles",
+      "Per-unit gross profit spikes ($3-5k above normal) as dealers charge MSRP+ with addendum stickers",
+      "Elevated per-unit margins flow through to dealer earnings with 1-2 quarter lag",
+      "Auto dealer stocks (AN, PAG, LAD, ABG) re-rate on earnings beats"
+    ],
+    "data_sources": [
+      "FRED AISRSA (monthly, free)",
+      "yfinance AN, PAG, LAD, ABG, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "BEA Motor Vehicle Inventory; NADA dealer profitability surveys; Cox Automotive inventory tracker",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "auto_inventory_trough_dealer_margins"
+  },
+  {
+    "idea_id": "PL032",
+    "created_at": "2026-05-26T19:51:20.301947+00:00",
+    "status": "rejected",
+    "name": "FDIC Problem Bank List Growth \u2192 Short Regional Bank ETF",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "FDIC publishes the Quarterly Banking Profile (free) which includes the number of 'problem banks' (CAMELS 4 or 5 rated). The actual names are confidential but the COUNT is public. When problem bank count rises >20% QoQ from a low base (<60), it signals brewing stress in the regional banking sector before specific names blow up. Short KRE (regional bank ETF) when the count inflects upward. Historical: problem banks rose from 50 (2007) to 305 (2009) \u2014 the count was the leading indicator.",
+    "causal_chain": [
+      "FDIC Quarterly Banking Profile reports problem bank count (free, fdic.gov/analysis/quarterly-banking-profile)",
+      "Count rises >20% QoQ from base <60 \u2014 signals stress building below the surface",
+      "Individual bank failures start appearing 2-4 quarters after the count inflects (SVB/FRC pattern was visible in 2022 count uptick)",
+      "Market contagion fear spreads to regional bank sector \u2192 KRE sells off",
+      "Short KRE captures the sector-wide risk repricing before specific names are identified"
+    ],
+    "data_sources": [
+      "FDIC Quarterly Banking Profile (free quarterly)",
+      "yfinance KRE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FDIC QBP; CAMELS rating system; historical problem bank data back to 1990",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fdic_problem_bank_count_kre_short",
+    "reject_reason": "Short-side thesis (short KRE). Pipeline pattern: 0/8 short-side backtests have won. Macro overwhelms."
+  },
+  {
+    "idea_id": "PL033",
+    "created_at": "2026-05-26T20:01:20.778947+00:00",
+    "status": "rejected",
+    "name": "US Apartment Construction Completions Surge \u2192 Short Apartment REITs",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "Census Bureau publishes monthly multifamily completions (FRED COMPU5MUSA). The 2024-2026 apartment supply wave is the largest since the 1980s. When 5+ unit completions spike >30% YoY, the new supply crushes rent growth and occupancy in Sun Belt markets. Short apartment REITs (CPT, MAA, INVH) which are most exposed to the oversupplied markets. This is the inverse of the AL-5 thesis \u2014 supply overwhelms demand.",
+    "causal_chain": [
+      "FRED COMPU5MUSA shows 5+ unit completions spike >30% YoY",
+      "New apartment deliveries concentrate in Sun Belt metros (Austin, Phoenix, Atlanta, Nashville)",
+      "Landlords compete on concessions (1-2 months free rent) to fill new units",
+      "Same-store rent growth decelerates or goes negative for Sun Belt REITs",
+      "CPT/MAA/INVH guide down NOI \u2192 stock re-rates on lower growth trajectory"
+    ],
+    "data_sources": [
+      "FRED COMPU5MUSA (monthly, free)",
+      "yfinance CPT, MAA, INVH, VNQ, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau multifamily completions; RealPage supply tracker; NMHC apartment conditions survey",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "apartment_completions_surge_reit_short",
+    "reject_reason": "Short-side thesis (short apartment REITs). AL-5 Sunbelt REIT thesis already failed. Same direction."
+  },
+  {
+    "idea_id": "PL034",
+    "created_at": "2026-05-26T20:01:20.778947+00:00",
+    "status": "developed",
+    "name": "ISM Manufacturing New Orders/Inventories Spread \u2192 Industrial Production Lead",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "The ISM Manufacturing PMI has a lesser-known internal spread: New Orders minus Inventories. When this spread exceeds +10 (strong orders, lean inventories), industrial production accelerates 2-3 months later with high reliability. Long XLI (industrials ETF) or specific cyclical names (CAT, DE, EMR) for 90 days. The spread is published same day as headline PMI but markets focus on the headline, not the internals.",
+    "causal_chain": [
+      "ISM Manufacturing report: compute New Orders index minus Inventories index",
+      "Spread crosses above +10 (strong demand signal with lean inventory = restocking imminent)",
+      "Manufacturers ramp production to rebuild inventory \u2192 industrial output accelerates in 2-3 months",
+      "FRED INDPRO confirms production upturn with 6-week lag",
+      "Industrial stocks (XLI, CAT, DE, EMR) re-rate on improving order books + production"
+    ],
+    "data_sources": [
+      "FRED NAPMNOI (ISM New Orders) + FRED NAPMII (ISM Inventories) \u2014 both free monthly",
+      "yfinance XLI, CAT, DE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "ISM Manufacturing PMI; Federal Reserve INDPRO; Koenig 1998 Dallas Fed working paper on ISM internals",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ism_new_orders_inventories_spread"
+  },
+  {
+    "idea_id": "PL035",
+    "created_at": "2026-05-26T20:01:20.778947+00:00",
+    "status": "developed",
+    "name": "NOAA Seasonal Drought Outlook \u2192 Long Water Utility/Infrastructure",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "NOAA CPC publishes a Seasonal Drought Outlook every month (free). When the outlook shows 'drought development likely' or 'drought persistence likely' across 3+ major Western states, water utility and infrastructure stocks rally as municipalities accelerate capital spending on water conservation, recycling, and desalination. Long AWK, WMS, XYL, WTRG for 6 months. The drought outlook leads actual drought designation by 1-3 months.",
+    "causal_chain": [
+      "NOAA CPC Seasonal Drought Outlook flags 3+ Western states for drought development/persistence",
+      "State water agencies activate conservation mandates and emergency procurement",
+      "Municipal water utilities (AWK) file for rate increases to fund drought-response capex",
+      "Water infrastructure suppliers (XYL pumps, WMS drainage, WTRG treatment) see order pipeline grow",
+      "Stocks re-rate over 3-6 months as capex commitments flow to earnings"
+    ],
+    "data_sources": [
+      "NOAA CPC Seasonal Drought Outlook (free monthly at cpc.ncep.noaa.gov)",
+      "USDM drought monitor (free weekly)",
+      "yfinance AWK, WMS, XYL, WTRG, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA CPC; US Drought Monitor; American Water Works investor presentations on drought capex",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_drought_outlook_water_infra"
+  },
+  {
+    "idea_id": "PL036",
+    "created_at": "2026-05-26T20:11:23.244295+00:00",
+    "status": "developed",
+    "name": "US Treasury Auction Tail \u2192 Bond Market Stress Signal \u2192 Long VIX",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "1-4 weeks",
+    "thesis": "Treasury auctions (10Y and 30Y) sometimes 'tail' \u2014 clearing yield comes in above the when-issued yield by >2bps. A tail signals weak demand from primary dealers and indirect bidders. When 10Y or 30Y auctions tail by >3bps, it predicts higher volatility and equity weakness over the next 2-4 weeks as the funding stress propagates. Long VIX calls or VIXY for 20 trading days. Treasury Direct publishes results within minutes of the auction (free).",
+    "causal_chain": [
+      "Treasury auction clears with a 'tail' \u2014 high yield > when-issued by >3bps (TreasuryDirect, free)",
+      "Tail signals primary dealers forced to absorb more than expected \u2192 balance sheet stress",
+      "Dealer hedging (shorting Treasuries, buying vol) pushes rates higher and VIX up",
+      "Equity market reprices higher discount rates over 1-4 weeks",
+      "VIX spikes 10-20% from pre-auction level within 2 weeks of a tailed auction"
+    ],
+    "data_sources": [
+      "TreasuryDirect auction results (free, immediate)",
+      "yfinance ^VIX, TLT, SPY, VIXY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "TreasuryDirect; dealer positioning research (Barclays, JPM); 2023 Oct 30Y tail of 5.3bps preceded equity selloff",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "treasury_auction_tail_vix_stress"
+  },
+  {
+    "idea_id": "PL037",
+    "created_at": "2026-05-26T20:11:23.244295+00:00",
+    "status": "rejected",
+    "name": "USGS Earthquake Swarm Near Semiconductor Fab \u2192 Short TSM/INTC",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "USGS publishes real-time earthquake data (free API). Taiwan sits on the Pacific Ring of Fire; TSMC fabs are concentrated in Hsinchu/Tainan. When a M5.5+ earthquake strikes within 100km of a major fab complex, production pauses for 24-72 hours for tool recalibration (costing ~$50-100M per day in lost output). Short TSM on the event, hold 5-10 days until production-resumption guidance. The USGS alert leads financial news by 5-30 minutes.",
+    "causal_chain": [
+      "USGS earthquake.usgs.gov API reports M5.5+ event within 100km of Hsinchu or Tainan",
+      "TSMC activates emergency shutdown protocol \u2014 tools require recalibration (24-72h minimum)",
+      "Wafer-in-process (WIP) damaged \u2014 1-3 days of production lost = $50-100M revenue impact",
+      "TSMC issues production update within 24-48h; sell-side cuts near-term estimates",
+      "TSM drops 2-5% over 5 days; recovers over 2-4 weeks as production normalizes"
+    ],
+    "data_sources": [
+      "USGS earthquake API (free, real-time at earthquake.usgs.gov/fdsnws/event/1/)",
+      "yfinance TSM, INTC, SMH, SPY"
+    ],
+    "originality": 9,
+    "bt_feasibility": 4,
+    "source_reference": "USGS FDSN API; TSMC earthquake response protocol (2024 Hualien quake case study)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_earthquake_taiwan_fab_short",
+    "reject_reason": "Short-side thesis. Pipeline pattern: 0/8+ short-side wins."
+  },
+  {
+    "idea_id": "PL038",
+    "created_at": "2026-05-26T20:11:23.244295+00:00",
+    "status": "developed",
+    "name": "Fed Reverse Repo Facility Drain \u2192 Equity Liquidity Tailwind",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "The Fed's ON RRP facility peaked at $2.6T in Dec 2022 and has been draining steadily. When ON RRP drops below $500B (approaching zero), it signals that money market funds are moving cash INTO the banking system and risk assets rather than parking at the Fed. This is a structural liquidity tailwind for equities. Long SPY when ON RRP crosses below $500B; the excess reserves flow into bank deposits \u2192 lending \u2192 risk asset demand. FRED series RRPONTSYD tracks this daily (free).",
+    "causal_chain": [
+      "FRED RRPONTSYD shows ON RRP balance dropping below $500B",
+      "Money market funds shift from Fed overnight facility to T-bills, bank deposits, and repo",
+      "Bank reserves and deposit base expand \u2192 credit conditions ease at the margin",
+      "Excess liquidity flows into risk assets (equities, credit, crypto)",
+      "SPY benefits from structural bid as the liquidity transmission channel reopens"
+    ],
+    "data_sources": [
+      "FRED RRPONTSYD (daily, free)",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "NY Fed ON RRP data; J7 Fed RRP drain signal (existing, regime-specific) \u2014 this is a LEVEL-threshold variant",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fed_rrp_drain_below_500b_equity"
+  },
+  {
+    "idea_id": "PL039",
+    "created_at": "2026-05-26T20:21:21.510789+00:00",
+    "status": "rejected",
+    "name": "US New Home Sales Cancellation Rate Spike \u2192 Short Homebuilders",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "Major homebuilders (LEN, DHI, TOL, KBH) report cancellation rates in quarterly earnings (free SEC filings). When cancellation rates spike >20% (vs 10-12% normal), it signals demand is cracking before it shows in headline orders. The cancellation disclosure leads the next month's Census new home sales report by 4-6 weeks. Short XHB or individual builders for 60 days when cancellation rates spike.",
+    "causal_chain": [
+      "Homebuilder 10-Q/earnings call discloses cancellation rate >20% (free, SEC EDGAR)",
+      "Cancellations lead Census new home sales data by 4-6 weeks \u2014 Census counts contracts, not completions",
+      "Rising cancellations mean locked mortgage rates expired or buyers lost financing confidence",
+      "Net orders disappoint next quarter \u2192 backlog declines \u2192 revenue guidance cut",
+      "XHB / individual builders sell off over 60 days as forward earnings estimates compress"
+    ],
+    "data_sources": [
+      "SEC EDGAR 10-Q (homebuilder cancellation rates, free)",
+      "yfinance LEN, DHI, TOL, KBH, XHB, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Lennar/DHI/Toll 10-Q disclosures; 2022 cancellation spike case study (LEN ~26%, DHI ~24%)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "homebuilder_cancellation_rate_short",
+    "reject_reason": "Short-side thesis. Pipeline pattern: 0/8+ short-side wins."
+  },
+  {
+    "idea_id": "PL040",
+    "created_at": "2026-05-26T20:21:21.510789+00:00",
+    "status": "developed",
+    "name": "NOAA El Ni\u00f1o Watch \u2192 Long Natural Gas (Winter Demand Disruption)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-6 months",
+    "thesis": "El Ni\u00f1o winters bring warmer-than-normal temperatures to the US Northeast and Midwest, reducing heating demand. Conversely, La Ni\u00f1a winters bring colder temperatures, spiking natural gas demand. NOAA CPC publishes ENSO advisory monthly (free). When La Ni\u00f1a Watch is issued by July: long NG=F from Oct 1 for the winter heating season. When El Ni\u00f1o Watch: short NG=F or stay flat. The advisory leads the winter by 3-5 months \u2014 enough time to position before weather derivatives price it.",
+    "causal_chain": [
+      "NOAA CPC issues La Ni\u00f1a Watch/Advisory by July (free at cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory)",
+      "La Ni\u00f1a statistical association: colder US winters, especially Northeast/Midwest",
+      "Higher heating degree days \u2192 increased residential/commercial natural gas demand",
+      "EIA weekly storage draws exceed 5-year average \u2192 NG=F rallies through winter",
+      "Long NG=F from Oct 1 captures the winter demand premium (hold through Mar 31)"
+    ],
+    "data_sources": [
+      "NOAA CPC ENSO advisory (free monthly)",
+      "yfinance NG=F, UNG, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "NOAA CPC ENSO diagnostic; EIA winter fuels outlook; ENSO-winter temperature correlations (Halpert & Ropelewski 1992)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "enso_la_nina_winter_natgas"
+  },
+  {
+    "idea_id": "PL041",
+    "created_at": "2026-05-26T20:21:21.510789+00:00",
+    "status": "developed",
+    "name": "US Existing Home Sales Months-Supply Inversion \u2192 Long Homebuilders",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "NAR publishes monthly existing home sales with months-supply of inventory (FRED MSACSR). When months-supply drops below 3.0 (extreme seller's market, vs 5-6 balanced), new construction is the only relief valve. Homebuilders (LEN, DHI, NVR) gain pricing power and market share. Long XHB or homebuilder basket for 12 months when MSACSR crosses below 3.0. The signal fires rarely but has led multi-year homebuilder outperformance.",
+    "causal_chain": [
+      "FRED MSACSR (monthly supply of existing homes) crosses below 3.0 months",
+      "Extreme inventory scarcity \u2014 buyers have no existing-home options",
+      "Demand shifts to new construction as the only available supply",
+      "Homebuilders (LEN, DHI, NVR) gain pricing power \u2014 can raise ASPs + reduce incentives",
+      "Gross margins expand \u2192 earnings beats \u2192 homebuilder stocks re-rate over 6-12 months"
+    ],
+    "data_sources": [
+      "FRED MSACSR (monthly, free)",
+      "yfinance LEN, DHI, NVR, XHB, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "NAR existing home sales; FRED MSACSR; homebuilder earnings correlation with inventory scarcity",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "existing_home_months_supply_low_builders"
+  },
+  {
+    "idea_id": "PL042",
+    "created_at": "2026-05-26T20:31:20.962845+00:00",
+    "status": "developed",
+    "name": "US Semiconductor Equipment Book-to-Bill Crossing 1.0 \u2192 Long SMH",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "SEMI publishes monthly North America semiconductor equipment book-to-bill ratio (free summary). When B2B crosses above 1.0 from below (orders exceeding shipments for the first time in a downcycle), it signals the capex recovery inflection. Long SMH for 6 months. The crossing from below 1.0 to above has preceded every semi upcycle since 1990. Markets react to the headline number but underestimate the momentum that follows the 1.0 crossing.",
+    "causal_chain": [
+      "SEMI monthly B2B ratio crosses above 1.0 from below (free summary via semi.org press release)",
+      "Orders > shipments = fabs are placing new equipment orders for first time in downcycle",
+      "Equipment backlog rebuilds \u2192 lead times extend \u2192 capacity expansion confirmed",
+      "Semiconductor revenue inflects 1-2 quarters later as new capacity comes online",
+      "SMH rallies 20-40% over 6 months as the upcycle broadens from equipment to chipmakers"
+    ],
+    "data_sources": [
+      "SEMI B2B press releases (free monthly)",
+      "yfinance SMH, AMAT, LRCX, KLAC, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "SEMI; semiconductor cycle research (IC Insights, VLSI Research)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "semi_btb_crossing_one_smh"
+  },
+  {
+    "idea_id": "PL043",
+    "created_at": "2026-05-26T20:31:20.962845+00:00",
+    "status": "developed",
+    "name": "US Conference Board LEI 6-Month Rate-of-Change Inflection \u2192 Long SPY",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "The Conference Board Leading Economic Index (FRED LEI, USSLIND) is a composite of 10 leading indicators. When the 6-month rate-of-change turns positive after being negative for 6+ months, it has preceded every economic expansion since 1960. Long SPY for 12 months from the inflection. The signal fires late in recessions (after the worst is over) but early enough to capture the recovery rally. FRED data goes back to 1959.",
+    "causal_chain": [
+      "FRED USSLIND (Conference Board LEI) 6-month annualized rate-of-change turns positive",
+      "After 6+ consecutive months of negative readings \u2014 confirms the trough, not a false start",
+      "LEI composite captures: yield curve, ISM new orders, building permits, jobless claims, stock prices",
+      "Positive inflection = majority of leading indicators now pointing to expansion",
+      "SPY rallies 15-30% over the following 12 months as earnings recover"
+    ],
+    "data_sources": [
+      "FRED USSLIND (monthly, free, back to 1959)",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Conference Board; Estrella-Mishkin 1998; NBER business cycle dating",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "conference_board_lei_inflection_spy"
+  },
+  {
+    "idea_id": "PL044",
+    "created_at": "2026-05-26T20:31:20.962845+00:00",
+    "status": "developed",
+    "name": "USDA Weekly Crop Progress Planting Pace Delay \u2192 Long Corn Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA publishes weekly Crop Progress showing corn planting pace as % complete vs 5-year average (free). When corn planting is >15pp behind the 5-year avg by May 15, delayed emergence reduces growing season days, increasing yield risk. Long ZC=F from May 15 through Jun 30. Historically, severely delayed planting years (2019: only 49% planted by May 19 vs 80% avg) produced corn rallies of 10-20% by late June as the market prices in yield penalty.",
+    "causal_chain": [
+      "USDA Crop Progress Monday report shows corn planting >15pp behind 5-year avg by May 15",
+      "Wet/cold spring prevents field access \u2014 planting window narrows",
+      "Late-planted corn has fewer growing degree days \u2192 yield penalty of 5-15%",
+      "USDA June Acreage report may also show prevent-plant acres reducing supply further",
+      "ZC=F rallies 10-20% May-June as market reprices yield expectations downward"
+    ],
+    "data_sources": [
+      "USDA NASS Crop Progress (free weekly)",
+      "yfinance ZC=F, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Crop Progress; Emerson Nafziger (U of I) planting date yield research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "corn_planting_delay_futures_long"
+  },
+  {
+    "idea_id": "PL045",
+    "created_at": "2026-05-26T20:41:21.476098+00:00",
+    "status": "rejected",
+    "name": "USDA Cold Storage Butter/Cheese Surplus \u2192 Short Dairy Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 months",
+    "thesis": "USDA publishes monthly Cold Storage report (free, FRED series). When combined butter + cheese stocks exceed the 5-year avg by >15%, it signals overproduction that the market hasn't fully priced. Dairy processors (cheese/butter manufacturers) dump excess inventory at discount, pushing cash prices down. Short DC=F (Class III milk futures) or cheese futures for 60-90 days. The Cold Storage report publishes ~22nd of each month \u2014 the date is known but the data surprises.",
+    "causal_chain": [
+      "USDA Cold Storage report shows butter+cheese stocks >15% above 5yr avg (free monthly)",
+      "Excess inventory signals overproduction relative to demand",
+      "Processors begin liquidating surplus at discounted prices to free cold storage space",
+      "Cash cheese/butter prices decline, pulling Class III milk futures (DC=F) lower",
+      "Short DC=F for 60-90 days captures the inventory drawdown pricing pressure"
+    ],
+    "data_sources": [
+      "USDA Cold Storage (free monthly, also FRED DSCWBUS for cheese)",
+      "yfinance \u2014 DC=F may not be on yfinance; check FRED DCHE for cheese price proxy"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Cold Storage report; CME cheese/butter spot; dairy industry analysts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_cold_storage_dairy_surplus",
+    "reject_reason": "Short-side thesis. Pipeline pattern: 0/8+ short-side wins."
+  },
+  {
+    "idea_id": "PL046",
+    "created_at": "2026-05-26T20:41:21.476098+00:00",
+    "status": "developed",
+    "name": "US Dollar Index 3-Month Spike \u2192 EM Equity Reversal (Overreaction Fade)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-4 months",
+    "thesis": "When DXY spikes >8% in a rolling 3-month window, it creates forced selling in EM equities (margin calls, portfolio rebalancing, FX-hedging costs). The selloff typically overshoots fundamentals. Long EEM (EM ETF) 30 days after the DXY spike peaks (confirmed by DXY rolling over from its 3mo high). The reversal captures mean reversion as forced selling exhausts and EM currencies stabilize. FRED DTWEXBGS (trade-weighted dollar index, broad) provides clean daily data back to 2006.",
+    "causal_chain": [
+      "FRED DTWEXBGS or yfinance DX-Y.NYB shows DXY 3-month return >+8%",
+      "Strong dollar triggers forced EM equity selling (margin calls, fund outflows, FX-hedge costs)",
+      "EM equities (EEM) overshoot to the downside \u2014 selling exceeds fundamental impairment",
+      "Wait 30 days for DXY to roll over (confirmation that spike is peaking)",
+      "Long EEM for 90 days to capture the mean-reversion recovery"
+    ],
+    "data_sources": [
+      "FRED DTWEXBGS (daily, free)",
+      "yfinance EEM, DX-Y.NYB, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "DXY-EM correlation research; forced-selling/overreaction literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "dxy_spike_em_equity_reversal"
+  },
+  {
+    "idea_id": "PL047",
+    "created_at": "2026-05-26T20:41:21.476098+00:00",
+    "status": "rejected",
+    "name": "ASCE Infrastructure Report Card Grade Change \u2192 Long Infrastructure ETF",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "The American Society of Civil Engineers publishes a national infrastructure Report Card every 4 years (free). When the overall grade worsens (e.g., D+ to D), it generates bipartisan political pressure for infrastructure spending. The 2021 ASCE D+ grade directly led to the $1.2T IIJA passage. Long PAVE (Global X US Infrastructure ETF) or specific contractors (PWR, MTZ, ACM) for 12 months after a worsened grade publication. The next report card is due 2025 \u2014 if the grade improves for the first time due to IIJA, the trade inverts (long construction continues on spending confirmation).",
+    "causal_chain": [
+      "ASCE publishes quadrennial Report Card grading US infrastructure A-F (free at infrastructurereportcard.org)",
+      "Grade worsens \u2192 media coverage \u2192 bipartisan political pressure for spending bills",
+      "Congress passes infrastructure authorization (IIJA 2021 precedent)",
+      "Federal infrastructure spending flows to contractors (PWR, MTZ, ACM, PRIM) over 12-24 months",
+      "Infrastructure stocks re-rate on backlog growth + multi-year revenue visibility"
+    ],
+    "data_sources": [
+      "ASCE Report Card (free quadrennial)",
+      "yfinance PAVE, PWR, MTZ, ACM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "ASCE infrastructurereportcard.org; IIJA enactment Nov 2021",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "asce_report_card_infra_etf",
+    "reject_reason": "bt_feasibility 3 too low; pipeline winners all have bt>=4 with FRED/yfinance data"
+  },
+  {
+    "idea_id": "PL048",
+    "created_at": "2026-05-26T20:51:21.570797+00:00",
+    "status": "developed",
+    "name": "US Commercial Real Estate Transaction Volume Collapse \u2192 Long Distressed Buyers",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "RCA/MSCI publishes monthly CRE transaction volume (free summary via trade press). When quarterly transaction volume drops >50% YoY, it signals a price discovery freeze \u2014 sellers refuse to accept marked-down prices, buyers wait. 6-12 months later, distressed sellers capitulate, transaction volume rebounds, and opportunistic buyers (BX, ARES, BAM, KKR alts arms) deploy dry powder at steep discounts. Long alternative asset managers for 12 months from the transaction volume trough.",
+    "causal_chain": [
+      "CRE quarterly transaction volume drops >50% YoY (MSCI RCA, free summary)",
+      "Price discovery freezes \u2014 bid-ask spread too wide for deals to clear",
+      "6-12 months later: distressed sellers (overleveraged owners, maturing CMBS) forced to transact",
+      "Alternative managers (BX, ARES, BAM) deploy record dry powder at 20-40% discounts to peak",
+      "Fee income + AUM growth accelerates \u2192 alt manager stocks re-rate over 12 months"
+    ],
+    "data_sources": [
+      "MSCI RCA transaction volume (free quarterly summary)",
+      "yfinance BX, ARES, BAM, KKR, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "MSCI Real Capital Analytics; Preqin dry powder data; GFC/COVID CRE cycle precedents",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cre_transaction_volume_distressed_buyers"
+  },
+  {
+    "idea_id": "PL049",
+    "created_at": "2026-05-26T20:51:21.570797+00:00",
+    "status": "developed",
+    "name": "USDA Prospective Plantings Acreage Surprise \u2192 Corn/Soy Spread",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "USDA publishes Prospective Plantings on March 31 each year (free). This is the most market-moving USDA report for grains. When corn planted acreage exceeds expectations by >2M acres AND soybean acreage misses by >2M acres, the corn/soy price ratio shifts: corn weakens (more supply) and soybeans strengthen (less supply). Trade the spread: long ZS=F / short ZC=F for 30 days. The report drops at noon ET on March 31 \u2014 the gap is the entry.",
+    "causal_chain": [
+      "USDA Prospective Plantings published March 31 noon ET (free at usda.library.cornell.edu)",
+      "Corn acreage +2M above trade estimate AND soybean acreage -2M below estimate",
+      "More corn acres = more corn supply expected at harvest \u2192 ZC=F weakens",
+      "Fewer soybean acres = tighter soy supply \u2192 ZS=F strengthens",
+      "Long ZS=F / short ZC=F spread for 30 days captures the rebalancing"
+    ],
+    "data_sources": [
+      "USDA Prospective Plantings (free annual Mar 31)",
+      "yfinance ZS=F, ZC=F"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Prospective Plantings; Irwin/Sanders UIUC acreage surprise research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_plantings_acreage_surprise_spread"
+  },
+  {
+    "idea_id": "PL050",
+    "created_at": "2026-05-26T20:51:21.570797+00:00",
+    "status": "developed",
+    "name": "Fed Senior Loan Officer Survey Tightening \u2192 Credit Cycle Turn",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "6-12 months",
+    "thesis": "The Fed SLOOS (Senior Loan Officer Opinion Survey) is published quarterly (FRED). When net % of banks tightening standards for C&I loans exceeds +40% (major tightening), credit contraction follows with 2-3 quarter lag. Long TLT / short HYG (high yield credit) as a pair for 9 months. The SLOOS has preceded every credit cycle downturn since 1990. FRED series DRTSCILM tracks this directly.",
+    "causal_chain": [
+      "FRED DRTSCILM (SLOOS net tightening) crosses above +40%",
+      "Banks restricting lending to businesses \u2014 credit supply contracting",
+      "Corporate borrowers with variable-rate or maturing debt face refinancing squeeze",
+      "High-yield credit spreads widen as default risk reprices (HYG declines)",
+      "Fed eventually cuts rates in response \u2192 TLT rallies",
+      "Long TLT / short HYG pair captures both legs"
+    ],
+    "data_sources": [
+      "FRED DRTSCILM (quarterly, free, back to 1990)",
+      "yfinance TLT, HYG, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Fed SLOOS; K4 SLOOS signal (existing \u2014 but that uses 'willingness to lend' not tightening, different series)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fed_sloos_tightening_credit_cycle"
+  },
+  {
+    "idea_id": "PL051",
+    "created_at": "2026-05-26T21:01:22.014640+00:00",
+    "status": "developed",
+    "name": "US Corporate Bond Maturity Wall \u2192 Long Short-Duration Credit vs Long-Duration",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "6-12 months",
+    "thesis": "Bloomberg/ICE tracks corporate bond maturities by year. When the maturity wall for the next 12 months exceeds $800B (top quartile historically), companies with maturing long-duration debt must refinance at higher rates. Short LQD (investment-grade long-duration) vs long VCSH (short-duration IG) as the maturity wall reprices credit risk for longer-duration issuers. The maturity schedule is published but the equity/credit market underestimates the refinancing cost drag on earnings for specific issuers.",
+    "causal_chain": [
+      "ICE/Bloomberg maturity wall data shows >$800B IG+HY bonds maturing in next 12 months",
+      "Companies with maturing bonds must refinance at current rates (often 200-400bps above original coupon)",
+      "Long-duration bond issuers face the largest coupon step-up (10-30yr bonds maturing at 3% refinanced at 6%)",
+      "Interest expense increases compress EPS for affected issuers over following year",
+      "LQD (long-duration IG) underperforms VCSH (short-duration IG) as duration risk reprices"
+    ],
+    "data_sources": [
+      "FRED DGS10/DGS2 for rate environment",
+      "yfinance LQD, VCSH, HYG, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "ICE BofA US Corporate Index; Fed Financial Stability Report maturity wall analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "corporate_bond_maturity_wall_duration"
+  },
+  {
+    "idea_id": "PL052",
+    "created_at": "2026-05-26T21:01:22.014640+00:00",
+    "status": "developed",
+    "name": "US Railroad Traffic Weekly YoY Turn \u2192 Industrial Production Lead",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "AAR publishes weekly railroad traffic (carloads + intermodal, free). When total carloads YoY turns positive after 12+ weeks of negative readings, it has historically preceded industrial production (FRED INDPRO) positive inflection by 1-2 months. Long XLI (industrials) or specific cyclicals (CAT, DE, GE) for 90 days from the carload YoY turn. Distinct from existing N3/R-N3 (which trades intermodal vs carloads RATIO, not the absolute YoY turn).",
+    "causal_chain": [
+      "AAR weekly rail traffic: total carloads turn positive YoY after 12+ consecutive negative weeks",
+      "Carloads = physical goods movement (coal, grain, chemicals, autos, lumber) \u2014 direct production proxy",
+      "Positive turn signals industrial demand recovery \u2014 goods are physically moving again",
+      "FRED INDPRO confirms 1-2 months later as factory output data catches up",
+      "Industrial stocks (XLI, CAT, DE) re-rate on improving order books and production"
+    ],
+    "data_sources": [
+      "AAR weekly rail traffic (free at aar.org)",
+      "FRED INDPRO (monthly, free)",
+      "yfinance XLI, CAT, DE, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "AAR weekly rail traffic; distinct from N3/R-N3 intermodal ratio signal",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "aar_carloads_yoy_turn_industrial"
+  },
+  {
+    "idea_id": "PL053",
+    "created_at": "2026-05-26T21:01:22.014640+00:00",
+    "status": "rejected",
+    "name": "USDA Milk Production Monthly Surprise \u2192 Dairy Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "thesis": "USDA publishes monthly Milk Production report (free, ~18th of each month). When actual milk production YoY change misses expectations by >1% (less milk than expected), Class III milk futures (DC=F) rally as the market reprices supply tightness. The report is the single most market-moving event for dairy futures. FRED has monthly milk production data (DAIRYPRIMUS) going back decades.",
+    "causal_chain": [
+      "USDA Milk Production report shows YoY change below trade expectations by >1%",
+      "Fewer cows or lower per-cow output signals structural tightening (not just seasonal)",
+      "Cheese/butter manufacturers face tighter raw milk supply",
+      "Class III (cheese) milk futures rally 5-10% over 2-4 weeks as cash market adjusts",
+      "If consecutive misses, the move compounds as forward supply estimates are cut"
+    ],
+    "data_sources": [
+      "USDA Milk Production (free monthly)",
+      "FRED DAIRYPRIMUS or similar (free monthly)",
+      "yfinance \u2014 DC=F may not be available; use DBA dairy component or FRED cash price"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USDA NASS Milk Production; CME Class III milk futures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_milk_production_surprise_dairy",
+    "reject_reason": "bt_feasibility 3 too low; pipeline winners all have bt>=4 with FRED/yfinance data"
+  },
+  {
+    "idea_id": "PL054",
+    "created_at": "2026-05-26T21:11:12.406344+00:00",
+    "status": "developed",
+    "name": "US Bankruptcy Filings Monthly Surge \u2192 Long Restructuring Advisors",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "ABI (American Bankruptcy Institute) publishes monthly total commercial bankruptcy filings (free summary). When commercial filings rise >30% YoY for 3+ months, restructuring advisory firms see fee revenue surge with a 2-3 quarter lag (engagements take 3-6 months from filing to peak fee generation). Long Lazard (LAZ, restructuring division), Houlihan Lokey (HLI, #1 restructuring bank), PJT Partners (PJT). The bankruptcy count leads restructuring revenue because firms engage advisors at or shortly after filing.",
+    "causal_chain": [
+      "ABI monthly commercial bankruptcy filings rise >30% YoY for 3+ months (free summary at abi.org)",
+      "Chapter 11 filings = corporate distress \u2192 demand for restructuring advisors, DIP lenders, turnaround consultants",
+      "Advisory mandates awarded 1-3 months after filing; fee generation peaks 3-6 months later",
+      "HLI, LAZ restructuring, PJT see quarterly revenue acceleration 2-3 quarters after filing surge",
+      "Stocks re-rate on earnings beats + expanding backlog of restructuring mandates"
+    ],
+    "data_sources": [
+      "ABI monthly filings (free summary at abi.org)",
+      "FRED TNBCBSL (total nonfarm business bankruptcy, quarterly, free)",
+      "yfinance HLI, LAZ, PJT, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "American Bankruptcy Institute; Houlihan Lokey restructuring revenue disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bankruptcy_filings_surge_restructuring_advisors"
+  },
+  {
+    "idea_id": "PL055",
+    "created_at": "2026-05-26T21:11:12.406344+00:00",
+    "status": "developed",
+    "name": "FRED Financial Stress Index Spike \u2192 Long Gold / Short High-Beta",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "1-3 months",
+    "thesis": "St. Louis Fed publishes the Financial Stress Index weekly (FRED STLFSI4). When STLFSI4 crosses above +1.0 (stressed territory), gold outperforms high-beta equities by 8-15% over the following 60 days as the flight-to-quality trade dominates. Long GLD / short IWM (Russell 2000 = highest-beta equity index) for 60 days. The FSI aggregates 18 financial market variables \u2014 it fires less often than VIX but is a broader measure of systemic stress.",
+    "causal_chain": [
+      "FRED STLFSI4 crosses above +1.0 (weekly, free)",
+      "Broad financial stress confirmed \u2014 credit spreads, vol, equity, funding all deteriorating",
+      "Flight to quality: institutional capital moves from risk assets to gold/treasuries",
+      "High-beta equities (IWM small caps) sell off hardest \u2014 most sensitive to credit/liquidity tightening",
+      "Gold rallies as safe haven + central bank response expectations build",
+      "Long GLD / short IWM pair captures the divergence over 60 days"
+    ],
+    "data_sources": [
+      "FRED STLFSI4 (weekly, free, back to 1994)",
+      "yfinance GLD, IWM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "St. Louis Fed Financial Stress Index; existing AB-10 STLFSI4 signal uses a DIFFERENT implementation (equity reduction, not gold/IWM pair)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "stlfsi_stress_gold_vs_highbeta"
+  },
+  {
+    "idea_id": "PL056",
+    "created_at": "2026-05-26T21:21:19.825581+00:00",
+    "status": "developed",
+    "name": "FRED Real Retail Sales YoY Negative \u2192 Consumer Discretionary Underperformance",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED publishes monthly real retail sales (RRSFS, deflated by CPI). When YoY real retail sales turns negative for the first time in a cycle, it confirms the consumer is rolling over before GDP does. Short XLY (consumer discretionary) vs long XLP (consumer staples) for 6 months. Real retail sales has led consumer spending contraction in every recession. The monthly data leads quarterly GDP consumer component by 1-2 months.",
+    "causal_chain": [
+      "FRED RRSFS (real retail sales) YoY turns negative after 12+ months positive",
+      "Consumers are spending less in real terms \u2014 purchasing power eroding",
+      "Discretionary spending (electronics, restaurants, apparel) hit first; staples resilient",
+      "XLY earnings estimates get cut 1-2 quarters later; XLP holds steady",
+      "XLY underperforms XLP by 10-20% over the following 6 months"
+    ],
+    "data_sources": [
+      "FRED RRSFS (monthly, free, back to 1992)",
+      "yfinance XLY, XLP, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau retail sales; BEA PCE; consumer spending cycle research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "real_retail_sales_negative_discretionary"
+  },
+  {
+    "idea_id": "PL057",
+    "created_at": "2026-05-26T21:21:19.825581+00:00",
+    "status": "developed",
+    "name": "US Housing Starts Surge \u2192 Long Lumber 3-6 Month Lag",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-6 months",
+    "thesis": "FRED HOUST (housing starts) leads lumber demand by 3-6 months \u2014 starts signal the foundation phase, but lumber is consumed during framing (month 2-4 of construction). When housing starts spike >15% YoY for 2+ months, long lumber (LBS=F or WOOD ETF) for 6 months capturing the framing demand wave. Distinct from PL005 (which uses permits/completions ratio \u2192 aggregates); this is starts \u2192 lumber, a different material in a different construction phase.",
+    "causal_chain": [
+      "FRED HOUST (monthly housing starts) rises >15% YoY for 2+ consecutive months",
+      "New housing starts = foundations poured; lumber demand comes during framing 2-4 months later",
+      "Lumber mills ramp but capacity adjusts slowly (shift changes, log inventory cycles)",
+      "Demand surge exceeds supply response \u2192 lumber spot prices rally 15-30%",
+      "WOOD ETF or LBS=F captures the framing-demand wave"
+    ],
+    "data_sources": [
+      "FRED HOUST (monthly, free, back to 1959)",
+      "yfinance WOOD, LBS=F, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau housing starts; NAHB construction timeline; Random Lengths lumber",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "housing_starts_surge_lumber_lag"
+  },
+  {
+    "idea_id": "PL058",
+    "created_at": "2026-05-26T21:31:20.781324+00:00",
+    "status": "developed",
+    "name": "US Natural Gas Storage Deficit \u2192 Long NG=F Before Winter",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-5 months",
+    "thesis": "EIA publishes weekly natural gas storage (FRED NGTRSTUS). When storage enters October >10% below the 5-year average, the market underprices winter heating risk. Long NG=F from Oct 1 through Jan 31. Storage deficit + normal winter = price spike; storage deficit + cold winter = massive spike. The weekly storage report is the most watched energy data after the petroleum report, but the OCT deficit level as a seasonal entry signal is under-exploited.",
+    "causal_chain": [
+      "FRED NGTRSTUS or EIA weekly storage shows Oct 1 inventory >10% below 5yr average",
+      "Below-normal storage entering winter = less cushion for heating demand",
+      "Even a normal winter draws storage faster \u2192 prices rise to incentivize conservation",
+      "Cold winter (La Ni\u00f1a) on top of deficit = price spike 30-60%",
+      "NG=F rallies Oct-Jan as market reprices winter supply risk"
+    ],
+    "data_sources": [
+      "FRED NGTRSTUS (weekly, free)",
+      "EIA weekly storage report (free)",
+      "yfinance NG=F, UNG, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "EIA natural gas storage; Gelber & Associates winter storage analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "natgas_storage_deficit_winter_long"
+  },
+  {
+    "idea_id": "PL059",
+    "created_at": "2026-05-26T21:31:20.781324+00:00",
+    "status": "developed",
+    "name": "US Durable Goods New Orders 3-Month Surge \u2192 Long Industrials",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED DGORDER (durable goods new orders) is published monthly. When durable goods orders rise >10% from their trailing 6-month average for 3 consecutive months, it signals a capex cycle inflection \u2014 manufacturers are placing orders for equipment, vehicles, aircraft. Long XLI or specific industrials (CAT, HON, GE, RTX) for 6 months. Durable goods orders lead industrial production by 2-3 months and lead earnings revisions by 1-2 quarters.",
+    "causal_chain": [
+      "FRED DGORDER (monthly durable goods new orders) rises >10% above trailing 6mo avg for 3mo",
+      "Surge signals corporate capex cycle turning \u2014 new orders = future production revenue",
+      "Manufacturers (CAT, HON, GE) see backlog growth that takes 2-4 quarters to deliver",
+      "Industrial production (INDPRO) accelerates 2-3 months later confirming demand",
+      "Earnings revisions turn positive \u2192 XLI/industrials re-rate over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED DGORDER (monthly, free, back to 1992)",
+      "yfinance XLI, CAT, HON, GE, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau durable goods; Conference Board LEI (durable goods is a component)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "durable_goods_orders_surge_industrials"
+  },
+  {
+    "idea_id": "PL060",
+    "created_at": "2026-05-26T21:31:20.781324+00:00",
+    "status": "developed",
+    "name": "US Used Car Price Decline \u2192 Lower CPI \u2192 Long TLT (Disinflation Trade)",
+    "category": "C",
+    "asset_class": "bonds",
+    "horizon": "2-4 months",
+    "thesis": "FRED CUSR0000SETA02 (CPI used cars and trucks) has direct weight in CPI (~3.5%). Manheim Used Vehicle Value Index (free monthly) leads CPI used cars by 1-2 months. When Manheim drops >5% from 3-month peak, CPI used cars will follow down, pulling headline CPI lower. Long TLT for 60-90 days as disinflation expectations build. Used cars were a major inflation driver in 2021-2022 and their normalization is a major deflation driver now \u2014 the symmetry is under-traded.",
+    "causal_chain": [
+      "Manheim Used Vehicle Value Index drops >5% from trailing 3-month peak (free monthly)",
+      "Manheim leads CPI used cars by 1-2 months (BLS methodology lags dealer auction prices)",
+      "CPI used cars component declines, pulling headline CPI 0.1-0.2pp lower per month",
+      "Bond market prices in disinflation \u2192 breakevens fall \u2192 nominal yields decline",
+      "TLT rallies as rate-cut expectations firm on lower inflation prints"
+    ],
+    "data_sources": [
+      "Manheim Used Vehicle Index (free monthly summary via Cox Automotive)",
+      "FRED CUSR0000SETA02 (CPI used cars, monthly)",
+      "yfinance TLT, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Cox Automotive Manheim Index; BLS CPI methodology (used cars weight ~3.5%)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "used_car_price_decline_cpi_tlt"
+  },
+  {
+    "idea_id": "PL061",
+    "created_at": "2026-05-26T21:41:20.264114+00:00",
+    "status": "developed",
+    "name": "US Construction Spending YoY Surge \u2192 Long Heavy Equipment (CAT/DE/URI)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED TTLCONS (total construction spending, monthly) captures both residential and nonresidential construction. When total construction spending rises >10% YoY for 3+ months, heavy equipment demand accelerates with a 1-2 quarter lag \u2014 contractors need excavators, loaders, cranes. Long CAT+DE+URI (United Rentals) for 6 months. URI is the purest play (100% equipment rental, volume grows with construction activity). Data back to 2002.",
+    "causal_chain": [
+      "FRED TTLCONS (monthly construction spending) rises >10% YoY for 3+ consecutive months",
+      "Sustained construction growth = active jobsites expanding = more equipment needed",
+      "Contractors order/rent heavy equipment (excavators, loaders, cranes) with 1-2 quarter lag",
+      "CAT sees order books grow, DE construction division ramps, URI rental utilization rises",
+      "Equipment stocks re-rate on improving utilization/order metrics over 3-6 months"
+    ],
+    "data_sources": [
+      "FRED TTLCONS (monthly, free, back to 2002)",
+      "yfinance CAT, DE, URI, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census Bureau construction spending; CAT dealer inventory reports; URI fleet utilization",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "construction_spending_surge_heavy_equipment"
+  },
+  {
+    "idea_id": "PL062",
+    "created_at": "2026-05-26T21:41:20.264114+00:00",
+    "status": "developed",
+    "name": "FRED M2 Money Supply YoY Acceleration \u2192 Long Gold 6mo",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6-12 months",
+    "thesis": "FRED M2SL (M2 money supply, monthly) is a broad liquidity measure. When M2 YoY growth reaccelerates above +5% after a period of <+3% (or negative), it signals liquidity expansion that historically flows into hard assets with a 6-12 month lag. Long GLD for 12 months from the reacceleration crossing. M2 growth was negative in 2022-2023 (first time since 1930s); the reacceleration in 2024-2025 should push gold higher as excess liquidity seeks inflation hedges.",
+    "causal_chain": [
+      "FRED M2SL YoY growth crosses above +5% after 6+ months below +3%",
+      "Monetary expansion = more dollars chasing same real assets",
+      "Excess liquidity initially flows to bonds/equities, then to hard assets with lag",
+      "Gold reprices as inflation expectations and debasement fears build",
+      "GLD rallies 10-25% over the following 12 months"
+    ],
+    "data_sources": [
+      "FRED M2SL (monthly, free, back to 1959)",
+      "yfinance GLD, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "FRED M2; monetary inflation \u2192 gold literature (Howell, Tavi Costa); P6 Howell M2/BTC existing but for CRYPTO not gold",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "m2_reacceleration_gold_long"
+  },
+  {
+    "idea_id": "PL063",
+    "created_at": "2026-05-26T21:52:35.056593+00:00",
+    "status": "developed",
+    "name": "US New Export Orders ISM Sub-Index Surge \u2192 Long Industrials with Export Revenue",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FRED NAPMEI (ISM Manufacturing New Export Orders sub-index) specifically tracks foreign demand for US goods. When NAPMEI crosses above 55 after being below 50 for 4+ months, it signals global demand recovery for US-manufactured products. Long industrials with >30% international revenue (HON, EMR, ITW, PH) for 6 months. NAPMEI is a purer export demand signal than headline PMI, which blends domestic + export orders.",
+    "causal_chain": [
+      "FRED NAPMEI (ISM New Export Orders) crosses above 55 from below 50 (4+ months under)",
+      "Foreign demand for US manufactured goods recovering \u2014 weaker USD or global growth upturn",
+      "US exporters (HON, EMR, ITW, PH) see order books fill from international customers",
+      "Revenue acceleration with positive FX translation effects on earnings",
+      "Industrial exporters re-rate over 3-6 months as earnings revisions turn positive"
+    ],
+    "data_sources": [
+      "FRED NAPMEI (monthly, free, back to 1988)",
+      "yfinance HON, EMR, ITW, PH, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "ISM Manufacturing PMI sub-indices; industrial company 10-K geographic revenue disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ism_export_orders_surge_industrials"
+  },
+  {
+    "idea_id": "PL064",
+    "created_at": "2026-05-26T21:52:35.056593+00:00",
+    "status": "developed",
+    "name": "FRED Bank Credit YoY Reacceleration \u2192 Long Financials",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED TOTBKCR (total bank credit, weekly) tracks aggregate bank lending. When bank credit YoY growth turns positive after 6+ months of deceleration/contraction, it signals the credit cycle trough. Banks earn net interest income on new loans \u2014 credit growth = NIM expansion = earnings growth. Long XLF or specific money-center banks (JPM, BAC, WFC) for 12 months from the reacceleration.",
+    "causal_chain": [
+      "FRED TOTBKCR weekly bank credit YoY growth turns positive after 6+ months below 2%",
+      "Credit expansion = banks making new loans, NIM improving on wider spreads",
+      "Loan growth drives net interest income \u2014 the largest revenue line for banks",
+      "Provision releases as credit quality stabilizes \u2014 double earnings tailwind",
+      "XLF/bank stocks re-rate over 6-12 months as NIM + credit growth compound"
+    ],
+    "data_sources": [
+      "FRED TOTBKCR (weekly, free, back to 1973)",
+      "yfinance XLF, JPM, BAC, WFC, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve H.8 Assets and Liabilities of Commercial Banks",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bank_credit_yoy_reacceleration_xlf"
+  },
+  {
+    "idea_id": "PL065",
+    "created_at": "2026-05-26T21:52:35.056593+00:00",
+    "status": "developed",
+    "name": "US Vehicle Miles Traveled YoY Surge \u2192 Long Auto Parts Retailers",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "FHWA publishes monthly Vehicle Miles Traveled (FRED TRFVOLUSM227NFWA). When VMT YoY growth exceeds +3% for 3+ months, it signals sustained driving demand that translates to tire/parts/maintenance revenue for auto parts retailers (AZO, ORLY, AAP). More miles = more wear = more replacement parts. Long AZO+ORLY for 6 months. VMT leads auto parts same-store sales by 1-2 quarters because wear accumulates before the customer visits the store.",
+    "causal_chain": [
+      "FRED TRFVOLUSM227NFWA (monthly VMT) YoY growth > +3% for 3 consecutive months",
+      "More driving = more tire wear, oil changes, brake pad replacements, battery failures",
+      "Demand for replacement parts accelerates with 1-2 quarter lag (wear accumulates before repair)",
+      "AZO and ORLY (80%+ DIY/DIFM auto parts) see same-store sales accelerate",
+      "Stocks re-rate on earnings beats as parts demand flows through to financials"
+    ],
+    "data_sources": [
+      "FRED TRFVOLUSM227NFWA (monthly, free, back to 1970)",
+      "yfinance AZO, ORLY, AAP, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 5,
+    "source_reference": "FHWA Traffic Volume Trends; AutoZone/O'Reilly investor presentations on VMT correlation",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "vmt_surge_auto_parts_retailers"
+  },
+  {
+    "idea_id": "PL066",
+    "created_at": "2026-05-26T22:01:21.741503+00:00",
+    "status": "new",
+    "name": "FRED Senior Loan Officer Survey Easing \u2192 Long Small Caps (IWM)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-12 months",
+    "thesis": "FRED SUBLPDRCSC (SLOOS net % of banks easing standards for small firms) is the mirror of the tightening signal (PL050). When banks shift from tightening to easing for small firm C&I loans, it's the credit-cycle trough \u2014 small businesses regain access to credit. Small-cap stocks (IWM) are the most credit-sensitive equity segment because small companies depend on bank lending, not bond markets. Long IWM for 12 months from the easing inflection. SLOOS easing has preceded every small-cap recovery since 1990.",
+    "causal_chain": [
+      "FRED SUBLPDRCSC (SLOOS small-firm easing) shifts from net-tightening to net-easing",
+      "Banks loosening credit standards for small businesses \u2014 credit cycle troughing",
+      "Small companies regain access to working capital, inventory financing, capex loans",
+      "Small-cap revenue/earnings recovery accelerates 2-3 quarters later",
+      "IWM rallies 20-40% over 12 months as small-cap earnings recover"
+    ],
+    "data_sources": [
+      "FRED SUBLPDRCSC (quarterly, free, back to 1990)",
+      "yfinance IWM, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Fed SLOOS; small-cap credit sensitivity literature; distinct from PL050 (which trades TLT on tightening, not IWM on easing)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sloos_easing_small_cap_iwm"
+  },
+  {
+    "idea_id": "PL067",
+    "created_at": "2026-05-26T22:01:21.741503+00:00",
+    "status": "new",
+    "name": "US Copper Imports Surge \u2192 Infrastructure Spending Confirmation \u2192 Long Steel/Infra",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "Census Bureau publishes monthly trade data with commodity detail (FRED IMP0690 or custom Census API). When US copper imports surge >15% YoY for 3+ months, it signals domestic infrastructure/construction activity accelerating \u2014 copper is consumed in wiring, plumbing, electrical systems. This is a physical demand confirmation signal. Long infrastructure beneficiaries (PWR, MTZ, VMC, NUE) for 6 months. Copper imports lead construction spending by 1-2 months because copper is ordered early in the project lifecycle.",
+    "causal_chain": [
+      "Census monthly trade data shows US copper imports YoY > +15% for 3 months",
+      "Rising copper imports = physical infrastructure/construction demand accelerating domestically",
+      "Copper consumed in wiring, plumbing, electrical \u2014 ordered early in construction projects",
+      "Infrastructure contractors (PWR, MTZ) and materials (VMC, NUE) see revenue growth 1-2 quarters later",
+      "Stocks re-rate as quarterly results confirm the demand flow-through"
+    ],
+    "data_sources": [
+      "Census Bureau trade data (free monthly, also via FRED foreign trade series)",
+      "yfinance PWR, MTZ, VMC, NUE, SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau FT900; copper demand as infrastructure leading indicator",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "copper_imports_surge_infra_demand"
+  },
+  {
+    "idea_id": "PL068",
+    "created_at": "2026-05-26T22:01:21.741503+00:00",
+    "status": "new",
+    "name": "US Trucking Tonnage YoY Positive After Decline \u2192 Long Transports",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-6 months",
+    "thesis": "ATA publishes monthly For-Hire Truck Tonnage Index (FRED TRUCKD11). When tonnage YoY turns positive after 6+ months of negative readings, it signals goods-economy recovery. Long IYT (transport ETF) or specific truckers/rails (UNP, NSC, ODFL) for 6 months. Tonnage is a physical goods measure that leads GDP goods-component by 1-2 months. Distinct from PL052 (AAR carloads/INDPRO proxy) \u2014 this is TRUCK tonnage specifically.",
+    "causal_chain": [
+      "FRED TRUCKD11 (ATA truck tonnage) YoY turns positive after 6+ months negative",
+      "Truck tonnage = physical goods being shipped on highways \u2014 direct demand proxy",
+      "Positive turn = goods economy recovery confirmed (inventory restocking underway)",
+      "Transport stocks (IYT, UNP, ODFL) see volume and pricing recovery",
+      "Re-rate over 3-6 months as freight rate recovery follows volume"
+    ],
+    "data_sources": [
+      "FRED TRUCKD11 (monthly, free, back to 1973)",
+      "yfinance IYT, UNP, ODFL, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "ATA For-Hire Truck Tonnage; distinct from PL052 (AAR rail carloads) and AR-3 (Cass freight index)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ata_truck_tonnage_yoy_turn_transports"
   }
 ]

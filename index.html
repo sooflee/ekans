@@ -247,7 +247,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 /* ----- Per-strategy tab styling ----- */
 .strat-link {
   display: grid !important;
-  grid-template-columns: 14px 1fr auto;
+  grid-template-columns: 14px 1fr 52px;
   align-items: center;
   gap: 8px;
   padding: 6px 10px !important;
@@ -272,6 +272,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 .strat-link .strat-metric {
   font-family: var(--mono); font-size: 11.5px; color: var(--fg-dim);
+  text-align: right;
 }
 .strat-link.active .strat-metric { color: var(--accent); }
 .strat-id { display: none; }
@@ -360,11 +361,11 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-#tab-catalog { padding: 0; }
+#tab-catalog { padding: 0; max-width: 1280px; margin: 0 auto; }
 #tab-catalog iframe {
   width: 100%; border: none; min-height: calc(100vh - 100px);
 }
-#tab-validation .layout { grid-template-columns: 1fr; max-width: 900px; }
+#tab-validation .layout { grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
 #tab-validation .card { margin: 0 0 14px 0; }
 @media (max-width: 900px) {
   #pipeline-grid { grid-template-columns: 1fr !important; }
@@ -2954,7 +2955,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div><!-- end tab-validation -->
 
 <div id="tab-pipeline" class="tab-panel">
-<div style="max-width:1100px;margin:0 auto;padding:24px 20px 60px;">
+<div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
 
 <h2 style="margin-top:0;">Pipeline Queues</h2>
 <p class="sub">Live view of the 3-loop research pipeline. Ideas flow left to right: Scout → Developer → Backtester. Load queue files to see current state.</p>
@@ -3089,19 +3090,30 @@ function renderBtResult(item) {
     </div>
   </div>`;
 }
+function sortByStatus(arr, priority) {
+  return arr.slice().sort((a, b) => {
+    const ai = priority.indexOf(a.status);
+    const bi = priority.indexOf(b.status);
+    const ap = ai === -1 ? priority.length : ai;
+    const bp = bi === -1 ? priority.length : bi;
+    return ap - bp;
+  });
+}
 function displayPipeline(ideas, strats) {
   const count = (arr, s) => arr.filter(x => x.status === s).length;
   document.getElementById('pl-ideas-new').textContent = 'new: ' + count(ideas, 'new');
   document.getElementById('pl-ideas-claimed').textContent = 'claimed: ' + count(ideas, 'claimed');
   document.getElementById('pl-ideas-developed').textContent = 'developed: ' + count(ideas, 'developed');
   document.getElementById('pl-ideas-rejected').textContent = 'rejected: ' + count(ideas, 'rejected');
-  document.getElementById('pl-ideas-list').innerHTML = ideas.slice().reverse().map(renderIdea).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
+  const sortedIdeas = sortByStatus(ideas, ['new', 'claimed', 'developed', 'rejected', 'duplicate']);
+  document.getElementById('pl-ideas-list').innerHTML = sortedIdeas.map(renderIdea).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
 
   document.getElementById('pl-strat-ready').textContent = 'ready: ' + count(strats, 'ready');
   document.getElementById('pl-strat-progress').textContent = 'in_progress: ' + count(strats, 'in_progress');
   document.getElementById('pl-strat-done').textContent = 'done: ' + count(strats, 'done');
   document.getElementById('pl-strat-failed').textContent = 'failed: ' + count(strats, 'failed');
-  document.getElementById('pl-strat-list').innerHTML = strats.slice().reverse().map(renderStrat).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
+  const sortedStrats = sortByStatus(strats, ['in_progress', 'ready', 'done', 'failed', 'skipped']);
+  document.getElementById('pl-strat-list').innerHTML = sortedStrats.map(renderStrat).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">Empty</div>';
 
   const btResults = strats.filter(s => s.backtest_result);
   const winners = btResults.filter(s => s.backtest_result.status === 'ok' && s.backtest_result.sharpe > 0.5 && s.backtest_result.cagr > 0.10);
@@ -3110,7 +3122,13 @@ function displayPipeline(ideas, strats) {
   document.getElementById('pl-bt-winners').textContent = 'winners: ' + winners.length;
   document.getElementById('pl-bt-losers').textContent = 'losers: ' + losers;
   document.getElementById('pl-bt-failed').textContent = 'failed: ' + fails.length;
-  document.getElementById('pl-bt-list').innerHTML = btResults.slice().reverse().map(renderBtResult).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">No results yet</div>';
+  const sortedBt = btResults.slice().sort((a, b) => {
+    const aW = a.backtest_result.status === 'ok' && a.backtest_result.sharpe > 0.5 && a.backtest_result.cagr > 0.10;
+    const bW = b.backtest_result.status === 'ok' && b.backtest_result.sharpe > 0.5 && b.backtest_result.cagr > 0.10;
+    if (aW !== bW) return aW ? -1 : 1;
+    return (b.backtest_result.sharpe || 0) - (a.backtest_result.sharpe || 0);
+  });
+  document.getElementById('pl-bt-list').innerHTML = sortedBt.map(renderBtResult).join('') || '<div style="color:var(--fg-dim);padding:20px;text-align:center;">No results yet</div>';
 
   document.getElementById('pl-status').textContent = `Loaded ${ideas.length} ideas, ${strats.length} strategies`;
 }
