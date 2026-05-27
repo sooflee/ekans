@@ -13,7 +13,7 @@
       "interval": "10m"
     },
     "backtester": {
-      "last_run": "2026-05-27T04:43:05.289224+00:00",
+      "last_run": "2026-05-27T04:43:53.274542+00:00",
       "status": "running",
       "job_id": "07d31082",
       "interval": "10m"
