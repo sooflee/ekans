@@ -10684,7 +10684,7 @@
   {
     "idea_id": "PL396",
     "created_at": "2026-05-27T04:33:12.418366+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FTC HSR Early Termination Grant Cluster \u2192 M&A Deal Acceleration \u2192 Investment Bank Advisory Revenue",
     "category": "E",
     "asset_class": "equities",
@@ -10712,7 +10712,7 @@
   {
     "idea_id": "PL397",
     "created_at": "2026-05-27T04:33:12.418551+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "USDA Grain Transportation Report \u2192 Barge Rate/Rail Tariff Divergence \u2192 Modal Arbitrage Play",
     "category": "G",
     "asset_class": "equities",
@@ -10735,12 +10735,13 @@
     "bt_feasibility": 4,
     "source_reference": "USDA AMS Grain Transportation Report; USACE lock data; USDA World Agricultural Supply and Demand",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usda_gtr_barge_rail_modal_arbitrage"
+    "dedup_key": "usda_gtr_barge_rail_modal_arbitrage",
+    "reject_reason": "RELATED-VARIANT of PL375 (USDA grain barge rate surge -> KEX long). Also contains short-side rail leg (NSC/UP) violating long-only constraint. The barge long thesis is already captured in PL375."
   },
   {
     "idea_id": "PL398",
     "created_at": "2026-05-27T04:33:12.418553+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "NOAA SPC Severe Weather Outbreak \u2192 Insured Loss Estimate \u2192 P&C Reinsurer Premium Hardening",
     "category": "E",
     "asset_class": "equities",
@@ -10764,5 +10765,429 @@
     "source_reference": "NOAA SPC; NCEI; PCS/Verisk catastrophe loss estimates; Guy Carpenter reinsurance analytics",
     "research_phase": "pipeline_scout",
     "dedup_key": "noaa_spc_severe_weather_reinsurer"
+  },
+  {
+    "idea_id": "PL399",
+    "created_at": "2026-05-27T04:33:53.226093+00:00",
+    "status": "developed",
+    "name": "NHTSA Safety Investigation Opening \u2192 OEM Warranty Cost Spike \u2192 Auto Parts Aftermarket Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "NHTSA publishes new safety defect investigations (ODI) in real-time (free). When NHTSA opens a Preliminary Evaluation (PE) or Engineering Analysis (EA) on a high-volume model (>500K affected vehicles), the OEM faces a probable recall within 6-12 months. Recall campaigns drive aftermarket parts demand for replacement components. Long auto parts retailers (AZO, ORLY, AAP) and specialty parts manufacturers (DORM, SMP) as large-scale recalls create parts demand surge.",
+    "causal_chain": [
+      "NHTSA opens PE/EA investigation on high-volume model affecting >500K vehicles (free at nhtsa.gov/recalls)",
+      "Investigation leads to voluntary or mandatory recall within 6-12 months",
+      "Recalled vehicles need replacement parts \u2014 dealer parts departments and aftermarket suppliers see demand",
+      "OEM warranty costs spike \u2014 but aftermarket parts companies (DORM, SMP) supply replacement components",
+      "Auto parts retailers (AZO, ORLY) see foot traffic and ticket size increase in affected geographic areas",
+      "Aftermarket parts stocks rally 3-8% as recall-driven demand adds 1-2% to same-store sales growth"
+    ],
+    "data_sources": [
+      "NHTSA ODI investigations and recalls database (free at nhtsa.gov)",
+      "NHTSA complaints database for leading indicators (free)",
+      "yfinance AZO, ORLY, AAP, DORM, SMP"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NHTSA ODI database; Automotive News recall tracking; DORM/SMP investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nhtsa_odi_investigation_aftermarket"
+  },
+  {
+    "idea_id": "PL400",
+    "created_at": "2026-05-27T04:33:53.226327+00:00",
+    "status": "developed",
+    "name": "USGS Copper Scrap-to-Refined Ratio Spike \u2192 Secondary Copper Supply Surge \u2192 Copper Price Ceiling",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "USGS tracks copper scrap consumption as a percentage of total copper supply (free). When the scrap-to-refined ratio exceeds 45% (vs normal 35-40%), it signals that elevated copper prices have triggered a wave of secondary supply from demolition and recycling. This secondary supply acts as a price ceiling \u2014 copper struggles to rally further. When the ratio peaks and begins declining, it signals scrap exhaustion and the next leg higher in copper. Long HG=F when scrap ratio peaks and rolls over.",
+    "causal_chain": [
+      "USGS monthly copper scrap consumption data shows scrap-to-refined ratio peaking above 45% (free at usgs.gov)",
+      "High copper prices ($4.50+/lb) incentivize demolition, recycling, and inventory liquidation of copper scrap",
+      "Scrap supply surge creates temporary price ceiling \u2014 primary copper miners face lower realized prices",
+      "Scrap ratio peaks and begins declining \u2014 signals economically recoverable scrap sources exhausted",
+      "With scrap supply declining, primary mine supply constraints reassert themselves",
+      "Copper rallies 10-20% over 1-3 months as the scrap supply cushion disappears"
+    ],
+    "data_sources": [
+      "USGS copper scrap consumption data (free monthly at usgs.gov)",
+      "ISRI scrap metal pricing (partially free)",
+      "yfinance HG=F, FCX, SCCO, COPX"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USGS Mineral Industry Surveys \u2014 copper; ISRI scrap recycling; ICSG copper balance",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_copper_scrap_ratio_price_signal"
+  },
+  {
+    "idea_id": "PL401",
+    "created_at": "2026-05-27T04:33:53.226332+00:00",
+    "status": "developed",
+    "name": "Fed SLOOS Demand Strengthening for C&I Loans \u2192 Credit Expansion Cycle \u2192 Small-Cap Value Rotation",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "Fed Senior Loan Officer Opinion Survey (SLOOS) tracks both supply (tightening) and demand for bank credit (free quarterly). Most analysts focus on tightening. The overlooked signal is loan DEMAND strengthening. When net percentage of banks reporting stronger demand for C&I loans turns positive after being negative for 3+ quarters, it signals business confidence recovery. Credit expansion drives revenue growth for small/mid-cap companies most dependent on bank financing. Long IWM/IWN when SLOOS demand indicators inflect positive.",
+    "causal_chain": [
+      "Fed SLOOS shows net % of banks reporting stronger C&I loan demand turning positive after 3+ negative quarters (free at federalreserve.gov/data/sloos)",
+      "Positive demand inflection signals corporate borrowers gaining confidence in capex and working capital needs",
+      "Bank C&I loan growth reaccelerates \u2014 community/regional banks see loan book expansion",
+      "Small/mid-cap companies (most bank-dependent for financing) access growth capital",
+      "Small-cap revenue growth accelerates as credit expansion funds inventory, hiring, and expansion",
+      "IWM/IWN outperforms SPY by 5-10% over 2-4 months as credit-driven earnings recovery materializes"
+    ],
+    "data_sources": [
+      "Fed SLOOS quarterly survey (free at federalreserve.gov/data/sloos)",
+      "FRED BUSLOANS (bank commercial loans) for confirmation",
+      "yfinance IWM, IWN, KRE, SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Federal Reserve SLOOS; NBER credit cycle research; Deutsche Bank credit impulse model",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sloos_ci_demand_positive_small_cap"
+  },
+  {
+    "idea_id": "PL402",
+    "created_at": "2026-05-27T04:34:30.970766+00:00",
+    "status": "developed",
+    "name": "DOE AFDC EV Registration Rate \u2192 State-Level EV Penetration Divergence \u2192 Utility Capex Acceleration",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "DOE Alternative Fuels Data Center tracks EV registrations by state (free quarterly). When EV penetration in a utility's service territory exceeds 8% of new vehicle sales, residential peak demand grows 15-25% faster than utility planning forecasts assumed. Utilities must accelerate distribution grid upgrades (transformers, feeders, substations). Long utilities with highest EV penetration territories (PCG California, EVRG, DUK) as rate base growth accelerates above regulatory expectations.",
+    "causal_chain": [
+      "DOE AFDC shows EV registrations exceeding 8% of new vehicle sales in specific utility territories (free at afdc.energy.gov)",
+      "Level 2 home charging adds 7-10 kW per household \u2014 evening peak demand grows 15-25% faster than forecast",
+      "Distribution transformers overload \u2014 utility forced to file accelerated grid modernization capital plans",
+      "PUC approves accelerated rate base investment for distribution upgrades \u2014 2-3x normal capex growth",
+      "Utility rate base growth accelerates from 5% to 8-10% \u2014 EPS growth re-rates accordingly",
+      "Utility stocks in high-EV territories rally 10-15% as accelerated capex drives rate base and earnings growth"
+    ],
+    "data_sources": [
+      "DOE AFDC EV registration data by state (free quarterly at afdc.energy.gov)",
+      "EIA utility sales and revenue data (free at eia.gov/electricity)",
+      "yfinance PCG, EVRG, DUK, AEP"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "DOE AFDC; Edison Electric Institute EV data; utility IRP filings at state PUCs",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_afdc_ev_penetration_utility_capex",
+    "reject_reason": "bt_feasibility=3: DOE AFDC EV registration data requires state-level parsing; EV penetration to utility capex is a multi-year lag with confounding variables"
+  },
+  {
+    "idea_id": "PL403",
+    "created_at": "2026-05-27T04:34:30.970954+00:00",
+    "status": "developed",
+    "name": "BLS Import Price Index Petroleum Drop \u2192 Terms of Trade Improvement \u2192 Consumer Discretionary Long",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "BLS Import Price Index with petroleum component is released monthly (free). When the petroleum import price component drops >15% YoY for 3 consecutive months, it signals a significant terms-of-trade improvement for the US. Lower oil import costs act as a consumer tax cut \u2014 disposable income rises. Long XLY consumer discretionary and restaurant/leisure stocks (DRI, HLT, RCL) as gasoline savings flow into discretionary spending within 1-2 months.",
+    "causal_chain": [
+      "BLS Import Price Index \u2014 petroleum component drops >15% YoY for 3 months (free at bls.gov/mxp)",
+      "US crude oil import bill declines by $100-200M/day \u2014 terms-of-trade improvement for US economy",
+      "Consumer gasoline prices decline 15-25% \u2014 average household saves $100-200/month",
+      "Gasoline savings redirect to discretionary spending \u2014 restaurants, travel, entertainment benefit",
+      "Consumer discretionary stocks (XLY, DRI, HLT) see revenue acceleration in the following quarter",
+      "XLY outperforms SPY by 3-5% over 1-3 months as gasoline savings flow through to consumer spending"
+    ],
+    "data_sources": [
+      "BLS Import Price Index \u2014 petroleum (free monthly at bls.gov/mxp, also FRED IR)",
+      "EIA gasoline prices (free weekly)",
+      "yfinance XLY, DRI, HLT, RCL, SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "BLS import prices; EIA petroleum data; JPMorgan consumer spending sensitivity to gasoline prices",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_import_petroleum_drop_discretionary"
+  },
+  {
+    "idea_id": "PL404",
+    "created_at": "2026-05-27T04:34:30.970960+00:00",
+    "status": "rejected",
+    "name": "NRC License Renewal Application Cluster \u2192 Nuclear Fleet Life Extension \u2192 Uranium Demand Floor / URA Long",
+    "category": "F",
+    "asset_class": "commodities",
+    "horizon": "6-24 months",
+    "thesis": "NRC publishes license renewal and subsequent license renewal (SLR) applications (free). When multiple reactor operators (Constellation CEG, Duke DUK, Southern SO) file SLR applications to extend plant life from 60 to 80 years within a 12-month window, it signals 20 additional years of guaranteed uranium demand per reactor (300-600 tU/year per GW). This structural demand floor supports uranium prices. Long uranium miners (CCJ, URA ETF, DNN) when NRC SLR application filings cluster.",
+    "causal_chain": [
+      "NRC receives 5+ SLR applications within 12 months \u2014 extending reactor life to 80 years (free at nrc.gov/reactors/operating/licensing/renewal)",
+      "Each SLR approval locks in 20 additional years of uranium fuel demand per reactor",
+      "US reactor fleet of 93 units at average 1GW consumes ~18,000 tU/year \u2014 SLR extends this through 2060+",
+      "Uranium spot prices supported by guaranteed long-term utility contracting for extended plant life",
+      "Uranium miners (CCJ, DNN) and physical uranium trusts see improved forward demand visibility",
+      "URA ETF and uranium equities rally 10-25% as nuclear renaissance narrative strengthens"
+    ],
+    "data_sources": [
+      "NRC license renewal applications and status (free at nrc.gov)",
+      "EIA nuclear generation data (free monthly)",
+      "yfinance CCJ, DNN, URA, CEG"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NRC license renewal data; World Nuclear Association; UxC uranium market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nrc_slr_cluster_uranium_demand",
+    "reject_reason": "bt_feasibility=3: NRC license renewal applications are rare, slow-moving regulatory events; URA ETF launched 2010 with limited history; uranium demand from life extensions is marginal vs new reactor builds"
+  },
+  {
+    "idea_id": "PL405",
+    "created_at": "2026-05-27T04:35:10.319483+00:00",
+    "status": "rejected",
+    "name": "NSIDC Arctic Sea Ice September Minimum Record \u2192 Northern Sea Route Opening \u2192 Shipping Route Disruption Premium",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "NSIDC publishes daily Arctic sea ice extent (free). When September Arctic sea ice minimum falls below 3.5M km2 (record low territory), the Northern Sea Route (NSR) transit window extends from 2 months to 4+ months. This creates a competitive shipping route alternative for Asia-Europe trade, disrupting traditional Suez Canal economics. Long dry bulk and container operators positioned for NSR transits (STNG, EURN Nordic tankers, Sovcomflot partners). The structural theme also benefits Arctic resource extraction equities.",
+    "causal_chain": [
+      "NSIDC daily Arctic sea ice extent tracks toward record September minimum <3.5M km2 (free at nsidc.org)",
+      "Extended ice-free window on Northern Sea Route \u2014 transit possible July through November",
+      "NSR transit saves 10-15 days vs Suez Canal for Asia-Europe routes \u2014 $500K-1M fuel savings per voyage",
+      "Shipping companies with ice-class vessels and NSR transit permits gain competitive advantage",
+      "Arctic resource access improves \u2014 Russian and Norwegian shelf gas/oil projects become more viable",
+      "Arctic-positioned shipping and energy companies re-rate on structural route advantage"
+    ],
+    "data_sources": [
+      "NSIDC Sea Ice Index (free daily at nsidc.org/data/seaice_index)",
+      "NOAA Arctic Report Card (free annual)",
+      "yfinance EURN, STNG, FLNG"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NSIDC; NOAA Arctic Report Card; Lloyds List NSR transit tracking",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nsidc_arctic_ice_record_nsr_shipping",
+    "reject_reason": "bt_feasibility=3: Arctic sea ice September minimum is annual; Northern Sea Route commercial shipping is minimal with no liquid tradable proxy"
+  },
+  {
+    "idea_id": "PL406",
+    "created_at": "2026-05-27T04:35:10.319665+00:00",
+    "status": "rejected",
+    "name": "USDA FSA Peanut Inspection Volume Decline \u2192 Supply Shortage \u2192 Peanut Butter CPI Spike \u2192 JM Smucker Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "USDA Federal-State Inspection Service publishes peanut inspection volumes during harvest (Aug-Nov) (free). When inspected peanut volumes fall >15% below the 5-year average, it signals a short crop from drought in the Georgia/Alabama/Florida growing region. Runner-type peanut prices spike 20-40%. JM Smucker (SJM, owns Jif peanut butter) has long-term procurement contracts that hedge input costs \u2014 they can maintain margins while competitors face spot market cost inflation. Long SJM as peanut shortage creates relative margin advantage.",
+    "causal_chain": [
+      "USDA FSIS peanut inspection volumes fall >15% below 5yr avg during harvest (free at fsa.usda.gov)",
+      "Short crop signals confirmed \u2014 USDA peanut stocks-to-use ratio drops below 20%",
+      "Runner peanut prices rally 20-40% from harvest lows",
+      "SJM (Jif brand) with forward contracts hedged at lower prices maintains stable input costs",
+      "Competing brands sourcing peanuts on spot market face margin compression \u2014 lose shelf space",
+      "SJM Jif gains market share; SJM coffee/pet food segments provide further diversification buffer"
+    ],
+    "data_sources": [
+      "USDA FSA peanut inspection reports (free at fsa.usda.gov)",
+      "USDA NASS peanut production forecast (free monthly)",
+      "yfinance SJM, GIS, CPB"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FSA peanut data; American Peanut Council; SJM 10-K procurement disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_peanut_inspection_shortage_sjm",
+    "reject_reason": "bt_feasibility=3: USDA FSA peanut inspection volume is a niche dataset; SJM (JM Smucker) peanut butter revenue is a small fraction of total; too few events for meaningful backtest"
+  },
+  {
+    "idea_id": "PL407",
+    "created_at": "2026-05-27T04:35:10.319667+00:00",
+    "status": "rejected",
+    "name": "GSA Fleet Procurement Schedule \u2192 Federal Vehicle Replacement Cycle \u2192 Commercial Van/Truck OEM Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "GSA publishes its Federal Vehicle Standards and annual fleet purchasing schedule (free). The federal fleet of 650K+ vehicles has a mandated replacement cycle (electric vehicle transition under Executive Order 14057). When GSA fleet procurement obligations spike >30% YoY (new EV mandates + deferred replacement backlog), commercial van and truck OEMs (F Ford Pro, GM BrightDrop/Fleet, RIVN Amazon contract) benefit from large-scale fleet orders at higher ASPs. Long F and GM when GSA procurement signals government fleet replacement wave.",
+    "causal_chain": [
+      "GSA Federal Fleet Report and procurement schedule show vehicle orders >30% above prior year (free at gsa.gov/governmentwide-initiatives/federal-fleet)",
+      "Federal EV mandates (EO 14057) require light-duty fleet transition to ZEV by 2027",
+      "GSA bulk purchase orders for electric vans, SUVs, and trucks placed with qualified OEMs",
+      "Ford Pro (E-Transit, Lightning Pro) and GM (BrightDrop) win multi-year federal fleet contracts",
+      "Federal fleet orders at premium EV ASPs ($45K-75K vs $30K-45K ICE) improve OEM revenue mix",
+      "F and GM commercial/fleet segments show revenue acceleration \u2014 stocks rally 5-10% on fleet order wins"
+    ],
+    "data_sources": [
+      "GSA Federal Fleet data and procurement schedule (free at gsa.gov)",
+      "USASpending.gov vehicle procurement obligations (free)",
+      "yfinance F, GM, RIVN"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "GSA Federal Fleet Report; EO 14057; DOE Federal Fleet requirements",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gsa_fleet_procurement_ev_oem",
+    "reject_reason": "bt_feasibility=3: GSA fleet procurement schedules are subject to continuing resolutions and political disruption; federal vehicle orders are a tiny fraction of commercial truck/van OEM revenue"
+  },
+  {
+    "idea_id": "PL408",
+    "created_at": "2026-05-27T04:35:55.665121+00:00",
+    "status": "new",
+    "name": "USDA GIPSA Grain Inspection Export Volume \u2192 Pacific Northwest vs Gulf Basis \u2192 BNSF/UP Rail Volume Signal",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USDA GIPSA (now AMS FGIS) publishes weekly grain export inspection data by port region (free). When Pacific Northwest (PNW) grain inspection volumes surge >20% above seasonal average while Gulf volumes lag, it signals Asian demand pulling grain through the PNW rail corridor (BNSF/UP). PNW basis strengthens, benefiting PNW grain elevators and the rail operators serving them. Long rail operators (UNP has PNW franchise) when PNW grain inspections signal Asian demand strength.",
+    "causal_chain": [
+      "USDA AMS FGIS weekly export inspections show PNW volumes >20% above seasonal average (free at ams.usda.gov)",
+      "PNW volume surge signals strong Asian (China, Japan, S Korea) grain import demand",
+      "PNW basis strengthens relative to Gulf \u2014 grain shippers bid up rail capacity to PNW ports",
+      "UNP (dominant PNW rail) sees grain carloads and revenue per carload increase",
+      "Rail grain revenue contribution improves 5-10% YoY in PNW corridor",
+      "UNP outperforms rail peers (CSX, NSC with Gulf focus) by 3-5% over 1-2 months"
+    ],
+    "data_sources": [
+      "USDA AMS FGIS weekly export inspections by port region (free)",
+      "USDA AMS grain transportation cost data \u2014 PNW basis (free weekly)",
+      "yfinance UNP, CSX, NSC, BN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA AMS FGIS; USDA Grain Transportation Report; UNP carload data disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_gipsa_pnw_grain_rail_volume"
+  },
+  {
+    "idea_id": "PL409",
+    "created_at": "2026-05-27T04:35:55.665307+00:00",
+    "status": "new",
+    "name": "Census M3 Manufacturers' Shipments Capital Goods ex-Aircraft Acceleration \u2192 Industrial Distributor Revenue Beat",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Census M3 survey publishes monthly manufacturers' shipments, inventories, and orders (free). The nondefense capital goods ex-aircraft (core capex) shipments component directly measures delivered capex spending. When core capex shipments accelerate >5% YoY after 3+ months of deceleration, it signals manufacturing capex recovery. Industrial distributors (FAST Fastenal, GWW Grainger, MSM MSC Industrial) see order volumes recover before their quarterly reports. Long FAST/GWW at core capex shipment inflection.",
+    "causal_chain": [
+      "Census M3 core capex shipments (ANXFS) accelerate >5% YoY after 3+ months of deceleration (free, FRED A34SNO)",
+      "Acceleration signals manufacturers receiving and deploying new capital equipment",
+      "Capital equipment deployment drives incremental MRO (maintenance, repair, operations) consumable demand",
+      "Industrial distributors (FAST, GWW, MSM) see daily sales growth inflect positive with 1-month lag",
+      "Distributor operating leverage kicks in \u2014 200-400bps margin expansion on fixed distribution infrastructure",
+      "Industrial distributor stocks rally 8-15% as daily sales growth accelerates in quarterly reports"
+    ],
+    "data_sources": [
+      "Census M3 manufacturers' shipments \u2014 core capex (free, also FRED A34SNO/ANXFS)",
+      "yfinance FAST, GWW, MSM, WCC"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Census M3 survey; FRED A34SNO; Fastenal daily sales index",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_m3_core_capex_industrial_dist"
+  },
+  {
+    "idea_id": "PL410",
+    "created_at": "2026-05-27T04:35:55.665310+00:00",
+    "status": "new",
+    "name": "NOAA Coral Bleaching Alert \u2192 Reef-Dependent Tourism Revenue Decline \u2192 Hawaiian/Caribbean Hotel Short",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "NOAA Coral Reef Watch publishes daily global bleaching alerts (free). When a mass coral bleaching event reaches Alert Level 2 (severe) across major tourist reef systems (Great Barrier Reef, Hawaii, Caribbean, Maldives), it triggers negative media coverage that suppresses reef-dependent tourism demand. Dive/snorkel tourism drops 15-30% in affected regions. Short Hawaiian hotel REITs (PK Pebblebrook has Waikiki exposure) or Caribbean-focused cruise operators when NOAA bleaching alerts signal tourism suppression.",
+    "causal_chain": [
+      "NOAA Coral Reef Watch issues Bleaching Alert Level 2 for major tourist reef system (free at coralreefwatch.noaa.gov)",
+      "Mass bleaching event generates significant negative media coverage \u2014 'reef death' headlines",
+      "Potential tourists cancel or redirect travel plans away from bleached reef destinations",
+      "Dive/snorkel operators and reef-adjacent hotels see booking cancellations of 15-30%",
+      "Hawaiian and Caribbean hotel RevPAR declines 5-10% vs expectations in affected quarters",
+      "Reef-dependent tourism stocks (hotel REITs with Hawaii/Caribbean exposure) underperform by 5-10%"
+    ],
+    "data_sources": [
+      "NOAA Coral Reef Watch \u2014 bleaching alerts and SST monitoring (free daily at coralreefwatch.noaa.gov)",
+      "NOAA satellite-derived SST anomaly maps (free)",
+      "yfinance PK, HST, RCL, CCL"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA Coral Reef Watch; ICRI global coral bleaching reports; Hawaii Tourism Authority data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_coral_bleaching_tourism_decline"
+  },
+  {
+    "idea_id": "PL411",
+    "created_at": "2026-05-27T04:36:33.803852+00:00",
+    "status": "new",
+    "name": "CISA KEV Catalog Entry Surge \u2192 Cybersecurity Spending Urgency \u2192 CRWD/PANW/FTNT Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "CISA publishes the Known Exploited Vulnerabilities (KEV) catalog (free, updated continuously). Federal agencies must remediate KEV entries within defined deadlines. When CISA adds >20 new KEV entries in a single month (vs avg 8-10/month), it signals a wave of actively exploited vulnerabilities requiring emergency patching and security tool purchases. Federal cyber spending surges; private sector follows. Long cybersecurity leaders (CRWD, PANW, FTNT) when KEV additions spike.",
+    "causal_chain": [
+      "CISA KEV catalog receives >20 new entries in one month \u2014 active exploitation confirmed (free at cisa.gov/known-exploited-vulnerabilities-catalog)",
+      "BOD 22-01 mandates federal agencies remediate within 2-3 weeks \u2014 emergency IT spending authorized",
+      "Federal cybersecurity vendors (CRWD, PANW) see accelerated procurement through BPA/GWAC vehicles",
+      "Private sector CISOs use KEV surge as justification for emergency security tool purchases",
+      "Cybersecurity companies report bookings acceleration and deal cycle compression",
+      "CRWD, PANW rally 5-12% as quarterly results reflect urgency-driven demand"
+    ],
+    "data_sources": [
+      "CISA KEV catalog (free JSON/CSV at cisa.gov)",
+      "NVD (National Vulnerability Database) for severity context (free at nvd.nist.gov)",
+      "yfinance CRWD, PANW, FTNT, ZS"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CISA KEV; BOD 22-01; Gartner cybersecurity spending forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cisa_kev_surge_cybersecurity_spending"
+  },
+  {
+    "idea_id": "PL412",
+    "created_at": "2026-05-27T04:36:33.804028+00:00",
+    "status": "new",
+    "name": "USDA Weekly Rice Milling Data \u2192 US Rice Surplus \u2192 Long Asian Rice Importers / Short US Rice Futures",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "USDA AMS publishes weekly rice milling and stocks data (free). When US rice millings exceed shipments for 4+ consecutive weeks (building milled rice inventory), it signals a domestic surplus developing. Combined with USDA WASDE showing higher ending stocks, rough rice futures (ZR=F) face downward pressure. Long importers benefiting from cheap rice (processed food companies) and short rough rice futures at seasonal tops.",
+    "causal_chain": [
+      "USDA AMS weekly rice milling data shows millings > shipments for 4+ weeks \u2014 inventory building (free at ams.usda.gov)",
+      "Milled rice inventory accumulation signals weak domestic and export demand vs supply",
+      "USDA WASDE confirms higher US rice ending stocks \u2014 bearish supply-demand balance",
+      "Rough rice futures (ZR=F) decline 5-15% as surplus weighs on prices",
+      "US rice exporters compete aggressively on price \u2014 benefits Asian importers and food processors",
+      "Processed food companies using rice as input (LNDC, CPB) see ingredient cost reduction"
+    ],
+    "data_sources": [
+      "USDA AMS weekly rice milling and stocks (free at ams.usda.gov)",
+      "USDA WASDE rice balance sheet (free monthly)",
+      "yfinance ZR=F, LNDC"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA AMS rice data; USA Rice Federation; USDA WASDE",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_rice_milling_surplus_food"
+  },
+  {
+    "idea_id": "PL413",
+    "created_at": "2026-05-27T04:36:33.804030+00:00",
+    "status": "new",
+    "name": "BTS Airline On-Time Performance Deterioration \u2192 MRO Provider Demand Surge \u2192 TDG/HEI Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "DOT Bureau of Transportation Statistics (BTS) publishes monthly airline on-time performance with mechanical cancellation/delay breakdown (free). When mechanical delays/cancellations rise >30% YoY across multiple carriers, it signals aging fleet maintenance needs outpacing MRO capacity. Airlines must increase AOG (Aircraft on Ground) parts purchases at premium prices. Long aerospace aftermarket parts companies (TDG TransDigm, HEI HEICO) as AOG premium pricing drives margin expansion.",
+    "causal_chain": [
+      "BTS airline on-time data shows mechanical delays/cancellations rising >30% YoY (free at transtats.bts.gov)",
+      "Rising mechanical issues signal fleet maintenance backlog from pandemic-era deferred maintenance",
+      "Airlines increase AOG parts purchases at 200-500% premium over planned maintenance pricing",
+      "TransDigm (TDG) and HEICO (HEI) sole-source aftermarket parts see pricing power increase",
+      "Aftermarket parts revenue mix shifts toward high-margin AOG/expedited orders",
+      "TDG, HEI margins expand 200-400bps; stocks rally 8-15% on earnings beats"
+    ],
+    "data_sources": [
+      "BTS airline on-time performance and cause of delay (free at transtats.bts.gov/ot_delay/OT_DelayCause1.asp)",
+      "FAA ASDI/OPSNET system delay data (free)",
+      "yfinance TDG, HEI, GE, RTX"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BTS on-time data; FAA; TransDigm/HEICO aftermarket pricing model disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bts_mechanical_delay_mro_aftermarket"
   }
 ]

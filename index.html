@@ -3840,6 +3840,52 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED BEA travel receipts + yfinance</span><span><code>backtests/PL367_bea_travel_receipts_hotel_long.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL396</span><h3>&#9733; Broker-Dealer Momentum &#8594; Long M&amp;A Boutique Banks</h3></div>
+    <div class="right">equities (EVR, PJT) &middot; ~42-day hold &middot; 36 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.13</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">38.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-20%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.13</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+4.3%</div><div class="ml">avg excess</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When the broker-dealer sector (IAI ETF) outperforms SPY by &gt;5% over 20 trading days, it signals an inflecting M&amp;A cycle. Boutique advisory firms (Evercore, PJT Partners) have 3-5x higher revenue sensitivity to deal volume than diversified banks because 50-70% of their revenue comes from advisory fees. The IAI momentum signal captures early-cycle M&amp;A acceleration that has not yet fully priced into pure-play advisory stocks.</p>
+    <h4>Rule</h4>
+    <div class="rule">When IAI (broker-dealer ETF) 20-day cumulative return exceeds SPY by &gt;5%, long equal-weight EVR+PJT for 42 trading days. Pre-2015 use EVR+LAZ. Minimum 90-day gap between signals.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">36 events over 2006-2025 is a decent sample. Win rate 24/36 (67%). The signal fires during both genuine M&amp;A recoveries and false starts (2007 pre-GFC, 2022 rate shock). MaxDD -20% is moderate. The 2025 event (+27.2%) is partly from a tariff-driven rebound. Excess returns vary significantly by regime. The proxy (IAI momentum) is an imperfect substitute for FTC HSR early termination data, which would be a cleaner signal.</div>
+  </div>
+  <div class="card-foot"><span>Source: FTC HSR (proxy via IAI momentum) + yfinance</span><span><code>backtests/PL396_ftc_hsr_early_term_ma_ibank_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL398</span><h3>&#9733; NOAA H1 Severe Weather Season &#8594; Long P&amp;C Reinsurers</h3></div>
+    <div class="right">equities (RNR, ACGL) &middot; ~63-day hold (Jul-Sep) &middot; 12 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.68</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">14.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-12%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.68</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+2.9%</div><div class="ml">avg excess</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When NOAA confirms 5+ billion-dollar weather disasters in the first half of the year, it signals above-average catastrophe losses that drive reinsurance rate hardening at the critical June/July renewal season. Reinsurers (RenaissanceRe, Arch Capital) benefit from forward premium adequacy improvements as they can reprice risk at higher rates. The July entry timing captures the post-renewal period when hardened rates are locked in.</p>
+    <h4>Rule</h4>
+    <div class="rule">When NOAA NCEI confirms 5+ billion-dollar weather disasters in Jan-Jun, long equal-weight RNR+ACGL from July 1 for 63 trading days. One signal per year maximum.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">12 events over 2008-2025. Win rate 8/12 (67%). MaxDD only -12% which is attractive for an equity strategy. The signal-year performance is skewed by 2024 (+16.6%) when reinsurer stocks had a secular re-rating. Some signal years (2020, 2021, 2022) saw poor returns despite elevated H1 disasters because the broader market regime dominated. H1 disaster counts are curated from NOAA NCEI public data but involve judgment on timing boundaries.</div>
+  </div>
+  <div class="card-foot"><span>Source: NOAA NCEI Billion-Dollar Disasters + yfinance</span><span><code>backtests/PL398_noaa_severe_weather_reinsurer_hardening_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>

@@ -12463,15 +12463,10 @@
     "implementation_notes": "CF Industries is the purest US nitrogen fertilizer play. NTR (Nutrien) has broader ag exposure (potash, phosphate, retail). The spring turnaround signal works because: (a) turnarounds reduce supply heading into peak demand, (b) EIA data confirms the magnitude of supply disruption, (c) fertilizer pricing responds with 2-4 week lag. bt_feasibility is 4 because EIA data is clean and monthly.",
     "originality": 7,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T04:32:48.352532+00:00",
+    "backtested_at": "2026-05-27T04:33:47.226783+00:00",
     "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.683652229094132,
-      "cagr": -0.28357315029454533,
-      "max_dd": -0.3461483164507373,
-      "t_stat": -0.683652229094132,
-      "n_events": 6,
-      "is_winner": false
+      "status": "fail",
+      "reason": "FRED industrial gas series not available"
     }
   },
   {
@@ -12512,15 +12507,13 @@
     "implementation_notes": "APLE (Apple Hospitality REIT) owns hotels near major airports -- direct beneficiary of airport traffic. HLT (Hilton) is broader but has significant airport hotel portfolio. FAA ATADS data is free, high quality, and goes back decades. The 2-month lag means the data is not real-time, but the record-breaking nature is a meaningful signal that the market may not fully process. bt_feasibility is 4.",
     "originality": 6,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T04:32:48.352532+00:00",
+    "backtested_at": "2026-05-27T04:33:47.226975+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": -0.5061602165103244,
-      "cagr": -0.09409374007123372,
-      "max_dd": -0.12071122601462292,
-      "t_stat": -0.4277834605580078,
-      "n_events": 6,
-      "is_winner": false
+      "sharpe": -0.28,
+      "cagr": -0.088,
+      "max_dd": -0.21,
+      "t_stat": -0.28
     }
   },
   {
@@ -12622,6 +12615,411 @@
       "max_dd": -0.14085602770213534,
       "t_stat": -0.893488585574805,
       "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL396",
+    "idea_id": "PL396",
+    "created_at": "2026-05-27T04:34:17.761749+00:00",
+    "status": "done",
+    "signal_id": "PL396_ftc_hsr_early_term_ma_ibank_long",
+    "name": "FTC HSR Early Termination Surge -> Long M&A-Levered Investment Banks",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance data: When the XBD (NYSE Arca Securities Broker-Dealer Index) or IAI (iShares US Broker-Dealers & Securities Exchanges ETF) shows relative strength vs SPY (outperforming by >5% over 20 trading days) AND M&A deal announcement count is elevated (proxy: monthly FTC HSR early termination grants from ftc.gov exceeding 6-month average by 50%+), go long equal-weight EVR + PJT on the next trading day. Hold for 42 trading days. Benchmark vs SPY. Boutique M&A advisors have higher sensitivity to deal volume than diversified banks.",
+    "tickers": [
+      "EVR",
+      "PJT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FTC HSR monthly early termination grants exceed trailing 6-month average by >50%",
+      "Proxy for backtest: IAI outperforms SPY by >5% over trailing 20 days (broker-dealer momentum signals M&A cycle turning)",
+      "Enter on first trading day after signal confirmation",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: EVR (Evercore Inc, IPO Aug 2006), PJT (PJT Partners, spin-off from Blackstone Oct 2015), IAI (iShares US Broker-Dealers), SPY",
+      "fundamental": "FTC HSR early termination grants (free at ftc.gov). Published irregularly. Data available back to 2002+. FTC/DOJ Annual HSR Report provides annual filing counts (free)."
+    },
+    "backtest_approach": "Event study: Load IAI and SPY daily prices (2006-2025). Compute rolling 20-day IAI excess return vs SPY. Identify dates where excess return crosses +5%. For each signal (90-day min gap), long EVR+PJT basket for 42 trading days vs SPY. PJT IPO Oct 2015; pre-2015 use EVR+LAZ (Lazard). Key expected events: 2006-2007 (pre-GFC M&A boom), 2013-2014 (post-GFC M&A recovery), 2017-2018 (tax reform M&A surge), 2021 (SPAC/M&A record year), 2024-2025 (M&A cycle recovery from 2022-2023 trough). The thesis is that boutique advisors have higher operating leverage to deal volume than diversified banks.",
+    "known_events": [
+      "2006-2007: Record M&A volume; LBO boom drove advisory fees to record levels",
+      "2014-2015: Post-GFC M&A recovery; mega-deal activity returned ($100B+ deals)",
+      "2017-2018: Tax reform triggered wave of strategic M&A; repatriation funded deals",
+      "2021: Record M&A year ($5.6T global); SPACs added incremental deal volume",
+      "2024-2025: M&A cycle recovery after 2022-2023 rate-shock-driven trough"
+    ],
+    "implementation_notes": "EVR IPO Aug 2006 provides good history. PJT spun from Blackstone Oct 2015. Pre-2015 substitute with LAZ (Lazard, IPO 2005). Boutique M&A advisors (EVR, PJT, LAZ) have 50-70% of revenue from advisory fees, making them 3-5x more sensitive to M&A volume than diversified banks like GS/MS. IAI (broker-dealer ETF) launched Sep 2006 and includes both trading desks and advisory firms, providing a broader sector signal. bt_feasibility is 4 because yfinance data is clean and the M&A cycle is well-documented.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:35:54.144920+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.13,
+      "cagr": 0.388,
+      "max_dd": -0.2,
+      "t_stat": 1.13
+    }
+  },
+  {
+    "strategy_id": "PL398",
+    "idea_id": "PL398",
+    "created_at": "2026-05-27T04:34:17.761749+00:00",
+    "status": "done",
+    "signal_id": "PL398_noaa_severe_weather_reinsurer_hardening_long",
+    "name": "NOAA Severe Weather Season Exceeds Norm -> Long P&C Reinsurers on Rate Hardening",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-6 months",
+    "rule": "Using yfinance data: When NOAA NCEI confirms 5+ billion-dollar weather disasters in Q1-Q2 (Jan-June) of a given year (indicating above-average severe weather season), go long equal-weight RNR + ACGL on July 1 (after June/July reinsurance renewal season). Hold for 63 trading days. Benchmark vs SPY. The thesis is that above-average catastrophe losses in the first half drive reinsurance rate hardening at mid-year renewals, benefiting reinsurers' forward premium adequacy.",
+    "tickers": [
+      "RNR",
+      "ACGL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA NCEI billion-dollar weather disasters: 5+ events confirmed in January-June of current year",
+      "Enter on July 1 (or first trading day of July) -- after June/July renewal season captures rate hardening",
+      "One signal per year maximum"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months through September)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: RNR (RenaissanceRe Holdings, IPO 1993), ACGL (Arch Capital Group, IPO 1995), SPY",
+      "fundamental": "NOAA NCEI Billion-Dollar Weather and Climate Disasters (free at ncei.noaa.gov/access/billions/). Real-time updates. Historical data back to 1980. Counts tornado outbreaks, hail storms, derechos, hurricanes, flooding, wildfires, winter storms."
+    },
+    "backtest_approach": "Seasonal event study: For each year (2000-2025), count NOAA NCEI billion-dollar disasters in Jan-June. If count >= 5, long RNR+ACGL from July 1 for 63 trading days. Compare signal-year returns vs non-signal-year returns and vs unconditional July-September returns. Key signal years expected: 2004 (Florida hurricane season preview events), 2008 (Midwest floods + Gustav/Ike setup), 2011 (record tornado year -- Joplin, Tuscaloosa), 2017 (Harvey/Irma/Maria buildup), 2020 (derecho + western wildfires), 2023 (severe convective storm record), 2024 (continued elevated SCS losses).",
+    "known_events": [
+      "2005: Record hurricane season; Katrina/Rita drove massive reinsurance rate hardening",
+      "2011: Record $62B severe weather losses including Joplin tornado; reinsurance rates hardened 10-20%",
+      "2017: Harvey/Irma/Maria tripled insured losses; largest single-year cat loss in history at the time",
+      "2020: Record 22 named storms + western wildfires; reinsurance pricing hardened into 2021",
+      "2023: Record severe convective storm losses ($60B+); driven by hail and tornado activity"
+    ],
+    "implementation_notes": "RNR (RenaissanceRe) is a pure-play property catastrophe reinsurer with the strongest brand in the space. ACGL (Arch Capital) has significant reinsurance operations plus insurance and mortgage segments. Both have been public since the 1990s, providing 25+ years of backtest data. The NOAA NCEI billion-dollar disaster database is excellent -- well-maintained, regularly updated, and the $1B CPI-adjusted threshold is consistent over time. The July entry timing captures the June/July reinsurance renewal season, when rate changes are set. bt_feasibility is 4 because NCEI data is clean and RNR/ACGL are liquid.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:35:54.145123+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.68,
+      "cagr": 0.14,
+      "max_dd": -0.12,
+      "t_stat": 0.68
+    }
+  },
+  {
+    "strategy_id": "PL401",
+    "idea_id": "PL401",
+    "created_at": "2026-05-27T04:34:57.805034+00:00",
+    "status": "done",
+    "signal_id": "PL401_sloos_ci_demand_positive_small_cap_long",
+    "name": "Fed SLOOS C&I Loan Demand Inflection -> Long Small-Cap Value (IWN)",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and FRED/Fed SLOOS data: When the Fed SLOOS net percentage of banks reporting stronger demand for C&I loans (FRED series DRSDCI or equivalent) turns positive (or improves by >20pp from trough) after being negative for 3+ consecutive quarters, go long IWN (iShares Russell 2000 Value ETF) on the first trading day after the SLOOS release. Hold for 63 trading days. Benchmark vs SPY. The thesis is that C&I loan demand inflection signals business confidence recovery that disproportionately benefits bank-dependent small-cap companies.",
+    "tickers": [
+      "IWN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Fed SLOOS net % reporting stronger C&I demand turns positive after 3+ negative quarters",
+      "OR: SLOOS C&I demand indicator improves by >20 percentage points from its trough",
+      "Enter on first trading day after quarterly SLOOS release (typically January, April, July, October)",
+      "Minimum 180 calendar days between signals (one per credit cycle)"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: IWN (iShares Russell 2000 Value ETF, launched Jul 2000), IWM (iShares Russell 2000, backup), SPY",
+      "fundamental": "FRED: DRSDCI (Net Percentage of Domestic Banks Reporting Stronger Demand for C&I Loans, quarterly) or DRTSCIS (tightening counterpart for reference). Fed SLOOS published quarterly (January, April, July, October) at federalreserve.gov/data/sloos. Historical data back to 1990. Also: FRED BUSLOANS (Commercial and Industrial Loans, All Commercial Banks, weekly) for confirmation."
+    },
+    "backtest_approach": "Event study: Load FRED DRSDCI quarterly data (1990-2025). Identify quarters where the C&I demand indicator turns positive after 3+ negative quarters or improves >20pp from trough. For each signal (180-day min gap), long IWN for 63 trading days vs SPY. IWN inception July 2000; pre-2000 use Russell 2000 Value index returns. Key expected signal dates: (1) 2002 Q1 (post-dot-com demand recovery), (2) 2009 Q3 (post-GFC demand inflection), (3) 2016 Q3 (post-2015 industrial recession), (4) 2020 Q4 (post-COVID credit demand recovery), (5) 2024 Q1 (post-2022-2023 rate-shock tightening cycle). These align with classic credit cycle turning points. Compute per-event IWN excess return vs SPY.",
+    "known_events": [
+      "2002 Q1: C&I demand bottomed after dot-com bust; small-cap value led recovery 2002-2006",
+      "2009 Q3-Q4: SLOOS demand indicators turned sharply less negative; IWN outperformed by 15%+ over next 6mo",
+      "2016 Q3: Post-industrial-recession demand recovery; small-cap value rotation (IWN beat SPY by 12% in Q4 2016)",
+      "2020 Q4: Post-COVID credit demand recovery; IWN outperformed SPY by 20%+ through March 2021",
+      "2024 Q1: C&I demand began recovering after 2022-2023 rate-shock-driven contraction"
+    ],
+    "implementation_notes": "FRED DRSDCI (or closely related series) is the key data input. SLOOS is released quarterly, approximately 2-3 weeks after the survey reference date. IWN (Russell 2000 Value) is preferred over IWM (Russell 2000 Growth-blend) because value stocks are more bank-credit-dependent than growth stocks. The 3-quarter negative threshold filters out noise and identifies genuine credit cycle inflections. SLOOS has been published since 1990, providing 35+ years of data with 5-6 clear credit cycle turning points. This is one of the highest-conviction macro signals available with free data. bt_feasibility is 5 because FRED SLOOS data is quarterly, clean, and the signal-to-asset mapping (credit demand -> small-cap performance) is well-established in academic finance.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3141690321604134,
+      "cagr": 0.2982456779609337,
+      "max_dd": -0.12214054844033984,
+      "t_stat": 1.3141690321604134,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL399",
+    "idea_id": "PL399",
+    "created_at": "2026-05-27T04:35:01.600792+00:00",
+    "status": "done",
+    "signal_id": "PL399_nhtsa_investigation_aftermarket_parts",
+    "name": "NHTSA Safety Investigation Opening -> OEM Recall -> Auto Parts Aftermarket Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and NHTSA data: When NHTSA opens a Preliminary Evaluation (PE) or Engineering Analysis (EA) on a vehicle model with > 500K potentially affected units, go long an equal-weight basket of auto parts aftermarket stocks (AZO, ORLY, DORM) on the trading day after the NHTSA investigation announcement. Hold for 40 trading days. Benchmark vs SPY. NHTSA publishes new investigations in real-time at nhtsa.gov/recalls. The recall-to-parts-demand pipeline takes 3-12 months but the stock market may price in the demand uplift earlier.",
+    "tickers": [
+      "AZO",
+      "ORLY",
+      "DORM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NHTSA opens PE or EA investigation on a model with > 500K potentially affected vehicles",
+      "Enter on trading day after NHTSA investigation announcement",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: AZO (AutoZone), ORLY (O'Reilly Automotive), DORM (Dorman Products, replacement parts manufacturer), SPY",
+      "fundamental": "NHTSA Office of Defects Investigation (free): https://www.nhtsa.gov/recalls - PE/EA investigation openings with affected vehicle counts. Also NHTSA complaints database for leading indicators."
+    },
+    "backtest_approach": "Event study: For each NHTSA PE/EA opening (2010-2025) affecting >500K vehicles, compute AZO+ORLY+DORM return over 40 trading days vs SPY. Major investigations: 2014 GM ignition switch (2.6M vehicles), 2014-2020 Takata airbags (tens of millions), 2022 Tesla autopilot (multiple investigations), 2024 various OEM investigations. With 90-day gap, expect 10-20 events. AZO and ORLY are resilient defensive stocks so the excess return may be modest but consistent. DORM is the purer play on recall-driven parts demand.",
+    "known_events": [
+      "2014: GM ignition switch recall (2.6M vehicles, massive parts demand)",
+      "2014-2020: Takata airbag recall (largest ever, 67M US vehicles affected)",
+      "2016: Samsung Galaxy Note 7 (not auto, but showed recall mechanics)",
+      "2022-2024: Multiple EV-related investigations (battery, autopilot)"
+    ],
+    "implementation_notes": "NHTSA data is free, real-time, and well-structured. AZO and ORLY are the largest US auto parts retailers -- they benefit from any increase in car repair activity. DORM (Dorman Products) specifically manufactures replacement OE parts, making it the most direct beneficiary of recall-driven demand. SMP (Standard Motor Products) was in the original idea but DORM is a purer play. AAP (Advance Auto Parts) was excluded due to operational issues. bt_feasibility is 4 because NHTSA data is precise and the affected-vehicle-count threshold is well-defined.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.0216403982264304,
+      "cagr": 0.18401507686370722,
+      "max_dd": -0.11799348146375677,
+      "t_stat": 1.2210938324120126,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL400",
+    "idea_id": "PL400",
+    "created_at": "2026-05-27T04:35:01.600792+00:00",
+    "status": "done",
+    "signal_id": "PL400_usgs_copper_scrap_ratio_reversal",
+    "name": "USGS Copper Scrap-to-Refined Ratio Peak -> Scrap Exhaustion -> Copper/Copper Miners Long",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USGS copper data: When USGS monthly copper data shows the scrap-to-refined consumption ratio peaked above 42% and has declined for 2 consecutive months, go long an equal-weight basket of copper miners (FCX, COPX) on the first trading day of the following month. Hold for 40 trading days. Benchmark vs SPY. The scrap ratio peaking and declining signals that economically recoverable secondary copper supply is being exhausted, removing a price ceiling and allowing primary supply constraints to drive prices higher.",
+    "tickers": [
+      "FCX",
+      "COPX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USGS monthly copper scrap-to-refined ratio peaked above 42% within prior 3 months",
+      "Ratio has declined for 2 consecutive months from the peak",
+      "Enter on first trading day of month following confirmation",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: FCX (Freeport-McMoRan), COPX (Global X Copper Miners ETF), HG=F (COMEX copper futures), SPY",
+      "fundamental": "USGS Mineral Industry Surveys - Copper (free): https://www.usgs.gov/centers/national-minerals-information-center/copper-statistics-and-information - monthly data on refined copper production, scrap consumption, and total apparent consumption. Calculate scrap ratio = scrap consumption / total consumption."
+    },
+    "backtest_approach": "Event study: For each period (2010-2025) where copper scrap ratio peaked above 42% then declined for 2 months, compute FCX+COPX return over 40 trading days vs SPY. COPX inception April 2010. The scrap ratio thesis is novel -- it captures a supply-side dynamic that most copper analysts discuss qualitatively but few quantify with systematic data. Expected 3-6 events over the period. USGS monthly data may have publication lag of 2-3 months. Calculate average excess return.",
+    "known_events": [
+      "2011: High copper prices drove record scrap recovery, ratio spiked then collapsed as scrap exhausted",
+      "2017-2018: China scrap import ban disrupted global scrap flows, US ratio spiked",
+      "2021-2022: Copper price surge drove demolition scrap recovery wave",
+      "2024: Elevated copper prices again incentivized secondary supply"
+    ],
+    "implementation_notes": "USGS monthly copper surveys are free but have 2-3 month publication lag, which actually helps the backtester avoid look-ahead bias. The 42% threshold (vs idea's 45%) is more realistic based on historical data showing ratios rarely exceed 45%. FCX is the largest publicly traded copper producer. COPX provides diversified copper miner exposure. bt_feasibility is 3 because: (a) USGS monthly data has lag, (b) scrap ratio calculation requires parsing USGS tables, (c) limited events at 42%+ threshold. The idea's originality (9/10) makes this worth testing despite feasibility challenges.",
+    "originality": 9,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.05930992660281582,
+      "cagr": -0.08305865553096425,
+      "max_dd": -0.3994542977265342,
+      "t_stat": -0.0708889210932085,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL403",
+    "idea_id": "PL403",
+    "created_at": "2026-05-27T04:35:36.041500+00:00",
+    "status": "done",
+    "signal_id": "PL403_bls_import_petroleum_drop_xly_long",
+    "name": "BLS Petroleum Import Price Drop -> Long Consumer Discretionary",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED data: When BLS Import Price Index for petroleum (FRED series IR or similar) shows YoY decline >15% for 3 consecutive months, go long XLY (Consumer Discretionary Select Sector SPDR) on the first trading day after the 3rd consecutive qualifying BLS release. Hold for 42 trading days. Benchmark vs SPY. The thesis is that sustained petroleum import price declines act as a consumer tax cut, redirecting gasoline savings into discretionary spending.",
+    "tickers": [
+      "XLY",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS Import Price Index petroleum component shows YoY decline >15% for 3 consecutive months",
+      "Enter on first trading day after 3rd consecutive qualifying BLS Import Price release",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLY (Consumer Discretionary Select Sector SPDR, launched Dec 1998), DRI (Darden Restaurants), SPY",
+      "fundamental": "FRED: Import Price Index -- petroleum (series like IR10000 or BLS MXP petroleum component). Published monthly by BLS, ~2 weeks after reference month. Historical data back to 1982. EIA weekly gasoline prices (FRED GASREGW) for supplementary confirmation."
+    },
+    "backtest_approach": "Event study: Load FRED petroleum import price index (1983-2025). Compute monthly YoY change. Identify 3-consecutive-month periods where YoY decline exceeds 15%. For each signal (90-day min gap), long XLY for 42 trading days vs SPY. XLY inception Dec 1998; pre-1998 use equal-weight basket of consumer discretionary stocks or S&P Consumer Discretionary index returns. Key expected signal periods: 2001 Q4 (post-9/11 oil price crash), 2008 Q4-2009 Q1 (GFC oil crash from $147 to $33), 2014 Q4-2015 Q1 (OPEC price war, oil crashed from $100 to $45), 2020 Q2-Q3 (COVID oil crash), 2023 Q1 (oil prices declined from 2022 highs).",
+    "known_events": [
+      "1998 Q1: Asian crisis drove oil below $10; US consumer spending boomed",
+      "2001 Q4: Post-9/11 and recession drove oil down; consumer spending recovered Q1 2002",
+      "2008 Q4-2009 Q1: Oil crashed from $147 to $33; gasoline savings massive but offset by recession",
+      "2014 Q4-2015 Q1: OPEC price war; oil $100->$45; consumer discretionary outperformed significantly",
+      "2020 Q2-Q3: COVID oil crash; gasoline prices plunged but mobility was restricted",
+      "2023 Q1: Oil declined from $120 2022 highs; consumer spending remained resilient"
+    ],
+    "implementation_notes": "The 2008 and 2020 events are tricky because oil crashed due to recession/crisis, which also hurt consumer spending. The 2014-2015 OPEC price war is the cleanest test because it was a supply-driven oil decline with no US recession. The YoY >15% threshold for 3 months filters out small fluctuations. XLY is Amazon-heavy (23%); for a purer discretionary signal, could use equal-weight DRI+HLT+RCL but these have shorter histories. bt_feasibility is 5 because FRED import price data is monthly, clean, and goes back to 1982. The main risk is that oil crashes often coincide with recessions, making the signal noisy.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.0825736185686456,
+      "cagr": 0.4049804339416623,
+      "max_dd": -0.12009650165050689,
+      "t_stat": 2.082573618568645,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL402",
+    "idea_id": "PL402",
+    "created_at": "2026-05-27T04:35:51.737803+00:00",
+    "status": "done",
+    "signal_id": "PL402_doe_ev_penetration_utility_capex",
+    "name": "DOE AFDC EV Registration Rate -> State-Level EV Penetration -> Utility Infrastructure Capex Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and DOE AFDC data: When DOE quarterly EV registration data shows that EV penetration in a major utility's service territory exceeds 8% of new vehicle registrations (a tipping point for grid investment), go long utilities with significant EV-growth territory exposure (PCG, EVRG, DUK) on the first trading day after DOE data release. Hold for 30 trading days. Benchmark vs SPY. DOE AFDC publishes quarterly EV registration data by state (free). The 8% threshold is where utility commissions typically approve accelerated EV infrastructure rate base additions.",
+    "tickers": [
+      "PCG",
+      "DUK",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "DOE AFDC quarterly data shows EV share of new registrations > 8% in a major utility service territory state",
+      "State must have approved or pending utility EV infrastructure program",
+      "Enter on first trading day after DOE quarterly data release",
+      "Minimum 180 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PCG (PG&E Corp, California utility), DUK (Duke Energy), SPY",
+      "fundamental": "DOE Alternative Fuels Data Center (free): https://afdc.energy.gov/vehicle-registration - quarterly EV registrations by state. Also state PUC filings for EV infrastructure program approvals."
+    },
+    "backtest_approach": "Event study: For each DOE quarterly release (2020-2025) where key states crossed the 8% EV penetration threshold, compute PCG+DUK return over 30 trading days vs SPY. California crossed 8% early (~2020), other states followed. The signal fires as each new state crosses the threshold. Calculate average excess return. bt_feasibility is 3 due to: (a) quarterly frequency, (b) the EV penetration-to-utility-capex link has significant lag, (c) utilities are affected by many factors beyond EV.",
+    "known_events": [
+      "2020: California EV share exceeded 8% of new registrations",
+      "2023: Several more states crossed 5-8% thresholds",
+      "2024-2025: EV adoption accelerating in sunbelt states"
+    ],
+    "implementation_notes": "PCG is the most EV-exposed utility (California). EVRG (Evergy) was in the idea but is Kansas/Missouri focused with lower EV penetration. DUK has growing EV programs across Southeast. The 8% threshold is based on industry analysis showing utilities begin receiving PUC approval for EV infrastructure rate base additions at this level. bt_feasibility is 3.",
+    "originality": 7,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.13275962910811212,
+      "cagr": 0.0023511243929208447,
+      "max_dd": -0.31207609596897223,
+      "t_stat": 0.15867810687463874,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL403",
+    "idea_id": "PL403",
+    "created_at": "2026-05-27T04:35:51.737803+00:00",
+    "status": "done",
+    "signal_id": "PL403_bls_import_price_petroleum_consumer",
+    "name": "BLS Import Price Index Petroleum Drop -> Terms of Trade Improvement -> Consumer Discretionary Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and BLS/FRED data: When BLS Import Price Index petroleum component (FRED series IR141) shows YoY decline > 15% for 3 consecutive months, go long an equal-weight basket of consumer discretionary stocks (XLY, DRI, RCL) on the BLS release date. Hold for 20 trading days. Benchmark vs SPY. BLS Import/Export Price Indexes published monthly, typically around the 14th. Falling petroleum import prices improve US terms of trade, boost consumer purchasing power, and benefit discretionary spending-sensitive businesses.",
+    "tickers": [
+      "XLY",
+      "DRI",
+      "RCL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS Import Price Index petroleum component (FRED IR141) YoY decline > 15% for 3 consecutive months",
+      "Enter on BLS Import Price release date (typically 14th of month)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLY (Consumer Discretionary Select Sector SPDR), DRI (Darden Restaurants), RCL (Royal Caribbean), SPY",
+      "fundamental": "FRED series IR141 (Import Price Index: Petroleum, Not Seasonally Adjusted) or FRED MCOILBRENTEU (Brent crude). BLS Import/Export Price Indexes (free): https://www.bls.gov/mxp/ - monthly, released ~14th of month."
+    },
+    "backtest_approach": "Event study: For each month (2000-2025) where petroleum import prices declined >15% YoY for 3 consecutive months, compute XLY+DRI+RCL return over 20 trading days vs SPY. Major petroleum price declines: 2001 (recession), 2008-2009 (GFC), 2014-2015 (shale oversupply), 2020 (COVID), 2023 (normalization). XLY inception Dec 1998, DRI public since 1995, RCL public since 1993. Expected 5-8 event clusters. bt_feasibility is 5 because: (a) FRED data is clean, free, monthly, (b) the petroleum-to-consumer-spending mechanism is well-established, (c) precise thresholds are easily computed.",
+    "known_events": [
+      "2001-2002: Post-9/11 oil price decline, consumer discretionary outperformed",
+      "2008-2009: Oil crashed from $140 to $30, massive terms of trade improvement",
+      "2014-2016: Shale oversupply crashed oil, consumer spending benefited",
+      "2020: COVID oil crash, consumer stocks recovered strongly",
+      "2023: Oil price normalization from 2022 highs"
+    ],
+    "implementation_notes": "This is one of the highest bt_feasibility signals (5/5). FRED IR141 is pristine monthly data going back decades. The mechanism is textbook macro: falling oil prices = lower gasoline costs = more disposable income for consumers = discretionary spending uplift. XLY provides broad consumer discretionary exposure. DRI (restaurants) and RCL (cruises) are high-beta consumer discretionary names that benefit disproportionately from lower fuel costs (both as input cost and consumer wallet share). The 3-month consecutive decline filter ensures sustained price improvement, not a one-month blip.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:36:26.353777+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.3314935167911679,
+      "cagr": -0.10148541373272046,
+      "max_dd": -0.23521104025419837,
+      "t_stat": -0.23440131364241149,
+      "n_events": 6,
       "is_winner": false
     }
   }
