@@ -8800,7 +8800,7 @@
   {
     "idea_id": "PL330",
     "created_at": "2026-05-27T00:01:29.514028+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "CBP Monthly Tariff Revenue Spike -> Import Cost Pass-Through -> Dollar Store Margin Squeeze",
     "category": "F",
     "asset_class": "equities",
@@ -8826,7 +8826,7 @@
   {
     "idea_id": "PL331",
     "created_at": "2026-05-27T00:01:29.514028+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "USGS Colorado River Flow Below Critical -> Water Utility Emergency Capex",
     "category": "K",
     "asset_class": "equities",
@@ -8847,12 +8847,13 @@
     "bt_feasibility": 3,
     "source_reference": "USGS NWIS streamflow data and Bureau of Reclamation shortage guidelines",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usgs_colorado_river_low_flow_water_utility_capex"
+    "dedup_key": "usgs_colorado_river_low_flow_water_utility_capex",
+    "reject_reason": "bt_feasibility 3 < 4"
   },
   {
     "idea_id": "PL332",
     "created_at": "2026-05-27T00:01:29.514028+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "FTC HSR Filing Count Surge -> M&A Cycle Inflection -> Advisory Fee Revenue",
     "category": "E",
     "asset_class": "equities",
@@ -8874,12 +8875,13 @@
     "bt_feasibility": 3,
     "source_reference": "FTC Hart-Scott-Rodino annual report on premerger notification filings",
     "research_phase": "pipeline_scout",
-    "dedup_key": "ftc_hsr_filing_surge_ma_advisory_revenue"
+    "dedup_key": "ftc_hsr_filing_surge_ma_advisory_revenue",
+    "reject_reason": "bt_feasibility 3 < 4"
   },
   {
     "idea_id": "PL333",
     "created_at": "2026-05-27T00:02:02.388025+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "DOE AFDC EV Registration Surge -> Charging Infrastructure Demand Acceleration",
     "category": "K",
     "asset_class": "equities",
@@ -8901,12 +8903,13 @@
     "bt_feasibility": 3,
     "source_reference": "DOE Alternative Fuels Data Center and NEVI formula program",
     "research_phase": "pipeline_scout",
-    "dedup_key": "doe_afdc_ev_registration_charger_gap_evse"
+    "dedup_key": "doe_afdc_ev_registration_charger_gap_evse",
+    "reject_reason": "bt_feasibility 3 < 4"
   },
   {
     "idea_id": "PL334",
     "created_at": "2026-05-27T00:02:02.388025+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "BLS Terms of Trade Improvement -> Export-Heavy Industrial Margin Expansion",
     "category": "G",
     "asset_class": "equities",
@@ -8932,7 +8935,7 @@
   {
     "idea_id": "PL335",
     "created_at": "2026-05-27T00:02:02.388025+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "NASA GRACE Groundwater Mass Loss Acceleration -> Precision Ag Water Tech",
     "category": "K",
     "asset_class": "equities",
@@ -8953,6 +8956,7 @@
     "bt_feasibility": 3,
     "source_reference": "NASA GRACE-FO data products and groundwater depletion research literature",
     "research_phase": "pipeline_scout",
-    "dedup_key": "nasa_grace_groundwater_depletion_precision_ag"
+    "dedup_key": "nasa_grace_groundwater_depletion_precision_ag",
+    "reject_reason": "bt_feasibility 3 < 4"
   }
 ]
