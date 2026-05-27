@@ -14373,15 +14373,11 @@
     "implementation_notes": "XOP launched June 2006. NOAA hurricane forecasts have become increasingly accurate. The signal is most actionable in years where NOAA confidently predicts above-normal activity. bt_feasibility is 4 because NOAA forecasts are public record and XOP is liquid.",
     "originality": 6,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtested_at": "2026-05-27T17:58:11.887325+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 0.5132505901666345,
-      "cagr": 0.12165333698734249,
-      "max_dd": -0.20842077731691122,
-      "t_stat": 0.5132505901666345,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": -0.08862010848672443,
+      "cagr": -0.11101646195360892
     }
   },
   {
@@ -14422,15 +14418,11 @@
     "implementation_notes": "Fed H.4.1 is published every Thursday at 4:30pm ET. Discount window borrowing above $10B is unusual and signals genuine stress (normal is near-zero due to stigma). The 50% decline threshold confirms the crisis is resolving rather than deepening. KRE launched June 2006, providing data for the GFC, COVID, and SVB episodes. bt_feasibility is 5 because FRED data is weekly, clean, and the crisis episodes are well-documented.",
     "originality": 7,
     "bt_feasibility": 5,
-    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtested_at": "2026-05-27T17:58:11.887333+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 0.9977232959942163,
-      "cagr": 0.28750356524900345,
-      "max_dd": -0.15695145642498076,
-      "t_stat": 0.9977232959942162,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": -0.4684663377623926,
+      "cagr": -0.13355466807540362
     }
   },
   {
@@ -14473,15 +14465,11 @@
     "implementation_notes": "XOP is equal-weighted E&P ETF, benefiting from crude price support during hurricane risk periods. The NOAA outlook is a well-publicized event so some pricing may already occur, but the 'risk premium' tends to persist through peak hurricane season (August-October). bt_feasibility is 4 because NOAA outlooks are precisely dated, free, and the above-normal classification is binary/clear.",
     "originality": 5,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtested_at": "2026-05-27T17:58:11.887334+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.3929788081095404,
-      "cagr": 0.8485928727289473,
-      "max_dd": -0.46515117263170835,
-      "t_stat": 1.6649281236490472,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": 0.4256181837542258,
+      "cagr": 0.09530272616472901
     }
   },
   {
@@ -14521,22 +14509,18 @@
     "implementation_notes": "TRI (Thomson Reuters) owns Westlaw, Checkpoint, and other legal/tax research platforms. More partnership filings = more tax complexity = more demand for TRI's compliance tools. INTU (Intuit) was in original idea but serves primarily individual/small business filers, not the complex partnership space. bt_feasibility is 3 because: (a) annual frequency with 18-month lag, (b) partnership filing growth is a secular trend (may always exceed 8%), (c) TRI revenue is driven by many factors beyond partnership filings.",
     "originality": 6,
     "bt_feasibility": 3,
-    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtested_at": "2026-05-27T17:58:11.887335+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.9939853042388374,
-      "cagr": 0.42623318748770567,
-      "max_dd": -0.12447033099105598,
-      "t_stat": 2.1756163312628622,
-      "n_events": 5,
-      "is_winner": true
+      "sharpe": 0.8700318272066108,
+      "cagr": 0.19094598366716098
     }
   },
   {
     "strategy_id": "PL460",
     "idea_id": "PL460",
     "created_at": "2026-05-27T17:57:32.823489+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL460_census_housing_completions_hvac_long",
     "name": "Census Housing Completions Surge -> Long Residential HVAC (CARR/LII)",
     "category": "E",
@@ -14569,13 +14553,20 @@
     ],
     "implementation_notes": "CARR (Carrier Global) spun from United Technologies in April 2020; 40%+ of revenue from residential HVAC. LII (Lennox International) is ~50% residential HVAC. The 1.4M SAAR threshold is meaningful because it represents the 75th percentile of historical completions. FRED COMPUTSA data is clean and monthly. bt_feasibility is 4 because FRED data is excellent but CARR's short trading history (2020+) limits backtest depth.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtest_started_at": "2026-05-27T17:58:19.468161+00:00",
+    "backtested_at": "2026-05-27T17:59:12.206605+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8464635361645304,
+      "cagr": 0.20333363143558492
+    }
   },
   {
     "strategy_id": "PL456",
     "idea_id": "PL456",
     "created_at": "2026-05-27T17:57:37.751710+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL456_usgs_titanium_sponge_stockpile_aerospace",
     "name": "USGS Titanium Sponge Stockpile Drawdown -> Aerospace Supply Tightening -> Specialty Metals Long",
     "category": "C",
@@ -14609,13 +14600,20 @@
     ],
     "implementation_notes": "CRS (Carpenter Technology) is a specialty alloys manufacturer with significant titanium aerospace exposure. ATI (formerly Allegheny Technologies) is a major titanium producer for aerospace. USGS annual data has significant lag but provides the definitive supply picture. bt_feasibility is 3.",
     "originality": 7,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T17:58:19.468331+00:00",
+    "backtested_at": "2026-05-27T17:59:12.206617+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null
+    }
   },
   {
     "strategy_id": "PL457",
     "idea_id": "PL457",
     "created_at": "2026-05-27T17:57:37.751710+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL457_fdic_call_report_fixed_rate_repricing_kre",
     "name": "FDIC Call Report Fixed-Rate Loan Repricing Wall -> Community Bank NII Acceleration -> KRE Long",
     "category": "G",
@@ -14648,6 +14646,228 @@
     ],
     "implementation_notes": "FDIC Call Report aggregate data is free and well-structured. The repricing wall concept is well-known among bank analysts but the specific quantitative threshold (5pp YoY increase in near-term repricing share) adds precision. KRE captures the community bank beneficiaries broadly. bt_feasibility is 3 because: (a) quarterly frequency limits data points, (b) Call Report data requires parsing FDIC aggregates, (c) the repricing thesis is well-known and may be priced in.",
     "originality": 6,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T17:58:19.468333+00:00",
+    "backtested_at": "2026-05-27T17:59:12.206619+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null
+    }
+  },
+  {
+    "strategy_id": "PL466",
+    "idea_id": "PL466",
+    "created_at": "2026-05-27T17:58:25.517209+00:00",
+    "status": "done",
+    "signal_id": "PL466_tic_foreign_mbs_purchases_homebuilder_long",
+    "name": "TIC Foreign Agency MBS Purchase Surge -> Long Homebuilders (XHB)",
+    "category": "B",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FRED/Treasury TIC data: When Treasury TIC monthly data shows net foreign private purchases of US agency securities exceeding their trailing 12-month average by >50% for 3 consecutive months, go long XHB on the first trading day after the TIC release. Hold for 42 trading days. Benchmark vs SPY. The thesis is that surging foreign demand for agency MBS compresses mortgage spreads, supporting housing demand and homebuilder orders.",
+    "tickers": [
+      "XHB",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "TIC net foreign private agency purchases exceed 12-month average by >50% for 3 consecutive months",
+      "Enter on first trading day after monthly TIC data release (~15th of month, 2-month lag)",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XHB (SPDR S&P Homebuilders ETF, launched Jan 2006), DHI (D.R. Horton), LEN (Lennar), SPY",
+      "fundamental": "Treasury TIC data: foreign holdings of US agency securities (free at treasury.gov/tic). Monthly frequency, 2-month lag. Also FRED MORTGAGE30US for mortgage rate context."
+    },
+    "backtest_approach": "Event study: Load Treasury TIC foreign agency purchases (2006-2025 for XHB). Compute 12-month rolling average and identify 3-consecutive-month surges >50% above. For each signal, long XHB for 42 trading days vs SPY. Key expected events: 2005-2006 (pre-crisis foreign MBS demand), 2012-2013 (QE era with foreign CBs buying agencies), 2019-2020 (pre-COVID foreign demand). The main risk is that TIC data has a 2-month lag, so the signal may be stale.",
+    "implementation_notes": "XHB launched January 2006. TIC data is the standard source for foreign capital flows into US securities. Foreign agency MBS purchases compress the OAS (option-adjusted spread) between agency MBS and Treasuries, which directly affects primary mortgage rates through the primary-secondary mortgage spread. bt_feasibility is 4 because TIC data is free and monthly, though the 2-month lag is a constraint.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:58:44.947669+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9069088274504407,
+      "cagr": 0.216318165588689,
+      "max_dd": -0.19835080499782143,
+      "t_stat": 0.9069088274504407,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL462",
+    "idea_id": "PL462",
+    "created_at": "2026-05-27T17:58:28.872463+00:00",
+    "status": "done",
+    "signal_id": "PL462_ferc_hydro_relicensing_dam_modernization",
+    "name": "FERC Hydroelectric Relicensing Cluster -> Dam Safety Modernization Capex -> PWR/MYRG Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FERC data: When FERC hydroelectric relicensing docket shows > 20 major dams (>10MW) with licenses expiring within 2 years, go long an equal-weight basket of infrastructure construction/electrical contractors (PWR, MYRG) on the first trading day after FERC's annual relicensing schedule update. Hold for 40 trading days. Benchmark vs SPY. FERC publishes complete license expiration schedules (free at ferc.gov). Relicensing requires dam safety upgrades, fish passage, and environmental mitigation -- all construction-intensive projects.",
+    "tickers": [
+      "PWR",
+      "MYRG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FERC relicensing schedule shows > 20 major dams (>10MW) with licenses expiring within 2 years",
+      "Enter on first trading day after FERC annual schedule update",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PWR (Quanta Services, infrastructure construction), MYRG (MYR Group, electrical construction), SPY",
+      "fundamental": "FERC hydroelectric license expiration schedule (free): https://www.ferc.gov/industries-data/hydropower/licensing - complete database of license dates for all FERC-regulated dams."
+    },
+    "backtest_approach": "Event study: Very limited events as dam relicensing clusters happen infrequently. Major clusters occurred around 2000-2010 (50-year licenses from 1950s-60s construction wave expiring) and expected 2030+ cluster. PWR and MYRG are general infrastructure contractors not specific to hydro, so the signal may be diluted. bt_feasibility is 3 due to: (a) infrequent clustering, (b) long lag from license expiry to actual construction spending, (c) contractors have diversified revenue.",
+    "known_events": [
+      "2005-2015: Wave of 50-year license expirations from post-WWII dam construction",
+      "2020s: Next wave of relicensings underway",
+      "IIJA 2021: Federal funding for dam safety modernization"
+    ],
+    "implementation_notes": "PWR (Quanta Services) is the largest US specialty infrastructure contractor. MYRG (MYR Group) focuses on electrical infrastructure. Both would benefit from dam modernization capex but hydro is a small portion of their total revenue. bt_feasibility is 3.",
+    "originality": 7,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T17:59:02.110746+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4009320117835455,
+      "cagr": 0.3990600853136663,
+      "max_dd": -0.13254793504929063,
+      "t_stat": 1.4009320117835455,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL463",
+    "idea_id": "PL463",
+    "created_at": "2026-05-27T17:58:28.872463+00:00",
+    "status": "done",
+    "signal_id": "PL463_eia_seds_industrial_electricity_utility",
+    "name": "EIA SEDS Industrial Electricity Consumption Rebound -> Utility Load Growth Acceleration -> NEE/SO Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and EIA SEDS data: When EIA State Energy Data System (SEDS) or monthly Electric Power Monthly shows industrial electricity sales growing > 3% YoY for 3 consecutive months (after a period of flat or declining industrial load), go long an equal-weight basket of large utilities (NEE, SO) on the first trading day after EIA data release. Hold for 30 trading days. Benchmark vs SPY. Industrial load growth is the most bullish signal for utility earnings because it carries higher margins and drives grid investment. EIA Electric Power Monthly published monthly (free).",
+    "tickers": [
+      "NEE",
+      "SO",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA Electric Power Monthly shows industrial electricity sales YoY growth > 3% for 3 consecutive months",
+      "Prior 6 months showed flat or declining (<1%) industrial sales growth",
+      "Enter on first trading day after EIA monthly publication",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: NEE (NextEra Energy), SO (Southern Company), SPY",
+      "fundamental": "EIA Electric Power Monthly (free): https://www.eia.gov/electricity/monthly/ - Table 5.1 retail sales by sector. Also FRED series ELTCSMUSM (industrial electricity sales). Monthly frequency, ~2 month lag."
+    },
+    "backtest_approach": "Event study: For each period (2005-2025) where industrial electricity sales inflected to >3% YoY growth after flat/declining period, compute NEE+SO return over 30 trading days vs SPY. Key inflection points: 2010 (post-GFC recovery), 2014 (manufacturing renaissance), 2021 (post-COVID industrial recovery), 2024 (data center + reshoring demand). NEE and SO are two of the largest US utilities. Calculate average excess return, win rate.",
+    "known_events": [
+      "2010: Post-GFC industrial recovery drove load growth",
+      "2014: Manufacturing reshoring narrative",
+      "2021: Post-COVID industrial rebound",
+      "2024: Data center + reshoring driving unprecedented load growth"
+    ],
+    "implementation_notes": "NEE (NextEra) is the largest US utility by market cap with regulated (FPL) and renewable (NEER) segments. SO (Southern Company) has large industrial load in Southeast US. Industrial load growth is the single most important driver of utility earnings growth because industrial rates carry higher margins and require grid investment (rate base growth). The 3% YoY threshold for 3 months ensures sustained acceleration. EIA Electric Power Monthly is free and well-structured. bt_feasibility is 3 because: (a) industrial load inflections are infrequent, (b) utility stocks are also driven by interest rates and regulatory outcomes.",
+    "originality": 6,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T17:59:02.110746+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.131780515165397,
+      "cagr": 0.37464372587108974,
+      "max_dd": -0.05144478024678867,
+      "t_stat": 2.131780515165397,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL469",
+    "idea_id": "PL469",
+    "created_at": "2026-05-27T17:59:12.495645+00:00",
+    "status": "ready",
+    "signal_id": "PL469_fcc_usf_factor_increase_rural_telco_long",
+    "name": "FCC USF Contribution Factor Increase -> Long Rural Telecom",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: When FCC announces quarterly USF contribution factor increase >1 percentage point QoQ, go long CNSL (Consolidated Communications) on the first trading day after the FCC announcement. Hold for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "CNSL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FCC USF quarterly contribution factor increases >1pp QoQ",
+      "Enter on first trading day after FCC announcement (quarterly)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CNSL (Consolidated Communications), LUMN (Lumen Technologies), SPY",
+      "fundamental": "FCC USF contribution factor quarterly filings (free at fcc.gov). Published quarterly. Data back to 2000."
+    },
+    "backtest_approach": "Event study: Hand-code FCC USF contribution factor changes (2005-2025). Identify quarters with >1pp increases. Long CNSL for 42 trading days per signal. The USF factor has ranged from 8% to 36% historically, with significant QoQ moves.",
+    "implementation_notes": "CNSL is a rural ILEC with significant USF high-cost support revenue. LUMN has rural ILEC segment but is heavily leveraged with enterprise/fiber focus making USF less material. bt_feasibility is 4 because FCC data is public and quarterly.",
+    "originality": 8,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL470",
+    "idea_id": "PL470",
+    "created_at": "2026-05-27T17:59:12.495645+00:00",
+    "status": "ready",
+    "signal_id": "PL470_usda_soybean_condition_drop_poultry_recovery_long",
+    "name": "USDA Soybean Condition Deterioration -> Long Poultry at Feed Cost Trough",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "rule": "Using yfinance and USDA data: When USDA weekly crop progress shows soybean good/excellent rating dropping >10pp from the June 1 baseline by August, go long PPC (Pilgrim's Pride) on September 1 (after the feed cost spike peaks and pass-through pricing begins). Hold for 63 trading days. Benchmark vs SPY. The thesis is that poultry producers face feed cost headwinds during crop stress but pass through costs with a 1-2 quarter lag.",
+    "tickers": [
+      "PPC",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA crop progress soybean good/excellent rating drops >10pp from June 1 baseline by any August report",
+      "Enter on September 1 (or first trading day) -- timing the feed cost peak and pass-through initiation",
+      "One signal per crop year"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (through mid-November)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PPC (Pilgrim's Pride, IPO 1986), SM=F (soybean meal futures), SPY",
+      "fundamental": "USDA NASS Crop Progress (free weekly at usda.gov). Soybean condition ratings published Monday afternoons during growing season (April-November). Data back to 1986."
+    },
+    "backtest_approach": "Event study: Load USDA soybean condition ratings (1995-2025). Compute June 1 baseline good/excellent %. Identify years where August ratings dropped >10pp. Signal years expected: 2003, 2008, 2012 (severe drought), 2019, 2021. For each signal, long PPC from Sep 1 for 63 trading days vs SPY. The 2012 drought is the cleanest test (good/excellent dropped from 65% to 29%).",
+    "known_events": [
+      "2003: August soybean condition deteriorated; soybean meal rallied 40%",
+      "2008: Drought reduced soybean yields; poultry producers compressed then recovered",
+      "2012: Worst drought since 1988; soybean good/excellent fell to 29%; meal prices hit records",
+      "2021: Late-summer drought stress reduced soybean ratings significantly"
+    ],
+    "implementation_notes": "PPC (Pilgrim's Pride) is the second-largest US chicken producer. Soybean meal is 25-30% of total poultry feed cost, making it the primary feed cost variable. USDA crop progress data is the gold standard for real-time crop condition assessment. The September entry timing is designed to capture the period after feed costs have peaked (harvest-related) and before the 1-2 quarter pass-through pricing flows through to earnings. bt_feasibility is 4 because USDA crop data is free and PPC has long history.",
+    "originality": 7,
+    "bt_feasibility": 4
   }
 ]

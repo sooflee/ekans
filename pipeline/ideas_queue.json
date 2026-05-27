@@ -12530,7 +12530,7 @@
   {
     "idea_id": "PL462",
     "created_at": "2026-05-27T17:57:09.032038+00:00",
-    "status": "rejected",
+    "status": "developed",
     "name": "FERC Hydroelectric Relicensing Cluster Triggers Dam Safety and Modernization Capex",
     "category": "F",
     "asset_class": "equities",
@@ -12558,7 +12558,7 @@
   {
     "idea_id": "PL463",
     "created_at": "2026-05-27T17:57:09.032038+00:00",
-    "status": "rejected",
+    "status": "developed",
     "name": "EIA SEDS Industrial Electricity Consumption Rebound Signals Utility Load Growth and Rate Base Expansion",
     "category": "E",
     "asset_class": "equities",
@@ -12614,7 +12614,7 @@
   {
     "idea_id": "PL465",
     "created_at": "2026-05-27T17:57:40.969549+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "USDA NAHMS Disease Prevalence Survey Spike Drives Veterinary Pharmaceutical Demand",
     "category": "G",
     "asset_class": "equities",
@@ -12636,12 +12636,13 @@
     "bt_feasibility": 3,
     "source_reference": "USDA NAHMS study publications; AVMA veterinary market analysis",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usda_nahms_disease_prevalence_vet_pharma"
+    "dedup_key": "usda_nahms_disease_prevalence_vet_pharma",
+    "reject_reason": "bt_feasibility=3: USDA NAHMS disease surveys are infrequent (every 3-5 years per species); RELATED-VARIANT of PL369 (APHIS disease outbreak -> IDXX/ZTS) which uses more timely event data"
   },
   {
     "idea_id": "PL466",
     "created_at": "2026-05-27T17:57:40.969549+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "TIC Foreign Agency MBS Purchase Surge Compresses Mortgage Spreads, Long Homebuilders",
     "category": "B",
     "asset_class": "equities",
@@ -12668,7 +12669,7 @@
   {
     "idea_id": "PL467",
     "created_at": "2026-05-27T17:57:40.969549+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "GitHub Trending Repository Stars for Enterprise Tools Predicts SaaS Revenue Acceleration",
     "category": "J",
     "asset_class": "equities",
@@ -12690,6 +12691,251 @@
     "bt_feasibility": 3,
     "source_reference": "Beaulieu et al. on open-source adoption metrics; Bessemer cloud index methodology",
     "research_phase": "pipeline_scout",
-    "dedup_key": "github_trending_enterprise_tool_adoption"
+    "dedup_key": "github_trending_enterprise_tool_adoption",
+    "reject_reason": "bt_feasibility=3: GitHub trending stars are noisy and driven by developer communities, not enterprise purchasing decisions; no systematic correlation with SaaS revenue demonstrated"
+  },
+  {
+    "idea_id": "PL468",
+    "created_at": "2026-05-27T17:58:13.502340+00:00",
+    "status": "rejected",
+    "name": "NOAA Coral Reef Watch Mass Bleaching Diverts Caribbean Tourism to US Resorts",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When NOAA Coral Reef Watch issues Alert Level 2 (mass bleaching likely) for >60% of Caribbean monitoring stations simultaneously, dive tourism and snorkeling-dependent destinations lose attractiveness. Travelers divert to US-based resort destinations (Florida, Hawaii, US Virgin Islands). Hotel/resort REITs concentrated in US destinations (HST, PK) benefit from diverted demand and RevPAR improvement.",
+    "causal_chain": [
+      "1. NOAA CRW issues Alert Level 2 for >60% of Caribbean monitoring stations",
+      "2. Mass bleaching degrades reef ecosystems, reducing dive/snorkel tourism appeal",
+      "3. Travel agencies and tourists substitute US mainland/Hawaii resort destinations",
+      "4. US resort hotel RevPAR improves from demand diversion during affected season",
+      "5. HST/PK resort segment same-property RevPAR beats expectations"
+    ],
+    "data_sources": [
+      "NOAA Coral Reef Watch (coralreefwatch.noaa.gov, free daily satellite data)",
+      "STR hotel occupancy data (limited free)",
+      "yfinance for HST/PK"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA CRW documentation; World Travel & Tourism Council economic impact reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_crw_bleaching_caribbean_cruise_diversion",
+    "reject_reason": "bt_feasibility=3: NOAA coral bleaching events are infrequent; Caribbean-to-US tourism diversion thesis is speculative and US resort stocks have many other drivers"
+  },
+  {
+    "idea_id": "PL469",
+    "created_at": "2026-05-27T17:58:13.502340+00:00",
+    "status": "developed",
+    "name": "FCC USF Contribution Factor Increase Drives Rural Telecom Revenue Recovery",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When FCC increases the Universal Service Fund (USF) contribution factor (quarterly announcement), it signals expanding USF high-cost program funding. Rural telecom carriers receiving USF support (e.g., Lumen rural ILEC segment, Consolidated Communications, Windstream) see predictable revenue increases proportional to the factor change. Long rural telecom beneficiaries when USF factor rises >1pp quarter-over-quarter.",
+    "causal_chain": [
+      "1. FCC announces USF contribution factor increase >1pp (quarterly, published in Federal Register)",
+      "2. Higher contribution factor = larger USF fund available for high-cost program disbursements",
+      "3. Rural telecom carriers receiving high-cost support see larger monthly support payments",
+      "4. Incremental USF revenue flows directly to bottom line (high-margin subsidy)",
+      "5. Rural ILECs/CLECs report improved revenue and margin in subsequent quarter"
+    ],
+    "data_sources": [
+      "FCC USF contribution factor announcements (fcc.gov/general/contribution-factor-quarterly-filings)",
+      "USAC disbursement reports",
+      "yfinance for LUMN/CNSL"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "FCC Universal Service Monitoring Report; USAC quarterly reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fcc_usf_contribution_factor_increase_rural_telco"
+  },
+  {
+    "idea_id": "PL470",
+    "created_at": "2026-05-27T17:58:13.502340+00:00",
+    "status": "developed",
+    "name": "USDA Soybean Condition Deterioration Drives Meal Price Spike, Compresses Poultry then Recovers",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When USDA weekly crop progress shows soybean good/excellent condition dropping >10pp from June baseline by August, soybean meal futures surge on yield concern. Poultry producers (PPC, SAFM) face feed cost headwinds but historically pass through costs with a 1-2 quarter lag via retail/foodservice price increases. Long poultry producers at the trough of the feed cost spike when pass-through begins.",
+    "causal_chain": [
+      "1. USDA weekly crop progress shows soybean good/excellent rating dropping >10pp by August",
+      "2. Soybean meal futures (CBOT) surge on anticipated supply shortfall",
+      "3. Poultry producer feed costs rise sharply (soy meal = 25-30% of total feed cost)",
+      "4. Producers announce retail/foodservice price increases to pass through feed costs",
+      "5. PPC/SAFM margins trough then recover as pass-through takes hold 1-2 quarters later"
+    ],
+    "data_sources": [
+      "USDA NASS Crop Progress report (weekly, free)",
+      "CBOT soybean meal futures (yfinance SM=F)",
+      "yfinance for PPC"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA Crop Progress methodology; Lusk & Tonsor on feed cost pass-through in protein markets",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_soybean_condition_deterioration_meal_poultry"
+  },
+  {
+    "idea_id": "PL471",
+    "created_at": "2026-05-27T17:58:48.970424+00:00",
+    "status": "new",
+    "name": "DOE ARPA-E Program Announcement Technology Focus Predicts VC and Public Market Theme Rotation",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When DOE ARPA-E announces a new focused program (e.g., SCALEUP, OPEN+) targeting a specific technology area (e.g., long-duration energy storage, direct air capture, nuclear microreactors), it signals federal technology validation. The announcement drives VC interest into adjacent public companies in that technology space, creating a 3-6 month momentum trade in the thematic beneficiaries.",
+    "causal_chain": [
+      "1. DOE ARPA-E publishes new focused program FOA in specific technology category",
+      "2. Federal technology validation attracts VC capital into the technology domain",
+      "3. Public companies adjacent to the funded technology receive increased analyst attention",
+      "4. Thematic ETFs and institutional flows rotate into the validated technology space",
+      "5. Public beneficiaries (identifiable from ARPA-E program descriptions) outperform over 3-6 months"
+    ],
+    "data_sources": [
+      "DOE ARPA-E program announcements (arpa-e.energy.gov, free)",
+      "DOE FOA database (energy.gov/eere/funding)",
+      "yfinance for thematic beneficiaries"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "ARPA-E program documentation; Mazzucato (2013) on mission-oriented innovation policy",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_arpa_e_open_program_tech_category_vc"
+  },
+  {
+    "idea_id": "PL472",
+    "created_at": "2026-05-27T17:58:48.970424+00:00",
+    "status": "new",
+    "name": "Baltic FFA Forward Curve Flipping to Contango Signals Dry Bulk Equity Recovery",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Baltic Exchange Forward Freight Agreement (FFA) curve for Capesize or Panamax flips from backwardation to contango (forward rates exceeding spot by >15%), it signals the market expects freight rate recovery. Dry bulk equities (SBLK, GNK, GOGL) are deeply cyclical and re-rate aggressively on forward rate improvement signals, often leading the spot market by 4-6 weeks.",
+    "causal_chain": [
+      "1. Baltic FFA forward curve flips from backwardation to contango (forward > spot by >15%)",
+      "2. Forward curve shape signals market expects freight rate recovery ahead",
+      "3. Dry bulk shipping equities, priced off NAV and forward earnings, begin re-rating",
+      "4. Spot rates follow forward curve signal with 4-6 week lag",
+      "5. SBLK/GNK/GOGL outperform as both spot and NAV expectations improve"
+    ],
+    "data_sources": [
+      "Baltic Exchange FFA data (limited free via shipping news sites)",
+      "BDI index (FRED DBDI)",
+      "yfinance for SBLK/GNK/GOGL"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Kavussanos & Visvikis (2004) on FFA market information; Alizadeh & Nomikos (2009) shipping derivatives",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "baltic_ffa_forward_curve_contango_dry_bulk"
+  },
+  {
+    "idea_id": "PL473",
+    "created_at": "2026-05-27T17:58:48.970424+00:00",
+    "status": "new",
+    "name": "CMS Medicare Advantage Star Rating Upgrade Predicts MCO Membership Growth and Revenue",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-24 weeks",
+    "thesis": "When CMS publishes annual MA Star Ratings (October) showing an MCO's plans upgrading from 3.5 to 4+ stars, the MCO qualifies for quality bonus payments (~5% higher benchmark) AND gains marketing advantages during AEP. This combination drives membership growth during the Annual Enrollment Period (Oct-Dec) and revenue per member expansion starting January. Long the upgraded MCO.",
+    "causal_chain": [
+      "1. CMS publishes annual MA Star Ratings showing MCO upgrading from 3.5 to 4+ stars",
+      "2. MCO qualifies for 5% quality bonus payments, increasing per-member revenue",
+      "3. Higher star rating enables preferred marketing during Annual Enrollment Period",
+      "4. AEP membership growth accelerates for upgraded plans",
+      "5. MCO reports both membership and per-member revenue beats starting Q1"
+    ],
+    "data_sources": [
+      "CMS Medicare Advantage Star Ratings (cms.gov/medicare/health-plans/part-c-d-performance-data, annual October)",
+      "CMS monthly enrollment reports",
+      "yfinance for UNH/HUM/CVS"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "CMS Star Ratings methodology; McWilliams et al. (Health Affairs 2020) on star rating effects",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cms_ma_star_rating_upgrade_mco_membership"
+  },
+  {
+    "idea_id": "PL474",
+    "created_at": "2026-05-27T17:59:24.214199+00:00",
+    "status": "new",
+    "name": "ERCOT Energy Emergency Alert Frequency Signals Peaker IPP Revenue Windfall",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "When ERCOT issues >3 Energy Emergency Alerts (EEA1+) in a single month during summer (rare, occurring only in extreme heat/demand years), real-time settlement prices spike to the $5,000/MWh ORDC cap for extended hours. Gas peaker and battery storage operators in ERCOT (VST Luminant fleet, NRG Texas fleet) earn windfalls of $50-200M per event. Long the ERCOT-heavy IPP during sustained heat waves.",
+    "causal_chain": [
+      "1. ERCOT issues >3 EEA1+ alerts in a single month (real-time grid operator data)",
+      "2. Real-time settlement prices hit ORDC adder cap ($5,000/MWh) for 4-8 hours per event",
+      "3. Peaker and battery storage dispatch at maximum output during scarcity pricing",
+      "4. ERCOT-heavy generators earn concentrated revenue windfalls during events",
+      "5. VST/NRG Texas fleet segments report material earnings beats in affected quarter"
+    ],
+    "data_sources": [
+      "ERCOT grid operator alerts and real-time prices (ercot.com, free)",
+      "ERCOT historical EEA archive",
+      "yfinance for VST/NRG"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "ERCOT Operating Procedure Manual; Potomac Economics ERCOT State of the Market Report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ercot_eea_alert_peaker_ipp_revenue_spike"
+  },
+  {
+    "idea_id": "PL475",
+    "created_at": "2026-05-27T17:59:24.214199+00:00",
+    "status": "new",
+    "name": "CFPB Complaint Divergence Among Neobanks Reveals Regulatory Quality Winner",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When CFPB complaint database shows one publicly-traded fintech/neobank's complaint rate (complaints per 1000 accounts) declining while peers' rates increase, it signals superior compliance infrastructure and customer experience. The low-complaint fintech avoids regulatory enforcement risk and gains market share from constrained peers. Long the divergent quality winner.",
+    "causal_chain": [
+      "1. CFPB complaint database shows fintech A's complaint rate declining while peers B/C increase",
+      "2. Declining complaints signal superior compliance, reducing regulatory enforcement risk",
+      "3. CFPB consent orders or MRAs constrain high-complaint peers, limiting their growth",
+      "4. Low-complaint fintech gains market share as peers face growth restrictions",
+      "5. Fintech A (e.g., SoFi, Ally, Marcus) outperforms constrained peers"
+    ],
+    "data_sources": [
+      "CFPB Consumer Complaint Database (consumerfinance.gov/data-research/consumer-complaints, free API)",
+      "Company 10-Q account disclosures",
+      "yfinance for SOFI/ALLY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CFPB complaint database methodology; Stango & Zinman (2022) on complaint-based regulation",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cfpb_complaint_neobank_peer_moat_winner"
+  },
+  {
+    "idea_id": "PL476",
+    "created_at": "2026-05-27T17:59:24.214199+00:00",
+    "status": "new",
+    "name": "USGS Earthquake Near Japan Auto Parts Hub Drives Reshoring Beneficiary Rally",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When USGS reports an earthquake M6.0+ within 50km of Japan's Chubu automotive manufacturing cluster (Aichi/Shizuoka prefecture), it disrupts the global auto parts supply chain. US-based auto parts manufacturers (APTV, BWA, DORM) that can serve as alternative suppliers see order inquiry surges and expedited procurement, benefiting from the supply gap.",
+    "causal_chain": [
+      "1. USGS earthquake M6.0+ near Japan Chubu auto parts cluster (Aichi/Shizuoka)",
+      "2. Japanese Tier-1/Tier-2 auto parts production disrupted for weeks to months",
+      "3. Global OEMs activate alternative supplier qualification for affected components",
+      "4. US-based alternative suppliers receive expedited orders at premium pricing",
+      "5. APTV/BWA/DORM see revenue acceleration from supply substitution"
+    ],
+    "data_sources": [
+      "USGS Earthquake Hazards Program (earthquake.usgs.gov, free real-time API)",
+      "Japan Met Agency seismic data",
+      "yfinance for APTV/BWA/DORM"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USGS earthquake data; Todo et al. (2015) on earthquake supply chain propagation",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_earthquake_japan_auto_parts_supply_gap"
   }
 ]
