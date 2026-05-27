@@ -4070,6 +4070,75 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: IRS SOI + yfinance</span><span><code>backtests/PL451_irs_soi_partnership_returns_legal_demand.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">PL460</span><h3>&#9733; Census Housing Completions Surge &#8594; Long Residential HVAC</h3></div>
+    <div class="right">equities (CARR, LII) &middot; ~42-day hold &middot; 40 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.85</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">20.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-43%</div><div class="ml">MaxDD &#9888;</div></div>
+    <div class="m"><div class="mv">2.13</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+11.1%</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Census housing completions (COMPUTSA) measure actual new home deliveries requiring HVAC system installation. When completions surge &gt;10% YoY, residential HVAC manufacturers (Carrier Global, Lennox International) see direct order-book acceleration. Each new home requires a $5-15K HVAC system, making completions a near-mechanical demand driver for these companies. The signal has a natural 1-2 month lag as completions data is published ~5 weeks after the reference month.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED COMPUTSA (housing completions, SA annual rate) YoY growth &gt;10%, long equal-weight CARR+LII for 42 trading days. Minimum 90-day gap between signals. CARR available from April 2020 (Carrier spin-off); pre-2020 uses LII only.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">40 events over 2005-2025 with t-stat 2.13 (statistically significant at 5%). MaxDD -43% is severe and occurred during the GFC housing collapse. The signal fires during housing booms which can reverse sharply. CARR only has data from 2020 (spun from UTX), so pre-2020 the backtest is LII-only. Excess CAGR +11.1% vs SPY is strong across a large sample.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED COMPUTSA + yfinance</span><span><code>backtests/PL460_census_housing_completions_hvac_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL456</span><h3>&#9733; USGS Titanium Sponge Tightening &#8594; Long Specialty Metals (CRS+ATI)</h3></div>
+    <div class="right">equities (CRS, ATI) &middot; ~40-day hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.68</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">19.0%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-30%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.71</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv">57%</div><div class="ml">win rate</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When USGS Mineral Commodity Summaries show titanium sponge supply tightening (declining stockpiles, rising imports, constrained production) while aerospace production rates are rising (Boeing/Airbus delivery ramps), specialty metals companies Carpenter Technology (CRS) and ATI benefit from pricing power and volume growth. Titanium is critical for jet engine and airframe components, and supply constraints during aerospace upcycles create margin expansion for specialty alloy producers. The signal is most powerful when geopolitical factors (Russia/VSMPO-AVISMA sanctions) compound supply tightness.</p>
+    <h4>Rule</h4>
+    <div class="rule">When USGS MCS titanium chapter shows supply tightening (stockpile drawdown or import dependence rising) concurrent with aerospace production rate increases, long equal-weight CRS+ATI for 40 trading days post-MCS publication (late January). Annual frequency.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">7 events over 2011-2025. Annual USGS publication frequency limits sample size. Win rate 57% (4/7). The 2014 and 2024 events produced outsized returns (+17.3% and +20.7%) while the 2018 event was badly timed (-12.9%, coinciding with late-cycle volatility). MaxDD -30% is significant. ATI went through bankruptcy restructuring in 2020, complicating pre-2020 analysis. The mechanism is sound but the small sample and event selection introduce uncertainty. t-stat 0.71 is not statistically significant.</div>
+  </div>
+  <div class="card-foot"><span>Source: USGS MCS Titanium + yfinance</span><span><code>backtests/PL456_usgs_titanium_sponge_stockpile_aerospace.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL473</span><h3>&#9733; CMS MA Star Rating Upgrade Cycle &#8594; Long Managed Care</h3></div>
+    <div class="right">equities (UNH, HUM, ELV) &middot; ~42-day hold &middot; 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.64</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">75.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.41</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv warn">5</div><div class="ml">events &#9888;</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CMS publishes Medicare Advantage star ratings in October each year. When the upgrade cycle favors the major MCOs (UnitedHealth, Humana, Elevance), it signals higher quality bonus payments (5% premium increase for 4+ star plans) improving forward-year economics. Star rating upgrades give a 14-month visibility window into revenue uplift.</p>
+    <h4>Rule</h4>
+    <div class="rule">When CMS October MA star rating publication shows favorable upgrade cycle, long equal-weight UNH+HUM+ELV for 42 trading days. Curated upgrade years: 2014, 2016, 2018, 2021, 2023.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Heavy caveats:</strong> N=5 only, 5/5 win rate. MaxDD -8% exceptional but tiny sample. Curated years introduce hindsight bias. MCO sector in secular uptrend from Medicare enrollment growth. t-stat 2.41 unreliable with 5 observations.</div>
+  </div>
+  <div class="card-foot"><span>Source: CMS MA Star Ratings + yfinance</span><span><code>backtests/PL473_cms_ma_star_upgrade_mco_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>

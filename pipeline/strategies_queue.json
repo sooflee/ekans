@@ -14555,11 +14555,13 @@
     "originality": 7,
     "bt_feasibility": 4,
     "backtest_started_at": "2026-05-27T17:58:19.468161+00:00",
-    "backtested_at": "2026-05-27T17:59:12.206605+00:00",
+    "backtested_at": "2026-05-27T18:00:17.150560+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 0.8464635361645304,
-      "cagr": 0.20333363143558492
+      "sharpe": 0.4540486651018622,
+      "cagr": 0.09459928060443223,
+      "max_dd": -0.3092502328759199,
+      "t_stat": 0.9053906257323773
     }
   },
   {
@@ -14602,11 +14604,13 @@
     "originality": 7,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T17:58:19.468331+00:00",
-    "backtested_at": "2026-05-27T17:59:12.206617+00:00",
+    "backtested_at": "2026-05-27T18:00:17.150777+00:00",
     "backtest_result": {
-      "status": "fail",
-      "sharpe": null,
-      "cagr": null
+      "status": "ok",
+      "sharpe": 0.675149447594958,
+      "cagr": 0.19026141095726423,
+      "max_dd": -0.30237524251249814,
+      "t_stat": 0.7116700051348525
     }
   },
   {
@@ -14648,11 +14652,13 @@
     "originality": 6,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T17:58:19.468333+00:00",
-    "backtested_at": "2026-05-27T17:59:12.206619+00:00",
+    "backtested_at": "2026-05-27T18:00:17.150780+00:00",
     "backtest_result": {
-      "status": "fail",
-      "sharpe": null,
-      "cagr": null
+      "status": "ok",
+      "sharpe": -1.772565552420673,
+      "cagr": -0.41829277857589153,
+      "max_dd": -0.3738147150098379,
+      "t_stat": -1.6103997786051083
     }
   },
   {
@@ -14802,7 +14808,7 @@
     "strategy_id": "PL469",
     "idea_id": "PL469",
     "created_at": "2026-05-27T17:59:12.495645+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL469_fcc_usf_factor_increase_rural_telco_long",
     "name": "FCC USF Contribution Factor Increase -> Long Rural Telecom",
     "category": "F",
@@ -14829,13 +14835,19 @@
     "backtest_approach": "Event study: Hand-code FCC USF contribution factor changes (2005-2025). Identify quarters with >1pp increases. Long CNSL for 42 trading days per signal. The USF factor has ranged from 8% to 36% historically, with significant QoQ moves.",
     "implementation_notes": "CNSL is a rural ILEC with significant USF high-cost support revenue. LUMN has rural ILEC segment but is heavily leveraged with enterprise/fiber focus making USF less material. bt_feasibility is 4 because FCC data is public and quarterly.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T18:00:23.943275+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null
+    }
   },
   {
     "strategy_id": "PL470",
     "idea_id": "PL470",
     "created_at": "2026-05-27T17:59:12.495645+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL470_usda_soybean_condition_drop_poultry_recovery_long",
     "name": "USDA Soybean Condition Deterioration -> Long Poultry at Feed Cost Trough",
     "category": "G",
@@ -14867,6 +14879,478 @@
       "2021: Late-summer drought stress reduced soybean ratings significantly"
     ],
     "implementation_notes": "PPC (Pilgrim's Pride) is the second-largest US chicken producer. Soybean meal is 25-30% of total poultry feed cost, making it the primary feed cost variable. USDA crop progress data is the gold standard for real-time crop condition assessment. The September entry timing is designed to capture the period after feed costs have peaked (harvest-related) and before the 1-2 quarter pass-through pricing flows through to earnings. bt_feasibility is 4 because USDA crop data is free and PPC has long history.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T18:00:23.943281+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.7672686768772372,
+      "cagr": -0.6990622692455488
+    }
+  },
+  {
+    "strategy_id": "PL473",
+    "idea_id": "PL473",
+    "created_at": "2026-05-27T17:59:47.872660+00:00",
+    "status": "done",
+    "signal_id": "PL473_cms_ma_star_upgrade_mco_long",
+    "name": "CMS MA Star Rating Upgrade -> Long Upgraded MCO (UNH/HUM)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-24 weeks",
+    "rule": "Using yfinance and CMS data: When CMS annual MA Star Ratings (published October) show a major MCO's weighted-average star rating improving from below 4.0 to 4.0+ (triggering quality bonus payments), go long that MCO on the first trading day after the CMS Star Rating release. Hold for 63 trading days (through mid-January, covering AEP membership growth). Benchmark vs SPY.",
+    "tickers": [
+      "UNH",
+      "HUM",
+      "CVS",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CMS MA Star Ratings show major MCO upgrading to 4.0+ stars from below 4.0",
+      "Enter on first trading day after October CMS Star Rating publication",
+      "One signal per MCO per year"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: UNH, HUM (Humana), CVS (Aetna MA), CNC (Centene), SPY",
+      "fundamental": "CMS MA Star Ratings (free at cms.gov/medicare/health-plans/part-c-d-performance-data). Published annually in October. Data back to 2009."
+    },
+    "backtest_approach": "Event study: Review CMS Star Rating changes for UNH/HUM/CVS/CNC MA plans (2009-2025). Identify years where weighted-average stars crossed 4.0 threshold. Long the upgraded MCO for 63 trading days from October publication. The 4.0 threshold is critical because it triggers the 5% quality bonus payment -- a significant per-member revenue uplift.",
+    "implementation_notes": "CMS Star Ratings are the most important annual event for MA plans. The 4.0 threshold triggers ~5% quality bonus (extra benchmark funding) AND marketing advantages during AEP. UNH (UnitedHealthcare), HUM (Humana), and CVS (Aetna) are the three largest MA insurers. Star rating changes are plan-level, so the MCO's weighted-average across all plans is what matters. bt_feasibility is 4 because CMS data is public but requires plan-level aggregation to MCO level.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T18:00:23.943282+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.6393723200932415,
+      "cagr": 0.7537226455807675
+    }
+  },
+  {
+    "strategy_id": "PL471",
+    "idea_id": "PL471",
+    "created_at": "2026-05-27T18:00:22.525737+00:00",
+    "status": "done",
+    "signal_id": "PL471_doe_arpae_program_cleantech_thematic",
+    "name": "DOE ARPA-E Program Announcement -> Technology Focus -> Clean Energy Thematic Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and DOE ARPA-E data: When DOE ARPA-E announces a new focused program with funding > $100M targeting a specific clean energy technology (e.g., long-duration storage, nuclear microreactors, hydrogen), go long the most relevant public company in that technology space on the trading day after the announcement. Hold for 30 trading days. Benchmark vs SPY. ARPA-E program announcements are published at arpa-e.energy.gov (free). New programs signal DOE technology prioritization which drives follow-on private and public investment. Map technology to ticker: nuclear -> BWXT, hydrogen/fuel cells -> PLUG/BE, energy storage -> relevant plays.",
+    "tickers": [
+      "BWXT",
+      "PLUG",
+      "BE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "DOE ARPA-E announces new focused program with funding > $100M",
+      "Program targets a specific technology with identifiable public company beneficiaries",
+      "Enter on trading day after ARPA-E program announcement",
+      "At most one signal per ARPA-E program announcement"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: BWXT (BWX Technologies, nuclear), PLUG (Plug Power, hydrogen), BE (Bloom Energy, fuel cells), SPY. Ticker selection depends on program technology focus.",
+      "fundamental": "DOE ARPA-E program announcements (free): https://arpa-e.energy.gov/programs - full archive of all programs with technology focus, funding amount, and announcement date."
+    },
+    "backtest_approach": "Event study: For each ARPA-E program announcement (2015-2025) with >$100M funding, map the technology focus to the most relevant public ticker and compute return over 30 trading days vs SPY. ARPA-E has announced 50+ programs since inception (2009). Not all have clear public company beneficiaries. Estimate 10-15 mappable events. The thesis: DOE technology prioritization signals upcoming VC/PE investment waves that eventually drive public market re-rating of related stocks.",
+    "known_events": [
+      "2021: ARPA-E SCALEUP program for commercialization",
+      "2022: Multiple hydrogen-focused ARPA-E programs",
+      "2023: Long-duration storage and nuclear programs announced"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because: (a) technology-to-ticker mapping is subjective, (b) ARPA-E programs fund early-stage R&D so public company impact is indirect, (c) clean energy stocks are driven by many factors beyond DOE programs. The strategy requires a manual mapping table from ARPA-E technology categories to public tickers, which introduces subjectivity. BWXT (nuclear), PLUG (hydrogen), BE (fuel cells/solid oxide) are the most common mappings.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T18:00:54.087529+00:00",
+    "backtested_at": "2026-05-27T18:02:17.321261+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL472",
+    "idea_id": "PL472",
+    "created_at": "2026-05-27T18:00:22.525737+00:00",
+    "status": "done",
+    "signal_id": "PL472_baltic_ffa_contango_drybulk_recovery",
+    "name": "Baltic FFA Forward Curve Flipping to Contango -> Dry Bulk Equity Recovery -> SBLK/GNK Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and Baltic Exchange data: When the Baltic Exchange FFA (Forward Freight Agreement) curve for Capesize or Panamax routes flips from backwardation to contango (6-month forward rate exceeds spot BDI-equivalent by > 15%), go long an equal-weight basket of dry bulk shipping stocks (SBLK, GNK, GOGL) on the next trading day. Hold for 30 trading days. Benchmark vs SPY. The FFA contango flip signals that the market expects freight rate recovery, which typically precedes actual spot rate improvement by 2-4 weeks. Baltic Exchange data is partially free (BDI published daily); detailed FFA data may require subscription.",
+    "tickers": [
+      "SBLK",
+      "GNK",
+      "GOGL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Baltic FFA 6-month forward rate exceeds current spot (BDI proxy) by > 15%",
+      "The curve must have been in backwardation (forward < spot) in the prior month",
+      "Enter on next trading day after contango flip confirmed",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SBLK (Star Bulk Carriers), GNK (Genco Shipping), GOGL (Golden Ocean Group), BDRY (Breakwave Dry Bulk Shipping ETF for BDI proxy), SPY",
+      "fundamental": "Baltic Exchange BDI (Baltic Dry Index) - daily spot rate index (free summary at balticexchange.com). Detailed FFA forward curves may require subscription or use Clarksons Research. Alternative: use BDRY ETF (tracks BDI futures) term structure as proxy."
+    },
+    "backtest_approach": "Event study: For each FFA contango flip (2010-2025), compute SBLK+GNK+GOGL return over 30 trading days vs SPY. SBLK IPO 2007, GNK IPO 2005, GOGL IPO 2004. The BDI is notoriously volatile so contango/backwardation flips occur multiple times per year. With 90-day gap, expect 2-4 events per year. Key recovery signals: 2009 Q1 (post-GFC rebound), 2012 Q4 (China stimulus), 2016 Q1 (BDI bottom), 2020 Q2 (post-COVID), 2023 Q1 (post-China-reopening). bt_feasibility is 3 because: (a) detailed FFA data is not freely available, (b) BDI is available but constructing the forward curve from public data is difficult.",
+    "known_events": [
+      "2009 Q1: BDI recovered from ~660 to 4000, massive contango signal",
+      "2016 Q1: BDI hit all-time low of 290, contango flip preceded recovery",
+      "2020 Q2: COVID recovery drove dry bulk recovery",
+      "2023 Q1: China reopening expectations drove FFA contango"
+    ],
+    "implementation_notes": "The main bt_feasibility challenge is FFA data access. The BDI is published daily by the Baltic Exchange but the forward curve (FFA prices) requires subscription data from the Baltic Exchange or brokers like Clarksons. BDRY ETF (Breakwave) tracks near-term dry bulk futures and could serve as a proxy for the FFA curve shape, but its liquidity is limited. SBLK, GNK, GOGL are all profitable dry bulk operators with good yfinance data. bt_feasibility is 3.",
+    "originality": 7,
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T18:00:54.087737+00:00",
+    "backtested_at": "2026-05-27T18:02:17.321283+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL478",
+    "idea_id": "PL478",
+    "created_at": "2026-05-27T18:00:26.786471+00:00",
+    "status": "done",
+    "signal_id": "PL478_jolts_industry_divergence_sector_rotation_long",
+    "name": "BLS JOLTS Industry Openings Divergence -> Long Outperforming Sector ETF",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FRED data: When BLS JOLTS monthly data shows a specific industry's job openings surging >20% YoY while total nonfarm openings are flat or declining YoY, go long the corresponding sector ETF on the first trading day after the JOLTS release. Hold for 42 trading days. Benchmark vs SPY. For a systematic backtest, map JOLTS industries to sector ETFs: Healthcare (JTS6200JOL) -> XLV, Technology/Information (JTS5100JOL) -> XLK, Construction (JTS2300JOL) -> XHB, Manufacturing (JTS3000JOL) -> XLI.",
+    "tickers": [
+      "XLV",
+      "XLK",
+      "XHB",
+      "XLI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS JOLTS specific industry openings YoY growth >20% while total nonfarm openings YoY <= 0%",
+      "Divergence sustained for 2 consecutive months",
+      "Enter on first trading day after JOLTS monthly release",
+      "Minimum 60 calendar days between signals per sector"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLV, XLK, XHB, XLI, XLE, XLF, XLU, XLY, SPY",
+      "fundamental": "FRED: JOLTS by industry (JTS series). Monthly, ~2 month lag. Data back to 2001. Key series: JTS6200JOL (healthcare), JTS5100JOL (information), JTS2300JOL (construction), JTS3000JOL (manufacturing)."
+    },
+    "backtest_approach": "Event study: Load FRED JOLTS industry-level openings (2002-2025). Compute YoY growth for each industry and total. Identify months where an industry's openings grow >20% YoY while total is flat/declining. Map to sector ETFs. Long the outperforming sector for 42 trading days vs SPY. The hypothesis is that JOLTS industry divergence leads sector relative performance because labor demand precedes revenue growth by 1-2 quarters.",
+    "implementation_notes": "JOLTS data has been published since 2001 with industry-level detail. The NAICS-to-sector-ETF mapping is approximate but reasonable. Multiple sectors can trigger simultaneously; each is tracked independently. bt_feasibility is 4 because FRED JOLTS data is clean and monthly, and sector ETFs are liquid.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtest_started_at": "2026-05-27T18:00:54.087739+00:00",
+    "backtested_at": "2026-05-27T18:02:17.321286+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4519028411488655,
+      "cagr": 0.21667124802587323
+    }
+  },
+  {
+    "strategy_id": "PL480",
+    "idea_id": "PL480",
+    "created_at": "2026-05-27T18:01:13.436565+00:00",
+    "status": "done",
+    "signal_id": "PL480_dot_nbi_bridge_age_concrete_demand",
+    "name": "DOT NBI Average Bridge Age Record -> Concrete and Rebar Demand Surge -> VMC/MLM Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and DOT NBI data: When FHWA National Bridge Inventory annual update shows average bridge age exceeding the prior year's record AND federal bridge repair funding (IIJA allocations) exceeds $10B annually, go long an equal-weight basket of construction aggregates companies (VMC, MLM) on the first trading day after NBI annual data release. Hold for 40 trading days. Benchmark vs SPY. FHWA NBI is published annually (free at fhwa.dot.gov). Rising average bridge age + federal funding creates a multi-year demand pull for concrete, aggregates, and rebar.",
+    "tickers": [
+      "VMC",
+      "MLM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FHWA NBI annual update shows average US bridge age at new record high",
+      "Federal bridge repair funding (IIJA bridge formula program) allocated > $10B for current year",
+      "Enter on first trading day after NBI annual publication",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: VMC (Vulcan Materials, largest US aggregates producer), MLM (Martin Marietta Materials, aggregates/cement), SPY",
+      "fundamental": "FHWA National Bridge Inventory (free): https://www.fhwa.dot.gov/bridge/nbi.cfm - annual database of all 617K US bridges with age, condition rating, sufficiency rating. Also IIJA funding tracker at build.gov."
+    },
+    "backtest_approach": "Event study: For each NBI annual release (2010-2025), check if average bridge age hit record. Average bridge age has been rising monotonically, so the signal may fire every year. The real catalyst is the combination of aging bridges + federal funding availability (IIJA passed Nov 2021). Post-IIJA events (2022-2025) are the most relevant. VMC and MLM have long public histories. Calculate average excess return over 40 days vs SPY.",
+    "known_events": [
+      "2015: FAST Act provided 5-year highway funding",
+      "2021: IIJA allocated $40B for bridges over 5 years",
+      "2023-2025: IIJA bridge funding flowing to states"
+    ],
+    "implementation_notes": "VMC and MLM are the two largest US aggregates companies, directly benefiting from bridge construction (concrete requires aggregates). CMC (Commercial Metals) for rebar was in the original idea but VMC/MLM are purer plays on infrastructure spending volume. bt_feasibility is 3 because: (a) annual frequency, (b) bridge age rises monotonically so the signal is almost always 'on', (c) the real driver is funding disbursement timing which is harder to track.",
+    "originality": 6,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T18:02:17.321289+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL481",
+    "idea_id": "PL481",
+    "created_at": "2026-05-27T18:01:13.436565+00:00",
+    "status": "done",
+    "signal_id": "PL481_sec_form_d_sector_concentration_theme",
+    "name": "SEC Form D Private Placement Sector Concentration -> Public Market Theme Re-Rating",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and SEC EDGAR Form D data: When SEC EDGAR Form D filings (private placements) in a specific industry group (NAICS 2-digit) exceed the trailing 12-month monthly average by > 50% for 2 consecutive months, go long the corresponding sector ETF on the first trading day of the following month. Hold for 30 trading days. Benchmark vs SPY. SEC EDGAR publishes all Form D filings in machine-readable XML (free). Industry mapping: NAICS 51 (Information) -> XLK, NAICS 62 (Healthcare) -> XLV, NAICS 72 (Accommodation/Food) -> PEJ. High private placement activity signals VC/PE capital flowing into a sector, which leads public market re-rating 2-4 quarters later.",
+    "tickers": [
+      "XLK",
+      "XLV",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SEC EDGAR monthly Form D filings in a specific NAICS 2-digit sector exceed trailing 12-month average by > 50%",
+      "Condition sustained for 2 consecutive months",
+      "Enter on first trading day of following month in the matched sector ETF",
+      "Minimum 90 calendar days between signals for the same sector"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLK (Technology Select Sector SPDR), XLV (Health Care Select Sector SPDR), or other sector ETF matched to the NAICS code. SPY as benchmark.",
+      "fundamental": "SEC EDGAR Form D filings (free): https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=D&dateb=&owner=include&count=40 - XML full-text search. Also SEC EDGAR Full-Text Search at efts.sec.gov for bulk analysis."
+    },
+    "backtest_approach": "Event study: For each month (2010-2025) where a specific sector's Form D filings spiked >50% above 12-month average for 2 months, compute the matched sector ETF return over 30 trading days vs SPY. The mapping from NAICS to sector ETF requires a predefined table. Private placement activity is a leading indicator of venture/PE capital allocation. Key sectors to track: Information (51)->XLK, Healthcare (62)->XLV, Manufacturing (31-33)->XLI. Calculate average excess return per sector and combined.",
+    "known_events": [
+      "2020-2021: Massive FinTech/crypto Form D surge preceded XLF rally",
+      "2021: Healthcare private placements surged ahead of biotech M&A wave",
+      "2023: AI-related Form D filings clustered in NAICS 51"
+    ],
+    "implementation_notes": "SEC EDGAR Form D data is free but requires parsing XML filings. The NAICS code is included in the Form D filing. Aggregating monthly counts by NAICS 2-digit code and comparing to trailing average is computationally feasible. The main challenge is the mapping from private placement sector to public market ETF -- the relationship is indirect. bt_feasibility is 3 because: (a) Form D XML parsing is non-trivial, (b) sector mapping is subjective, (c) the private-to-public transmission mechanism has variable lag.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T18:02:17.321291+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL482",
+    "idea_id": "PL482",
+    "created_at": "2026-05-27T18:01:15.428987+00:00",
+    "status": "done",
+    "signal_id": "PL482_usda_cheese_price_drop_dairy_processor_long",
+    "name": "USDA Cheese Price Decline -> Long Dairy-Exposed Food Processors (CAG)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: When CME Class III milk futures (or proxy: DC=F dairy futures on yfinance if available) decline >15% from trailing 90-day high, go long CAG (Conagra Brands) on the next trading day. Hold for 30 trading days. Benchmark vs SPY. The thesis is that declining dairy commodity prices reduce input costs for food processors with significant dairy exposure, driving margin expansion.",
+    "tickers": [
+      "CAG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CME block/barrel cheese prices decline below $1.50/lb for 4+ consecutive weeks",
+      "Proxy: Class III milk futures decline >15% from 90-day high",
+      "Enter on next trading day after signal confirmation",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CAG (Conagra Brands), GIS (General Mills, dairy-exposed), SPY",
+      "fundamental": "USDA AMS Dairy Market News (free weekly). CME dairy futures settlement prices (free delayed). FRED series for milk prices if available."
+    },
+    "backtest_approach": "Event study: Identify periods where cheese/Class III prices dropped >15% from 90-day highs (2005-2025). Key expected events: 2006 (dairy surplus), 2009 (GFC dairy crash), 2012 (brief downturn), 2016 (sustained surplus), 2020 Q2 (COVID dairy crash). Long CAG for 30 trading days per signal. The mechanism: dairy is 15-20% of CAG's COGS; a 15% decline in dairy inputs saves ~$50-100M annually.",
+    "implementation_notes": "CAG (Conagra) has significant dairy exposure through brands like Reddi-wip, PAM, and cheese-containing frozen meals. GIS (General Mills) also has dairy exposure through yogurt (Yoplait). LNDC is a purer dairy play but has limited liquidity. bt_feasibility is 4 because USDA dairy price data is free and weekly, though CME futures on yfinance may have gaps.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T18:02:17.321293+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL484",
+    "idea_id": "PL484",
+    "created_at": "2026-05-27T18:02:00.576792+00:00",
+    "status": "done",
+    "signal_id": "PL484_cftc_cot_soybean_meal_net_short_squeeze_long",
+    "name": "CFTC COT Soybean Meal Extreme Net Short -> Contrarian Long SM=F",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "rule": "Using yfinance and CFTC COT data: When CFTC weekly COT shows managed money net short in CBOT soybean meal (contract code 026603) falls below the 10th percentile of trailing 260-week range, go long SM=F (soybean meal futures) on the Monday after the Friday COT report. Hold for 15 trading days. Benchmark vs SPY. Same contrarian approach as PL366 (copper) but applied to soybean meal.",
+    "tickers": [
+      "SM=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CFTC COT managed money net position in soybean meal below 10th percentile of 260-week range",
+      "Enter on Monday after Friday COT release",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SM=F (CBOT soybean meal futures), SPY",
+      "fundamental": "CFTC COT disaggregated report: soybean meal contract 026603. Free weekly at cftc.gov. Data back to 2006 (disaggregated)."
+    },
+    "backtest_approach": "Event study: Download CFTC COT soybean meal data (2006-2025). Compute managed money net position rolling 260-week percentile. Identify weeks below 10th percentile. Long SM=F for 15 trading days per signal. Soybean meal is less studied than crude/copper in positioning literature, potentially offering more alpha.",
+    "implementation_notes": "Soybean meal COT data is clean and available from 2006. SM=F on yfinance may have gaps; CME settlement data is the backup. The mechanism is identical to PL366 (copper) -- crowded speculative shorts create coiled spring for short-covering rallies. bt_feasibility is 5 because CFTC data is machine-readable CSV.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T18:02:17.321295+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL485",
+    "idea_id": "PL485",
+    "created_at": "2026-05-27T18:02:00.576792+00:00",
+    "status": "done",
+    "signal_id": "PL485_google_trends_layoff_spike_hr_tech_long",
+    "name": "Google Trends Layoff Spike -> Long HR Tech Platforms (PAYC/PCTY)",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and Google Trends data: When Google Trends weekly search volume for 'layoff' (US, all categories) exceeds 2x its trailing 52-week average, go long equal-weight PAYC + RHI on the next trading day. Hold for 30 trading days. Benchmark vs SPY. The thesis is that layoff waves drive demand for outplacement services, severance administration, and HR tech platforms.",
+    "tickers": [
+      "PAYC",
+      "RHI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Google Trends 'layoff' search volume >2x trailing 52-week average",
+      "Condition persists for 2+ consecutive weeks",
+      "Enter on next trading day after 2nd qualifying week",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PAYC (Paycom Software, IPO Apr 2014), RHI (Robert Half International), PCTY (Paylocity), SPY",
+      "fundamental": "Google Trends API (free, weekly resolution, data back to 2004). Search term: 'layoff', region: US."
+    },
+    "backtest_approach": "Event study: Load Google Trends 'layoff' weekly data (2004-2025). Compute 52-week rolling average. Identify weeks where search volume >2x average for 2+ consecutive weeks. Key expected events: 2008-2009 (GFC mass layoffs), 2020 Mar-Apr (COVID layoffs), 2022 Q4-2023 Q1 (tech layoff wave). Long PAYC+RHI for 30 trading days per signal. PAYC IPO Apr 2014; pre-2014 use RHI only. The 2022-2023 tech layoff wave is the cleanest modern test.",
+    "known_events": [
+      "2008-2009: GFC mass layoffs; Google Trends spiked massively",
+      "2020 Mar-Apr: COVID lockdown layoffs; Google Trends 'layoff' hit all-time highs",
+      "2022 Q4-2023 Q1: Tech sector layoff wave (Meta, Google, Amazon, Microsoft); Google Trends spiked"
+    ],
+    "implementation_notes": "PAYC (Paycom) IPO April 2014. RHI (Robert Half) has been public since 1990s. The contrarian element: when 'layoff' search spikes, it's bearish sentiment but HR tech companies actually benefit from the restructuring activity. RHI's Protiviti consulting division benefits from restructuring engagements. bt_feasibility is 4 because Google Trends data is free and weekly, though the API has rate limits.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T18:02:17.321297+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL484",
+    "idea_id": "PL484",
+    "created_at": "2026-05-27T18:02:26.462935+00:00",
+    "status": "ready",
+    "signal_id": "PL484_cftc_soybean_meal_short_extreme_contrarian",
+    "name": "CFTC Soybean Meal Managed Money Net Short Extreme -> Contrarian Long SM=F",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "rule": "Using yfinance and CFTC COT data: When CFTC weekly Commitment of Traders shows managed money net short in CBOT soybean meal exceeding the 90th percentile of the trailing 5-year distribution, go long SM=F (soybean meal futures) proxy via relevant equities or hold the futures position for 15 trading days. Since SM=F is futures-only on yfinance, use DAR (Darling Ingredients, soybean meal processor) as equity proxy. Enter on Monday following Friday COT release. Hold for 15 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "SM=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CFTC COT managed money net short in CBOT soybean meal exceeds 90th percentile of trailing 5-year distribution",
+      "Net short = (short contracts - long contracts) for managed money category",
+      "Enter on Monday following Friday COT release",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SM=F (CBOT soybean meal continuous futures), SPY",
+      "fundamental": "CFTC Commitment of Traders - Disaggregated Futures (free): https://www.cftc.gov/dea/futures/ag_lf.htm - soybean meal contract 026603. Fields: Managed Money Long, Managed Money Short. Weekly Friday 3:30 PM ET."
+    },
+    "backtest_approach": "Event study: For each Friday COT release (2010-2025) where managed money net short in soybean meal exceeded 90th percentile of trailing 5-year distribution, compute SM=F return over 15 trading days. The contrarian thesis: extreme speculative shorts are vulnerable to short-covering rallies from any positive catalyst (Chinese buying, weather threat, crush margin improvement). Soybean meal is the primary protein feed ingredient globally, making it sensitive to livestock demand signals. Expected 8-15 events. bt_feasibility is 5 because CFTC data is clean, free, weekly, machine-readable.",
+    "known_events": [
+      "2014: Extreme net short preceded major soybean meal rally on Argentina drought",
+      "2017: Net short extreme preceded meal rally on Chinese demand",
+      "2019: Net short extreme preceded rally on ASF-driven Chinese soy imports",
+      "2023: Speculative short covering drove sharp meal rally"
+    ],
+    "implementation_notes": "CFTC COT data for soybean meal is clean and available in the same CSV as other ag contracts. SM=F on yfinance provides continuous soybean meal futures. The 90th percentile threshold automatically adjusts for changing open interest levels. Soybean meal is more interesting than soybeans for contrarian positioning because meal demand is driven by animal feed (less discretionary than food-grade soy). bt_feasibility is 5/5 -- textbook contrarian signal with excellent data.",
+    "originality": 7,
+    "bt_feasibility": 5
+  },
+  {
+    "strategy_id": "PL485",
+    "idea_id": "PL485",
+    "created_at": "2026-05-27T18:02:26.462935+00:00",
+    "status": "ready",
+    "signal_id": "PL485_google_trends_layoff_hr_tech_revenue",
+    "name": "Google Trends Layoff Search Spike -> Outplacement and HR Tech Revenue -> PAYC/RHI Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and Google Trends data: When Google Trends weekly search volume for 'layoff' in the US exceeds the 52-week rolling average by > 100% (i.e., 2x normal) for 2 consecutive weeks, go long an equal-weight basket of HR tech/staffing companies (PAYC, RHI) on the Monday following the second qualifying week. Hold for 30 trading days. Benchmark vs SPY. Google Trends is free at trends.google.com. The thesis: layoff waves drive demand for outplacement services, HCM software (offboarding modules), and subsequently restaffing as companies rehire -- all of which benefit HR tech and staffing firms.",
+    "tickers": [
+      "PAYC",
+      "RHI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Google Trends weekly search volume for 'layoff' (US) exceeds 52-week rolling average by > 100%",
+      "Condition sustained for 2 consecutive weeks",
+      "Enter on Monday following second qualifying week",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PAYC (Paycom Software, HCM platform), RHI (Robert Half, staffing and consulting), SPY",
+      "fundamental": "Google Trends (free): https://trends.google.com/trends/ - weekly search volume index for 'layoff' (US region). Downloadable as CSV. Also WARN Act filings (state-level, free) for confirmation."
+    },
+    "backtest_approach": "Event study: For each period (2010-2025) where Google Trends 'layoff' spiked >2x the 52-week average for 2+ weeks, compute PAYC+RHI return over 30 trading days vs SPY. PAYC IPO was 2014, RHI has long history. Key layoff spikes: 2020 March (COVID), 2022 Q4-2023 Q1 (tech layoffs), 2024 (various sector layoffs). Google Trends data starts 2004. The contrarian element: layoff spikes create near-term revenue for HR tech (offboarding) and subsequent restaffing revenue 1-2 quarters later.",
+    "known_events": [
+      "2009: GFC layoffs drove massive demand for outplacement services",
+      "2020 March: COVID layoff spike, HR tech companies saw usage surge",
+      "2022 Q4-2023 Q1: Tech sector mass layoffs (Meta, Amazon, Google, etc.)",
+      "2024: Ongoing corporate restructuring across multiple sectors"
+    ],
+    "implementation_notes": "Google Trends data is free but the search volume index is relative (0-100 scale), requiring normalization against the rolling average. PAYC (Paycom) benefits from HCM software usage during layoff events (offboarding, benefits termination, compliance). RHI (Robert Half) benefits from the subsequent restaffing cycle (temporary and permanent placement). The 2x spike threshold captures genuine layoff waves, not normal labor market noise. bt_feasibility is 4 because Google Trends data is freely available and the layoff-to-HR-spending mechanism is direct.",
     "originality": 7,
     "bt_feasibility": 4
   }

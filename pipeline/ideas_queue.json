@@ -12779,7 +12779,7 @@
   {
     "idea_id": "PL471",
     "created_at": "2026-05-27T17:58:48.970424+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "DOE ARPA-E Program Announcement Technology Focus Predicts VC and Public Market Theme Rotation",
     "category": "F",
     "asset_class": "equities",
@@ -12801,12 +12801,13 @@
     "bt_feasibility": 3,
     "source_reference": "ARPA-E program documentation; Mazzucato (2013) on mission-oriented innovation policy",
     "research_phase": "pipeline_scout",
-    "dedup_key": "doe_arpa_e_open_program_tech_category_vc"
+    "dedup_key": "doe_arpa_e_open_program_tech_category_vc",
+    "reject_reason": "bt_feasibility=3: DOE ARPA-E program announcements are infrequent; VC investment patterns are not systematically linked to ARPA-E focus areas with tradable equity proxies"
   },
   {
     "idea_id": "PL472",
     "created_at": "2026-05-27T17:58:48.970424+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Baltic FFA Forward Curve Flipping to Contango Signals Dry Bulk Equity Recovery",
     "category": "G",
     "asset_class": "equities",
@@ -12828,12 +12829,13 @@
     "bt_feasibility": 3,
     "source_reference": "Kavussanos & Visvikis (2004) on FFA market information; Alizadeh & Nomikos (2009) shipping derivatives",
     "research_phase": "pipeline_scout",
-    "dedup_key": "baltic_ffa_forward_curve_contango_dry_bulk"
+    "dedup_key": "baltic_ffa_forward_curve_contango_dry_bulk",
+    "reject_reason": "bt_feasibility=3: Baltic FFA forward curve data requires paid subscription; dry bulk shipping stock response to curve shape is well-studied with limited alpha remaining"
   },
   {
     "idea_id": "PL473",
     "created_at": "2026-05-27T17:58:48.970424+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "CMS Medicare Advantage Star Rating Upgrade Predicts MCO Membership Growth and Revenue",
     "category": "F",
     "asset_class": "equities",
@@ -12860,7 +12862,7 @@
   {
     "idea_id": "PL474",
     "created_at": "2026-05-27T17:59:24.214199+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "ERCOT Energy Emergency Alert Frequency Signals Peaker IPP Revenue Windfall",
     "category": "E",
     "asset_class": "equities",
@@ -12882,12 +12884,13 @@
     "bt_feasibility": 4,
     "source_reference": "ERCOT Operating Procedure Manual; Potomac Economics ERCOT State of the Market Report",
     "research_phase": "pipeline_scout",
-    "dedup_key": "ercot_eea_alert_peaker_ipp_revenue_spike"
+    "dedup_key": "ercot_eea_alert_peaker_ipp_revenue_spike",
+    "reject_reason": "RELATED-VARIANT of PL368 (NERC grid risk -> VST/NRG long). Same stocks, same mechanism (ERCOT grid stress -> gas peaker IPP windfall). PL368 already captures this thesis."
   },
   {
     "idea_id": "PL475",
     "created_at": "2026-05-27T17:59:24.214199+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "CFPB Complaint Divergence Among Neobanks Reveals Regulatory Quality Winner",
     "category": "F",
     "asset_class": "equities",
@@ -12909,12 +12912,13 @@
     "bt_feasibility": 3,
     "source_reference": "CFPB complaint database methodology; Stango & Zinman (2022) on complaint-based regulation",
     "research_phase": "pipeline_scout",
-    "dedup_key": "cfpb_complaint_neobank_peer_moat_winner"
+    "dedup_key": "cfpb_complaint_neobank_peer_moat_winner",
+    "reject_reason": "bt_feasibility=3: automatically rejected (below threshold for development)"
   },
   {
     "idea_id": "PL476",
     "created_at": "2026-05-27T17:59:24.214199+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "USGS Earthquake Near Japan Auto Parts Hub Drives Reshoring Beneficiary Rally",
     "category": "G",
     "asset_class": "equities",
@@ -12936,6 +12940,418 @@
     "bt_feasibility": 3,
     "source_reference": "USGS earthquake data; Todo et al. (2015) on earthquake supply chain propagation",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usgs_earthquake_japan_auto_parts_supply_gap"
+    "dedup_key": "usgs_earthquake_japan_auto_parts_supply_gap",
+    "reject_reason": "bt_feasibility=3: automatically rejected (below threshold for development)"
+  },
+  {
+    "idea_id": "PL477",
+    "created_at": "2026-05-27T17:59:55.828671+00:00",
+    "status": "rejected",
+    "name": "USPTO AI Patent Application Surge Leads Enterprise AI Infrastructure Spending",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When USPTO AI-related patent applications (classifiable via CPC codes G06N, G06F18) show YoY growth exceeding 30%, it signals accelerating enterprise R&D investment in AI capabilities. Patent filing leads commercial deployment by 12-18 months. This predicts demand acceleration for AI infrastructure providers (NVDA GPU, AMD datacenter, SMCI servers) as patented AI systems move from R&D to production.",
+    "causal_chain": [
+      "1. USPTO patent application data shows AI-related filings (CPC G06N) growing >30% YoY",
+      "2. R&D investment in AI capabilities signals enterprise commitment to production deployment",
+      "3. Patent-to-production cycle of 12-18 months predicts future compute demand",
+      "4. AI infrastructure procurement accelerates as patents convert to deployed systems",
+      "5. NVDA/AMD datacenter and SMCI server segments see revenue acceleration"
+    ],
+    "data_sources": [
+      "USPTO PatentsView API (patentsview.org, free)",
+      "USPTO weekly application counts",
+      "yfinance for NVDA/AMD/SMCI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USPTO AI patent landscape analysis; WIPO Technology Trends 2019 on AI patents",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "uspto_ai_patent_surge_enterprise_infra",
+    "reject_reason": "bt_feasibility=3: automatically rejected (below threshold for development)"
+  },
+  {
+    "idea_id": "PL478",
+    "created_at": "2026-05-27T17:59:55.828671+00:00",
+    "status": "developed",
+    "name": "BLS JOLTS Industry-Level Job Openings Divergence Predicts Sector Rotation",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When BLS JOLTS data shows job openings in a specific NAICS sector surging >20% YoY while the overall openings rate is flat/declining, it signals concentrated demand strength. That sector's equities outperform the broad market over the subsequent quarter as the labor demand signal leads revenue growth. Long the sector ETF of the outperforming industry.",
+    "causal_chain": [
+      "1. BLS JOLTS shows specific sector job openings surging >20% YoY vs flat aggregate",
+      "2. Concentrated labor demand signals order book strength and capacity expansion in that sector",
+      "3. Hiring intent leads revenue realization by 1-2 quarters",
+      "4. Sector revenue growth accelerates as new hires become productive",
+      "5. Sector ETF outperforms SPY as earnings revisions turn positive"
+    ],
+    "data_sources": [
+      "BLS JOLTS by industry (bls.gov/jlt, monthly, free)",
+      "FRED JOLTS industry series",
+      "yfinance for sector ETFs"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS JOLTS methodology; Davis, Faberman & Haltiwanger (2012) on labor market dynamics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_jolts_industry_openings_divergence_rotation"
+  },
+  {
+    "idea_id": "PL479",
+    "created_at": "2026-05-27T17:59:55.828671+00:00",
+    "status": "rejected",
+    "name": "NOAA PDO Negative Phase Onset Drives California Water Utility Rate Case Acceleration",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When NOAA PDO (Pacific Decadal Oscillation) index transitions from positive to negative phase (sustained negative readings for 6+ months), it historically correlates with multi-year California drought periods. California water utilities (AWR, SJW, CWT) respond by accelerating infrastructure investment (recycled water, desalination, conservation) and filing rate cases for cost recovery, driving rate base growth.",
+    "causal_chain": [
+      "1. NOAA PDO index transitions to sustained negative phase (6+ months below zero)",
+      "2. West Coast precipitation patterns shift toward below-normal, increasing drought probability",
+      "3. California drought emergency declarations trigger conservation mandates and infrastructure investment",
+      "4. Water utilities accelerate capex (recycled water, desal, pipe replacement) and file rate cases",
+      "5. AWR/SJW/CWT see rate base growth acceleration and regulatory support for infrastructure spending"
+    ],
+    "data_sources": [
+      "NOAA PDO index (ncei.noaa.gov/access/monitoring/pdo, monthly, free)",
+      "California SWRCB drought data",
+      "yfinance for AWR/SJW/CWT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Mantua et al. (BAMS 1997) on PDO; CPUC water utility rate case decisions",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_pdo_negative_phase_ca_drought_water_util",
+    "reject_reason": "bt_feasibility=3: automatically rejected (below threshold for development)"
+  },
+  {
+    "idea_id": "PL480",
+    "created_at": "2026-05-27T18:00:29.244890+00:00",
+    "status": "developed",
+    "name": "DOT NBI Average Bridge Age Hitting Record Drives Concrete and Rebar Demand Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When the US bridge inventory average age (computable from NBI year-built data) exceeds a new record, accelerating the nonlinear portion of the deterioration curve (concrete decks degrade exponentially after 40 years). This drives surging demand for concrete repair materials and reinforcing steel. Long construction materials companies (VMC, MLM, CMC) that supply bridge repair projects.",
+    "causal_chain": [
+      "1. FHWA NBI data shows average US bridge age hitting new record (currently ~44 years)",
+      "2. Bridges entering 40-50 year range experience accelerating nonlinear deterioration",
+      "3. Deck replacement and superstructure repair projects surge as conditions cross thresholds",
+      "4. Concrete, cement, and rebar demand from bridge repair exceeds historical averages",
+      "5. VMC/MLM/CMC see infrastructure-driven demand uplift in affected regions"
+    ],
+    "data_sources": [
+      "FHWA NBI data (fhwa.dot.gov/bridge/nbi, annual, free download)",
+      "Census construction spending (highway and street)",
+      "yfinance for VMC/MLM/CMC"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FHWA NBI technical documentation; ASCE Report Card bridge chapter",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "dot_nbi_avg_bridge_age_record_concrete_rebar"
+  },
+  {
+    "idea_id": "PL481",
+    "created_at": "2026-05-27T18:00:29.244890+00:00",
+    "status": "developed",
+    "name": "SEC Form D Private Placement Sector Concentration Predicts Public Market Theme Rally",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When SEC Form D filings (Regulation D exempt offerings) show private capital raising in a specific sector (identifiable by SIC code) surging >50% YoY, it signals smart money conviction in that sector. Private market capital allocation leads public market theme rotation by 2-4 quarters. Long the sector ETF where private placement activity is accelerating.",
+    "causal_chain": [
+      "1. SEC EDGAR Form D filings show private capital raises in specific SIC codes surging >50% YoY",
+      "2. Private market capital concentration signals VC/PE conviction in sector growth",
+      "3. Private company growth creates competitive pressure on public incumbents to invest",
+      "4. Public market sector rotation follows as VC-funded companies IPO or competitors respond",
+      "5. Sector ETF outperforms as both incumbents and new entrants drive revenue growth narrative"
+    ],
+    "data_sources": [
+      "SEC EDGAR Form D filings (sec.gov/cgi-bin/browse-edgar, free full-text search)",
+      "SEC Form D XML bulk data feed",
+      "yfinance for sector ETFs"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "SEC Form D data; Lerner, Schoar & Wongsunwai (JFE 2007) on smart money and VC",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sec_form_d_private_placement_sector_heat"
+  },
+  {
+    "idea_id": "PL482",
+    "created_at": "2026-05-27T18:00:29.244890+00:00",
+    "status": "developed",
+    "name": "USDA Dairy Market News Cheese Barrel Surplus Signals DMC Payout and Dairy Input Cost Relief",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When USDA weekly Dairy Market News shows CME block/barrel cheese prices declining below $1.50/lb while Class III milk futures drop correspondingly, Dairy Margin Coverage (DMC) payouts trigger for enrolled farms. Simultaneously, low dairy commodity prices compress milk input costs for downstream processors. Long downstream dairy processors (LNDC, CAG dairy segment) as input cost relief drives margin expansion.",
+    "causal_chain": [
+      "1. USDA Dairy Market News shows CME cheese barrel prices declining below $1.50/lb for 4+ weeks",
+      "2. Class III milk price declines, compressing farm-level margins",
+      "3. DMC program payouts support farm cash flow, preventing supply disruption",
+      "4. Low milk procurement costs benefit downstream dairy processors",
+      "5. LNDC/CAG dairy segments see input cost-driven margin expansion"
+    ],
+    "data_sources": [
+      "USDA AMS Dairy Market News (ams.usda.gov/market-news/dairy, weekly, free)",
+      "CME Class III milk futures",
+      "yfinance for LNDC/CAG"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA Dairy Market News methodology; USDA ERS Dairy Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_dmn_cheese_barrel_surplus_dmc_trigger"
+  },
+  {
+    "idea_id": "PL483",
+    "created_at": "2026-05-27T18:01:03.300712+00:00",
+    "status": "rejected",
+    "name": "ISA Deep-Sea Mining Exploitation Contract Award Signals Battery Metal Supply Expansion",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When the International Seabed Authority (ISA) issues its first exploitation contract for polymetallic nodule mining in the Clarion-Clipperton Zone, it signals a paradigm shift in battery metal supply (nickel, cobalt, manganese). This is bearish for incumbent terrestrial miners (VALE cobalt, Glencore) but bullish for companies with ISA exploration contracts transitioning to exploitation (TMC, DeepGreen). Long the deep-sea mining pioneers.",
+    "causal_chain": [
+      "1. ISA Council approves first exploitation regulations and issues exploitation contract",
+      "2. Deep-sea polymetallic nodule mining becomes legally and commercially viable",
+      "3. New supply source for Ni/Co/Mn threatens long-term price forecasts for terrestrial miners",
+      "4. Companies with ISA exploration contracts (TMC) re-rate on de-risked regulatory path",
+      "5. TMC and early-mover DSM companies outperform as market assigns exploitation premium"
+    ],
+    "data_sources": [
+      "ISA Council decisions (isa.org.jm, public proceedings)",
+      "TMC SEC filings",
+      "yfinance for TMC"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "ISA Mining Code draft regulations; Hein et al. (Marine Policy 2020) on nodule resource estimates",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "isa_deepsea_mining_contract_polymetallic_nodule",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL484",
+    "created_at": "2026-05-27T18:01:03.300712+00:00",
+    "status": "developed",
+    "name": "CBOT Soybean Meal Open Interest Concentration at Speculative Net Short Extreme Signals Squeeze",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "thesis": "When CFTC Commitments of Traders shows managed money net short in soybean meal exceeding the 90th percentile of the 5-year range AND open interest concentration (top-4 short positions as % of OI) exceeds 40%, a positioning squeeze is likely. Any bullish catalyst (USDA report, Argentine crush disruption) triggers rapid short covering. Long soybean meal futures.",
+    "causal_chain": [
+      "1. CFTC COT shows managed money net short in soybean meal at 90th percentile extreme",
+      "2. Top-4 short position concentration >40% of OI signals crowded positioning",
+      "3. Bullish catalyst (supply disruption, USDA surprise) triggers short covering cascade",
+      "4. Soybean meal futures rally sharply as shorts cover in thin liquidity",
+      "5. Long soybean meal captures 5-15% move over 2-4 weeks during squeeze"
+    ],
+    "data_sources": [
+      "CFTC Commitments of Traders (cftc.gov/dea/futures, weekly, free)",
+      "CBOT soybean meal futures (yfinance SM=F)",
+      "CFTC Bank Participation Report"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "CFTC COT methodology; De Roon et al. (JFE 2000) on commodity futures positioning",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cbot_sm_open_interest_concentration_squeeze"
+  },
+  {
+    "idea_id": "PL485",
+    "created_at": "2026-05-27T18:01:03.300712+00:00",
+    "status": "developed",
+    "name": "Google Trends 'Layoff' Search Spike Drives Outplacement and HR Tech Revenue",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When Google Trends search volume for 'layoff' spikes >2x the 52-week rolling average, it signals a wave of corporate restructurings. Companies conducting layoffs are legally required (WARN Act) to provide outplacement services and severance administration. HR technology platforms (PAYC, PCTY) and staffing firms with outplacement practices (RHI, HEIDRICK) see revenue acceleration from restructuring-driven demand.",
+    "causal_chain": [
+      "1. Google Trends 'layoff' search volume spikes >2x 52-week rolling average",
+      "2. WARN Act filings and mass layoff announcements increase across industries",
+      "3. Companies procure outplacement services, severance admin, and career transition platforms",
+      "4. HR tech platforms see transactional volume increase from employee offboarding/transition",
+      "5. PAYC/PCTY/RHI see revenue beats from restructuring-driven demand"
+    ],
+    "data_sources": [
+      "Google Trends API (trends.google.com, free)",
+      "DOL WARN Act filing database (state-level, free)",
+      "yfinance for PAYC/PCTY/RHI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Choi & Varian (2012) on Google Trends as economic indicator; DOL WARN Act data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "google_trends_layoff_spike_outplacement_hr"
+  },
+  {
+    "idea_id": "PL486",
+    "created_at": "2026-05-27T18:01:38.285917+00:00",
+    "status": "rejected",
+    "name": "IMO CII Rating Downgrade Wave Drives Scrubber-Fitted Tanker Premium Expansion",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When IMO Carbon Intensity Indicator (CII) annual ratings show >20% of global tanker fleet downgraded to D or E rating, non-compliant vessels must slow-steam or face port restrictions. This reduces effective fleet supply while scrubber-fitted vessels maintain full speed. Owners with scrubber-fitted fleets (FRO, DHT) earn widening TCE premiums over non-scrubber peers.",
+    "causal_chain": [
+      "1. IMO CII annual ratings show >20% of tanker fleet at D/E rating requiring operational adjustments",
+      "2. D/E-rated vessels must reduce speed (slow-steam) to improve carbon intensity, reducing effective supply",
+      "3. Scrubber-fitted vessels burn cheaper HSFO while maintaining speed, earning dual savings",
+      "4. TCE spread between scrubber-fitted and non-scrubber vessels widens",
+      "5. FRO/DHT with high scrubber penetration see earnings outperformance vs peers"
+    ],
+    "data_sources": [
+      "IMO GISIS CII rating database (gisis.imo.org, limited free access)",
+      "Clarksons fleet database (limited free)",
+      "yfinance for FRO/DHT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "IMO MEPC CII guidelines; DNV Maritime Forecast 2050",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "imo_decarbonization_scrubber_tanker_spread",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL487",
+    "created_at": "2026-05-27T18:01:38.285917+00:00",
+    "status": "rejected",
+    "name": "FDIC Summary of Deposits Branch Closure Acceleration Drives Fintech/Online Bank Deposit Growth",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When FDIC annual Summary of Deposits shows net branch closures exceeding 3% of total branches (vs ~2% baseline), displaced depositors seek alternative banking. Online-only banks and fintech platforms (SOFI, ALLY, LC) capture disproportionate deposit inflows as physical banking becomes less accessible in affected communities.",
+    "causal_chain": [
+      "1. FDIC Summary of Deposits annual data shows net branch closures >3% of total",
+      "2. Displaced depositors in affected communities lose convenient physical banking access",
+      "3. Online banks and fintech platforms capture deposit flows from branch-closure areas",
+      "4. Digital-first banks see deposit growth acceleration and customer acquisition cost decline",
+      "5. SOFI/ALLY/LC report deposit growth beats driven by branch closure tailwind"
+    ],
+    "data_sources": [
+      "FDIC Summary of Deposits (fdic.gov/analysis/quarterly-banking-profile/fdic-quarterly/2024-vol18, annual June)",
+      "FDIC BankFind Suite branch data",
+      "yfinance for SOFI/ALLY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FDIC Summary of Deposits methodology; Nguyen (JFE 2019) on bank branch closures and credit access",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fdic_sod_branch_closure_fintech_deposit_gain",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL488",
+    "created_at": "2026-05-27T18:01:38.285917+00:00",
+    "status": "rejected",
+    "name": "California DMV AV Disengagement Rate Improvement Signals Robotaxi Company Re-Rating",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When California DMV's annual Autonomous Vehicle Disengagement Report shows a publicly-traded robotaxi company's (GOOGL/Waymo, GM/Cruise proxy, TSLA FSD) disengagement rate improving >50% YoY (miles per disengagement doubling), it signals accelerating technological maturity. The market re-rates the autonomous driving option value embedded in the parent company's stock.",
+    "causal_chain": [
+      "1. California DMV publishes annual AV disengagement reports showing 50%+ improvement for specific company",
+      "2. Improved disengagement rate signals technology approaching commercial-scale reliability",
+      "3. Market re-assesses probability of near-term commercial robotaxi deployment",
+      "4. Autonomous driving option value in parent company stock increases",
+      "5. GOOGL/TSLA re-rates upward as AV segment receives higher probability-weighted valuation"
+    ],
+    "data_sources": [
+      "California DMV AV testing reports (dmv.ca.gov/portal/vehicle-industry-services/autonomous-vehicles, annual, free)",
+      "Company autonomous driving mileage disclosures",
+      "yfinance for GOOGL/TSLA"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "California DMV AV testing regulations; Bansal & Kockelman (2017) on AV adoption forecasting",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nhtsa_av_testing_disengagement_rate_robotaxi",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL489",
+    "created_at": "2026-05-27T18:02:11.503550+00:00",
+    "status": "claimed",
+    "name": "DOE Industrial Assessment Center Recommendation Surge Drives Energy Efficiency Equipment Demand",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When DOE Industrial Assessment Center (IAC) database shows implemented recommendation rate increasing >10pp YoY AND average projected savings per assessment rising >20%, it signals manufacturers are investing in energy efficiency upgrades. This drives demand for industrial energy management systems, VFDs, and high-efficiency motors. Long Rockwell Automation (ROK) and Emerson Electric (EMR) energy management segments.",
+    "causal_chain": [
+      "1. DOE IAC database shows implementation rate and savings per assessment both rising sharply",
+      "2. Manufacturers responding to energy cost pressure by investing in efficiency upgrades",
+      "3. Demand surges for VFDs, energy management systems, and process optimization equipment",
+      "4. Industrial automation companies see energy efficiency product orders accelerate",
+      "5. ROK/EMR energy management segments report above-trend organic growth"
+    ],
+    "data_sources": [
+      "DOE IAC database (iac.university, free public database)",
+      "DOE Better Buildings program metrics",
+      "yfinance for ROK/EMR"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "DOE IAC program documentation; ACEEE State Energy Efficiency Scorecard",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_iac_recommendation_energy_efficiency_equip"
+  },
+  {
+    "idea_id": "PL490",
+    "created_at": "2026-05-27T18:02:11.503550+00:00",
+    "status": "claimed",
+    "name": "Brazil Soybean Export Basis Widening Shifts Global Demand to US Gulf, Benefits ADM/BG",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When the Paranagua/Santos FOB soybean basis widens >$0.50/bu above the 5-year seasonal average (due to trucker strikes, port congestion, or harvest logistics bottlenecks), global buyers shift purchases to the US Gulf. Grain merchant/processors ADM and Bunge (BG) with US Gulf export capacity see origination margins and throughput volumes increase as they capture the diverted demand.",
+    "causal_chain": [
+      "1. Brazil soybean FOB basis widens >$0.50/bu above seasonal average (logistics disruption)",
+      "2. China/EU importers shift purchases from Santos/Paranagua to US Gulf elevators",
+      "3. US Gulf soybean export demand surges, improving basis and throughput",
+      "4. ADM/BG origination margins expand as they buy farmer-delivered beans at low interior basis and sell at elevated Gulf basis",
+      "5. ADM/BG Ag Services & Oilseeds segments report margin beats"
+    ],
+    "data_sources": [
+      "USDA GATS export data (fas.usda.gov)",
+      "Refinitiv/Reuters Brazil FOB basis (limited free)",
+      "yfinance for ADM/BG"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA Brazil grain transportation report; ABIOVE logistics analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "brazil_soybean_basis_wide_us_gulf_adm_bg"
+  },
+  {
+    "idea_id": "PL491",
+    "created_at": "2026-05-27T18:02:11.503550+00:00",
+    "status": "new",
+    "name": "CDC WONDER Overdose Mortality Spike Drives Narcan/Naloxone Procurement Surge",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When CDC WONDER provisional overdose death data shows a YoY increase >10% in a specific geographic cluster, it triggers state emergency declarations and SAMHSA grant disbursements for harm reduction supplies. Naloxone manufacturers see procurement surges. Long pharma companies with naloxone franchises (ELAN post-Narcan OTC approval) and harm reduction suppliers.",
+    "causal_chain": [
+      "1. CDC WONDER provisional mortality data shows overdose deaths rising >10% YoY in geographic cluster",
+      "2. State/local emergency declarations trigger SAMHSA State Opioid Response grant disbursements",
+      "3. Health departments procure naloxone kits, fentanyl test strips, and harm reduction supplies at scale",
+      "4. Naloxone manufacturers see order intake surge from government and community organizations",
+      "5. ELAN (Narcan OTC) and related companies see naloxone revenue acceleration"
+    ],
+    "data_sources": [
+      "CDC WONDER provisional mortality data (wonder.cdc.gov, free)",
+      "SAMHSA grant announcements (samhsa.gov)",
+      "yfinance for ELAN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CDC WONDER documentation; SAMHSA State Opioid Response grant program",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cdc_wonder_overdose_mortality_narcan_demand"
   }
 ]
