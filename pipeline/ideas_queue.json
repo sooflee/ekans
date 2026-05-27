@@ -13276,7 +13276,7 @@
   {
     "idea_id": "PL489",
     "created_at": "2026-05-27T18:02:11.503550+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "DOE Industrial Assessment Center Recommendation Surge Drives Energy Efficiency Equipment Demand",
     "category": "F",
     "asset_class": "equities",
@@ -13303,7 +13303,7 @@
   {
     "idea_id": "PL490",
     "created_at": "2026-05-27T18:02:11.503550+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "Brazil Soybean Export Basis Widening Shifts Global Demand to US Gulf, Benefits ADM/BG",
     "category": "G",
     "asset_class": "equities",
@@ -13330,7 +13330,7 @@
   {
     "idea_id": "PL491",
     "created_at": "2026-05-27T18:02:11.503550+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "CDC WONDER Overdose Mortality Spike Drives Narcan/Naloxone Procurement Surge",
     "category": "F",
     "asset_class": "equities",
@@ -13352,6 +13352,254 @@
     "bt_feasibility": 3,
     "source_reference": "CDC WONDER documentation; SAMHSA State Opioid Response grant program",
     "research_phase": "pipeline_scout",
-    "dedup_key": "cdc_wonder_overdose_mortality_narcan_demand"
+    "dedup_key": "cdc_wonder_overdose_mortality_narcan_demand",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL492",
+    "created_at": "2026-05-27T18:02:45.744116+00:00",
+    "status": "rejected",
+    "name": "CMS Part D Bid Acceptance Signals PBM Revenue Lock and Margin Visibility",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When CMS publishes annual Part D plan bid acceptance data (August) showing a PBM's affiliated plans gaining auto-enrollment beneficiaries from CMS's low-income subsidy reassignment, it signals locked-in membership and revenue growth for the following January. Long the parent PBM/MCO (CVS/Aetna, CI/Express Scripts, UNH/OptumRx) when bid data shows share gains.",
+    "causal_chain": [
+      "1. CMS publishes Part D plan bid acceptance and auto-enrollment data (August)",
+      "2. PBM's affiliated plans gain low-income subsidy auto-assignment membership",
+      "3. Membership locked in for January 1 start, providing revenue certainty",
+      "4. Additional Part D members drive prescription volume through PBM's mail/retail network",
+      "5. CVS/CI/UNH PBM segments see membership-driven revenue acceleration starting Q1"
+    ],
+    "data_sources": [
+      "CMS Part D bid and enrollment data (cms.gov/medicare/health-plans, annual)",
+      "CMS monthly enrollment reports",
+      "yfinance for CVS/CI/UNH"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CMS Part D bid methodology; Duggan & Scott Morton (AER 2010) on Part D bidding",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cms_part_d_bid_cycle_pbm_revenue_lock",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL493",
+    "created_at": "2026-05-27T18:02:45.744116+00:00",
+    "status": "rejected",
+    "name": "USDA CRP General Signup Spike Reduces Productive Acres, Drives Precision Ag Equipment Demand",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When USDA Farm Service Agency CRP general signup enrollment exceeds 2M new acres (vs baseline 1-1.5M), it removes productive farmland from row crop production. Remaining farmers must intensify production on fewer acres, driving demand for precision agriculture equipment (GPS guidance, variable rate application, yield monitors). Long Deere (DE) and AGCO precision ag segments.",
+    "causal_chain": [
+      "1. USDA FSA CRP general signup enrollment exceeds 2M new acres in a cycle",
+      "2. Productive farmland removed from row crop production for 10-15 year contracts",
+      "3. Remaining farmers face pressure to maximize yield per acre on reduced base",
+      "4. Precision agriculture equipment demand surges (GPS, VRA, yield mapping)",
+      "5. DE/AGCO precision technology segments see order intake and revenue acceleration"
+    ],
+    "data_sources": [
+      "USDA FSA CRP enrollment data (fsa.usda.gov/programs-and-services/conservation-programs, free)",
+      "USDA NASS Acreage report",
+      "yfinance for DE/AGCO"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FSA CRP program data; Hellerstein (2017) on CRP and land allocation",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_crp_general_signup_land_scarcity_equipment",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL494",
+    "created_at": "2026-05-27T18:02:45.744116+00:00",
+    "status": "rejected",
+    "name": "NRC Reactor Power Uprate Approval Cluster Signals Incremental Uranium Demand",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When NRC approves >3 reactor power uprate applications in a 12-month period (increasing rated thermal power by 1.5-20%), the incremental uranium fuel demand is not captured in most supply-demand models until the next WNA biennial fuel report. Each 5% uprate adds ~3-5 million lbs of incremental lifetime U3O8 demand. Long uranium miners (CCJ, UEC) and Sprott Physical Uranium Trust (U.UN) when uprate cluster occurs.",
+    "causal_chain": [
+      "1. NRC approves >3 reactor power uprates in 12 months (NRC ADAMS database)",
+      "2. Each uprate increases reactor fuel consumption proportional to thermal power increase",
+      "3. Incremental uranium demand not reflected in consensus supply-demand models until next WNA report",
+      "4. Uranium spot/term contract market tightens as utilities procure incremental fuel",
+      "5. CCJ/UEC and U.UN benefit from demand surprise tightening the S/D balance"
+    ],
+    "data_sources": [
+      "NRC ADAMS database for power uprate applications (adams.nrc.gov, free)",
+      "NRC operating reactor power level data",
+      "yfinance for CCJ/UEC"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NRC power uprate regulatory guide; WNA Nuclear Fuel Report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nrc_reactor_uprate_approval_uranium_demand",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL495",
+    "created_at": "2026-05-27T18:03:20.470555+00:00",
+    "status": "rejected",
+    "name": "FAA Part 107 Drone Registration Surge Signals Commercial Drone and Counter-UAS Equipment Demand",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When FAA Part 107 commercial drone registrations grow >25% YoY (identifiable from FAA DroneZone registration data), it signals expanding commercial UAS adoption across sectors (infrastructure inspection, agriculture, delivery). This drives demand for both commercial drone platforms and counter-UAS defense systems. Long defense contractors with counter-UAS portfolios (LHX, AVAV) and commercial drone platform companies.",
+    "causal_chain": [
+      "1. FAA DroneZone data shows Part 107 commercial registrations growing >25% YoY",
+      "2. Commercial drone adoption expands across infrastructure inspection, ag, and delivery",
+      "3. Increased drone density drives government/airport counter-UAS system procurement",
+      "4. Counter-UAS defense spending accelerates (DoD, DHS, airport authorities)",
+      "5. LHX/AVAV counter-UAS and commercial drone segments see revenue acceleration"
+    ],
+    "data_sources": [
+      "FAA DroneZone registration data (faa.gov/uas/getting_started, FOIA-requestable summaries)",
+      "FAA UAS sighting reports",
+      "yfinance for LHX/AVAV"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FAA UAS Integration Office; Teal Group commercial UAS market analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "faa_part107_registration_surge_drone_counterdrone",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL496",
+    "created_at": "2026-05-27T18:03:20.470555+00:00",
+    "status": "new",
+    "name": "LME Copper Warrant Cancellation Surge Signals Physical Market Tightness and Price Spike",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "thesis": "When LME copper cancelled warrants (metal earmarked for withdrawal) exceed 50% of total on-warrant inventory, it signals acute physical market tightness. Physical buyers are pulling metal from LME warehouses, a last-resort sourcing option that precedes spot price spikes. Long copper futures or COPX when cancelled warrant ratio exceeds 50%.",
+    "causal_chain": [
+      "1. LME copper cancelled warrants exceed 50% of total on-warrant inventory",
+      "2. Physical buyers withdrawing LME metal = sign of spot market tightness",
+      "3. LME cash-3M backwardation widens as nearby availability shrinks",
+      "4. Copper spot prices spike as arbitrageurs cannot easily deliver metal",
+      "5. COPX and copper futures rally as physical tightness drives speculative inflows"
+    ],
+    "data_sources": [
+      "LME warehouse stocks and warrant data (lme.com, free daily)",
+      "FRED copper price series",
+      "yfinance for COPX"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "LME warehouse rules; Geman & Smith (2013) on LME inventory dynamics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "lme_copper_warrant_cancellation_physical_tight"
+  },
+  {
+    "idea_id": "PL497",
+    "created_at": "2026-05-27T18:03:20.470555+00:00",
+    "status": "new",
+    "name": "State Cannabis Legalization Ballot Initiative Passage Drives MSO and Cannabis REIT Re-Rating",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When a large-population state (>5M residents) passes a cannabis legalization ballot initiative in November elections, multi-state operators (MSOs) with license applications or existing medical licenses in that state see 15-30% re-rating within 8 weeks. The TAM expansion is quantifiable from state population and average per-capita cannabis spending in mature markets ($150-200/adult/year).",
+    "causal_chain": [
+      "1. Large-population state passes cannabis legalization ballot initiative (November election)",
+      "2. TAM for legal cannabis expands by $1-4B based on state population",
+      "3. MSOs with license applications or medical-to-adult-use conversion rights gain first-mover advantage",
+      "4. Cannabis REITs (IIPR) see pipeline of new cultivation/dispensary sale-leaseback opportunities",
+      "5. MSOs (GTBIF, CURLF) and IIPR re-rate on expanded TAM and license value"
+    ],
+    "data_sources": [
+      "State ballot initiative tracking (ballotpedia.org, free)",
+      "BDSA/Headset cannabis market data (limited free)",
+      "yfinance OTC for GTBIF/CURLF/IIPR"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Ballotpedia state cannabis initiatives; BDSA market sizing methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "state_cannabis_ballot_initiative_mso_reit"
+  },
+  {
+    "idea_id": "PL498",
+    "created_at": "2026-05-27T18:03:53.884675+00:00",
+    "status": "new",
+    "name": "FHWA Travel Time Reliability Deterioration Drives Truck-to-Intermodal Conversion for Rails",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When FHWA's Level of Travel Time Reliability (LOTTR) data shows interstate reliability declining >10% in major freight corridors (I-10, I-95, I-80), shippers switch from long-haul trucking to intermodal rail to avoid unpredictable transit times. Class I railroads with strong intermodal networks (UNP, CSX) see intermodal volume growth of 3-5% above trend as shippers convert.",
+    "causal_chain": [
+      "1. FHWA LOTTR data shows interstate freight corridor reliability declining >10%",
+      "2. Trucking transit time variability increases shipper inventory holding costs",
+      "3. Shippers convert long-haul truck lanes to intermodal rail for predictable transit",
+      "4. Class I railroad intermodal volumes surge 3-5% above seasonal trend",
+      "5. UNP/CSX intermodal revenue acceleration drives earnings beats"
+    ],
+    "data_sources": [
+      "FHWA National Performance Management Research Data Set (NPMRDS, free for public agencies)",
+      "AAR weekly intermodal data",
+      "yfinance for UNP/CSX"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FHWA Freight Performance Measures; AAR intermodal competitive analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fhwa_lottr_congestion_shift_intermodal_rail"
+  },
+  {
+    "idea_id": "PL499",
+    "created_at": "2026-05-27T18:03:53.884675+00:00",
+    "status": "new",
+    "name": "USDA RMA Crop Insurance Indemnity Payment Surge Supports Ag Lender Credit Quality",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When USDA Risk Management Agency crop insurance indemnity payments surge >50% YoY (due to widespread drought/flood), it counterintuitively stabilizes agricultural lender credit quality. Insurance payouts replace lost crop revenue, maintaining farmer debt service capacity. Ag-focused banks and Farm Credit System institutions (measured via Farm Credit Administration call reports) avoid the credit deterioration that disaster years would otherwise cause. Long ag-exposed banks (FFBW, FSFG) after indemnity spike.",
+    "causal_chain": [
+      "1. USDA RMA Summary of Business shows indemnity payments surging >50% YoY",
+      "2. Crop insurance payouts replace lost revenue for insured farmers",
+      "3. Farmer debt service capacity maintained despite crop loss",
+      "4. Agricultural loan delinquency rates at ag-focused banks remain stable",
+      "5. Ag-focused banks avoid credit downgrades, maintaining loan quality and equity stability"
+    ],
+    "data_sources": [
+      "USDA RMA Summary of Business (rma.usda.gov/data-tools, free real-time)",
+      "Farm Credit Administration call report data",
+      "yfinance for ag-focused banks"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA RMA program data; KC Fed Agricultural Finance Databook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_rma_indemnity_surge_ag_lender_credit"
+  },
+  {
+    "idea_id": "PL500",
+    "created_at": "2026-05-27T18:03:53.884675+00:00",
+    "status": "new",
+    "name": "Corporate Buyback Blackout Window End Creates Predictable Buying Pressure for SPY",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 weeks",
+    "thesis": "Most S&P 500 companies enter buyback blackout windows ~2 weeks before earnings and open windows ~2 days after reporting. When the bulk of S&P 500 companies simultaneously exit blackout (identifiable from earnings calendar clustering), aggregate buyback execution resumes at ~$5B/day. This predictable demand creates a 1-2 week window of buying pressure. Long SPY on the first day the majority of S&P 500 companies exit blackout.",
+    "causal_chain": [
+      "1. S&P 500 earnings calendar shows >60% of companies reporting within 3-week window",
+      "2. Buyback blackout windows end ~2 days after each company reports",
+      "3. Aggregate corporate buyback execution resumes at $4-6B/day industry-wide",
+      "4. Predictable demand creates support under equity prices for 1-3 weeks",
+      "5. SPY outperforms its moving average during the post-blackout execution window"
+    ],
+    "data_sources": [
+      "SEC 10-Q/10-K buyback authorization disclosures",
+      "Goldman Sachs buyback desk data (referenced in public research)",
+      "yfinance for SPY and earnings calendar"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Dittmar & Field (JFE 2015) on buyback timing; Goldman Sachs CIO buyback reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "corporate_buyback_blackout_end_spy_pressure"
   }
 ]

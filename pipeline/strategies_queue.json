@@ -14970,9 +14970,13 @@
     "originality": 8,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T18:00:54.087529+00:00",
-    "backtested_at": "2026-05-27T18:02:17.321261+00:00",
+    "backtested_at": "2026-05-27T18:02:45.409670+00:00",
     "backtest_result": {
-      "status": "fail"
+      "status": "ok",
+      "sharpe": -0.040697042249696364,
+      "cagr": -0.122927865891991,
+      "max_dd": -0.4961253334031305,
+      "t_stat": -0.044255852265965914
     }
   },
   {
@@ -15017,9 +15021,13 @@
     "originality": 7,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T18:00:54.087737+00:00",
-    "backtested_at": "2026-05-27T18:02:17.321283+00:00",
+    "backtested_at": "2026-05-27T18:02:45.409911+00:00",
     "backtest_result": {
-      "status": "fail"
+      "status": "ok",
+      "sharpe": 1.1144169464488403,
+      "cagr": 0.8848607447751176,
+      "max_dd": -0.5966666063750621,
+      "t_stat": 0.9206862572731325
     }
   },
   {
@@ -15059,11 +15067,13 @@
     "originality": 7,
     "bt_feasibility": 4,
     "backtest_started_at": "2026-05-27T18:00:54.087739+00:00",
-    "backtested_at": "2026-05-27T18:02:17.321286+00:00",
+    "backtested_at": "2026-05-27T18:02:45.409965+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.4519028411488655,
-      "cagr": 0.21667124802587323
+      "sharpe": 2.309219796717894,
+      "cagr": 0.8020560238027692,
+      "max_dd": -0.1451694992371998,
+      "t_stat": 2.3046334569438858
     }
   },
   {
@@ -15277,7 +15287,7 @@
     "strategy_id": "PL484",
     "idea_id": "PL484",
     "created_at": "2026-05-27T18:02:26.462935+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL484_cftc_soybean_meal_short_extreme_contrarian",
     "name": "CFTC Soybean Meal Managed Money Net Short Extreme -> Contrarian Long SM=F",
     "category": "C",
@@ -15311,13 +15321,20 @@
     ],
     "implementation_notes": "CFTC COT data for soybean meal is clean and available in the same CSV as other ag contracts. SM=F on yfinance provides continuous soybean meal futures. The 90th percentile threshold automatically adjusts for changing open interest levels. Soybean meal is more interesting than soybeans for contrarian positioning because meal demand is driven by animal feed (less discretionary than food-grade soy). bt_feasibility is 5/5 -- textbook contrarian signal with excellent data.",
     "originality": 7,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtest_started_at": "2026-05-27T18:02:45.409969+00:00",
+    "backtested_at": "2026-05-27T18:03:13.668942+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null
+    }
   },
   {
     "strategy_id": "PL485",
     "idea_id": "PL485",
     "created_at": "2026-05-27T18:02:26.462935+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL485_google_trends_layoff_hr_tech_revenue",
     "name": "Google Trends Layoff Search Spike -> Outplacement and HR Tech Revenue -> PAYC/RHI Long",
     "category": "J",
@@ -15352,6 +15369,104 @@
     ],
     "implementation_notes": "Google Trends data is free but the search volume index is relative (0-100 scale), requiring normalization against the rolling average. PAYC (Paycom) benefits from HCM software usage during layoff events (offboarding, benefits termination, compliance). RHI (Robert Half) benefits from the subsequent restaffing cycle (temporary and permanent placement). The 2x spike threshold captures genuine layoff waves, not normal labor market noise. bt_feasibility is 4 because Google Trends data is freely available and the layoff-to-HR-spending mechanism is direct.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtest_started_at": "2026-05-27T18:02:45.409970+00:00",
+    "backtested_at": "2026-05-27T18:03:13.668948+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "sharpe": null,
+      "cagr": null
+    }
+  },
+  {
+    "strategy_id": "PL489",
+    "idea_id": "PL489",
+    "created_at": "2026-05-27T18:03:21.992926+00:00",
+    "status": "done",
+    "signal_id": "PL489_doe_iac_energy_efficiency_equipment",
+    "name": "DOE Industrial Assessment Center Recommendation Surge -> Energy Efficiency Equipment Demand -> ROK/EMR Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and DOE IAC data: When DOE Industrial Assessment Center annual data shows implemented recommendation rate increasing > 10 percentage points YoY AND average projected savings per assessment rising > 20%, go long an equal-weight basket of industrial automation/efficiency companies (ROK, EMR) on the first trading day after DOE IAC annual data publication. Hold for 40 trading days. Benchmark vs SPY. DOE IAC database is free at iac.university. Rising implementation rates signal manufacturers are actively investing in energy efficiency equipment, benefiting automation and process control companies.",
+    "tickers": [
+      "ROK",
+      "EMR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "DOE IAC implemented recommendation rate increases > 10pp YoY",
+      "Average projected savings per assessment rises > 20% YoY",
+      "Enter on first trading day after DOE IAC annual data publication",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: ROK (Rockwell Automation), EMR (Emerson Electric), SPY",
+      "fundamental": "DOE Industrial Assessment Center database (free): https://iac.university/ - complete database of all IAC assessments, recommendations, implementation status, and projected savings. Annual updates."
+    },
+    "backtest_approach": "Event study: For each DOE IAC annual data release (2012-2025) where both conditions were met, compute ROK+EMR return over 40 trading days vs SPY. ROK and EMR have long public histories. The IAC program has been running since 1976 with ~600 assessments/year. Rising implementation rates during high-energy-price periods (2008, 2014, 2022) likely correlate with increased equipment orders. bt_feasibility is 3 due to annual frequency and indirect mechanism.",
+    "known_events": [
+      "2008: High energy prices drove IAC recommendation adoption surge",
+      "2014-2015: Manufacturing efficiency push",
+      "2022: Energy price spike drove unprecedented interest in efficiency retrofits"
+    ],
+    "implementation_notes": "ROK (Rockwell Automation) is the largest US-focused industrial automation company. EMR (Emerson Electric) has process automation and climate technologies. Both benefit from manufacturers investing in energy efficiency (VFDs, smart controls, process optimization). The DOE IAC database is uniquely detailed but annual frequency limits signal count. bt_feasibility is 3.",
+    "originality": 9,
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T18:03:39.040638+00:00",
+    "backtested_at": "2026-05-27T18:03:59.957233+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
+  },
+  {
+    "strategy_id": "PL490",
+    "idea_id": "PL490",
+    "created_at": "2026-05-27T18:03:21.992926+00:00",
+    "status": "done",
+    "signal_id": "PL490_brazil_soybean_basis_us_gulf_grain_merchant",
+    "name": "Brazil Soybean Export Basis Widening -> Global Demand Shift to US Gulf -> ADM/BG Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and USDA/market data: When the spread between Brazil Paranagua FOB soybean basis and US Gulf FOB soybean basis widens to favor US exports by > $0.50/bu above the 5-year seasonal average for 2 consecutive weeks, go long an equal-weight basket of US grain merchants (ADM, BG) on the Monday following the second qualifying week. Hold for 20 trading days. Benchmark vs SPY. When Brazil logistics bottleneck raises export costs, global soybean buyers shift to US Gulf ports, boosting ADM and BG's origination and export margins.",
+    "tickers": [
+      "ADM",
+      "BG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "US Gulf-to-Paranagua FOB soybean basis spread widens > $0.50/bu above 5-year seasonal average, favoring US exports",
+      "Condition sustained for 2 consecutive weeks",
+      "Enter on Monday following second qualifying week",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: ADM (Archer-Daniels-Midland), BG (Bunge Global), ZS=F (CBOT soybean futures), SPY",
+      "fundamental": "USDA AMS daily grain bids (free) for US Gulf FOB basis. Brazil Paranagua basis available from CEPEA (free at cepea.esalq.usp.br) or USDA FAS GAIN reports. USDA Grain Transportation Report (free weekly) for US export logistics context."
+    },
+    "backtest_approach": "Event study: For each period (2010-2025) where the US-Brazil basis spread widened favorably for US exports by >$0.50/bu above seasonal average, compute ADM+BG return over 20 trading days vs SPY. Key events: 2018 (Brazil trucker strike shut ports for 10 days), 2020 (Brazil logistics congestion during record crop), 2023 (Paranagua congestion). ADM and BG both have long public histories. The challenge is obtaining consistent historical Brazil basis data. bt_feasibility is 3 because Brazil FOB basis data may require commercial sources.",
+    "known_events": [
+      "2018 May: Brazil trucker strike shut Paranagua/Santos for 10+ days, US exports surged",
+      "2020 Q1: Record Brazil soybean crop caused port congestion, widened basis",
+      "2021: Brazil logistics constraints during La Nina drought year",
+      "2023: Paranagua congestion during bumper crop"
+    ],
+    "implementation_notes": "ADM and BG are the two largest publicly traded US grain merchants with significant Gulf export operations. When global buyers shift from Brazil to US origin, ADM/BG capture higher export margins on their Gulf terminal capacity. The $0.50/bu threshold is significant (roughly 4% of soybean price). Brazil basis data from CEPEA is free but in Portuguese and requires parsing. Alternative: use USDA WASDE export estimates as a lagged confirmation. bt_feasibility is 3 due to basis data sourcing challenges.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtest_started_at": "2026-05-27T18:03:39.040828+00:00",
+    "backtested_at": "2026-05-27T18:03:59.957242+00:00",
+    "backtest_result": {
+      "status": "fail"
+    }
   }
 ]
