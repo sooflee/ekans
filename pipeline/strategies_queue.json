@@ -8310,7 +8310,7 @@
     "strategy_id": "PL249",
     "idea_id": "PL249",
     "created_at": "2026-05-26T23:51:58.723457+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL249_fema_disaster_building_materials",
     "name": "FEMA Major Disaster Declaration in Populous Area -> Long Building Materials (OC+BLDR+UFPI)",
     "category": "K",
@@ -8348,7 +8348,17 @@
     ],
     "implementation_notes": "BECN (Beacon Roofing Supply) is delisted on yfinance; replaced with UFPI (UFP Industries). FEMA API returns JSON at https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries with filters. Filter: declarationType eq DR, state in (FL,TX,CA,LA,NC,SC,NY,NJ). Deduplicate by keeping only the first declaration per state per disaster incident. Use urllib.request for API calls.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.203,
+      "cagr": -0.012,
+      "max_dd": -0.494,
+      "t_stat": 0.291,
+      "n_events": 13,
+      "verdict": "Duplicate - see other PL249 entry. Sharpe 0.20, CAGR -1.2%"
+    },
+    "backtested_at": "2026-05-26T23:56:03.845404+00:00"
   },
   {
     "strategy_id": "PL252",
@@ -8661,7 +8671,7 @@
     "strategy_id": "PL266",
     "idea_id": "PL266",
     "created_at": "2026-05-26T23:51:52.175202+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL266_bea_pce_goods_services_rotation_discretionary",
     "name": "BEA PCE Services-to-Goods Rotation -> Consumer Discretionary Pivot",
     "category": "G",
@@ -8681,13 +8691,22 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (XRT+HD+LOW for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 6,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.09265771657105287,
+      "cagr": -0.046335894691866164,
+      "max_dd": -0.2996511562065317,
+      "t_stat": -0.14650471357742698,
+      "n_events": 16
+    }
   },
   {
     "strategy_id": "PL267",
     "idea_id": "PL267",
     "created_at": "2026-05-26T23:51:52.175202+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL267_fhwa_vmt_surge_auto_insurer_premium_growth",
     "name": "FHWA Traffic Volume Surge -> Auto Insurance Premium Volume Growth",
     "category": "K",
@@ -8706,13 +8725,22 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (PGR+ALL+TRV) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 6,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4608432975093135,
+      "cagr": 0.2840738978511046,
+      "max_dd": -0.11131709708768234,
+      "t_stat": 1.0329722019197525,
+      "n_events": 3
+    }
   },
   {
     "strategy_id": "PL250",
     "idea_id": "PL250",
     "created_at": "2026-05-26T23:51:58.723457+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL250_warehouse_employment_surge_industrial_reit",
     "name": "FRED Warehouse Employment YoY Surge -> Long Industrial REITs (STAG+PLD+REXR)",
     "category": "G",
@@ -8741,13 +8769,23 @@
     "known_events": [],
     "implementation_notes": "Original idea referenced BLS QCEW county-level data which is too granular. Using FRED CES4349300001 (national warehousing employment) as a more tractable proxy. STAG and REXR IPO dates may limit earlier backtest data (STAG: 2011, REXR: 2013). Use PLD as the primary ticker for longer history.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.487,
+      "cagr": 0.085,
+      "max_dd": -0.21,
+      "t_stat": 0.582,
+      "n_events": 12,
+      "verdict": "Duplicate - see other PL250 entry. Sharpe 0.49, CAGR 8.5%"
+    },
+    "backtested_at": "2026-05-26T23:56:03.845404+00:00"
   },
   {
     "strategy_id": "PL264",
     "idea_id": "PL264",
     "created_at": "2026-05-26T23:52:09.658412+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL264_sba_504_loan_community_bank",
     "name": "SBA 504 Loan Approval Surge -> Community Bank Net Interest Income",
     "category": "G",
@@ -8775,13 +8813,22 @@
     "known_events": [],
     "implementation_notes": "KRE ETF inception was June 2006, so backtest starts mid-2006. SBA data may need to be scraped from SBA.gov FOIA datasets or downloaded as bulk CSV. The 504 program is specifically for fixed-asset lending (real estate, equipment), making it a cleaner signal for economic activity than 7(a) which includes working capital. bt_feasibility is 3 due to potential difficulty in automating SBA data retrieval and approximating exact release dates.",
     "originality": 7,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.5763900554675101,
+      "cagr": -0.16400488787445333,
+      "max_dd": -0.44059669651713407,
+      "t_stat": -0.7441163619150785,
+      "n_events": 10
+    }
   },
   {
     "strategy_id": "PL265",
     "idea_id": "PL265",
     "created_at": "2026-05-26T23:52:09.658412+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL265_usda_soybean_blooming_condition",
     "name": "USDA Crop Progress Soybean Blooming Poor Condition -> Soybean Long",
     "category": "J",
@@ -8815,13 +8862,22 @@
     ],
     "implementation_notes": "SOYB ETF inception was September 2011. For longer history, use ZS=F (CBOT soybean futures continuous contract) on yfinance which has data back further. DBA included as broader agriculture ETF alternative. USDA NASS QuickStats API requires free registration for API key. The 55% threshold is based on historical analysis showing that condition below this level during R1-R3 stages correlates with >5% yield reduction. Reports are released Monday afternoon; entry is Tuesday open to avoid stale pricing.",
     "originality": 6,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.15603782715563902,
+      "cagr": 0.012269442858225066,
+      "max_dd": -0.09635022529077863,
+      "t_stat": 0.10072198432536354,
+      "n_events": 5
+    }
   },
   {
     "strategy_id": "PL272",
     "idea_id": "PL272",
     "created_at": "2026-05-26T23:52:21.793966+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL272_usda_fsis_slaughter_recovery_packer_margins",
     "name": "USDA FSIS Inspection Volume Recovery -> Protein Packer Margins",
     "category": "J",
@@ -8839,13 +8895,22 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (TSN+PPC) for 10 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.5338640419162055,
+      "cagr": 1.0860246890249927,
+      "max_dd": -0.11558309503342434,
+      "t_stat": 1.427670650619385,
+      "n_events": 8
+    }
   },
   {
     "strategy_id": "PL275",
     "idea_id": "PL275",
     "created_at": "2026-05-26T23:52:51.907106+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL275_doe_spr_refill_procurement_crude_floor",
     "name": "DOE SPR Refill Procurement Announcements -> Crude Price Floor Signal",
     "category": "K",
@@ -8863,13 +8928,22 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (USO+XOP) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5844495303470053,
+      "cagr": 0.12182282147338874,
+      "max_dd": -0.1466380756880914,
+      "t_stat": 0.49395000724685484,
+      "n_events": 6
+    }
   },
   {
     "strategy_id": "PL270",
     "idea_id": "PL270",
     "created_at": "2026-05-26T23:53:22.770051+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL270_nfip_claims_flood_mitigation_infra",
     "name": "NFIP Claims Surge -> Flood Mitigation Infrastructure Spending",
     "category": "K",
@@ -8907,13 +8981,22 @@
     ],
     "implementation_notes": "AWK IPO was 2008, ACM IPO was 2007, MWA IPO was 2006. Backtest limited to 2008+. The FEMA NFIP dataset is very large (millions of claims); pre-aggregate by month before analysis. MWA (Mueller Water Products) focuses on water infrastructure products. ACM (AECOM) is engineering/construction. AWK (American Water Works) is the largest US water utility. The causal chain has a lag: mitigation spending takes 2-4 quarters to materialize, but stock prices may anticipate. bt_feasibility is 3 due to potentially low signal count.",
     "originality": 7,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.41843547849576196,
+      "cagr": 0.09198289913808777,
+      "max_dd": -0.38572516305327853,
+      "t_stat": 0.5401978798921392,
+      "n_events": 7
+    }
   },
   {
     "strategy_id": "PL271",
     "idea_id": "PL271",
     "created_at": "2026-05-26T23:53:22.770051+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL271_ppi_construction_deflation_homebuilders",
     "name": "BLS PPI Construction Inputs Deflation -> Homebuilder Margin Expansion",
     "category": "G",
@@ -8949,13 +9032,22 @@
     ],
     "implementation_notes": "DHI, LEN, TOL all have data back to 2000+. ITB ETF inception was 2006 for robustness check. The key insight is that homebuilders lock in sales prices 3-9 months before delivery, so falling input costs flow directly to margin on backlog. This is a well-understood mechanism in the industry but the PPI signal timing may offer an edge. FRED data is free but requires API key (free registration). The 3-month annualized rate smooths noise while being responsive enough to capture meaningful deflation episodes.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-26T23:58:03.453382+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.7811315621740421,
+      "cagr": -0.4068723463458114,
+      "max_dd": -0.7729515543771466,
+      "t_stat": -1.1497945270437073,
+      "n_events": 13
+    }
   },
   {
     "strategy_id": "PL281",
     "idea_id": "PL281",
     "created_at": "2026-05-26T23:54:17.201684+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL281_bts_ontime_deterioration_mro_demand_surge",
     "name": "BTS Airline On-Time Performance Deterioration -> MRO Demand Surge",
     "category": "K",
@@ -8974,13 +9066,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (TDG+HEI+GE) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4566004265320045,
+      "cagr": 0.31810578327461037,
+      "max_dd": -0.19251039724310548,
+      "t_stat": 1.6819372967199528,
+      "n_events": 8,
+      "is_winner": true
+    }
   },
   {
     "strategy_id": "PL282",
     "idea_id": "PL282",
     "created_at": "2026-05-26T23:54:17.201684+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL282_cftc_bank_participation_net_long_flip_commodity",
     "name": "CFTC Bank Participation Report Net Long Flip -> Commodity Trend Confirmation",
     "category": "G",
@@ -8997,13 +9099,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long commodity ETFs for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.994054631605772,
+      "cagr": 0.6520784381124014,
+      "max_dd": -0.15410580675968621,
+      "t_stat": 2.3025359566728247,
+      "n_events": 8,
+      "is_winner": true
+    }
   },
   {
     "strategy_id": "PL279",
     "idea_id": "PL279",
     "created_at": "2026-05-26T23:54:23.454346+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL279_uspto_oncology_patent_biotech_ma",
     "name": "USPTO Patent Grant Acceleration in Oncology CPC -> Biotech M&A Signal",
     "category": "E",
@@ -9031,13 +9143,23 @@
     "known_events": [],
     "implementation_notes": "PatentsView API is free and well-documented. CPC A61P35 covers antineoplastic agents specifically. The backtester should query patents by grant date and CPC classification. XBI is equal-weighted so it better captures small-cap M&A premium than IBB (cap-weighted). bt_feasibility is 3 because: (a) patent grant data may show secular growth trends requiring detrending, (b) the causal link from patent grants to M&A is indirect, and (c) quarterly frequency gives few data points per year.",
     "originality": 8,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.09020290027043888,
+      "cagr": -0.01828463461751395,
+      "max_dd": -0.44119488849208555,
+      "t_stat": 0.12449182965884599,
+      "n_events": 8,
+      "is_winner": false
+    }
   },
   {
     "strategy_id": "PL280",
     "idea_id": "PL280",
     "created_at": "2026-05-26T23:54:23.454346+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL280_usda_citrus_forecast_cut_fcoj",
     "name": "USDA NASS Citrus Forecast Down-Revision -> FCOJ Futures Long",
     "category": "J",
@@ -9070,6 +9192,1019 @@
     ],
     "implementation_notes": "OJ=F on yfinance provides FCOJ continuous futures contract. Citrus greening (HLB) has caused a structural decline in Florida production since ~2005, so the 15% revision threshold must be measured within-season (vs initial October estimate), not YoY. USDA QuickStats is free. The NASS citrus report schedule varies; approximate release as 10th-12th of each month. FCOJ is a thin market -- position sizing should be small. Consider also tracking Brazil crop news as it affects global supply.",
     "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4535618670016828,
+      "cagr": 0.04217516013780709,
+      "max_dd": -0.06466157360326918,
+      "t_stat": 0.32071667184452085,
+      "n_events": 7,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL291",
+    "idea_id": "PL291",
+    "created_at": "2026-05-26T23:55:20.963533+00:00",
+    "status": "done",
+    "signal_id": "PL291_nhtsa_recall_volume_spike_aftermarket_parts",
+    "name": "NHTSA Recall Volume Spike -> Aftermarket Parts Demand Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. NHTSA recall database shows >5M units recalled in a month (free data) Long (ORLY+AZO+AAP) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(ORLY",
+      "AZO",
+      "AAP)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (ORLY, AZO, AAP), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (ORLY+AZO+AAP) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.6417980412346141,
+      "cagr": 0.12438426243023604,
+      "max_dd": -0.23487942888854252,
+      "t_stat": 0.741084543744358,
+      "n_events": 8,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL292",
+    "idea_id": "PL292",
+    "created_at": "2026-05-26T23:55:20.963533+00:00",
+    "status": "done",
+    "signal_id": "PL292_eia_coal_stockpile_low_days_burn_producer_long",
+    "name": "EIA Power Plant Coal Stockpiles Low Days-of-Burn -> Coal Producer Long",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance data: 1. EIA Electric Power Monthly shows coal stockpiles < 60 days of burn (free) Long (ARCH+CEIX+BTU) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(ARCH",
+      "CEIX",
+      "BTU)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (ARCH, CEIX, BTU), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (ARCH+CEIX+BTU) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4809732713659063,
+      "cagr": 1.459289297691475,
+      "max_dd": -0.4440488531198469,
+      "t_stat": 1.02196864887619,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL293",
+    "idea_id": "PL293",
+    "created_at": "2026-05-26T23:55:20.963533+00:00",
+    "status": "done",
+    "signal_id": "PL293_sec_13f_hedge_fund_short_unwinding_squeeze",
+    "name": "SEC 13F Hedge Fund Consensus Short Unwinding -> Crowded Short Squeeze",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance data: 1. SEC 13F filings show significant QoQ hedge fund buying in former consensus short Long SPY for 63 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long SPY for 63 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 3.8173026047906675,
+      "cagr": 2.941744367513342,
+      "max_dd": -0.10435759637894382,
+      "t_stat": 3.1168145251780826,
+      "n_events": 8,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL285",
+    "idea_id": "PL285",
+    "created_at": "2026-05-26T23:55:26.106309+00:00",
+    "status": "failed",
+    "signal_id": "PL285_noaa_landings_collapse_farmed_salmon",
+    "name": "NOAA Fisheries Landings Collapse -> Farmed Salmon Premium Expansion",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and NOAA Fisheries landings data: When NOAA monthly commercial landings for Pacific salmon (all species combined, pounds) drop > 20% below the trailing 5-year average for that calendar month, go long MOWI.OL (Mowi ASA, world's largest salmon farmer, Oslo-listed) on the first trading day after data release. Hold for 40 trading days. Benchmark vs SPY. NOAA publishes monthly landings data with ~2 month lag. Use seasonal comparison (same-month 5-year average) to account for seasonal fishing patterns.",
+    "tickers": [
+      "MOWI.OL",
+      "SALM.OL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA monthly Pacific salmon commercial landings (all species) drop > 20% below same-month trailing 5-year average",
+      "Enter on first trading day after NOAA data release (~2 month lag)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: MOWI.OL (Mowi ASA, Oslo), SALM.OL (SalMar ASA, Oslo), SPY",
+      "fundamental": "NOAA Fisheries commercial landings statistics: https://www.fisheries.noaa.gov/foss (free). Monthly data by species and port. Filter for Pacific salmon (Chinook, Sockeye, Coho, Pink, Chum). Historical data back to 1990."
+    },
+    "backtest_approach": "Event study: For each month (2007-2025, constrained by MOWI.OL data) where Pacific salmon landings dropped >20% below same-month 5-year average, compute MOWI.OL return over 40 trading days vs SPY. Also test with SALM.OL for robustness. Note: MOWI.OL is NOK-denominated; convert to USD using yfinance NOK=X rate for fair comparison vs SPY. Calculate average excess return, win rate, t-statistic. Key events: 2009 (low salmon runs), 2016 (Alaska salmon run failure), 2020 (COVID disruption).",
+    "known_events": [
+      "2009 Sacramento River salmon fishery closure",
+      "2016 Alaska pink salmon run failure",
+      "2020 COVID disrupted fishing fleet operations",
+      "2023 Klamath River dam removal affected salmon runs"
+    ],
+    "implementation_notes": "MOWI.OL (formerly Marine Harvest) trades in NOK on Oslo Stock Exchange. yfinance provides prices in NOK. For USD-based PnL comparison vs SPY, convert using NOKUSD=X. SALM.OL (SalMar) as secondary ticker for robustness. No pure-play US-listed aquaculture ETF exists. NOAA data may require scraping from FOSS (Fisheries One Stop Shop) portal. bt_feasibility is 3 due to: (a) NOAA data lag reduces timeliness, (b) cross-border currency effects, (c) limited US-tradeable instruments.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "No US-listed farmed salmon pure-play available (MOWI.OL/SALM.OL are Oslo-listed)"
+    }
+  },
+  {
+    "strategy_id": "PL286",
+    "idea_id": "PL286",
+    "created_at": "2026-05-26T23:55:26.106309+00:00",
+    "status": "done",
+    "signal_id": "PL286_fdic_unrealized_loss_regional_bank",
+    "name": "FDIC Quarterly Profile Unrealized Loss Improvement -> Regional Bank Recovery",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FDIC Quarterly Banking Profile data: When FDIC QBP shows aggregate unrealized losses on investment securities narrowing by > 20% QoQ (i.e., losses becoming less negative by at least 20%), go long KRE (SPDR S&P Regional Banking ETF) on the first trading day after FDIC QBP publication. Hold for 30 trading days. Benchmark vs SPY. FDIC QBP published quarterly, typically ~8 weeks after quarter end (e.g., Q1 data released late May/early June).",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FDIC QBP aggregate unrealized losses on investment securities narrow by > 20% QoQ",
+      "Enter on first trading day after FDIC QBP publication date",
+      "At most one signal per quarter"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KRE, SPY",
+      "fundamental": "FDIC Quarterly Banking Profile (free): https://www.fdic.gov/analysis/quarterly-banking-profile - Table III-A 'Estimated Insured Deposits and Unrealized Gains (Losses) on Investment Securities'. Also available via FDIC Statistics At A Glance. Quarterly data, published ~8 weeks after quarter end."
+    },
+    "backtest_approach": "Event study: For each FDIC QBP release (2008-2025, KRE inception 2006) where aggregate unrealized losses narrowed >20% QoQ, compute KRE return over 30 trading days post-release vs SPY. FDIC QBP publication dates are on the FDIC website. Calculate average excess return, win rate, t-statistic. Key periods: Q4 2008-Q1 2009 (post-GFC rate cuts), Q4 2018-Q1 2019 (Fed pivot), Q4 2023-Q1 2024 (rate peak and decline). If too few events at 20%, test 15% and 10% thresholds.",
+    "known_events": [
+      "2009 Q1-Q2: unrealized losses improved as Fed rate cuts took effect",
+      "2019 Q1: Fed dovish pivot reduced unrealized losses",
+      "2023 Q3-2024: post-SVB unrealized loss focus, gradual improvement"
+    ],
+    "implementation_notes": "This signal became especially relevant post-SVB (March 2023) when bank unrealized losses became a major market focus. Before 2022, unrealized losses were smaller and less market-moving. The FDIC QBP is freely available but must be manually scraped or downloaded as PDF/Excel. KRE inception was June 2006. The 20% improvement threshold should be applied to the absolute value of unrealized losses (e.g., going from -$600B to -$480B = 20% improvement). This is a relatively clean signal with well-defined data and clear mechanism.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.4661205490782463,
+      "cagr": 0.4232002463937907,
+      "max_dd": -0.14841835874030718,
+      "t_stat": 1.4661205490782463,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL296",
+    "idea_id": "PL296",
+    "created_at": "2026-05-26T23:56:22.390346+00:00",
+    "status": "done",
+    "signal_id": "PL296_usitc_affirmative_injury_domestic_producer_long",
+    "name": "USITC Affirmative Injury Determination -> Domestic Producer Protection Premium",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. USITC issues affirmative preliminary injury determination (free public record) Long SPY for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long SPY for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3753262740339296,
+      "cagr": 0.48357197087192616,
+      "max_dd": -0.29487341873690853,
+      "t_stat": 1.4855221596202217,
+      "n_events": 7,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL297",
+    "idea_id": "PL297",
+    "created_at": "2026-05-26T23:56:22.390346+00:00",
+    "status": "done",
+    "signal_id": "PL297_noaa_hurricane_gulf_shutin_inland_refiner",
+    "name": "NOAA Hurricane Track Gulf Offshore -> Crude Shut-In -> Refiner Margin Spike",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "rule": "Using yfinance data: 1. NOAA NHC hurricane warning issued for Gulf offshore region (free real-time) Long (PBF+VLO) for 21 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(PBF",
+      "VLO)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (PBF, VLO), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (PBF+VLO) for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.993389844559574,
+      "cagr": 2.0633173857532303,
+      "max_dd": -0.30262999768230336,
+      "t_stat": 0.9726746473602765,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL298",
+    "idea_id": "PL298",
+    "created_at": "2026-05-26T23:56:22.390346+00:00",
+    "status": "done",
+    "signal_id": "PL298_eia_ethanol_collapse_corn_surplus_poultry_feed",
+    "name": "EIA Ethanol Production Collapse -> Corn Demand Destruction -> Livestock Feed Cos",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. EIA weekly ethanol production drops >10% below seasonal norms (free data) Long (PPC+TSN) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(PPC",
+      "TSN)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (PPC, TSN), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (PPC+TSN) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.313656211475823,
+      "cagr": 1.1063612815316515,
+      "max_dd": -0.37239864785730736,
+      "t_stat": 1.313656211475823,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL299",
+    "idea_id": "PL299",
+    "created_at": "2026-05-26T23:56:22.390346+00:00",
+    "status": "done",
+    "signal_id": "PL299_fed_h8_cash_assets_peak_bank_nii_acceleration",
+    "name": "Fed H.8 Cash-to-Assets Ratio Peak -> Banks Deploy Cash -> NII Acceleration",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. Fed H.8 shows cash-to-assets ratio peaking and declining (free weekly) Long (KBE+KRE) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(KBE",
+      "KRE)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (KBE, KRE), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (KBE+KRE) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.871677875396893,
+      "cagr": -0.24194799638509568,
+      "max_dd": -0.3176151865525113,
+      "t_stat": -0.871677875396893,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL294",
+    "idea_id": "PL294",
+    "created_at": "2026-05-26T23:57:05.717241+00:00",
+    "status": "done",
+    "signal_id": "PL294_feeder_cattle_collapse_packer_margin",
+    "name": "USDA Feeder Cattle Price Collapse -> Feedlot Margin Expansion -> Packers Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance: When GF=F (feeder cattle futures front month) drops > 15% below its 252-trading-day (1 year) moving average while LE=F (live cattle futures) remains within 5% of its 252-day moving average, go long TSN (Tyson Foods) on the next trading day. Hold for 30 trading days. Benchmark vs SPY. The feeder-to-fed spread widening signals feedlot margin expansion. Use yfinance continuous futures for both feeder and live cattle. Check condition weekly (every Friday close).",
+    "tickers": [
+      "TSN",
+      "GF=F",
+      "LE=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "GF=F (feeder cattle futures) closes > 15% below its 252-day simple moving average",
+      "LE=F (live cattle futures) closes within +/- 5% of its 252-day simple moving average",
+      "Check condition on Friday close each week",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: TSN (Tyson Foods), GF=F (CME feeder cattle futures continuous), LE=F (CME live cattle futures continuous), SPY",
+      "fundamental": "none - all signal data derived from yfinance futures prices"
+    },
+    "backtest_approach": "Event study: For each Friday (2000-2025) where GF=F was >15% below 252-day MA while LE=F was within 5% of its 252-day MA, compute TSN return over 30 trading days vs SPY. Group overlapping signals into single events with 60-day minimum gap. Calculate average excess return, win rate, t-statistic. This is a pure price-based signal so no external data sources needed. The spread between feeder and fed cattle is the key driver of packer margins.",
+    "known_events": [
+      "2008-2009 GFC: feeder cattle crashed while fed cattle held up better initially",
+      "2015-2016: feeder cattle collapsed from cycle highs while boxed beef stable",
+      "2020 Q1-Q2: COVID disrupted feedlot placements causing feeder price collapse"
+    ],
+    "implementation_notes": "This is one of the cleanest signals since all data comes from yfinance (no external APIs needed). TSN is the largest US protein company with significant beef segment (~35% of revenue). GF=F and LE=F continuous futures on yfinance may have roll artifacts; the backtester should be aware of potential price discontinuities at contract rolls. The 15% threshold is aggressive; if fewer than 5 events, relax to 12% or 10%. Alternative targets: SAFM (Sanderson Farms, acquired 2022), PPC (Pilgrim's Pride) for chicken exposure during beef margin cycles.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.7143263861387751,
+      "cagr": -0.27238144129477515,
+      "max_dd": -0.43461472910458154,
+      "t_stat": -0.7715606804326947,
+      "n_events": 7,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL295",
+    "idea_id": "PL295",
+    "created_at": "2026-05-26T23:57:05.717241+00:00",
+    "status": "done",
+    "signal_id": "PL295_strips_deep_inversion_defensive",
+    "name": "Treasury STRIPS 2s10s Inversion Depth -> Utilities Outperformance",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FRED data: When FRED series SVENY10 minus SVENY02 (Svensson zero-coupon 10yr minus 2yr Treasury yields) drops below -100bp, go long an equal-weight basket of XLU (Utilities Select Sector SPDR) and XLP (Consumer Staples Select Sector SPDR) on the next trading day. Hold for 40 trading days. Benchmark vs SPY. Check condition daily. The Svensson zero-coupon curve is the closest available proxy for STRIPS yields on FRED.",
+    "tickers": [
+      "XLU",
+      "XLP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED SVENY10 minus SVENY02 (zero-coupon 10yr-2yr spread) drops below -100bp",
+      "Signal fires on the first day the threshold is breached",
+      "Minimum 180 calendar days between signals to avoid re-triggering during same inversion episode"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLU, XLP, SPY",
+      "fundamental": "FRED series SVENY02 (Fitted Yield on a 2 Year Zero Coupon Bond) and SVENY10 (Fitted Yield on a 10 Year Zero Coupon Bond), from the Federal Reserve Board. Daily frequency, available back to 1961. Alternative: FRED series T10Y2Y for coupon bond spread if Svensson series unavailable."
+    },
+    "backtest_approach": "Event study: For each date (1998-2025, XLU/XLP inception 1998) where SVENY10-SVENY02 first dropped below -100bp, compute equal-weight XLU+XLP return over 40 trading days vs SPY. With 180-day minimum gap, expect very few events: possibly 2000, 2006-2007, 2022-2023 inversions. If <3 events at -100bp, relax threshold to -75bp or -50bp. Also test with T10Y2Y (coupon-based 10y-2y) as more liquid alternative. Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2000 Q1-Q2: deep inversion preceded 2001 recession, XLU outperformed",
+      "2006-2007: persistent inversion preceded GFC, defensive sectors lagged initially",
+      "2022-2023: deepest inversion in decades (-108bp on coupon curve in July 2023)"
+    ],
+    "implementation_notes": "FRED Svensson zero-coupon yields (SVENY series) are the best STRIPS proxy available for free. The actual STRIPS yields are published by Treasury but not easily available in time-series format. -100bp is an extreme threshold that may produce very few events; the backtester should test multiple thresholds (-50bp, -75bp, -100bp). XLU inception Dec 1998, XLP inception Dec 1998. Note: the 2006-2007 inversion led to a recession but with significant lag (18 months); the 40-day holding period may miss the full defensive rotation. The signal is well-known but the zero-coupon specification adds originality vs the standard T10Y2Y version.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.324044264922129,
+      "cagr": 0.19814255700741779,
+      "max_dd": -0.08900323900660168,
+      "t_stat": 1.4446507303518619,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL306",
+    "idea_id": "PL306",
+    "created_at": "2026-05-26T23:57:52.286331+00:00",
+    "status": "failed",
+    "signal_id": "PL306_usda_milk_per_cow_decline_herd_exit_cheese",
+    "name": "USDA Milk Production Per Cow Decline + Herd Exit -> Dairy Protein Tightness",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: 1. USDA milk production shows declining per-cow output + herd contraction (free) Long SPY for 21 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long SPY for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "No liquid US-listed pure-play dairy equity available (DF delisted 2019)"
+    }
+  },
+  {
+    "strategy_id": "PL308",
+    "idea_id": "PL308",
+    "created_at": "2026-05-26T23:57:52.286331+00:00",
+    "status": "done",
+    "signal_id": "PL308_tic_foreign_official_ust_decline_gold_long",
+    "name": "TIC Foreign Official UST Holdings Decline -> Central Bank Gold Accumulation",
+    "category": "G",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: 1. TIC data shows foreign official UST holdings declining 3+ months (free) Long (GLD+GDX) for 21 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(GLD",
+      "GDX)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (GLD, GDX), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (GLD+GDX) for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T00:00:47.938965+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.2569534290012797,
+      "cagr": 0.03363936593161454,
+      "max_dd": -0.30737097960813686,
+      "t_stat": 0.33172545042428203,
+      "n_events": 7,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL300",
+    "idea_id": "PL300",
+    "created_at": "2026-05-26T23:58:12.820296+00:00",
+    "status": "in_progress",
+    "signal_id": "PL300_epa_ghgrp_methane_midstream_esg",
+    "name": "EPA GHGRP Methane Emission Reduction Leaders -> Natural Gas Midstream ESG Premium",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and EPA GHGRP data: When EPA GHGRP annual data release shows that midstream natural gas operators (NAICS 486210 Pipeline Transportation of Natural Gas) report aggregate methane emissions declining > 25% YoY, go long an equal-weight basket of major midstream operators (WMB, KMI, ET) on the first trading day after EPA GHGRP publication. Hold for 40 trading days. Benchmark vs SPY. EPA GHGRP data is published annually, typically in October for the prior year's emissions.",
+    "tickers": [
+      "WMB",
+      "KMI",
+      "ET",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EPA GHGRP annual data shows midstream pipeline methane (CH4) emissions down > 25% YoY for NAICS 486210",
+      "Enter on first trading day after EPA GHGRP annual data publication (typically October)",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: WMB (Williams Companies), KMI (Kinder Morgan), ET (Energy Transfer), SPY",
+      "fundamental": "EPA GHGRP facility-level emissions data (free): https://ghgdata.epa.gov/ghgp/main.do - downloadable bulk CSV. Filter by subpart W (petroleum and natural gas systems) and NAICS 486210. Annual frequency, published ~October for prior calendar year."
+    },
+    "backtest_approach": "Event study: For each annual GHGRP release (2012-2025, data available from 2010 reporting year), check if midstream methane emissions declined >25% YoY. On qualifying years, compute equal-weight WMB+KMI+ET return over 40 trading days post-publication vs SPY. Expected very few signal events (possibly 2-3 where 25% threshold met). If fewer than 3 events, relax to 15% YoY decline. Calculate average excess return, win rate. Note: KMI was private pre-2011 (IPO Feb 2011), ET was Regency Energy pre-2015 merger.",
+    "known_events": [
+      "2015: EPA methane NSPS proposed, industry began voluntary reduction programs",
+      "2021-2022: Inflation Reduction Act methane fee announced, accelerated leak detection",
+      "2023: EU methane regulation adopted, requiring import certification"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because: (a) annual frequency gives very few data points, (b) 25% reduction threshold may be rarely met, (c) EPA GHGRP data requires parsing facility-level CSV and aggregating by NAICS. WMB data back to 2000, KMI IPO 2011, ET ticker changed from RGP after 2015 merger. The ESG re-rating thesis is strongest post-2020 as ESG fund flows accelerated. The backtester should note that pre-2020 events may not show the same ESG-driven price response.",
+    "originality": 8,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL301",
+    "idea_id": "PL301",
+    "created_at": "2026-05-26T23:58:12.820296+00:00",
+    "status": "in_progress",
+    "signal_id": "PL301_census_retail_is_ratio_restocking",
+    "name": "Census Retail I/S Ratio Record Low by Subsector -> Targeted Restocking Longs",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and Census Bureau MRTS data: When Census monthly retail trade survey shows the inventory-to-sales ratio for 'Electronics and Appliance Stores' (NAICS 443) or 'Furniture and Home Furnishings' (NAICS 442) or 'Building Material and Garden' (NAICS 444) hits a new all-time low, go long a subsector-matched stock basket on Census data release date. Electronics: long BBY+WHR. Furniture: long WSM+WHR. Building materials: long HD+LOW. Hold for 20 trading days. Benchmark vs SPY. Census MRTS published monthly, ~6 weeks after month end.",
+    "tickers": [
+      "BBY",
+      "WHR",
+      "WSM",
+      "HD",
+      "LOW",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census MRTS inventory-to-sales ratio for NAICS 442, 443, or 444 hits new all-time low",
+      "I/S ratio must also be declining (current month < prior month, not just matching prior low)",
+      "Enter on Census MRTS release date",
+      "Minimum 60 calendar days between signals for same subsector"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: BBY (Best Buy), WHR (Whirlpool), WSM (Williams-Sonoma), HD (Home Depot), LOW (Lowe's), SPY",
+      "fundamental": "Census Bureau Monthly Retail Trade Survey (MRTS) via Census API or FRED. FRED series: RETAILIRSA (aggregate), but subsector I/S ratios available via Census API at https://api.census.gov/data/timeseries/eits/mrts. Subsector NAICS codes: 442 (Furniture), 443 (Electronics), 444 (Building Materials). Monthly frequency, ~6 week publication lag."
+    },
+    "backtest_approach": "Event study: For each month (2000-2025) where any target subsector I/S ratio hit a new all-time low, compute the subsector-matched stock basket return over 20 trading days vs SPY. Track each subsector independently. Calculate average excess return, win rate, t-statistic per subsector and combined. Expected events concentrated in: 2021 (COVID inventory depletion, especially electronics and building materials), and scattered pre-pandemic hits. Census MRTS release dates available on Census economic calendar.",
+    "known_events": [
+      "2021 Q1-Q3: Electronics I/S ratios crashed to record lows amid semiconductor shortage",
+      "2021: Building materials I/S ratio hit record low during housing boom",
+      "2022: Furniture I/S ratio declined as supply chains caught up but demand persisted"
+    ],
+    "implementation_notes": "Census MRTS is free but subsector-level I/S ratios may require Census API access (free, key needed). FRED has aggregate retail I/S (RETAILIRSA) but subsector detail may only be available via Census. The all-time-low condition means signals are clustered during unusual periods (e.g., 2021) and rare otherwise. Stock matching: BBY/WHR for electronics, WSM/WHR for furniture, HD/LOW for building materials. The restocking thesis works best when sales remain positive (I/S decline is supply-driven, not demand collapse). Backtester should verify sales trend is positive when I/S hits lows.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL311",
+    "idea_id": "PL311",
+    "created_at": "2026-05-26T23:58:21.505395+00:00",
+    "status": "in_progress",
+    "signal_id": "PL311_finra_margin_debt_yoy_positive_inflection_risk_on",
+    "name": "FINRA Margin Debt YoY Turn Positive from Deep Negative -> Risk-On Confirmation",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. FINRA margin debt YoY turns positive after 6+ months negative (free monthly) Long (QQQ+IWM) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(QQQ",
+      "IWM)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (QQQ, IWM), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (QQQ+IWM) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL301",
+    "idea_id": "PL301",
+    "created_at": "2026-05-26T23:58:37.797066+00:00",
+    "status": "in_progress",
+    "signal_id": "PL301_retail_is_ratio_low_restocking",
+    "name": "FRED Retail Inventory/Sales Ratio at 5-Year Low -> Long Retailers on Restocking",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Use FRED RETAILIRSA (Retailers Inventories to Sales Ratio, seasonally adjusted). Compute rolling 60-month (5-year) percentile rank. When the I/S ratio drops below the 10th percentile for the first time in a new episode (no signal in prior 3 months), inventories are critically lean relative to sales, making restocking imminent. Long XRT (SPDR S&P Retail ETF) for 63 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "XRT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED RETAILIRSA drops below its 10th percentile on a rolling 60-month basis",
+      "No signal fired in the prior 3 months (to avoid consecutive signals during same drawdown)",
+      "Go long on first trading day of the month following the signal month"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XRT, SPY",
+      "fundamental": "FRED RETAILIRSA"
+    },
+    "backtest_approach": "Load FRED RETAILIRSA monthly. Compute rolling 60-month percentile rank using scipy.stats.percentileofscore. When percentile < 10 and no signal in prior 3 months, enter long XRT on next month start. Hold 63 trading days. Compute per-event returns and aggregate metrics vs SPY. Expect ~10 signal episodes from 2004-2024.",
+    "known_events": [
+      "2004-12 to 2005-01: post-tech-recovery lean inventories",
+      "2007-03 to 2008-05: pre-GFC lean retail inventories",
+      "2009-06: post-GFC destocking trough",
+      "2010-11: restocking wave after inventory purge",
+      "2019-11: pre-COVID lean inventories",
+      "2021-01: COVID supply chain depletion extreme low"
+    ],
+    "implementation_notes": "XRT ETF inception is June 2006, so earlier signals (2004-2005) need to use individual stocks (WMT, TGT, HD) as proxy. Use scipy.stats.percentileofscore for rolling percentile calculation. RETAILIRSA is monthly and seasonally adjusted. The critical insight is that lean inventories are unsustainable -- restocking orders must come, lifting both revenue and wholesale demand.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL312",
+    "idea_id": "PL312",
+    "created_at": "2026-05-26T23:58:54.087118+00:00",
+    "status": "in_progress",
+    "signal_id": "PL312_epa_rin_price_collapse_merchant_refiner_long",
+    "name": "EPA RFS RIN Price Collapse -> Standalone Refiner Cost Relief",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. EPA EMTS data shows D6 RIN prices collapsing >50% (public pricing data) Long (PBF+DK) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(PBF",
+      "DK)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (PBF, DK), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (PBF+DK) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 8,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL314",
+    "idea_id": "PL314",
+    "created_at": "2026-05-26T23:58:54.087118+00:00",
+    "status": "in_progress",
+    "signal_id": "PL314_fed_z1_household_equity_allocation_low_contrarian",
+    "name": "Fed Z.1 Household Equity Allocation Below 30% -> Contrarian Long Equities",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "rule": "Using yfinance data: 1. Fed Z.1 shows household equity allocation < 30% of financial assets (free quarterly) Long (SPY+VTI) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(SPY",
+      "VTI)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (SPY, VTI), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (SPY+VTI) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL309",
+    "idea_id": "PL309",
+    "created_at": "2026-05-26T23:59:13.066191+00:00",
+    "status": "in_progress",
+    "signal_id": "PL309_usda_barge_rate_spike_brazil_ag",
+    "name": "USDA Grain Barge Rate Spike -> US Export Cost Disadvantage -> Brazilian Ag Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and USDA Grain Transportation Report: When USDA GTR weekly barge rate index for the lower Mississippi (St. Louis to New Orleans) exceeds 200% of the 5-year seasonal average for that week, go long EWZ (iShares MSCI Brazil ETF) on the following Monday. Hold for 20 trading days. Benchmark vs SPY. USDA GTR published weekly (Thursday) with barge rate index data. The 200% threshold captures extreme events like the 2022 Mississippi low-water crisis. Focus on September-November period when US grain export season overlaps with barge congestion risk.",
+    "tickers": [
+      "EWZ",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA GTR weekly barge rate index for lower Mississippi exceeds 200% of 5-year same-week average",
+      "Signal window: September 1 through November 30 (peak US grain export season)",
+      "Enter on Monday following Thursday GTR release",
+      "Minimum 30 calendar days between signals within same season"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: EWZ (iShares MSCI Brazil ETF), SPY",
+      "fundamental": "USDA AMS Grain Transportation Report (free): https://www.ams.usda.gov/services/transportation-analysis/gtr - weekly barge rate tables in PDF/Excel. Lower Mississippi barge rate index (tariff rates per ton from St. Louis to New Orleans). Historical data available in GTR archive back to 2010+."
+    },
+    "backtest_approach": "Event study: For each September-November period (2010-2025), identify weeks where lower Mississippi barge rate exceeded 200% of 5-year same-week average. Compute EWZ return over 20 trading days vs SPY. Key events: 2012 (drought low water), 2022 (historic low water on Mississippi). If fewer than 4 events at 200% threshold, relax to 150%. Calculate average excess return, win rate, t-statistic. Note: EWZ is a broad Brazil ETF, not pure-play agriculture, so the signal may be diluted by non-ag Brazilian dynamics.",
+    "known_events": [
+      "2012 summer: Mississippi low water levels spiked barge rates",
+      "2022 October: Historic low water on Mississippi, barge rates hit all-time highs",
+      "2023 September: Drought again impacted barge navigation"
+    ],
+    "implementation_notes": "USDA GTR is published as PDF/Excel, requiring manual scraping or OCR for automation. EWZ is used as proxy because no pure-play US-listed Brazilian agribusiness ETF exists. BRFS (BRF S.A., Brazilian food processor) is not available on yfinance. The causal chain requires US grain export disruption to benefit Brazil, which is strongest during Oct-Nov soybean/corn export peak. FX effects matter: BRL weakness vs USD during crisis periods may offset commodity gains in EWZ. bt_feasibility is 3 due to PDF data extraction challenges and indirect instrument.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL310",
+    "idea_id": "PL310",
+    "created_at": "2026-05-26T23:59:13.066191+00:00",
+    "status": "in_progress",
+    "signal_id": "PL310_dol_state_claims_divergence_reit",
+    "name": "DOL State Claims Divergence -> Labor Market Strength Pockets -> Sunbelt REIT Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FRED/DOL data: When 4-week average initial claims for Texas+Florida+Arizona+Georgia (Sunbelt states) decline > 20% YoY while national 4-week average claims are flat or rising (YoY change > -5%), go long an equal-weight basket of Sunbelt-heavy REITs (SUI, EQR, AMT) on the Thursday following the DOL weekly report. Hold for 30 trading days. Benchmark vs SPY. DOL publishes state-level claims data weekly with a 1-week lag. Use FRED series for state-level claims: TXICLAIMS, FLICLAIMS, AZICLAIMS, GAICLAIMS, ICSA (national).",
+    "tickers": [
+      "SUI",
+      "EQR",
+      "AMT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "4-week average initial claims for TX+FL+AZ+GA combined decline > 20% YoY",
+      "National 4-week average initial claims (ICSA) YoY change is > -5% (flat or rising)",
+      "Enter on Thursday following DOL weekly report",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SUI (Sun Communities), EQR (Equity Residential), AMT (American Tower), SPY",
+      "fundamental": "FRED series: ICSA (national initial claims), TXICLAIMS (Texas), FLICLAIMS (Florida), AZICLAIMS (Arizona), GAICLAIMS (Georgia). Weekly frequency, Thursday release with 1-week lag. All series are free and available back to 1987."
+    },
+    "backtest_approach": "Event study: For each week (2004-2025, SUI IPO 1993 so not limiting), compute 4-week average of TX+FL+AZ+GA claims and compare YoY. When Sunbelt claims decline >20% YoY while national ICSA is flat/rising, compute equal-weight SUI+EQR+AMT return over 30 trading days vs SPY. Calculate average excess return, win rate, t-statistic. Expected events during regional divergence periods: 2010-2011 (Sunbelt recovery from housing crisis), 2021 (Sunbelt reopening ahead of national average), 2023 (Sunbelt labor market outperformance).",
+    "known_events": [
+      "2010-2011: Sunbelt states recovered faster from housing bust",
+      "2021 Q2-Q3: Sunbelt states reopened earlier, claims fell faster",
+      "2023: Sunbelt labor markets remained tight despite national softening"
+    ],
+    "implementation_notes": "FRED state claims series are reliable and well-maintained. The Sunbelt state selection (TX, FL, AZ, GA) captures the main population growth and migration destinations. SUI (manufactured housing/RV communities) has strong Sunbelt exposure, EQR has mixed geographic but growing Sunbelt, AMT (cell towers) benefits from population growth areas. The 20% Sunbelt improvement vs flat national is a meaningful divergence. bt_feasibility is 3 because: (a) the REIT tickers don't perfectly map to state-level exposure, (b) claims data is noisy and seasonal adjustment matters.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL318",
+    "idea_id": "PL318",
+    "created_at": "2026-05-26T23:59:53.461634+00:00",
+    "status": "in_progress",
+    "signal_id": "PL318_fhfa_hpi_state_acceleration_title_insurance",
+    "name": "FHFA HPI Acceleration in Top 10 States -> Title Insurance/Mortgage Originator Vo",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance data: 1. FHFA HPI shows QoQ acceleration in 7+ of top 10 population states (free) Long (FAF+FNF) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(FAF",
+      "FNF)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (FAF, FNF), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (FAF+FNF) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL315",
+    "idea_id": "PL315",
+    "created_at": "2026-05-27T00:00:12.752849+00:00",
+    "status": "in_progress",
+    "signal_id": "PL315_hpai_outbreak_egg_producer_long",
+    "name": "USDA APHIS HPAI Outbreak Acceleration -> Egg Supply Shock -> CALM Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and USDA APHIS HPAI data: When USDA APHIS confirmed HPAI commercial flock depopulations exceed 10 million birds cumulative in a rolling 30-day window, go long CALM (Cal-Maine Foods, largest US shell egg producer) on the next trading day. Hold for 20 trading days. Benchmark vs SPY. USDA APHIS publishes confirmed HPAI detections in near-real-time on their website with flock size for each detection. Sum commercial poultry depopulations (layers + pullets) over rolling 30-day windows.",
+    "tickers": [
+      "CALM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA APHIS confirmed HPAI commercial flock depopulations exceed 10M birds in rolling 30-day window",
+      "Only count commercial layer and pullet flocks (not backyard, not broiler)",
+      "Enter on next trading day after threshold is breached",
+      "Minimum 90 calendar days between signals (to avoid re-triggering during same outbreak wave)"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CALM (Cal-Maine Foods), SPY",
+      "fundamental": "USDA APHIS HPAI confirmed detections table (free): https://www.aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections/commercial-backyard-flocks - CSV/table with date_confirmed, state, flock_type, flock_size. Sum flock_size for commercial flocks over rolling 30-day windows."
+    },
+    "backtest_approach": "Event study: For each date (2015-2025) where rolling 30-day HPAI commercial depopulations exceeded 10M birds, compute CALM return over 20 trading days vs SPY. Key outbreak waves: Spring 2015 (49M birds total, concentrated in Midwest layers), 2022 (58M birds), 2024-2025 (ongoing). With 90-day minimum gap, expect 4-6 discrete signal events. Calculate average excess return, win rate, t-statistic. CALM is uniquely positioned as the largest US egg producer and benefits from egg price spikes when competitors' flocks are depopulated.",
+    "known_events": [
+      "2015-04 to 2015-06: H5N2 outbreak depopulated 49M birds, egg prices tripled",
+      "2022-02 to 2022-06: H5N1 first wave, 38M commercial birds",
+      "2022-10 to 2023-03: H5N1 second wave, 20M+ additional birds",
+      "2024-2025: Ongoing H5N1 outbreaks in commercial poultry"
+    ],
+    "implementation_notes": "CALM is the only major pure-play publicly traded US shell egg producer. Their flock has historically been less affected (geographic diversification, biosecurity). When competitors' flocks are destroyed, egg prices spike and CALM captures windfall profits. APHIS data is published in near-real-time and is easily parseable. The 10M threshold is calibrated to capture only major outbreak waves, not isolated farm detections. bt_feasibility is 4 because APHIS data is clean, CALM has long history, and the causal mechanism (supply shock -> price spike -> windfall) is very direct.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL316",
+    "idea_id": "PL316",
+    "created_at": "2026-05-27T00:00:12.752849+00:00",
+    "status": "in_progress",
+    "signal_id": "PL316_census_defense_orders_spike_primes",
+    "name": "Census Defense Capital Goods Orders Surge -> Defense Prime Backlog Expansion",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FRED/Census data: When FRED series A007RC1Q027SBEA (or NEWORDER defense capital goods, not seasonally adjusted) shows month-over-month increase > 30%, go long an equal-weight basket of defense primes (LMT, RTX, NOC, GD) on the advance durable goods release date. Hold for 30 trading days. Benchmark vs SPY. Census advance durable goods published ~26th of each month for prior month. Use FRED series ADEFAI (Advance New Orders for Defense Capital Goods) for clean monthly data.",
+    "tickers": [
+      "LMT",
+      "RTX",
+      "NOC",
+      "GD",
+      "ITA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED ADEFAI (Defense capital goods new orders, advance) shows > 30% MoM increase",
+      "Enter on Census advance durable goods release date (typically 26th of month)",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: LMT (Lockheed Martin), RTX (RTX Corp, formerly Raytheon), NOC (Northrop Grumman), GD (General Dynamics), ITA (iShares US Aerospace & Defense ETF, robustness check), SPY",
+      "fundamental": "FRED series ADEFAI (Manufacturers' New Orders: Defense Capital Goods, Advance, Not Seasonally Adjusted) or ADXFAI (advance durable excluding transport for context). Monthly, released ~26th. Alternative: Census M3 detailed data at https://www.census.gov/manufacturing/m3/"
+    },
+    "backtest_approach": "Event study: For each month (2002-2025) where ADEFAI MoM change exceeded 30%, compute equal-weight LMT+RTX+NOC+GD basket return over 30 trading days post-release vs SPY. RTX was UTX pre-2020 merger (use UTX for pre-2020 backtest). Also test with ITA ETF (inception 2001) as single-ticker robustness check. Calculate average excess return, win rate, t-statistic. Defense orders are lumpy (driven by large contract awards), so 30% MoM spikes occur episodically. Expected 2-4 events per year on average.",
+    "known_events": [
+      "2007-2008: Iraq/Afghanistan surge procurement spikes",
+      "2014-2015: Defense budget recovery after sequester",
+      "2018: National Defense Strategy increased procurement",
+      "2022-2023: Ukraine war-driven defense spending surge",
+      "2024-2025: Continued defense budget expansion"
+    ],
+    "implementation_notes": "RTX ticker changed from UTX in April 2020 after Raytheon/UTX merger. For pre-2020 backtest, use UTX as the Raytheon proxy. ADEFAI on FRED is not seasonally adjusted which makes MoM comparisons meaningful for detecting true order spikes (seasonal adjustment would mask legitimate defense procurement cycles). ITA ETF inception was May 2001. The 30% MoM threshold is high enough to filter noise but should still generate 15-30 events over 2002-2025 given the lumpy nature of defense contracts.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL323",
+    "idea_id": "PL323",
+    "created_at": "2026-05-27T00:00:21.634577+00:00",
+    "status": "in_progress",
+    "signal_id": "PL323_bls_temp_help_yoy_positive_staffing_cyclical",
+    "name": "BLS Temp Help Employment YoY Turn Positive -> Staffing Companies + Cyclical Reco",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using BLS CES temp help employment via FRED: 1. BLS CES temp help services employment YoY turns positive (free monthly) Long (RHI+MAN) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(RHI",
+      "MAN)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (RHI, MAN), SPY",
+      "fundamental": "BLS CES temp help employment via FRED"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (RHI+MAN) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL326",
+    "idea_id": "PL326",
+    "created_at": "2026-05-27T00:00:51.585123+00:00",
+    "status": "ready",
+    "signal_id": "PL326_census_mfg_construction_record_industrial_gas",
+    "name": "Census Manufacturing Construction Spending Record -> Industrial Gas Demand Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: 1. Census construction spending shows manufacturing category at record (free) Long (APD+LIN) for 21 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(APD",
+      "LIN)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (APD, LIN), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (APD+LIN) for 21 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL321",
+    "idea_id": "PL321",
+    "created_at": "2026-05-27T00:01:02.014475+00:00",
+    "status": "ready",
+    "signal_id": "PL321_eia_pipeline_utilization_midstream",
+    "name": "EIA Pipeline Utilization >95% -> Basis Blowout -> Midstream Toll Revenue Surge",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and EIA natural gas data: When the Waha-Henry Hub natural gas basis differential (a proxy for Permian pipeline congestion) exceeds $1.50/MMBtu (indicating pipeline congestion), go long an equal-weight basket of Permian-exposed midstream operators (WMB, KMI, ET) on the next trading day. Hold for 20 trading days. Benchmark vs SPY. Use yfinance natural gas prices and EIA weekly natural gas storage/flow data. The Waha hub price can be proxied by the spread between Permian production data and Henry Hub (NG=F).",
+    "tickers": [
+      "WMB",
+      "KMI",
+      "ET",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Waha-Henry Hub basis differential exceeds $1.50/MMBtu (Henry Hub spot minus Waha spot)",
+      "Use weekly average basis to avoid daily noise",
+      "Enter on next trading day after weekly threshold breach",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: WMB (Williams Companies), KMI (Kinder Morgan), ET (Energy Transfer), NG=F (Henry Hub natural gas futures), SPY",
+      "fundamental": "EIA Natural Gas Weekly Update (free): https://www.eia.gov/naturalgas/weekly/ - pipeline flow data and basis differentials. EIA also publishes Waha spot price in weekly natural gas spot prices (free). FRED series: DHHNGSP (Henry Hub spot price) available daily."
+    },
+    "backtest_approach": "Event study: For each week (2012-2025) where Waha-Henry Hub basis exceeded $1.50/MMBtu (weekly average), compute equal-weight WMB+KMI+ET return over 20 trading days vs SPY. Permian pipeline constraints were most severe 2017-2019 (pre-Gulf Coast Express, Permian Highway). Post-2020, new pipeline capacity reduced but didn't eliminate congestion events. If Waha spot not available on yfinance, use EIA weekly data or proxy with Henry Hub (NG=F) + Permian production growth rate. Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2017-2019: Severe Permian pipeline congestion, Waha went negative multiple times",
+      "2019: Gulf Coast Express pipeline came online, partially relieving congestion",
+      "2020: Permian Highway Pipeline added more capacity",
+      "2023: Periodic congestion events during production surges"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because: (a) Waha spot prices may not be directly available on yfinance (NG=F is Henry Hub only), (b) basis differential data may require EIA or ICE data subscription, (c) pipeline utilization data is not published in real-time by EIA. The backtester should attempt to use EIA weekly natural gas spot price tables (free) which include Waha alongside Henry Hub. If unavailable, proxy the signal using NG=F price drops (when Permian is congested, Waha drops relative to Henry Hub). WMB (Transco pipeline), KMI (multiple pipelines), ET (Permian-to-Gulf lines) all benefit from congestion.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL322",
+    "idea_id": "PL322",
+    "created_at": "2026-05-27T00:01:02.014475+00:00",
+    "status": "ready",
+    "signal_id": "PL322_usda_export_unknown_soybean_china",
+    "name": "USDA Export Sales Unknown Destination Surge -> China Flash Demand -> Soy Long",
+    "category": "J",
+    "asset_class": "commodities",
+    "horizon": "1-4 weeks",
+    "rule": "Using yfinance and USDA weekly export sales data: When USDA weekly Export Sales Report shows soybean net sales to 'Unknown Destinations' exceed 1.5 million metric tons in a single weekly report, go long SOYB (Teucrium Soybean Fund) on the Friday following the Thursday report release. Hold for 15 trading days. Benchmark vs SPY. USDA Export Sales Report published every Thursday at 8:30 AM ET. The 'unknown destinations' category is a well-known proxy for Chinese purchases through intermediary traders.",
+    "tickers": [
+      "SOYB",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA Weekly Export Sales Report shows soybean net sales to 'Unknown Destinations' > 1.5M metric tons",
+      "Enter on Friday (day after Thursday report release)",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days (approximately 3 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SOYB (Teucrium Soybean Fund), ZS=F (CBOT soybean futures continuous), SPY",
+      "fundamental": "USDA FAS Weekly Export Sales Report (free): https://apps.fas.usda.gov/export-sales/esrd1.html - downloadable CSV/Excel by commodity and destination. Filter commodity=SOYBEANS, destination='UNKNOWN'. Weekly frequency, Thursday 8:30 AM ET release. Historical data back to 1999."
+    },
+    "backtest_approach": "Event study: For each Thursday report (2012-2025, SOYB inception Sep 2011) where unknown destination soybean sales exceeded 1.5M MT, compute SOYB return over 15 trading days post-Friday-entry vs SPY. Also test with ZS=F for longer history. The 1.5M MT threshold is approximately 3-4 standard deviations above the typical unknown destination weekly volume of 200-500K MT. Expected 5-15 events over the period, concentrated during US-China trade tension periods and Chinese buying seasons (Aug-Nov). Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2014-2015: Large unknown soybean sales later confirmed as China",
+      "2016: Record Chinese soybean purchases via unknown destination",
+      "2020 Sep-Nov: Phase 1 trade deal Chinese buying surge via unknowns",
+      "2022-2023: Intermittent large unknown destination sales"
+    ],
+    "implementation_notes": "USDA export sales data is freely downloadable in CSV format. The 'Unknown Destinations' coding is standard USDA practice when the final buyer's country hasn't been confirmed at booking time. SOYB ETF tracks soybean futures but with tracking error and contango effects. ZS=F provides purer soybean exposure for longer history. The signal is well-known among agricultural commodity traders but underutilized by equity-focused investors. The 1.5M MT threshold may need adjustment; if fewer than 5 events, try 1.0M MT. bt_feasibility is 4 because USDA data is clean, free, and the mechanism is direct.",
+    "originality": 8,
     "bt_feasibility": 4
   }
 ]

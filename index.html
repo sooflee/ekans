@@ -3376,6 +3376,72 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED IMPGS; yfinance</span><span><code>backtests/PL263_census_advance_import_surge_drayage_warehouse.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL272_usda_fsis_slaughter_recovery_packer_margins</span><h3>USDA FSIS Slaughter Recovery &rarr; Long Protein Packers</h3></div>
+    <div class="right">commodities &middot; ~2-week hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.53</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">108.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-11.6%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.43</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When USDA FSIS weekly cattle slaughter volume recovers above 650K head after a period of depressed throughput, packer utilization snaps back. TSN and PPC benefit from improved capacity utilization and margin expansion. 6/8 events positive with avg +3.1% basket return in just 10 days. Excess vs SPY +2.2% per event.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long TSN+PPC equal-weight 10d when USDA FSIS weekly cattle slaughter recovers to &gt;650K head</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events, t-stat 1.43 not significant at 5%. Extremely high Sharpe (2.53) and CAGR (108.6%) inflated by short holding periods and March 2009 recovery event (+12.6%). Two losing events: 2020 covid packing plant shutdowns (-7.1%) and 2023 (-2.8%). Slaughter data is weekly with same-week release. Related to PL004 (recall-based protein short, failed) but opposite direction.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA FSIS; yfinance</span><span><code>backtests/PL272_usda_fsis_slaughter_recovery_packer_margins.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL267_fhwa_vmt_surge_auto_insurer_premium_growth</span><h3>FHWA Traffic Volume Surge &rarr; Long Auto Insurers</h3></div>
+    <div class="right">macro &middot; ~2-month hold &middot; 3 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.46</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">28.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-11.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.03</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FRED TRFVOLUSM227NFWA (Vehicle Miles Traveled) surging &gt;3% YoY for 3+ months signals sustained driving increase. More miles = more accidents = more claims = insurers raise premiums. PGR (Progressive), ALL (Allstate), TRV (Travelers) benefit. 2/3 events positive with +4.4% avg basket return.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long PGR+ALL+TRV equal-weight 42d when FHWA VMT &gt;3% YoY for 3+ consecutive months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=3 events &mdash; extremely low statistical power, t-stat 1.03. High Sharpe driven by small sample. VMT data has 2-month publication lag. The 3% threshold may be too strict (hence few signals). Insurance pricing has long lag from claims experience. Needs more events to validate. Related to PL065 (VMT surge auto parts) and PL197 (CPI transport auto insurers).</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED TRFVOLUSM227NFWA; yfinance</span><span><code>backtests/PL267_fhwa_vmt_surge_auto_insurer_premium_growth.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL275_doe_spr_refill_procurement_crude_floor</span><h3>DOE SPR Refill Procurement &rarr; Long Crude/E&amp;P</h3></div>
+    <div class="right">energy &middot; ~6-week hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-14.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.49</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When DOE announces SPR refill procurement at a target price range, it establishes a perceived crude price floor. USO and XOP benefit from reduced downside risk. 3/6 events positive. Best event: Jun 2023 +12.5% basket return after DOE awarded 3M barrels.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long USO+XOP equal-weight 30d when DOE announces SPR refill procurement solicitation</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=6 events, all from 2023-2024 (SPR refill program started after 2022 release). t-stat 0.49 not significant. Excess CAGR vs SPY is negative (-20.7%). Win rate only 50%. Crude prices driven by many macro factors beyond SPR. Signal is novel (post-2022 regime) and needs out-of-sample validation. Very marginal pass on CAGR threshold.</div>
+  </div>
+  <div class="card-foot"><span>Source: DOE SPR announcements; yfinance</span><span><code>backtests/PL275_doe_spr_refill_procurement_crude_floor.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
