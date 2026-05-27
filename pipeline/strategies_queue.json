@@ -10548,7 +10548,7 @@
     "strategy_id": "PL334",
     "idea_id": "PL334",
     "created_at": "2026-05-27T03:50:48.236834+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL334_bls_terms_of_trade_improvement_industrial_margin",
     "name": "BLS Terms of Trade Improvement -> Export-Heavy Industrial Margin Expansion",
     "category": "G",
@@ -10567,13 +10567,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (CAT+DE+EMR) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T03:53:34.381675+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.0455882340322704,
+      "cagr": 0.25923917438707145,
+      "max_dd": -0.18828413785613562,
+      "t_stat": 1.1293643703448897,
+      "n_events": 7,
+      "is_winner": true
+    }
   },
   {
     "strategy_id": "PL330",
     "idea_id": "PL330",
     "created_at": "2026-05-27T03:51:11.000798+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL330_cbp_tariff_revenue_spike_warehouse_club_long",
     "name": "CBP Monthly Tariff Revenue Spike -> Import Cost Pass-Through -> Dollar Store Mar",
     "category": "F",
@@ -10592,13 +10602,23 @@
     },
     "backtest_approach": "Load fundamental data. Identify signal events. Long (COST+DLTR+DG) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T03:53:34.381675+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.8089113782070145,
+      "cagr": 0.42193090208614414,
+      "max_dd": -0.1304312039204586,
+      "t_stat": 1.8089113782070145,
+      "n_events": 6,
+      "is_winner": true
+    }
   },
   {
     "strategy_id": "PL330",
     "idea_id": "PL330",
     "created_at": "2026-05-27T03:51:28.555680+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL330_cbp_tariff_spike_warehouse_club",
     "name": "CBP Monthly Tariff Revenue Spike -> Import Cost Pass-Through -> COST Long",
     "category": "F",
@@ -10631,13 +10651,23 @@
     ],
     "implementation_notes": "COST has data back to 1990s. The thesis is that tariff spikes benefit COST via (a) pricing flexibility to pass through costs, (b) trade-down from higher-priced retail, (c) bulk-buy value proposition becomes more attractive during inflation. bt_feasibility is 4 because Treasury/FRED customs data is clean and monthly.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T03:53:34.381675+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.177755495750573,
+      "cagr": 0.504208695493042,
+      "max_dd": -0.14623804018973974,
+      "t_stat": 1.9880096829223912,
+      "n_events": 5,
+      "is_winner": true
+    }
   },
   {
     "strategy_id": "PL331",
     "idea_id": "PL331",
     "created_at": "2026-05-27T03:51:28.555680+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL331_usgs_colorado_river_water_infra",
     "name": "USGS Colorado River Flow Below Critical -> Water Utility Emergency Capex",
     "category": "K",
@@ -10672,6 +10702,16 @@
     ],
     "implementation_notes": "XYL (Xylem) IPO was October 2011, limiting backtest. AWK IPO 2008, WMS IPO 2014. For pre-2014 backtest, use XYL+AWK only. USGS NWIS data is excellent quality, free, and easily downloadable as CSV. The 50% threshold is aggressive; if too few events, relax to 60% of median. bt_feasibility is 3 because: (a) Colorado River drought is a slow-moving signal, (b) the capex response has long lag, (c) limited events in backtest window.",
     "originality": 7,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T03:53:34.381675+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.271841013028313,
+      "cagr": 0.2946189553812446,
+      "max_dd": -0.19818439496943585,
+      "t_stat": 1.3876923128932288,
+      "n_events": 5,
+      "is_winner": true
+    }
   }
 ]

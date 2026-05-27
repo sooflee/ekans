@@ -3662,6 +3662,138 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: EIA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL316_census_defense_orders_spike_primes</span><h3>Census Defense New Orders Surge &rarr; Long Defense Primes</h3></div>
+    <div class="right">defense &middot; ~2-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.28</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">45.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-10.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.46</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Census defense new orders surging &gt;15% YoY signals upcoming contract awards and DoD procurement acceleration. Defense primes (LMT, RTX, NOC, GD) benefit directly. Perfect 7/7 win rate across events spanning 2007-2023.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long LMT+RTX+NOC+GD equal-weight 42d when Census defense new orders surge &gt;15% YoY</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7, t-stat 2.46 significant. Perfect win rate is encouraging but defense primes are secular growers. 2022 Ukraine event may have inflated recent returns. Census data has ~1 month lag. Related to PL124 (defense spending primes) and G10 (NDAA defense).</div>
+  </div>
+  <div class="card-foot"><span>Source: Census; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL315_hpai_outbreak_egg_producer_long</span><h3>HPAI Avian Flu Outbreak &rarr; Long Egg Producers (CALM)</h3></div>
+    <div class="right">agriculture &middot; ~3-week hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">3.18</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">146.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-7.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.52</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When USDA/APHIS confirms HPAI outbreak affecting &gt;1M birds, egg supply contracts sharply. CALM (Cal-Maine Foods) as largest US egg producer benefits from extreme price spikes. 5/6 events positive. Low max drawdown (-7.8%).</p>
+    <h4>Rule</h4>
+    <div class="rule">Long CALM 21d when USDA/APHIS confirms HPAI outbreak affecting &gt;1M birds</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Single stock risk (CALM only). N=6, t-stat 2.52 significant. Extreme CAGR inflated by short 21-day hold. 2022 outbreak was historically extreme and may not repeat. HPAI outbreaks are unpredictable. Egg prices spike but can normalize quickly.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA APHIS; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL327_gdp_advance_beat_gdpnow_cyclical</span><h3>BEA GDP Advance Beats GDPNow &rarr; Cyclical Sector Rotation</h3></div>
+    <div class="right">macro &middot; ~3-week hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.37</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">22.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-9.1%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.58</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When BEA GDP advance estimate beats Atlanta Fed GDPNow forecast by &gt;0.5pp, it signals positive growth surprise. Cyclical sectors (XLI industrials, XLB materials, XLF financials) rotate higher. 5/8 events positive. Low max drawdown (-9.1%).</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLI+XLB+XLF equal-weight 21d when BEA GDP advance beats GDPNow by &gt;0.5pp</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8, t-stat 1.58 borderline. GDP advance released quarterly (4 events/year max). GDPNow only available from 2011; earlier events estimated. GDP beats well-telegraphed by GDPNow tracking. Related to PL078 (GDPNow consensus gap SPY).</div>
+  </div>
+  <div class="card-foot"><span>Source: BEA, Atlanta Fed; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL326_census_mfg_construction_record_industrial_gas</span><h3>Census Mfg Construction Record &rarr; Long Industrial Gas</h3></div>
+    <div class="right">construction &middot; ~2-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.16</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">21.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-14.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.25</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Census manufacturing construction spending hitting new records signals factory building boom (semiconductors, EV, reshoring). Industrial gas companies (APD, LIN) supply process gases to every new factory. 4/7 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long APD+LIN equal-weight 42d when Census mfg construction spending hits new record</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7, t-stat 1.25 weak. APD and LIN are defensive industrials with secular tailwinds. Construction spending data has 2-month lag. Win rate only 57%. Related to PL245 (mfg employment industrial gas) which uses a different signal with better stats.</div>
+  </div>
+  <div class="card-foot"><span>Source: Census; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL322_usda_export_unknown_soybean_china</span><h3>USDA Export Sales Unknown Destination &rarr; Long Soybeans</h3></div>
+    <div class="right">agriculture &middot; ~3-week hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.40</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">25.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-7.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.11</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>USDA weekly export sales showing &gt;1MT to "unknown destination" is a well-known proxy for Chinese flash demand. SOYB rallies as market prices in bulk purchasing. 6/6 events positive with very low max drawdown (-7.4%).</p>
+    <h4>Rule</h4>
+    <div class="rule">Long SOYB 21d when USDA weekly export sales show &gt;1MT to unknown destinations</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6, t-stat 1.11 weak. Perfect win rate but small sample. "Unknown destination" trick is well-known to grain traders. SOYB ETF has tracking error vs futures. US-China trade tensions can disrupt pattern. Related to PL014 (soybean export season).</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA Export Sales; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL329_census_rare_earth_import_disruption_domestic_mp</span><h3>Rare Earth Import Disruption &rarr; Long MP Materials</h3></div>
+    <div class="right">supply chain &middot; ~2-month hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.69</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">184.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.34</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Census trade data shows rare earth imports from China dropping &gt;20% QoQ, domestic rare earth processor MP Materials benefits from supply scarcity premium. 4/6 events positive. Extreme CAGR driven by volatile single stock.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long MP 42d when Census rare earth imports from China drop &gt;20% QoQ</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Single stock risk (MP only). N=6, t-stat 1.34 not significant. MP IPO was 2020 so limited history. MaxDD -33.8% is severe. Rare earth supply disruptions are geopolitical and hard to time. Census trade data has 2-month lag.</div>
+  </div>
+  <div class="card-foot"><span>Source: Census Trade; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
