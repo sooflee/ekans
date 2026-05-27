@@ -11026,7 +11026,7 @@
   {
     "idea_id": "PL408",
     "created_at": "2026-05-27T04:35:55.665121+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "USDA GIPSA Grain Inspection Export Volume \u2192 Pacific Northwest vs Gulf Basis \u2192 BNSF/UP Rail Volume Signal",
     "category": "G",
     "asset_class": "equities",
@@ -11054,7 +11054,7 @@
   {
     "idea_id": "PL409",
     "created_at": "2026-05-27T04:35:55.665307+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Census M3 Manufacturers' Shipments Capital Goods ex-Aircraft Acceleration \u2192 Industrial Distributor Revenue Beat",
     "category": "A",
     "asset_class": "equities",
@@ -11081,7 +11081,7 @@
   {
     "idea_id": "PL410",
     "created_at": "2026-05-27T04:35:55.665310+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "NOAA Coral Bleaching Alert \u2192 Reef-Dependent Tourism Revenue Decline \u2192 Hawaiian/Caribbean Hotel Short",
     "category": "G",
     "asset_class": "equities",
@@ -11104,12 +11104,13 @@
     "bt_feasibility": 3,
     "source_reference": "NOAA Coral Reef Watch; ICRI global coral bleaching reports; Hawaii Tourism Authority data",
     "research_phase": "pipeline_scout",
-    "dedup_key": "noaa_coral_bleaching_tourism_decline"
+    "dedup_key": "noaa_coral_bleaching_tourism_decline",
+    "reject_reason": "bt_feasibility=3 and SHORT-SIDE: NOAA coral bleaching alerts are infrequent; the thesis proposes shorting Hawaiian/Caribbean hotels which violates long-only constraint"
   },
   {
     "idea_id": "PL411",
     "created_at": "2026-05-27T04:36:33.803852+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "CISA KEV Catalog Entry Surge \u2192 Cybersecurity Spending Urgency \u2192 CRWD/PANW/FTNT Long",
     "category": "F",
     "asset_class": "equities",
@@ -11132,12 +11133,13 @@
     "bt_feasibility": 3,
     "source_reference": "CISA KEV; BOD 22-01; Gartner cybersecurity spending forecasts",
     "research_phase": "pipeline_scout",
-    "dedup_key": "cisa_kev_surge_cybersecurity_spending"
+    "dedup_key": "cisa_kev_surge_cybersecurity_spending",
+    "reject_reason": "bt_feasibility=3: CISA KEV catalog entries are sporadic; cybersecurity spending decisions are not directly driven by KEV entries; CRWD/PANW/FTNT are already well-covered by analysts"
   },
   {
     "idea_id": "PL412",
     "created_at": "2026-05-27T04:36:33.804028+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "USDA Weekly Rice Milling Data \u2192 US Rice Surplus \u2192 Long Asian Rice Importers / Short US Rice Futures",
     "category": "C",
     "asset_class": "commodities",
@@ -11160,12 +11162,13 @@
     "bt_feasibility": 3,
     "source_reference": "USDA AMS rice data; USA Rice Federation; USDA WASDE",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usda_rice_milling_surplus_food"
+    "dedup_key": "usda_rice_milling_surplus_food",
+    "reject_reason": "bt_feasibility=3 and SHORT-SIDE: proposal includes shorting US rice futures; USDA weekly rice milling data is niche with limited stock proxies"
   },
   {
     "idea_id": "PL413",
     "created_at": "2026-05-27T04:36:33.804030+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "BTS Airline On-Time Performance Deterioration \u2192 MRO Provider Demand Surge \u2192 TDG/HEI Long",
     "category": "E",
     "asset_class": "equities",
@@ -11189,5 +11192,343 @@
     "source_reference": "BTS on-time data; FAA; TransDigm/HEICO aftermarket pricing model disclosures",
     "research_phase": "pipeline_scout",
     "dedup_key": "bts_mechanical_delay_mro_aftermarket"
+  },
+  {
+    "idea_id": "PL414",
+    "created_at": "2026-05-27T04:37:12.751305+00:00",
+    "status": "developed",
+    "name": "EIA Underground Natural Gas Storage Fill Rate Below Avg \u2192 Winter Premium \u2192 Long UNG/BOIL Before Injection Season End",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 months",
+    "thesis": "EIA publishes weekly natural gas storage reports (free). The injection season (April-October) must refill storage to ~3.7+ Tcf to meet winter heating demand. When storage fill rate (weekly injections) runs >10% below the 5-year average pace through August, the market recognizes that achieving adequate winter preparedness is at risk. Henry Hub futures rally 20-40% between August and November as winter premium builds. Long UNG or BOIL when mid-injection-season storage deficit exceeds 200 Bcf below 5yr avg.",
+    "causal_chain": [
+      "EIA weekly storage report shows cumulative injections running >10% below 5yr avg pace through August (free at eia.gov/naturalgas/storage)",
+      "Storage deficit of >200 Bcf below 5yr avg signals risk of inadequate winter preparedness",
+      "Market begins pricing winter supply risk \u2014 nearby/deferred spread shifts to backwardation",
+      "Speculative buying and utility hedging demand push Henry Hub futures up 20-40% over Aug-Nov",
+      "LNG export pull and power generation demand compete for available supply",
+      "Natural gas equities (AR, EQT, CTRA) rally with commodity price; UNG/BOIL offer leveraged exposure"
+    ],
+    "data_sources": [
+      "EIA weekly natural gas storage report (free at eia.gov/naturalgas/storage)",
+      "EIA natural gas spot and futures prices (free)",
+      "yfinance UNG, BOIL, AR, EQT, CTRA"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "EIA natural gas storage; NOAA winter heating degree day forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_natgas_storage_fill_below_avg"
+  },
+  {
+    "idea_id": "PL415",
+    "created_at": "2026-05-27T04:37:12.751503+00:00",
+    "status": "developed",
+    "name": "Census ACS County Migration Inflows \u2192 High-Growth Metro Real Estate \u2192 Sunbelt Builder/Land Developer Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-24 months",
+    "thesis": "Census American Community Survey (ACS) and IRS SOI migration data track county-to-county population flows (free, annual with 1-year lag). When net domestic migration inflows to a metro exceed 3% of population for 2+ consecutive years, housing demand structurally exceeds existing supply. Homebuilders with large lot positions in high-inflow metros (DHI in Dallas/Phoenix, NVR in Southeastern metros) benefit from sustained demand and pricing power. Long DHI/NVR when Census migration data confirms multi-year inflow acceleration to their core markets.",
+    "causal_chain": [
+      "Census ACS/IRS SOI migration data shows net inflows >3% of population for 2+ years in specific metros (free at census.gov/topics/population/migration)",
+      "Sustained population inflow creates structural housing demand exceeding existing inventory",
+      "Homebuilders with land banks in high-inflow metros see absorption rates accelerate",
+      "Strong demand enables pricing power \u2014 new home ASPs rise 3-5% above material cost inflation",
+      "Community count growth + pricing power = 15-20% revenue growth for positioned builders",
+      "DHI, NVR re-rate as sustained inflow metros demonstrate multi-year housing demand runway"
+    ],
+    "data_sources": [
+      "Census ACS migration flow data (free at census.gov/topics/population/migration)",
+      "IRS SOI county migration data (free at irs.gov/statistics/soi-tax-stats-migration-data)",
+      "yfinance DHI, NVR, LEN, TOL"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Census ACS; IRS SOI migration; Joint Center for Housing Studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_acs_migration_inflow_builders",
+    "reject_reason": "bt_feasibility=3: Census ACS county migration data is annual with 1-2 year lag; sunbelt builder stocks already well-covered by analysts tracking permits/starts data"
+  },
+  {
+    "idea_id": "PL416",
+    "created_at": "2026-05-27T04:37:12.751507+00:00",
+    "status": "developed",
+    "name": "BLS PPI Semiconductor Manufacturing Trough \u2192 Chip Price Recovery Inflection \u2192 Semiconductor Distributor Long",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "BLS PPI for semiconductor and related device manufacturing (NAICS 3344) is published monthly (free). When semiconductor PPI declines >5% YoY and then shows first month of sequential MoM increase after a 6+ month decline, it signals chip price trough. Semiconductor distributors (ARW Arrow, AVT Avnet) see gross margin improvement as prices stabilize on existing inventory purchased at deflated costs. Long ARW/AVT at the PPI inflection point \u2014 distributor margins expand 200-400bps as selling prices recover against low-cost inventory.",
+    "causal_chain": [
+      "BLS PPI semiconductor manufacturing shows first MoM increase after 6+ month YoY decline (free at bls.gov/ppi)",
+      "Price trough signals end of inventory destocking cycle \u2014 customers resume ordering at stabilized prices",
+      "Distributors (ARW, AVT) sell inventory purchased at trough prices at recovering ASPs \u2014 gross margin expands",
+      "Order backlog rebuilds as channel partners shift from just-in-time to safety stock rebuilding",
+      "Distributor revenue growth inflects positive within 1-2 quarters of PPI trough",
+      "ARW, AVT rally 15-25% as margin expansion and revenue recovery drive earnings beats"
+    ],
+    "data_sources": [
+      "BLS PPI semiconductor and related device manufacturing \u2014 NAICS 3344 (free at bls.gov/ppi)",
+      "SIA monthly global semiconductor sales (partially free at semiconductors.org)",
+      "yfinance ARW, AVT, SMH"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "BLS PPI; SIA; WSTS semiconductor market forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_ppi_semi_trough_distributor_margin"
+  },
+  {
+    "idea_id": "PL417",
+    "created_at": "2026-05-27T04:37:48.977697+00:00",
+    "status": "rejected",
+    "name": "EPA Emergency RVP Waiver \u2192 Expanded Gasoline Blending Pool \u2192 Ethanol Demand Spike \u2192 GPRE Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "EPA can issue emergency fuel waivers allowing higher Reid Vapor Pressure (RVP) gasoline blends when supply is tight (free announcements at epa.gov). When EPA issues summer RVP waivers, it expands the gasoline blending pool to include E15 (15% ethanol) year-round in affected states. This creates a sudden 50-100M gallon/month incremental ethanol demand. Long ethanol producers (GPRE Green Plains, REX) when EPA issues RVP waivers during summer driving season supply crunches.",
+    "causal_chain": [
+      "EPA issues emergency RVP waiver allowing E15 sales during summer months in additional states (free at epa.gov/fuels)",
+      "E15 year-round availability expands ethanol blending pool by 50-100M gallons/month",
+      "Incremental ethanol demand tightens supply \u2014 ethanol spot prices rise 10-20 cents/gallon",
+      "Ethanol producers (GPRE, REX) see immediate margin improvement on higher selling prices",
+      "Corn crush spread widens by $0.10-0.20/gallon \u2014 operating margins expand significantly",
+      "Ethanol producer stocks rally 5-12% in the 2-3 weeks following RVP waiver announcement"
+    ],
+    "data_sources": [
+      "EPA fuel waivers and RVP regulations (free at epa.gov/fuels)",
+      "EIA weekly ethanol production and stocks (free)",
+      "yfinance GPRE, REX, ANDE"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "EPA fuel waivers; RFA ethanol market analysis; EIA ethanol data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "epa_rvp_waiver_ethanol_demand_spike",
+    "reject_reason": "bt_feasibility=3: EPA emergency RVP waivers are ad hoc events (maybe 1-2/decade); too few for backtest. GPRE is small-cap with volatile earnings."
+  },
+  {
+    "idea_id": "PL418",
+    "created_at": "2026-05-27T04:37:48.977902+00:00",
+    "status": "developed",
+    "name": "Treasury Quarterly Refunding \u2192 Coupon Issuance Shift to Bills \u2192 Money Market Fund AUM Growth \u2192 BEN/TROW Long",
+    "category": "B",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Treasury publishes quarterly refunding announcements detailing coupon vs bill issuance plans (free). When Treasury shifts issuance mix toward T-bills (shorter duration), it expands the supply of high-quality money market instruments. Money market fund AUM grows as yield-seeking investors allocate to bills. Asset managers with large money market platforms (BEN/Franklin, TROW, BLK, STT) earn management fees on growing MMF AUM. Long BEN/STT when Treasury refunding shifts to bills-heavy issuance mix.",
+    "causal_chain": [
+      "Treasury quarterly refunding announces bills-heavy issuance mix (free at treasury.gov/resource-center/data-chart-center)",
+      "Expanded T-bill supply keeps money market yields attractive relative to bank deposits",
+      "Money market fund AUM grows as retail and institutional cash flows into MMFs",
+      "Asset managers with MMF platforms (BEN, STT, BLK) earn 10-15bps management fees on growing AUM",
+      "Every $100B in MMF AUM growth generates ~$100-150M in annual fee revenue across industry",
+      "MMF-heavy asset managers see fee revenue acceleration \u2014 stocks rally 3-8% on AUM growth"
+    ],
+    "data_sources": [
+      "Treasury quarterly refunding statements (free at treasury.gov)",
+      "ICI weekly money market fund AUM (free at ici.org)",
+      "yfinance BEN, STT, BLK, TROW"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Treasury refunding; ICI money market statistics; Office of Financial Research MMF data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "treasury_refunding_bills_mmf_aum"
+  },
+  {
+    "idea_id": "PL419",
+    "created_at": "2026-05-27T04:37:48.977907+00:00",
+    "status": "rejected",
+    "name": "USDA Catfish Processing Roundweight Decline \u2192 Domestic Supply Shortage \u2192 Import Surge \u2192 Seafood Distributor Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "USDA NASS publishes monthly catfish processing data (free). The US is the largest domestic producer of farmed catfish, but production has been in structural decline. When USDA catfish roundweight processed declines >10% YoY for 3+ consecutive months, domestic supply shortage drives import surge from Vietnam/Indonesia (pangasius). Seafood distributors and importers benefit from higher volumes and pricing power. Long USFD (US Foods) and SYY (Sysco) with significant seafood distribution as catfish supply shift drives margin opportunities.",
+    "causal_chain": [
+      "USDA NASS monthly catfish processing data shows roundweight declining >10% YoY (free at nass.usda.gov)",
+      "Mississippi Delta catfish farms exit production due to feed costs and labor \u2014 domestic supply contracts",
+      "Restaurant chains and food service must substitute imported pangasius or other whitefish",
+      "Seafood import volume increases \u2014 distributors (USFD, SYY) with import infrastructure capture spread",
+      "Higher-margin imported product replaces lower-margin domestic catfish in food service mix",
+      "Food service distributors see seafood category margin expansion of 50-100bps"
+    ],
+    "data_sources": [
+      "USDA NASS catfish processing (free monthly at nass.usda.gov)",
+      "NOAA fisheries imports data (free at fisheries.noaa.gov/foss)",
+      "yfinance USFD, SYY"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA NASS catfish data; Catfish Institute; NOAA fisheries trade data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_catfish_processing_decline_import",
+    "reject_reason": "bt_feasibility=3: USDA catfish processing data is very niche; no liquid publicly traded seafood distributor proxies"
+  },
+  {
+    "idea_id": "PL420",
+    "created_at": "2026-05-27T04:38:30.232221+00:00",
+    "status": "claimed",
+    "name": "USPS Revenue-Per-Piece Data \u2192 Package Volume Recovery \u2192 Last-Mile Logistics Competitor Signal",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USPS publishes quarterly revenue and volume data in its financial reports (free at about.usps.com). When USPS Shipping & Package revenue-per-piece grows >5% YoY while volume declines, it signals USPS raising parcel rates. This creates pricing umbrella for private last-mile carriers. UPS and FedEx can match USPS rate increases without losing share. Long UPS and FDX when USPS rate increases signal industry-wide parcel pricing power.",
+    "causal_chain": [
+      "USPS quarterly financial report shows Shipping & Packages revenue/piece growing >5% YoY (free at about.usps.com/financials)",
+      "USPS rate increase creates pricing umbrella for the parcel shipping industry",
+      "UPS and FedEx match or exceed USPS rate increases on competitive parcel products",
+      "E-commerce shippers face higher rates across all carriers \u2014 cannot arbitrage between carriers",
+      "UPS, FDX revenue per piece grows 3-5% without volume loss \u2014 margin expansion follows",
+      "UPS, FDX rally 5-10% as industry pricing discipline drives earnings improvement"
+    ],
+    "data_sources": [
+      "USPS quarterly financial reports (free at about.usps.com)",
+      "USPS rate change announcements (free at pe.usps.com)",
+      "yfinance UPS, FDX, XPO"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USPS financial reports; PRC rate review proceedings; ShipMatrix parcel rate analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usps_revenue_piece_parcel_pricing"
+  },
+  {
+    "idea_id": "PL421",
+    "created_at": "2026-05-27T04:38:30.232446+00:00",
+    "status": "claimed",
+    "name": "SBA 7(a) Loan Approval Volume Surge \u2192 Small Business Expansion Wave \u2192 Community Bank NII Growth",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "SBA publishes weekly/monthly 7(a) loan approval data (free). The 7(a) program is the primary federal guarantee program for small business lending. When 7(a) approvals surge >20% YoY for 3+ months, it signals small business confidence in expansion. SBA-preferred lenders (community and regional banks) earn origination fees plus ongoing interest income on guaranteed portions. Long community bank ETFs (KRE) or specific SBA-heavy lenders (LKFN, BANR, UBSI) when 7(a) approvals inflect.",
+    "causal_chain": [
+      "SBA 7(a) loan approval volume surges >20% YoY for 3+ consecutive months (free at sba.gov/funding-programs/loans/data)",
+      "Small business borrowers securing SBA loans for expansion, equipment, and real estate",
+      "SBA-preferred lenders earn 2-3% origination fees plus 4-6% ongoing interest income",
+      "Guaranteed portion (75-85%) can be sold in secondary market \u2014 generates gain-on-sale income",
+      "Community banks (LKFN, BANR, UBSI) with active SBA lending see NII and fee income growth",
+      "SBA-active community banks outperform KRE by 3-5% as loan growth drives earnings acceleration"
+    ],
+    "data_sources": [
+      "SBA 7(a) loan approval data (free at sba.gov/funding-programs/loans/data)",
+      "SBA weekly lending activity reports (free)",
+      "yfinance KRE, LKFN, BANR, UBSI"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "SBA lending data; FDIC community banking research; SBA preferred lender program",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sba_7a_loan_surge_community_bank"
+  },
+  {
+    "idea_id": "PL422",
+    "created_at": "2026-05-27T04:38:30.232449+00:00",
+    "status": "new",
+    "name": "BLM Grazing Permit AUM Fee Increase \u2192 Ranching Cost Inflation \u2192 Beef Supply Contraction \u2192 Cattle Futures Long",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-12 months",
+    "thesis": "Bureau of Land Management (BLM) publishes annual grazing fee per Animal Unit Month (AUM) and permit modifications (free). When BLM increases AUM fees >15% or reduces permitted AUMs due to drought/ESA requirements, it increases ranching costs on federal land (245M acres of grazing allotments). Marginal ranchers exit \u2014 accelerating beef cow herd liquidation. Live cattle futures (LE=F) rally as supply contraction tightens. Long LE=F or beef-levered equities when BLM grazing permit changes signal structural supply reduction.",
+    "causal_chain": [
+      "BLM publishes grazing fee increase >15% or AUM reduction for major grazing allotments (free at blm.gov/programs/natural-resources/rangelands-and-grazing)",
+      "Higher grazing costs or reduced permit capacity squeezes marginal ranchers' profitability",
+      "Ranchers liquidate cow herds \u2014 USDA Cattle inventory report confirms herd decline",
+      "Smaller breeding herd = fewer calves = tighter beef supply 12-18 months forward",
+      "Live cattle futures (LE=F) rally 10-20% as forward supply scarcity gets priced in",
+      "Beef retail prices rise \u2014 restaurant chains face food cost inflation (DRI, MCD margin pressure)"
+    ],
+    "data_sources": [
+      "BLM grazing statistics and fee schedules (free at blm.gov)",
+      "USDA NASS Cattle Inventory report (free semiannual Jan/Jul)",
+      "yfinance LE=F"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "BLM grazing program data; USDA NASS Cattle Inventory; Public Lands Council",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "blm_grazing_fee_cattle_supply"
+  },
+  {
+    "idea_id": "PL423",
+    "created_at": "2026-05-27T04:39:14.034566+00:00",
+    "status": "new",
+    "name": "OSHA Industry Injury Rate Spike \u2192 Workers Comp Premium Hardening \u2192 Specialty Insurer Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "BLS/OSHA publishes the annual Survey of Occupational Injuries and Illnesses (SOII) by industry (free). When total recordable injury rates in a major industry (construction, transportation, warehousing) rise >10% YoY, workers' compensation insurance loss ratios deteriorate. NCCI files for rate increases 6-12 months later. Specialty workers' comp insurers (ERIE, HMN, Employers Holdings EIG) benefit from premium rate hardening on January policy renewals. Long EIG/ERIE when OSHA injury data signals coming rate cycle turn.",
+    "causal_chain": [
+      "BLS SOII shows total recordable injury rate in major industry rising >10% YoY (free at bls.gov/iif)",
+      "Higher injury rates drive increased workers' comp claims frequency and severity",
+      "NCCI and state rating bureaus file loss cost increases of 5-15% for affected class codes",
+      "Workers' comp premium rates increase on January policy renewals \u2014 6-12 month lag from data release",
+      "Specialty workers' comp insurers (EIG Employers Holdings, ERIE) earn higher premium per policy",
+      "Combined ratios improve as rate increases outpace loss trend \u2014 insurer stocks rally 10-15%"
+    ],
+    "data_sources": [
+      "BLS Survey of Occupational Injuries and Illnesses (free annual at bls.gov/iif)",
+      "OSHA establishment-level injury data (partially free at osha.gov/data)",
+      "yfinance EIG, ERIE, HMN, TRV"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "BLS SOII; NCCI rate filings; OSHA data initiative",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "osha_injury_rate_spike_workcomp"
+  },
+  {
+    "idea_id": "PL424",
+    "created_at": "2026-05-27T04:39:14.034775+00:00",
+    "status": "new",
+    "name": "FDA Biosimilar Approval Wave \u2192 PBM Formulary Switching \u2192 Biosimilar Manufacturer Revenue Acceleration",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "FDA publishes biosimilar approval decisions (free at fda.gov/drugs/biosimilars). When FDA approves 3+ interchangeable biosimilars for the same reference product within 12 months, PBMs (Express Scripts, CVS Caremark, Optum Rx) switch formulary preferred status to the lowest-cost biosimilar. This drives rapid market share shifts. Long biosimilar-focused manufacturers (TEVA, VTRS Viatris, AMGN biosimilar portfolio, SAN Sandoz) positioned with competitive pricing at formulary launches.",
+    "causal_chain": [
+      "FDA approves 3+ interchangeable biosimilars for high-revenue reference biologic (free at fda.gov/drugs/biosimilars)",
+      "PBMs leverage competitive biosimilar market to negotiate 40-60% discounts vs reference product",
+      "PBMs switch formulary preferred status to lowest-cost interchangeable biosimilar",
+      "Patients auto-switched at pharmacy \u2014 biosimilar market share reaches 50-80% within 12 months",
+      "Biosimilar manufacturer with lowest WAC price and best rebate structure captures majority volume",
+      "Biosimilar-focused companies (TEVA, VTRS) see revenue acceleration as formulary wins drive volume"
+    ],
+    "data_sources": [
+      "FDA biosimilar approvals and interchangeability determinations (free at fda.gov)",
+      "CMS Part B and Part D drug spending data (free at cms.gov)",
+      "yfinance TEVA, VTRS, AMGN, SAN"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FDA biosimilar data; IQVIA biosimilar market reports; CMS drug pricing data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_biosimilar_wave_formulary_switch"
+  },
+  {
+    "idea_id": "PL425",
+    "created_at": "2026-05-27T04:39:14.034778+00:00",
+    "status": "new",
+    "name": "Census E-Commerce Share Sequential Decline \u2192 Physical Retail Recovery \u2192 Mall REIT / Department Store Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Census Bureau publishes quarterly e-commerce as a percentage of total retail sales (free). E-commerce share has been on a secular uptrend, but shows cyclical reversals. When e-commerce share declines for 2 consecutive quarters (consumers returning to physical stores), it signals foot traffic recovery for brick-and-mortar retail. Long mall REITs (SPG, MAC) and department stores (M, KSS) at the inflection \u2014 physical retail traffic recovery drives occupancy rates and same-store sales.",
+    "causal_chain": [
+      "Census quarterly retail e-commerce report shows e-commerce share declining for 2 consecutive quarters (free at census.gov/retail)",
+      "Declining e-commerce share signals consumers shifting spending back to physical stores",
+      "In-store foot traffic increases \u2014 retail tenants report same-store sales acceleration",
+      "Mall REITs (SPG, MAC) see tenant sales per square foot recover \u2014 supports rent renewal negotiations",
+      "Occupancy rates rise and tenant defaults decline \u2014 NOI growth accelerates",
+      "Mall REITs rally 10-20% as physical retail recovery drives rental income growth"
+    ],
+    "data_sources": [
+      "Census Bureau quarterly e-commerce report (free at census.gov/retail)",
+      "yfinance SPG, MAC, M, KSS, TGT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Census e-commerce data; ICSC retail traffic reports; Placer.ai foot traffic",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_ecommerce_share_decline_mall"
   }
 ]

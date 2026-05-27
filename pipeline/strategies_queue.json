@@ -13022,5 +13022,369 @@
       "n_events": 6,
       "is_winner": false
     }
+  },
+  {
+    "strategy_id": "PL408",
+    "idea_id": "PL408",
+    "created_at": "2026-05-27T04:37:03.959270+00:00",
+    "status": "done",
+    "signal_id": "PL408_usda_pnw_grain_export_unp_long",
+    "name": "USDA PNW Grain Export Inspection Surge -> Long Union Pacific",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance data: When UNP (Union Pacific) outperforms CSX (CSX Corp) by >5% over trailing 20 trading days during grain export season (September-February), go long UNP for 42 trading days. Benchmark vs SPY. This price-based proxy captures the fundamental signal that USDA PNW grain export inspections are surging relative to Gulf, which benefits UNP's PNW franchise. The grain season timing (harvest Sept-Nov, export peak Oct-Feb) provides the seasonal context.",
+    "tickers": [
+      "UNP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "UNP outperforms CSX by >5% over trailing 20 trading days during September-February",
+      "This relative strength proxy captures PNW grain volume advantage over Gulf-focused CSX",
+      "Enter on first trading day after condition met",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: UNP (Union Pacific), CSX (CSX Corporation), SPY",
+      "fundamental": "USDA AMS FGIS weekly export inspections by port region (free at ams.usda.gov). Data available weekly going back 20+ years. Tracks grain inspections at PNW (Portland/Puget Sound), Gulf (New Orleans/Houston), Great Lakes, and interior ports."
+    },
+    "backtest_approach": "Event study: Load UNP, CSX, SPY daily prices (2000-2025). During September-February each year, compute rolling 20-day UNP excess return vs CSX. Identify dates where UNP outperforms CSX by >5%. For each signal (90-day min gap), long UNP for 42 trading days vs SPY. Key expected events: 2007-2008 (record China grain imports), 2013-2014 (China soybean demand surge), 2017-2018 (trade war preemptive buying), 2020-2021 (China Phase 1 trade deal grain purchases), 2024 (strong Asian grain demand).",
+    "known_events": [
+      "2007-2008: Record grain export volumes driven by Chinese demand; PNW grain inspections surged",
+      "2013-2014: China soybean demand at record levels; PNW shipments hit capacity constraints",
+      "2016 Q4: Post-harvest surge in PNW grain inspections; UNP grain carloads hit records",
+      "2020-2021: China Phase 1 trade deal purchases drove massive PNW grain exports",
+      "2024: Strong Asian demand for US wheat and corn via PNW ports"
+    ],
+    "implementation_notes": "UNP has the dominant rail franchise serving PNW grain export terminals (Portland, Longview, Tacoma). CSX serves the Eastern/Gulf grain corridor. The UNP vs CSX relative performance during grain season is a clean proxy for PNW vs Gulf grain flow dynamics. Both stocks have been public for decades with excellent liquidity. The grain export season (Sept-Feb) provides natural timing for the signal. bt_feasibility is 4 because the price-based proxy eliminates the need for USDA data parsing.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:38:33.384698+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.07,
+      "cagr": 0.329,
+      "max_dd": -0.15,
+      "t_stat": 1.07
+    }
+  },
+  {
+    "strategy_id": "PL409",
+    "idea_id": "PL409",
+    "created_at": "2026-05-27T04:37:03.959270+00:00",
+    "status": "done",
+    "signal_id": "PL409_census_m3_core_capex_industrial_dist_long",
+    "name": "Census M3 Core Capex Shipments Acceleration -> Long Industrial Distributors",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED data: When Census M3 nondefense capital goods shipments ex-aircraft (FRED series A34SNO or ANXFS) show YoY growth turning positive after 3+ months negative, OR accelerate by >3 percentage points from trough, go long equal-weight FAST + GWW on the first trading day after the Census M3 release. Hold for 42 trading days. Benchmark vs SPY. The thesis is that core capex shipment inflection drives MRO consumable demand recovery at industrial distributors.",
+    "tickers": [
+      "FAST",
+      "GWW",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census M3 core capex shipments (A34SNO) YoY growth turns positive after 3+ months negative",
+      "OR: YoY growth accelerates by >3 percentage points from trough",
+      "Enter on first trading day after Census M3 monthly release (about 5 weeks after reference month)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: FAST (Fastenal Company, IPO Aug 1987), GWW (W.W. Grainger, IPO decades ago), MSM (MSC Industrial, IPO Nov 1995), SPY",
+      "fundamental": "FRED: A34SNO (Manufacturers' New Orders: Nondefense Capital Goods Excluding Aircraft, monthly SA) or ANXFS (Shipments: Nondefense Capital Goods Excluding Aircraft). Published monthly by Census Bureau. ~35 calendar days after reference month. Historical data back to 1992."
+    },
+    "backtest_approach": "Event study: Load FRED A34SNO monthly data (1992-2025). Compute monthly YoY growth. Identify months where YoY turns positive after 3+ negative months, or accelerates >3pp from trough. For each signal (90-day min gap), long FAST+GWW basket for 42 trading days vs SPY. Key expected events: (1) 2002 Q2 (post-dot-com capex recovery), (2) 2009 Q3 (post-GFC capex bottom), (3) 2013 Q1 (post-fiscal-cliff capex recovery), (4) 2016 Q3 (post-industrial-recession recovery), (5) 2020 Q4 (post-COVID capex rebound), (6) 2024 Q1 (post-rate-shock capex recovery). FAST has data back to 1987, providing 35+ years of backtest.",
+    "known_events": [
+      "2002-2003: Core capex bottomed Q1 2002; FAST outperformed as MRO demand recovered",
+      "2009 Q3-Q4: Core capex shipments inflected positive; industrial distributors rallied 30%+ over 6 months",
+      "2016 Q3: Post-industrial-recession capex recovery; FAST daily sales growth accelerated from -1% to +5%",
+      "2020 Q4-2021 Q1: Post-COVID capex surge; FAST and GWW daily sales growth exceeded 10%",
+      "2024 Q1: Manufacturing capex began recovering after rate-shock-driven contraction"
+    ],
+    "implementation_notes": "FAST (Fastenal) is the gold standard for industrial distribution with 3,300+ branch locations. GWW (Grainger) is the largest US broad-line industrial distributor. Both report daily sales growth which provides real-time confirmation of the Census M3 signal. MSM (MSC Industrial) is a third option focused on metalworking. Census M3 core capex (A34SNO) is considered the best monthly indicator of business investment spending and is used in GDP calculations. The signal is that capex equipment deliveries drive downstream MRO consumable demand with a 1-2 month lag. bt_feasibility is 5 because FRED data is clean, monthly, and the FAST/GWW stocks are highly liquid with 30+ years of history.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:38:33.384941+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.55,
+      "cagr": 0.129,
+      "max_dd": -0.2,
+      "t_stat": 0.55
+    }
+  },
+  {
+    "strategy_id": "PL413",
+    "idea_id": "PL413",
+    "created_at": "2026-05-27T04:37:45.132402+00:00",
+    "status": "done",
+    "signal_id": "PL413_bts_mechanical_delay_mro_aftermarket_long",
+    "name": "BTS Mechanical Delay Surge -> Long Aerospace Aftermarket Parts (TDG/HEI)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and BTS data: When DOT BTS airline on-time performance data shows mechanical cancellations and delays (as a share of total operations) rising >30% YoY for 3+ consecutive months, go long equal-weight TDG + HEI on the first trading day after the 3rd qualifying BTS release. Hold for 63 trading days. Benchmark vs SPY. As a backtest proxy: when JETS ETF (airline stocks) underperforms XAR (S&P Aerospace & Defense ETF) by >10% over 60 trading days, it signals airline operational stress benefiting aftermarket parts suppliers.",
+    "tickers": [
+      "TDG",
+      "HEI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BTS mechanical delays/cancellations share of total operations rises >30% YoY for 3+ months",
+      "Backtest proxy: JETS underperforms XAR by >10% over 60 trading days (airline operational stress benefiting defense/aftermarket)",
+      "Enter on first trading day after signal confirmation",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: TDG (TransDigm Group, IPO Jul 2006), HEI (HEICO Corporation), JETS (US Global Jets ETF, launched 2015), XAR (SPDR S&P Aerospace & Defense, launched 2011), SPY",
+      "fundamental": "BTS airline on-time performance and cause-of-delay data (free at transtats.bts.gov). Monthly data with ~2 month lag. Mechanical delay/cancellation category available separately. Data back to 2003."
+    },
+    "backtest_approach": "Event study: For the proxy approach, load JETS and XAR daily prices (2015-2025, JETS inception). Compute rolling 60-day JETS excess return vs XAR. Identify dates where JETS underperforms XAR by >10%. For each signal (120-day min gap), long TDG+HEI for 63 trading days vs SPY. For longer history (2006-2025, TDG IPO), use airline index underperformance vs S&P 500 as proxy. Key expected events: 2007 (pre-GFC airline financial stress increased mechanical deferrals), 2013-2014 (fleet aging before 737 MAX/A320neo deliveries), 2022-2023 (post-COVID deferred maintenance + pilot/mechanic shortage), 2024 (continued fleet aging + engine inspection mandates).",
+    "known_events": [
+      "2007-2008: Airlines in financial distress deferred maintenance; mechanical issues rose sharply",
+      "2013-2014: Fleet aging as 737NG/A320ceo approaching end-of-life; aftermarket demand surged",
+      "2022 Q3-Q4: Post-COVID return to flying exposed deferred maintenance backlog; mechanical cancellations spiked",
+      "2023: Engine inspection mandates (PW1100G Pratt & Whitney) caused widespread groundings; TDG aftermarket boomed",
+      "2024: Continued fleet availability constraints from engine shop visit backlog; HEI set records"
+    ],
+    "implementation_notes": "TDG (TransDigm) has a unique sole-source aftermarket parts business model with 70%+ EBITDA margins. HEI (HEICO) is the leading FAA-PMA (alternative parts) manufacturer. Both benefit from airline fleet aging and mechanical stress. JETS ETF launched 2015; for longer history, use UAL/DAL/AAL basket as airline proxy. The 2022-2024 period is particularly strong for this thesis due to post-COVID deferred maintenance and Pratt & Whitney engine recall mandates. bt_feasibility is 4 because BTS mechanical delay data is free and TDG/HEI are liquid.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:38:19.805215+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.1870525719520226,
+      "cagr": 0.5346095493874645,
+      "max_dd": -0.10396083795056543,
+      "t_stat": 2.1870525719520226,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL414",
+    "idea_id": "PL414",
+    "created_at": "2026-05-27T04:39:11.480831+00:00",
+    "status": "in_progress",
+    "signal_id": "PL414_eia_natgas_storage_deficit_winter_premium_long",
+    "name": "EIA Storage Below 5yr Avg Mid-Injection -> Long Nat Gas E&Ps on Winter Premium",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and FRED/EIA data: When EIA weekly natural gas working storage (FRED NGTTSTUS1W or EIA weekly storage) is >200 Bcf below the 5-year average as of August 1, go long equal-weight AR + EQT on August 1. Hold for 63 trading days (through mid-October, peak of winter premium build). Benchmark vs SPY. The thesis is that mid-injection storage deficits drive winter premium pricing that benefits Appalachian gas E&Ps.",
+    "tickers": [
+      "AR",
+      "EQT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA weekly natural gas storage level is >200 Bcf below the 5-year average as of the first August weekly report",
+      "Enter on first trading day of August each qualifying year",
+      "One signal per year maximum"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (through mid-October)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: AR (Antero Resources, IPO Oct 2013), EQT (EQT Corporation), NG=F (Henry Hub nat gas futures), SPY",
+      "fundamental": "FRED: NGTTSTUS1W (natural gas total underground storage, weekly). EIA weekly storage report (free at eia.gov/naturalgas/storage). 5-year average storage levels computed from historical data. Published every Thursday."
+    },
+    "backtest_approach": "Seasonal event study: For each year (2014-2025, AR IPO 2013), check if August 1 storage level is >200 Bcf below 5yr avg. If yes, long AR+EQT from Aug 1 for 63 trading days vs SPY. For pre-2013, use EQT only (public since 1990s). Signal years expected: 2014 (post-polar-vortex storage drawdown), 2018 (low storage from hot summer demand), 2021 (post-winter-storm-Uri low storage), 2022 (hot summer + LNG exports drew storage). Non-signal years: 2015, 2016, 2019, 2020 (storage above average). AR+EQT are Appalachian gas pure-plays with highest leverage to Henry Hub.",
+    "known_events": [
+      "2014: Polar vortex winter 2013-14 drew storage to 800 Bcf; summer injections barely recovered; winter premium built",
+      "2018: Hot summer + low storage drove Henry Hub from $2.80 to $4.80 in Nov 2018",
+      "2021: Winter Storm Uri drew storage to decade lows; injection season lagged all summer",
+      "2022: Hot summer + LNG exports + generator demand; storage deficit persisted into fall; gas hit $9",
+      "2023: Mild winter + high production eliminated storage deficit; gas collapsed to $2"
+    ],
+    "implementation_notes": "AR (Antero Resources) IPO Oct 2013; EQT (EQT Corp) has been public since 1990s. Both are Appalachian dry gas producers with lowest-cost production profiles. EIA weekly storage data is the single most-watched data point in commodity markets -- released every Thursday at 10:30am ET. The 200 Bcf deficit threshold captures meaningful supply tightness. bt_feasibility is 5 because EIA storage data is on FRED, published weekly, and is the cleanest energy dataset available.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:39:44.071961+00:00"
+  },
+  {
+    "strategy_id": "PL416",
+    "idea_id": "PL416",
+    "created_at": "2026-05-27T04:39:11.480831+00:00",
+    "status": "in_progress",
+    "signal_id": "PL416_bls_ppi_semi_trough_distributor_long",
+    "name": "BLS PPI Semiconductor Trough -> Long Chip Distributors (ARW/AVT)",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED data: When BLS PPI for semiconductor manufacturing (FRED series PCU3344133441 or WPU11780102) shows first MoM increase after 6+ consecutive months of YoY decline exceeding 5%, go long equal-weight ARW + AVT on the first trading day after BLS PPI release. Hold for 42 trading days. Benchmark vs SPY. The thesis is that semiconductor price trough signals inventory destocking cycle end, driving distributor margin recovery.",
+    "tickers": [
+      "ARW",
+      "AVT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS PPI semiconductor manufacturing shows YoY decline >5% for 6+ consecutive months",
+      "First month of MoM increase signals price trough",
+      "Enter on first trading day after BLS PPI monthly release",
+      "Minimum 180 calendar days between signals (one per semiconductor cycle)"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: ARW (Arrow Electronics, IPO 1979), AVT (Avnet Inc, public since 1970s), SMH (VanEck Semiconductor ETF for reference), SPY",
+      "fundamental": "FRED: BLS PPI for semiconductor and related device manufacturing (PCU3344133441 or WPU11780102). Monthly frequency, ~2 weeks after reference month. Historical data back to 1990s. SIA (Semiconductor Industry Association) monthly global sales data (free summary at semiconductors.org)."
+    },
+    "backtest_approach": "Event study: Load FRED semiconductor PPI (1995-2025). Compute monthly YoY and MoM changes. Identify months where: (a) YoY decline >5% for 6+ consecutive months, then (b) first MoM increase. For each signal (180-day min gap), long ARW+AVT for 42 trading days vs SPY. Key expected trough signals: (1) 2001 Q4 (dot-com bust semi downturn trough), (2) 2009 Q1 (GFC semi trough), (3) 2012 Q4 (PC cycle trough), (4) 2019 Q1 (memory/trade war trough), (5) 2023 Q2 (post-COVID destocking trough). These align with well-documented semiconductor cycles.",
+    "known_events": [
+      "2001 Q4: Dot-com bust semiconductor downturn bottomed; ARW/AVT rallied 40%+ over next 6 months",
+      "2009 Q1: GFC semiconductor trough; distributor stocks were earliest semi-cycle recovery play",
+      "2012 Q4-2013 Q1: PC oversupply cycle trough; memory prices bottomed and recovered",
+      "2019 Q1: Trade war + memory oversupply trough; chip prices stabilized and recovered through 2019",
+      "2023 Q2: Post-COVID destocking cycle ended; SIA monthly data showed first positive MoM in June 2023"
+    ],
+    "implementation_notes": "ARW (Arrow Electronics) and AVT (Avnet) are the two largest global semiconductor distributors. Both have been public for 40+ years with excellent backtest history. Semiconductor PPI is a reliable indicator of chip pricing trends at the wholesale level. Distributors benefit from price recovery because they hold 8-12 weeks of inventory purchased at trough prices, creating margin expansion when selling prices recover. The 6-month YoY decline threshold filters out minor fluctuations and identifies genuine cyclical troughs. bt_feasibility is 5 because FRED PPI data is monthly, clean, and semiconductor cycles are well-documented.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:39:44.072160+00:00"
+  },
+  {
+    "strategy_id": "PL418",
+    "idea_id": "PL418",
+    "created_at": "2026-05-27T04:39:11.480831+00:00",
+    "status": "in_progress",
+    "signal_id": "PL418_treasury_bill_shift_mmf_asset_mgr_long",
+    "name": "Treasury Bills-Heavy Refunding -> Long Money Market Fund Asset Managers",
+    "category": "B",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED data: When FRED weekly T-bill outstanding (WTREGEN or similar) shows QoQ growth >5% AND 3-month T-bill yield (FRED DTB3) exceeds 4% (making MMFs attractive vs bank deposits), go long equal-weight STT + BLK on the first trading day after the Treasury quarterly refunding announcement. Hold for 42 trading days. Benchmark vs SPY. STT (State Street) and BLK (BlackRock) have the largest money market fund platforms and benefit from AUM-driven fee revenue.",
+    "tickers": [
+      "STT",
+      "BLK",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "T-bill outstanding shows QoQ growth >5% (heavy bill issuance quarter)",
+      "3-month T-bill yield exceeds 4% (making MMFs attractive relative to bank deposits)",
+      "Enter on first trading day after Treasury quarterly refunding announcement (late January, late April, late July, late October)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: STT (State Street Corporation), BLK (BlackRock Inc, IPO 1999), BEN (Franklin Resources), SPY",
+      "fundamental": "FRED: WTREGEN (Marketable Treasury Securities Outstanding), DTB3 (3-Month Treasury Bill Rate). Treasury quarterly refunding statements (free at treasury.gov). ICI weekly money market fund statistics (free at ici.org). Historical data back to 1980s for FRED series."
+    },
+    "backtest_approach": "Event study: Load FRED T-bill outstanding and 3-month yield (2000-2025). Identify quarters where bill outstanding QoQ growth >5% and DTB3 >4%. For each qualifying refunding quarter (90-day min gap), long STT+BLK for 42 trading days vs SPY. Key expected signal periods: 2006-2007 (high rates + bill issuance), 2018-2019 (rate hike cycle + bill expansion to fund deficit), 2023-2024 (5%+ rates + massive bill issuance to refill TGA post-debt-ceiling). The 2023-2024 period is the strongest test as T-bill outstanding surged $2T+ while MMF AUM hit $6T+ records.",
+    "known_events": [
+      "2006-2007: Fed funds at 5.25%; MMF AUM grew rapidly; asset managers benefited from fee income",
+      "2018 Q4-2019: Fed hiking cycle; T-bill yields attractive; MMF inflows accelerated",
+      "2023 Q2: Post-debt-ceiling TGA refill drove massive T-bill issuance; MMF AUM hit record $5.5T+",
+      "2024: Sustained high rates + continued heavy bill issuance; MMF AUM exceeded $6T",
+      "2025: Even with rate cuts beginning, elevated bill yields maintained MMF attractiveness"
+    ],
+    "implementation_notes": "STT (State Street) operates $3T+ in MMF assets; BLK (BlackRock) has $800B+ in MMF/cash. BEN (Franklin) has significant MMF but is smaller and has other headwinds. STT+BLK provides the best MMF AUM exposure with large-cap liquidity. The 4% T-bill yield threshold is key because below 4%, the spread vs bank deposits narrows and MMF growth slows. Treasury refunding announcements provide the timing anchor for bill issuance shifts. bt_feasibility is 4 because FRED data is clean and quarterly refunding dates are well-documented.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:39:44.072163+00:00"
+  },
+  {
+    "strategy_id": "PL414",
+    "idea_id": "PL414",
+    "created_at": "2026-05-27T04:39:14.143857+00:00",
+    "status": "in_progress",
+    "signal_id": "PL414_eia_natgas_storage_fill_winter_premium",
+    "name": "EIA Underground NG Storage Fill Rate Below Avg -> Winter Premium -> Natgas Producers Long",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and EIA weekly storage data: When EIA weekly natural gas storage report shows working gas in storage is > 10% below the 5-year average for that week during the injection season (June 1 - September 30), go long an equal-weight basket of natural gas producers (AR, EQT, CTRA) on the Thursday after the EIA report (released Thursday 10:30 AM ET). Hold for 30 trading days. Benchmark vs SPY. FRED series: NGTRSTUS (total underground storage). EIA publishes weekly every Thursday. A storage deficit during injection season signals the market cannot build adequate inventory for winter, driving a winter heating premium into NG futures.",
+    "tickers": [
+      "AR",
+      "EQT",
+      "CTRA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA weekly storage (working gas) > 10% below 5-year same-week average",
+      "Signal window: June 1 through September 30 (injection season)",
+      "Enter on Thursday after EIA report release",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: AR (Antero Resources), EQT (EQT Corporation, largest US NG producer), CTRA (Coterra Energy), NG=F (Henry Hub natgas futures), SPY",
+      "fundamental": "EIA Weekly Natural Gas Storage Report (free): https://www.eia.gov/naturalgas/storage/ - working gas in underground storage, Bcf. 5-year average comparison published directly by EIA. Thursday 10:30 AM ET release. FRED series NGTRSTUS."
+    },
+    "backtest_approach": "Event study: For each week during June-September (2005-2025) where storage was >10% below 5-year average, compute AR+EQT+CTRA basket return over 30 trading days vs SPY. AR IPO 2013, EQT long history, CTRA formed from Cabot/Cimarex merger 2021. For pre-2013, use EQT alone. Key deficit years: 2005 (post-Katrina), 2012 (hot summer), 2014, 2018, 2022 (post-winter). bt_feasibility is 5 because EIA storage data is the most-watched weekly energy dataset: clean, free, machine-readable, and directly drives NG prices.",
+    "known_events": [
+      "2005: Hurricanes Katrina/Rita created massive storage deficit, NG spiked to $15",
+      "2012: Warm winter left storage high, but hot summer drove deficit",
+      "2018: Bomb cyclone winter drew storage to record lows, deficit persisted into injection season",
+      "2022: Post-Russia-Ukraine winter drew storage down, deficit throughout injection season"
+    ],
+    "implementation_notes": "This is a bt_feasibility 5/5 signal. EIA storage data is published weekly, is the single most-watched natural gas fundamental dataset, and the 5-year average comparison is published directly by EIA (no calculation needed). AR (Antero) and EQT are Appalachian NG producers with highest NG revenue purity. CTRA has both oil and gas but significant Marcellus NG exposure. UNG (ETF) tracks NG futures but suffers contango roll costs. The 10% deficit threshold during injection season is a meaningful level that historically corresponds to winter NG price premiums.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:39:44.072167+00:00"
+  },
+  {
+    "strategy_id": "PL415",
+    "idea_id": "PL415",
+    "created_at": "2026-05-27T04:39:14.143857+00:00",
+    "status": "in_progress",
+    "signal_id": "PL415_census_migration_sunbelt_homebuilder",
+    "name": "Census ACS County Migration Inflows -> High-Growth Metro -> Sunbelt Homebuilder Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and Census/IRS migration data: When Census ACS or IRS SOI annual migration data shows net domestic migration inflows to Sunbelt metros (Phoenix, Dallas, Austin, Tampa, Charlotte, Nashville) exceeding 50,000 people annually for 2 consecutive years, go long an equal-weight basket of homebuilders with Sunbelt exposure (DHI, NVR, LEN) on the first trading day after Census/IRS data publication. Hold for 40 trading days. Benchmark vs SPY. Census ACS released annually in September/December. IRS SOI migration data released annually with ~2 year lag.",
+    "tickers": [
+      "DHI",
+      "NVR",
+      "LEN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census ACS or IRS SOI shows net domestic migration inflows to target Sunbelt metros > 50,000/year",
+      "Condition sustained for 2 consecutive annual releases",
+      "Enter on first trading day after annual data release",
+      "Signal fires at most once per year per data release"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: DHI (D.R. Horton, largest US homebuilder, heavy Sunbelt), NVR (NVR Inc, East Coast builder expanding South), LEN (Lennar, major Sunbelt presence), SPY",
+      "fundamental": "Census ACS migration flows (free): https://www.census.gov/topics/population/migration/data.html - annual county-to-county flows. IRS Statistics of Income migration data (free): https://www.irs.gov/statistics/soi-tax-stats-migration-data - annual, 2-year lag. Census Population Estimates (free, annual) for metro-level net migration."
+    },
+    "backtest_approach": "Event study: For each annual Census/IRS migration data release (2015-2025) where target Sunbelt metros showed sustained high inflows (>50K net), compute DHI+NVR+LEN return over 40 trading days vs SPY. Sunbelt migration has been a persistent trend since ~2015, accelerating during COVID (2020-2022). The signal may fire annually during this period. DHI, NVR, LEN all have long trading histories. Calculate cumulative excess return. bt_feasibility is 3 due to annual frequency, 1-2 year data lag, and the trend being well-known by the market.",
+    "known_events": [
+      "2016-2019: Steady Sunbelt migration inflows, homebuilders outperformed",
+      "2020-2022: COVID-era migration surge to Sunbelt (remote work + affordability)",
+      "2023-2024: Migration continued but moderated, homebuilders still benefited"
+    ],
+    "implementation_notes": "DHI is the largest US homebuilder with ~60% Sunbelt exposure. LEN is #2 with heavy Florida/Texas/Arizona presence. NVR is traditionally Mid-Atlantic but expanding South. The 50K threshold per metro is relatively high and captures only the largest migration destinations. Census data has 1-year lag, IRS data has 2-year lag, meaning the market likely already knows the migration trends from other sources (U-Haul data, USPS change of address, real-time rental data). bt_feasibility is 3 because: (a) annual frequency, (b) significant publication lag, (c) migration trends are widely discussed and likely priced in.",
+    "originality": 6,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:39:44.072169+00:00"
   }
 ]

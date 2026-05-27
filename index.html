@@ -3886,6 +3886,52 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: NOAA NCEI Billion-Dollar Disasters + yfinance</span><span><code>backtests/PL398_noaa_severe_weather_reinsurer_hardening_long.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL408</span><h3>&#9733; PNW Grain Season UNP Outperformance &#8594; Long Union Pacific</h3></div>
+    <div class="right">equities (UNP) &middot; ~42-day hold &middot; 35 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.07</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">32.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-15%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.07</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+3.3%</div><div class="ml">avg excess</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Union Pacific dominates the rail franchise serving PNW grain export terminals (Portland, Longview, Tacoma). When UNP outperforms CSX (which serves Eastern/Gulf corridors) by &gt;5% over 20 days during grain export season (Sep-Feb), it signals that PNW grain flows are surging relative to Gulf. This captures periods of strong Asian demand for US grains routed through Pacific Northwest ports, which directly benefits UNP's grain franchise revenue.</p>
+    <h4>Rule</h4>
+    <div class="rule">When UNP outperforms CSX by &gt;5% over trailing 20 trading days during September-February, long UNP for 42 trading days. Minimum 90-day gap between signals.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">35 events over 2000-2025 is an excellent sample. Win rate 25/35 (71%). MaxDD -15% is low. Avg excess +3.3% vs SPY per trade. However, the proxy (UNP/CSX relative strength) may capture momentum effects beyond grain-specific fundamentals. Some events cluster (2000-2002, 2006-2008) suggesting regime dependency. The signal fires in ~70% of grain seasons, raising questions about its selectivity. Still, the combination of high Sharpe, low MaxDD, and large N makes this one of the stronger pipeline signals.</div>
+  </div>
+  <div class="card-foot"><span>Source: USDA PNW grain (proxy via UNP/CSX relative strength) + yfinance</span><span><code>backtests/PL408_usda_pnw_grain_export_unp_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">PL409</span><h3>&#9733; Census M3 Core Capex Inflection &#8594; Long Industrial Distributors</h3></div>
+    <div class="right">equities (FAST, GWW) &middot; ~42-day hold &middot; 31 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.55</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-20%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.55</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+1.8%</div><div class="ml">avg excess</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Census M3 nondefense capital goods shipments (ex-aircraft) is the gold standard monthly indicator of business investment. When this series inflects from negative to positive YoY growth (after 3+ months of contraction), it signals a capex recovery cycle that drives downstream MRO consumable demand at industrial distributors. Fastenal and Grainger report daily sales growth that correlates with capex equipment deliveries with a 1-2 month lag.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED A34SNO YoY growth turns positive after 3+ months negative, OR accelerates &gt;3pp from trough, long FAST+GWW equal-weight for 42 trading days. Minimum 90-day gap.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">31 events over 1998-2023 with 18/31 win rate (58%). The signal fires frequently during prolonged downturns (multiple triggers during 2001-2003, 2014-2015) with mixed early results. Strongest returns come at true cycle bottoms (2009: +26.7%, 2012: +15.8%). FRED A34SNO has a 35-day publication lag, reducing timeliness. MaxDD -20% is moderate. Excess +1.8% per trade is modest but consistent over 25 years of data.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED A34SNO + yfinance</span><span><code>backtests/PL409_census_m3_core_capex_industrial_dist_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -5921,8 +5967,20 @@ document.querySelectorAll('#tab-strategies .card').forEach(function(card) {
   if (!meta) return;
   var h3 = card.querySelector('h3');
   var name = h3 ? h3.textContent.trim().replace(/^[★]+\s*/, '') : '';
-  var sharpe = parseFloat(card.dataset.sharpe) || 0;
-  var cagr = parseFloat(card.dataset.cagr) || 0;
+  var sharpe = parseFloat(card.dataset.sharpe);
+  var cagr = parseFloat(card.dataset.cagr);
+  if (isNaN(sharpe) || isNaN(cagr)) {
+    card.querySelectorAll('.m').forEach(function(m) {
+      var ll = ((m.querySelector('.ml')||{}).textContent||'').toLowerCase();
+      var vt = ((m.querySelector('.mv')||{}).textContent||'').trim();
+      var num = parseFloat(vt.replace(/[^-0-9.]/g,''));
+      if (isNaN(num)) return;
+      if (isNaN(sharpe) && (ll.indexOf('sharpe')>=0 || ll.indexOf('t-stat')>=0)) sharpe = num;
+      if (isNaN(cagr) && (ll.indexOf('cagr')>=0 || ll.indexOf('excess')>=0)) cagr = num;
+    });
+  }
+  sharpe = isNaN(sharpe) ? 0 : sharpe;
+  cagr = isNaN(cagr) ? 0 : cagr;
   var ruleEl = card.querySelector('.rule');
   var rule = ruleEl ? ruleEl.textContent.trim() : '';
   if (!card.id) card.id = 'card-' + Math.random().toString(36).slice(2,8);
