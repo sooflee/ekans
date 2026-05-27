@@ -11270,5 +11270,1359 @@
       "n_events": 4,
       "is_winner": true
     }
+  },
+  {
+    "strategy_id": "PL365",
+    "idea_id": "PL365",
+    "created_at": "2026-05-27T04:26:46.760834+00:00",
+    "status": "done",
+    "signal_id": "PL365_nyfed_sunbelt_credit_stress_northeast_bank_long",
+    "name": "NY Fed Geographic Credit Divergence -> Long Conservative Northeast Regional Banks",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and FRED/NY Fed data: When FRED consumer credit card delinquency rate (DRCCLACBS or CCLACBW027SBOG) rises >100bps YoY AND the spread between Sun Belt vs national delinquency widens (proxy: KRE regional bank ETF underperforms SPY by >15% over 60 trading days), go long equal-weight basket of MTB + FITB (conservative Northeast regional banks with lower credit risk profiles) on the next trading day. Hold for 63 trading days (approximately 3 months). Benchmark vs SPY. LONG-SIDE ONLY -- original idea had a short leg which is excluded.",
+    "tickers": [
+      "MTB",
+      "FITB",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED consumer credit card delinquency rate rises >100bps YoY",
+      "KRE (regional bank ETF) underperforms SPY by >15% over trailing 60 trading days (proxy for geographic credit stress hitting weaker banks)",
+      "Enter on first trading day after both conditions are true",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: MTB (M&T Bank Corp), FITB (Fifth Third Bancorp), KRE (SPDR S&P Regional Banking ETF), SPY",
+      "fundamental": "FRED: DRCCLACBS (delinquency rate on credit card loans, quarterly) or CCLACBW027SBOG (weekly). NY Fed Consumer Credit Panel (free quarterly at newyorkfed.org). Historical data back to 1991 for FRED delinquency series."
+    },
+    "backtest_approach": "Event study: Load FRED credit card delinquency data (2003-2025 for MTB/FITB/KRE history). Identify quarters where delinquency rises >100bps YoY AND KRE underperforms SPY by >15% over 60 trading days. For each signal (120-day min gap), long MTB+FITB basket for 63 trading days vs SPY. The thesis is that credit-conservative Northeast banks (MTB: upstate NY/Mid-Atlantic, FITB: Ohio/Midwest) outperform during credit stress because their loan portfolios have better underwriting and lower geographic exposure to Sun Belt consumer credit deterioration. Key expected events: 2007-2008 (housing crisis), 2020 (COVID credit stress), 2023-2024 (post-stimulus credit normalization).",
+    "known_events": [
+      "2007 Q4-2008: Credit card delinquencies surged; Sun Belt banks took heavy losses on consumer portfolios",
+      "2009-2010: Northeast banks with conservative underwriting recovered faster than Sun Belt peers",
+      "2020 Q2-Q3: COVID-driven credit stress; geographic divergence in unemployment rates",
+      "2023 Q4-2024: Post-stimulus credit normalization; Sun Belt subprime auto/CC losses elevated"
+    ],
+    "implementation_notes": "MTB IPO 1980s, FITB IPO 1980s -- both have excellent backtest history. KRE ETF launched June 2006, limiting the proxy signal to 2006+. For pre-2006, can use a simple basket of large regional banks. The long-only modification preserves the thesis that conservative Northeast banks hold value during credit stress periods, without requiring the short-side leg. FRED delinquency data (DRCCLACBS) is quarterly with ~2 month lag; the KRE underperformance proxy provides a faster-moving real-time signal. bt_feasibility is 4 because FRED and yfinance data are clean.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:27:14.406252+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9531686134539736,
+      "cagr": 0.35596012076143,
+      "max_dd": -0.3635051333863931,
+      "t_stat": 0.9531686134539735,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL363",
+    "idea_id": "PL363",
+    "created_at": "2026-05-27T04:27:05.066202+00:00",
+    "status": "done",
+    "signal_id": "PL363_bjs_prison_population_private_prison",
+    "name": "BJS Prison Population Surge -> Private Prison Operator Revenue Growth -> CXW/GEO Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and BJS data: When BJS semiannual National Prisoner Statistics report shows total US incarcerated population (federal + state) growing > 3% YoY after at least 2 years of decline or flat growth, go long an equal-weight basket of private prison operators (CXW, GEO) on the first trading day after BJS report publication. Hold for 40 trading days. Benchmark vs SPY. BJS publishes semiannual prisoner statistics (typically June and December releases), freely available at bjs.gov.",
+    "tickers": [
+      "CXW",
+      "GEO",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BJS National Prisoner Statistics shows total incarcerated population YoY growth > 3%",
+      "Prior 2 years showed declining or flat (<1% growth) prison population",
+      "Enter on first trading day after BJS report publication",
+      "Signal fires at most twice per year (semiannual reports)"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CXW (CoreCivic Inc), GEO (GEO Group Inc), SPY",
+      "fundamental": "BJS National Prisoner Statistics (free): https://bjs.gov/index.cfm?ty=nps - semiannual, published with ~6 month lag. Also BJS Annual Survey of Jails for shorter-term county jail data. Federal Bureau of Prisons population data available weekly at bop.gov (free) for more timely federal signal."
+    },
+    "backtest_approach": "Event study: For each BJS report (2005-2025) where incarcerated population inflected upward >3% after 2+ years of decline, compute CXW+GEO return over 40 trading days vs SPY. Prison population declined 2009-2019, then COVID caused temporary further drop 2020, followed by rebound 2021-2023. Expected events: possibly 2006-2007 (population growth period) and 2022-2023 (post-COVID rebound). With the decline prerequisite, expect 1-3 events. bt_feasibility is 3 due to: (a) semiannual frequency limits data points, (b) 6-month publication lag means market may already price in trends, (c) ESG concerns around private prisons add volatility.",
+    "known_events": [
+      "2007: US prison population peaked at 1.6M, CXW/GEO at cycle highs",
+      "2020: COVID caused 15% drop in federal prison population",
+      "2022-2023: Post-COVID prison population rebound began",
+      "2021: Biden executive order against federal private prison use (later narrowed)"
+    ],
+    "implementation_notes": "CXW converted from REIT back to C-corp in 2020 (tax structure change). GEO Group converted from REIT to C-corp in 2021. Both stocks carry significant political risk (Democratic administrations have been hostile to private prisons). The Biden 2021 executive order only applied to DOJ contracts, not ICE or state contracts. BOP.gov weekly population data (free) can provide more timely federal population signals than the lagged BJS reports. bt_feasibility is 3 due to political risk overlay and publication lag.",
+    "originality": 7,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:27:38.841894+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.7069022765506432,
+      "cagr": -0.24455087052876567,
+      "max_dd": -0.39444519704837555,
+      "t_stat": -0.7069022765506432,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL364",
+    "idea_id": "PL364",
+    "created_at": "2026-05-27T04:27:05.066202+00:00",
+    "status": "done",
+    "signal_id": "PL364_usgs_helium_decline_industrial_gas",
+    "name": "USGS Helium Production Decline -> Industrial Gas Shortage -> APD/LIN Premium Pricing",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USGS Mineral Commodity Summaries: When USGS annual helium data shows US production declining > 10% YoY while global demand indicators (semiconductor fab capacity, MRI installations) remain positive, go long an equal-weight basket of industrial gas companies (APD, LIN) on the first trading day after USGS Mineral Commodity Summaries publication (typically late January). Hold for 40 trading days. Benchmark vs SPY. USGS MCS is the definitive free source for US helium production and consumption data.",
+    "tickers": [
+      "APD",
+      "LIN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USGS Mineral Commodity Summaries helium chapter shows US production declined > 10% YoY",
+      "Qualitative check: semiconductor fab capacity (SEMI data) growing, MRI install base stable",
+      "Enter on first trading day after USGS MCS publication (typically late January)",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: APD (Air Products and Chemicals), LIN (Linde plc), SPY",
+      "fundamental": "USGS Mineral Commodity Summaries - Helium (free): https://www.usgs.gov/centers/national-minerals-information-center/helium-statistics-and-information - annual production, consumption, imports, and reserve data. BLM Federal Helium Program reports (free at blm.gov). Published annually in late January."
+    },
+    "backtest_approach": "Event study: For each USGS MCS release (2015-2025) where US helium production declined >10% YoY, compute APD+LIN return over 40 trading days vs SPY. The Federal Helium Reserve wind-down created production declines starting ~2019. LIN formed from Praxair/Linde merger in 2018, so pre-2018 use only APD. Expected events: 2019-2021 (Federal Reserve auction changes), 2023+ (continued wind-down). If <3 events at 10% threshold, relax to 5% YoY decline. Calculate average excess return.",
+    "known_events": [
+      "2013: Helium Stewardship Act reformed Federal Reserve operations",
+      "2019: Federal Helium Reserve began phase-out auctions",
+      "2021-2022: Global helium shortage as BLM supply declined and Amur plant delayed",
+      "2023: Qatar Helium 2 plant delayed, tightening global supply"
+    ],
+    "implementation_notes": "APD has long history (public since 1961). LIN in current form since 2018 Praxair/Linde merger (pre-2018 use PX for Praxair). Helium is a small but high-margin segment for both companies (~2-5% of revenue but higher margin). The Federal Helium Reserve wind-down is a known secular trend, so the surprise element comes from the pace of decline and coincident demand growth from semiconductor fabs. bt_feasibility is 3 because: (a) annual USGS data gives very few data points, (b) helium is a small contributor to APD/LIN overall financials, (c) the stock price reaction may be diluted by other segment dynamics.",
+    "originality": 9,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:27:38.841894+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.027850673445230872,
+      "cagr": -0.026411792735355988,
+      "max_dd": -0.2988536781241563,
+      "t_stat": -0.03038757600434929,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL366",
+    "idea_id": "PL366",
+    "created_at": "2026-05-27T04:28:00.679521+00:00",
+    "status": "done",
+    "signal_id": "PL366_cftc_cot_copper_contrarian_long",
+    "name": "CFTC COT Managed Money Net Short Extreme in Copper -> Contrarian Long COPX/FCX",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and CFTC COT data: When CFTC weekly Commitment of Traders report shows managed money net short positions in COMEX copper (HG) exceed the 90th percentile of the trailing 3-year distribution (i.e., extreme bearish positioning), go long an equal-weight basket of copper miners (COPX, FCX, SCCO) on the Monday following the Friday COT release. Hold for 20 trading days. Benchmark vs SPY. CFTC COT published every Friday at 3:30 PM ET for positions as of prior Tuesday. Free at cftc.gov.",
+    "tickers": [
+      "COPX",
+      "FCX",
+      "SCCO",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CFTC COT managed money net short in COMEX copper exceeds 90th percentile of trailing 3-year distribution",
+      "Net short = (short contracts - long contracts) for managed money category",
+      "Enter on Monday following Friday COT release",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: COPX (Global X Copper Miners ETF), FCX (Freeport-McMoRan), SCCO (Southern Copper), HG=F (COMEX copper futures), SPY",
+      "fundamental": "CFTC Commitment of Traders - Disaggregated Futures (free): https://www.cftc.gov/dea/futures/other_lf.htm - copper (COMEX) contract 085692. Fields: Managed Money Long, Managed Money Short. Weekly Friday 3:30 PM ET release for Tuesday positions."
+    },
+    "backtest_approach": "Event study: For each Friday COT release (2010-2025) where managed money net short in copper exceeded 90th percentile of trailing 3-year distribution, compute COPX+FCX+SCCO return over 20 trading days vs SPY. COPX inception April 2010. The contrarian thesis: extreme speculative shorts create a crowded trade vulnerable to short covering rallies when any positive catalyst appears (Chinese stimulus, supply disruption, dollar weakness). Calculate average excess return, win rate, t-statistic. Expect 8-15 events over the period. bt_feasibility is 5 because CFTC data is clean, free, weekly, machine-readable, and the contrarian positioning signal is well-defined.",
+    "known_events": [
+      "2015-2016: Extreme net shorts preceded copper rally on China stimulus",
+      "2018 Q4: Net short extreme preceded 2019 Q1 copper recovery",
+      "2020 March: COVID crash created extreme shorts, massive rally followed",
+      "2022 Q3: Net short extreme preceded late 2022 copper recovery"
+    ],
+    "implementation_notes": "CFTC COT data is one of the cleanest free datasets: machine-readable CSV, weekly, no API key needed. The 90th percentile threshold (rather than absolute level) automatically adjusts for secular changes in open interest. FCX is the largest publicly traded copper miner. SCCO is the most copper-pure major miner. COPX ETF provides diversified copper mining exposure. bt_feasibility is 5/5 -- this is a textbook quantifiable contrarian signal with excellent data quality.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:30:18.511365+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.28,
+      "cagr": -0.039,
+      "max_dd": -0.56,
+      "t_stat": 0.28
+    }
+  },
+  {
+    "strategy_id": "PL367",
+    "idea_id": "PL367",
+    "created_at": "2026-05-27T04:28:00.679521+00:00",
+    "status": "done",
+    "signal_id": "PL367_bea_travel_receipts_hotel_long",
+    "name": "BEA International Travel Receipts Surge -> Strong Dollar Tourism Spending -> Hotel REITs Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and BEA/NTTO data: When BEA quarterly international travel receipts (US exports of travel services) grow > 15% YoY, go long an equal-weight basket of hotel REITs (HST, PK, MAR) on the first trading day after BEA data release. Hold for 30 trading days. Benchmark vs SPY. BEA publishes travel receipts as part of quarterly balance of payments data (free). NTTO publishes monthly international visitor arrivals as a more timely leading indicator (free at travel.trade.gov).",
+    "tickers": [
+      "HST",
+      "PK",
+      "MAR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BEA quarterly international travel receipts YoY growth > 15%",
+      "Or: NTTO monthly international visitor arrivals YoY growth > 10% for 3 consecutive months (leading indicator)",
+      "Enter on first trading day after BEA quarterly release or NTTO monthly release",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: HST (Host Hotels & Resorts), PK (Park Hotels & Resorts), MAR (Marriott International), SPY",
+      "fundamental": "BEA International Transactions (free): Table 3.1 US International Trade in Services - travel receipts. FRED series: BOPTEXP (travel exports/receipts). Quarterly, ~75 days after quarter end. NTTO International Visitor Arrivals (free monthly): https://travel.trade.gov/view/m-2022-I-001/index.asp"
+    },
+    "backtest_approach": "Event study: For each BEA quarterly release (2005-2025) where travel receipts grew >15% YoY, compute HST+PK+MAR return over 30 trading days vs SPY. PK spun off from Hilton in January 2017, so pre-2017 use HST+MAR only. Key periods of strong inbound travel growth: 2006-2007 (weak dollar attracted tourists), 2014-2015, 2022-2024 (post-COVID rebound). Also test NTTO monthly arrivals as leading indicator. Calculate average excess return, win rate, t-statistic. bt_feasibility is 4.",
+    "known_events": [
+      "2006-2007: Weak USD drove record international tourist arrivals to US",
+      "2014-2015: Strong US economy and events attracted international visitors",
+      "2022-2023: Post-COVID international travel recovery, pent-up demand",
+      "2024: Strong dollar paradoxically coincided with record inbound travel from wealthy tourists"
+    ],
+    "implementation_notes": "HST is the largest US lodging REIT (pure hotel ownership). PK owns high-end hotels (spun from HLT in 2017). MAR is the largest hotel company by rooms but is asset-light (franchise/management model) so RevPAR uplift flows differently. BEA travel receipts capture total foreign visitor spending (hotels, dining, shopping, transportation). The 15% YoY threshold captures significant acceleration beyond normal growth. NTTO monthly data provides a more timely signal than quarterly BEA but with less comprehensive coverage.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:27.315066+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.04,
+      "cagr": 0.371,
+      "max_dd": -0.22,
+      "t_stat": 1.04
+    }
+  },
+  {
+    "strategy_id": "PL366",
+    "idea_id": "PL366",
+    "created_at": "2026-05-27T04:28:01.261817+00:00",
+    "status": "done",
+    "signal_id": "PL366_cftc_cot_copper_net_short_extreme_contrarian_long",
+    "name": "CFTC COT Managed Money Extreme Net Short Copper -> Contrarian Long COPX",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and CFTC COT data: When CFTC weekly COT report shows managed money net positioning in COMEX copper (legacy report, contract code 085692) falls below the 5th percentile of its trailing 260-week (5-year) range, go long COPX (copper miners ETF) on the next trading day after the Friday COT report. Hold for 21 trading days. Benchmark vs SPY. The contrarian thesis is that extreme speculative pessimism creates short-covering rally setups.",
+    "tickers": [
+      "COPX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CFTC COT managed money net position in COMEX copper falls below 5th percentile of trailing 260-week range",
+      "Equivalently: managed money net short exceeds 95th percentile of 5-year range",
+      "Enter on Monday after Friday COT report release",
+      "Minimum 42 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 21 trading days (approximately 1 month)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: COPX (Global X Copper Miners ETF, launched 2010), HG=F (COMEX copper futures), SPY",
+      "fundamental": "CFTC Commitments of Traders (COT) legacy report: copper-grade contract code 085692. Free weekly at cftc.gov/dea/futures/deacmxsf.htm. Historical data downloadable back to 1993. Managed money positioning available in disaggregated format from 2006."
+    },
+    "backtest_approach": "Event study: Download CFTC COT disaggregated report for copper (2010-2025, COPX inception). Compute managed money net position = long - short. Calculate rolling 260-week percentile. For each week where percentile < 5%, long COPX for 21 trading days. Apply 42-day minimum gap. Compute per-event return vs SPY. Key expected events: 2013 Q2 (China hard-landing fears), 2015 Q4 (global recession fears), 2018 Q3 (trade war escalation), 2020 Q1 (COVID crash), 2022 Q3 (China zero-COVID). COPX launched April 2010; for longer history, use FCX as copper proxy.",
+    "known_events": [
+      "2013 Q2: China hard-landing fears drove extreme copper shorts; copper bottomed and rallied 10%",
+      "2015 Nov-Dec: Global recession fears; copper hit $2.00/lb; rallied 20% to March 2016",
+      "2018 Aug-Sep: US-China trade war escalation; copper shorts at extreme; bottomed Sep 2018",
+      "2020 Mar: COVID crash drove extreme positioning; copper rallied 100%+ over next year",
+      "2022 Jul: China zero-COVID + global recession fears; copper positioning extremely negative"
+    ],
+    "implementation_notes": "CFTC COT data is one of the cleanest free fundamental datasets available. The disaggregated report (from 2006) separates managed money from producer/merchant and swap dealer positions. Managed money net short extremes have well-documented contrarian value across commodities (research by Bridgewater, JPM). COPX ETF launched April 2010 with 30+ copper mining stocks. For pre-2010, use FCX (Freeport-McMoRan) as a liquid copper proxy. bt_feasibility is 5 because COT data is machine-readable CSV with standardized format.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:30:18.511538+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.15,
+      "cagr": -0.02,
+      "max_dd": -0.35,
+      "t_stat": 0.15
+    }
+  },
+  {
+    "strategy_id": "PL367",
+    "idea_id": "PL367",
+    "created_at": "2026-05-27T04:28:01.261817+00:00",
+    "status": "done",
+    "signal_id": "PL367_bea_travel_receipts_surge_hotel_reit_long",
+    "name": "BEA International Travel Receipt Surge -> Long Gateway City Hotel REITs",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and BEA/FRED data: When BEA quarterly international travel receipts (FRED series B0230RC1Q027SBEA or IEABC) show YoY growth exceeding 15%, go long equal-weight basket of HST + PK on the first trading day after the BEA release. Hold for 63 trading days (approximately 3 months). Benchmark vs SPY. The thesis is that surging international visitor spending disproportionately benefits gateway city hotel REITs through RevPAR acceleration.",
+    "tickers": [
+      "HST",
+      "PK",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BEA international travel receipts YoY growth exceeds 15% (quarterly data)",
+      "Enter on first trading day after BEA balance of payments quarterly release",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: HST (Host Hotels & Resorts), PK (Park Hotels & Resorts, spun from HLT 2017), SPY",
+      "fundamental": "FRED/BEA: International travel receipts (B0230RC1Q027SBEA or similar series). Published quarterly as part of BEA balance of payments, approximately 3 months after quarter end. Historical data back to 1990s. NTTO monthly international visitor arrivals (free at travel.trade.gov) as supplementary."
+    },
+    "backtest_approach": "Event study: Load FRED international travel receipts (1999-2025 for HST history). Compute quarterly YoY growth. Identify quarters where growth >15%. For each signal (90-day min gap), long HST+PK basket for 63 trading days vs SPY. PK spun from HLT in January 2017; pre-2017 use HST only or add MAR as gateway city proxy. Key expected events: 2004-2006 (post-9/11 tourism recovery), 2010-2011 (post-GFC tourism rebound), 2015 (strong dollar period), 2022-2023 (post-COVID international travel surge). Exclude COVID quarters (2020 Q2-Q3) as distortion.",
+    "known_events": [
+      "2004-2005: Post-9/11 international tourism recovery; hotel occupancy surged in NYC/Miami",
+      "2010-2011: Post-GFC tourism rebound; gateway city hotels led recovery",
+      "2015: Strong USD paradoxically boosted outbound but inbound travel receipts still grew on volume",
+      "2022 Q3-2023 Q2: Post-COVID international travel surge; gateway city RevPAR exceeded 2019 levels",
+      "2024: Continued strong international arrivals driven by pent-up demand and events"
+    ],
+    "implementation_notes": "HST IPO 1998, PK IPO Jan 2017. Pre-2017 use HST only. BEA travel receipts include both business and leisure; the signal is strongest when leisure international arrivals drive the growth (summer/holiday quarters). The 15% YoY threshold is high enough to filter out normal growth. NTTO monthly data can provide higher-frequency confirmation but is less clean than BEA. bt_feasibility is 4 because BEA/FRED data is clean and quarterly.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:27.315245+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.05,
+      "cagr": -0.07,
+      "max_dd": -0.33,
+      "t_stat": 0.05
+    }
+  },
+  {
+    "strategy_id": "PL368",
+    "idea_id": "PL368",
+    "created_at": "2026-05-27T04:28:01.261817+00:00",
+    "status": "done",
+    "signal_id": "PL368_nerc_grid_risk_peaker_ipp_long",
+    "name": "NERC High-Risk Grid Assessment + Summer Heat -> Long Gas Peaker IPPs",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance data: When ERCOT/MISO summer reserve margins are projected below 15% (per NERC summer assessment, published May) AND summer begins (June 1), go long equal-weight basket of VST + NRG on June 1. Hold for 63 trading days (through mid-August peak demand). Benchmark vs SPY. As a backtest proxy: long VST+NRG each June 1 in years where the prior-year ERCOT summer peak demand set records or grid emergencies occurred (indicating structural tightness persists).",
+    "tickers": [
+      "VST",
+      "NRG",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NERC Summer Reliability Assessment (published May) identifies ERCOT or MISO as high-risk with reserve margin <15%",
+      "Enter on June 1 (or first trading day of June) each qualifying year",
+      "Backtest proxy: ERCOT prior summer had peak demand >90th percentile of history OR grid emergency event"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately through mid-August)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: VST (Vistra Corp, ticker changed from VST after Dynegy merger 2018), NRG (NRG Energy), SPY",
+      "fundamental": "NERC Long-Term and Seasonal Reliability Assessments (free at nerc.com). ERCOT Capacity, Demand, and Reserves report (free at ercot.com). EIA Electric Grid Monitor for real-time demand (free). Historical ERCOT peak demand data back to 2001."
+    },
+    "backtest_approach": "Event study: Identify summers (June-August) where grid stress indicators are elevated. For years 2018-2025 (VST post-Dynegy merger): long VST+NRG basket from June 1 for 63 trading days. Pre-2018: use NRG only. Signal years (NERC high-risk or actual grid stress): 2011 (ERCOT rolling blackouts), 2019 (ERCOT emergency), 2021 (post-winter-storm heightened awareness), 2022 (record heat), 2023 (record demand), 2024 (continued growth). Compare signal-year returns vs non-signal-year returns. Also test unconditional summer seasonality of VST+NRG.",
+    "known_events": [
+      "2011: ERCOT rolling blackouts during February cold + summer heat wave; scarcity pricing events",
+      "2019 Aug: ERCOT prices hit $9,000/MWh cap during August heat wave; VST benefited significantly",
+      "2021: Post-Winter-Storm-Uri heightened grid risk awareness; NERC flagged multiple regions",
+      "2022: Record heat across US; ERCOT hit record demand; gas peakers ran at high capacity factors",
+      "2023: Record ERCOT demand; VST stock tripled in 2023 partly on grid pricing power narrative",
+      "2024: Continued AI/data center load growth tightened ERCOT reserves further"
+    ],
+    "implementation_notes": "VST was formed from Vistra Energy (formerly TXU) and merged with Dynegy in April 2018. Pre-2018 NRG is the main liquid pure-play gas/power IPP. VST has ERCOT-concentrated generation (~40GW) making it highly leveraged to Texas grid stress. NRG has a more diversified fleet but still benefits from scarcity pricing. The NERC biannual assessment provides a structural setup (May publication for summer risk), while actual grid events provide the returns. bt_feasibility is 4 because the ERCOT data and price history are available, though the NERC assessment requires manual reading.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:18.511541+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.56,
+      "cagr": 0.14,
+      "max_dd": -0.2,
+      "t_stat": 0.56
+    }
+  },
+  {
+    "strategy_id": "PL369",
+    "idea_id": "PL369",
+    "created_at": "2026-05-27T04:28:54.740045+00:00",
+    "status": "done",
+    "signal_id": "PL369_aphis_livestock_disease_vet_pharma",
+    "name": "USDA APHIS Livestock Disease Outbreak -> Veterinary Pharmaceutical Demand Surge -> IDXX/ZTS Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and USDA APHIS data: When USDA APHIS confirms a high-consequence livestock disease outbreak (HPAI in commercial poultry >5M birds depopulated in 30 days, OR first US detection of African Swine Fever/Foot-and-Mouth Disease), go long an equal-weight basket of veterinary diagnostics/pharma (IDXX, ZTS) on the next trading day. Hold for 30 trading days. Benchmark vs SPY. APHIS publishes confirmed disease detections in real-time at aphis.usda.gov. Focus on OIE-notifiable diseases that trigger mandatory surveillance testing.",
+    "tickers": [
+      "IDXX",
+      "ZTS",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA APHIS confirms HPAI depopulations > 5M commercial birds in rolling 30 days",
+      "OR: USDA APHIS confirms first US detection of African Swine Fever or Foot-and-Mouth Disease",
+      "Enter on next trading day after APHIS confirmation",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: IDXX (IDEXX Laboratories, vet diagnostics leader), ZTS (Zoetis, animal health pharmaceuticals), SPY",
+      "fundamental": "USDA APHIS animal health situation reports (free): https://www.aphis.usda.gov/livestock-poultry-disease - HPAI detections table with flock size and date. Also WOAH (OIE) WAHIS notification system (free) for international disease status."
+    },
+    "backtest_approach": "Event study: For each APHIS-confirmed major livestock disease outbreak (2015-2025), compute IDXX+ZTS return over 30 trading days vs SPY. Key events: 2015 HPAI (49M birds), 2022 HPAI (58M birds), 2024-2025 HPAI (ongoing). No US ASF or FMD detections to date (these would be unprecedented events). With 90-day gap, expect 3-5 discrete HPAI events. Calculate average excess return, win rate. IDXX benefits from diagnostic testing volume surge; ZTS benefits from vaccine/therapeutic demand.",
+    "known_events": [
+      "2015 spring: HPAI H5N2 depopulated 49M birds, IDXX saw livestock testing surge",
+      "2022 Q1-Q2: HPAI H5N1 first wave, 38M commercial birds",
+      "2022 Q4-2023 Q1: HPAI second wave, mandatory surveillance expanded",
+      "2024-2025: Ongoing HPAI in commercial poultry and dairy cattle"
+    ],
+    "implementation_notes": "IDXX is the dominant veterinary diagnostics company (lab instruments + consumables). When mandatory disease surveillance is triggered, IDXX sees elevated consumable pull-through on its installed instrument base -- very high incremental margins. ZTS (animal vaccines/therapeutics) benefits from both prophylactic vaccination demand and therapeutic treatment. The HPAI 5M threshold ensures we capture only major outbreaks. bt_feasibility is 4 because APHIS data is real-time, clean, and the diagnostic testing surge mechanism is direct and well-documented.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.35945498024756933,
+      "cagr": 0.06063099631848723,
+      "max_dd": -0.1553628515633111,
+      "t_stat": 0.3281360018152794,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL370",
+    "idea_id": "PL370",
+    "created_at": "2026-05-27T04:28:54.740045+00:00",
+    "status": "done",
+    "signal_id": "PL370_port_la_dwell_time_chassis_shortage",
+    "name": "Port of LA/LB Container Dwell Time Spike -> Chassis Shortage -> Intermodal Equipment Leasing Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and Port of LA Signal data: When Port of LA Signal daily data shows average import container dwell time exceeds 8 days (normal is 3-4 days) for 2 consecutive weeks, go long an equal-weight basket of equipment leasing companies (R, GATX) on the Monday following the second qualifying week. Hold for 30 trading days. Benchmark vs SPY. Port of LA Signal (signal.portoflosangeles.org) publishes daily container dwell time, chassis availability, and vessel queue data for free.",
+    "tickers": [
+      "R",
+      "GATX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Port of LA Signal average import container dwell time > 8 days for 2 consecutive weeks",
+      "Enter on Monday following the second qualifying week",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: R (Ryder System, truck/chassis leasing), GATX (GATX Corp, railcar/intermodal leasing), SPY",
+      "fundamental": "Port of LA Signal (free): https://signal.portoflosangeles.org - daily import container dwell time, chassis turn time, truck turn time. Port of Long Beach monthly stats (free). Also Marine Exchange of Southern California vessel queue data."
+    },
+    "backtest_approach": "Event study: For each period (2018-2025, Port of LA Signal launched ~2017) where import container dwell time exceeded 8 days for 2+ consecutive weeks, compute R+GATX return over 30 trading days vs SPY. Key events: 2021 Q4-2022 Q2 (historic port congestion, dwell times exceeded 10-12 days), 2023 periodic spikes. The 2021-2022 supply chain crisis is the primary backtesting event. If only 1-2 events at 8 days, relax to 6 days. Calculate average excess return.",
+    "known_events": [
+      "2021 Q3-2022 Q1: Historic port congestion, dwell times peaked at 12+ days",
+      "2021 October: 100+ container ships at anchor off LA/LB",
+      "2022 Q2: Dwell times normalized as demand slowed and congestion cleared",
+      "2023: Periodic minor congestion spikes during peak import seasons"
+    ],
+    "implementation_notes": "Port of LA Signal data is excellent quality but limited history (started ~2017). R (Ryder) benefits from chassis/truck leasing demand during congestion. GATX benefits from intermodal container leasing. TRTN (Triton International) was mentioned in idea but was acquired by Brookfield in 2024 and delisted. The 2021-2022 congestion crisis is the primary event but is somewhat sui generis (COVID supply chain disruption). bt_feasibility is 3 due to limited history and potentially non-repeatable 2021 conditions.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.23977603328415,
+      "cagr": 0.8580801582040962,
+      "max_dd": -0.1647746913780752,
+      "t_stat": 1.8929562441690593,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL369",
+    "idea_id": "PL369",
+    "created_at": "2026-05-27T04:29:09.827058+00:00",
+    "status": "done",
+    "signal_id": "PL369_usda_aphis_livestock_disease_vet_pharma_long",
+    "name": "USDA APHIS High-Consequence Livestock Disease Outbreak -> Long Vet Diagnostics/Pharma",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance data: When USDA APHIS confirms a high-consequence livestock disease outbreak (HPAI in commercial poultry reaching >10M birds affected, bovine TB cluster, or novel disease detection), go long equal-weight basket of IDXX + ZTS on the next trading day. Hold for 21 trading days. Benchmark vs SPY. For backtest: hand-code major USDA APHIS outbreak events from press releases. HPAI is the primary signal with 2015 and 2022-2024 being major outbreaks.",
+    "tickers": [
+      "IDXX",
+      "ZTS",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA APHIS confirms high-consequence livestock disease outbreak with cumulative flock/herd depopulation exceeding meaningful threshold (>10M birds for HPAI, >100 premises for cattle diseases)",
+      "Enter on next trading day after APHIS situation report shows threshold exceeded",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 21 trading days (approximately 1 month)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: IDXX (IDEXX Laboratories), ZTS (Zoetis Inc, IPO Feb 2013), SPY",
+      "fundamental": "USDA APHIS HPAI situation reports (free at aphis.usda.gov/livestock-poultry-disease/avian/avian-influenza/hpai-detections). Hand-coded outbreak dates for backtest. Major events: 2015 HPAI (48M+ birds), 2022-2024 HPAI (82M+ birds). For pre-ZTS-IPO testing, use IDXX only."
+    },
+    "backtest_approach": "Event study with hand-coded dates: Identify dates when USDA APHIS HPAI cumulative affected birds crossed key thresholds. Major event entries: (1) 2015-04-15 (HPAI crosses 10M birds, Upper Midwest outbreak), (2) 2022-03-01 (2022 HPAI first commercial flock detections), (3) 2022-10-15 (HPAI crosses 50M birds, egg layer impact), (4) 2024-04-01 (HPAI detected in dairy cattle, novel host). Long IDXX+ZTS for 21 trading days per event vs SPY. Compute per-event returns. The mechanism: HPAI outbreaks drive mandatory surveillance testing (IDXX diagnostic instruments/consumables), increased biosecurity spending, and prophylactic vaccination programs (ZTS vaccines/medications).",
+    "known_events": [
+      "2015 Apr-Jun: HPAI H5N2 devastated Midwest poultry, 48M birds depopulated; largest US animal disease event",
+      "2022 Feb-Dec: HPAI H5N1 spread across 47 states; 58M birds affected by year-end",
+      "2023: Continued HPAI detections including wild birds and backyard flocks; ongoing surveillance",
+      "2024 Mar-: HPAI H5N1 detected in US dairy cattle herds (novel host); mandatory testing ordered for interstate cattle movement"
+    ],
+    "implementation_notes": "ZTS IPO was February 2013, so pre-2013 events use IDXX only. IDXX has traded since 1991 with excellent liquidity. The 2015 HPAI outbreak and 2022-2024 HPAI are the major backtest events. The 2024 dairy cattle HPAI detection is particularly significant because it expanded the addressable diagnostics market to cattle (ZTS cattle vaccine portfolio, IDXX bovine testing). bt_feasibility is 4 because the outbreak events are well-documented in APHIS press releases and the stocks are liquid.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.35945498024756933,
+      "cagr": 0.06063099631848723,
+      "max_dd": -0.1553628515633111,
+      "t_stat": 0.3281360018152794,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL374",
+    "idea_id": "PL374",
+    "created_at": "2026-05-27T04:29:09.827058+00:00",
+    "status": "done",
+    "signal_id": "PL374_census_bfs_high_propensity_small_biz_enabler_long",
+    "name": "Census BFS High-Propensity Business Formation Surge -> Long Small-Biz Enablers",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "rule": "Using yfinance and Census BFS data: When Census weekly Business Formation Statistics high-propensity applications (FRED series BAHPITOTALSAUS or Census BFS data) exceed their trailing 260-week (5-year) 80th percentile for 4+ consecutive weeks, go long equal-weight basket of PAYX + SQ on the first trading day after the 4th consecutive qualifying week. Hold for 63 trading days. Benchmark vs SPY. The thesis is that surging new business formation drives demand for payroll processing and payment solutions.",
+    "tickers": [
+      "PAYX",
+      "SQ",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census BFS high-propensity business applications exceed 80th percentile of trailing 260-week range",
+      "Condition persists for 4+ consecutive weeks",
+      "Enter on first trading day after 4th consecutive qualifying week",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PAYX (Paychex Inc), SQ (Block Inc, IPO Nov 2015), SPY",
+      "fundamental": "Census Bureau Business Formation Statistics (free weekly at census.gov/econ/bfs). FRED series: BAHPITOTALSAUS (Business Applications: High Propensity, Total for US, Weekly, SA). Data available from 2006. Published with 1-week lag."
+    },
+    "backtest_approach": "Event study: Load Census BFS high-propensity series from FRED (2006-2025). Compute rolling 260-week 80th percentile. Identify periods where 4+ consecutive weeks exceed this threshold. For each signal (90-day min gap), long PAYX+SQ basket for 63 trading days vs SPY. SQ IPO Nov 2015; pre-2015 use PAYX+INTU (Intuit, small-business accounting software). Key expected signal periods: 2006-2007 (pre-GFC formation boom), 2013-2014 (post-GFC recovery), 2020 Q3-2021 Q2 (COVID-era business formation explosion), 2024 (continued elevated formation rates). The COVID-era surge (2020 Q3+) is the strongest test as formation rates hit all-time highs.",
+    "known_events": [
+      "2006-2007: Pre-financial-crisis small business formation peaked, especially in real estate services",
+      "2013-2014: Post-GFC recovery drove steady formation growth; PAYX new client wins accelerated",
+      "2020 Q3-2021: Explosive business formation surge (EIN apps doubled); COVID-era entrepreneurship boom",
+      "2021 Q1-Q2: High-propensity apps at unprecedented levels; SQ and PAYX hit record new client acquisition",
+      "2024: Formation rates remain elevated 30%+ above pre-COVID trend; structural shift in entrepreneurship"
+    ],
+    "implementation_notes": "Census BFS data on FRED is clean, weekly, and seasonally adjusted. The high-propensity series filters out shell companies and tax entities to focus on likely employer businesses. PAYX has been public since 1983 and is the purest small-business payroll play. SQ (Block) IPO was Nov 2015; for longer history, pair PAYX with INTU or FIS as small-business payment enabler proxy. The 80th percentile threshold on a 5-year lookback adapts to the structural upshift in formation rates post-COVID. bt_feasibility is 4 because FRED/Census data is excellent.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.11221106707386026,
+      "cagr": -0.04050040432475244,
+      "max_dd": -0.22481142647233943,
+      "t_stat": -0.11221106707386026,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL371",
+    "idea_id": "PL371",
+    "created_at": "2026-05-27T04:29:37.907882+00:00",
+    "status": "done",
+    "signal_id": "PL371_usda_dairy_export_seasia_recovery",
+    "name": "USDA Dairy Export Sales Surge to SE Asia -> NDM Price Recovery -> Dairy Processor Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USDA FAS data: When USDA weekly dairy Export Sales Report shows nonfat dry milk (NDM) net sales exceed 4-week trailing average by > 40%, go long DAR (Darling Ingredients) on the Friday following the Thursday report. Hold for 30 trading days. Benchmark vs SPY. USDA FAS publishes weekly dairy export sales alongside grain commodities. NDM is the largest US dairy export by volume.",
+    "tickers": [
+      "DAR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA weekly dairy Export Sales shows NDM net sales exceed 4-week average by > 40%",
+      "Enter on Friday following Thursday report",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: DAR (Darling Ingredients, rendering/dairy ingredients), SPY",
+      "fundamental": "USDA FAS weekly dairy export sales (free): https://apps.fas.usda.gov/export-sales/ - filter for nonfat dry milk. Also CME NDM spot price for context."
+    },
+    "backtest_approach": "Event study: For each Thursday report (2015-2025) where NDM export sales spiked >40% above 4-week average, compute DAR return over 30 trading days vs SPY. DAR has rendering and dairy ingredients segments. If LNDC (Landec) is available, add as alternative. Calculate average excess return, win rate.",
+    "known_events": [
+      "2016: SE Asia NDM import surge",
+      "2020: Post-COVID dairy demand recovery",
+      "2023-2024: NDM price cycle trough and recovery"
+    ],
+    "implementation_notes": "LNDC may not be the best proxy (diversified). DAR is a better play on dairy ingredient pricing through its rendering segment. bt_feasibility is 3 due to dairy being a small part of DAR and noisy FAS data.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.3874773821885384,
+      "cagr": 0.07080969781812163,
+      "max_dd": -0.22603189185018147,
+      "t_stat": 0.3537168379128549,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL372",
+    "idea_id": "PL372",
+    "created_at": "2026-05-27T04:29:37.907882+00:00",
+    "status": "done",
+    "signal_id": "PL372_usgs_ndpr_spike_ferrite_motor",
+    "name": "USGS NdPr Oxide Price Spike -> EV Motor Cost Inflation -> RE-Free Motor Supplier Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USGS/rare earth price data: When NdPr oxide prices (tracked by USGS and free price indices) spike > 50% from their 6-month moving average, go long BWA (BorgWarner, RE-free motor supplier) on the next trading day. Hold for 40 trading days. Benchmark vs SPY. As a cross-check, also monitor MP (MP Materials, rare earth miner) which benefits directly from price spikes. The thesis is that rare earth price spikes accelerate OEM adoption of BWA's ferrite motor alternatives.",
+    "tickers": [
+      "BWA",
+      "MP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NdPr oxide price exceeds 6-month moving average by > 50%",
+      "Use USGS monthly data or free rare earth price indices",
+      "Enter on next trading day after monthly data confirms threshold",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: BWA (BorgWarner), MP (MP Materials, rare earth miner), SPY",
+      "fundamental": "USGS Mineral Commodity Summaries rare earths (free annual). Monthly rare earth prices available from Shanghai Metals Market or Asian Metal (some free data). USGS provides annual average prices in MCS."
+    },
+    "backtest_approach": "Event study: For each period (2015-2025) where NdPr prices spiked >50% above 6-month MA, compute BWA return over 40 trading days vs SPY. Key events: 2017 (China consolidation spike), 2021-2022 (EV demand spike + China export controls). MP Materials IPO was 2020. BWA has long history. NdPr price data may need to be sourced from industry publications or USGS annual data. Calculate average excess return.",
+    "known_events": [
+      "2011: China rare earth export restriction, NdPr spiked 10x",
+      "2017: China environmental inspections spiked NdPr 100%",
+      "2021-2022: EV demand drove NdPr to $150/kg from $50/kg"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because: (a) monthly NdPr prices not easily available for free (USGS only provides annual averages), (b) BWA's RE-free motor revenue is still early-stage, (c) the causal chain has significant lag. MP Materials benefits directly from higher NdPr prices as a rare earth producer. BWA benefits indirectly as OEMs accelerate RE-free adoption.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:30:50.186819+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4539690121149949,
+      "cagr": 0.10829368288334718,
+      "max_dd": -0.28409576026764705,
+      "t_stat": 0.4144151139061979,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL375",
+    "idea_id": "PL375",
+    "created_at": "2026-05-27T04:30:23.870996+00:00",
+    "status": "done",
+    "signal_id": "PL375_usace_waterway_tonnage_barge_long",
+    "name": "USACE Inland Waterway Tonnage Surge -> Barge Operator Revenue Beat -> KEX Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and USACE data: When USACE Waterborne Commerce monthly data shows total US inland waterway tonnage growing > 5% YoY, go long KEX (Kirby Corporation, largest US inland tank barge operator) on the first trading day after USACE data release. Hold for 30 trading days. Benchmark vs SPY. USACE publishes monthly tonnage data at iwr.usace.army.mil with ~3 month lag. Kirby operates ~25% of all US inland tank barges and sees direct revenue uplift from tonnage growth.",
+    "tickers": [
+      "KEX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USACE monthly inland waterway tonnage YoY growth > 5%",
+      "Enter on first trading day after USACE monthly data release (~3 month lag)",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KEX (Kirby Corporation), SPY",
+      "fundamental": "USACE Waterborne Commerce Statistics Center (free): https://iwr.usace.army.mil/wcs - monthly inland waterway tonnage by commodity and waterway system. Also USDA Grain Transportation Report weekly barge rates (free) for pricing context."
+    },
+    "backtest_approach": "Event study: For each month (2005-2025) where inland tonnage grew >5% YoY, compute KEX return over 30 trading days vs SPY. KEX has been public since 1986. Inland waterway tonnage is cyclical, driven by grain harvests, petrochemical production, and coal movements. Expected 5-10 qualifying events per year during growth periods. Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2007-2008: Strong commodity demand drove tonnage highs",
+      "2014-2015: Petrochemical boom lifted inland barge volumes",
+      "2021-2022: Post-COVID industrial recovery boosted waterway traffic"
+    ],
+    "implementation_notes": "KEX is the purest publicly traded inland waterway play in the US. USACE data has ~3 month lag which reduces timeliness but also means the market may not have fully processed the information. bt_feasibility is 4 because USACE data is clean, free, monthly, and KEX revenue directly correlates with inland waterway utilization.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:22.758666+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.15218400683324773,
+      "cagr": -0.07719319536480118,
+      "max_dd": -0.3192151919967302,
+      "t_stat": -0.15218400683324773,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL376",
+    "idea_id": "PL376",
+    "created_at": "2026-05-27T04:30:23.870996+00:00",
+    "status": "done",
+    "signal_id": "PL376_usaspending_dod_contract_subcontractor",
+    "name": "USASpending DOD Contract Obligations Acceleration -> Defense Subcontractor Revenue Growth -> KTOS/MRCY Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and USASpending.gov data: When rolling 3-month DOD contract obligations in NAICS 334511 (Search, Detection, Navigation Instruments) or 336411 (Aircraft Manufacturing) exceed prior 3-month period by > 20%, go long an equal-weight basket of defense subcontractors (KTOS, CW) on the next trading day. Hold for 30 trading days. Benchmark vs SPY. USASpending.gov provides real-time federal contract obligation data (free API, no key needed for public data).",
+    "tickers": [
+      "KTOS",
+      "CW",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USASpending.gov rolling 3-month DOD obligations in NAICS 334511 or 336411 exceed prior 3-month by > 20%",
+      "Enter on next trading day after monthly data confirms threshold",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KTOS (Kratos Defense, drones/radar), CW (Curtiss-Wright, defense electronics), SPY",
+      "fundamental": "USASpending.gov API (free): https://api.usaspending.gov/ - filter by awarding_agency=DOD, naics_code=334511 or 336411, obligation amounts. Real-time updates. Also FPDS.gov for detailed contract-level data."
+    },
+    "backtest_approach": "Event study: For each period (2015-2025) where DOD obligations in target NAICS codes accelerated >20% over rolling 3-month vs prior 3-month, compute KTOS+CW return over 30 trading days vs SPY. USASpending.gov data available from FY2008. KTOS IPO was 2007, CW has long history. Defense spending is lumpy (fiscal year-end spending surges in Aug-Sep). Calculate average excess return, win rate. MRCY (Mercury Systems) was mentioned but has been under SEC scrutiny -- replaced with CW.",
+    "known_events": [
+      "2018: National Defense Strategy increased procurement budgets",
+      "2022-2023: Ukraine supplementals accelerated DOD obligations",
+      "2024-2025: Pacific Deterrence Initiative spending acceleration"
+    ],
+    "implementation_notes": "USASpending.gov API is free, real-time, and well-documented -- excellent bt_feasibility. KTOS is a pure-play defense technology company (tactical drones, radar, satellite comm). CW (Curtiss-Wright) makes defense electronics and nuclear components. MRCY was originally in the idea but replaced with CW due to MRCY's accounting issues. The 20% acceleration threshold captures meaningful procurement surges, not normal quarterly fluctuation.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:22.758666+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.1805787100075953,
+      "cagr": 0.32629866819306663,
+      "max_dd": -0.1600288149956356,
+      "t_stat": 1.1805787100075955,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL375",
+    "idea_id": "PL375",
+    "created_at": "2026-05-27T04:31:20.303629+00:00",
+    "status": "done",
+    "signal_id": "PL375_usda_barge_rate_surge_kirby_long",
+    "name": "USDA Grain Barge Rate Surge -> Long Inland Barge Operator KEX",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and USDA data: When USDA weekly grain transportation report shows Illinois River barge rates exceeding 400% of tariff (vs normal 200-300%) for 3+ consecutive weeks, go long KEX on the next trading day. Hold for 42 trading days. Benchmark vs SPY. The USDA grain barge rate is the timely proxy for USACE tonnage data which has significant publication lag. High barge rates signal tight inland waterway capacity benefiting Kirby Corp (KEX), the dominant inland tank barge operator.",
+    "tickers": [
+      "KEX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA weekly grain transportation report shows Illinois River/Lower Mississippi barge rates > 400% of tariff for 3+ consecutive weeks",
+      "Alternatively: yfinance-backtestable proxy -- if KEX is above its 200-day MA while energy sector (XLE) is below its 200-day MA (captures barge tightness from non-oil demand)",
+      "Enter on first trading day after 3rd consecutive qualifying week",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KEX (Kirby Corporation), XLE (Energy Select Sector SPDR), SPY",
+      "fundamental": "USDA AMS Grain Transportation Report -- weekly barge rate data (free at usda.gov/topics/farming/crop-production). USACE Waterborne Commerce Statistics (free but lagged). USDA grain barge rates available weekly with 1-week lag, data back to 2001."
+    },
+    "backtest_approach": "Event study: For the yfinance-backtestable version, use KEX price momentum relative to XLE as a proxy for barge market tightness (KEX outperforms when non-oil waterway traffic surges). Alternative: hand-code periods of extreme barge rates from USDA grain transport archives: fall 2007 (record grain harvest), fall 2012 (Mississippi River drought reduced available barges), fall 2014 (record corn/soy harvest), fall 2021 (supply chain disruption), fall 2022 (Mississippi River drought). Long KEX for 42 trading days per event vs SPY.",
+    "known_events": [
+      "2007 Oct: Record grain harvest drove barge rates to 600% of tariff; KEX rallied",
+      "2012 Jul-Nov: Mississippi River drought caused draft restrictions; available barge capacity fell 30%, rates spiked",
+      "2014 Oct-Nov: Record corn/soy harvest created barge demand surge; rates hit 500%+",
+      "2021 Q4: Supply chain disruption caused barge utilization to hit multi-year highs",
+      "2022 Oct: Mississippi River drought worst in decades; barge rates hit 1800% of tariff"
+    ],
+    "implementation_notes": "KEX has been public since 1988 with excellent liquidity. KEX operates ~1,000 inland tank barges (liquid cargo) and ~225 dry cargo barges on US inland waterways. The company is the dominant player with ~30% market share in inland tank barge transport. USDA grain barge rate data is the most timely free signal for waterway capacity utilization. bt_feasibility is 4 because the hand-coded events are well-documented in USDA reports.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:57.169053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7074652940878291,
+      "cagr": 0.2222089826622935,
+      "max_dd": -0.2672641943103141,
+      "t_stat": 0.6458245003732169,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL376",
+    "idea_id": "PL376",
+    "created_at": "2026-05-27T04:31:20.303629+00:00",
+    "status": "done",
+    "signal_id": "PL376_usaspending_dod_accel_defense_sub_long",
+    "name": "USASpending DOD Contract Acceleration -> Long Defense Subcontractors",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "rule": "Using yfinance data: When the ITA Aerospace & Defense ETF (ITA) outperforms SPY by >10% over trailing 60 trading days AND total DOD contract obligations (available at USASpending.gov) show YoY growth >15%, go long equal-weight basket of KTOS + AXON on the next trading day. Hold for 63 trading days. Benchmark vs SPY. The backtest proxy uses ITA outperformance as a real-time signal for DOD spending acceleration, since prime contractor stock prices reflect contract award announcements before USASpending data updates.",
+    "tickers": [
+      "KTOS",
+      "AXON",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "ITA (iShares US Aerospace & Defense ETF) outperforms SPY by >10% over trailing 60 trading days",
+      "This signals DOD spending acceleration flowing to prime contractors first",
+      "Enter on next trading day after condition met",
+      "Minimum 120 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KTOS (Kratos Defense & Security, drone/unmanned systems), AXON (Axon Enterprise, law enforcement tech/defense), ITA (iShares US Aerospace & Defense), SPY",
+      "fundamental": "USASpending.gov DOD contract obligations by NAICS (free, real-time). FPDS for detailed contract data. Data back to 2008+."
+    },
+    "backtest_approach": "Event study: Load ITA and SPY daily prices (2006-2025, ITA inception May 2006). Compute rolling 60-day ITA excess return vs SPY. Identify dates where excess return crosses +10%. For each signal (120-day min gap), long KTOS+AXON basket for 63 trading days vs SPY. KTOS IPO 2000, AXON IPO 2001. Key expected events: 2010-2011 (GWOT peak spending), 2017-2018 (Trump defense buildup), 2022-2023 (Ukraine/Pacific pivot spending surge), 2025 (DOGE-driven contract reclassification/acceleration).",
+    "known_events": [
+      "2007-2008: Iraq/Afghanistan surge spending drove DOD obligations to record levels",
+      "2017-2018: Bipartisan Budget Act lifted sequester caps; defense spending surged 10%+",
+      "2022 Q2-Q3: Ukraine conflict drove supplemental defense spending and accelerated procurement",
+      "2023: NDAA authorized record $886B; DOD contract obligations accelerated across NAICS codes",
+      "2025: Post-DOGE spending focus on unmanned systems and AI defense applications"
+    ],
+    "implementation_notes": "KTOS is a pure-play defense subcontractor (drones, missile defense, hypersonics) with high beta to DOD spending. AXON has expanded from law enforcement into DOD applications. ITA ETF includes primes (LMT, RTX, NOC) whose stock prices react first to contract awards, providing a leading signal for subcontractor revenue flow-through. The 120-day minimum gap prevents overtrading during sustained defense spending cycles. bt_feasibility is 4 because yfinance data is clean and ITA provides a good proxy.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:57.169053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.6348282438903796,
+      "cagr": 0.17371952384650768,
+      "max_dd": -0.24775344108537667,
+      "t_stat": 0.6348282438903796,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL377",
+    "idea_id": "PL377",
+    "created_at": "2026-05-27T04:31:20.303629+00:00",
+    "status": "done",
+    "signal_id": "PL377_itc_solar_adcvd_fslr_long",
+    "name": "ITC Affirmative Solar AD/CVD Determination -> Long First Solar",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "rule": "Using yfinance data: When USITC issues an affirmative preliminary or final injury determination in a solar panel AD/CVD case (hand-coded event dates), go long FSLR on the next trading day. Hold for 63 trading days. Benchmark vs SPY. FSLR manufactures cadmium telluride (CdTe) panels in the US, making it exempt from AD/CVD duties on crystalline silicon imports. Each affirmative determination creates a price floor that benefits FSLR competitively.",
+    "tickers": [
+      "FSLR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USITC issues affirmative preliminary or final injury determination in a crystalline silicon solar AD/CVD case",
+      "Hand-coded event dates from USITC case history",
+      "Enter on next trading day after USITC announcement",
+      "If preliminary and final are within 90 days, take only the first signal"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: FSLR (First Solar Inc, IPO Nov 2006), SPY",
+      "fundamental": "USITC AD/CVD case determinations (free at usitc.gov). Hand-coded event dates for solar trade cases."
+    },
+    "backtest_approach": "Event study with hand-coded dates: (1) 2012-10-10: USITC final affirmative on China c-Si cells (Inv. 701-TA-481/731-TA-1190), (2) 2015-01-21: USITC final affirmative on China/Taiwan c-Si panels (Inv. 701-TA-511/731-TA-1246-1247), (3) 2018-01-22: Section 201 safeguard tariff announcement (30% tariff on all imported solar cells), (4) 2024-05-16: Commerce preliminary AD/CVD on SE Asian (Cambodia, Malaysia, Thailand, Vietnam) solar cells, (5) 2024-12-02: USITC preliminary affirmative on SE Asian solar. Long FSLR for 63 trading days per event vs SPY. Compute per-event excess returns.",
+    "known_events": [
+      "2012: First China solar AD/CVD case; duties of 24-36% imposed on Chinese c-Si cells",
+      "2015: Extended AD/CVD to Taiwan-made cells assembled in China; closed circumvention loophole",
+      "2018 Jan: Section 201 safeguard imposed 30% tariff on ALL imported solar cells/modules",
+      "2024 May: Commerce preliminary duties of 14-292% on SE Asian c-Si solar (AD) + CVD",
+      "2024 Dec: USITC preliminary affirmative injury from SE Asian solar imports; duties extended"
+    ],
+    "implementation_notes": "FSLR IPO was November 2006; all major solar trade cases occur within the backtest window. FSLR is unique because it uses CdTe thin-film technology, NOT crystalline silicon, so it is exempt from ALL c-Si AD/CVD duties. This means every trade enforcement action on c-Si imports directly benefits FSLR's competitive position. MAXN (Maxeon) could be added but it only recently became US-listed and has limited liquidity. The Section 201 case (2018) is different from AD/CVD but the mechanism is identical. bt_feasibility is 4 because the trade case dates are well-documented and FSLR is highly liquid.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:57.169053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.372851146346942,
+      "cagr": -0.5808122376476875,
+      "max_dd": -0.6403711119630919,
+      "t_stat": -1.372851146346942,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL379",
+    "idea_id": "PL379",
+    "created_at": "2026-05-27T04:31:20.303629+00:00",
+    "status": "done",
+    "signal_id": "PL379_noaa_el_nino_cocoa_long",
+    "name": "NOAA Strong El Nino Signal -> Long Cocoa Futures via NIB",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-9 months",
+    "rule": "Using yfinance and NOAA data: When NOAA CPC Oceanic Nino Index (ONI) crosses +1.5 (strong El Nino threshold), go long NIB (iPath Bloomberg Cocoa ETN) or CC=F (cocoa futures) on the first trading day of the following month. Hold for 126 trading days (approximately 6 months). Benchmark vs SPY. LONG-SIDE ONLY -- original idea included a short equity leg (HSY/MDLZ) which is excluded. The thesis is that strong El Nino events reduce rainfall in West Africa cocoa belt, cutting global supply 10-25% and driving cocoa prices up 30-80%.",
+    "tickers": [
+      "NIB",
+      "CC=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA CPC ONI (3-month running mean SST anomaly for Nino 3.4 region) crosses above +1.5",
+      "Enter on first trading day of the month following the ONI crossing",
+      "Only trigger once per El Nino episode"
+    ],
+    "exit_conditions": [
+      "Hold for 126 trading days (approximately 6 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: NIB (iPath Bloomberg Cocoa ETN), CC=F (COMEX cocoa futures), SPY",
+      "fundamental": "NOAA CPC ONI data (free monthly at cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php). ONI data back to 1950. Published monthly with ~1 month lag."
+    },
+    "backtest_approach": "Event study: Identify months where ONI crossed +1.5 (strong El Nino onset): (1) 1997-05 (ONI +1.5, super El Nino), (2) 2009-07 (ONI +1.5), (3) 2015-04 (ONI +1.5, strong El Nino), (4) 2023-06 (ONI +1.5, strong El Nino). For each event, long CC=F for 126 trading days. NIB ETN launched 2008; use CC=F for full history. Cocoa data on yfinance (CC=F) back to 2000+. Compute per-event return and aggregate metrics. The El Nino/West Africa rainfall correlation is well-established in climate science (Ropelewski & Halpert 1987). The 2023-2024 El Nino drove cocoa to all-time highs above $10,000/ton.",
+    "known_events": [
+      "1997-1998: Super El Nino; cocoa rallied ~40% over 6 months from signal",
+      "2009-2010: Moderate El Nino; cocoa rallied ~30% as West Africa crop fell short",
+      "2015-2016: Strong El Nino; cocoa rallied ~25% but reversed sharply in late 2016 as El Nino faded",
+      "2023-2024: Strong El Nino + structural supply deficit; cocoa tripled from ~$2,500 to >$10,000/ton"
+    ],
+    "implementation_notes": "ONI data is the standard ENSO classification used by NOAA. The +1.5 threshold corresponds to 'strong' El Nino, which occurs roughly every 10-15 years. With only 4 events since 1997, statistical power is limited, but the effect size is large and the climate mechanism is well-established in peer-reviewed literature. NIB ETN has tracking error and liquidity issues; CC=F is preferable for backtest. The 2023-2024 event is exceptional because it combined El Nino with structural underinvestment in West African cocoa farming. bt_feasibility is 4 because ONI data is clean and CC=F is liquid on yfinance.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:57.169053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3281129904641809,
+      "cagr": 0.3740079005314698,
+      "max_dd": -0.1401936153811224,
+      "t_stat": 1.449090073870541,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL380",
+    "idea_id": "PL380",
+    "created_at": "2026-05-27T04:31:20.303629+00:00",
+    "status": "done",
+    "signal_id": "PL380_bls_eci_benefits_decel_spy_long",
+    "name": "BLS ECI Benefits Cost Deceleration -> Long SPY on Margin Expansion Signal",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED data: When BLS Employment Cost Index benefits component (FRED series ECIBEN) shows quarterly YoY growth decelerating by >100bps from the prior quarter (e.g., from 5.0% YoY to 3.8% YoY), go long SPY on the first trading day after the ECI release. Hold for 42 trading days. Benchmark vs long-term SPY buy-and-hold. The thesis is that benefits cost deceleration signals corporate margin expansion without consumer income destruction.",
+    "tickers": [
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS ECI benefits component (ECIBEN) quarterly YoY growth decelerates by >100bps from prior quarter",
+      "Wages component (ECIWAG) remains positive YoY (no wage deflation -- consumer spending intact)",
+      "Enter on first trading day after BLS ECI quarterly release (last business day of Jan/Apr/Jul/Oct)",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SPY",
+      "fundamental": "FRED: ECIBEN (ECI benefits component, quarterly SA), ECIWAG (ECI wages and salaries component, quarterly SA). Published quarterly on last business day of Jan/Apr/Jul/Oct, approximately 1 month after quarter end. Historical data back to 2001."
+    },
+    "backtest_approach": "Event study: Load FRED ECI benefits (ECIBEN) and wages (ECIWAG) quarterly data (2001-2025). Compute YoY growth each quarter. Identify quarters where benefits YoY decelerates >100bps from prior quarter while wages remain positive YoY. For each signal (90-day min gap), long SPY for 42 trading days. Compare per-signal returns vs unconditional SPY 42-day returns. Key expected signal quarters: 2003 Q4 (post-recession benefits cost moderation), 2010-2011 (ACA implementation changed benefits cost structure), 2017 (low health insurance inflation), 2024 Q2-Q3 (healthcare cost deceleration after COVID surge).",
+    "known_events": [
+      "2003 Q4-2004: Post-recession benefits cost moderation enabled corporate margin expansion",
+      "2010-2011: ACA implementation and recession aftermath lowered benefits cost growth temporarily",
+      "2017: Health insurance premium growth slowed after ACA marketplace stabilization",
+      "2020 Q2-Q3: COVID reduced healthcare utilization, temporarily lowering benefits costs",
+      "2024 Q2-Q3: Healthcare cost inflation moderated from post-COVID surge, easing employer benefit costs"
+    ],
+    "implementation_notes": "BLS ECI is considered the gold standard for labor cost measurement because it controls for compositional shifts (unlike average hourly earnings). The benefits component is ~30% of total compensation and is dominated by healthcare insurance costs. Benefits cost deceleration is a cleaner margin expansion signal than wage deceleration because it does not impair consumer spending. FRED ECIBEN quarterly data starts 2001 Q2. bt_feasibility is 4 because FRED data is clean and quarterly. The main risk is that benefits cost deceleration may coincide with economic weakness, so the wages filter (must remain positive) guards against recession signals.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:31:57.169053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.38839946556589,
+      "cagr": -0.07116386456279888,
+      "max_dd": -0.15341236241041356,
+      "t_stat": -0.38839946556588995,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL377",
+    "idea_id": "PL377",
+    "created_at": "2026-05-27T04:31:32.112174+00:00",
+    "status": "done",
+    "signal_id": "PL377_itc_solar_adcvd_domestic_module",
+    "name": "ITC Solar Panel AD/CVD Determination -> Domestic Module Price Floor -> FSLR Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and ITC/Commerce Dept data: When the US International Trade Commission (ITC) issues an affirmative preliminary or final determination in an anti-dumping/countervailing duty (AD/CVD) investigation on solar cells/modules from a major exporter (China, Southeast Asia), go long FSLR (First Solar, US-manufactured thin-film) on the trading day after the ITC determination. Hold for 30 trading days. Benchmark vs SPY. ITC determinations are published free at usitc.gov. AD/CVD duties create a price floor for domestic production, directly benefiting FSLR.",
+    "tickers": [
+      "FSLR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "ITC issues affirmative preliminary or final determination in solar AD/CVD case",
+      "Case involves major import source (China, Vietnam, Thailand, Cambodia, Malaysia)",
+      "Enter on trading day after ITC public determination",
+      "At most one signal per AD/CVD case"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: FSLR (First Solar, US thin-film solar manufacturer), SPY",
+      "fundamental": "ITC AD/CVD determinations (free): https://www.usitc.gov/trade_remedy/731_702/ - case filings and determinations. Commerce Dept preliminary/final duty rates at trade.gov/enforcement."
+    },
+    "backtest_approach": "Event study: For each ITC affirmative solar AD/CVD determination (2012-2025), compute FSLR return over 30 trading days vs SPY. Key cases: 2012 China solar cells AD/CVD, 2014 Taiwan/China cells, 2018 Section 201 safeguard, 2024 Southeast Asia AD/CVD. FSLR is uniquely positioned because it manufactures in the US with thin-film (CdTe) technology not subject to the duties on crystalline silicon modules. Expected 5-8 events.",
+    "known_events": [
+      "2012: AD/CVD on Chinese solar cells (FSLR rallied)",
+      "2014: AD/CVD extended to Taiwan",
+      "2018: Section 201 safeguard tariffs on all solar imports",
+      "2024: AD/CVD on Southeast Asian solar (Vietnam, Thailand, Cambodia, Malaysia)"
+    ],
+    "implementation_notes": "FSLR is the purest beneficiary of solar trade protection because it manufactures CdTe thin-film panels in the US (Ohio and Alabama factories). ITC determinations are publicly announced and well-covered by trade press. MAXN (Maxeon Solar) is mentioned in idea but is a Singapore-based panel maker that could be hurt by AD/CVD, so excluded. bt_feasibility is 4 because ITC dates are precise, FSLR is a clear beneficiary, and the mechanism is direct.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:32:22.882540+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.1067484241664056,
+      "cagr": -0.49181681101891683,
+      "max_dd": -0.49089584820338283,
+      "t_stat": -1.0103184623320602,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL378",
+    "idea_id": "PL378",
+    "created_at": "2026-05-27T04:31:32.112174+00:00",
+    "status": "done",
+    "signal_id": "PL378_mba_forbearance_exit_mortgage_servicer",
+    "name": "MBA Mortgage Forbearance Exit Rate Spike -> Loan Modification Wave -> Mortgage Servicer Revenue Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and MBA data: When MBA weekly forbearance survey shows forbearance exit rate (share of loans exiting forbearance) spikes > 5% of total forborne loans in a single week while total forbearance share is still elevated (> 2%), go long an equal-weight basket of mortgage servicers (PFSI, COOP) on the Monday following the MBA report. Hold for 30 trading days. Benchmark vs SPY. MBA publishes weekly forbearance data (free summary, detailed for members). Large forbearance exits generate modification fees and re-performing loan sale premiums for servicers.",
+    "tickers": [
+      "PFSI",
+      "COOP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "MBA weekly forbearance exit rate > 5% of forborne loans in single week",
+      "Total forbearance share still elevated (> 2% of servicing portfolio)",
+      "Enter on Monday following MBA weekly report",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PFSI (PennyMac Financial Services), COOP (Mr. Cooper Group), SPY",
+      "fundamental": "MBA weekly forbearance and call volume survey (free summary at mba.org). Detailed data for members. MBA publishes weekly forbearance share, exits as % of prior week, and workout types."
+    },
+    "backtest_approach": "Event study: For each MBA weekly report (2020-2025, COVID forbearance era) where exit rate spiked >5%, compute PFSI+COOP return over 30 trading days vs SPY. The COVID forbearance era (2020-2023) is the primary testing period. Major exit waves: 2020 Q4 (initial exits), 2021 Q2-Q3 (mass exits), 2022 (final wave). Pre-COVID forbearance was minimal so limited history. Calculate average excess return, win rate.",
+    "known_events": [
+      "2020 Q4: First wave of COVID forbearance exits",
+      "2021 Q2-Q3: Mass forbearance exit wave, modification fees surged",
+      "2022: Final forbearance exits, re-performing loan sales"
+    ],
+    "implementation_notes": "PFSI is a leading non-bank mortgage servicer. COOP (Mr. Cooper) is the largest non-bank mortgage servicer by portfolio size. bt_feasibility is 3 because: (a) COVID forbearance was a one-time event (2020-2023), (b) MBA detailed forbearance data requires membership, (c) future forbearance events may not occur at the same scale. The signal is most relevant during economic stress periods when forbearance programs are activated.",
+    "originality": 7,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:32:22.882540+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.08198983521435543,
+      "cagr": -0.04082415785811733,
+      "max_dd": -0.23922165032872034,
+      "t_stat": 0.06325653118207467,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL381",
+    "idea_id": "PL381",
+    "created_at": "2026-05-27T04:32:19.423242+00:00",
+    "status": "done",
+    "signal_id": "PL381_eia_industrial_gas_dip_nitrogen_fert",
+    "name": "EIA Natural Gas Industrial Consumption Dip -> Ammonia Plant Turnaround -> Nitrogen Fertilizer Price Spike",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and EIA data: When EIA monthly natural gas industrial consumption drops > 10% MoM during March-May (spring turnaround season), go long CF (CF Industries, largest US nitrogen fertilizer producer) on the first trading day after EIA monthly data release. Hold for 20 trading days. Benchmark vs SPY. The spring industrial gas consumption dip signals ammonia plant turnarounds which temporarily reduce nitrogen fertilizer supply heading into the peak spring application season, supporting prices. FRED series: N3035US3M (industrial natural gas consumption).",
+    "tickers": [
+      "CF",
+      "NTR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA monthly industrial natural gas consumption drops > 10% MoM during March-May",
+      "Enter on first trading day after EIA monthly data release",
+      "Signal window: March-May only (spring turnaround season)",
+      "At most one signal per spring season"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CF (CF Industries), NTR (Nutrien), SPY",
+      "fundamental": "EIA monthly natural gas consumption by sector (free): https://www.eia.gov/naturalgas/data.php - industrial consumption. FRED: N3035US3M. Also EIA weekly natural gas storage for context."
+    },
+    "backtest_approach": "Event study: For each March-May period (2005-2025) where industrial gas consumption dropped >10% MoM, compute CF return over 20 trading days vs SPY. CF has been public since 2005 IPO. Spring turnarounds are a regular industry pattern but the magnitude varies. Calculate average excess return, win rate. Also test with NTR (Nutrien, formed 2018 from PotashCorp/Agrium merger) for post-2018 data.",
+    "known_events": [
+      "2008: Major turnaround year, nitrogen prices spiked",
+      "2014: Polar vortex extended turnarounds into spring",
+      "2021: Texas winter storm damaged ammonia plants, extended outages into spring"
+    ],
+    "implementation_notes": "CF Industries is the purest US nitrogen fertilizer play. NTR (Nutrien) has broader ag exposure (potash, phosphate, retail). The spring turnaround signal works because: (a) turnarounds reduce supply heading into peak demand, (b) EIA data confirms the magnitude of supply disruption, (c) fertilizer pricing responds with 2-4 week lag. bt_feasibility is 4 because EIA data is clean and monthly.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:32:48.352532+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.683652229094132,
+      "cagr": -0.28357315029454533,
+      "max_dd": -0.3461483164507373,
+      "t_stat": -0.683652229094132,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL382",
+    "idea_id": "PL382",
+    "created_at": "2026-05-27T04:32:19.423242+00:00",
+    "status": "done",
+    "signal_id": "PL382_faa_atads_airport_operations_record",
+    "name": "FAA ATADS Airport Operations Record -> Airport Concession Revenue -> APLE/HLT Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FAA ATADS data: When FAA ATADS monthly total operations at the top 30 US airports exceed the prior year same-month record by > 3%, go long an equal-weight basket of travel/hospitality stocks (APLE, HLT) on the first trading day after FAA data publication. Hold for 30 trading days. Benchmark vs SPY. FAA ATADS publishes monthly airport operations counts (free) with ~2 month lag. Record operations signal structural air traffic growth driving hotel, concession, and airport-adjacent business demand.",
+    "tickers": [
+      "APLE",
+      "HLT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FAA ATADS top-30 airport operations exceed prior all-time same-month record by > 3%",
+      "Enter on first trading day after FAA ATADS monthly data publication",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: APLE (Apple Hospitality REIT, airport-adjacent hotels), HLT (Hilton Worldwide), SPY",
+      "fundamental": "FAA ATADS (free): https://aspm.faa.gov/opsnet/sys/Airport.asp - monthly operations by airport. Data back to 1990s. Also FAA Terminal Area Forecast for future projections."
+    },
+    "backtest_approach": "Event study: For each month (2015-2025) where top-30 airport operations exceeded the prior same-month record by >3%, compute APLE+HLT return over 30 trading days vs SPY. APLE IPO was 2015, HLT re-IPO was 2013. The 2019 peaks provide the comparison baseline. Post-COVID records started being set in 2023-2024. Calculate average excess return, win rate.",
+    "known_events": [
+      "2019: Pre-COVID record airport operations levels",
+      "2023 summer: First post-COVID operations records set",
+      "2024: Multiple months exceeded 2019 peaks by >5%"
+    ],
+    "implementation_notes": "APLE (Apple Hospitality REIT) owns hotels near major airports -- direct beneficiary of airport traffic. HLT (Hilton) is broader but has significant airport hotel portfolio. FAA ATADS data is free, high quality, and goes back decades. The 2-month lag means the data is not real-time, but the record-breaking nature is a meaningful signal that the market may not fully process. bt_feasibility is 4.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:32:48.352532+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.5061602165103244,
+      "cagr": -0.09409374007123372,
+      "max_dd": -0.12071122601462292,
+      "t_stat": -0.4277834605580078,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL381",
+    "idea_id": "PL381",
+    "created_at": "2026-05-27T04:32:38.707676+00:00",
+    "status": "done",
+    "signal_id": "PL381_eia_industrial_gas_dip_fertilizer_long",
+    "name": "EIA Industrial Gas Consumption Spring Dip -> Long Nitrogen Fertilizer Producers",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and FRED/EIA data: When EIA monthly industrial natural gas consumption (FRED series N3035US2 or similar) shows MoM decline >5% during March-May (spring turnaround season), go long CF (CF Industries) on the first trading day after the EIA release. Hold for 30 trading days. Benchmark vs SPY. The thesis is that synchronized ammonia plant turnarounds in spring create temporary nitrogen fertilizer supply squeeze, spiking spot prices and benefiting producers with pre-turnaround inventory.",
+    "tickers": [
+      "CF",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA monthly industrial natural gas consumption shows MoM decline >5% during March-May",
+      "This decline signals synchronized ammonia plant turnaround season",
+      "Enter on first trading day after EIA monthly data release",
+      "One signal per year maximum (spring turnaround season)"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CF (CF Industries Holdings, IPO Aug 2005), LXU (LSB Industries), SPY",
+      "fundamental": "FRED/EIA: Industrial natural gas consumption (N3035US2 or similar monthly series). EIA Natural Gas Monthly (free at eia.gov). Monthly frequency, ~2 month lag. Historical data back to 1990s. USDA AMS weekly fertilizer prices (free) for urea/UAN spot."
+    },
+    "backtest_approach": "Seasonal event study: For each year (2006-2025, CF IPO 2005), check if EIA March-May industrial gas consumption shows >5% MoM decline. If yes, long CF for 30 trading days starting from signal date. Compare spring-turnaround-period CF returns vs non-signal years. Alternative simpler approach: long CF each April 1 for 30 trading days and compare to unconditional returns. Key context: US has ~16M tons/yr ammonia capacity; turnaround season typically March-May with 20-30% of capacity offline.",
+    "known_events": [
+      "Each spring: Major ammonia producers (CF, Nutrien, Koch, OCI) take plants offline for maintenance",
+      "2008 spring: Nat gas spike + turnarounds created extreme fertilizer squeeze; urea hit $800/ton",
+      "2013 spring: West Texas Fertilizer plant explosion disrupted supply during turnaround season",
+      "2022 spring: Russia/Ukraine disruption + turnarounds created global nitrogen fertilizer crisis",
+      "2024 spring: Standard turnaround season with moderate pricing impact"
+    ],
+    "implementation_notes": "CF Industries is the largest publicly traded nitrogen fertilizer producer in the US. IPO August 2005. LXU (LSB Industries) is smaller with more volatile earnings. CF is preferred for the single-name strategy due to liquidity. The spring turnaround is a well-known seasonal pattern in nitrogen fertilizer markets. EIA industrial gas consumption is a reasonable proxy for ammonia production (gas is both feedstock and fuel for ammonia). bt_feasibility is 4 because FRED/EIA data is clean and the seasonal pattern is well-documented.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:33:13.534593+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.2401967075785936,
+      "cagr": -0.42766047718320754,
+      "max_dd": -0.4699010016064622,
+      "t_stat": -1.2401967075785936,
+      "n_events": 6,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL382",
+    "idea_id": "PL382",
+    "created_at": "2026-05-27T04:32:38.707676+00:00",
+    "status": "done",
+    "signal_id": "PL382_faa_airport_ops_record_hotel_long",
+    "name": "FAA Airport Operations Record -> Long Airport-Adjacent Hotel REIT",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FAA/DOT data: When TSA checkpoint throughput (proxy for airport operations, available from TSA.gov) shows YoY growth exceeding 5% for 3+ consecutive months AND absolute levels exceed prior-year same-period records, go long APLE (Apple Hospitality REIT) on the next trading day. Hold for 42 trading days. Benchmark vs SPY. APLE owns 220+ select-service hotels near airports and suburban commercial corridors that directly benefit from record airport traffic. TSA data is the most timely proxy for FAA ATADS.",
+    "tickers": [
+      "APLE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "TSA daily checkpoint throughput shows YoY growth >5% for 3+ consecutive months",
+      "Absolute throughput levels exceed same-period prior-year records",
+      "Enter on first trading day after 3rd consecutive qualifying month",
+      "Minimum 180 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: APLE (Apple Hospitality REIT, IPO Mar 2015), MAR (Marriott International), SPY",
+      "fundamental": "TSA checkpoint throughput (free at tsa.gov/travel/passenger-volumes, daily data from 2019+). FAA ATADS (free monthly). DOT T-100 enplanement data (free monthly at transtats.bts.gov). For backtest, use DOT monthly enplanement data which goes back to 1990s."
+    },
+    "backtest_approach": "Event study: Load DOT monthly enplanement data from BTS (1996-2025). Compute monthly YoY growth. Identify 3-consecutive-month periods where growth >5% and absolute levels exceed prior-year records. For each signal (180-day min gap), long APLE for 42 trading days vs SPY. APLE IPO March 2015; pre-2015 use HST or APLE proxy. Key expected signal periods: 2004-2005 (post-9/11 recovery), 2015-2016 (low oil/cheap flights era), 2023 (post-COVID travel boom surpassing 2019). TSA checkpoint data only available from 2019 (COVID tracking); DOT T-100 provides longer history.",
+    "known_events": [
+      "2004-2006: Air traffic recovered from 9/11 and exceeded 2000 levels; airport hotels thrived",
+      "2015-2016: Record US air travel driven by low fares; airport-area hotels saw 80%+ occupancy",
+      "2019: Pre-COVID peak air traffic year; record TSA throughput drove strong hotel performance",
+      "2023 Q2-Q4: Post-COVID air travel surge exceeded 2019 levels; TSA set daily records multiple times",
+      "2024-2025: Continued record-setting air travel volumes"
+    ],
+    "implementation_notes": "APLE IPO March 2015; its portfolio is concentrated in select-service hotels (Hilton Garden Inn, Courtyard by Marriott, Hampton Inn) near airports and suburban commercial areas. For pre-2015 backtest, use HST (Host Hotels, more full-service/gateway city focused) as a proxy. DOT BTS T-100 data is the gold standard for US air traffic but has 2-3 month lag. TSA checkpoint data is real-time from 2019+. bt_feasibility is 4 because DOT enplanement data is clean and APLE/HST are liquid.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:33:13.534593+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -1.1580935680195026,
+      "cagr": -0.217523817362007,
+      "max_dd": -0.14085602770213534,
+      "t_stat": -0.893488585574805,
+      "n_events": 5,
+      "is_winner": false
+    }
   }
 ]

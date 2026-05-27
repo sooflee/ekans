@@ -9733,5 +9733,1036 @@
     "research_phase": "pipeline_scout",
     "dedup_key": "fda_510k_ortho_robot_competition",
     "reject_reason": "bt_feasibility=3: Identifying orthopedic robot 510(k) clearances requires NLP/manual parsing of FDA database; GMED surgical robot segment is post-2023 (Nuvasive merger); too few backtest events"
+  },
+  {
+    "idea_id": "PL363",
+    "created_at": "2026-05-27T04:26:04.957394+00:00",
+    "status": "developed",
+    "name": "BJS Prison Population Surge \u2192 Private Prison Operator Revenue Growth \u2192 CXW/GEO Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "Bureau of Justice Statistics (BJS) publishes semiannual prison population reports and quarterly jail surveys (free). When total incarcerated population grows >3% YoY after a period of decline, private prison operators (CoreCivic CXW, GEO Group GEO) see occupancy rates rise from 70-75% to 85-90% under existing government contracts. Per-diem revenue increases linearly with occupancy while fixed costs are already covered. Long CXW/GEO when BJS data shows population inflection.",
+    "causal_chain": [
+      "BJS National Prisoner Statistics shows incarcerated population growing >3% YoY (free at bjs.gov)",
+      "State and federal prison systems exceed capacity \u2014 turn to private operators for overflow beds",
+      "CXW, GEO occupancy rates rise from 70-75% to 85-90% under existing per-diem contracts",
+      "Incremental revenue at 85%+ occupancy drops almost entirely to operating income (fixed costs covered)",
+      "EBITDA margins expand 500-1000bps as occupancy rises on the existing facility base",
+      "CXW/GEO re-rate 20-40% as occupancy improvement drives earnings growth"
+    ],
+    "data_sources": [
+      "BJS National Prisoner Statistics (free semiannual at bjs.gov)",
+      "BJS Jail Inmates survey (free quarterly)",
+      "yfinance CXW, GEO"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "BJS prisoner statistics; Sentencing Project; CXW/GEO 10-K filings",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bjs_prison_population_private_prison",
+    "reject_reason": "bt_feasibility=3: BJS prison population data is semiannual with 6-12 month publication lag; private prison stock response is heavily policy-dependent (executive orders on federal private prison contracts) which confounds the signal"
+  },
+  {
+    "idea_id": "PL364",
+    "created_at": "2026-05-27T04:26:04.957584+00:00",
+    "status": "developed",
+    "name": "USGS Helium Production Decline \u2192 Industrial Gas Shortage \u2192 APD/LIN Premium Pricing",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "USGS Mineral Commodity Summaries tracks helium production (free). The US Federal Helium Reserve (Amarillo TX) is winding down, removing ~30% of US supply. When USGS helium production data shows >10% YoY decline while semiconductor fab demand grows (helium used in lithography cooling and leak detection), helium spot prices spike 50-100%. Industrial gas companies (APD, LIN) with helium sourcing agreements capture pricing power. Long APD/LIN when helium supply constraints tighten.",
+    "causal_chain": [
+      "USGS Mineral Commodity Summaries show US helium production declining >10% YoY as Federal Reserve winds down (free)",
+      "Semiconductor fabs require increasing helium volumes for EUV lithography cooling and process gas",
+      "MRI manufacturers (GE Healthcare, Siemens) compete with semiconductor sector for limited helium supply",
+      "Helium spot prices spike 50-100% as supply gap widens",
+      "APD and LIN with long-term helium sourcing contracts (Qatar, Algeria) capture significant pricing spread",
+      "Industrial gas stocks re-rate 5-10% on improved helium pricing contribution to specialty gas segment"
+    ],
+    "data_sources": [
+      "USGS Mineral Commodity Summaries \u2014 helium (free annual)",
+      "BLM Federal Helium Program reports (free)",
+      "yfinance APD, LIN, GEHC"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USGS MCS helium; BLM Federal Helium Program; National Academies helium supply report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_helium_decline_industrial_gas",
+    "reject_reason": "bt_feasibility=3: USGS helium data is annual frequency; helium spot pricing data is not publicly available; APD/LIN helium revenue contribution is a small fraction of total revenue"
+  },
+  {
+    "idea_id": "PL365",
+    "created_at": "2026-05-27T04:26:04.957587+00:00",
+    "status": "developed",
+    "name": "NY Fed Consumer Credit Panel \u2192 Geographic Credit Card Delinquency Concentration \u2192 Regional Bank Short/Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "NY Fed Consumer Credit Panel and FRBNY Household Debt reports show credit card delinquency by geography (free quarterly). When delinquency rates in Sun Belt metros (Phoenix, Dallas, Atlanta, Miami) spike >200bps above national average while Northeast/Midwest remain stable, it signals regional credit stress. Short Sun Belt-concentrated regional banks (WBS, ZION, CFR) and long Northeast-concentrated banks (MTB, FITB) as provisioning diverges.",
+    "causal_chain": [
+      "NY Fed Consumer Credit Panel shows credit card 90+ DPD in Sun Belt metros >200bps above national avg (free quarterly at newyorkfed.org)",
+      "Sun Belt rapid population growth attracted subprime borrowers with thin credit files",
+      "Regional banks with Sun Belt concentration (WBS, ZION, CFR) face elevated credit card and auto loan losses",
+      "Provision for credit losses increases 50-100% YoY \u2014 earnings estimates revised down",
+      "Northeast-concentrated banks (MTB, FITB) with more conservative underwriting show stable credit quality",
+      "Sun Belt banks underperform Northeast banks by 10-20% over 2-4 quarters"
+    ],
+    "data_sources": [
+      "NY Fed Consumer Credit Panel (free quarterly at newyorkfed.org)",
+      "FRBNY Household Debt and Credit report (free quarterly)",
+      "FRED consumer credit delinquency series",
+      "yfinance WBS, ZION, CFR, MTB, FITB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NY Fed Consumer Credit Panel; FRBNY Household Debt report; S&P regional bank credit analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nyfed_geographic_cc_delinquency_bank"
+  },
+  {
+    "idea_id": "PL366",
+    "created_at": "2026-05-27T04:26:42.363328+00:00",
+    "status": "developed",
+    "name": "CFTC COT Managed Money Net Short Extreme in Copper \u2192 Contrarian Long HG=F",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "CFTC publishes weekly Commitment of Traders (COT) reports (free, Friday 3:30pm ET). When managed money net short positions in copper (COMEX HG) reach the 95th percentile of the 5-year range, short covering rallies follow within 2-4 weeks. The crowded short creates a coiled spring \u2014 any positive catalyst (China stimulus, supply disruption, dollar weakness) triggers aggressive short covering. Long HG=F or COPX at extreme managed money net short.",
+    "causal_chain": [
+      "CFTC COT report shows managed money net short in COMEX copper at 95th percentile of 5yr range (free at cftc.gov)",
+      "Extreme net short positioning means speculative community is maximally bearish \u2014 crowded trade",
+      "Any positive catalyst (China PMI beat, mine disruption, USD weakness) triggers short covering",
+      "Short covering creates self-reinforcing rally as stop-losses cascade",
+      "Copper rallies 8-15% over 2-4 weeks from extreme positioning trough",
+      "COPX mining ETF follows with 1-2 day lag, rallying 10-20%"
+    ],
+    "data_sources": [
+      "CFTC Commitment of Traders \u2014 copper (free weekly at cftc.gov)",
+      "yfinance HG=F, COPX, FCX, SCCO"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "CFTC COT; CME copper positioning analytics; Bridgewater positioning studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cftc_cot_copper_net_short_extreme"
+  },
+  {
+    "idea_id": "PL367",
+    "created_at": "2026-05-27T04:26:42.363520+00:00",
+    "status": "developed",
+    "name": "BEA International Travel Receipts Surge \u2192 Strong Dollar Tourism Spending \u2192 Hotel REIT Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "BEA publishes quarterly international travel receipts as part of the balance of payments (free). When US travel receipts from foreign visitors surge >15% YoY (strong dollar makes US a premium destination for non-dollar visitors), US hotel REITs in gateway cities (NYC, LA, Miami, SF) see RevPAR acceleration. Long HST, PK, APLE when BEA travel receipt data inflects sharply positive.",
+    "causal_chain": [
+      "BEA international travel and tourism receipts surge >15% YoY (free quarterly at bea.gov)",
+      "Strong dollar + eased visa processing drives record international visitor arrivals",
+      "Gateway city hotels (NYC, LA, Miami) see occupancy rates exceed 80% with ADR pricing power",
+      "Hotel REITs (HST, PK, APLE) report RevPAR growth of 8-15% in gateway city portfolios",
+      "Revenue growth at high occupancy drives 300-500bps EBITDA margin expansion (operating leverage)",
+      "Hotel REITs rally 10-20% as RevPAR beats drive earnings upgrades"
+    ],
+    "data_sources": [
+      "BEA international travel receipts (free quarterly at bea.gov)",
+      "NTTO international visitor arrivals (free monthly at travel.trade.gov)",
+      "yfinance HST, PK, APLE, MAR, HLT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BEA balance of payments; National Travel and Tourism Office; STR hotel benchmarking",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bea_travel_receipts_hotel_reit"
+  },
+  {
+    "idea_id": "PL368",
+    "created_at": "2026-05-27T04:26:42.363523+00:00",
+    "status": "developed",
+    "name": "NERC Seasonal Reliability Assessment \u2192 Grid Emergency Risk \u2192 Battery Storage/Peaker IPP Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "NERC publishes seasonal reliability assessments (free, biannual) flagging regions at elevated risk of generation shortfall during peak summer/winter. When NERC identifies 'High Risk' areas (ERCOT, MISO, SPP) with reserve margins below 15%, grid stress events trigger emergency pricing ($5,000-9,000/MWh scarcity pricing). Long battery storage operators and gas peaker IPPs (VST Vistra, NRG, FSLR for solar+storage) positioned in NERC high-risk regions.",
+    "causal_chain": [
+      "NERC Seasonal Reliability Assessment flags regions with reserve margin <15% as 'High Risk' (free at nerc.com)",
+      "Identified regions (ERCOT, MISO, SPP) face elevated probability of operating reserve emergencies during peak demand",
+      "Grid stress events trigger scarcity pricing \u2014 real-time prices spike to $5,000-9,000/MWh for hours/days",
+      "Battery storage operators dispatch stored energy at scarcity prices \u2014 capturing $2,000-5,000/MWh spread",
+      "Gas peaker IPPs (VST, NRG) with uncommitted capacity in high-risk regions earn windfall margins",
+      "VST, NRG rally 10-20% following grid stress events as market prices in elevated power revenue"
+    ],
+    "data_sources": [
+      "NERC Seasonal Reliability Assessment (free biannual at nerc.com)",
+      "ERCOT/MISO/PJM real-time pricing data (free)",
+      "EIA Hourly Electric Grid Monitor (free)",
+      "yfinance VST, NRG, FSLR, NEE"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "NERC seasonal assessments; ERCOT CDR reports; Brattle Group grid reliability studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nerc_reliability_grid_emergency_peaker"
+  },
+  {
+    "idea_id": "PL369",
+    "created_at": "2026-05-27T04:27:17.435865+00:00",
+    "status": "developed",
+    "name": "USDA APHIS Livestock Disease Outbreak \u2192 Veterinary Pharmaceutical Demand Surge \u2192 IDXX/ZTS Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "USDA APHIS publishes real-time disease situation reports for avian influenza, African swine fever, foot-and-mouth disease, and other OIE-notifiable diseases (free). When APHIS confirms a new high-consequence livestock disease outbreak (HPAI in commercial poultry, bovine TB cluster), veterinary diagnostic testing surges 50-100% and vaccination/treatment protocols activate. Long IDXX (veterinary diagnostics) and ZTS (animal health therapeutics) as testing volumes and prophylactic treatment demand spike.",
+    "causal_chain": [
+      "USDA APHIS confirms high-consequence livestock disease outbreak (free at aphis.usda.gov/animal-health/status)",
+      "State veterinarians implement quarantine zones and mandatory surveillance testing",
+      "Veterinary diagnostic testing volumes surge 50-100% \u2014 IDXX instruments see elevated consumable pull-through",
+      "Prophylactic vaccination and treatment protocols activate in surrounding regions \u2014 ZTS benefits",
+      "Media coverage drives additional voluntary testing by producers outside quarantine zones",
+      "IDXX, ZTS rally 5-12% over 2-4 weeks as livestock health spending spikes"
+    ],
+    "data_sources": [
+      "USDA APHIS disease situation reports (free, real-time at aphis.usda.gov)",
+      "WOAH (OIE) disease notification system (free at wahis.woah.org)",
+      "yfinance IDXX, ZTS, ELAN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA APHIS; WOAH; IDEXX investor presentations on outbreak-driven testing demand",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_aphis_livestock_disease_vet_pharma"
+  },
+  {
+    "idea_id": "PL370",
+    "created_at": "2026-05-27T04:27:17.436052+00:00",
+    "status": "rejected",
+    "name": "Port of LA/LB Container Dwell Time Spike \u2192 Chassis Shortage \u2192 Intermodal Equipment Leasing Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "Port of Los Angeles publishes daily container dwell time statistics (free). When average import container dwell time exceeds 8 days (vs normal 3-4 days), it signals chassis and warehouse congestion. Intermodal equipment leasing companies (TGH Textainer merged into TL, but think Beacon Intermodal or Triton) see spot chassis lease rates spike 30-50%. Long R (Ryder) and GATX (railcar/container lessor) as equipment scarcity drives pricing power.",
+    "causal_chain": [
+      "Port of LA Signal daily data shows import container dwell time exceeding 8 days (free at signal.portoflosangeles.org)",
+      "Extended dwell time means containers are sitting on chassis at warehouses \u2014 chassis not returning to port",
+      "Chassis pool availability drops below 30% \u2014 truckers cannot pick up new containers without chassis",
+      "Spot chassis lease rates spike 30-50% above contract rates",
+      "Equipment leasing companies (R, GATX) see utilization rates approach 100% with pricing power",
+      "Equipment lessors rally 5-10% as congestion-driven demand persists for 4-8 weeks"
+    ],
+    "data_sources": [
+      "Port of LA Signal \u2014 container dwell time (free daily at signal.portoflosangeles.org)",
+      "Port of Long Beach monthly container statistics (free)",
+      "yfinance R, GATX, TRTN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Port of LA Signal; IANA intermodal statistics; Journal of Commerce port congestion reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "port_la_dwell_time_chassis_leasing",
+    "reject_reason": "bt_feasibility=3: Port of LA Signal dwell time data launched ~2021; insufficient history for meaningful backtest. TRTN went private in 2023 merger."
+  },
+  {
+    "idea_id": "PL371",
+    "created_at": "2026-05-27T04:27:17.436055+00:00",
+    "status": "developed",
+    "name": "USDA Dairy Export Sales Surge to SE Asia \u2192 US Whey/NDM Price Recovery \u2192 Dairy Processor Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USDA FAS publishes weekly dairy export sales (free). When US nonfat dry milk (NDM) and whey protein concentrate export sales to SE Asia (Philippines, Indonesia, Vietnam) surge >40% above 4-week average, it signals renewed Asian demand for US dairy ingredients at current prices. NDM and whey spot prices bottom and recover 10-20%. Long dairy processors (DAR, LNDC) and the dairy commodity complex.",
+    "causal_chain": [
+      "USDA FAS weekly dairy export sales show NDM/whey exports to SE Asia surging >40% above 4wk avg (free)",
+      "SE Asian buyers (Philippines, Indonesia) increasing purchases signals price acceptance and restocking",
+      "US NDM and whey spot prices at CME stabilize and begin 10-20% recovery from cyclical trough",
+      "Dairy processors with ingredient exposure (DAR Darling Ingredients, LNDC) see margin improvement",
+      "Higher dairy ingredient prices flow through to quarterly earnings with 1-2 quarter lag",
+      "Dairy-levered stocks rally 8-15% as commodity price recovery becomes visible"
+    ],
+    "data_sources": [
+      "USDA FAS weekly dairy export sales (free at fas.usda.gov)",
+      "CME dairy commodity prices \u2014 NDM, whey (free delayed at cmegroup.com)",
+      "yfinance DAR, LNDC, DF"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FAS dairy exports; USDEC dairy trade data; CME dairy markets",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_dairy_export_seasia_ndm_recovery",
+    "reject_reason": "bt_feasibility=3: USDA FAS dairy-specific weekly export data requires commodity-level parsing; LNDC is small-cap with limited liquidity; DAR is not a pure dairy play"
+  },
+  {
+    "idea_id": "PL372",
+    "created_at": "2026-05-27T04:27:55.707696+00:00",
+    "status": "developed",
+    "name": "USGS NdPr Oxide Price Spike \u2192 EV Motor Cost Inflation \u2192 Ferrite Motor Alternative Suppliers Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "USGS tracks rare earth prices and China export volumes (free). When NdPr (neodymium-praseodymium) oxide prices spike >50% in 3 months due to China export restrictions, EV OEMs face motor cost inflation. This accelerates adoption of rare-earth-free motor designs (switched reluctance, ferrite magnet). Companies developing RE-free motors (Tesla internal, BorgWarner BWA, Nidec) gain competitive advantage. Long BWA as the leading supplier of next-gen ferrite/RE-free EV drive units.",
+    "causal_chain": [
+      "USGS mineral data shows NdPr oxide prices spiking >50% in 3 months on China export controls (free at usgs.gov)",
+      "EV permanent magnet motor costs increase $200-500/vehicle \u2014 margin compression for OEMs",
+      "OEMs accelerate qualification of rare-earth-free motor designs (SRM, ferrite, wound-rotor)",
+      "BorgWarner (BWA) with ferrite magnet motor platform wins OEM contracts for RE-free drive units",
+      "BWA ePropulsion backlog grows as OEMs diversify away from NdFeB dependency",
+      "BWA re-rates 15-25% as rare-earth-free motor wins demonstrate technology competitive advantage"
+    ],
+    "data_sources": [
+      "USGS Mineral Commodity Summaries \u2014 rare earths (free)",
+      "China GACC rare earth export data (free monthly)",
+      "yfinance BWA, MP, TSLA"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USGS rare earth data; Adamas Intelligence rare earth market reports; BWA investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_ndpr_spike_ferrite_motor",
+    "reject_reason": "bt_feasibility=3: NdPr oxide pricing not freely machine-readable; rare earth price spikes are infrequent and driven by ad hoc China policy decisions not systematically predictable"
+  },
+  {
+    "idea_id": "PL373",
+    "created_at": "2026-05-27T04:27:55.707919+00:00",
+    "status": "rejected",
+    "name": "DOE Clean Hydrogen Hub Award \u2192 Regional Industrial Cluster Activation \u2192 Electrolyzer/Fuel Cell Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "6-24 months",
+    "thesis": "DOE publishes Regional Clean Hydrogen Hub (H2Hub) award announcements and milestone disbursements (free). Each hub receives $500M-1.2B in federal funding, triggering $3-5B in private co-investment over 5-7 years. When DOE announces milestone achievement (Phase 1 FEED completion, FID), it de-risks the project timeline. Long electrolyzer manufacturers (PLUG, BE, NEL) and industrial gas companies with hydrogen offtake (APD, LIN) as hub activation creates guaranteed demand.",
+    "causal_chain": [
+      "DOE announces H2Hub milestone achievement \u2014 Phase 1 engineering complete, FID approved (free at energy.gov/oced)",
+      "Federal cost-share disbursement triggers private co-investment commitments from industrial partners",
+      "Hub participants issue RFPs for electrolyzer procurement \u2014 $100-500M equipment orders",
+      "Electrolyzer manufacturers (PLUG, BE) win supply contracts with federal cost-sharing backstop",
+      "Industrial gas companies (APD, LIN) secure long-term hydrogen offtake agreements at hub sites",
+      "Clean hydrogen stocks rally 15-30% as hub milestones demonstrate commercial traction"
+    ],
+    "data_sources": [
+      "DOE OCED H2Hub program updates (free at energy.gov/oced)",
+      "DOE Hydrogen Program Record (free)",
+      "yfinance PLUG, BE, APD, LIN, NEL"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "DOE OCED; National Clean Hydrogen Strategy; H2Hub award announcements",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_h2hub_milestone_electrolyzer",
+    "reject_reason": "bt_feasibility=3: DOE H2Hub awards are all post-2023; zero historical events for backtest. Electrolyzer stocks (PLUG, BE) have short trading histories and extreme volatility."
+  },
+  {
+    "idea_id": "PL374",
+    "created_at": "2026-05-27T04:27:55.707924+00:00",
+    "status": "developed",
+    "name": "Census Business Formation Statistics (BFS) High-Propensity Applications Surge \u2192 Small-Cap Revenue Acceleration",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "Census Bureau publishes weekly Business Formation Statistics (BFS) tracking new EIN applications (free). The 'high-propensity' subset (applications likely to become employer businesses with payroll) is the most signal-rich. When high-propensity applications exceed the 80th percentile of the 5-year range for 4+ consecutive weeks, it signals accelerating entrepreneurial activity. New businesses generate demand for small-business infrastructure: payment processing (TOST, SQ), payroll (PAYX), insurance (HRTG), and commercial banking (community banks). Long IWM or specific small-business enablers.",
+    "causal_chain": [
+      "Census BFS shows high-propensity business applications at 80th percentile for 4+ weeks (free weekly at census.gov/econ/bfs)",
+      "High-propensity applications correlate 0.7+ with actual employer business formation 6-12 months later",
+      "New employer businesses need payment processing, payroll, insurance, and commercial banking services",
+      "Small-business enablers (TOST, SQ, PAYX, HRTG) see new customer acquisition rates accelerate",
+      "Community banks (CVBF, UMPQ, PACW) see commercial account growth and SBA lending demand",
+      "Small-cap enabler stocks rally 10-20% as quarterly metrics confirm new business formation wave"
+    ],
+    "data_sources": [
+      "Census Bureau Business Formation Statistics \u2014 high propensity (free weekly at census.gov/econ/bfs)",
+      "BLS BED (Business Employment Dynamics) for validation (free quarterly)",
+      "yfinance TOST, SQ, PAYX, HRTG, IWM"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Census BFS; Kauffman Foundation entrepreneurship reports; NBER business formation research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_bfs_high_propensity_small_cap"
+  },
+  {
+    "idea_id": "PL375",
+    "created_at": "2026-05-27T04:28:35.680106+00:00",
+    "status": "developed",
+    "name": "USACE Inland Waterway Tonnage Surge \u2192 Barge Operator Revenue Beat \u2192 KIRBY Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USACE Waterborne Commerce Statistics Center publishes monthly inland waterway tonnage data (free). When total inland waterway tonnage grows >5% YoY (driven by grain, petrochemical, and coal movements on the Mississippi/Ohio/Illinois systems), barge operators see utilization rates exceed 90%. Kirby Corp (KEX), the dominant inland tank barge operator, benefits from both volume growth and spot rate increases. Long KEX when USACE tonnage data inflects higher.",
+    "causal_chain": [
+      "USACE Waterborne Commerce Statistics show inland waterway tonnage growing >5% YoY (free at iwr.usace.army.mil)",
+      "Grain export season + petrochemical shipping demand drives barge utilization above 90%",
+      "Spot barge rates rise 15-25% above contract rates as available capacity tightens",
+      "Kirby Corp (KEX) as the dominant inland tank barge operator captures both volume and pricing uplift",
+      "KEX inland marine segment margins expand 300-500bps on operating leverage",
+      "KEX rallies 10-15% over 1-2 months as quarterly earnings beat consensus"
+    ],
+    "data_sources": [
+      "USACE Waterborne Commerce Statistics Center (free at iwr.usace.army.mil/wcs)",
+      "USDA grain transportation report \u2014 barge rates (free weekly)",
+      "yfinance KEX, ACGL"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USACE waterborne commerce data; USDA grain transportation report; Kirby Corp investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usace_waterway_tonnage_barge_kirby"
+  },
+  {
+    "idea_id": "PL376",
+    "created_at": "2026-05-27T04:28:35.680306+00:00",
+    "status": "developed",
+    "name": "USASpending DOD Contract Obligations Acceleration \u2192 Defense Subcontractor Revenue Pipeline",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "USASpending.gov publishes real-time federal contract obligation data (free). When DOD contract obligations in a specific NAICS code (e.g., 336411 Aircraft Manufacturing, 334511 Radar) accelerate >20% YoY in a quarter, it signals new program ramp-ups. The prime contractors are well-followed, but Tier 2/3 subcontractors often fly under the radar. Long specialized defense subcontractors (KTOS, MRCY, SWBI, CW) when USASpending shows their prime customers' contract obligations surging.",
+    "causal_chain": [
+      "USASpending.gov shows DOD contract obligations in specific NAICS codes accelerating >20% YoY (free, real-time)",
+      "New program awards and existing program ramp-ups drive prime contractor production increases",
+      "Prime contractors flow down 40-60% of contract value to Tier 2/3 subcontractors",
+      "Specialized defense subcontractors (KTOS drones, MRCY defense electronics, AXON sensors) see order inflows",
+      "Subcontractor backlog-to-revenue ratios improve \u2014 providing 12-24 months of revenue visibility",
+      "Defense subcontractors rally 15-30% as quarterly bookings beats confirm pipeline strength"
+    ],
+    "data_sources": [
+      "USASpending.gov federal contract obligations by NAICS (free, real-time)",
+      "FPDS (Federal Procurement Data System) for detailed contract data (free)",
+      "yfinance KTOS, MRCY, AXON, CW, PLTR"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USASpending.gov; FPDS; DOD budget justification documents",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usaspending_dod_obligations_subcontractor"
+  },
+  {
+    "idea_id": "PL377",
+    "created_at": "2026-05-27T04:28:35.680310+00:00",
+    "status": "developed",
+    "name": "ITC Solar Panel AD/CVD Determination \u2192 Domestic Module Price Floor \u2192 FSLR/MAXN Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "USITC publishes antidumping/countervailing duty (AD/CVD) preliminary and final determinations for crystalline silicon photovoltaic cells/modules (free). When USITC issues an affirmative injury determination with combined AD+CVD duties >30%, it creates a price floor for domestic solar module manufacturers. First Solar (FSLR, US cadmium telluride) and Maxeon (MAXN, US IBC panels) benefit from tariff protection that makes their US-manufactured panels price-competitive with Chinese imports.",
+    "causal_chain": [
+      "USITC issues affirmative AD/CVD determination with combined duties >30% on crystalline silicon panels (free at usitc.gov)",
+      "Chinese and SE Asian solar module imports face effective tariff of 30-50% \u2014 landed costs rise $0.05-0.10/W",
+      "US-manufactured panels become price-competitive at current ASPs \u2014 no need for further price cuts",
+      "FSLR US fab utilization rises to 95%+ as developers switch procurement to tariff-exempt US modules",
+      "FSLR gross margins expand 300-500bps on volume growth with stable ASPs",
+      "FSLR rallies 15-25% as tariff protection secures domestic manufacturing margin"
+    ],
+    "data_sources": [
+      "USITC AD/CVD case determinations (free at usitc.gov)",
+      "Commerce Department preliminary/final AD/CVD margins (free at trade.gov/enforcement)",
+      "yfinance FSLR, MAXN, ENPH, SEDG"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USITC; Commerce Department AD/CVD; Solar Energy Industries Association trade policy reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "itc_solar_adcvd_domestic_module"
+  },
+  {
+    "idea_id": "PL378",
+    "created_at": "2026-05-27T04:29:11.503668+00:00",
+    "status": "developed",
+    "name": "MBA Mortgage Forbearance Exit Rate Spike \u2192 Loan Modification Wave \u2192 Mortgage Servicer Revenue",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "MBA publishes monthly forbearance and call volume survey (free). When the forbearance exit rate spikes (borrowers leaving forbearance into modification, repayment plans, or reinstatement), mortgage servicers earn modification fees ($1,000-3,000 per loan) and retain servicing income on performing modified loans. Long mortgage servicers (PFSI, COOP, OCN) when MBA data shows forbearance exits accelerating \u2014 it signals revenue from loan workout fees plus improved credit quality on modified portfolio.",
+    "causal_chain": [
+      "MBA monthly forbearance survey shows forbearance exit rate accelerating \u2014 borrowers leaving forbearance (free at mba.org)",
+      "Exiting borrowers receive loan modifications, repayment plans, or partial claims from servicers",
+      "Servicers earn modification processing fees of $1,000-3,000 per loan from GSE/Ginnie Mae",
+      "Modified loans return to performing status \u2014 reduces delinquency rates and advances outstanding",
+      "Improved portfolio performance reduces servicing expense (no more advances on delinquent loans)",
+      "PFSI, COOP rally 10-20% as forbearance unwind drives both fee income and portfolio improvement"
+    ],
+    "data_sources": [
+      "MBA monthly forbearance and call volume survey (free summary at mba.org)",
+      "FHFA/GSE servicer performance reports (free quarterly)",
+      "yfinance PFSI, COOP, OCN"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "MBA forbearance data; FHFA; Urban Institute housing finance analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mba_forbearance_exit_servicer_revenue",
+    "reject_reason": "bt_feasibility=3: MBA forbearance survey data is not freely machine-readable; forbearance was a COVID-era phenomenon (2020-2022) with insufficient historical precedent for backtest"
+  },
+  {
+    "idea_id": "PL379",
+    "created_at": "2026-05-27T04:29:11.503867+00:00",
+    "status": "developed",
+    "name": "NOAA ONI El Nino Transition \u2192 West Africa Cocoa Drought \u2192 Cocoa Futures Long / HSY Short",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-9 months",
+    "thesis": "NOAA CPC Oceanic Nino Index (ONI) tracks ENSO state (free). Strong El Nino events (ONI >+1.5) correlate with below-normal rainfall in West Africa (Ivory Coast, Ghana = 60% of global cocoa supply) during the Oct-Mar main crop season. Cocoa futures rally 30-80% during strong El Nino years as Harmattan winds desiccate pods and black pod disease spreads. Long CC=F cocoa futures or short HSY/MDLZ (chocolate manufacturers facing input cost inflation) when ONI crosses +1.5.",
+    "causal_chain": [
+      "NOAA CPC ONI crosses +1.5 signaling strong El Nino (free monthly at cpc.ncep.noaa.gov)",
+      "El Nino teleconnection pattern brings below-normal rainfall to West Africa cocoa belt during main crop",
+      "Harmattan dry winds extend into growing season \u2014 cocoa pod development impaired",
+      "Black pod disease (Phytophthora) spreads in stressed trees \u2014 crop losses of 10-25%",
+      "Cocoa futures (CC=F) rally 30-80% over 3-6 months as supply deficit materializes",
+      "Chocolate manufacturers (HSY, MDLZ) face cocoa cost inflation \u2014 gross margins compress 200-400bps"
+    ],
+    "data_sources": [
+      "NOAA CPC Oceanic Nino Index (free monthly)",
+      "ICCO monthly cocoa market reports (partially free)",
+      "yfinance CC=F, HSY, MDLZ, TR"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA CPC ONI; ICCO; IRI ENSO-cocoa correlation studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_el_nino_cocoa_drought_long"
+  },
+  {
+    "idea_id": "PL380",
+    "created_at": "2026-05-27T04:29:11.503871+00:00",
+    "status": "developed",
+    "name": "BLS ECI Benefits Cost Deceleration \u2192 Corporate Margin Expansion \u2192 SPY Earnings Uplift",
+    "category": "A",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "BLS Employment Cost Index (ECI) separates wage and benefits cost trends (free quarterly). When the benefits component of ECI decelerates >100bps YoY while wages hold steady, it signals corporate labor cost relief without consumer income destruction. Healthcare benefit costs (largest benefits component) declining means employer health insurance cost inflation is easing. Long SPY/QQQ as declining benefits cost growth expands S&P 500 operating margins.",
+    "causal_chain": [
+      "BLS ECI quarterly report shows benefits cost growth decelerating >100bps YoY (free at bls.gov)",
+      "Healthcare benefits cost inflation easing \u2014 employer health insurance premiums growing slower",
+      "Total compensation cost growth moderates without wage cuts \u2014 workers' spending power maintained",
+      "S&P 500 companies see 50-100bps operating margin expansion from lower benefits cost inflation",
+      "Earnings estimates revised upward 2-3% as labor cost relief flows through income statements",
+      "SPY rallies 3-5% over 1-2 months as margin expansion narrative strengthens"
+    ],
+    "data_sources": [
+      "BLS Employment Cost Index \u2014 benefits component (free quarterly, also on FRED ECIBEN)",
+      "BLS Employer Costs for Employee Compensation (free quarterly)",
+      "yfinance SPY, QQQ, XLV"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS ECI; Kaiser Family Foundation employer health benefits survey; Goldman Sachs labor cost model",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_eci_benefits_decel_margin_expansion"
+  },
+  {
+    "idea_id": "PL381",
+    "created_at": "2026-05-27T04:29:47.744581+00:00",
+    "status": "developed",
+    "name": "EIA Natural Gas Industrial Consumption Dip \u2192 Ammonia Plant Turnaround \u2192 Nitrogen Fertilizer Spot Price Spike",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "EIA publishes monthly natural gas consumption by sector (free). A sharp drop in industrial gas consumption during spring (March-May) signals simultaneous ammonia plant turnarounds. US ammonia production capacity drops 20-30% for 4-6 weeks during synchronized turnaround season. With US ammonia production offline, nitrogen fertilizer spot prices (urea, UAN) spike 15-30% as spring application season creates demand. Long CF Industries (CF) and LSB Industries (LXU) when EIA industrial gas data signals turnaround-driven supply squeeze.",
+    "causal_chain": [
+      "EIA monthly natural gas consumption data shows industrial sector dip in March-May (free at eia.gov)",
+      "Industrial gas consumption drop correlates with ammonia plant turnaround season",
+      "US ammonia production capacity drops 20-30% for 4-6 weeks during turnarounds",
+      "Spring planting season creates peak nitrogen fertilizer demand simultaneously with supply reduction",
+      "Urea and UAN spot prices spike 15-30% as supply-demand gap tightens",
+      "CF, LXU benefit from pre-turnaround inventory sales at elevated spot prices; margins expand"
+    ],
+    "data_sources": [
+      "EIA monthly natural gas consumption by sector (free at eia.gov)",
+      "USDA AMS fertilizer prices (free weekly at ams.usda.gov)",
+      "yfinance CF, LXU, NTR"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "EIA natural gas data; USDA fertilizer price reports; CF Industries turnaround schedule disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_industrial_gas_ammonia_turnaround"
+  },
+  {
+    "idea_id": "PL382",
+    "created_at": "2026-05-27T04:29:47.744762+00:00",
+    "status": "developed",
+    "name": "FAA ATADS Airport Operations Record \u2192 Airport Concession Revenue Acceleration \u2192 Airport Operator/F&B Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "FAA Air Traffic Activity Data System (ATADS) publishes monthly airport operations counts (free). When total operations at the top 30 airports exceed prior-year records by >5% for 3+ consecutive months, airport concession revenue (F&B, retail, parking) surges with high margins. Long airport concession operators (MAR/HLT airport food service, or HMSHost parent AFIC.AS) and airport-adjacent hotel REITs (APLE).",
+    "causal_chain": [
+      "FAA ATADS data shows top-30 airport operations exceeding prior-year records by >5% for 3+ months (free at faa.gov/air_traffic/publications)",
+      "Record passenger throughput drives proportional increase in concession revenue (F&B, retail, parking)",
+      "Airport concession revenue per enplanement holds steady or rises \u2014 total revenue accelerates with volume",
+      "Concession operators see 30-40% EBITDA flow-through on incremental revenue above fixed rent obligations",
+      "Airport-adjacent hotels see 85%+ occupancy with ADR pricing power from constrained supply",
+      "Airport-levered stocks rally 5-10% as quarterly results reflect record traffic contribution"
+    ],
+    "data_sources": [
+      "FAA ATADS airport operations (free monthly at faa.gov)",
+      "DOT T-100 segment data for enplanements (free at transtats.bts.gov)",
+      "yfinance APLE, MAR, HLT"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FAA ATADS; DOT Bureau of Transportation Statistics; ACI-NA traffic reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "faa_atads_airport_record_concession"
+  },
+  {
+    "idea_id": "PL383",
+    "created_at": "2026-05-27T04:29:47.744765+00:00",
+    "status": "rejected",
+    "name": "USDA Organic Integrity Database \u2192 Certified Acreage Stagnation \u2192 Organic Premium Widening \u2192 HAIN/SFM Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "USDA Organic Integrity Database tracks all certified organic operations (free). When certified organic crop acreage growth stalls (<2% YoY) while organic food demand grows 8-10% YoY (per Organic Trade Association), organic price premiums widen. Organic-focused brands (HAIN, Sprouts SFM) benefit from widening organic-conventional spread as their supply chain locks in long-term organic contracts. Long HAIN and SFM when organic acreage stagnation signals structural supply constraint.",
+    "causal_chain": [
+      "USDA Organic Integrity Database shows certified organic acreage growth <2% YoY (free at ams.usda.gov/integrity)",
+      "Three-year organic transition requirement creates structural lag between demand growth and supply response",
+      "Organic food demand growing 8-10% YoY while supply grows <2% \u2014 organic price premium widens",
+      "Organic retail prices exceed conventional by 40-80% (up from 20-40%) in constrained categories",
+      "Organic-focused retailers/brands (SFM, HAIN) with long-term organic supply contracts capture premium",
+      "SFM, HAIN gross margins expand 100-200bps as organic premium widening flows through pricing"
+    ],
+    "data_sources": [
+      "USDA Organic Integrity Database (free at ams.usda.gov/integrity)",
+      "USDA ERS Organic Prices data (free)",
+      "Organic Trade Association industry statistics (partially free)",
+      "yfinance SFM, HAIN, UNFI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA Organic Integrity Database; USDA ERS organic agriculture reports; Organic Trade Association",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_organic_acreage_stagnation_premium",
+    "reject_reason": "bt_feasibility=3: USDA Organic Integrity Database is not machine-readable for acreage trends; organic premium data requires NielsenIQ which is paywalled"
+  },
+  {
+    "idea_id": "PL384",
+    "created_at": "2026-05-27T04:30:30.146241+00:00",
+    "status": "rejected",
+    "name": "Treasury TIC Data \u2192 Japan/China Net UST Selling \u2192 Long-End Rate Pressure \u2192 Long TBT",
+    "category": "B",
+    "asset_class": "bonds",
+    "horizon": "1-3 months",
+    "thesis": "Treasury International Capital (TIC) data shows foreign official holdings of US Treasuries (free, monthly with 2-month lag). When Japan and China combined reduce UST holdings by >$50B in a single month (or >$100B cumulative over 3 months), it signals structural foreign demand withdrawal. Long-end Treasury yields rise 20-40bps as the marginal buyer disappears. Long TBT (2x short 20yr) or short TLT as foreign official selling pressures the long end.",
+    "causal_chain": [
+      "Treasury TIC data shows Japan + China reducing UST holdings by >$50B in one month (free at treasury.gov/tic)",
+      "Foreign official sector withdrawing from US Treasuries \u2014 reduced demand for long-duration USTs",
+      "Term premium rises as marginal buyer (foreign CBs) steps back \u2014 20-30yr yields rise 20-40bps",
+      "Long-end yield rise pressures duration-sensitive assets (utilities, REITs, growth stocks)",
+      "TLT declines 3-5% as 20yr+ yields back up; TBT (inverse) rallies proportionally",
+      "Rate-sensitive sectors underperform for 1-3 months until new equilibrium found"
+    ],
+    "data_sources": [
+      "Treasury TIC major foreign holders of UST (free monthly at treasury.gov/tic)",
+      "Fed H.4.1 for foreign official custody holdings (free weekly)",
+      "yfinance TBT, TLT, IEF, XLU"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Treasury TIC; Setser/Council on Foreign Relations UST flow analysis; BIS reserves data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tic_japan_china_ust_selling_longend",
+    "reject_reason": "bt_feasibility=4 but SHORT-SIDE: TBT is an inverse Treasury ETF, making this effectively a short-bond position. Pipeline is LONG-SIDE ONLY."
+  },
+  {
+    "idea_id": "PL385",
+    "created_at": "2026-05-27T04:30:30.146439+00:00",
+    "status": "rejected",
+    "name": "NOAA SNOTEL April 1 SWE Record \u2192 Western Reservoir Refill \u2192 Hydropower Output Surge \u2192 Utility Cost Reduction",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "NOAA/NRCS SNOTEL network publishes daily snow water equivalent (SWE) at 800+ mountain sites across the West (free). April 1 SWE is the canonical metric for summer water supply. When April 1 SWE exceeds 130% of median across the Sierra Nevada and Cascades, it signals exceptional reservoir refill and hydropower generation capacity. Utilities with significant hydro portfolios (BEP, AES with Pacific hydro, PNW utilities like POR Portland General) see lower generation costs and higher clean energy margins. Long POR and hydro-heavy utilities when April 1 SWE signals abundant water year.",
+    "causal_chain": [
+      "NRCS SNOTEL April 1 SWE exceeds 130% of median in Sierra Nevada/Cascades (free at wcc.nrcs.usda.gov)",
+      "Record snowpack guarantees above-normal reservoir inflows through June-August snowmelt season",
+      "Western reservoirs (Shasta, Oroville, Grand Coulee) fill to 100%+ capacity \u2014 hydropower heads maximize",
+      "Hydropower output exceeds normal by 30-50% \u2014 displaces expensive gas-fired generation",
+      "Utilities with significant hydro portfolios (POR, AES) see 200-400bps fuel cost reduction",
+      "Hydro-heavy utilities report improved margins; stocks re-rate 5-10% on lower generation costs"
+    ],
+    "data_sources": [
+      "NRCS SNOTEL SWE data (free at wcc.nrcs.usda.gov)",
+      "NOAA California Nevada River Forecast Center (free)",
+      "EIA monthly hydropower generation (free)",
+      "yfinance POR, AES, BEP, WTRG"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NRCS SNOTEL; NOAA River Forecast Centers; EIA hydropower data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nrcs_snotel_swe_hydro_utility",
+    "reject_reason": "bt_feasibility=3: SNOTEL April 1 SWE data is annual; hydropower output to utility cost mapping requires regional analysis not automatable"
+  },
+  {
+    "idea_id": "PL386",
+    "created_at": "2026-05-27T04:30:30.146442+00:00",
+    "status": "rejected",
+    "name": "IRS SOI Estate Tax Filing Surge \u2192 Wealth Transfer Wave \u2192 RIA/Trust Company Acquirer Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "IRS Statistics of Income (SOI) publishes estate tax filing data annually (free). The 2025 estate tax exemption sunset (reverting from $13.6M to ~$7M per person under TCJA expiration) was expected to trigger a massive wave of estate planning and wealth transfers. IRS SOI data showing >30% increase in gift tax returns filed signals an ongoing wealth transfer wave. Long RIA aggregators (LPLA, RJF) and trust companies (STT, BK, NTRS) as wealth transfer events generate advisory fees, trust administration revenue, and new AUM.",
+    "causal_chain": [
+      "IRS SOI data shows gift tax returns (Form 709) filed increasing >30% YoY (free at irs.gov/statistics/soi-tax-stats)",
+      "Estate tax exemption sunset fear drives accelerated wealth transfers before threshold reduction",
+      "Wealth transfers generate advisory fees for RIAs ($5,000-50,000 per estate plan restructuring)",
+      "Trust companies (NTRS, BK, STT) see new trust establishment and AUM growth from irrevocable trusts",
+      "RIA aggregators (LPLA, RJF) benefit as advisors capture recurring fees on transferred assets",
+      "Wealth management stocks rally 10-15% as fee income acceleration becomes visible in quarterly results"
+    ],
+    "data_sources": [
+      "IRS SOI estate and gift tax statistics (free at irs.gov/statistics)",
+      "Census wealth and asset ownership data (free)",
+      "yfinance LPLA, RJF, NTRS, BK, STT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "IRS SOI; Tax Foundation estate tax analysis; Cerulli Associates RIA industry reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "irs_soi_estate_gift_wealth_transfer",
+    "reject_reason": "bt_feasibility=3: IRS SOI estate tax data is annual with 2-3 year lag; too few events and too much lag for meaningful backtest"
+  },
+  {
+    "idea_id": "PL387",
+    "created_at": "2026-05-27T04:31:17.585001+00:00",
+    "status": "rejected",
+    "name": "Cruise Ship Orderbook Delivery Cluster \u2192 Berth Capacity Growth \u2192 Caribbean Port Revenue Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "Cruise Industry News publishes orderbook data showing newbuild delivery schedules (partially free). When 10+ new cruise ships (200K+ gross tonnage total) deliver within a 12-month window, it adds 25,000-40,000 berths of capacity. This drives Caribbean/Alaska port call revenue and shore excursion volume for port operators. Long RCL and CCL (operators benefiting from fleet growth) and cruise port-adjacent real estate when orderbook deliveries cluster.",
+    "causal_chain": [
+      "Cruise industry orderbook shows 10+ new ships delivering within 12 months (partially free at cruiseindustrynews.com)",
+      "New ships add 25,000-40,000 berths \u2014 deployed on Caribbean/Alaska/Mediterranean itineraries",
+      "Port call volumes at Caribbean destinations increase proportionally \u2014 port revenue per call stays stable",
+      "Shore excursion and onboard spending increase with younger/wealthier demographic on new ships",
+      "RCL, CCL see capacity-driven revenue growth of 15-25% without diluting yield (pricing holds)",
+      "Cruise operators rally 10-20% as fleet expansion drives revenue scale without margin compression"
+    ],
+    "data_sources": [
+      "Cruise Industry News orderbook (partially free)",
+      "DOT Maritime Administration vessel documentation (free)",
+      "yfinance RCL, CCL, NCLH"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Cruise Industry News; Seatrade Cruise; Carnival/RCL fleet deployment disclosures",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cruise_orderbook_delivery_port_revenue",
+    "reject_reason": "bt_feasibility=3: Cruise ship orderbook data (Clarksons) is paywalled; Caribbean port revenue data not freely available"
+  },
+  {
+    "idea_id": "PL388",
+    "created_at": "2026-05-27T04:31:17.585182+00:00",
+    "status": "rejected",
+    "name": "EPA PFAS MCL Final Rule \u2192 Municipal Water Treatment Capex Mandate \u2192 Water Treatment Equipment Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "12-36 months",
+    "thesis": "EPA publishes final drinking water Maximum Contaminant Levels (MCLs) for PFAS compounds (free at epa.gov). The 2024 final PFAS MCL of 4 ppt for PFOA/PFOS requires ~10,000 US water systems to install granular activated carbon (GAC) or ion exchange treatment. This represents $30-50B in mandatory compliance capex over 5 years. Long water treatment equipment manufacturers (XYL Xylem, WTRG Essential Utilities, WMS Advanced Drainage) positioned to capture PFAS remediation spending.",
+    "causal_chain": [
+      "EPA PFAS MCL final rule sets 4 ppt limit for PFOA/PFOS (free at epa.gov/pfas)",
+      "~10,000 US public water systems exceed new MCL \u2014 must install treatment within 3-5 year compliance deadline",
+      "Municipal water utilities must invest $30-50B in GAC, ion exchange, or reverse osmosis treatment",
+      "Water treatment equipment manufacturers (XYL, WMS, AQUA) see multi-year order pipeline for PFAS treatment",
+      "EPA State Revolving Fund and IIJA provide $10B+ in federal assistance \u2014 de-risks utility spending",
+      "Water treatment stocks rally 15-30% over 12-24 months as compliance spending materializes in orders"
+    ],
+    "data_sources": [
+      "EPA PFAS regulations and MCL (free at epa.gov/pfas)",
+      "EPA UCMR5 (Unregulated Contaminant Monitoring Rule) occurrence data (free)",
+      "yfinance XYL, WTRG, WMS, AQUA"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "EPA PFAS final rule; AWWA compliance cost estimates; EPA UCMR5 data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "epa_pfas_mcl_water_treatment_capex",
+    "reject_reason": "bt_feasibility=3: EPA PFAS MCL final rule is a one-time regulatory event (2024); no historical precedent for backtest. Water treatment equipment stocks (XYL, ECL) are diversified with PFAS revenue being small fraction."
+  },
+  {
+    "idea_id": "PL389",
+    "created_at": "2026-05-27T04:31:17.585184+00:00",
+    "status": "rejected",
+    "name": "DOL WARN Act Filings Geographic Cluster \u2192 Regional Consumer Spending Collapse \u2192 Regional Retailer Short",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "State labor departments publish WARN Act layoff notices 60 days before mass layoffs (free, state-by-state). When WARN filings cluster geographically \u2014 multiple large employers announcing layoffs in the same metro within 30 days \u2014 it signals an imminent local consumer spending contraction. Regional retailers and restaurants with concentration in affected metros face revenue headwinds. Short regionally concentrated consumer names or long national discounters (DG, DLTR) that benefit from trade-down.",
+    "causal_chain": [
+      "State DOL WARN Act databases show 5+ major employers filing layoff notices in same metro within 30 days (free at state DOL websites)",
+      "WARN filings signal 5,000-20,000 job losses in affected metro within 60 days",
+      "Laid-off workers reduce discretionary spending \u2014 local restaurant/retail foot traffic drops 10-20%",
+      "National discounters (DG, DLTR, WMT) capture trade-down spending from newly budget-conscious consumers",
+      "Regional retailers concentrated in affected metros report same-store sales declines",
+      "DG, DLTR outperform regional consumer stocks by 5-10% over 2-4 months as trade-down materializes"
+    ],
+    "data_sources": [
+      "State DOL WARN Act filings (free at individual state labor dept websites)",
+      "DOL BLS local area unemployment statistics \u2014 LAUS (free monthly)",
+      "yfinance DG, DLTR, WMT, TGT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "State WARN Act databases; DOL LAUS; Challenger Gray layoff tracking",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "dol_warn_geographic_cluster_discounter",
+    "reject_reason": "bt_feasibility=3 and SHORT-SIDE: Regional Retailer Short violates long-side-only constraint. DOL WARN filings require state-by-state scraping and are inconsistently reported."
+  },
+  {
+    "idea_id": "PL390",
+    "created_at": "2026-05-27T04:31:55.283128+00:00",
+    "status": "rejected",
+    "name": "FERC Pipeline Certificate Approval Cluster \u2192 Nat Gas Takeaway Resolution \u2192 Appalachia E&P Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "FERC publishes certificate approval decisions for interstate natural gas pipelines (free at ferc.gov). When FERC approves multiple pipeline projects serving the same basin within 12 months (e.g., Mountain Valley Pipeline + Southgate Extension for Appalachia), it resolves a structural takeaway constraint. Appalachian E&Ps (EQT, CNX, AR) that were drilling at reduced rates due to basis blowouts can increase production and access higher-priced markets. Long EQT/AR when FERC certificate approvals signal takeaway relief.",
+    "causal_chain": [
+      "FERC issues certificate approval for major pipeline project (free at ferc.gov/industries-data/natural-gas/pipeline-certificates)",
+      "Pipeline construction timeline of 18-24 months creates forward takeaway capacity",
+      "Basis differentials (Appalachian Henry Hub discount) narrow as market anticipates new capacity",
+      "E&Ps in constrained basin (EQT, CNX, AR) can increase drilling activity and production guidance",
+      "Higher realized prices + increased production = revenue and cash flow acceleration",
+      "Basin-constrained E&Ps re-rate 15-30% as takeaway resolution improves long-term economics"
+    ],
+    "data_sources": [
+      "FERC certificate decisions and environmental reviews (free at ferc.gov)",
+      "EIA natural gas pipeline data (free)",
+      "yfinance EQT, CNX, AR, RRC"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FERC; EIA pipeline capacity; S&P Global Platts basis differential data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ferc_pipeline_cert_takeaway_ep_long",
+    "reject_reason": "bt_feasibility=3: FERC pipeline certificate approvals are ad hoc regulatory events with multi-year timelines; not systematically backtestable"
+  },
+  {
+    "idea_id": "PL391",
+    "created_at": "2026-05-27T04:31:55.283285+00:00",
+    "status": "rejected",
+    "name": "NOAA Fisheries MRIP Survey \u2192 Recreational Fishing Participation Record \u2192 Boat/Marine Equipment Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "NOAA Marine Recreational Information Program (MRIP) publishes estimates of recreational fishing trips and angler participation (free, bimonthly updates). When angler trips exceed prior-year records by >10% for 2+ consecutive survey waves, it signals sustained recreational fishing demand growth. Long marine equipment manufacturers (BC Brunswick, MCFT MasterCraft, MBUU Malibu Boats) and fishing tackle retailers (BGFV) as participation growth drives boat and equipment purchases.",
+    "causal_chain": [
+      "NOAA MRIP survey shows recreational angler trips exceeding prior-year by >10% for 2+ waves (free at fisheries.noaa.gov/recreational-fishing-data)",
+      "Sustained participation growth drives demand for boats, motors, electronics, and tackle",
+      "Brunswick (BC) powerboat segment sees retail unit sales growth of 8-15%",
+      "Marine electronics and accessories (Garmin GRMN marine, Navico) benefit from upgrade cycle",
+      "Fishing license sales (state fish & wildlife data) confirm participation trend with 1-2 month lag",
+      "Marine equipment stocks rally 10-20% as quarterly results confirm demand strength"
+    ],
+    "data_sources": [
+      "NOAA MRIP recreational fishing statistics (free at fisheries.noaa.gov/mrip)",
+      "ASA/RBFF fishing participation studies (partially free)",
+      "yfinance BC, MCFT, MBUU, GRMN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA MRIP; Recreational Boating and Fishing Foundation; NMMA statistical reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_mrip_fishing_participation_marine",
+    "reject_reason": "bt_feasibility=3: NOAA MRIP recreational fishing survey is annual/biennial; too infrequent for backtest. Boat manufacturer stocks are small-cap with cyclical noise."
+  },
+  {
+    "idea_id": "PL392",
+    "created_at": "2026-05-27T04:31:55.283287+00:00",
+    "status": "rejected",
+    "name": "CMS Hospital Price Transparency Data \u2192 Payer Mix Revenue Shift \u2192 Revenue Cycle Management Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "CMS requires hospitals to publish machine-readable files with negotiated rates by payer (free at each hospital website per CMS mandate). When analysis of published rates reveals that hospitals in a region have commercial payer rates >300% of Medicare (indicating strong commercial payer leverage), revenue cycle management companies (MDRX Allscripts, VEEV Veeva, RCM R1 RCM) benefit as hospitals invest in technology to optimize their payer mix and prior authorization efficiency. Long RCM when CMS transparency data reveals wide commercial-Medicare rate spreads.",
+    "causal_chain": [
+      "CMS hospital price transparency machine-readable files show commercial rates >300% of Medicare (free at CMS.gov mandate)",
+      "Wide rate spreads signal hospital pricing power with commercial payers \u2014 revenue concentration risk",
+      "Hospitals invest in revenue cycle management technology to protect commercial reimbursement",
+      "Prior authorization automation and denial management become critical revenue protection tools",
+      "Revenue cycle management companies (RCM R1 RCM) see contract wins and expansion revenue",
+      "RCM stocks rally 10-20% as hospital IT spending on revenue optimization accelerates"
+    ],
+    "data_sources": [
+      "CMS hospital price transparency data (free, machine-readable per hospital)",
+      "CMS Hospital Compare data (free at data.cms.gov)",
+      "yfinance RCM, VEEV, MDRX, HIMS"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "CMS price transparency rule; Turquoise Health analytics; Health Affairs price variation studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cms_price_transparency_rcm_long",
+    "reject_reason": "bt_feasibility=3: CMS hospital price transparency data is massive and unstructured; parsing payer mix revenue shifts requires hospital-by-hospital analysis not automatable"
+  },
+  {
+    "idea_id": "PL393",
+    "created_at": "2026-05-27T04:32:35.063401+00:00",
+    "status": "rejected",
+    "name": "PACER Bankruptcy Filing Surge by Industry \u2192 Distressed Debt Opportunity \u2192 BX/OAK Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "Federal court PACER system tracks Chapter 11 bankruptcy filings (partially free summaries via bankruptcy research services). When monthly Chapter 11 filings in a specific industry (e.g., healthcare, retail, energy) spike >50% above trailing 12-month average, it signals a wave of distressed asset acquisition opportunities. Alternative asset managers with distressed debt/special situations funds (BX Blackstone, OAK Oaktree/Brookfield, APO) benefit from deploying dry powder at stressed valuations. Long BX/OAK when industry-specific bankruptcy filings surge.",
+    "causal_chain": [
+      "PACER/Epiq bankruptcy filings show industry-specific Ch. 11 filings >50% above 12mo avg (partially free at pacer.gov)",
+      "Industry-specific bankruptcy wave signals distressed asset acquisition opportunities at 30-50 cents on the dollar",
+      "Distressed debt funds (BX Credit, Oaktree/Brookfield, APO) deploy dry powder into high-yield opportunities",
+      "Distressed debt investments typically yield 15-25% IRR as companies emerge from restructuring",
+      "Alt asset managers earn carry on distressed fund returns \u2014 FRE (fee-related earnings) and carry both improve",
+      "BX, APO rally 10-20% as distressed deployment drives AUM growth and future carry realization"
+    ],
+    "data_sources": [
+      "Epiq/PACER bankruptcy filing data (partially free summaries)",
+      "American Bankruptcy Institute monthly filing statistics (free summary)",
+      "yfinance BX, APO, OWL, BAM"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "American Bankruptcy Institute; PACER; Debtwire/Reorg Research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "pacer_ch11_industry_surge_distressed",
+    "reject_reason": "bt_feasibility=3: PACER bankruptcy filing data requires paid account and manual categorization by industry; distressed debt alternative managers (BX, OAK) have diversified revenue making bankruptcy cycle attribution difficult"
+  },
+  {
+    "idea_id": "PL394",
+    "created_at": "2026-05-27T04:32:35.063595+00:00",
+    "status": "rejected",
+    "name": "USDA Cotton Classing Data \u2192 Quality Downgrade \u2192 Long Premium Cotton / Short Low-Grade Textile",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 months",
+    "thesis": "USDA AMS Cotton Division publishes daily cotton classing results during harvest season (free). When the percentage of cotton classified as 'Below Grade' or 'SLM and below' (Strict Low Middling) exceeds 40% of the harvest (vs normal 20-25%), it signals a quality-degraded crop from drought/rain damage. The quality premium between Middling (41) and SLM (51) cotton widens 5-15 cents/lb. Long ICE cotton futures (CT=F) on quality-driven supply tightness for deliverable grade.",
+    "causal_chain": [
+      "USDA AMS cotton classing data shows >40% of harvest below SLM grade (free at ams.usda.gov/mnreports/cnaacsc.pdf)",
+      "Quality degradation from drought stress or late-season rain reduces deliverable-grade cotton supply",
+      "ICE cotton futures deliverable supply tightens as below-grade cotton fails exchange standards",
+      "Quality premium between Middling and SLM widens from 3c to 10-15c/lb",
+      "ICE cotton nearby futures rally 10-20% as deliverable supply concern builds toward first notice day",
+      "Cotton merchants and textile recyclers with quality sorting capability capture spread margin"
+    ],
+    "data_sources": [
+      "USDA AMS Cotton Classing weekly/daily reports (free at ams.usda.gov)",
+      "USDA NASS Cotton Production forecast (free monthly)",
+      "yfinance CT=F"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA AMS Cotton Division; ICE cotton delivery specifications; National Cotton Council",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_cotton_classing_quality_premium",
+    "reject_reason": "bt_feasibility=3 and partially SHORT-SIDE: USDA cotton classing quality data requires manual aggregation; the short textile leg violates long-only constraint"
+  },
+  {
+    "idea_id": "PL395",
+    "created_at": "2026-05-27T04:32:35.063597+00:00",
+    "status": "rejected",
+    "name": "DOE LNG Export Authorization \u2192 Non-FTA Capacity Growth \u2192 Henry Hub Support / E&P Long",
+    "category": "F",
+    "asset_class": "commodities",
+    "horizon": "12-36 months",
+    "thesis": "DOE Office of Fossil Energy publishes LNG export authorization orders (free). Each non-FTA export authorization approves 1-2 Bcf/d of LNG export capacity, representing $5-10B in future nat gas demand. When DOE lifts its pause on new LNG export authorizations and issues 3+ new non-FTA approvals, it signals structural US nat gas demand growth of 5-10 Bcf/d over the next 5-7 years. Long Appalachian E&Ps (EQT, AR) and Gulf Coast pipeline operators (KMI, WMB) as LNG demand growth underpins Henry Hub floor.",
+    "causal_chain": [
+      "DOE issues new non-FTA LNG export authorizations after policy review (free at energy.gov/fecm/lng-authorizations)",
+      "Each authorization represents 1-2 Bcf/d of committed future nat gas demand \u2014 FID follows 12-24 months later",
+      "3+ new authorizations signal structural US nat gas demand growth of 5-10 Bcf/d by 2030",
+      "Henry Hub forward curve shifts up $0.50-1.00/MMBtu as market prices in demand growth",
+      "Appalachian E&Ps (EQT, AR) benefit from higher forward prices \u2014 increase hedging and drilling activity",
+      "E&Ps and midstream (KMI, WMB) rally 10-25% as LNG demand growth provides multi-year gas floor"
+    ],
+    "data_sources": [
+      "DOE FECM LNG export authorizations (free at energy.gov/fecm)",
+      "FERC LNG project tracker (free at ferc.gov/industries-data/natural-gas/lng)",
+      "yfinance EQT, AR, KMI, WMB, LNG"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "DOE FECM; FERC LNG; EIA LNG export forecasts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_lng_export_auth_natgas_demand",
+    "reject_reason": "bt_feasibility=3: DOE LNG export authorizations are ad hoc policy events subject to political reversal (Biden 2024 pause); Henry Hub price impact is diffuse and long-lagged"
+  },
+  {
+    "idea_id": "PL396",
+    "created_at": "2026-05-27T04:33:12.418366+00:00",
+    "status": "new",
+    "name": "FTC HSR Early Termination Grant Cluster \u2192 M&A Deal Acceleration \u2192 Investment Bank Advisory Revenue",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "FTC publishes early termination grants for HSR premerger filings (free). When the monthly count of early termination grants spikes >50% above trailing 6-month average, it signals FTC/DOJ is clearing deals faster \u2014 fewer second requests, reduced regulatory friction. M&A deal closings accelerate 1-2 quarters later, driving advisory fee revenue for investment banks. Long GS, MS, EVR, PJT when FTC early termination grants signal deal acceleration.",
+    "causal_chain": [
+      "FTC HSR early termination grants spike >50% above 6mo average (free at ftc.gov/enforcement/premerger-notification-program)",
+      "Increased early terminations signal reduced antitrust scrutiny \u2014 regulatory environment easing",
+      "Pending deals close faster \u2014 M&A advisory fee revenue recognized upon deal completion",
+      "Investment banks (GS, MS) and boutique advisors (EVR, PJT) see advisory revenue acceleration",
+      "Higher deal volumes also drive increased debt/equity financing revenue (underwriting fees)",
+      "Investment bank stocks rally 5-12% as M&A fee revenue beats drive earnings surprise"
+    ],
+    "data_sources": [
+      "FTC HSR early termination grants (free at ftc.gov)",
+      "FTC/DOJ annual HSR report (free)",
+      "yfinance GS, MS, EVR, PJT, LAZ"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "FTC HSR premerger data; FTC/DOJ annual HSR report; Dealogic M&A volume",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ftc_hsr_early_term_ma_advisory"
+  },
+  {
+    "idea_id": "PL397",
+    "created_at": "2026-05-27T04:33:12.418551+00:00",
+    "status": "new",
+    "name": "USDA Grain Transportation Report \u2192 Barge Rate/Rail Tariff Divergence \u2192 Modal Arbitrage Play",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USDA Agricultural Marketing Service publishes the weekly Grain Transportation Report (free). This includes barge rates, rail tariff indices, and truck rates for grain corridors. When the barge-to-rail cost ratio drops below 0.7 (barge becomes exceptionally cheap vs rail), grain shippers divert volume to barge. Long inland barge operators (KEX indirectly, ACGL) and short grain-dependent rails (NSC Norfolk Southern, UP Union Pacific) as modal shift drains rail volume in the Mississippi corridor.",
+    "causal_chain": [
+      "USDA GTR shows barge/rail cost ratio dropping below 0.7 \u2014 barge transportation 30%+ cheaper (free weekly at ams.usda.gov)",
+      "Grain shippers at Mississippi River origins switch from rail to barge for Gulf export movement",
+      "Barge operators see utilization rates rise from 75% to 90%+ \u2014 spot barge rates firm",
+      "Rail carload volumes for grain decline 10-15% in Mississippi corridor \u2014 NSC/UP affected",
+      "Barge operators benefit from volume growth and rate stability; rail operators lose contribution margin",
+      "Modal shift persists for 2-3 months until seasonal patterns or rate adjustments restore equilibrium"
+    ],
+    "data_sources": [
+      "USDA AMS Grain Transportation Report \u2014 barge rates, rail tariffs (free weekly)",
+      "USACE lock traffic volumes for verification (free)",
+      "yfinance NSC, UNP, KEX"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA AMS Grain Transportation Report; USACE lock data; USDA World Agricultural Supply and Demand",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_gtr_barge_rail_modal_arbitrage"
+  },
+  {
+    "idea_id": "PL398",
+    "created_at": "2026-05-27T04:33:12.418553+00:00",
+    "status": "new",
+    "name": "NOAA SPC Severe Weather Outbreak \u2192 Insured Loss Estimate \u2192 P&C Reinsurer Premium Hardening",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-6 months",
+    "thesis": "NOAA Storm Prediction Center (SPC) publishes real-time severe weather reports including tornado, hail, and wind damage (free). When cumulative severe weather events in a single season (March-June) exceed the 10-year average by >30% and PCS (Property Claims Services) preliminary industry loss estimates exceed $30B, reinsurance pricing hardens at the June/July renewals. Long P&C reinsurers (RNR, ACGL, RE) as rate hardening improves combined ratios on January renewals.",
+    "causal_chain": [
+      "NOAA SPC severe weather reports show tornado/hail events >30% above 10yr average (free at spc.noaa.gov)",
+      "PCS preliminary industry loss estimates exceed $30B for severe convective storms season",
+      "Primary insurers file rate increases and tighten underwriting \u2014 cede more risk to reinsurers",
+      "Reinsurance pricing hardens 5-15% at June/July renewal season",
+      "Reinsurers (RNR, ACGL, RE) see improved premium adequacy on January treaty renewals",
+      "Reinsurer stocks rally 5-15% as rate hardening improves forward combined ratio expectations"
+    ],
+    "data_sources": [
+      "NOAA SPC severe weather reports (free daily at spc.noaa.gov)",
+      "NOAA NCEI Billion-Dollar Weather and Climate Disasters (free at ncei.noaa.gov)",
+      "yfinance RNR, ACGL, RE, AIG"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "NOAA SPC; NCEI; PCS/Verisk catastrophe loss estimates; Guy Carpenter reinsurance analytics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_spc_severe_weather_reinsurer"
   }
 ]

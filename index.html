@@ -3817,6 +3817,29 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED CES6500000008 + JTS6200JOL + yfinance</span><span><code>backtests/PL338_bls_nurse_wage_accel_travel_nurse_long.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL367</span><h3>&#9733; BEA International Travel Receipts Surge &#8594; Long Hotel REITs</h3></div>
+    <div class="right">equities (HST, PK, MAR) &middot; ~42-day hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.40</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">44.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv">-17%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.40</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+25.6%</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>International travel receipts (BEA balance of payments) measure total foreign visitor spending in the US. When this surges &gt; 20% YoY, gateway city hotels experience elevated RevPAR through higher occupancy and ADR pricing power. Hotel REITs (HST, PK, MAR) own and operate properties in gateway cities (NYC, Miami, San Francisco, Los Angeles) that disproportionately benefit from international tourism demand.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BEA international travel receipts (quarterly, via FRED) show YoY growth &gt; 20%, long equal-weight HST+PK+MAR for 42 trading days. PK available from 2017; pre-2017 use HST+MAR. Minimum 90-day gap between signals.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events, win rate 6/6. Events span 2010-2023 covering post-GFC and post-COVID tourism recoveries. BEA data releases with ~75-day lag. MaxDD only -17%. Excess CAGR +25.6% vs SPY is strong but needs more events for statistical confidence.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED BEA travel receipts + yfinance</span><span><code>backtests/PL367_bea_travel_receipts_hotel_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -5756,7 +5779,7 @@ var META = {
   'C08 / C09':{t:[['SPY','long']], s:'inactive'},           // 10Y-2Y +0.43%, normal
   'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive'}, // Gold >> lumber → long TLT
   'N4':       {t:[['Semis','long']], s:'active'},            // Electronics orders up 11/12 mo
-  'R-N5':     {t:[['Semis','long']], s:'inactive'},          // TSMC Apr YoY +17.5% decelerating vs ~35% trail
+  'R-N5':     {t:[['Semis','long']], s:'defensive'},         // TSMC Apr YoY +17.5% decelerating vs ~35% trail
   'R-D11':    {t:[['Equity L/S','long']]},
   'Z4':       {t:[['Event Equity','long']]},                 // No known current Wells Notices
   'Z6':       {t:[['Event Equity','long']], s:'active'},     // DOJ vs NYP Mar 26; FTC merger trials
@@ -5782,7 +5805,7 @@ var META = {
   'PL5':      {t:[['Aggregates','long']], s:'inactive'},     // Permits/Completions = 0.99, below 1.3
   'O5':       {t:[['BTC Miners','long']], s:'active'},       // -3.07% difficulty drop May 2
   'O4':       {t:[['BTC Miners','long']], s:'inactive'},     // Mempool quiet, ~49K txns
-  'P6':       {t:[['BTC','long']], s:'inactive'},            // Global liquidity peaked Q4 2025
+  'P6':       {t:[['BTC','long']], s:'defensive'},           // Global liquidity peaked Q4 2025; contracting
   'P12':      {t:[['SPY','long'],['BTC','long']], s:'inactive'},
   'M3':       {t:[['ETH','long']], s:'inactive'},            // stETH at parity, no discount
   'A14':      {t:[['BTC','long']], s:'inactive'},            // Window closed Oct 2025
@@ -5869,7 +5892,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-05-26b';
+var CUR_VER = '2026-05-26c';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
@@ -5912,19 +5935,33 @@ function render() {
   var defCount = signals.filter(function(s) { return getStatus(s.id) === 'defensive'; }).length;
   if (countEl) countEl.textContent = activeCount + (defCount ? '/' + defCount : '');
 
-  // Build all active trade groups (convergence + singles)
+  // Build all active trade groups (convergence + singles) + anti-signals
   var allGroups = {};
+  var antiGroups = {}; // asset → defensive signals cautioning against that asset
   signals.forEach(function(sig) {
     var st = getStatus(sig.id);
-    var trades;
-    if (st === 'active') trades = sig.trades;
-    else if (st === 'defensive' && sig.defTrades) trades = sig.defTrades;
-    else return;
-    trades.forEach(function(t) {
-      var key = t.d + '|' + t.g;
-      if (!allGroups[key]) allGroups[key] = [];
-      allGroups[key].push({id: sig.id, name: sig.name, sharpe: sig.sharpe, cagr: sig.cagr, cardId: sig.cardId, defensive: st === 'defensive'});
-    });
+    var sigData = {id: sig.id, name: sig.name, sharpe: sig.sharpe, cagr: sig.cagr, cardId: sig.cardId, defensive: st === 'defensive'};
+    if (st === 'active') {
+      sig.trades.forEach(function(t) {
+        var key = t.d + '|' + t.g;
+        if (!allGroups[key]) allGroups[key] = [];
+        allGroups[key].push(sigData);
+      });
+    } else if (st === 'defensive') {
+      // Defensive signal: its bullish trades are the assets it's cautioning AGAINST
+      sig.trades.forEach(function(t) {
+        if (!antiGroups[t.g]) antiGroups[t.g] = [];
+        antiGroups[t.g].push(sigData);
+      });
+      // If it has defensive trades (e.g., C01 → long TLT), add those as active-side
+      if (sig.defTrades) {
+        sig.defTrades.forEach(function(t) {
+          var key = t.d + '|' + t.g;
+          if (!allGroups[key]) allGroups[key] = [];
+          allGroups[key].push(sigData);
+        });
+      }
+    }
   });
   var sortedGroups = Object.keys(allGroups)
     .sort(function(a,b) { return allGroups[b].length - allGroups[a].length; })
@@ -5941,11 +5978,13 @@ function render() {
       html += '<h3 style="margin:0 0 12px;font-size:14px;color:var(--good);">Convergence — multiple signals agree</h3><div style="display:grid;gap:12px;margin:0 0 16px;">';
       multiGroups.forEach(function(c) {
         var dc = c.dir === 'long' ? 'var(--good)' : 'var(--bad)';
+        var anti = antiGroups[c.group] || [];
         html += '<div style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:16px 20px;">';
         html += '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap;">';
         html += '<span style="color:' + dc + ';font:700 16px var(--mono);">' + c.dir.toUpperCase() + '</span>';
         html += '<span style="font-weight:600;font-size:15px;">' + c.group + '</span>';
-        html += '<span style="background:' + dc + ';color:var(--bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;">' + c.signals.length + ' signals agree</span>';
+        html += '<span style="background:' + dc + ';color:var(--bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;">' + c.signals.length + ' for</span>';
+        if (anti.length > 0) html += '<span style="background:var(--warn);color:var(--bg);padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;">' + anti.length + ' against</span>';
         html += '</div><div style="display:flex;gap:6px;flex-wrap:wrap;">';
         c.signals.forEach(function(s) {
           var sn = s.name.length > 30 ? s.name.substring(0,30) + '…' : s.name;
@@ -5953,7 +5992,19 @@ function render() {
           var metrics = ' <span style="color:var(--fg-dim);font-family:var(--mono);font-size:10.5px;">S:' + s.sharpe.toFixed(2) + ' C:' + s.cagr.toFixed(0) + '%</span>';
           html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="background:var(--bg-3);padding:4px 10px;border-radius:4px;font-size:12px;border:1px solid var(--border);text-decoration:none;color:inherit;cursor:pointer;display:inline-block;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + metrics + defBadge + '</a>';
         });
-        html += '</div></div>';
+        html += '</div>';
+        if (anti.length > 0) {
+          html += '<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
+          html += '<div style="font-size:11px;color:var(--warn);font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.05em;">Against — defensive on ' + c.group + '</div>';
+          html += '<div style="display:flex;gap:6px;flex-wrap:wrap;">';
+          anti.forEach(function(s) {
+            var sn = s.name.length > 30 ? s.name.substring(0,30) + '…' : s.name;
+            var metrics = ' <span style="color:var(--fg-dim);font-family:var(--mono);font-size:10.5px;">S:' + s.sharpe.toFixed(2) + ' C:' + s.cagr.toFixed(0) + '%</span>';
+            html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="background:rgba(251,191,36,0.08);padding:4px 10px;border-radius:4px;font-size:12px;border:1px solid rgba(251,191,36,0.25);text-decoration:none;color:var(--warn);cursor:pointer;display:inline-block;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + metrics + '</a>';
+          });
+          html += '</div></div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
     }
@@ -5963,16 +6014,28 @@ function render() {
       singleGroups.forEach(function(c) {
         var dc = c.dir === 'long' ? 'var(--good)' : 'var(--bad)';
         var s = c.signals[0];
+        var anti = antiGroups[c.group] || [];
         var sn = s.name.length > 28 ? s.name.substring(0,28) + '…' : s.name;
         var defBadge = s.defensive ? ' <span style="color:var(--warn);font-size:10px;">(def)</span>' : '';
         var metrics = '<span style="color:var(--fg-dim);font-family:var(--mono);font-size:10.5px;">S:' + s.sharpe.toFixed(2) + ' C:' + s.cagr.toFixed(0) + '%</span>';
-        html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;cursor:pointer;display:block;">';
+        html += '<div style="background:var(--bg-2);border:2px solid ' + dc + ';border-radius:10px;padding:12px 16px;">';
+        html += '<a href="#" class="sig-goto" data-cardid="' + s.cardId + '" style="text-decoration:none;color:inherit;cursor:pointer;display:block;">';
         html += '<div style="display:flex;align-items:baseline;gap:8px;justify-content:space-between;flex-wrap:wrap;">';
         html += '<span style="color:' + dc + ';font:700 13px var(--mono);">' + c.dir.toUpperCase() + ' ' + c.group + '</span>';
         html += metrics;
         html += '</div>';
         html += '<div style="margin-top:6px;font-size:12px;"><strong>' + s.id + '</strong> <span style="color:var(--fg-dim);">' + sn + '</span>' + defBadge + '</div>';
         html += '</a>';
+        if (anti.length > 0) {
+          html += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:11px;">';
+          html += '<span style="color:var(--warn);font-weight:600;">' + anti.length + ' against: </span>';
+          anti.forEach(function(a, i) {
+            html += '<a href="#" class="sig-goto" data-cardid="' + a.cardId + '" style="color:var(--warn);text-decoration:none;font-size:11px;">' + a.id + '</a>';
+            if (i < anti.length - 1) html += ', ';
+          });
+          html += '</div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
     }
