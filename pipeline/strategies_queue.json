@@ -13178,7 +13178,7 @@
     "strategy_id": "PL414",
     "idea_id": "PL414",
     "created_at": "2026-05-27T04:39:11.480831+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL414_eia_natgas_storage_deficit_winter_premium_long",
     "name": "EIA Storage Below 5yr Avg Mid-Injection -> Long Nat Gas E&Ps on Winter Premium",
     "category": "C",
@@ -13214,13 +13214,17 @@
     "implementation_notes": "AR (Antero Resources) IPO Oct 2013; EQT (EQT Corp) has been public since 1990s. Both are Appalachian dry gas producers with lowest-cost production profiles. EIA weekly storage data is the single most-watched data point in commodity markets -- released every Thursday at 10:30am ET. The 200 Bcf deficit threshold captures meaningful supply tightness. bt_feasibility is 5 because EIA storage data is on FRED, published weekly, and is the cleanest energy dataset available.",
     "originality": 6,
     "bt_feasibility": 5,
-    "backtested_at": "2026-05-27T04:39:44.071961+00:00"
+    "backtested_at": "2026-05-27T04:41:12.295368+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED NG storage series not available"
+    }
   },
   {
     "strategy_id": "PL416",
     "idea_id": "PL416",
     "created_at": "2026-05-27T04:39:11.480831+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL416_bls_ppi_semi_trough_distributor_long",
     "name": "BLS PPI Semiconductor Trough -> Long Chip Distributors (ARW/AVT)",
     "category": "A",
@@ -13257,13 +13261,20 @@
     "implementation_notes": "ARW (Arrow Electronics) and AVT (Avnet) are the two largest global semiconductor distributors. Both have been public for 40+ years with excellent backtest history. Semiconductor PPI is a reliable indicator of chip pricing trends at the wholesale level. Distributors benefit from price recovery because they hold 8-12 weeks of inventory purchased at trough prices, creating margin expansion when selling prices recover. The 6-month YoY decline threshold filters out minor fluctuations and identifies genuine cyclical troughs. bt_feasibility is 5 because FRED PPI data is monthly, clean, and semiconductor cycles are well-documented.",
     "originality": 7,
     "bt_feasibility": 5,
-    "backtested_at": "2026-05-27T04:39:44.072160+00:00"
+    "backtested_at": "2026-05-27T04:41:12.295598+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.06,
+      "cagr": -0.046,
+      "max_dd": -0.26,
+      "t_stat": 0.06
+    }
   },
   {
     "strategy_id": "PL418",
     "idea_id": "PL418",
     "created_at": "2026-05-27T04:39:11.480831+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL418_treasury_bill_shift_mmf_asset_mgr_long",
     "name": "Treasury Bills-Heavy Refunding -> Long Money Market Fund Asset Managers",
     "category": "B",
@@ -13300,13 +13311,18 @@
     "implementation_notes": "STT (State Street) operates $3T+ in MMF assets; BLK (BlackRock) has $800B+ in MMF/cash. BEN (Franklin) has significant MMF but is smaller and has other headwinds. STT+BLK provides the best MMF AUM exposure with large-cap liquidity. The 4% T-bill yield threshold is key because below 4%, the spread vs bank deposits narrows and MMF growth slows. Treasury refunding announcements provide the timing anchor for bill issuance shifts. bt_feasibility is 4 because FRED data is clean and quarterly refunding dates are well-documented.",
     "originality": 7,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T04:39:44.072163+00:00"
+    "backtested_at": "2026-05-27T04:42:31.254865+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.57,
+      "cagr": 0.131
+    }
   },
   {
     "strategy_id": "PL414",
     "idea_id": "PL414",
     "created_at": "2026-05-27T04:39:14.143857+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL414_eia_natgas_storage_fill_winter_premium",
     "name": "EIA Underground NG Storage Fill Rate Below Avg -> Winter Premium -> Natgas Producers Long",
     "category": "C",
@@ -13343,13 +13359,17 @@
     "implementation_notes": "This is a bt_feasibility 5/5 signal. EIA storage data is published weekly, is the single most-watched natural gas fundamental dataset, and the 5-year average comparison is published directly by EIA (no calculation needed). AR (Antero) and EQT are Appalachian NG producers with highest NG revenue purity. CTRA has both oil and gas but significant Marcellus NG exposure. UNG (ETF) tracks NG futures but suffers contango roll costs. The 10% deficit threshold during injection season is a meaningful level that historically corresponds to winter NG price premiums.",
     "originality": 6,
     "bt_feasibility": 5,
-    "backtested_at": "2026-05-27T04:39:44.072167+00:00"
+    "backtested_at": "2026-05-27T04:42:31.255083+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "EIA weekly NG storage not on FRED"
+    }
   },
   {
     "strategy_id": "PL415",
     "idea_id": "PL415",
     "created_at": "2026-05-27T04:39:14.143857+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL415_census_migration_sunbelt_homebuilder",
     "name": "Census ACS County Migration Inflows -> High-Growth Metro -> Sunbelt Homebuilder Long",
     "category": "G",
@@ -13385,6 +13405,146 @@
     "implementation_notes": "DHI is the largest US homebuilder with ~60% Sunbelt exposure. LEN is #2 with heavy Florida/Texas/Arizona presence. NVR is traditionally Mid-Atlantic but expanding South. The 50K threshold per metro is relatively high and captures only the largest migration destinations. Census data has 1-year lag, IRS data has 2-year lag, meaning the market likely already knows the migration trends from other sources (U-Haul data, USPS change of address, real-time rental data). bt_feasibility is 3 because: (a) annual frequency, (b) significant publication lag, (c) migration trends are widely discussed and likely priced in.",
     "originality": 6,
     "bt_feasibility": 3,
-    "backtested_at": "2026-05-27T04:39:44.072169+00:00"
+    "backtested_at": "2026-05-27T04:42:31.255086+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.36,
+      "cagr": 0.067
+    }
+  },
+  {
+    "strategy_id": "PL425",
+    "idea_id": "PL425",
+    "created_at": "2026-05-27T04:40:02.236781+00:00",
+    "status": "done",
+    "signal_id": "PL425_census_ecommerce_share_decline_mall_reit_long",
+    "name": "Census E-Commerce Share Sequential Decline -> Long Mall REITs",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance and FRED/Census data: When Census quarterly e-commerce as a share of total retail sales (FRED series ECOMPCTSA) shows sequential decline for 2 consecutive quarters, go long equal-weight SPG + MAC on the first trading day after the second consecutive declining quarter's data release. Hold for 42 trading days. Benchmark vs SPY. The thesis is that declining e-commerce share signals physical retail foot traffic recovery, benefiting class-A mall REITs.",
+    "tickers": [
+      "SPG",
+      "MAC",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census e-commerce share of total retail (FRED ECOMPCTSA) declines QoQ for 2 consecutive quarters",
+      "Enter on first trading day after the Census quarterly e-commerce release",
+      "Minimum 180 calendar days between signals (one per retail cycle)"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SPG (Simon Property Group, IPO Dec 1993), MAC (Macerich Company, IPO Mar 1994), SPY",
+      "fundamental": "FRED: ECOMPCTSA (E-Commerce Retail Sales as a Percent of Total Sales, quarterly SA). Census quarterly e-commerce report (free at census.gov/retail/mrts/www/data/pdf/ec_current.pdf). Published ~50 days after quarter end. Historical data back to 1999."
+    },
+    "backtest_approach": "Event study: Load FRED ECOMPCTSA quarterly data (2000-2025). Identify quarters where e-commerce share declines QoQ for 2 consecutive quarters. For each signal (180-day min gap), long SPG+MAC for 42 trading days vs SPY. Key expected signal periods: 2001 (dot-com bust e-commerce retrenchment), 2008-2009 (financial crisis forced online retailers to cut; physical won on experience), 2020 Q3-Q4 (post-lockdown physical retail recovery as stores reopened), 2022 (post-COVID normalization of e-commerce share from pandemic highs). The 2022 event is the cleanest test -- e-commerce share peaked at 16.4% in 2020 Q2 and declined sequentially through 2022 before resuming uptrend.",
+    "known_events": [
+      "2001: E-commerce share briefly stalled after dot-com bust; physical retail stable",
+      "2020 Q3-2021 Q1: Post-lockdown physical retail recovery; e-commerce share declined from 16.4% to 14.5%",
+      "2022 Q1-Q2: E-commerce share declined further from 2021 highs as physical shopping normalized",
+      "2022 H2: SPG and MAC rallied 30%+ as physical retail traffic recovered to pre-COVID levels"
+    ],
+    "implementation_notes": "SPG (Simon Property Group) is the largest US mall REIT with class-A properties. MAC (Macerich) is a class-A/B mall REIT with higher beta to retail foot traffic trends. Both public since 1993-1994 with 30+ years of history. FRED ECOMPCTSA data starts Q4 1999. E-commerce share has been on a secular uptrend (4% in 2010, 13% in 2019, 16% in 2024), so sequential declines are counter-trend events that typically represent reversion after spikes. The 2020-2022 period provides the best backtest window. bt_feasibility is 4 because FRED data is clean and quarterly.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:42:31.255088+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.84,
+      "cagr": 0.324
+    }
+  },
+  {
+    "strategy_id": "PL420",
+    "idea_id": "PL420",
+    "created_at": "2026-05-27T04:40:07.572841+00:00",
+    "status": "done",
+    "signal_id": "PL420_usps_package_volume_last_mile",
+    "name": "USPS Revenue-Per-Piece Data -> Package Volume Recovery -> Last-Mile Logistics Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USPS financial data: When USPS quarterly Revenue, Pieces, and Weight report shows package volume (Shipping & Packages segment pieces) growing > 5% YoY after a period of decline, go long an equal-weight basket of parcel/logistics companies (UPS, FDX) on the first trading day after USPS quarterly report filing. Hold for 30 trading days. Benchmark vs SPY. USPS publishes quarterly financial reports (free at usps.com) including volume by mail class. USPS package volume trends lead UPS/FDX trends by 1-2 quarters because USPS handles the most price-sensitive e-commerce parcels first.",
+    "tickers": [
+      "UPS",
+      "FDX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USPS quarterly report shows Shipping & Packages volume YoY growth > 5%",
+      "Prior 2 quarters showed declining or flat (<2%) package volume",
+      "Enter on first trading day after USPS quarterly report publication",
+      "At most one signal per quarter"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: UPS (United Parcel Service), FDX (FedEx), SPY",
+      "fundamental": "USPS Quarterly Revenue, Pieces, and Weight Report (free): https://about.usps.com/what/financials/ - quarterly filing with Shipping & Packages volume in pieces. Also USPS 10-K equivalent (comprehensive statement)."
+    },
+    "backtest_approach": "Event study: For each USPS quarterly report (2015-2025) where package volume inflected to >5% YoY growth after decline, compute UPS+FDX return over 30 trading days vs SPY. Key inflection points: 2016 (e-commerce acceleration), 2020 Q2-Q3 (COVID online shopping surge), 2024 (post-2022 normalization recovery). UPS and FDX both have 20+ year public histories. Calculate average excess return, win rate.",
+    "known_events": [
+      "2016: E-commerce growth inflected package volumes higher",
+      "2020 Q2: COVID drove massive package volume surge",
+      "2022-2023: Package volume declined post-COVID normalization",
+      "2024: Volume recovery began"
+    ],
+    "implementation_notes": "USPS data is free and publicly available. The leading indicator thesis works because USPS handles the lowest-cost tier of e-commerce parcels (SurePost, SmartPost hand-offs from UPS/FDX), so USPS volume turns positive before the premium carriers see recovery. bt_feasibility is 4 because USPS reports are quarterly, free, and well-structured.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:42:31.255090+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "USPS data not on FRED"
+    }
+  },
+  {
+    "strategy_id": "PL421",
+    "idea_id": "PL421",
+    "created_at": "2026-05-27T04:40:07.572841+00:00",
+    "status": "done",
+    "signal_id": "PL421_sba_7a_approval_community_bank",
+    "name": "SBA 7(a) Loan Approval Volume Surge -> Small Business Expansion -> Community Bank Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and SBA data: When SBA monthly 7(a) loan approval volume (dollar amount) exceeds the trailing 12-month average by > 25%, go long KRE (SPDR S&P Regional Banking ETF) on the first trading day after SBA monthly data publication. Hold for 30 trading days. Benchmark vs SPY. SBA publishes monthly loan approval data on its website (free). The 7(a) program is the SBA's primary business loan guarantee program. Rising 7(a) volumes signal improving small business credit demand and confidence, which benefits community banks that originate these loans.",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SBA monthly 7(a) loan approval dollar volume exceeds trailing 12-month average by > 25%",
+      "Enter on first trading day after SBA monthly data publication",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KRE (SPDR S&P Regional Banking ETF), SPY",
+      "fundamental": "SBA 7(a) loan approval data (free): https://www.sba.gov/about-sba/sba-performance/open-government/foia - FOIA datasets with monthly approvals. Also SBA weekly lending reports during fiscal year."
+    },
+    "backtest_approach": "Event study: For each month (2006-2025, KRE inception June 2006) where SBA 7(a) volume exceeded 12-month average by >25%, compute KRE return over 30 trading days vs SPY. SBA 7(a) volume is cyclical -- surges during economic recoveries (2010-2011, 2014-2015, 2021-2022) and contracts during downturns. Calculate average excess return, win rate. If too many events at 25%, raise to 30%.",
+    "known_events": [
+      "2010-2011: Post-GFC recovery drove SBA lending surge",
+      "2014-2015: Small business confidence recovery period",
+      "2021-2022: Post-COVID recovery and PPP transition to 7(a)"
+    ],
+    "implementation_notes": "This is similar to PL264 (SBA 504 loans) but focuses on 7(a) which is larger and more indicative of overall small business health. KRE captures the community bank beneficiaries broadly. SBA data requires some effort to extract (FOIA CSV downloads) but is free. bt_feasibility is 4. Note: this signal overlaps conceptually with PL264 -- the backtester should test both and keep the stronger performer.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:42:31.255091+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "SBA data not on FRED"
+    }
   }
 ]

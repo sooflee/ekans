@@ -11367,7 +11367,7 @@
   {
     "idea_id": "PL420",
     "created_at": "2026-05-27T04:38:30.232221+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "USPS Revenue-Per-Piece Data \u2192 Package Volume Recovery \u2192 Last-Mile Logistics Competitor Signal",
     "category": "E",
     "asset_class": "equities",
@@ -11395,7 +11395,7 @@
   {
     "idea_id": "PL421",
     "created_at": "2026-05-27T04:38:30.232446+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "SBA 7(a) Loan Approval Volume Surge \u2192 Small Business Expansion Wave \u2192 Community Bank NII Growth",
     "category": "E",
     "asset_class": "equities",
@@ -11423,7 +11423,7 @@
   {
     "idea_id": "PL422",
     "created_at": "2026-05-27T04:38:30.232449+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "BLM Grazing Permit AUM Fee Increase \u2192 Ranching Cost Inflation \u2192 Beef Supply Contraction \u2192 Cattle Futures Long",
     "category": "C",
     "asset_class": "commodities",
@@ -11446,12 +11446,13 @@
     "bt_feasibility": 3,
     "source_reference": "BLM grazing program data; USDA NASS Cattle Inventory; Public Lands Council",
     "research_phase": "pipeline_scout",
-    "dedup_key": "blm_grazing_fee_cattle_supply"
+    "dedup_key": "blm_grazing_fee_cattle_supply",
+    "reject_reason": "bt_feasibility=3: BLM grazing AUM fee changes are annual/political; cattle futures response to marginal cost changes is negligible relative to feed costs and demand factors"
   },
   {
     "idea_id": "PL423",
     "created_at": "2026-05-27T04:39:14.034566+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "OSHA Industry Injury Rate Spike \u2192 Workers Comp Premium Hardening \u2192 Specialty Insurer Long",
     "category": "E",
     "asset_class": "equities",
@@ -11474,12 +11475,13 @@
     "bt_feasibility": 3,
     "source_reference": "BLS SOII; NCCI rate filings; OSHA data initiative",
     "research_phase": "pipeline_scout",
-    "dedup_key": "osha_injury_rate_spike_workcomp"
+    "dedup_key": "osha_injury_rate_spike_workcomp",
+    "reject_reason": "bt_feasibility=3: OSHA injury rate data is annual with 1-2 year lag; workers comp premium cycles are driven by combined ratios not just frequency, requiring insurer-specific analysis"
   },
   {
     "idea_id": "PL424",
     "created_at": "2026-05-27T04:39:14.034775+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "FDA Biosimilar Approval Wave \u2192 PBM Formulary Switching \u2192 Biosimilar Manufacturer Revenue Acceleration",
     "category": "E",
     "asset_class": "equities",
@@ -11502,12 +11504,13 @@
     "bt_feasibility": 3,
     "source_reference": "FDA biosimilar data; IQVIA biosimilar market reports; CMS drug pricing data",
     "research_phase": "pipeline_scout",
-    "dedup_key": "fda_biosimilar_wave_formulary_switch"
+    "dedup_key": "fda_biosimilar_wave_formulary_switch",
+    "reject_reason": "bt_feasibility=3: FDA biosimilar approvals are ad hoc events; mapping to specific manufacturer revenue requires PBM formulary switching timelines that are not publicly available"
   },
   {
     "idea_id": "PL425",
     "created_at": "2026-05-27T04:39:14.034778+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Census E-Commerce Share Sequential Decline \u2192 Physical Retail Recovery \u2192 Mall REIT / Department Store Long",
     "category": "E",
     "asset_class": "equities",

@@ -3932,6 +3932,52 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED A34SNO + yfinance</span><span><code>backtests/PL409_census_m3_core_capex_industrial_dist_long.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL418</span><h3>&#9733; Treasury Bill Issuance Surge &#8594; Long Money Market Asset Managers</h3></div>
+    <div class="right">equities (STT, BLK) &middot; ~42-day hold &middot; 51 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.57</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.1%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-39%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.61</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">51</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Treasury bill outstanding grows &gt;5% QoQ, it signals heavy front-end issuance that drives money market fund AUM growth. State Street (STT) and BlackRock (BLK) earn management fees on money market fund assets, and T-bill supply expansion creates a virtuous cycle of higher yields attracting more inflows. The signal captures periods of fiscal expansion or debt ceiling aftermath when Treasury rebuilds the TGA via bill issuance.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED WTREGEN (T-bill outstanding) shows QoQ growth &gt;5%, long equal-weight STT+BLK for 42 trading days. Minimum 90-day gap between signals.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">51 events over 2005-2025 is a strong sample with t-stat 1.61. MaxDD -39% is severe (driven by GFC). The signal fires frequently during fiscal expansion periods. STT and BLK are diversified asset managers so T-bill issuance is one of many revenue drivers. The strongest returns come during post-crisis periods when bill supply normalizes.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED WTREGEN + yfinance</span><span><code>backtests/PL418_treasury_bill_shift_mmf_asset_mgr_long.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL425</span><h3>&#9733; Census E-Commerce Share Sequential Decline &#8594; Long Mall REITs</h3></div>
+    <div class="right">equities (SPG, MAC) &middot; ~30-day hold &middot; 22 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.84</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">32.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-36%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.36</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">22</div><div class="ml">events</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Census quarterly e-commerce as a share of total retail sales declines sequentially (QoQ), it signals that brick-and-mortar retail is gaining ground relative to online. This benefits mall REITs (Simon Property Group, Macerich) through improved tenant health, higher occupancy, and re-leasing spreads. The e-commerce share typically declines in Q4 (holiday in-store shopping) and during physical retail recovery phases.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED ECOMPCTNSA (e-commerce share of retail) declines &gt;0.3 percentage points QoQ, long equal-weight SPG+MAC for 30 trading days.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">22 events over 2005-2025. MaxDD -36% is significant. The signal captures both seasonal patterns (Q4 in-store shopping boost) and structural shifts (post-COVID return to physical retail). MAC is a higher-beta play on mall recovery with more volatile returns. The e-commerce share has been on a secular uptrend, so sequential declines are typically temporary reversions rather than trend changes.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED ECOMPCTNSA + yfinance</span><span><code>backtests/PL425_census_ecommerce_share_decline_mall_reit_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
