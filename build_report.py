@@ -195,7 +195,29 @@ def load_results():
             "excess_cagr": data.get("excess_cagr"),
             "bench_sharpe": data.get("bench_sharpe"),
             "fail_reason": data.get("reason") if data.get("status") == "fail" else None,
+            "net_sharpe": data.get("net_sharpe"),
+            "net_cagr": data.get("net_cagr"),
+            "cost_drag": data.get("cost_drag"),
+            "is_sharpe": data.get("is_sharpe"),
+            "oos_sharpe": data.get("oos_sharpe"),
+            "is_cagr": data.get("is_cagr"),
+            "oos_cagr": data.get("oos_cagr"),
         })
+
+    # Merge BH-adjusted p-values if available
+    mt_path = RESULTS / "_multiple_testing.json"
+    if mt_path.exists():
+        try:
+            with open(mt_path) as f:
+                mt_data = json.load(f)
+            for r in results:
+                mt = mt_data.get(r["id"])
+                if mt:
+                    r["bh_significant"] = mt.get("bh_significant")
+                    r["p_value"] = mt.get("p_value")
+        except Exception:
+            pass
+
     return results
 
 
@@ -254,6 +276,12 @@ def render_html(results):
             "end": r["end"],
             "bench_cagr": r["bench_cagr"],
             "fail_reason": r["fail_reason"],
+            "net_sharpe": r.get("net_sharpe"),
+            "net_cagr": r.get("net_cagr"),
+            "cost_drag": r.get("cost_drag"),
+            "is_sharpe": r.get("is_sharpe"),
+            "oos_sharpe": r.get("oos_sharpe"),
+            "bh_sig": r.get("bh_significant"),
         }
         table_data.append(row)
 
@@ -845,13 +873,16 @@ function buildCard(r) {
     ? '<span class="card-status-badge fail">FAIL</span>'
     : '<span class="card-status-badge ok">OK</span>';
 
+  const bhBadge = r.bh_sig === true ? '<span class="card-status-badge ok" title="Survives BH multiple-testing correction">BH</span>'
+    : r.bh_sig === false ? '<span class="card-status-badge fail" title="Does not survive BH correction">BH</span>' : '';
+
   let collapsed = '<div class="card-collapsed">' +
     '<div class="card-swatch" style="background:' + swatchColor + '"></div>' +
     '<span class="card-name">' + escHtml(r.name) + '</span>' +
     '<div class="card-inline-metrics">' +
       '<span><span class="lbl">Sh</span><span class="' + shCls + '">' + shText + '</span></span>' +
       '<span><span class="lbl">CAGR</span><span class="' + cgCls + '">' + cgText + '</span></span>' +
-      statusBadge +
+      bhBadge + statusBadge +
     '</div>' +
   '</div>';
 
@@ -868,9 +899,16 @@ function buildCard(r) {
     ["Hit", fmtPct(r.hit, 1), ""],
     ["BenchCAGR", fmtPct(r.bench_cagr), ""],
   ];
+  if (r.net_sharpe != null) metrics.push(["Net Sharpe", fmtNum(r.net_sharpe), colorCls(r.net_sharpe, "sharpe")]);
+  if (r.net_cagr != null) metrics.push(["Net CAGR", fmtPct(r.net_cagr), colorCls(r.net_cagr, "cagr")]);
+  if (r.is_sharpe != null) metrics.push(["IS Sharpe", fmtNum(r.is_sharpe), colorCls(r.is_sharpe, "sharpe")]);
+  if (r.oos_sharpe != null) metrics.push(["OOS Sharpe", fmtNum(r.oos_sharpe), colorCls(r.oos_sharpe, "sharpe")]);
   metrics.forEach(([label, val, cls]) => {
     details += '<div class="card-m"><div class="ml">' + label + '</div><div class="mv ' + cls + '">' + val + '</div></div>';
   });
+  if (r.bh_sig != null) {
+    details += '<div class="card-m"><div class="ml">BH Test</div><div class="mv ' + (r.bh_sig ? 'pos' : 'neg') + '">' + (r.bh_sig ? 'PASS' : 'FAIL') + '</div></div>';
+  }
   details += '</div>';
 
   // Rule / description

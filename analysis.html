@@ -1,0 +1,2837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Analysis — Multiple Testing, Costs & Correlation</title>
+<style>
+:root {
+  --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
+  --fg: #e6e9ef; --fg-dim: #9ca3af;
+  --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
+  --border: #2d3548;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+h1 { font-size: 1.5em; margin-bottom: 4px; }
+h2 { font-size: 1.2em; margin: 40px 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.sub { color: var(--fg-dim); font-size: 13px; margin-bottom: 24px; }
+.stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 16px 0; }
+.stat-box { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; min-width: 140px; }
+.stat-box .v { font-size: 1.8em; font-weight: 700; font-family: "SF Mono", monospace; }
+.stat-box .l { color: var(--fg-dim); font-size: 12px; margin-top: 2px; }
+.pos { color: var(--good); } .neg { color: var(--bad); } .dim { color: var(--fg-dim); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 24px; }
+th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--fg-dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+tr.sig { background: rgba(52,211,153,0.06); }
+tr.not-sig { opacity: 0.6; }
+.verdict { font-weight: 700; }
+tr.sig .verdict { color: var(--good); }
+tr.not-sig .verdict { color: var(--fg-dim); }
+.name-col { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cluster { margin: 4px 0; padding: 6px 10px; background: var(--bg-2); border-radius: 4px; font-size: 13px; }
+.scroll-x { overflow-x: auto; }
+canvas { display: block; margin: 12px 0; }
+.section-note { color: var(--fg-dim); font-size: 12px; margin: 8px 0 16px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Signal Analysis Report</h1>
+<p class="sub">Multiple-testing correction, transaction costs, in-sample/out-of-sample, and cross-signal correlation</p>
+
+<!-- ===== Multiple Testing ===== -->
+<h2>1. Multiple-Testing Correction (Benjamini-Hochberg)</h2>
+<p class="section-note">
+With 285 signals tested, some will look significant by chance alone.
+The BH procedure controls the False Discovery Rate at 5%: of the signals marked "YES",
+at most 5% are expected to be false positives.
+</p>
+
+<div class="stat-row">
+  <div class="stat-box"><div class="v">285</div><div class="l">signals tested</div></div>
+  <div class="stat-box"><div class="v pos">26</div><div class="l">survive BH @ 5% FDR</div></div>
+  <div class="stat-box"><div class="v neg">259</div><div class="l">rejected</div></div>
+  <div class="stat-box"><div class="v">9%</div><div class="l">survival rate</div></div>
+</div>
+
+<div class="scroll-x">
+<table>
+<thead><tr><th>ID</th><th>Name</th><th>t-stat</th><th>N days</th><th>p-value</th><th>BH threshold</th><th>Survives?</th><th>Sharpe</th><th>CAGR</th></tr></thead>
+<tbody><tr class="sig">
+<td>A14_btc_halving</td><td class="name-col">A14 BTC halving cycle</td>
+<td>4.93</td><td>4268</td>
+<td>0.0000</td><td>0.0002</td>
+<td class="verdict">YES</td>
+<td>1.20</td>
+<td>49.8%</td>
+</tr><tr class="sig">
+<td>V3_felder_margin_debt_gdp</td><td class="name-col">V3 Felder margin-debt/GDP roll</td>
+<td>4.34</td><td>7901</td>
+<td>0.0000</td><td>0.0004</td>
+<td class="verdict">YES</td>
+<td>0.78</td>
+<td>11.2%</td>
+</tr><tr class="sig">
+<td>P6_howell_liquidity_btc</td><td class="name-col">P6 Howell Liquidity BTC</td>
+<td>4.29</td><td>4269</td>
+<td>0.0000</td><td>0.0005</td>
+<td class="verdict">YES</td>
+<td>1.04</td>
+<td>42.9%</td>
+</tr><tr class="sig">
+<td>V9_hoffstein_ensemble</td><td class="name-col">V9 Hoffstein 8-model trend ensemble</td>
+<td>4.21</td><td>7900</td>
+<td>0.0000</td><td>0.0007</td>
+<td class="verdict">YES</td>
+<td>0.75</td>
+<td>5.9%</td>
+</tr><tr class="sig">
+<td>F03_margin_debt_yoy</td><td class="name-col">F03 Margin debt YoY</td>
+<td>4.01</td><td>7900</td>
+<td>0.0001</td><td>0.0009</td>
+<td class="verdict">YES</td>
+<td>0.72</td>
+<td>11.5%</td>
+</tr><tr class="sig">
+<td>H06_mvrv_zscore</td><td class="name-col">H06 MVRV z-score proxy</td>
+<td>3.79</td><td>3820</td>
+<td>0.0002</td><td>0.0011</td>
+<td class="verdict">YES</td>
+<td>0.97</td>
+<td>45.5%</td>
+</tr><tr class="sig">
+<td>C02_utilities_spy</td><td class="name-col">C02 Utilities/SPY (Gayed)</td>
+<td>3.77</td><td>6632</td>
+<td>0.0002</td><td>0.0012</td>
+<td class="verdict">YES</td>
+<td>0.74</td>
+<td>8.4%</td>
+</tr><tr class="sig">
+<td>C09_yield_curve_10y3m</td><td class="name-col">C09 Yield curve (10Y-3M) inversion timer</td>
+<td>3.76</td><td>8386</td>
+<td>0.0002</td><td>0.0014</td>
+<td class="verdict">YES</td>
+<td>0.65</td>
+<td>10.5%</td>
+</tr><tr class="sig">
+<td>D06_idio_vol</td><td class="name-col">D06 Idiosyncratic vol puzzle (long low IV, short high IV)</td>
+<td>-3.81</td><td>289</td>
+<td>0.0002</td><td>0.0016</td>
+<td class="verdict">YES</td>
+<td>-0.78</td>
+<td>-20.3%</td>
+</tr><tr class="sig">
+<td>C08_yield_curve_10y2y</td><td class="name-col">C08 Yield curve (10Y-2Y) inversion timer</td>
+<td>3.74</td><td>8386</td>
+<td>0.0002</td><td>0.0018</td>
+<td class="verdict">YES</td>
+<td>0.65</td>
+<td>10.5%</td>
+</tr><tr class="sig">
+<td>H11_btc_correlation_regime</td><td class="name-col">H11 BTC corr-regime sized</td>
+<td>3.67</td><td>4210</td>
+<td>0.0002</td><td>0.0019</td>
+<td class="verdict">YES</td>
+<td>0.90</td>
+<td>32.4%</td>
+</tr><tr class="sig">
+<td>F09_golden_cross</td><td class="name-col">F09 Golden Cross 50/200</td>
+<td>3.55</td><td>6636</td>
+<td>0.0004</td><td>0.0021</td>
+<td class="verdict">YES</td>
+<td>0.69</td>
+<td>8.4%</td>
+</tr><tr class="sig">
+<td>H08_nupl</td><td class="name-col">H08 NUPL proxy</td>
+<td>3.44</td><td>3905</td>
+<td>0.0006</td><td>0.0023</td>
+<td class="verdict">YES</td>
+<td>0.87</td>
+<td>33.8%</td>
+</tr><tr class="sig">
+<td>H07_puell_multiple</td><td class="name-col">H07 Puell Multiple</td>
+<td>3.41</td><td>3905</td>
+<td>0.0007</td><td>0.0025</td>
+<td class="verdict">YES</td>
+<td>0.87</td>
+<td>28.7%</td>
+</tr><tr class="sig">
+<td>AC-6</td><td class="name-col">AC-6 Saudi breakeven Brent bull</td>
+<td>3.38</td><td>357</td>
+<td>0.0008</td><td>0.0026</td>
+<td class="verdict">YES</td>
+<td>2.84</td>
+<td>147.7%</td>
+</tr><tr class="sig">
+<td>F13_buy_the_dip</td><td class="name-col">F13 DCA every month</td>
+<td>3.34</td><td>9165</td>
+<td>0.0008</td><td>0.0028</td>
+<td class="verdict">YES</td>
+<td>0.55</td>
+<td>8.7%</td>
+</tr><tr class="sig">
+<td>AC-10</td><td class="name-col">AC-10 GPFG drift short URTH</td>
+<td>-3.25</td><td>304</td>
+<td>0.0013</td><td>0.0030</td>
+<td class="verdict">YES</td>
+<td>-2.96</td>
+<td>-30.1%</td>
+</tr><tr class="sig">
+<td>C07_accel_dual_momentum</td><td class="name-col">C07 Accelerating Dual Momentum</td>
+<td>3.17</td><td>4641</td>
+<td>0.0016</td><td>0.0032</td>
+<td class="verdict">YES</td>
+<td>0.74</td>
+<td>11.4%</td>
+</tr><tr class="sig">
+<td>A16_seasonality_heston_sadka</td><td class="name-col">A16 Heston-Sadka SPY</td>
+<td>3.14</td><td>5885</td>
+<td>0.0017</td><td>0.0033</td>
+<td class="verdict">YES</td>
+<td>0.65</td>
+<td>9.9%</td>
+</tr><tr class="sig">
+<td>AQ-1</td><td class="name-col">AQ-1 Copper Marginal Cost Floor</td>
+<td>3.10</td><td>756</td>
+<td>0.0020</td><td>0.0035</td>
+<td class="verdict">YES</td>
+<td>1.79</td>
+<td>45.8%</td>
+</tr><tr class="sig">
+<td>C14_tsmom</td><td class="name-col">C14 TSMOM (12m)</td>
+<td>3.07</td><td>5106</td>
+<td>0.0022</td><td>0.0037</td>
+<td class="verdict">YES</td>
+<td>0.68</td>
+<td>5.5%</td>
+</tr><tr class="sig">
+<td>D05_max_lottery</td><td class="name-col">D05 MAX(5) lottery effect (long low-MAX, short high-MAX)</td>
+<td>-3.07</td><td>292</td>
+<td>0.0024</td><td>0.0039</td>
+<td class="verdict">YES</td>
+<td>-0.62</td>
+<td>-17.9%</td>
+</tr><tr class="sig">
+<td>A04_first_five_days</td><td class="name-col">A04 First Five Days</td>
+<td>3.02</td><td>6635</td>
+<td>0.0026</td><td>0.0040</td>
+<td class="verdict">YES</td>
+<td>0.59</td>
+<td>8.1%</td>
+</tr><tr class="sig">
+<td>R-L13_nyse_trin</td><td class="name-col">SP500-TRIN &gt; 2.5 long SPY 5d</td>
+<td>2.93</td><td>3114</td>
+<td>0.0035</td><td>0.0042</td>
+<td class="verdict">YES</td>
+<td>0.83</td>
+<td>5.5%</td>
+</tr><tr class="sig">
+<td>H05_hash_ribbons</td><td class="name-col">H05 Hash Ribbons</td>
+<td>2.90</td><td>4264</td>
+<td>0.0037</td><td>0.0044</td>
+<td class="verdict">YES</td>
+<td>0.71</td>
+<td>20.7%</td>
+</tr><tr class="sig">
+<td>P11_karsan_year_end_recollateralization</td><td class="name-col">P11 Karsan Year-End Recollat.</td>
+<td>2.90</td><td>6636</td>
+<td>0.0038</td><td>0.0046</td>
+<td class="verdict">YES</td>
+<td>0.56</td>
+<td>2.5%</td>
+</tr><tr class="not-sig">
+<td>N4_sia_billings</td><td class="name-col">N4 SIA proxy (A36SNO accel) -&gt; SOXX</td>
+<td>2.76</td><td>6252</td>
+<td>0.0057</td><td>0.0047</td>
+<td class="verdict">no</td>
+<td>0.55</td>
+<td>12.0%</td>
+</tr><tr class="not-sig">
+<td>I07_geomagnetic_kp</td><td class="name-col">I-7 Kp storm exit -&gt; SPY</td>
+<td>2.75</td><td>7899</td>
+<td>0.0059</td><td>0.0049</td>
+<td class="verdict">no</td>
+<td>0.49</td>
+<td>6.6%</td>
+</tr><tr class="not-sig">
+<td>Q4_pt_pd_ratio</td><td class="name-col">Q4 Pt/Pd ratio reversion</td>
+<td>-2.74</td><td>4554</td>
+<td>0.0061</td><td>0.0051</td>
+<td class="verdict">no</td>
+<td>-0.65</td>
+<td>-16.5%</td>
+</tr><tr class="not-sig">
+<td>A06_fomc_even_week</td><td class="name-col">A06 FOMC even-week</td>
+<td>2.71</td><td>6635</td>
+<td>0.0067</td><td>0.0053</td>
+<td class="verdict">no</td>
+<td>0.53</td>
+<td>6.7%</td>
+</tr><tr class="not-sig">
+<td>C11_move_vix_ratio</td><td class="name-col">C11 MOVE/VIX ratio</td>
+<td>2.67</td><td>5782</td>
+<td>0.0076</td><td>0.0054</td>
+<td class="verdict">no</td>
+<td>0.56</td>
+<td>8.6%</td>
+</tr><tr class="not-sig">
+<td>C01_lumber_gold</td><td class="name-col">C01 Lumber/Gold (Gayed)</td>
+<td>2.64</td><td>5338</td>
+<td>0.0083</td><td>0.0056</td>
+<td class="verdict">no</td>
+<td>0.57</td>
+<td>8.1%</td>
+</tr><tr class="not-sig">
+<td>B01_vix_term_structure</td><td class="name-col">B01 VIX/VIX3M term structure</td>
+<td>2.60</td><td>4646</td>
+<td>0.0093</td><td>0.0058</td>
+<td class="verdict">no</td>
+<td>0.61</td>
+<td>6.6%</td>
+</tr><tr class="not-sig">
+<td>L3_auction_direct_bidder</td><td class="name-col">L3 Auction direct &lt; 5% -&gt; short TLT 5d</td>
+<td>-2.58</td><td>5884</td>
+<td>0.0098</td><td>0.0060</td>
+<td class="verdict">no</td>
+<td>-0.53</td>
+<td>-1.3%</td>
+</tr><tr class="not-sig">
+<td>C06_dual_momentum</td><td class="name-col">C06 Dual Momentum (GEM)</td>
+<td>2.58</td><td>4566</td>
+<td>0.0098</td><td>0.0061</td>
+<td class="verdict">no</td>
+<td>0.61</td>
+<td>8.7%</td>
+</tr><tr class="not-sig">
+<td>C05_faber_gtaa</td><td class="name-col">C05 Faber GTAA (10mo MA)</td>
+<td>2.58</td><td>4991</td>
+<td>0.0100</td><td>0.0063</td>
+<td class="verdict">no</td>
+<td>0.58</td>
+<td>4.4%</td>
+</tr><tr class="not-sig">
+<td>AR-3</td><td class="name-col">AR-3 Cass Freight YoY → Long LTL</td>
+<td>2.57</td><td>251</td>
+<td>0.0107</td><td>0.0065</td>
+<td class="verdict">no</td>
+<td>2.58</td>
+<td>97.7%</td>
+</tr><tr class="not-sig">
+<td>J2_h8_ci_loans</td><td class="name-col">J2 C&amp;I loans -&gt; rotate SPY</td>
+<td>2.54</td><td>7899</td>
+<td>0.0112</td><td>0.0067</td>
+<td class="verdict">no</td>
+<td>0.45</td>
+<td>7.0%</td>
+</tr><tr class="not-sig">
+<td>K12_fema_disasters</td><td class="name-col">K12 FEMA disasters short P&amp;C</td>
+<td>-2.53</td><td>6383</td>
+<td>0.0114</td><td>0.0068</td>
+<td class="verdict">no</td>
+<td>-0.50</td>
+<td>-11.9%</td>
+</tr><tr class="not-sig">
+<td>P5_gromen_tie</td><td class="name-col">P5 Gromen TIE (long GLD if TIE&gt;100%)</td>
+<td>2.51</td><td>5380</td>
+<td>0.0120</td><td>0.0070</td>
+<td class="verdict">no</td>
+<td>0.54</td>
+<td>4.0%</td>
+</tr><tr class="not-sig">
+<td>F08_rsi2_connors</td><td class="name-col">F08 Connors RSI(2)</td>
+<td>2.50</td><td>6636</td>
+<td>0.0123</td><td>0.0072</td>
+<td class="verdict">no</td>
+<td>0.49</td>
+<td>2.1%</td>
+</tr><tr class="not-sig">
+<td>A07_pre_fomc_drift</td><td class="name-col">A07 Pre-FOMC drift</td>
+<td>2.49</td><td>6635</td>
+<td>0.0128</td><td>0.0074</td>
+<td class="verdict">no</td>
+<td>0.49</td>
+<td>1.7%</td>
+</tr><tr class="not-sig">
+<td>C10_hy_oas_regime</td><td class="name-col">C10 HY OAS regime</td>
+<td>2.47</td><td>748</td>
+<td>0.0135</td><td>0.0075</td>
+<td class="verdict">no</td>
+<td>1.44</td>
+<td>22.9%</td>
+</tr><tr class="not-sig">
+<td>V2_verdad_hy600</td><td class="name-col">V2 Verdad HY &gt; 600bps regime</td>
+<td>2.47</td><td>749</td>
+<td>0.0135</td><td>0.0077</td>
+<td class="verdict">no</td>
+<td>1.44</td>
+<td>22.9%</td>
+</tr><tr class="not-sig">
+<td>M3_steth_discount</td><td class="name-col">M3 stETH/ETH &lt; 0.985 → long ETH 90d</td>
+<td>2.46</td><td>1980</td>
+<td>0.0138</td><td>0.0079</td>
+<td class="verdict">no</td>
+<td>0.88</td>
+<td>33.1%</td>
+</tr><tr class="not-sig">
+<td>D02_momentum_umd</td><td class="name-col">D02 UMD (Momentum)</td>
+<td>2.46</td><td>9128</td>
+<td>0.0139</td><td>0.0081</td>
+<td class="verdict">no</td>
+<td>0.41</td>
+<td>5.1%</td>
+</tr><tr class="not-sig">
+<td>O5_btc_difficulty_drop</td><td class="name-col">O5 BTC difficulty drop -&gt; long miners 14d</td>
+<td>2.45</td><td>2360</td>
+<td>0.0142</td><td>0.0082</td>
+<td class="verdict">no</td>
+<td>0.80</td>
+<td>32.5%</td>
+</tr><tr class="not-sig">
+<td>AS-B</td><td class="name-col">AS-B Custom Silicon</td>
+<td>2.44</td><td>600</td>
+<td>0.0148</td><td>0.0084</td>
+<td class="verdict">no</td>
+<td>1.58</td>
+<td>129.1%</td>
+</tr><tr class="not-sig">
+<td>A15_halloween_tom_combo</td><td class="name-col">A15 Halloween x ToM</td>
+<td>2.42</td><td>6635</td>
+<td>0.0153</td><td>0.0086</td>
+<td class="verdict">no</td>
+<td>0.47</td>
+<td>2.9%</td>
+</tr><tr class="not-sig">
+<td>F15_rbi_mpc</td><td class="name-col">F15 RBI MPC + CPI-in-band -&gt; INDA</td>
+<td>2.42</td><td>2257</td>
+<td>0.0157</td><td>0.0088</td>
+<td class="verdict">no</td>
+<td>0.81</td>
+<td>1.6%</td>
+</tr><tr class="not-sig">
+<td>K4_sloos_willingness</td><td class="name-col">K4 SLOOS willingness long XLY</td>
+<td>2.40</td><td>6894</td>
+<td>0.0166</td><td>0.0089</td>
+<td class="verdict">no</td>
+<td>0.46</td>
+<td>2.7%</td>
+</tr><tr class="not-sig">
+<td>A01_halloween</td><td class="name-col">A01 Halloween</td>
+<td>2.37</td><td>6635</td>
+<td>0.0176</td><td>0.0091</td>
+<td class="verdict">no</td>
+<td>0.46</td>
+<td>5.7%</td>
+</tr><tr class="not-sig">
+<td>AA7_jpm_healthcare_conf</td><td class="name-col">AA7 JPM Healthcare drift -&gt; XBI</td>
+<td>2.34</td><td>5105</td>
+<td>0.0193</td><td>0.0093</td>
+<td class="verdict">no</td>
+<td>0.52</td>
+<td>4.2%</td>
+</tr><tr class="not-sig">
+<td>R-N5_tsmc_revenue</td><td class="name-col">TSMC YoY-beat &gt; 8pp long semi-basket ~1q</td>
+<td>2.29</td><td>3308</td>
+<td>0.0221</td><td>0.0095</td>
+<td class="verdict">no</td>
+<td>0.63</td>
+<td>12.7%</td>
+</tr><tr class="not-sig">
+<td>I03_liquidity_sweep</td><td class="name-col">I03 Liquidity sweep reversal</td>
+<td>-2.26</td><td>6520</td>
+<td>0.0237</td><td>0.0096</td>
+<td class="verdict">no</td>
+<td>-0.44</td>
+<td>-2.0%</td>
+</tr><tr class="not-sig">
+<td>A02_turn_of_month</td><td class="name-col">A02 Turn-of-Month</td>
+<td>2.26</td><td>6635</td>
+<td>0.0238</td><td>0.0098</td>
+<td class="verdict">no</td>
+<td>0.44</td>
+<td>3.5%</td>
+</tr><tr class="not-sig">
+<td>K9_dod_treasury_outlays</td><td class="name-col">K9 DoD outlays long ITA</td>
+<td>2.25</td><td>5042</td>
+<td>0.0242</td><td>0.0100</td>
+<td class="verdict">no</td>
+<td>0.50</td>
+<td>3.3%</td>
+</tr><tr class="not-sig">
+<td>O4_btc_mempool</td><td class="name-col">O4 BTC mempool&gt;90p -&gt; long miners 20d</td>
+<td>2.24</td><td>2360</td>
+<td>0.0251</td><td>0.0102</td>
+<td class="verdict">no</td>
+<td>0.73</td>
+<td>32.7%</td>
+</tr><tr class="not-sig">
+<td>P12_steno_global_liquidity</td><td class="name-col">P12 Steno Liquidity Flip -&gt; SPY+BTC</td>
+<td>2.23</td><td>2938</td>
+<td>0.0260</td><td>0.0104</td>
+<td class="verdict">no</td>
+<td>0.65</td>
+<td>16.2%</td>
+</tr><tr class="not-sig">
+<td>Q13_brazil_coffee_frost</td><td class="name-col">Q13 Brazil frost -&gt; long KC=F 30d</td>
+<td>-2.20</td><td>6480</td>
+<td>0.0276</td><td>0.0105</td>
+<td class="verdict">no</td>
+<td>-0.43</td>
+<td>-1.7%</td>
+</tr><tr class="not-sig">
+<td>A13_presidential_year3</td><td class="name-col">A13 Presidential Y3</td>
+<td>2.18</td><td>6635</td>
+<td>0.0296</td><td>0.0107</td>
+<td class="verdict">no</td>
+<td>0.42</td>
+<td>3.1%</td>
+</tr><tr class="not-sig">
+<td>S3_texas_cotton_drought</td><td class="name-col">S3 TX D2+&gt;50% May-Jul -&gt; long CT=F 63d</td>
+<td>-2.16</td><td>5042</td>
+<td>0.0306</td><td>0.0109</td>
+<td class="verdict">no</td>
+<td>-0.48</td>
+<td>-5.8%</td>
+</tr><tr class="not-sig">
+<td>P7_constan_treasury_refunding</td><td class="name-col">P7 Constan Bill-Share</td>
+<td>2.15</td><td>5990</td>
+<td>0.0317</td><td>0.0111</td>
+<td class="verdict">no</td>
+<td>0.44</td>
+<td>2.4%</td>
+</tr><tr class="not-sig">
+<td>D03_52w_high_momentum</td><td class="name-col">D03 52w-high momentum (monthly)</td>
+<td>-2.09</td><td>283</td>
+<td>0.0374</td><td>0.0112</td>
+<td class="verdict">no</td>
+<td>-0.43</td>
+<td>-15.2%</td>
+</tr><tr class="not-sig">
+<td>T3_indian_monsoon_sugar</td><td class="name-col">T3 Weak monsoon (MJJ ONI&gt;+0.5) -&gt; long SB=F Jul-Oct</td>
+<td>2.00</td><td>6578</td>
+<td>0.0454</td><td>0.0114</td>
+<td class="verdict">no</td>
+<td>0.39</td>
+<td>2.4%</td>
+</tr><tr class="not-sig">
+<td>D04_industry_momentum</td><td class="name-col">D04 Industry momentum (49 inds, top5 - bot5, 6m formation)</td>
+<td>1.97</td><td>429</td>
+<td>0.0493</td><td>0.0116</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>4.9%</td>
+</tr><tr class="not-sig">
+<td>D09_bab</td><td class="name-col">D09 Betting Against Beta (raw L-S quintile spread, no FP leverage scaling)</td>
+<td>-1.93</td><td>289</td>
+<td>0.0549</td><td>0.0118</td>
+<td class="verdict">no</td>
+<td>-0.39</td>
+<td>-10.7%</td>
+</tr><tr class="not-sig">
+<td>Z2_compliance_monitor_pair</td><td class="name-col">Z2 Compliance monitor pair</td>
+<td>1.91</td><td>3492</td>
+<td>0.0562</td><td>0.0119</td>
+<td class="verdict">no</td>
+<td>0.51</td>
+<td>5.4%</td>
+</tr><tr class="not-sig">
+<td>J03_super_bowl</td><td class="name-col">J03 Super Bowl Indicator</td>
+<td>1.89</td><td>7899</td>
+<td>0.0594</td><td>0.0121</td>
+<td class="verdict">no</td>
+<td>0.34</td>
+<td>3.6%</td>
+</tr><tr class="not-sig">
+<td>X6_polysilicon_solar</td><td class="name-col">X6 solar bottom long FSLR+JKS 90d</td>
+<td>1.86</td><td>3527</td>
+<td>0.0633</td><td>0.0123</td>
+<td class="verdict">no</td>
+<td>0.50</td>
+<td>11.3%</td>
+</tr><tr class="not-sig">
+<td>AB10_stlfsi_acceleration</td><td class="name-col">AB10 STLFSI acceleration (rotate SPY-&gt;TLT)</td>
+<td>-1.84</td><td>6637</td>
+<td>0.0660</td><td>0.0125</td>
+<td class="verdict">no</td>
+<td>-0.36</td>
+<td>-3.5%</td>
+</tr><tr class="not-sig">
+<td>L6_sec_nt_10k</td><td class="name-col">L6 SEC NT 10-K/Q short 21d</td>
+<td>1.84</td><td>2772</td>
+<td>0.0662</td><td>0.0126</td>
+<td class="verdict">no</td>
+<td>0.55</td>
+<td>16.3%</td>
+</tr><tr class="not-sig">
+<td>K13_sba_7a_loans</td><td class="name-col">K13 SBA 7a WoW drop short IWM</td>
+<td>-1.79</td><td>4120</td>
+<td>0.0729</td><td>0.0128</td>
+<td class="verdict">no</td>
+<td>-0.44</td>
+<td>-8.6%</td>
+</tr><tr class="not-sig">
+<td>AR-1</td><td class="name-col">AR-1 Carrier Exit → Long LTL</td>
+<td>1.74</td><td>1009</td>
+<td>0.0826</td><td>0.0130</td>
+<td class="verdict">no</td>
+<td>0.87</td>
+<td>33.0%</td>
+</tr><tr class="not-sig">
+<td>Q2_mexican_hedge_window</td><td class="name-col">Q2 Mexican hedge -&gt; short CL=F 30d</td>
+<td>-1.73</td><td>4754</td>
+<td>0.0829</td><td>0.0132</td>
+<td class="verdict">no</td>
+<td>-0.40</td>
+<td>-2.1%</td>
+</tr><tr class="not-sig">
+<td>U2_drc_cobalt_quota</td><td class="name-col">U2 DRC cobalt curb -&gt; long CMOC+LIT 40d</td>
+<td>1.71</td><td>324</td>
+<td>0.0882</td><td>0.0133</td>
+<td class="verdict">no</td>
+<td>1.51</td>
+<td>36.7%</td>
+</tr><tr class="not-sig">
+<td>B03_vvix_vix_ratio</td><td class="name-col">B03 VVIX/VIX absolute thresholds</td>
+<td>1.70</td><td>4868</td>
+<td>0.0887</td><td>0.0135</td>
+<td class="verdict">no</td>
+<td>0.39</td>
+<td>5.1%</td>
+</tr><tr class="not-sig">
+<td>U15_china_antimony_licenses</td><td class="name-col">U15 China Sb licence backlog -&gt; long PPTA+UAMY 30d</td>
+<td>1.67</td><td>397</td>
+<td>0.0961</td><td>0.0137</td>
+<td class="verdict">no</td>
+<td>1.33</td>
+<td>89.4%</td>
+</tr><tr class="not-sig">
+<td>F6_eu_cbam</td><td class="name-col">F6 EU CBAM pre-deadline short carbon</td>
+<td>-1.66</td><td>110</td>
+<td>0.1000</td><td>0.0139</td>
+<td class="verdict">no</td>
+<td>-2.51</td>
+<td>-53.3%</td>
+</tr><tr class="not-sig">
+<td>AA8_msci_review_add</td><td class="name-col">AA8 MSCI review (EFA vs SPY hedge)</td>
+<td>-1.63</td><td>3114</td>
+<td>0.1039</td><td>0.0140</td>
+<td class="verdict">no</td>
+<td>-0.46</td>
+<td>-2.1%</td>
+</tr><tr class="not-sig">
+<td>M5_tga_drain</td><td class="name-col">M5 TGA drain → long SPY 20d</td>
+<td>1.62</td><td>5380</td>
+<td>0.1063</td><td>0.0142</td>
+<td class="verdict">no</td>
+<td>0.35</td>
+<td>0.7%</td>
+</tr><tr class="not-sig">
+<td>AJ-1</td><td class="name-col">Canada Wildfire → Long WOOD</td>
+<td>1.61</td><td>120</td>
+<td>0.1106</td><td>0.0144</td>
+<td class="verdict">no</td>
+<td>2.33</td>
+<td>38.8%</td>
+</tr><tr class="not-sig">
+<td>C03_copper_gold</td><td class="name-col">C03 Copper/Gold -&gt; TLT</td>
+<td>1.58</td><td>5370</td>
+<td>0.1148</td><td>0.0146</td>
+<td class="verdict">no</td>
+<td>0.34</td>
+<td>1.1%</td>
+</tr><tr class="not-sig">
+<td>C04_gold_silver</td><td class="name-col">C04 Gold/Silver ratio</td>
+<td>1.57</td><td>5048</td>
+<td>0.1156</td><td>0.0147</td>
+<td class="verdict">no</td>
+<td>0.35</td>
+<td>4.7%</td>
+</tr><tr class="not-sig">
+<td>G01_google_trends_recession</td><td class="name-col">G01 Google Trends recession</td>
+<td>1.56</td><td>5632</td>
+<td>0.1191</td><td>0.0149</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>3.0%</td>
+</tr><tr class="not-sig">
+<td>G1_gprt_defense</td><td class="name-col">G1 GPRT defense drift</td>
+<td>1.54</td><td>5380</td>
+<td>0.1232</td><td>0.0151</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>1.0%</td>
+</tr><tr class="not-sig">
+<td>C15_trend_following</td><td class="name-col">C15 Trend-following (1m+3m+12m signs)</td>
+<td>1.53</td><td>5106</td>
+<td>0.1267</td><td>0.0153</td>
+<td class="verdict">no</td>
+<td>0.34</td>
+<td>3.0%</td>
+</tr><tr class="not-sig">
+<td>J6_cdc_fluview</td><td class="name-col">J6 FluView surge -&gt; defensives/short airlines</td>
+<td>-1.53</td><td>4121</td>
+<td>0.1267</td><td>0.0154</td>
+<td class="verdict">no</td>
+<td>-0.38</td>
+<td>-3.8%</td>
+</tr><tr class="not-sig">
+<td>F10_bis_entity_list</td><td class="name-col">F10 BIS Entity List -&gt; US semi-equip</td>
+<td>-1.53</td><td>120</td>
+<td>0.1276</td><td>0.0156</td>
+<td class="verdict">no</td>
+<td>-2.22</td>
+<td>-57.9%</td>
+</tr><tr class="not-sig">
+<td>C16_currency_carry</td><td class="name-col">C16 Currency carry (G4 vs USD)</td>
+<td>-1.50</td><td>4850</td>
+<td>0.1342</td><td>0.0158</td>
+<td class="verdict">no</td>
+<td>-0.34</td>
+<td>-2.1%</td>
+</tr><tr class="not-sig">
+<td>V12_kuppy_uranium_pair</td><td class="name-col">V12 Kuppy URNM/SRUUF pair</td>
+<td>1.50</td><td>1215</td>
+<td>0.1343</td><td>0.0160</td>
+<td class="verdict">no</td>
+<td>0.68</td>
+<td>3.7%</td>
+</tr><tr class="not-sig">
+<td>F01_aaii_bull_bear</td><td class="name-col">F01 AAII bull-bear</td>
+<td>1.50</td><td>8385</td>
+<td>0.1347</td><td>0.0161</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>2.2%</td>
+</tr><tr class="not-sig">
+<td>AB1_cad_wti_residual</td><td class="name-col">AB1 CAD-WTI residual</td>
+<td>-1.49</td><td>5498</td>
+<td>0.1364</td><td>0.0163</td>
+<td class="verdict">no</td>
+<td>-0.32</td>
+<td>-1.3%</td>
+</tr><tr class="not-sig">
+<td>H03_coinbase_premium</td><td class="name-col">H03 Coinbase premium</td>
+<td>1.48</td><td>3146</td>
+<td>0.1400</td><td>0.0165</td>
+<td class="verdict">no</td>
+<td>0.42</td>
+<td>9.0%</td>
+</tr><tr class="not-sig">
+<td>Z6_antitrust_reversion</td><td class="name-col">Z6 Antitrust reversion long 90d</td>
+<td>1.47</td><td>1120</td>
+<td>0.1418</td><td>0.0167</td>
+<td class="verdict">no</td>
+<td>0.70</td>
+<td>16.4%</td>
+</tr><tr class="not-sig">
+<td>J12_cattle_on_feed</td><td class="name-col">J12 Low-decile placements -&gt; long COW</td>
+<td>-1.46</td><td>1386</td>
+<td>0.1435</td><td>0.0168</td>
+<td class="verdict">no</td>
+<td>-0.62</td>
+<td>-3.4%</td>
+</tr><tr class="not-sig">
+<td>AG-5</td><td class="name-col">AG-5 Monsoon Failure → Sugar</td>
+<td>1.47</td><td>254</td>
+<td>0.1438</td><td>0.0170</td>
+<td class="verdict">no</td>
+<td>1.46</td>
+<td>54.0%</td>
+</tr><tr class="not-sig">
+<td>O6_nfip_claims</td><td class="name-col">O6 NFIP weekly&gt;$500M -&gt; short XHB 30d</td>
+<td>-1.46</td><td>4121</td>
+<td>0.1439</td><td>0.0172</td>
+<td class="verdict">no</td>
+<td>-0.36</td>
+<td>-2.9%</td>
+</tr><tr class="not-sig">
+<td>D14_net_issuance</td><td class="name-col">D14 Net stock issuance (long buybackers, short issuers)</td>
+<td>-1.47</td><td>115</td>
+<td>0.1446</td><td>0.0174</td>
+<td class="verdict">no</td>
+<td>-0.47</td>
+<td>-8.9%</td>
+</tr><tr class="not-sig">
+<td>C12_acm_term_premium</td><td class="name-col">C12 ACM 10Y term premium</td>
+<td>1.44</td><td>5992</td>
+<td>0.1499</td><td>0.0175</td>
+<td class="verdict">no</td>
+<td>0.30</td>
+<td>0.8%</td>
+</tr><tr class="not-sig">
+<td>J10_nasa_firms_amazon</td><td class="name-col">J10 Amazon fires -&gt; long SOYB</td>
+<td>1.44</td><td>3690</td>
+<td>0.1513</td><td>0.0177</td>
+<td class="verdict">no</td>
+<td>0.38</td>
+<td>1.2%</td>
+</tr><tr class="not-sig">
+<td>AB9_cnh_fix_drift</td><td class="name-col">AB9 CNH fix drift</td>
+<td>-1.43</td><td>5410</td>
+<td>0.1521</td><td>0.0179</td>
+<td class="verdict">no</td>
+<td>-0.31</td>
+<td>-4.3%</td>
+</tr><tr class="not-sig">
+<td>O7_apartment_list_rent</td><td class="name-col">O7 ZORI MoM&lt;-0.4% -&gt; long IEF 60d</td>
+<td>1.42</td><td>4121</td>
+<td>0.1545</td><td>0.0181</td>
+<td class="verdict">no</td>
+<td>0.35</td>
+<td>0.7%</td>
+</tr><tr class="not-sig">
+<td>AE-2</td><td class="name-col">AE-2 Hyperscaler Capex → Power Infra</td>
+<td>1.43</td><td>340</td>
+<td>0.1545</td><td>0.0182</td>
+<td class="verdict">no</td>
+<td>1.23</td>
+<td>57.2%</td>
+</tr><tr class="not-sig">
+<td>S13_ca_snowpack</td><td class="name-col">S13 CA Apr-1 SWE &lt;70% -&gt; long DC=F 126d</td>
+<td>1.41</td><td>4724</td>
+<td>0.1572</td><td>0.0184</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>4.9%</td>
+</tr><tr class="not-sig">
+<td>O11_321_crack</td><td class="name-col">O11 3-2-1 crack &lt;$10.0 -&gt; long XLE 30d</td>
+<td>1.41</td><td>6636</td>
+<td>0.1580</td><td>0.0186</td>
+<td class="verdict">no</td>
+<td>0.28</td>
+<td>3.5%</td>
+</tr><tr class="not-sig">
+<td>A03_santa_claus</td><td class="name-col">A03 Santa Claus</td>
+<td>1.40</td><td>6635</td>
+<td>0.1608</td><td>0.0188</td>
+<td class="verdict">no</td>
+<td>0.27</td>
+<td>0.7%</td>
+</tr><tr class="not-sig">
+<td>AR-2</td><td class="name-col">AR-2 DAT Van Spot → Long TL Carriers</td>
+<td>1.40</td><td>1009</td>
+<td>0.1612</td><td>0.0189</td>
+<td class="verdict">no</td>
+<td>0.70</td>
+<td>19.6%</td>
+</tr><tr class="not-sig">
+<td>S1_cocobod_farmgate</td><td class="name-col">S1 COCOBOD farmgate +&gt;20% -&gt; long CC=F 126d</td>
+<td>1.39</td><td>3931</td>
+<td>0.1632</td><td>0.0191</td>
+<td class="verdict">no</td>
+<td>0.35</td>
+<td>5.1%</td>
+</tr><tr class="not-sig">
+<td>U14_vale_dam_licenses</td><td class="name-col">U14 Vale dam downgrade -&gt; long FMG 30d</td>
+<td>1.39</td><td>1851</td>
+<td>0.1636</td><td>0.0193</td>
+<td class="verdict">no</td>
+<td>0.51</td>
+<td>7.5%</td>
+</tr><tr class="not-sig">
+<td>G19_npc_two_sessions</td><td class="name-col">G19 NPC two-sessions</td>
+<td>1.37</td><td>4271</td>
+<td>0.1698</td><td>0.0195</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>2.7%</td>
+</tr><tr class="not-sig">
+<td>P1_karsan_pre_opex</td><td class="name-col">P1 Karsan Pre-OPEX</td>
+<td>1.36</td><td>6635</td>
+<td>0.1745</td><td>0.0196</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>1.4%</td>
+</tr><tr class="not-sig">
+<td>T6_soy_board_crush</td><td class="name-col">T6 Soy board crush -&gt; long ZS=F</td>
+<td>-1.33</td><td>4625</td>
+<td>0.1849</td><td>0.0198</td>
+<td class="verdict">no</td>
+<td>-0.31</td>
+<td>-3.1%</td>
+</tr><tr class="not-sig">
+<td>K3_beige_book_uncertainty</td><td class="name-col">K3 Beige Book uncertainty short SPY</td>
+<td>-1.30</td><td>4142</td>
+<td>0.1933</td><td>0.0200</td>
+<td class="verdict">no</td>
+<td>-0.32</td>
+<td>-1.2%</td>
+</tr><tr class="not-sig">
+<td>AG-2</td><td class="name-col">AG-2 from 2022-07-01</td>
+<td>1.29</td><td>977</td>
+<td>0.1959</td><td>0.0202</td>
+<td class="verdict">no</td>
+<td>0.66</td>
+<td>17.5%</td>
+</tr><tr class="not-sig">
+<td>G10_ndaa_defense</td><td class="name-col">G10 NDAA defense drift</td>
+<td>1.28</td><td>4626</td>
+<td>0.2016</td><td>0.0204</td>
+<td class="verdict">no</td>
+<td>0.30</td>
+<td>1.0%</td>
+</tr><tr class="not-sig">
+<td>AA5_fomc_minutes</td><td class="name-col">AA5 FOMC minutes -&gt; TBT day</td>
+<td>1.26</td><td>4528</td>
+<td>0.2066</td><td>0.0205</td>
+<td class="verdict">no</td>
+<td>0.30</td>
+<td>1.4%</td>
+</tr><tr class="not-sig">
+<td>AB3_mxn_oil_decoupling_carry</td><td class="name-col">AB3 MXN oil-decoupling carry</td>
+<td>1.26</td><td>5812</td>
+<td>0.2079</td><td>0.0207</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>1.2%</td>
+</tr><tr class="not-sig">
+<td>A10_lunar_phase</td><td class="name-col">A10 Lunar phase</td>
+<td>1.25</td><td>6635</td>
+<td>0.2096</td><td>0.0209</td>
+<td class="verdict">no</td>
+<td>0.24</td>
+<td>2.9%</td>
+</tr><tr class="not-sig">
+<td>Z4_wells_to_litigation_gap</td><td class="name-col">Z4 Wells-&gt;litigation gap short 120d</td>
+<td>1.25</td><td>914</td>
+<td>0.2120</td><td>0.0211</td>
+<td class="verdict">no</td>
+<td>0.66</td>
+<td>23.0%</td>
+</tr><tr class="not-sig">
+<td>V8_crittenden_12asset_trend</td><td class="name-col">V8 Crittenden 12-asset 200d-SMA trend</td>
+<td>1.24</td><td>3618</td>
+<td>0.2151</td><td>0.0212</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>3.3%</td>
+</tr><tr class="not-sig">
+<td>B02_vix_30_contrarian</td><td class="name-col">B02 VIX&gt;30 contrarian</td>
+<td>1.23</td><td>8385</td>
+<td>0.2193</td><td>0.0214</td>
+<td class="verdict">no</td>
+<td>0.21</td>
+<td>1.9%</td>
+</tr><tr class="not-sig">
+<td>S5_kazatomprom_guidance</td><td class="name-col">S5 KAP guidance cut &gt; 5% -&gt; long URNM 126d</td>
+<td>1.22</td><td>1538</td>
+<td>0.2231</td><td>0.0216</td>
+<td class="verdict">no</td>
+<td>0.49</td>
+<td>8.6%</td>
+</tr><tr class="not-sig">
+<td>X10_steel_hrc_import</td><td class="name-col">X10 HRC momentum long NUE+STLD+CLF 60d</td>
+<td>1.21</td><td>2083</td>
+<td>0.2283</td><td>0.0218</td>
+<td class="verdict">no</td>
+<td>0.42</td>
+<td>6.2%</td>
+</tr><tr class="not-sig">
+<td>ST-3</td><td class="name-col">ST-3 Solar Tariff Pair</td>
+<td>1.20</td><td>510</td>
+<td>0.2299</td><td>0.0219</td>
+<td class="verdict">no</td>
+<td>0.84</td>
+<td>22.6%</td>
+</tr><tr class="not-sig">
+<td>X8_coal_gas_henry_hub</td><td class="name-col">X8 HH-coal&lt;1.22 long BTU+AMR 60d</td>
+<td>-1.19</td><td>778</td>
+<td>0.2328</td><td>0.0221</td>
+<td class="verdict">no</td>
+<td>-0.68</td>
+<td>-16.5%</td>
+</tr><tr class="not-sig">
+<td>AL-3</td><td class="name-col">AL-3 TV Ad Election Basket</td>
+<td>1.19</td><td>555</td>
+<td>0.2338</td><td>0.0223</td>
+<td class="verdict">no</td>
+<td>0.80</td>
+<td>29.4%</td>
+</tr><tr class="not-sig">
+<td>K2_fda_drug_shortage</td><td class="name-col">K2 FDA shortages long IHE</td>
+<td>1.18</td><td>5042</td>
+<td>0.2378</td><td>0.0225</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>0.5%</td>
+</tr><tr class="not-sig">
+<td>V1_cole_5pct_long_vol</td><td class="name-col">V1 Cole 5% long-vol overlay</td>
+<td>-1.17</td><td>3868</td>
+<td>0.2415</td><td>0.0226</td>
+<td class="verdict">no</td>
+<td>-0.30</td>
+<td>-29.2%</td>
+</tr><tr class="not-sig">
+<td>S4_florida_citrus</td><td class="name-col">S4 FL Citrus Oct -15% cut -&gt; long OJ=F 126d</td>
+<td>1.17</td><td>2669</td>
+<td>0.2421</td><td>0.0228</td>
+<td class="verdict">no</td>
+<td>0.36</td>
+<td>4.1%</td>
+</tr><tr class="not-sig">
+<td>M11_lei_mfg_hours</td><td class="name-col">M11 AWHMAN 6m drop &gt; 0.4h → short SPY 90d</td>
+<td>-1.17</td><td>8385</td>
+<td>0.2428</td><td>0.0230</td>
+<td class="verdict">no</td>
+<td>-0.20</td>
+<td>-2.8%</td>
+</tr><tr class="not-sig">
+<td>U7_russia_belarus_potash_rail</td><td class="name-col">U7 Belaruskali transit cut -&gt; long NTR+MOS 90d</td>
+<td>1.16</td><td>1116</td>
+<td>0.2464</td><td>0.0232</td>
+<td class="verdict">no</td>
+<td>0.55</td>
+<td>7.7%</td>
+</tr><tr class="not-sig">
+<td>D01_value_hml</td><td class="name-col">D01 HML (Value)</td>
+<td>1.16</td><td>9128</td>
+<td>0.2473</td><td>0.0233</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>1.5%</td>
+</tr><tr class="not-sig">
+<td>F02_naaim_exposure</td><td class="name-col">F02 NAAIM exposure</td>
+<td>1.16</td><td>5128</td>
+<td>0.2478</td><td>0.0235</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>2.4%</td>
+</tr><tr class="not-sig">
+<td>F4_cms_star_ratings</td><td class="name-col">F4 CMS Star Ratings best/worst delta</td>
+<td>-1.15</td><td>60</td>
+<td>0.2550</td><td>0.0237</td>
+<td class="verdict">no</td>
+<td>-2.36</td>
+<td>-51.6%</td>
+</tr><tr class="not-sig">
+<td>L8_drewry_wci</td><td class="name-col">L8 Cass freight surge -&gt; long XLI 60d</td>
+<td>1.09</td><td>4121</td>
+<td>0.2762</td><td>0.0239</td>
+<td class="verdict">no</td>
+<td>0.27</td>
+<td>0.8%</td>
+</tr><tr class="not-sig">
+<td>F11_bb_squeeze</td><td class="name-col">F11 Bollinger Squeeze breakout</td>
+<td>1.09</td><td>6458</td>
+<td>0.2777</td><td>0.0240</td>
+<td class="verdict">no</td>
+<td>0.21</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>AA6_quad_witch_reversal</td><td class="name-col">AA6 quad-witch Mon reversal</td>
+<td>-1.08</td><td>6636</td>
+<td>0.2808</td><td>0.0242</td>
+<td class="verdict">no</td>
+<td>-0.21</td>
+<td>-0.6%</td>
+</tr><tr class="not-sig">
+<td>Z10_cfpb_consent_order</td><td class="name-col">Z10 CFPB consent pair 120d</td>
+<td>-1.08</td><td>1465</td>
+<td>0.2816</td><td>0.0244</td>
+<td class="verdict">no</td>
+<td>-0.45</td>
+<td>-8.5%</td>
+</tr><tr class="not-sig">
+<td>I01_fvg_fill</td><td class="name-col">I01 FVG fill</td>
+<td>1.04</td><td>6592</td>
+<td>0.2984</td><td>0.0246</td>
+<td class="verdict">no</td>
+<td>0.20</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>G12_hdd_natgas</td><td class="name-col">G12 HDD spike -&gt; long UNG</td>
+<td>-1.03</td><td>4804</td>
+<td>0.3031</td><td>0.0247</td>
+<td class="verdict">no</td>
+<td>-0.24</td>
+<td>-13.3%</td>
+</tr><tr class="not-sig">
+<td>AI-4</td><td class="name-col">GLP-1 → Short BF-B+STZ</td>
+<td>1.03</td><td>747</td>
+<td>0.3056</td><td>0.0249</td>
+<td class="verdict">no</td>
+<td>0.60</td>
+<td>13.1%</td>
+</tr><tr class="not-sig">
+<td>M7_treasury_buyback</td><td class="name-col">M7 Buyback ≥$4B → long TLT 5d</td>
+<td>1.02</td><td>599</td>
+<td>0.3068</td><td>0.0251</td>
+<td class="verdict">no</td>
+<td>0.66</td>
+<td>3.5%</td>
+</tr><tr class="not-sig">
+<td>AB5_clp_leads_copper</td><td class="name-col">AB5 CLP leads copper</td>
+<td>1.02</td><td>4115</td>
+<td>0.3076</td><td>0.0253</td>
+<td class="verdict">no</td>
+<td>0.25</td>
+<td>2.1%</td>
+</tr><tr class="not-sig">
+<td>U5_madagascar_cyclone_vanilla</td><td class="name-col">U5 SAVA cyclone -&gt; long SY1+MKC 126d</td>
+<td>1.02</td><td>2376</td>
+<td>0.3083</td><td>0.0254</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>3.0%</td>
+</tr><tr class="not-sig">
+<td>I06_seiden_zone</td><td class="name-col">I06 Seiden demand zone</td>
+<td>1.00</td><td>904</td>
+<td>0.3176</td><td>0.0256</td>
+<td class="verdict">no</td>
+<td>0.53</td>
+<td>0.8%</td>
+</tr><tr class="not-sig">
+<td>V7_papic_gdelt_geopol</td><td class="name-col">V7 Papic GPR+SPY shock buy</td>
+<td>1.00</td><td>8381</td>
+<td>0.3195</td><td>0.0258</td>
+<td class="verdict">no</td>
+<td>0.17</td>
+<td>1.0%</td>
+</tr><tr class="not-sig">
+<td>I14_lny_pre_holiday_drift</td><td class="name-col">I-14 LNY pre-holiday EWH/EWS</td>
+<td>0.99</td><td>6787</td>
+<td>0.3199</td><td>0.0260</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>0.8%</td>
+</tr><tr class="not-sig">
+<td>I02_order_block</td><td class="name-col">I02 ICT Order Block retest</td>
+<td>0.99</td><td>3659</td>
+<td>0.3212</td><td>0.0261</td>
+<td class="verdict">no</td>
+<td>0.26</td>
+<td>0.1%</td>
+</tr><tr class="not-sig">
+<td>M6_fed_swap_line</td><td class="name-col">M6 Swap line &gt; $10B → short SPY 30d</td>
+<td>-0.96</td><td>6636</td>
+<td>0.3352</td><td>0.0263</td>
+<td class="verdict">no</td>
+<td>-0.19</td>
+<td>-0.9%</td>
+</tr><tr class="not-sig">
+<td>AE-1</td><td class="name-col">AE-1 PJM BRA Spike</td>
+<td>0.96</td><td>182</td>
+<td>0.3369</td><td>0.0265</td>
+<td class="verdict">no</td>
+<td>1.13</td>
+<td>46.5%</td>
+</tr><tr class="not-sig">
+<td>AB6_move_dtb3_funding</td><td class="name-col">AB6 MOVE/DTB3 funding</td>
+<td>-0.95</td><td>5894</td>
+<td>0.3409</td><td>0.0267</td>
+<td class="verdict">no</td>
+<td>-0.20</td>
+<td>-3.3%</td>
+</tr><tr class="not-sig">
+<td>T9_aud_iron_ore_divergence</td><td class="name-col">T9 AUDUSD-iron ore divergence -&gt; long VALE</td>
+<td>0.93</td><td>5409</td>
+<td>0.3516</td><td>0.0268</td>
+<td class="verdict">no</td>
+<td>0.20</td>
+<td>1.3%</td>
+</tr><tr class="not-sig">
+<td>L7_defillama_usdc_migration</td><td class="name-col">L7 USDC Ethereum-share rise -&gt; long ETH</td>
+<td>0.93</td><td>2698</td>
+<td>0.3536</td><td>0.0270</td>
+<td class="verdict">no</td>
+<td>0.28</td>
+<td>3.9%</td>
+</tr><tr class="not-sig">
+<td>AJ-4</td><td class="name-col">USDA G+E Drop → Long Corn</td>
+<td>0.90</td><td>160</td>
+<td>0.3687</td><td>0.0272</td>
+<td class="verdict">no</td>
+<td>1.13</td>
+<td>48.4%</td>
+</tr><tr class="not-sig">
+<td>AI-5</td><td class="name-col">Office CMBS Pair: Long JPM+WFC / Short OZK+NYCB</td>
+<td>0.89</td><td>850</td>
+<td>0.3717</td><td>0.0274</td>
+<td class="verdict">no</td>
+<td>0.49</td>
+<td>11.7%</td>
+</tr><tr class="not-sig">
+<td>AC-12</td><td class="name-col">AC-12 December tax-loss bounce (IWM proxy)</td>
+<td>0.88</td><td>568</td>
+<td>0.3789</td><td>0.0275</td>
+<td class="verdict">no</td>
+<td>0.59</td>
+<td>9.3%</td>
+</tr><tr class="not-sig">
+<td>M9_refinery_utilization</td><td class="name-col">M9 Refinery util drop &gt;4pp WoW → long XLE 30d</td>
+<td>0.88</td><td>6888</td>
+<td>0.3792</td><td>0.0277</td>
+<td class="verdict">no</td>
+<td>0.17</td>
+<td>1.3%</td>
+</tr><tr class="not-sig">
+<td>G07_warn_act_layoffs</td><td class="name-col">G07 WARN Act short-event composite</td>
+<td>0.88</td><td>219</td>
+<td>0.3807</td><td>0.0279</td>
+<td class="verdict">no</td>
+<td>0.94</td>
+<td>26.0%</td>
+</tr><tr class="not-sig">
+<td>AN-2</td><td class="name-col">AN-2 Long TMHC / Short AIV</td>
+<td>0.87</td><td>1062</td>
+<td>0.3834</td><td>0.0281</td>
+<td class="verdict">no</td>
+<td>0.42</td>
+<td>6.0%</td>
+</tr><tr class="not-sig">
+<td>P8_brent_johnson_dxy_105</td><td class="name-col">P8 Brent Johnson DXY&gt;105 (UUP-EEM)</td>
+<td>-0.85</td><td>4836</td>
+<td>0.3931</td><td>0.0282</td>
+<td class="verdict">no</td>
+<td>-0.19</td>
+<td>-0.6%</td>
+</tr><tr class="not-sig">
+<td>F9_ustr_s301</td><td class="name-col">F9 USTR Section 301 comment-close basket</td>
+<td>0.85</td><td>60</td>
+<td>0.3960</td><td>0.0284</td>
+<td class="verdict">no</td>
+<td>1.75</td>
+<td>37.2%</td>
+</tr><tr class="not-sig">
+<td>K6_grain_barge_rate</td><td class="name-col">K6 Barge surge short MOO</td>
+<td>-0.84</td><td>4707</td>
+<td>0.3998</td><td>0.0286</td>
+<td class="verdict">no</td>
+<td>-0.19</td>
+<td>-2.2%</td>
+</tr><tr class="not-sig">
+<td>I10_containerboard_pulse</td><td class="name-col">I-10 Paper-industry pulse -&gt; IWM</td>
+<td>0.83</td><td>6535</td>
+<td>0.4062</td><td>0.0288</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>1.0%</td>
+</tr><tr class="not-sig">
+<td>AG-1</td><td class="name-col">AG-1 Rhine Low Water Pair</td>
+<td>-0.83</td><td>122</td>
+<td>0.4098</td><td>0.0289</td>
+<td class="verdict">no</td>
+<td>-1.19</td>
+<td>-18.4%</td>
+</tr><tr class="not-sig">
+<td>AC-4</td><td class="name-col">AC-4 India Union Budget defense tilt</td>
+<td>0.82</td><td>83</td>
+<td>0.4142</td><td>0.0291</td>
+<td class="verdict">no</td>
+<td>1.43</td>
+<td>60.5%</td>
+</tr><tr class="not-sig">
+<td>G22_em_election_fx</td><td class="name-col">G22 EM election FX fade</td>
+<td>-0.82</td><td>2966</td>
+<td>0.4143</td><td>0.0293</td>
+<td class="verdict">no</td>
+<td>-0.24</td>
+<td>-0.4%</td>
+</tr><tr class="not-sig">
+<td>A08_opex_week</td><td class="name-col">A08 OPEX week</td>
+<td>0.81</td><td>6635</td>
+<td>0.4187</td><td>0.0295</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>1.1%</td>
+</tr><tr class="not-sig">
+<td>N7_coinbase_volume</td><td class="name-col">N7 COIN volume drop short</td>
+<td>-0.81</td><td>669</td>
+<td>0.4190</td><td>0.0296</td>
+<td class="verdict">no</td>
+<td>-0.50</td>
+<td>-6.6%</td>
+</tr><tr class="not-sig">
+<td>G15_election_vix</td><td class="name-col">G15 Election VIX ramp</td>
+<td>-0.81</td><td>3868</td>
+<td>0.4193</td><td>0.0298</td>
+<td class="verdict">no</td>
+<td>-0.21</td>
+<td>-9.0%</td>
+</tr><tr class="not-sig">
+<td>T11_ethanol_crush_counterintuitive</td><td class="name-col">T11 Ethanol crush counterintuitive -&gt; long ZC=F</td>
+<td>0.81</td><td>4016</td>
+<td>0.4204</td><td>0.0300</td>
+<td class="verdict">no</td>
+<td>0.20</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>AA10_coinbase_listing</td><td class="name-col">AA10 Coinbase listing 24h</td>
+<td>0.81</td><td>3065</td>
+<td>0.4205</td><td>0.0302</td>
+<td class="verdict">no</td>
+<td>0.23</td>
+<td>2.6%</td>
+</tr><tr class="not-sig">
+<td>F10_macd_divergence</td><td class="name-col">F10 MACD bullish divergence</td>
+<td>0.80</td><td>6538</td>
+<td>0.4216</td><td>0.0304</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>0.7%</td>
+</tr><tr class="not-sig">
+<td>I04_premium_discount</td><td class="name-col">I04 RSI(2) + Discount filter</td>
+<td>0.80</td><td>6636</td>
+<td>0.4221</td><td>0.0305</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>0.5%</td>
+</tr><tr class="not-sig">
+<td>V4_doomberg_lng_brent</td><td class="name-col">V4 UNG/BNO mean-reversion</td>
+<td>-0.80</td><td>4019</td>
+<td>0.4264</td><td>0.0307</td>
+<td class="verdict">no</td>
+<td>-0.20</td>
+<td>-4.1%</td>
+</tr><tr class="not-sig">
+<td>H02_stablecoin_supply_ratio</td><td class="name-col">H02 SSR Bollinger oscillator</td>
+<td>0.79</td><td>2896</td>
+<td>0.4296</td><td>0.0309</td>
+<td class="verdict">no</td>
+<td>0.23</td>
+<td>2.8%</td>
+</tr><tr class="not-sig">
+<td>R-D11_short_interest</td><td class="name-col">FINRA SVR low-minus-high (sextile, monthly)</td>
+<td>0.79</td><td>252</td>
+<td>0.4330</td><td>0.0311</td>
+<td class="verdict">no</td>
+<td>0.79</td>
+<td>13.7%</td>
+</tr><tr class="not-sig">
+<td>AK-2</td><td class="name-col">AK-2 FAA Hub Capacity Airline</td>
+<td>0.79</td><td>171</td>
+<td>0.4334</td><td>0.0312</td>
+<td class="verdict">no</td>
+<td>0.95</td>
+<td>39.2%</td>
+</tr><tr class="not-sig">
+<td>W4_auction_tail_long_dur</td><td class="name-col">W4 auction tail short XLU+XLRE+ARKK</td>
+<td>-0.76</td><td>2101</td>
+<td>0.4456</td><td>0.0314</td>
+<td class="verdict">no</td>
+<td>-0.26</td>
+<td>-2.2%</td>
+</tr><tr class="not-sig">
+<td>I07_fib_pullback</td><td class="name-col">I07 Fib 0.618 pullback</td>
+<td>0.76</td><td>6267</td>
+<td>0.4466</td><td>0.0316</td>
+<td class="verdict">no</td>
+<td>0.15</td>
+<td>0.4%</td>
+</tr><tr class="not-sig">
+<td>U10_chile_copper_royalty_bills</td><td class="name-col">U10 Chile royalty bill milestone -&gt; long HG+ANTO 126d</td>
+<td>0.75</td><td>1298</td>
+<td>0.4519</td><td>0.0318</td>
+<td class="verdict">no</td>
+<td>0.33</td>
+<td>4.2%</td>
+</tr><tr class="not-sig">
+<td>AP-1</td><td class="name-col">AP-1 NRMP FM Fill → Long AMN / Short Hospitals</td>
+<td>-0.75</td><td>549</td>
+<td>0.4559</td><td>0.0319</td>
+<td class="verdict">no</td>
+<td>-0.51</td>
+<td>-19.0%</td>
+</tr><tr class="not-sig">
+<td>Q9_indonesia_palm</td><td class="name-col">Q9 Indonesia palm events -&gt; long ZL=F 20d</td>
+<td>-0.73</td><td>1083</td>
+<td>0.4632</td><td>0.0321</td>
+<td class="verdict">no</td>
+<td>-0.35</td>
+<td>-4.8%</td>
+</tr><tr class="not-sig">
+<td>AM-5</td><td class="name-col">AM-5 AWS Outage Multi-Cloud</td>
+<td>-0.72</td><td>93</td>
+<td>0.4722</td><td>0.0323</td>
+<td class="verdict">no</td>
+<td>-1.19</td>
+<td>-61.2%</td>
+</tr><tr class="not-sig">
+<td>AL-4</td><td class="name-col">AL-4 Birth Collapse Pet Pair</td>
+<td>-0.72</td><td>1101</td>
+<td>0.4738</td><td>0.0325</td>
+<td class="verdict">no</td>
+<td>-0.34</td>
+<td>-16.0%</td>
+</tr><tr class="not-sig">
+<td>O9_indeed_jobs</td><td class="name-col">O9 Indeed jobs YoY&lt;-8% -&gt; short XLY 60d</td>
+<td>-0.71</td><td>1857</td>
+<td>0.4807</td><td>0.0326</td>
+<td class="verdict">no</td>
+<td>-0.26</td>
+<td>-2.9%</td>
+</tr><tr class="not-sig">
+<td>Q12_opec_compliance</td><td class="name-col">Q12 OPEC+ compliance&lt;80% -&gt; short BZ=F 60d</td>
+<td>0.70</td><td>477</td>
+<td>0.4855</td><td>0.0328</td>
+<td class="verdict">no</td>
+<td>0.51</td>
+<td>6.8%</td>
+</tr><tr class="not-sig">
+<td>V5_apollo_la_port</td><td class="name-col">V5 Apollo LA Port containers</td>
+<td>-0.70</td><td>3853</td>
+<td>0.4857</td><td>0.0330</td>
+<td class="verdict">no</td>
+<td>-0.18</td>
+<td>-0.9%</td>
+</tr><tr class="not-sig">
+<td>U11_vietnam_robusta_premium</td><td class="name-col">U11 VN-LRC premium -&gt; long KC=F (arabica fallback) 60d</td>
+<td>0.69</td><td>684</td>
+<td>0.4909</td><td>0.0332</td>
+<td class="verdict">no</td>
+<td>0.42</td>
+<td>6.8%</td>
+</tr><tr class="not-sig">
+<td>U3_sa_pgm_wage_strikes</td><td class="name-col">U3 SA PGM Section 64 -&gt; long PL+SBSW 30d</td>
+<td>0.69</td><td>3099</td>
+<td>0.4916</td><td>0.0333</td>
+<td class="verdict">no</td>
+<td>0.20</td>
+<td>1.4%</td>
+</tr><tr class="not-sig">
+<td>G17_boj_surprise</td><td class="name-col">G17 BoJ surprise short USDJPY</td>
+<td>-0.69</td><td>4265</td>
+<td>0.4919</td><td>0.0335</td>
+<td class="verdict">no</td>
+<td>-0.17</td>
+<td>-0.1%</td>
+</tr><tr class="not-sig">
+<td>Z1_dpa_two_leg</td><td class="name-col">Z1 DPA two-leg</td>
+<td>0.67</td><td>2588</td>
+<td>0.5003</td><td>0.0337</td>
+<td class="verdict">no</td>
+<td>0.21</td>
+<td>2.2%</td>
+</tr><tr class="not-sig">
+<td>AL-2</td><td class="name-col">AL-2 Immigration Homebuilder Pair</td>
+<td>-0.67</td><td>348</td>
+<td>0.5024</td><td>0.0339</td>
+<td class="verdict">no</td>
+<td>-0.57</td>
+<td>-10.1%</td>
+</tr><tr class="not-sig">
+<td>AI-3</td><td class="name-col">Patent Cliff → Long ELV+CI</td>
+<td>0.67</td><td>360</td>
+<td>0.5052</td><td>0.0340</td>
+<td class="verdict">no</td>
+<td>0.56</td>
+<td>11.1%</td>
+</tr><tr class="not-sig">
+<td>I12_enso_ag_commodities</td><td class="name-col">I-12 ENSO (SOYB vs CORN pair)</td>
+<td>-0.66</td><td>3870</td>
+<td>0.5097</td><td>0.0342</td>
+<td class="verdict">no</td>
+<td>-0.17</td>
+<td>-0.9%</td>
+</tr><tr class="not-sig">
+<td>U13_peru_las_bambas</td><td class="name-col">U13 Las Bambas blockade -&gt; long MMG+HG 30d</td>
+<td>0.66</td><td>1161</td>
+<td>0.5122</td><td>0.0344</td>
+<td class="verdict">no</td>
+<td>0.31</td>
+<td>2.8%</td>
+</tr><tr class="not-sig">
+<td>J9_eia_distillate</td><td class="name-col">J9 Distillate draw -&gt; long XLE / short USO</td>
+<td>-0.65</td><td>4877</td>
+<td>0.5130</td><td>0.0346</td>
+<td class="verdict">no</td>
+<td>-0.15</td>
+<td>-0.8%</td>
+</tr><tr class="not-sig">
+<td>O10_business_formation</td><td class="name-col">O10 BFS YoY&gt;5% (4w) -&gt; long IWM 90d</td>
+<td>0.64</td><td>5380</td>
+<td>0.5237</td><td>0.0347</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>AC-1</td><td class="name-col">AC-1 US FY-yearend defense surge</td>
+<td>0.64</td><td>293</td>
+<td>0.5239</td><td>0.0349</td>
+<td class="verdict">no</td>
+<td>0.59</td>
+<td>9.3%</td>
+</tr><tr class="not-sig">
+<td>X4_vale_jurisdictional</td><td class="name-col">X4 VALE/BHP z&lt;-1.5 long 90d</td>
+<td>0.62</td><td>3942</td>
+<td>0.5362</td><td>0.0351</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>Z8_multi_state_ag</td><td class="name-col">Z8 Multi-state AG short 60d</td>
+<td>-0.62</td><td>521</td>
+<td>0.5384</td><td>0.0353</td>
+<td class="verdict">no</td>
+<td>-0.43</td>
+<td>-10.1%</td>
+</tr><tr class="not-sig">
+<td>P10_granny_shots_etf</td><td class="name-col">P10 GRNY - SPY (relative)</td>
+<td>0.61</td><td>384</td>
+<td>0.5390</td><td>0.0354</td>
+<td class="verdict">no</td>
+<td>0.50</td>
+<td>4.2%</td>
+</tr><tr class="not-sig">
+<td>AI-2</td><td class="name-col">Negative Equity → Short SC+CACC</td>
+<td>-0.61</td><td>600</td>
+<td>0.5401</td><td>0.0356</td>
+<td class="verdict">no</td>
+<td>-0.40</td>
+<td>-16.0%</td>
+</tr><tr class="not-sig">
+<td>T8_eskom_load_shedding</td><td class="name-col">T8 Eskom Stage &gt;=4 -&gt; long PL=F 2mo</td>
+<td>0.61</td><td>2861</td>
+<td>0.5413</td><td>0.0358</td>
+<td class="verdict">no</td>
+<td>0.18</td>
+<td>1.3%</td>
+</tr><tr class="not-sig">
+<td>U12_argentina_dolar_soja</td><td class="name-col">U12 dolar-soja close + 60d -&gt; long ZM+BG 40d</td>
+<td>-0.61</td><td>873</td>
+<td>0.5420</td><td>0.0360</td>
+<td class="verdict">no</td>
+<td>-0.33</td>
+<td>-4.1%</td>
+</tr><tr class="not-sig">
+<td>K8_nahb_traffic</td><td class="name-col">K8 NAHB Traffic &gt; 1σ long ITB</td>
+<td>0.60</td><td>5042</td>
+<td>0.5456</td><td>0.0361</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>X2_royalty_premium</td><td class="name-col">X2 royalty premium proxy long-90d</td>
+<td>0.59</td><td>2519</td>
+<td>0.5586</td><td>0.0363</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>1.7%</td>
+</tr><tr class="not-sig">
+<td>H01_perp_funding</td><td class="name-col">H01 Perp funding extremes</td>
+<td>-0.58</td><td>2579</td>
+<td>0.5592</td><td>0.0365</td>
+<td class="verdict">no</td>
+<td>-0.18</td>
+<td>-2.0%</td>
+</tr><tr class="not-sig">
+<td>P9_cowen_btc_risk</td><td class="name-col">P9 Cowen BTC Risk</td>
+<td>0.58</td><td>4265</td>
+<td>0.5622</td><td>0.0367</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>-0.9%</td>
+</tr><tr class="not-sig">
+<td>F14_boc_calendar</td><td class="name-col">F14 BoC meeting calendar USDCAD signal</td>
+<td>-0.58</td><td>33</td>
+<td>0.5630</td><td>0.0368</td>
+<td class="verdict">no</td>
+<td>-1.62</td>
+<td>-13.5%</td>
+</tr><tr class="not-sig">
+<td>AM-1</td><td class="name-col">AM-1 Hormuz Refiner Pair</td>
+<td>0.58</td><td>59</td>
+<td>0.5658</td><td>0.0370</td>
+<td class="verdict">no</td>
+<td>1.19</td>
+<td>55.8%</td>
+</tr><tr class="not-sig">
+<td>C18_big_mac_ppp</td><td class="name-col">C18 Big Mac PPP (6-mo rebal)</td>
+<td>-0.57</td><td>4627</td>
+<td>0.5674</td><td>0.0372</td>
+<td class="verdict">no</td>
+<td>-0.13</td>
+<td>-1.2%</td>
+</tr><tr class="not-sig">
+<td>J7_rrp_drain</td><td class="name-col">J7 RRP drain -&gt; short TLT</td>
+<td>0.57</td><td>1605</td>
+<td>0.5698</td><td>0.0374</td>
+<td class="verdict">no</td>
+<td>0.23</td>
+<td>1.4%</td>
+</tr><tr class="not-sig">
+<td>AF-1</td><td class="name-col">AF-1 GLP-1 → Short RMD</td>
+<td>-0.56</td><td>327</td>
+<td>0.5748</td><td>0.0375</td>
+<td class="verdict">no</td>
+<td>-0.49</td>
+<td>-19.7%</td>
+</tr><tr class="not-sig">
+<td>N6_sofr_iorb</td><td class="name-col">N6 SOFR-IORB stress short SPY</td>
+<td>-0.56</td><td>1983</td>
+<td>0.5783</td><td>0.0377</td>
+<td class="verdict">no</td>
+<td>-0.20</td>
+<td>-1.2%</td>
+</tr><tr class="not-sig">
+<td>A11_dst_anomaly</td><td class="name-col">A11 DST short-Monday</td>
+<td>0.54</td><td>6635</td>
+<td>0.5866</td><td>0.0379</td>
+<td class="verdict">no</td>
+<td>0.11</td>
+<td>0.2%</td>
+</tr><tr class="not-sig">
+<td>AF-3</td><td class="name-col">AF-3 Freight Spike → Short Retail</td>
+<td>0.54</td><td>93</td>
+<td>0.5882</td><td>0.0381</td>
+<td class="verdict">no</td>
+<td>0.89</td>
+<td>22.1%</td>
+</tr><tr class="not-sig">
+<td>Q7_india_gold_festival</td><td class="name-col">Q7 India festival gold -&gt; long GLD 45d</td>
+<td>0.54</td><td>2692</td>
+<td>0.5898</td><td>0.0382</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>F7_pboc_lpr</td><td class="name-col">F7 PBoC MLF cut -&gt; FXI around LPR fix</td>
+<td>-0.54</td><td>40</td>
+<td>0.5905</td><td>0.0384</td>
+<td class="verdict">no</td>
+<td>-1.36</td>
+<td>-32.7%</td>
+</tr><tr class="not-sig">
+<td>N8_eia_propane</td><td class="name-col">N8 EIA propane autumn -&gt; UNG</td>
+<td>0.52</td><td>1936</td>
+<td>0.6044</td><td>0.0386</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>1.7%</td>
+</tr><tr class="not-sig">
+<td>A05_january_small_caps</td><td class="name-col">A05 IWM-SPY Jan spread</td>
+<td>0.52</td><td>6534</td>
+<td>0.6057</td><td>0.0388</td>
+<td class="verdict">no</td>
+<td>0.10</td>
+<td>0.3%</td>
+</tr><tr class="not-sig">
+<td>U1_indonesia_nickel_royalty</td><td class="name-col">U1 Indo PNBP nickel hike -&gt; long NIC.AX 30d</td>
+<td>0.52</td><td>1492</td>
+<td>0.6065</td><td>0.0389</td>
+<td class="verdict">no</td>
+<td>0.21</td>
+<td>1.9%</td>
+</tr><tr class="not-sig">
+<td>I06_lunar_january_ashares</td><td class="name-col">I-6 Lunar Jan ASHR</td>
+<td>0.51</td><td>3153</td>
+<td>0.6081</td><td>0.0391</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>0.8%</td>
+</tr><tr class="not-sig">
+<td>R-N3_aar_intermodal</td><td class="name-col">AAR intermodal vs carload spread &gt; 5pp</td>
+<td>0.51</td><td>3617</td>
+<td>0.6086</td><td>0.0393</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>O12_ca_cap_trade</td><td class="name-col">O12 CCA auction +10% -&gt; long ICLN 90d</td>
+<td>0.50</td><td>3115</td>
+<td>0.6153</td><td>0.0395</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>1.0%</td>
+</tr><tr class="not-sig">
+<td>G18_pboc_rrr_fxi</td><td class="name-col">G18 PBOC RRR -&gt; FXI</td>
+<td>0.50</td><td>3115</td>
+<td>0.6163</td><td>0.0396</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>0.9%</td>
+</tr><tr class="not-sig">
+<td>AL-5</td><td class="name-col">AL-5 Sunbelt Multifamily REITs</td>
+<td>-0.50</td><td>1101</td>
+<td>0.6167</td><td>0.0398</td>
+<td class="verdict">no</td>
+<td>-0.24</td>
+<td>-7.2%</td>
+</tr><tr class="not-sig">
+<td>W2_dspx_dispersion</td><td class="name-col">W2 DSPX dispersion (RSP-SPY)</td>
+<td>-0.50</td><td>250</td>
+<td>0.6203</td><td>0.0400</td>
+<td class="verdict">no</td>
+<td>-0.50</td>
+<td>-1.7%</td>
+</tr><tr class="not-sig">
+<td>G23_gpr_tail_spy</td><td class="name-col">G23 GPR tail BUY SPY</td>
+<td>0.49</td><td>7899</td>
+<td>0.6222</td><td>0.0402</td>
+<td class="verdict">no</td>
+<td>0.09</td>
+<td>0.2%</td>
+</tr><tr class="not-sig">
+<td>S11_gasoline_demand</td><td class="name-col">S11 gasoline-supplied weak summer -&gt; short UGA 30d</td>
+<td>0.49</td><td>4587</td>
+<td>0.6236</td><td>0.0404</td>
+<td class="verdict">no</td>
+<td>0.12</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>AA3_mstr_premium</td><td class="name-col">AA3 MSTR mNAV premium short</td>
+<td>-0.48</td><td>1458</td>
+<td>0.6330</td><td>0.0405</td>
+<td class="verdict">no</td>
+<td>-0.20</td>
+<td>-11.7%</td>
+</tr><tr class="not-sig">
+<td>AA4_tips_breakeven</td><td class="name-col">AA4 TIPS breakeven (auction)</td>
+<td>0.48</td><td>4120</td>
+<td>0.6333</td><td>0.0407</td>
+<td class="verdict">no</td>
+<td>0.12</td>
+<td>0.1%</td>
+</tr><tr class="not-sig">
+<td>F06_td_sequential</td><td class="name-col">F06 TD Sequential 9-bar setup fade</td>
+<td>-0.47</td><td>6636</td>
+<td>0.6412</td><td>0.0409</td>
+<td class="verdict">no</td>
+<td>-0.09</td>
+<td>-1.1%</td>
+</tr><tr class="not-sig">
+<td>U8_mongolia_coking_coal_trucks</td><td class="name-col">U8 Mongolia border close -&gt; long TECK 30d</td>
+<td>0.46</td><td>1578</td>
+<td>0.6428</td><td>0.0411</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>1.2%</td>
+</tr><tr class="not-sig">
+<td>N2_mba_refi</td><td class="name-col">N2 MBA refi (MORTGAGE30US proxy)</td>
+<td>0.46</td><td>4572</td>
+<td>0.6464</td><td>0.0412</td>
+<td class="verdict">no</td>
+<td>0.11</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>J1_tic_custody_drop</td><td class="name-col">J1 TIC custody drop -&gt; short TLT</td>
+<td>-0.46</td><td>5992</td>
+<td>0.6466</td><td>0.0414</td>
+<td class="verdict">no</td>
+<td>-0.09</td>
+<td>-0.3%</td>
+</tr><tr class="not-sig">
+<td>AH-1</td><td class="name-col">Hydro Drought → Short AVA</td>
+<td>0.44</td><td>379</td>
+<td>0.6634</td><td>0.0416</td>
+<td class="verdict">no</td>
+<td>0.36</td>
+<td>6.3%</td>
+</tr><tr class="not-sig">
+<td>AB7_vix9d_acute</td><td class="name-col">AB7 VIX9D acute fear</td>
+<td>0.43</td><td>3869</td>
+<td>0.6705</td><td>0.0418</td>
+<td class="verdict">no</td>
+<td>0.11</td>
+<td>0.1%</td>
+</tr><tr class="not-sig">
+<td>F5_fda_pdufa</td><td class="name-col">F5 FDA PDUFA pre-decision drift</td>
+<td>0.42</td><td>224</td>
+<td>0.6728</td><td>0.0419</td>
+<td class="verdict">no</td>
+<td>0.45</td>
+<td>10.8%</td>
+</tr><tr class="not-sig">
+<td>J4_mississippi_river</td><td class="name-col">J4 Mississippi low water -&gt; long CORN</td>
+<td>0.42</td><td>4013</td>
+<td>0.6775</td><td>0.0421</td>
+<td class="verdict">no</td>
+<td>0.10</td>
+<td>0.3%</td>
+</tr><tr class="not-sig">
+<td>U6_thai_rubber_eudr</td><td class="name-col">U6 EUDR -T-90d -&gt; long 5108+STGT 60d</td>
+<td>0.41</td><td>445</td>
+<td>0.6833</td><td>0.0423</td>
+<td class="verdict">no</td>
+<td>0.31</td>
+<td>3.4%</td>
+</tr><tr class="not-sig">
+<td>AF-4</td><td class="name-col">AF-4 China RE → MP/TSLA vs F/GM</td>
+<td>0.39</td><td>244</td>
+<td>0.6944</td><td>0.0425</td>
+<td class="verdict">no</td>
+<td>0.40</td>
+<td>8.4%</td>
+</tr><tr class="not-sig">
+<td>H12_cot_commercial</td><td class="name-col">H12 COT commercial-hedger extremes</td>
+<td>0.39</td><td>5380</td>
+<td>0.6972</td><td>0.0426</td>
+<td class="verdict">no</td>
+<td>0.08</td>
+<td>0.3%</td>
+</tr><tr class="not-sig">
+<td>G14_prefomc_regime</td><td class="name-col">G14 Pre-FOMC dovish only</td>
+<td>0.37</td><td>6636</td>
+<td>0.7147</td><td>0.0428</td>
+<td class="verdict">no</td>
+<td>0.07</td>
+<td>0.2%</td>
+</tr><tr class="not-sig">
+<td>W9_trend_replication_slippage</td><td class="name-col">W9 internal TSMOM minus CTA-ETF basket</td>
+<td>0.34</td><td>1056</td>
+<td>0.7303</td><td>0.0430</td>
+<td class="verdict">no</td>
+<td>0.17</td>
+<td>1.4%</td>
+</tr><tr class="not-sig">
+<td>AB8_us_jp_real_rate</td><td class="name-col">AB8 US-JP real rate gap</td>
+<td>0.34</td><td>5858</td>
+<td>0.7311</td><td>0.0432</td>
+<td class="verdict">no</td>
+<td>0.07</td>
+<td>0.2%</td>
+</tr><tr class="not-sig">
+<td>S10_ovx_vix_ratio</td><td class="name-col">S10 OVX/VIX&gt;2 5d -&gt; short USO 30d</td>
+<td>-0.34</td><td>4773</td>
+<td>0.7374</td><td>0.0433</td>
+<td class="verdict">no</td>
+<td>-0.08</td>
+<td>-6.1%</td>
+</tr><tr class="not-sig">
+<td>J11_tsa_throughput</td><td class="name-col">J11 TSA weak -&gt; short JETS</td>
+<td>-0.33</td><td>1857</td>
+<td>0.7404</td><td>0.0435</td>
+<td class="verdict">no</td>
+<td>-0.12</td>
+<td>-8.0%</td>
+</tr><tr class="not-sig">
+<td>N12_tga_tax_dates</td><td class="name-col">N12 TGA tax-date long TLT</td>
+<td>-0.32</td><td>2037</td>
+<td>0.7511</td><td>0.0437</td>
+<td class="verdict">no</td>
+<td>-0.11</td>
+<td>-0.2%</td>
+</tr><tr class="not-sig">
+<td>R-L14_mcclellan</td><td class="name-col">SP500-McClellan cross-up long SPY 21d</td>
+<td>0.31</td><td>3114</td>
+<td>0.7542</td><td>0.0439</td>
+<td class="verdict">no</td>
+<td>0.09</td>
+<td>0.3%</td>
+</tr><tr class="not-sig">
+<td>G10_china_port_throughput</td><td class="name-col">G10 China port throughput (FXI vs SPY)</td>
+<td>0.30</td><td>2107</td>
+<td>0.7653</td><td>0.0440</td>
+<td class="verdict">no</td>
+<td>0.10</td>
+<td>0.5%</td>
+</tr><tr class="not-sig">
+<td>J8_usgs_copper</td><td class="name-col">J8 Copper supply shocks -&gt; long FCX</td>
+<td>-0.29</td><td>2863</td>
+<td>0.7702</td><td>0.0442</td>
+<td class="verdict">no</td>
+<td>-0.09</td>
+<td>-2.3%</td>
+</tr><tr class="not-sig">
+<td>Q11_cushing_inventory</td><td class="name-col">Q11 Cushing&lt;25MMbbl -&gt; long CL=F 30d</td>
+<td>0.29</td><td>5561</td>
+<td>0.7708</td><td>0.0444</td>
+<td class="verdict">no</td>
+<td>0.06</td>
+<td>-1.3%</td>
+</tr><tr class="not-sig">
+<td>H09_etf_flows</td><td class="name-col">H09 BTC spot ETF dollar-volume proxy</td>
+<td>0.29</td><td>599</td>
+<td>0.7730</td><td>0.0446</td>
+<td class="verdict">no</td>
+<td>0.19</td>
+<td>0.6%</td>
+</tr><tr class="not-sig">
+<td>AK-3</td><td class="name-col">AK-3 Mississippi Barge Soybeans</td>
+<td>-0.29</td><td>93</td>
+<td>0.7752</td><td>0.0447</td>
+<td class="verdict">no</td>
+<td>-0.47</td>
+<td>-8.4%</td>
+</tr><tr class="not-sig">
+<td>M8_russell_reconstitution</td><td class="name-col">M8 Russell reconstitution → long IWM 15d pre through event</td>
+<td>-0.28</td><td>6535</td>
+<td>0.7769</td><td>0.0449</td>
+<td class="verdict">no</td>
+<td>-0.06</td>
+<td>-0.4%</td>
+</tr><tr class="not-sig">
+<td>O1_srf_usage</td><td class="name-col">O1 SRF usage -&gt; long SHY 5d</td>
+<td>0.26</td><td>1605</td>
+<td>0.7944</td><td>0.0451</td>
+<td class="verdict">no</td>
+<td>0.10</td>
+<td>0.0%</td>
+</tr><tr class="not-sig">
+<td>U4_norway_salmon_lice</td><td class="name-col">U4 Mattilsynet PO3-5 -&gt; long MOWI / short BAKKA 30d</td>
+<td>-0.24</td><td>1924</td>
+<td>0.8095</td><td>0.0453</td>
+<td class="verdict">no</td>
+<td>-0.09</td>
+<td>-1.7%</td>
+</tr><tr class="not-sig">
+<td>AA1_xbi_rebalance</td><td class="name-col">AA1 XBI rebalance pair</td>
+<td>-0.23</td><td>5104</td>
+<td>0.8163</td><td>0.0454</td>
+<td class="verdict">no</td>
+<td>-0.05</td>
+<td>-0.3%</td>
+</tr><tr class="not-sig">
+<td>U9_fonterra_gdt_pulse</td><td class="name-col">U9 GDT Pulse +5% -&gt; long ATM+SAP 14d</td>
+<td>0.22</td><td>1428</td>
+<td>0.8237</td><td>0.0456</td>
+<td class="verdict">no</td>
+<td>0.09</td>
+<td>0.4%</td>
+</tr><tr class="not-sig">
+<td>AB2_nok_brent_sov_lag</td><td class="name-col">AB2 NOK Brent sov-lag</td>
+<td>0.22</td><td>5782</td>
+<td>0.8265</td><td>0.0458</td>
+<td class="verdict">no</td>
+<td>0.05</td>
+<td>0.1%</td>
+</tr><tr class="not-sig">
+<td>O8_bfr_share</td><td class="name-col">O8 BFR-share&gt;75pct -&gt; short INVH+AMH 90d</td>
+<td>-0.18</td><td>3221</td>
+<td>0.8588</td><td>0.0460</td>
+<td class="verdict">no</td>
+<td>-0.05</td>
+<td>-0.4%</td>
+</tr><tr class="not-sig">
+<td>X3_usgc_nyh_crack</td><td class="name-col">X3 USGC-NYH gap &gt;$8.0 long VLO short PBF</td>
+<td>0.18</td><td>3379</td>
+<td>0.8595</td><td>0.0461</td>
+<td class="verdict">no</td>
+<td>0.05</td>
+<td>0.1%</td>
+</tr><tr class="not-sig">
+<td>P2_karsan_post_opex</td><td class="name-col">P2 Karsan Post-OPEX (short)</td>
+<td>0.17</td><td>6635</td>
+<td>0.8618</td><td>0.0463</td>
+<td class="verdict">no</td>
+<td>0.03</td>
+<td>-0.0%</td>
+</tr><tr class="not-sig">
+<td>AJ-2</td><td class="name-col">Peru Anchovy → Long ZM=F</td>
+<td>0.17</td><td>300</td>
+<td>0.8628</td><td>0.0465</td>
+<td class="verdict">no</td>
+<td>0.16</td>
+<td>0.3%</td>
+</tr><tr class="not-sig">
+<td>J3_form_d_biotech</td><td class="name-col">J3 Biotech Form D surge -&gt; short XBI</td>
+<td>-0.17</td><td>3115</td>
+<td>0.8673</td><td>0.0467</td>
+<td class="verdict">no</td>
+<td>-0.05</td>
+<td>-1.9%</td>
+</tr><tr class="not-sig">
+<td>D17_coskewness</td><td class="name-col">D17 Negative coskewness premium</td>
+<td>-0.16</td><td>269</td>
+<td>0.8701</td><td>0.0468</td>
+<td class="verdict">no</td>
+<td>-0.03</td>
+<td>-1.8%</td>
+</tr><tr class="not-sig">
+<td>Z5_stanford_scac</td><td class="name-col">Z5 SCAC first-filed short 60d</td>
+<td>0.16</td><td>1175</td>
+<td>0.8701</td><td>0.0470</td>
+<td class="verdict">no</td>
+<td>0.08</td>
+<td>-13.0%</td>
+</tr><tr class="not-sig">
+<td>I05_wyckoff_spring</td><td class="name-col">I05 Wyckoff Spring</td>
+<td>-0.15</td><td>6602</td>
+<td>0.8815</td><td>0.0472</td>
+<td class="verdict">no</td>
+<td>-0.03</td>
+<td>-0.1%</td>
+</tr><tr class="not-sig">
+<td>P3_karsan_quarterly_meltup</td><td class="name-col">P3 Karsan Quarterly Meltup</td>
+<td>0.13</td><td>6635</td>
+<td>0.8959</td><td>0.0474</td>
+<td class="verdict">no</td>
+<td>0.03</td>
+<td>-0.1%</td>
+</tr><tr class="not-sig">
+<td>X9_cf_industries_tt_hh</td><td class="name-col">X9 CF TTF-crash long 90d</td>
+<td>0.11</td><td>1780</td>
+<td>0.9103</td><td>0.0475</td>
+<td class="verdict">no</td>
+<td>0.04</td>
+<td>-2.2%</td>
+</tr><tr class="not-sig">
+<td>F2_chips_act_pmt</td><td class="name-col">F2 CHIPS PMT recipient vs SOXX</td>
+<td>-0.11</td><td>745</td>
+<td>0.9135</td><td>0.0477</td>
+<td class="verdict">no</td>
+<td>-0.06</td>
+<td>-0.4%</td>
+</tr><tr class="not-sig">
+<td>T4_capesize_iron_ore</td><td class="name-col">T4 BDRY WoW &gt; 20% -&gt; long VALE 4w</td>
+<td>0.10</td><td>2053</td>
+<td>0.9173</td><td>0.0479</td>
+<td class="verdict">no</td>
+<td>0.04</td>
+<td>-0.0%</td>
+</tr><tr class="not-sig">
+<td>M4_eth_btc_ratio</td><td class="name-col">M4 ETH/BTC ratio cross above 200d after &gt;=60d below → long ETH</td>
+<td>0.09</td><td>2917</td>
+<td>0.9289</td><td>0.0481</td>
+<td class="verdict">no</td>
+<td>0.03</td>
+<td>-2.7%</td>
+</tr><tr class="not-sig">
+<td>M2_dsr_jump</td><td class="name-col">M2 DSR jump &gt;+1pp → long ETH 60d</td>
+<td>0.08</td><td>2698</td>
+<td>0.9352</td><td>0.0482</td>
+<td class="verdict">no</td>
+<td>0.02</td>
+<td>-1.1%</td>
+</tr><tr class="not-sig">
+<td>G02_wikipedia_pageviews</td><td class="name-col">G02 Wikipedia pageview MoM (long top decile / short bottom decile)</td>
+<td>0.08</td><td>124</td>
+<td>0.9364</td><td>0.0484</td>
+<td class="verdict">no</td>
+<td>0.02</td>
+<td>-1.1%</td>
+</tr><tr class="not-sig">
+<td>S14_pilbara_spodumene</td><td class="name-col">S14 BMX -15% clear -&gt; short LIT 60d</td>
+<td>-0.08</td><td>785</td>
+<td>0.9380</td><td>0.0486</td>
+<td class="verdict">no</td>
+<td>-0.04</td>
+<td>-2.2%</td>
+</tr><tr class="not-sig">
+<td>F1_ira_solar_guidance</td><td class="name-col">F1 IRA solar guidance basket</td>
+<td>0.08</td><td>81</td>
+<td>0.9387</td><td>0.0488</td>
+<td class="verdict">no</td>
+<td>0.14</td>
+<td>-4.1%</td>
+</tr><tr class="not-sig">
+<td>S9_wti_calendar_spread</td><td class="name-col">S9 WTI 2w&gt;+5% momentum proxy -&gt; long USO 30d</td>
+<td>0.05</td><td>5046</td>
+<td>0.9596</td><td>0.0489</td>
+<td class="verdict">no</td>
+<td>0.01</td>
+<td>-4.5%</td>
+</tr><tr class="not-sig">
+<td>C13_tips_breakeven</td><td class="name-col">C13 TIPS breakeven -&gt; DBC</td>
+<td>0.05</td><td>5105</td>
+<td>0.9627</td><td>0.0491</td>
+<td class="verdict">no</td>
+<td>0.01</td>
+<td>-0.2%</td>
+</tr><tr class="not-sig">
+<td>AB4_brl_softs_composite</td><td class="name-col">AB4 BRL softs composite</td>
+<td>-0.04</td><td>3783</td>
+<td>0.9669</td><td>0.0493</td>
+<td class="verdict">no</td>
+<td>-0.01</td>
+<td>-0.6%</td>
+</tr><tr class="not-sig">
+<td>S15_urals_discount</td><td class="name-col">S15 Urals disc &lt; -$20 -&gt; long BZ, short CL 60d</td>
+<td>0.04</td><td>1038</td>
+<td>0.9683</td><td>0.0495</td>
+<td class="verdict">no</td>
+<td>0.02</td>
+<td>-0.1%</td>
+</tr><tr class="not-sig">
+<td>K14_dallas_fed_capex</td><td class="name-col">K14 Dallas Fed capex drop short XLI</td>
+<td>0.03</td><td>5528</td>
+<td>0.9779</td><td>0.0496</td>
+<td class="verdict">no</td>
+<td>0.01</td>
+<td>-0.1%</td>
+</tr><tr class="not-sig">
+<td>V11_sidial_dispersion</td><td class="name-col">V11 Sidial dispersion proxy</td>
+<td>0.02</td><td>4817</td>
+<td>0.9877</td><td>0.0498</td>
+<td class="verdict">no</td>
+<td>0.00</td>
+<td>-0.0%</td>
+</tr><tr class="not-sig">
+<td>K10_china_rare_earth</td><td class="name-col">K10 China REE drop long REMX</td>
+<td>-0.01</td><td>3913</td>
+<td>0.9950</td><td>0.0500</td>
+<td class="verdict">no</td>
+<td>-0.00</td>
+<td>-2.3%</td>
+</tr></tbody>
+</table>
+</div>
+
+<!-- ===== Transaction Costs ===== -->
+<h2>2. Transaction Cost Impact (10 bps round-trip)</h2>
+<p class="section-note">
+Gross vs net metrics after deducting 10 basis points per unit of turnover.
+"Sharpe drop" = gross Sharpe minus net Sharpe. Signals with high turnover lose the most.
+<strong>0 of 48 winners drop below Sharpe 0.5 after costs.</strong>
+</p>
+
+<div class='scroll-x'><table><thead><tr><th>ID</th><th>Name</th><th>Gross Sharpe</th><th>Net Sharpe</th><th>Sharpe Drop</th><th>Gross CAGR</th><th>Net CAGR</th><th>Cost Drag</th><th>Ann Turnover</th></tr></thead><tbody><tr>
+<td>A14_btc_halving</td><td class="name-col">A14_btc_halving</td>
+<td>1.20</td><td>1.20</td>
+<td class="pos">0.00</td>
+<td>49.8%</td><td>49.8%</td>
+<td>0.1%</td>
+<td>0</td>
+</tr><tr>
+<td>AC-4</td><td class="name-col">AC-4</td>
+<td>1.43</td><td>1.43</td>
+<td class="pos">0.00</td>
+<td>60.5%</td><td>60.5%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AC-6</td><td class="name-col">AC-6</td>
+<td>2.84</td><td>2.84</td>
+<td class="pos">0.00</td>
+<td>147.7%</td><td>147.7%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AE-1</td><td class="name-col">AE-1</td>
+<td>1.13</td><td>1.13</td>
+<td class="pos">0.00</td>
+<td>46.5%</td><td>46.5%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AE-2</td><td class="name-col">AE-2</td>
+<td>1.23</td><td>1.23</td>
+<td class="pos">0.00</td>
+<td>57.2%</td><td>57.2%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AF-3</td><td class="name-col">AF-3</td>
+<td>0.89</td><td>0.89</td>
+<td class="pos">0.00</td>
+<td>22.1%</td><td>22.1%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AG-2</td><td class="name-col">AG-2</td>
+<td>0.56</td><td>0.56</td>
+<td class="pos">0.00</td>
+<td>14.2%</td><td>14.2%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AG-5</td><td class="name-col">AG-5</td>
+<td>1.46</td><td>1.44</td>
+<td class="pos">0.02</td>
+<td>54.0%</td><td>52.7%</td>
+<td>1.2%</td>
+<td>8</td>
+</tr><tr>
+<td>AI-3</td><td class="name-col">AI-3</td>
+<td>0.56</td><td>0.56</td>
+<td class="pos">0.00</td>
+<td>11.1%</td><td>11.1%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AI-4</td><td class="name-col">AI-4</td>
+<td>0.62</td><td>0.62</td>
+<td class="pos">0.00</td>
+<td>13.9%</td><td>13.9%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AJ-1</td><td class="name-col">AJ-1</td>
+<td>2.33</td><td>2.27</td>
+<td class="pos">0.06</td>
+<td>38.8%</td><td>37.7%</td>
+<td>1.2%</td>
+<td>8</td>
+</tr><tr>
+<td>AJ-4</td><td class="name-col">AJ-4</td>
+<td>1.13</td><td>1.12</td>
+<td class="pos">0.01</td>
+<td>48.4%</td><td>47.4%</td>
+<td>0.9%</td>
+<td>6</td>
+</tr><tr>
+<td>AK-2</td><td class="name-col">AK-2</td>
+<td>1.13</td><td>1.13</td>
+<td class="pos">0.00</td>
+<td>51.2%</td><td>51.2%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AL-3</td><td class="name-col">AL-3</td>
+<td>0.80</td><td>0.80</td>
+<td class="pos">0.00</td>
+<td>29.4%</td><td>29.4%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AM-1</td><td class="name-col">AM-1</td>
+<td>0.90</td><td>0.90</td>
+<td class="pos">0.00</td>
+<td>36.2%</td><td>36.2%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AQ-1</td><td class="name-col">AQ-1</td>
+<td>1.79</td><td>1.78</td>
+<td class="pos">0.01</td>
+<td>45.8%</td><td>45.5%</td>
+<td>0.3%</td>
+<td>2</td>
+</tr><tr>
+<td>AR-1</td><td class="name-col">AR-1</td>
+<td>0.87</td><td>0.87</td>
+<td class="pos">0.00</td>
+<td>33.0%</td><td>33.0%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AR-2</td><td class="name-col">AR-2</td>
+<td>0.70</td><td>0.70</td>
+<td class="pos">0.00</td>
+<td>19.6%</td><td>19.6%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AR-3</td><td class="name-col">AR-3</td>
+<td>2.58</td><td>2.58</td>
+<td class="pos">0.00</td>
+<td>97.7%</td><td>97.7%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>AS-B</td><td class="name-col">AS-B</td>
+<td>1.61</td><td>1.61</td>
+<td class="pos">0.00</td>
+<td>132.4%</td><td>132.4%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>C07_accel_dual_momentum</td><td class="name-col">C07_accel_dual_momentum</td>
+<td>0.74</td><td>0.72</td>
+<td class="pos">0.02</td>
+<td>11.4%</td><td>11.0%</td>
+<td>0.4%</td>
+<td>4</td>
+</tr><tr>
+<td>C08_yield_curve_10y2y</td><td class="name-col">C08_yield_curve_10y2y</td>
+<td>0.65</td><td>0.63</td>
+<td class="pos">0.02</td>
+<td>10.5%</td><td>10.1%</td>
+<td>0.4%</td>
+<td>4</td>
+</tr><tr>
+<td>C09_yield_curve_10y3m</td><td class="name-col">C09_yield_curve_10y3m</td>
+<td>0.65</td><td>0.63</td>
+<td class="pos">0.02</td>
+<td>10.5%</td><td>10.1%</td>
+<td>0.4%</td>
+<td>4</td>
+</tr><tr>
+<td>C10_hy_oas_regime</td><td class="name-col">C10_hy_oas_regime</td>
+<td>1.44</td><td>1.43</td>
+<td class="pos">0.00</td>
+<td>22.9%</td><td>22.8%</td>
+<td>0.1%</td>
+<td>1</td>
+</tr><tr>
+<td>F03_margin_debt_yoy</td><td class="name-col">F03_margin_debt_yoy</td>
+<td>0.72</td><td>0.70</td>
+<td class="pos">0.02</td>
+<td>11.5%</td><td>11.2%</td>
+<td>0.3%</td>
+<td>3</td>
+</tr><tr>
+<td>F9_ustr_s301</td><td class="name-col">F9_ustr_s301</td>
+<td>1.75</td><td>1.75</td>
+<td class="pos">0.00</td>
+<td>37.2%</td><td>37.2%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>G07_warn_act_layoffs</td><td class="name-col">G07_warn_act_layoffs</td>
+<td>0.94</td><td>0.94</td>
+<td class="pos">0.00</td>
+<td>26.0%</td><td>26.0%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>H05_hash_ribbons</td><td class="name-col">H05_hash_ribbons</td>
+<td>0.71</td><td>0.69</td>
+<td class="pos">0.01</td>
+<td>20.7%</td><td>20.2%</td>
+<td>0.5%</td>
+<td>4</td>
+</tr><tr>
+<td>H06_mvrv_zscore</td><td class="name-col">H06_mvrv_zscore</td>
+<td>0.97</td><td>0.97</td>
+<td class="pos">0.00</td>
+<td>45.5%</td><td>45.5%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>H07_puell_multiple</td><td class="name-col">H07_puell_multiple</td>
+<td>0.87</td><td>0.87</td>
+<td class="pos">0.00</td>
+<td>28.7%</td><td>28.7%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>H08_nupl</td><td class="name-col">H08_nupl</td>
+<td>0.87</td><td>0.87</td>
+<td class="pos">0.00</td>
+<td>33.8%</td><td>33.8%</td>
+<td>0.1%</td>
+<td>0</td>
+</tr><tr>
+<td>H11_btc_correlation_regime</td><td class="name-col">H11_btc_correlation_regime</td>
+<td>0.90</td><td>0.90</td>
+<td class="pos">0.00</td>
+<td>32.4%</td><td>32.4%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>L6_sec_nt_10k</td><td class="name-col">L6_sec_nt_10k</td>
+<td>0.55</td><td>0.55</td>
+<td class="pos">0.01</td>
+<td>16.3%</td><td>15.8%</td>
+<td>0.5%</td>
+<td>5</td>
+</tr><tr>
+<td>M3_steth_discount</td><td class="name-col">M3_steth_discount</td>
+<td>0.88</td><td>0.88</td>
+<td class="pos">0.00</td>
+<td>33.1%</td><td>32.9%</td>
+<td>0.2%</td>
+<td>2</td>
+</tr><tr>
+<td>N4_sia_billings</td><td class="name-col">N4_sia_billings</td>
+<td>0.55</td><td>0.54</td>
+<td class="pos">0.02</td>
+<td>12.0%</td><td>11.4%</td>
+<td>0.6%</td>
+<td>5</td>
+</tr><tr>
+<td>O4_btc_mempool</td><td class="name-col">O4_btc_mempool</td>
+<td>0.73</td><td>0.72</td>
+<td class="pos">0.01</td>
+<td>32.7%</td><td>31.7%</td>
+<td>0.9%</td>
+<td>7</td>
+</tr><tr>
+<td>O5_btc_difficulty_drop</td><td class="name-col">O5_btc_difficulty_drop</td>
+<td>0.80</td><td>0.79</td>
+<td class="pos">0.01</td>
+<td>32.5%</td><td>31.8%</td>
+<td>0.8%</td>
+<td>6</td>
+</tr><tr>
+<td>P12_steno_global_liquidity</td><td class="name-col">P12_steno_global_liquidity</td>
+<td>0.65</td><td>0.64</td>
+<td class="pos">0.02</td>
+<td>16.2%</td><td>15.6%</td>
+<td>0.6%</td>
+<td>5</td>
+</tr><tr>
+<td>P6_howell_liquidity_btc</td><td class="name-col">P6_howell_liquidity_btc</td>
+<td>1.04</td><td>1.03</td>
+<td class="pos">0.01</td>
+<td>42.9%</td><td>42.4%</td>
+<td>0.5%</td>
+<td>3</td>
+</tr><tr>
+<td>R-D11_short_interest</td><td class="name-col">R-D11_short_interest</td>
+<td>0.79</td><td>0.78</td>
+<td class="pos">0.01</td>
+<td>13.7%</td><td>13.6%</td>
+<td>0.1%</td>
+<td>1</td>
+</tr><tr>
+<td>R-N5_tsmc_revenue</td><td class="name-col">R-N5_tsmc_revenue</td>
+<td>0.63</td><td>0.62</td>
+<td class="pos">0.01</td>
+<td>12.7%</td><td>12.5%</td>
+<td>0.2%</td>
+<td>2</td>
+</tr><tr>
+<td>ST-3</td><td class="name-col">ST-3</td>
+<td>0.84</td><td>0.84</td>
+<td class="pos">0.00</td>
+<td>22.6%</td><td>22.6%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>U15_china_antimony_licenses</td><td class="name-col">U15_china_antimony_licenses</td>
+<td>1.33</td><td>1.32</td>
+<td class="pos">0.01</td>
+<td>89.4%</td><td>88.0%</td>
+<td>1.3%</td>
+<td>7</td>
+</tr><tr>
+<td>U2_drc_cobalt_quota</td><td class="name-col">U2_drc_cobalt_quota</td>
+<td>1.51</td><td>1.49</td>
+<td class="pos">0.02</td>
+<td>36.7%</td><td>36.2%</td>
+<td>0.5%</td>
+<td>4</td>
+</tr><tr>
+<td>V2_verdad_hy600</td><td class="name-col">V2_verdad_hy600</td>
+<td>1.44</td><td>1.43</td>
+<td class="pos">0.01</td>
+<td>22.9%</td><td>22.7%</td>
+<td>0.1%</td>
+<td>1</td>
+</tr><tr>
+<td>V3_felder_margin_debt_gdp</td><td class="name-col">V3_felder_margin_debt_gdp</td>
+<td>0.78</td><td>0.76</td>
+<td class="pos">0.02</td>
+<td>11.2%</td><td>10.9%</td>
+<td>0.3%</td>
+<td>2</td>
+</tr><tr>
+<td>Z4_wells_to_litigation_gap</td><td class="name-col">Z4_wells_to_litigation_gap</td>
+<td>0.66</td><td>0.66</td>
+<td class="pos">0.00</td>
+<td>23.0%</td><td>23.0%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr><tr>
+<td>Z6_antitrust_reversion</td><td class="name-col">Z6_antitrust_reversion</td>
+<td>0.70</td><td>0.70</td>
+<td class="pos">0.00</td>
+<td>16.4%</td><td>16.4%</td>
+<td>0.0%</td>
+<td>0</td>
+</tr></tbody></table></div>
+
+<!-- ===== IS/OOS ===== -->
+<h2>3. In-Sample vs Out-of-Sample</h2>
+<p class="section-note">
+Each backtest period is split at the midpoint. Signals that hold up in the second half
+are more credible. "Sharpe decay" = OOS Sharpe minus IS Sharpe (negative = degradation).
+</p>
+
+<div class='scroll-x'><table><thead><tr><th>ID</th><th>Name</th><th>IS Sharpe</th><th>IS CAGR</th><th>IS Period</th><th>OOS Sharpe</th><th>OOS CAGR</th><th>OOS Period</th><th>Decay</th></tr></thead><tbody><tr>
+<td>A14_btc_halving</td><td class="name-col">A14_btc_halving</td>
+<td>1.20</td><td>52.9%</td>
+<td>2014-09-19&ndash;2020-07-22</td>
+<td>1.20</td><td>46.9%</td>
+<td>2020-07-23&ndash;2026-05-26</td>
+<td class="pos">+0.01</td>
+</tr><tr>
+<td>AC-6</td><td class="name-col">AC-6</td>
+<td>2.78</td><td>107.1%</td>
+<td>2018-01-03&ndash;2021-03-29</td>
+<td>2.94</td><td>196.0%</td>
+<td>2021-03-30&ndash;2026-03-31</td>
+<td class="pos">+0.16</td>
+</tr><tr>
+<td>AE-1</td><td class="name-col">AE-1</td>
+<td>0.37</td><td>6.5%</td>
+<td>2020-07-20&ndash;2020-11-24</td>
+<td>1.60</td><td>101.6%</td>
+<td>2024-06-18&ndash;2024-10-25</td>
+<td class="pos">+1.23</td>
+</tr><tr>
+<td>AE-2</td><td class="name-col">AE-2</td>
+<td>2.20</td><td>115.9%</td>
+<td>2024-02-01&ndash;2024-10-03</td>
+<td>0.52</td><td>14.4%</td>
+<td>2024-10-04&ndash;2025-06-10</td>
+<td class="neg">-1.67</td>
+</tr><tr>
+<td>AG-2</td><td class="name-col">AG-2</td>
+<td>0.97</td><td>29.5%</td>
+<td>2023-01-03&ndash;2024-09-11</td>
+<td>0.20</td><td>0.8%</td>
+<td>2024-09-12&ndash;2026-05-26</td>
+<td class="neg">-0.77</td>
+</tr><tr>
+<td>AG-5</td><td class="name-col">AG-5</td>
+<td>0.91</td><td>26.9%</td>
+<td>2014-08-01&ndash;2015-10-01</td>
+<td>1.95</td><td>86.9%</td>
+<td>2015-10-02&ndash;2018-11-30</td>
+<td class="pos">+1.04</td>
+</tr><tr>
+<td>AI-3</td><td class="name-col">AI-3</td>
+<td>-0.06</td><td>-3.1%</td>
+<td>2023-01-03&ndash;2024-05-09</td>
+<td>1.01</td><td>27.4%</td>
+<td>2025-01-02&ndash;2026-05-12</td>
+<td class="pos">+1.07</td>
+</tr><tr>
+<td>AI-4</td><td class="name-col">AI-4</td>
+<td>0.52</td><td>8.4%</td>
+<td>2023-06-01&ndash;2024-11-22</td>
+<td>0.71</td><td>19.6%</td>
+<td>2024-11-25&ndash;2026-05-26</td>
+<td class="pos">+0.19</td>
+</tr><tr>
+<td>AJ-1</td><td class="name-col">AJ-1</td>
+<td>1.92</td><td>22.6%</td>
+<td>2017-07-10&ndash;2018-09-12</td>
+<td>2.67</td><td>57.2%</td>
+<td>2021-07-01&ndash;2023-07-14</td>
+<td class="pos">+0.75</td>
+</tr><tr>
+<td>AJ-4</td><td class="name-col">AJ-4</td>
+<td>-1.07</td><td>-33.9%</td>
+<td>2002-06-24&ndash;2011-08-12</td>
+<td>2.63</td><td>232.9%</td>
+<td>2012-06-25&ndash;2023-07-31</td>
+<td class="pos">+3.69</td>
+</tr><tr>
+<td>AK-2</td><td class="name-col">AK-2</td>
+<td>1.25</td><td>51.0%</td>
+<td>2023-01-11&ndash;2025-12-22</td>
+<td>1.06</td><td>51.4%</td>
+<td>2025-12-23&ndash;2026-05-26</td>
+<td class="">-0.19</td>
+</tr><tr>
+<td>AL-3</td><td class="name-col">AL-3</td>
+<td>1.85</td><td>97.0%</td>
+<td>2018-05-01&ndash;2020-11-12</td>
+<td>-0.08</td><td>-14.8%</td>
+<td>2020-11-13&ndash;2024-11-15</td>
+<td class="neg">-1.93</td>
+</tr><tr>
+<td>AQ-1</td><td class="name-col">AQ-1</td>
+<td>2.22</td><td>55.2%</td>
+<td>2016-01-15&ndash;2020-09-18</td>
+<td>1.42</td><td>37.0%</td>
+<td>2020-09-21&ndash;2023-07-14</td>
+<td class="neg">-0.80</td>
+</tr><tr>
+<td>AR-1</td><td class="name-col">AR-1</td>
+<td>1.27</td><td>55.2%</td>
+<td>2009-03-02&ndash;2017-02-28</td>
+<td>0.51</td><td>14.0%</td>
+<td>2017-03-01&ndash;2025-10-01</td>
+<td class="neg">-0.75</td>
+</tr><tr>
+<td>AR-2</td><td class="name-col">AR-2</td>
+<td>1.25</td><td>41.6%</td>
+<td>2009-03-02&ndash;2017-02-28</td>
+<td>0.20</td><td>1.0%</td>
+<td>2017-03-01&ndash;2025-10-01</td>
+<td class="neg">-1.05</td>
+</tr><tr>
+<td>AR-3</td><td class="name-col">AR-3</td>
+<td>2.93</td><td>123.2%</td>
+<td>2020-11-02&ndash;2021-05-03</td>
+<td>2.20</td><td>75.3%</td>
+<td>2021-05-04&ndash;2021-10-29</td>
+<td class="neg">-0.73</td>
+</tr><tr>
+<td>AS-B</td><td class="name-col">AS-B</td>
+<td>1.06</td><td>61.9%</td>
+<td>2024-01-02&ndash;2025-03-13</td>
+<td>2.14</td><td>233.2%</td>
+<td>2025-03-14&ndash;2026-05-26</td>
+<td class="pos">+1.08</td>
+</tr><tr>
+<td>C07_accel_dual_momentum</td><td class="name-col">C07_accel_dual_momentum</td>
+<td>0.84</td><td>13.4%</td>
+<td>2007-12-12&ndash;2017-03-01</td>
+<td>0.63</td><td>9.4%</td>
+<td>2017-03-02&ndash;2026-05-26</td>
+<td class="">-0.21</td>
+</tr><tr>
+<td>C08_yield_curve_10y2y</td><td class="name-col">C08_yield_curve_10y2y</td>
+<td>0.47</td><td>7.3%</td>
+<td>1993-02-01&ndash;2009-09-22</td>
+<td>0.86</td><td>13.7%</td>
+<td>2009-09-23&ndash;2026-05-26</td>
+<td class="pos">+0.39</td>
+</tr><tr>
+<td>C09_yield_curve_10y3m</td><td class="name-col">C09_yield_curve_10y3m</td>
+<td>0.49</td><td>7.9%</td>
+<td>1993-02-01&ndash;2009-09-22</td>
+<td>0.87</td><td>13.1%</td>
+<td>2009-09-23&ndash;2026-05-26</td>
+<td class="pos">+0.38</td>
+</tr><tr>
+<td>C10_hy_oas_regime</td><td class="name-col">C10_hy_oas_regime</td>
+<td>2.10</td><td>28.0%</td>
+<td>2023-05-31&ndash;2024-11-21</td>
+<td>1.02</td><td>18.0%</td>
+<td>2024-11-22&ndash;2026-05-22</td>
+<td class="neg">-1.08</td>
+</tr><tr>
+<td>F03_margin_debt_yoy</td><td class="name-col">F03_margin_debt_yoy</td>
+<td>0.55</td><td>8.6%</td>
+<td>1995-01-04&ndash;2010-09-09</td>
+<td>0.89</td><td>14.4%</td>
+<td>2010-09-10&ndash;2026-05-26</td>
+<td class="pos">+0.34</td>
+</tr><tr>
+<td>G07_warn_act_layoffs</td><td class="name-col">G07_warn_act_layoffs</td>
+<td>-0.31</td><td>-14.6%</td>
+<td>2025-07-14&ndash;2025-12-15</td>
+<td>2.72</td><td>85.4%</td>
+<td>2025-12-16&ndash;2026-05-26</td>
+<td class="pos">+3.02</td>
+</tr><tr>
+<td>H05_hash_ribbons</td><td class="name-col">H05_hash_ribbons</td>
+<td>0.93</td><td>30.2%</td>
+<td>2014-09-18&ndash;2020-07-19</td>
+<td>0.49</td><td>11.8%</td>
+<td>2020-07-20&ndash;2026-05-21</td>
+<td class="neg">-0.44</td>
+</tr><tr>
+<td>H06_mvrv_zscore</td><td class="name-col">H06_mvrv_zscore</td>
+<td>1.48</td><td>100.8%</td>
+<td>2015-12-11&ndash;2021-03-03</td>
+<td>0.35</td><td>5.5%</td>
+<td>2021-03-04&ndash;2026-05-26</td>
+<td class="neg">-1.13</td>
+</tr><tr>
+<td>H07_puell_multiple</td><td class="name-col">H07_puell_multiple</td>
+<td>0.95</td><td>33.4%</td>
+<td>2015-09-17&ndash;2021-01-19</td>
+<td>0.78</td><td>24.2%</td>
+<td>2021-01-20&ndash;2026-05-26</td>
+<td class="">-0.17</td>
+</tr><tr>
+<td>H08_nupl</td><td class="name-col">H08_nupl</td>
+<td>1.22</td><td>59.5%</td>
+<td>2015-09-17&ndash;2021-01-19</td>
+<td>0.49</td><td>12.3%</td>
+<td>2021-01-20&ndash;2026-05-26</td>
+<td class="neg">-0.73</td>
+</tr><tr>
+<td>H11_btc_correlation_regime</td><td class="name-col">H11_btc_correlation_regime</td>
+<td>0.95</td><td>39.2%</td>
+<td>2014-11-16&ndash;2020-08-20</td>
+<td>0.85</td><td>25.9%</td>
+<td>2020-08-21&ndash;2026-05-26</td>
+<td class="">-0.11</td>
+</tr><tr>
+<td>L6_sec_nt_10k</td><td class="name-col">L6_sec_nt_10k</td>
+<td>0.63</td><td>21.5%</td>
+<td>2015-01-16&ndash;2020-07-20</td>
+<td>0.47</td><td>11.3%</td>
+<td>2020-07-21&ndash;2026-02-02</td>
+<td class="">-0.16</td>
+</tr><tr>
+<td>M3_steth_discount</td><td class="name-col">M3_steth_discount</td>
+<td>1.24</td><td>77.0%</td>
+<td>2020-12-24&ndash;2023-09-09</td>
+<td>0.00</td><td>0.0%</td>
+<td>2023-09-10&ndash;2026-05-26</td>
+<td class="neg">-1.24</td>
+</tr><tr>
+<td>N4_sia_billings</td><td class="name-col">N4_sia_billings</td>
+<td>0.51</td><td>10.9%</td>
+<td>2001-07-16&ndash;2013-12-17</td>
+<td>0.61</td><td>13.2%</td>
+<td>2013-12-18&ndash;2026-05-26</td>
+<td class="pos">+0.10</td>
+</tr><tr>
+<td>O4_btc_mempool</td><td class="name-col">O4_btc_mempool</td>
+<td>0.85</td><td>47.5%</td>
+<td>2017-01-04&ndash;2021-09-10</td>
+<td>0.60</td><td>19.3%</td>
+<td>2021-09-13&ndash;2026-05-26</td>
+<td class="">-0.25</td>
+</tr><tr>
+<td>O5_btc_difficulty_drop</td><td class="name-col">O5_btc_difficulty_drop</td>
+<td>0.81</td><td>36.1%</td>
+<td>2017-01-04&ndash;2021-09-10</td>
+<td>0.81</td><td>29.0%</td>
+<td>2021-09-13&ndash;2026-05-26</td>
+<td class="">-0.00</td>
+</tr><tr>
+<td>P12_steno_global_liquidity</td><td class="name-col">P12_steno_global_liquidity</td>
+<td>0.84</td><td>25.0%</td>
+<td>2014-09-18&ndash;2020-07-20</td>
+<td>0.42</td><td>8.0%</td>
+<td>2020-07-21&ndash;2026-05-26</td>
+<td class="neg">-0.42</td>
+</tr><tr>
+<td>P6_howell_liquidity_btc</td><td class="name-col">P6_howell_liquidity_btc</td>
+<td>0.91</td><td>40.0%</td>
+<td>2014-09-18&ndash;2020-07-21</td>
+<td>1.34</td><td>46.0%</td>
+<td>2020-07-22&ndash;2026-05-26</td>
+<td class="pos">+0.43</td>
+</tr><tr>
+<td>R-D11_short_interest</td><td class="name-col">R-D11_short_interest</td>
+<td>0.93</td><td>14.6%</td>
+<td>2025-05-22&ndash;2025-11-19</td>
+<td>0.68</td><td>12.8%</td>
+<td>2025-11-20&ndash;2026-05-22</td>
+<td class="">-0.25</td>
+</tr><tr>
+<td>R-N5_tsmc_revenue</td><td class="name-col">R-N5_tsmc_revenue</td>
+<td>0.90</td><td>13.4%</td>
+<td>2013-04-02&ndash;2019-10-23</td>
+<td>0.54</td><td>12.0%</td>
+<td>2019-10-24&ndash;2026-05-26</td>
+<td class="neg">-0.37</td>
+</tr><tr>
+<td>ST-3</td><td class="name-col">ST-3</td>
+<td>1.21</td><td>31.5%</td>
+<td>2018-01-22&ndash;2024-06-06</td>
+<td>0.57</td><td>14.2%</td>
+<td>2024-06-07&ndash;2025-10-22</td>
+<td class="neg">-0.64</td>
+</tr><tr>
+<td>U15_china_antimony_licenses</td><td class="name-col">U15_china_antimony_licenses</td>
+<td>1.77</td><td>185.1%</td>
+<td>2024-10-23&ndash;2025-08-08</td>
+<td>0.72</td><td>26.0%</td>
+<td>2025-08-11&ndash;2026-05-26</td>
+<td class="neg">-1.05</td>
+</tr><tr>
+<td>U2_drc_cobalt_quota</td><td class="name-col">U2_drc_cobalt_quota</td>
+<td>2.45</td><td>80.1%</td>
+<td>2025-02-25&ndash;2025-10-08</td>
+<td>0.29</td><td>3.7%</td>
+<td>2025-10-09&ndash;2026-05-26</td>
+<td class="neg">-2.16</td>
+</tr><tr>
+<td>V2_verdad_hy600</td><td class="name-col">V2_verdad_hy600</td>
+<td>2.08</td><td>27.5%</td>
+<td>2023-05-30&ndash;2024-11-20</td>
+<td>1.04</td><td>18.4%</td>
+<td>2024-11-21&ndash;2026-05-22</td>
+<td class="neg">-1.03</td>
+</tr><tr>
+<td>V3_felder_margin_debt_gdp</td><td class="name-col">V3_felder_margin_debt_gdp</td>
+<td>0.64</td><td>9.3%</td>
+<td>1995-01-03&ndash;2010-09-08</td>
+<td>0.93</td><td>13.1%</td>
+<td>2010-09-09&ndash;2026-05-26</td>
+<td class="pos">+0.29</td>
+</tr><tr>
+<td>Z4_wells_to_litigation_gap</td><td class="name-col">Z4_wells_to_litigation_gap</td>
+<td>0.98</td><td>31.5%</td>
+<td>2016-01-07&ndash;2018-12-27</td>
+<td>0.56</td><td>15.0%</td>
+<td>2018-12-28&ndash;2023-11-03</td>
+<td class="neg">-0.41</td>
+</tr><tr>
+<td>Z6_antitrust_reversion</td><td class="name-col">Z6_antitrust_reversion</td>
+<td>0.56</td><td>12.7%</td>
+<td>2011-08-31&ndash;2022-03-21</td>
+<td>0.84</td><td>20.2%</td>
+<td>2022-03-22&ndash;2025-01-02</td>
+<td class="pos">+0.28</td>
+</tr></tbody></table></div>
+
+<!-- ===== Correlation Matrix ===== -->
+<h2>4. Winner Correlation Matrix</h2>
+<p class="section-note">
+Pairwise correlation of daily PnL across winning signals.
+Highly correlated signals represent the same underlying bet — a portfolio treating them as
+independent would overstate diversification.
+</p>
+
+
+        <p><strong>Mean pairwise correlation:</strong> 0.204</p>
+        <p><strong>Correlated groups (avg r &gt; 0.5):</strong> 5</p>
+        <p class='cluster'>Cluster 1 (11 signals, avg r=0.68): AE-2, AG-2, AS-B, C07_accel_dual_momentum, C08_yield_curve_10y2y, C09_yield_curve_10y3m, C10_hy_oas_regime, F03_margin_debt_yoy, N4_sia_billings, V2_verdad_hy600, V3_felder_margin_debt_gdp</p><p class='cluster'>Cluster 2 (6 signals, avg r=0.74): A14_btc_halving, H06_mvrv_zscore, H08_nupl, H11_btc_correlation_regime, P12_steno_global_liquidity, P6_howell_liquidity_btc</p><p class='cluster'>Cluster 3 (2 signals, avg r=0.51): AE-1, R-N5_tsmc_revenue</p><p class='cluster'>Cluster 4 (2 signals, avg r=0.71): AR-1, AR-2</p><p class='cluster'>Cluster 5 (2 signals, avg r=0.56): H05_hash_ribbons, H07_puell_multiple</p><p class='dim'>25 independent signals (not correlated with any other winner)</p>
+
+        <div id="heatmap-container"></div>
+        <script>
+        (function() {
+            const labels = ["A14_btc_halving", "AC-4", "AC-6", "AE-1", "AE-2", "AF-3", "AG-2", "AG-5", "AI-3", "AI-4", "AJ-1", "AJ-4", "AK-2", "AL-3", "AM-1", "AQ-1", "AR-1", "AR-2", "AR-3", "AS-B", "C07_accel_dual_momentum", "C08_yield_curve_10y2y", "C09_yield_curve_10y3m", "C10_hy_oas_regime", "F03_margin_debt_yoy", "F9_ustr_s301", "G07_warn_act_layoffs", "H05_hash_ribbons", "H06_mvrv_zscore", "H07_puell_multiple", "H08_nupl", "H11_btc_correlation_regime", "L6_sec_nt_10k", "M3_steth_discount", "N4_sia_billings", "O4_btc_mempool", "O5_btc_difficulty_drop", "P12_steno_global_liquidity", "P6_howell_liquidity_btc", "R-D11_short_interest", "R-N5_tsmc_revenue", "ST-3", "U15_china_antimony_licenses", "U2_drc_cobalt_quota", "V2_verdad_hy600", "V3_felder_margin_debt_gdp", "Z4_wells_to_litigation_gap", "Z6_antitrust_reversion"];
+            const matrix = [[1.0, NaN, -0.00405106511858799, 0.15707840371530782, 0.34363671808220014, NaN, 0.1992563153480128, NaN, 0.02271494814852474, -0.04417145166501736, 0.03129222411417387, NaN, NaN, 0.11536511929108971, NaN, 0.09326353156297398, 0.21169934412483155, 0.2151150661356905, 0.20784048163254773, 0.2591048340226527, 0.07516335315532835, 0.17555470808627108, 0.15672056818853, 0.2898143989600264, 0.18966648761086213, NaN, 0.01236997157563866, 0.47006731208493807, 0.7425469853235241, 0.4778504941546126, 0.538673811796921, 0.7453533437351337, -0.09388173676272918, 0.44511137863627614, 0.17392384151111673, 0.22272888332696805, 0.13182707875508892, 0.6509179305277404, 0.6594761919997821, -0.08194160311299827, 0.12938225553188612, 0.021396700022019512, 0.1785895384618896, 0.16653074369017884, 0.28982111499987334, 0.22212258403021665, 0.039561607174021615, 0.0018842292715283053], [NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN], [-0.00405106511858799, NaN, 1.0, NaN, NaN, NaN, -0.01803338672869223, NaN, -0.1490244737262829, 0.13717626504776015, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.06338407082309022, -0.05703167142511305, 0.03722574876070349, 0.03722574876070349, -0.11925372897358949, 0.036969209739551846, NaN, NaN, -0.09739471605264471, -0.0239712449625077, -0.026272445273620326, -0.07943220039162477, -0.0027449369570983614, -0.11474243451290059, 0.03188944637664561, 0.009224616371108694, 0.04388269572555506, 0.04835101976608919, -0.0065318191126321834, 0.004619164643149969, NaN, -0.008494954291058865, NaN, NaN, NaN, -0.11925372897358949, 0.01996604409253872, NaN, -0.020782764403335197], [0.15707840371530782, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.16277439516818037, NaN, NaN, NaN, NaN, NaN, NaN, 0.47602162330183173, 0.40053656455429315, 0.40053656455429315, NaN, 0.48442762720094223, NaN, NaN, 0.20313328786397436, 0.15707840371530782, 0.15707840371530782, 0.15707840371530782, 0.12878205513703925, -0.03193041190874344, NaN, 0.4870188027933969, 0.03279227575094723, 0.10212706140616849, 0.34313047896048027, 0.16897466370192032, NaN, 0.5116099568037139, NaN, NaN, NaN, NaN, 0.4844277334178171, NaN, NaN], [0.34363671808220014, NaN, NaN, NaN, 1.0, NaN, 0.7526839081152301, NaN, -0.13905323934406666, -0.05828101230175182, NaN, NaN, NaN, 0.08989337419023741, NaN, NaN, 0.43611789820045593, 0.43835072088989235, NaN, 0.7430073281814238, 0.6710628902971257, 0.6529506629788234, 0.7387487134626334, 0.7387487570926909, 0.7387483354987187, NaN, NaN, 0.33164474470571864, 0.3436367180822001, 0.3436367180822001, 0.3436367180822001, 0.34506515912130814, -0.2759162912578573, NaN, 0.6515130376889886, 0.2423712301165451, 0.2739262747217535, 0.4477176987873935, 0.2750873291005914, NaN, 0.48148330243999066, 0.11307223796488612, 0.27375462613055646, NaN, 0.7387487570926909, 0.7387487134626334, NaN, -0.028784165081673693], [NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN], [0.1992563153480128, NaN, -0.01803338672869223, NaN, 0.7526839081152301, NaN, 1.0, NaN, -0.06765951947480063, 0.08716392412132391, NaN, NaN, 0.4048753419636057, 0.10899469970855062, NaN, 0.13350912961889752, 0.38760949291354846, 0.3463290893735586, NaN, 0.5643397511697914, 0.36840875064962536, 0.4046480869655836, 0.43332756443719056, 0.4788660367719423, 0.4562623119446545, NaN, -0.1423720271141301, 0.20023685932889534, 0.22433289781661264, 0.22433289781661264, 0.22433289781661264, 0.22669499387718314, -0.09628537277443841, 0.04857125823060337, 0.4636119166363625, 0.1288488626045274, 0.14340446934568846, 0.28585093729891853, 0.12274531815580053, 0.08802450977482558, 0.33877199460080637, 0.0637126347702898, 0.07358737493429024, 0.056732645636032156, 0.478784847009116, 0.46196718146664073, -0.011214407272059563, 0.028386759534736048], [NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.11802914465539063, 0.1119398076713468, 0.1119398076713468, NaN, 0.11193982721746795, NaN, NaN, 0.01994174215233334, NaN, 0.11753466984904645, 0.10105074688353936, 0.057377349122951435, 0.08236888714235623, NaN, -0.01811465977766882, NaN, NaN, 0.07319054946083287, -0.030976769864015683, NaN, -0.009469161805790067, NaN, NaN, NaN, NaN, 0.10923606053744636, NaN, NaN], [0.02271494814852474, NaN, -0.1490244737262829, NaN, -0.13905323934406666, NaN, -0.06765951947480063, NaN, 1.0, -0.041158555853537795, NaN, NaN, 0.24840503901920613, NaN, NaN, NaN, NaN, NaN, NaN, -0.12225472723251832, 0.1786712427424059, 0.16921797157473653, 0.18002376855530083, 0.11116653260761535, 0.11795403497283233, NaN, NaN, 0.013810285467194872, 0.04955493651535584, 0.04955493651535584, 0.04955493651535584, 0.04604281522421487, -0.12259742885667062, 0.05653197857207125, 0.05595813228720047, -0.003713292711500828, 0.042974533829613415, 0.050794793276146714, 0.03363133215790682, NaN, 0.0022902153601652643, NaN, 0.05135232807383937, 0.048320739219765305, 0.11116653260761535, 0.13812789013566268, NaN, -0.00984499147864364], [-0.04417145166501736, NaN, 0.13717626504776015, NaN, -0.05828101230175182, NaN, 0.08716392412132391, NaN, -0.041158555853537795, 1.0, NaN, NaN, NaN, -0.22254766445680854, NaN, NaN, -0.273664836345144, -0.2984062338771024, NaN, 0.048453193013749014, -0.24553980595234032, -0.234362316669514, -0.21139181732569862, -0.2507157555963097, -0.24935657937257094, NaN, -0.09173481073515181, -0.05731050006053645, -0.019018756485473114, -0.019018756485473114, -0.019018756485473114, -0.02166972579114709, 0.11600210563036203, NaN, -0.12872985597091913, -0.022502888966980213, -0.03141503015260458, -0.027778225354909453, -0.13137434041450907, 0.10784019052143339, 0.0336908909829593, 0.05857271080682842, -0.03137289508173943, -0.13588667683204572, -0.2507157555963097, -0.23079831221638175, NaN, -0.0560678341061573], [0.03129222411417387, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.7187174883586191, 0.6838471324331901, 0.6838471324331901, NaN, 0.712070756930353, NaN, NaN, -0.028558015049275954, 0.045530818840236784, 0.035115412438405165, 0.010286725423996026, 0.04553081884023681, -0.016764280849792167, NaN, 0.45034541316915155, 0.041610801515124446, 0.25989265067605394, 0.05887430681027263, 0.07850359688703418, NaN, NaN, NaN, NaN, NaN, NaN, 0.6838471324331901, NaN, NaN], [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.07049416449709942, 0.07090522320060143, NaN, 0.07162551306573779, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.04815285330555517, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.08612465172185019, NaN, NaN], [NaN, NaN, NaN, NaN, NaN, NaN, 0.4048753419636057, NaN, 0.24840503901920613, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.6052348169125298, 0.5655255183997945, 0.6009779567608496, NaN, 0.5640310646928638, NaN, NaN, 0.1788296212417742, 0.2862261967226542, 0.2862261967226542, 0.2862261967226542, 0.2566214807889547, NaN, 0.11661243066077763, 0.3839579904948388, 0.33434948183076224, 0.3298560982945214, 0.3989823748666465, 0.09569697772849145, NaN, NaN, NaN, NaN, NaN, NaN, 0.6056369423943495, NaN, NaN], [0.11536511929108971, NaN, NaN, 0.16277439516818037, 0.08989337419023741, NaN, 0.10899469970855062, NaN, NaN, -0.22254766445680854, NaN, NaN, NaN, 1.0, NaN, 0.0783439296785364, 0.38638503905525456, 0.13907520808940602, NaN, 0.125625010413768, 0.2692669150138306, 0.45399177788419587, 0.45399177788419587, 0.20345398533133505, 0.4409650122951362, NaN, NaN, 0.12890198827043498, 0.1355761485795373, 0.13080657473578733, 0.1396618027784824, 0.1054416582722927, -0.13749335277226005, 0.13927006483220034, 0.23892792564697288, 0.1704110378556886, 0.10747241105524567, 0.16258895670723977, 0.10801003379792068, NaN, 0.2455267093707062, -0.09248732853866695, NaN, NaN, 0.20345398533133505, 0.4444753262310947, -0.20811009787519755, -0.08317523846321248], [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN], [0.09326353156297398, NaN, NaN, NaN, NaN, NaN, 0.13350912961889752, NaN, NaN, NaN, NaN, NaN, NaN, 0.0783439296785364, NaN, 1.0, 0.2740209336831569, 0.21200028765940596, NaN, NaN, 0.1548622803675227, 0.25844052189967, 0.26323695285578114, NaN, 0.24625691193088906, NaN, NaN, 0.0808516180319741, 0.11853564814092982, 0.11685580587964466, 0.10270266727505083, 0.13144891253045698, -0.12599362851208867, 0.18417266325394063, 0.1813907744034376, 0.17256624454365083, 0.08387034195555614, 0.15490311826737138, 0.0855189831895962, NaN, 0.15012357515662386, NaN, NaN, NaN, NaN, 0.25155857504449247, -0.1356601585336071, 0.12346245709362007], [0.21169934412483155, NaN, NaN, NaN, 0.43611789820045593, NaN, 0.38760949291354846, NaN, NaN, -0.273664836345144, NaN, NaN, NaN, 0.38638503905525456, NaN, 0.2740209336831569, 1.0, 0.7130642738152485, NaN, 0.24262481572530997, 0.07852514689269255, 0.6133460299437413, 0.5979571124831916, 0.5469226635237528, 0.5427235337098173, NaN, NaN, 0.2514632417660512, 0.21569256830057984, 0.2505587917564968, 0.20929636593232956, 0.20499281154010385, -0.2229192038931488, NaN, 0.4962476601939327, 0.3043139137977709, 0.14404300957060873, 0.3630366490125374, 0.21758122016675044, NaN, 0.3570367139098187, 0.06796462296988645, -0.00849804516732774, 0.21767877286744286, 0.5469226635237528, 0.5809836983900329, 0.007462413506043414, NaN], [0.2151150661356905, NaN, NaN, NaN, 0.43835072088989235, NaN, 0.3463290893735586, NaN, NaN, -0.2984062338771024, NaN, NaN, NaN, 0.13907520808940602, NaN, 0.21200028765940596, 0.7130642738152485, 1.0, NaN, 0.20089219090477095, 0.0886700758360869, 0.6059330083220746, 0.5967167259763573, 0.5578891525564622, 0.5209487613307062, NaN, NaN, 0.22572935047676385, 0.22590434059856138, 0.23110895739599804, 0.21710787943170906, 0.2063578107760676, -0.17978375580959263, NaN, 0.4836584442404111, 0.261614571048361, 0.18963348808069116, 0.3776794822526363, 0.2329384137084, NaN, 0.3309126691040183, 0.050077414671441646, -0.04957593183403113, 0.2272600725325921, 0.5578891525564622, 0.5668545706930749, 0.05620045934342989, NaN], [0.20784048163254773, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, 0.538174346465797, 0.5889501203356049, 0.5889501203356049, NaN, 0.588951295709146, NaN, NaN, 0.06621707754423978, 0.20784048163254773, 0.13253532728625642, 0.06612310696452027, 0.21569205764224048, 0.03946922741458862, 0.14847870337726046, 0.36800614403034293, 0.2877010776769353, 0.003840861248481198, 0.23874441233692734, 0.17994306066913626, NaN, NaN, NaN, NaN, NaN, NaN, 0.5889501203356049, NaN, NaN], [0.2591048340226527, NaN, 0.06338407082309022, NaN, 0.7430073281814238, NaN, 0.5643397511697914, NaN, -0.12225472723251832, 0.048453193013749014, NaN, NaN, NaN, 0.125625010413768, NaN, NaN, 0.24262481572530997, 0.20089219090477095, NaN, 1.0, 0.5071698351492484, 0.5774804174804415, 0.5906015002023016, 0.620910570460789, 0.621177080748126, NaN, -0.08164798768057675, 0.2904654522060856, 0.31656758783226646, 0.31656758783226646, 0.31656758783226646, 0.305565588507059, -0.19486645456085724, NaN, 0.5850258041711947, 0.20418584907877987, 0.22476459785071368, 0.39581711135955155, 0.2049409582639039, 0.09828541914346921, 0.4164761971006468, 0.08577439321181142, 0.2117364691595641, 0.14243844876008604, 0.620910570460789, 0.6207663323528143, NaN, -0.06890209186369292], [0.07516335315532835, NaN, -0.05703167142511305, 0.47602162330183173, 0.6710628902971257, NaN, 0.36840875064962536, 0.11802914465539063, 0.1786712427424059, -0.24553980595234032, 0.7187174883586191, NaN, 0.6052348169125298, 0.2692669150138306, NaN, 0.1548622803675227, 0.07852514689269255, 0.0886700758360869, 0.538174346465797, 0.5071698351492484, 1.0, 0.2309930982175437, 0.23099510257001576, 0.8550682777168811, 0.2753290518678755, NaN, -0.07206052889793939, 0.14647797573568141, 0.16590846750271349, 0.1296266408726902, 0.14851144070183395, 0.13441704446908895, -0.1111748173481029, 0.1701586453900221, 0.26382729221023626, 0.19396704686590677, 0.11660625875913151, 0.20034945952627556, 0.05181303611280149, 0.07709926745752796, 0.2114026418205738, 0.0591414453665965, 0.17585866698535654, 0.2557137576266007, 0.8548828638798861, 0.24405142383124773, -0.1382907640260094, 0.09989142470561177], [0.17555470808627108, NaN, 0.03722574876070349, 0.40053656455429315, 0.6529506629788234, NaN, 0.4046480869655836, 0.1119398076713468, 0.16921797157473653, -0.234362316669514, 0.6838471324331901, 0.07049416449709942, 0.5655255183997945, 0.45399177788419587, NaN, 0.25844052189967, 0.6133460299437413, 0.6059330083220746, 0.5889501203356049, 0.5774804174804415, 0.2309930982175437, 1.0, 0.9825312989895314, 0.9466270818983152, 0.8847212652064639, NaN, -0.08892018941925939, 0.2487942045580879, 0.26148891546003433, 0.2538456862128044, 0.26650441442434286, 0.21552822155240875, -0.2050123146977585, 0.2058895432337329, 0.5919285868847864, 0.28899238842563013, 0.13730189263503415, 0.4089508325403134, 0.16346754997081533, 0.20725823271501218, 0.5378784093907646, 0.1077540920913198, 0.06627196325672258, 0.2265264982923878, 0.9466273203168043, 0.9276710319329785, -0.1528383817293736, 0.044131563714465166], [0.15672056818853, NaN, 0.03722574876070349, 0.40053656455429315, 0.7387487134626334, NaN, 0.43332756443719056, 0.1119398076713468, 0.18002376855530083, -0.21139181732569862, 0.6838471324331901, 0.07090522320060143, 0.6009779567608496, 0.45399177788419587, NaN, 0.26323695285578114, 0.5979571124831916, 0.5967167259763573, 0.5889501203356049, 0.5906015002023016, 0.23099510257001576, 0.9825312989895314, 1.0, 0.961854145016484, 0.8897751258891157, NaN, -0.0715595760906968, 0.22521072742352308, 0.25300457907103524, 0.22977896738738696, 0.2523089076732402, 0.20464434971286674, -0.19825541441032166, 0.21609758745471616, 0.57646949300348, 0.29296286239727154, 0.1422859783411692, 0.39683501795918436, 0.14381298508365048, 0.211468641971568, 0.531790188312593, 0.09911215228337378, 0.10468607936531754, 0.19722187914968495, 0.9618536292436846, 0.9295856614856155, -0.13746434480343006, 0.036118806491635014], [0.2898143989600264, NaN, -0.11925372897358949, NaN, 0.7387487570926909, NaN, 0.4788660367719423, NaN, 0.11116653260761535, -0.2507157555963097, NaN, NaN, NaN, 0.20345398533133505, NaN, NaN, 0.5469226635237528, 0.5578891525564622, NaN, 0.620910570460789, 0.8550682777168811, 0.9466270818983152, 0.961854145016484, 1.0, 0.9999999999269967, NaN, -0.08860916950547379, 0.3327934956206799, 0.3500182030798347, 0.3500182030798347, 0.3500182030798347, 0.34270334782059064, -0.2866183353129277, NaN, 0.7292582077508772, 0.2318682544186622, 0.24829103320487805, 0.48498738527150304, 0.28348666611654877, 0.20725894255678354, 0.36450646499946077, 0.11204915332214087, 0.1293762739156091, 0.2476745580105164, 1.0, 0.9860368806310769, NaN, 0.08568514848617716], [0.18966648761086213, NaN, 0.036969209739551846, 0.48442762720094223, 0.7387483354987187, NaN, 0.4562623119446545, 0.11193982721746795, 0.11795403497283233, -0.24935657937257094, 0.712070756930353, 0.07162551306573779, 0.5640310646928638, 0.4409650122951362, NaN, 0.24625691193088906, 0.5427235337098173, 0.5209487613307062, 0.588951295709146, 0.621177080748126, 0.2753290518678755, 0.8847212652064639, 0.8897751258891157, 0.9999999999269967, 1.0, NaN, -0.08892018941925939, 0.23859125620464647, 0.2533371839623558, 0.24466929983104616, 0.25784773067725797, 0.2092185033482656, -0.20118742603901096, 0.1373478727413652, 0.5913548117715873, 0.2661952474309876, 0.13947574724861675, 0.41523989515140547, 0.15882366288689578, 0.20725822845139147, 0.5304562192101484, 0.11064908120696892, 0.12921419937385367, 0.24741793877318588, 0.9999989353188607, 0.9230142833356483, -0.10723176118221656, 0.009799866137291407], [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 1.0, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN], [0.01236997157563866, NaN, NaN, NaN, NaN, NaN, -0.1423720271141301, NaN, NaN, -0.09173481073515181, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, -0.08164798768057675, -0.07206052889793939, -0.08892018941925939, -0.0715595760906968, -0.08860916950547379, -0.08892018941925939, NaN, 1.0, -0.013552505962320707, -0.031225571360026773, -0.031225571360026773, -0.031225571360026773, -0.01619267092386033, -0.04308037172051846, NaN, -0.14883066303826853, 0.017949588186626658, -0.03493366704303326, -0.05117751808444833, NaN, -0.18668600990710507, -0.027982544157125293, NaN, -0.044089321591926016, -0.12716391049280348, -0.08860916950547375, -0.08892018941925939, NaN, NaN], [0.47006731208493807, NaN, -0.09739471605264471, 0.20313328786397436, 0.33164474470571864, NaN, 0.20023685932889534, 0.01994174215233334, 0.013810285467194872, -0.05731050006053645, -0.028558015049275954, NaN, 0.1788296212417742, 0.12890198827043498, NaN, 0.0808516180319741, 0.2514632417660512, 0.22572935047676385, 0.06621707754423978, 0.2904654522060856, 0.14647797573568141, 0.2487942045580879, 0.22521072742352308, 0.3327934956206799, 0.23859125620464647, NaN, -0.013552505962320707, 1.0, 0.6515231613244293, 0.5612402463268318, 0.6259399822178767, 0.6380029233776329, -0.07514093374258522, 0.27795968761011103, 0.17800135190575017, 0.24885465578419277, 0.07105983099107456, 0.591444963297946, 0.4515807387627445, 0.06823935684247662, 0.18039956182381733, 0.056040920178223985, 0.18683164632124236, 0.15455198359597752, 0.33280316440159463, 0.25463314783404334, -0.10078733162148525, 0.12482817985009197], [0.7425469853235241, NaN, -0.0239712449625077, 0.15707840371530782, 0.3436367180822001, NaN, 0.22433289781661264, NaN, 0.04955493651535584, -0.019018756485473114, 0.045530818840236784, NaN, 0.2862261967226542, 0.1355761485795373, NaN, 0.11853564814092982, 0.21569256830057984, 0.22590434059856138, 0.20784048163254773, 0.31656758783226646, 0.16590846750271349, 0.26148891546003433, 0.25300457907103524, 0.3500182030798347, 0.2533371839623558, NaN, -0.031225571360026773, 0.6515231613244293, 1.0, 0.7071436100227312, 0.8165932258182675, 0.9465745614871689, -0.09413283000109444, 0.5234304577576264, 0.22208844591505852, 0.3451408372730624, 0.19717346621162213, 0.841271494476165, 0.7324364641770261, 0.11996771346157714, 0.20914439732855064, 0.03479504301218753, 0.1503805246599137, 0.13304112920533268, 0.3500272049645933, 0.2656262224922205, -0.05678655628097098, 0.0629060724241486], [0.4778504941546126, NaN, -0.026272445273620326, 0.15707840371530782, 0.3436367180822001, NaN, 0.22433289781661264, 0.11753466984904645, 0.04955493651535584, -0.019018756485473114, 0.035115412438405165, NaN, 0.2862261967226542, 0.13080657473578733, NaN, 0.11685580587964466, 0.2505587917564968, 0.23110895739599804, 0.13253532728625642, 0.31656758783226646, 0.1296266408726902, 0.2538456862128044, 0.22977896738738696, 0.3500182030798347, 0.24466929983104616, NaN, -0.031225571360026773, 0.5612402463268318, 0.7071436100227312, 1.0, 0.766869728384369, 0.6595750510459456, -0.09288082450454972, 0.26648893655449835, 0.22357465438713958, 0.33191258642263116, 0.17930184459379245, 0.5906237817947428, 0.5109528460717764, 0.11996771346157714, 0.22801339644685545, 0.05674614654282199, 0.1503805246599137, 0.13304112920533268, 0.3500272049645933, 0.283489767100608, -0.15964980208970264, 0.05999415185428359], [0.538673811796921, NaN, -0.07943220039162477, 0.15707840371530782, 0.3436367180822001, NaN, 0.22433289781661264, 0.10105074688353936, 0.04955493651535584, -0.019018756485473114, 0.010286725423996026, NaN, 0.2862261967226542, 0.1396618027784824, NaN, 0.10270266727505083, 0.20929636593232956, 0.21710787943170906, 0.06612310696452027, 0.31656758783226646, 0.14851144070183395, 0.26650441442434286, 0.2523089076732402, 0.3500182030798347, 0.25784773067725797, NaN, -0.031225571360026773, 0.6259399822178767, 0.8165932258182675, 0.766869728384369, 1.0, 0.7935874482175188, -0.0896200347022737, 0.2900975151647078, 0.22643736316466925, 0.3188587932001982, 0.1915949937977255, 0.7120181655389255, 0.5724905302082247, 0.11996771346157714, 0.23016755193451827, 0.05906313243239213, 0.1503805246599137, 0.13304112920533268, 0.3500272049645933, 0.26998265786675485, -0.10393535142594597, 0.09673841685011006], [0.7453533437351337, NaN, -0.0027449369570983614, 0.12878205513703925, 0.34506515912130814, NaN, 0.22669499387718314, 0.057377349122951435, 0.04604281522421487, -0.02166972579114709, 0.04553081884023681, NaN, 0.2566214807889547, 0.1054416582722927, NaN, 0.13144891253045698, 0.20499281154010385, 0.2063578107760676, 0.21569205764224048, 0.305565588507059, 0.13441704446908895, 0.21552822155240875, 0.20464434971286674, 0.34270334782059064, 0.2092185033482656, NaN, -0.01619267092386033, 0.6380029233776329, 0.9465745614871689, 0.6595750510459456, 0.7935874482175188, 1.0, -0.0838536358698589, 0.5147634826206596, 0.19035800817457996, 0.35315274490610193, 0.18393637583021444, 0.8503307561386848, 0.7987230832343747, 0.09571477189699583, 0.16289241007816016, 0.028259438989990046, 0.16834936478429496, 0.14068413080861925, 0.34271323276744764, 0.226903146572105, -0.04895043966447006, 0.05828241537806034], [-0.09388173676272918, NaN, -0.11474243451290059, -0.03193041190874344, -0.2759162912578573, NaN, -0.09628537277443841, 0.08236888714235623, -0.12259742885667062, 0.11600210563036203, -0.016764280849792167, NaN, NaN, -0.13749335277226005, NaN, -0.12599362851208867, -0.2229192038931488, -0.17978375580959263, 0.03946922741458862, -0.19486645456085724, -0.1111748173481029, -0.2050123146977585, -0.19825541441032166, -0.2866183353129277, -0.20118742603901096, NaN, -0.04308037172051846, -0.07514093374258522, -0.09413283000109444, -0.09288082450454972, -0.0896200347022737, -0.0838536358698589, 1.0, -0.10549666274955352, -0.16179506198363225, -0.10785292451248815, -0.09663671053777528, -0.12800282112606887, -0.06968724570524618, -0.03249725981084375, -0.13146053887850512, 0.03376603360611948, -0.018356890690816485, -0.20466788086413584, -0.2866241982998508, -0.2071530360058203, 0.09563041331324529, -0.017854900909796006], [0.44511137863627614, NaN, 0.03188944637664561, NaN, NaN, NaN, 0.04857125823060337, NaN, 0.05653197857207125, NaN, NaN, NaN, 0.11661243066077763, 0.13927006483220034, NaN, 0.18417266325394063, NaN, NaN, 0.14847870337726046, NaN, 0.1701586453900221, 0.2058895432337329, 0.21609758745471616, NaN, 0.1373478727413652, NaN, NaN, 0.27795968761011103, 0.5234304577576264, 0.26648893655449835, 0.2900975151647078, 0.5147634826206596, -0.10549666274955352, 1.0, 0.09896209886611836, 0.2665966947413275, 0.19275002466188557, 0.4284406499171156, 0.4868333300009242, NaN, 0.14178324173309445, 0.06277591234909595, NaN, NaN, NaN, 0.15760286390068107, -0.09831665553121113, 0.018241259758461758], [0.17392384151111673, NaN, 0.009224616371108694, 0.4870188027933969, 0.6515130376889886, NaN, 0.4636119166363625, -0.01811465977766882, 0.05595813228720047, -0.12872985597091913, 0.45034541316915155, 0.04815285330555517, 0.3839579904948388, 0.23892792564697288, NaN, 0.1813907744034376, 0.4962476601939327, 0.4836584442404111, 0.36800614403034293, 0.5850258041711947, 0.26382729221023626, 0.5919285868847864, 0.57646949300348, 0.7292582077508772, 0.5913548117715873, NaN, -0.14883066303826853, 0.17800135190575017, 0.22208844591505852, 0.22357465438713958, 0.22643736316466925, 0.19035800817457996, -0.16179506198363225, 0.09896209886611836, 1.0, 0.20328874322497043, 0.15176304246605135, 0.33263051073498007, 0.16790506598785937, 0.15805078227580066, 0.48743037394040306, 0.07188404315498773, 0.06417918275309181, 0.16224196060862597, 0.7292605037754367, 0.6216414952488788, -0.07975054220653494, 0.09639564718214601], [0.22272888332696805, NaN, 0.04388269572555506, 0.03279227575094723, 0.2423712301165451, NaN, 0.1288488626045274, NaN, -0.003713292711500828, -0.022502888966980213, 0.041610801515124446, NaN, 0.33434948183076224, 0.1704110378556886, NaN, 0.17256624454365083, 0.3043139137977709, 0.261614571048361, 0.2877010776769353, 0.20418584907877987, 0.19396704686590677, 0.28899238842563013, 0.29296286239727154, 0.2318682544186622, 0.2661952474309876, NaN, 0.017949588186626658, 0.24885465578419277, 0.3451408372730624, 0.33191258642263116, 0.3188587932001982, 0.35315274490610193, -0.10785292451248815, 0.2665966947413275, 0.20328874322497043, 1.0, 0.43767389106394794, 0.3274719672197807, 0.23351539573680352, 0.08152228982822983, 0.20279493644239854, 0.08742271858085572, 0.07331676570441358, -0.01600786172917962, 0.23114453442204771, 0.26687590598344074, -0.18703194728290842, 0.06867029684242479], [0.13182707875508892, NaN, 0.04835101976608919, 0.10212706140616849, 0.2739262747217535, NaN, 0.14340446934568846, NaN, 0.042974533829613415, -0.03141503015260458, 0.25989265067605394, NaN, 0.3298560982945214, 0.10747241105524567, NaN, 0.08387034195555614, 0.14404300957060873, 0.18963348808069116, 0.003840861248481198, 0.22476459785071368, 0.11660625875913151, 0.13730189263503415, 0.1422859783411692, 0.24829103320487805, 0.13947574724861675, NaN, -0.03493366704303326, 0.07105983099107456, 0.19717346621162213, 0.17930184459379245, 0.1915949937977255, 0.18393637583021444, -0.09663671053777528, 0.19275002466188557, 0.15176304246605135, 0.43767389106394794, 1.0, 0.17608506007124128, 0.09655792872583317, 0.05783396179578094, 0.0922856129396445, 0.01809100566916378, 0.06105650359964481, -0.019987164311882005, 0.24829637588591041, 0.14408353050418612, -0.11686341238080289, 0.0046055100780175145], [0.6509179305277404, NaN, -0.0065318191126321834, 0.34313047896048027, 0.4477176987873935, NaN, 0.28585093729891853, 0.07319054946083287, 0.050794793276146714, -0.027778225354909453, 0.05887430681027263, NaN, 0.3989823748666465, 0.16258895670723977, NaN, 0.15490311826737138, 0.3630366490125374, 0.3776794822526363, 0.23874441233692734, 0.39581711135955155, 0.20034945952627556, 0.4089508325403134, 0.39683501795918436, 0.48498738527150304, 0.41523989515140547, NaN, -0.05117751808444833, 0.591444963297946, 0.841271494476165, 0.5906237817947428, 0.7120181655389255, 0.8503307561386848, -0.12800282112606887, 0.4284406499171156, 0.33263051073498007, 0.3274719672197807, 0.17608506007124128, 1.0, 0.6573254786878251, 0.1248104865903142, 0.3019664394086138, 0.057938934356354464, 0.1828086046814435, 0.15311472620986455, 0.48498748788571183, 0.41014988780734, -0.060007001131563015, 0.050309908384114865], [0.6594761919997821, NaN, 0.004619164643149969, 0.16897466370192032, 0.2750873291005914, NaN, 0.12274531815580053, -0.030976769864015683, 0.03363133215790682, -0.13137434041450907, 0.07850359688703418, NaN, 0.09569697772849145, 0.10801003379792068, NaN, 0.0855189831895962, 0.21758122016675044, 0.2329384137084, 0.17994306066913626, 0.2049409582639039, 0.05181303611280149, 0.16346754997081533, 0.14381298508365048, 0.28348666611654877, 0.15882366288689578, NaN, NaN, 0.4515807387627445, 0.7324364641770261, 0.5109528460717764, 0.5724905302082247, 0.7987230832343747, -0.06968724570524618, 0.4868333300009242, 0.16790506598785937, 0.23351539573680352, 0.09655792872583317, 0.6573254786878251, 1.0, -0.028946412361227677, 0.12876518292682088, -0.012573577109527296, 0.08622646797413588, 0.08954429315112826, 0.2834924732715185, 0.19327592589080186, 0.005693235721257227, 0.02010579601499385], [-0.08194160311299827, NaN, NaN, NaN, NaN, NaN, 0.08802450977482558, NaN, NaN, 0.10784019052143339, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 0.09828541914346921, 0.07709926745752796, 0.20725823271501218, 0.211468641971568, 0.20725894255678354, 0.20725822845139147, NaN, -0.18668600990710507, 0.06823935684247662, 0.11996771346157714, 0.11996771346157714, 0.11996771346157714, 0.09571477189699583, -0.03249725981084375, NaN, 0.15805078227580066, 0.08152228982822983, 0.05783396179578094, 0.1248104865903142, -0.028946412361227677, 1.0, 0.017745517717650625, NaN, -0.05910585327086608, -0.13460735396540133, 0.20725894255678362, 0.2072582327150122, NaN, NaN], [0.12938225553188612, NaN, -0.008494954291058865, 0.5116099568037139, 0.48148330243999066, NaN, 0.33877199460080637, -0.009469161805790067, 0.0022902153601652643, 0.0336908909829593, NaN, NaN, NaN, 0.2455267093707062, NaN, 0.15012357515662386, 0.3570367139098187, 0.3309126691040183, NaN, 0.4164761971006468, 0.2114026418205738, 0.5378784093907646, 0.531790188312593, 0.36450646499946077, 0.5304562192101484, NaN, -0.027982544157125293, 0.18039956182381733, 0.20914439732855064, 0.22801339644685545, 0.23016755193451827, 0.16289241007816016, -0.13146053887850512, 0.14178324173309445, 0.48743037394040306, 0.20279493644239854, 0.0922856129396445, 0.3019664394086138, 0.12876518292682088, 0.017745517717650625, 1.0, 0.11698478647156026, 0.07392527887174175, 0.005696611352518509, 0.3645110316563156, 0.5424443141532002, -0.17412742934462627, 0.0010483627366165388], [0.021396700022019512, NaN, NaN, NaN, 0.11307223796488612, NaN, 0.0637126347702898, NaN, NaN, 0.05857271080682842, NaN, NaN, NaN, -0.09248732853866695, NaN, NaN, 0.06796462296988645, 0.050077414671441646, NaN, 0.08577439321181142, 0.0591414453665965, 0.1077540920913198, 0.09911215228337378, 0.11204915332214087, 0.11064908120696892, NaN, NaN, 0.056040920178223985, 0.03479504301218753, 0.05674614654282199, 0.05906313243239213, 0.028259438989990046, 0.03376603360611948, 0.06277591234909595, 0.07188404315498773, 0.08742271858085572, 0.01809100566916378, 0.057938934356354464, -0.012573577109527296, NaN, 0.11698478647156026, 1.0, -0.08332139479785436, -0.03261121859361762, 0.11204915332214087, 0.09361646260447827, NaN, -0.03842268681076229], [0.1785895384618896, NaN, NaN, NaN, 0.27375462613055646, NaN, 0.07358737493429024, NaN, 0.05135232807383937, -0.03137289508173943, NaN, NaN, NaN, NaN, NaN, NaN, -0.00849804516732774, -0.04957593183403113, NaN, 0.2117364691595641, 0.17585866698535654, 0.06627196325672258, 0.10468607936531754, 0.1293762739156091, 0.12921419937385367, NaN, -0.044089321591926016, 0.18683164632124236, 0.1503805246599137, 0.1503805246599137, 0.1503805246599137, 0.16834936478429496, -0.018356890690816485, NaN, 0.06417918275309181, 0.07331676570441358, 0.06105650359964481, 0.1828086046814435, 0.08622646797413588, -0.05910585327086608, 0.07392527887174175, -0.08332139479785436, 1.0, 0.05476994078550192, 0.1293762739156091, 0.12921461168458614, NaN, NaN], [0.16653074369017884, NaN, NaN, NaN, NaN, NaN, 0.056732645636032156, NaN, 0.048320739219765305, -0.13588667683204572, NaN, NaN, NaN, NaN, NaN, NaN, 0.21767877286744286, 0.2272600725325921, NaN, 0.14243844876008604, 0.2557137576266007, 0.2265264982923878, 0.19722187914968495, 0.2476745580105164, 0.24741793877318588, NaN, -0.12716391049280348, 0.15455198359597752, 0.13304112920533268, 0.13304112920533268, 0.13304112920533268, 0.14068413080861925, -0.20466788086413584, NaN, 0.16224196060862597, -0.01600786172917962, -0.019987164311882005, 0.15311472620986455, 0.08954429315112826, -0.13460735396540133, 0.005696611352518509, -0.03261121859361762, 0.05476994078550192, 1.0, 0.24767455801051638, 0.24741805536436548, NaN, NaN], [0.28982111499987334, NaN, -0.11925372897358949, NaN, 0.7387487570926909, NaN, 0.478784847009116, NaN, 0.11116653260761535, -0.2507157555963097, NaN, NaN, NaN, 0.20345398533133505, NaN, NaN, 0.5469226635237528, 0.5578891525564622, NaN, 0.620910570460789, 0.8548828638798861, 0.9466273203168043, 0.9618536292436846, 1.0, 0.9999989353188607, NaN, -0.08860916950547375, 0.33280316440159463, 0.3500272049645933, 0.3500272049645933, 0.3500272049645933, 0.34271323276744764, -0.2866241982998508, NaN, 0.7292605037754367, 0.23114453442204771, 0.24829637588591041, 0.48498748788571183, 0.2834924732715185, 0.20725894255678362, 0.3645110316563156, 0.11204915332214087, 0.1293762739156091, 0.24767455801051638, 1.0, 0.9860365262693596, NaN, 0.08589240394888653], [0.22212258403021665, NaN, 0.01996604409253872, 0.4844277334178171, 0.7387487134626334, NaN, 0.46196718146664073, 0.10923606053744636, 0.13812789013566268, -0.23079831221638175, 0.6838471324331901, 0.08612465172185019, 0.6056369423943495, 0.4444753262310947, NaN, 0.25155857504449247, 0.5809836983900329, 0.5668545706930749, 0.5889501203356049, 0.6207663323528143, 0.24405142383124773, 0.9276710319329785, 0.9295856614856155, 0.9860368806310769, 0.9230142833356483, NaN, -0.08892018941925939, 0.25463314783404334, 0.2656262224922205, 0.283489767100608, 0.26998265786675485, 0.226903146572105, -0.2071530360058203, 0.15760286390068107, 0.6216414952488788, 0.26687590598344074, 0.14408353050418612, 0.41014988780734, 0.19327592589080186, 0.2072582327150122, 0.5424443141532002, 0.09361646260447827, 0.12921461168458614, 0.24741805536436548, 0.9860365262693596, 1.0, -0.12858758293493092, 0.06314141375425465], [0.039561607174021615, NaN, NaN, NaN, NaN, NaN, -0.011214407272059563, NaN, NaN, NaN, NaN, NaN, NaN, -0.20811009787519755, NaN, -0.1356601585336071, 0.007462413506043414, 0.05620045934342989, NaN, NaN, -0.1382907640260094, -0.1528383817293736, -0.13746434480343006, NaN, -0.10723176118221656, NaN, NaN, -0.10078733162148525, -0.05678655628097098, -0.15964980208970264, -0.10393535142594597, -0.04895043966447006, 0.09563041331324529, -0.09831665553121113, -0.07975054220653494, -0.18703194728290842, -0.11686341238080289, -0.060007001131563015, 0.005693235721257227, NaN, -0.17412742934462627, NaN, NaN, NaN, NaN, -0.12858758293493092, 1.0, -0.15163841985208237], [0.0018842292715283053, NaN, -0.020782764403335197, NaN, -0.028784165081673693, NaN, 0.028386759534736048, NaN, -0.00984499147864364, -0.0560678341061573, NaN, NaN, NaN, -0.08317523846321248, NaN, 0.12346245709362007, NaN, NaN, NaN, -0.06890209186369292, 0.09989142470561177, 0.044131563714465166, 0.036118806491635014, 0.08568514848617716, 0.009799866137291407, NaN, NaN, 0.12482817985009197, 0.0629060724241486, 0.05999415185428359, 0.09673841685011006, 0.05828241537806034, -0.017854900909796006, 0.018241259758461758, 0.09639564718214601, 0.06867029684242479, 0.0046055100780175145, 0.050309908384114865, 0.02010579601499385, NaN, 0.0010483627366165388, -0.03842268681076229, NaN, NaN, 0.08589240394888653, 0.06314141375425465, -0.15163841985208237, 1.0]];
+            const n = labels.length;
+            const cellSize = Math.min(Math.max(14, Math.floor(800 / n)), 40);
+            const margin = 160;
+            const size = cellSize * n + margin;
+
+            const container = document.getElementById('heatmap-container');
+            const canvas = document.createElement('canvas');
+            canvas.width = size + margin;
+            canvas.height = size + 20;
+            canvas.style.maxWidth = '100%';
+            container.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#0f1419';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            function corrColor(v) {
+                if (isNaN(v) || v === null) return '#1a1f2e';
+                const abs = Math.abs(v);
+                if (v > 0) {
+                    const r = Math.round(52 + abs * 100);
+                    const g = Math.round(211 - abs * 80);
+                    const b = Math.round(153 - abs * 50);
+                    return `rgb(${r},${g},${b})`;
+                } else {
+                    const r = Math.round(248 - abs * 50);
+                    const g = Math.round(113 + abs * 30);
+                    const b = Math.round(113 + abs * 30);
+                    return `rgb(${r},${g},${b})`;
+                }
+            }
+
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n; j++) {
+                    ctx.fillStyle = corrColor(matrix[i][j]);
+                    ctx.fillRect(margin + j * cellSize, i * cellSize, cellSize - 1, cellSize - 1);
+                }
+            }
+
+            ctx.fillStyle = '#9ca3af';
+            ctx.font = `${Math.min(11, cellSize - 2)}px monospace`;
+            ctx.textAlign = 'right';
+            for (let i = 0; i < n; i++) {
+                ctx.fillText(labels[i].substring(0, 20), margin - 4, i * cellSize + cellSize - 2);
+            }
+            ctx.textAlign = 'left';
+            ctx.save();
+            for (let j = 0; j < n; j++) {
+                ctx.save();
+                ctx.translate(margin + j * cellSize + cellSize - 2, n * cellSize + 4);
+                ctx.rotate(Math.PI / 4);
+                ctx.fillText(labels[j].substring(0, 20), 0, 0);
+                ctx.restore();
+            }
+            ctx.restore();
+
+            // Legend
+            const lx = margin + n * cellSize + 20;
+            const ly = 10;
+            const lw = 20, lh = 120;
+            for (let i = 0; i < lh; i++) {
+                const v = 1 - 2 * i / lh;
+                ctx.fillStyle = corrColor(v);
+                ctx.fillRect(lx, ly + i, lw, 1);
+            }
+            ctx.fillStyle = '#9ca3af';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText('+1.0', lx + lw + 4, ly + 10);
+            ctx.fillText(' 0.0', lx + lw + 4, ly + lh / 2 + 4);
+            ctx.fillText('-1.0', lx + lw + 4, ly + lh);
+
+            // Tooltip on hover
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const x = (e.clientX - rect.left) * scaleX - margin;
+                const y = (e.clientY - rect.top) * scaleX;
+                const j = Math.floor(x / cellSize);
+                const i = Math.floor(y / cellSize);
+                if (i >= 0 && i < n && j >= 0 && j < n) {
+                    const v = matrix[i][j];
+                    const vStr = v !== null && !isNaN(v) ? v.toFixed(3) : 'N/A';
+                    canvas.title = `${labels[i]} × ${labels[j]}: r = ${vStr}`;
+                } else {
+                    canvas.title = '';
+                }
+            });
+        })();
+        </script>
+        
+
+</div>
+</body>
+</html>

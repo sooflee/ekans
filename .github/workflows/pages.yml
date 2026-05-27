@@ -6,6 +6,7 @@ on:
     paths:
       - "index.html"
       - "full_catalog.html"
+      - "analysis.html"
       - "pipeline/*.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -31,7 +32,7 @@ jobs:
       - name: Stage site
         run: |
           mkdir -p _site/pipeline
-          cp index.html full_catalog.html _site/
+          cp index.html full_catalog.html analysis.html _site/
           cp pipeline/ideas_queue.json pipeline/strategies_queue.json pipeline/status.json _site/pipeline/
 
       - uses: actions/configure-pages@v5

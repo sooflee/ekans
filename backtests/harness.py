@@ -30,11 +30,12 @@ DATA.mkdir(exist_ok=True)
 RESULTS.mkdir(exist_ok=True)
 
 
-def save_result(signal_id, metrics, extra=None):
+def save_result(signal_id, metrics, extra=None, pnl=None):
     """Persist a signal's backtest metrics to results/<signal_id>.json.
 
     metrics: dict from compute_metrics()
     extra: optional dict of extra fields (e.g., rule, source, status='ok'|'fail')
+    pnl: optional pd.Series of daily PnL — saved to results/pnl/ for correlation analysis.
     """
     payload = dict(metrics)
     payload["signal_id"] = signal_id
@@ -43,6 +44,10 @@ def save_result(signal_id, metrics, extra=None):
     fp = RESULTS / f"{signal_id}.json"
     with open(fp, "w") as f:
         json.dump(payload, f, indent=2, default=str)
+    if pnl is not None:
+        pnl_dir = RESULTS / "pnl"
+        pnl_dir.mkdir(exist_ok=True)
+        pnl.to_frame("pnl").to_parquet(pnl_dir / f"{signal_id}.parquet")
     return fp
 
 
@@ -111,9 +116,12 @@ def load_fred(series, start="1990-01-01", end=None, cache=True):
 
 # ---------- metrics ----------
 
-def compute_metrics(pnl, benchmark=None, name="Strategy"):
+def compute_metrics(pnl, benchmark=None, name="Strategy", positions=None, cost_bps=10):
     """Given a daily PnL/return series, compute summary metrics.
     pnl: pd.Series of daily decimal returns (excess or total, your choice; be consistent).
+    positions: optional pd.Series of positions (e.g. 1/0/-1) for transaction cost calc.
+               Costs are deducted on each day the position changes, proportional to |delta|.
+    cost_bps: round-trip cost in basis points (default 10 = 5bps each way).
     Returns dict.
     """
     pnl = pnl.dropna()
@@ -130,7 +138,6 @@ def compute_metrics(pnl, benchmark=None, name="Strategy"):
     max_dd = dd.min()
     calmar = cagr / abs(max_dd) if max_dd < 0 else np.nan
     hit = (pnl > 0).mean()
-    # t-stat for mean return ≠ 0
     t_stat = pnl.mean() / (pnl.std() / np.sqrt(len(pnl))) if pnl.std() > 0 else 0
 
     out = {
@@ -155,6 +162,39 @@ def compute_metrics(pnl, benchmark=None, name="Strategy"):
             out["bench_cagr"] = float(b_eq.iloc[-1] ** (1 / b_years) - 1)
             out["bench_sharpe"] = float(b.mean() / b.std() * np.sqrt(ann_factor)) if b.std() > 0 else 0
             out["excess_cagr"] = out["cagr"] - out["bench_cagr"]
+
+    # --- Transaction cost adjustment ---
+    if positions is not None:
+        pos = positions.reindex(pnl.index).fillna(0)
+        turnover = pos.diff().abs().fillna(0)
+        daily_cost = turnover * (cost_bps / 10000)
+        net_pnl = pnl - daily_cost
+        net_pnl = net_pnl.dropna()
+        if len(net_pnl) > 30:
+            net_eq = (1 + net_pnl).cumprod()
+            net_years = len(net_pnl) / ann_factor
+            net_cagr = net_eq.iloc[-1] ** (1 / net_years) - 1
+            net_sharpe = net_pnl.mean() / net_pnl.std() * np.sqrt(ann_factor) if net_pnl.std() > 0 else 0
+            net_dd = (net_eq / net_eq.cummax() - 1)
+            out["net_cagr"] = float(net_cagr)
+            out["net_sharpe"] = float(net_sharpe)
+            out["net_max_dd"] = float(net_dd.min())
+            out["turnover_annual"] = float(turnover.sum() / years)
+            out["cost_drag"] = float(cagr - net_cagr)
+            out["cost_bps"] = cost_bps
+
+    # --- In-sample / Out-of-sample split ---
+    mid = len(pnl) // 2
+    if mid >= 60:
+        for label, chunk in [("is", pnl.iloc[:mid]), ("oos", pnl.iloc[mid:])]:
+            c_eq = (1 + chunk).cumprod()
+            c_years = len(chunk) / ann_factor
+            c_cagr = c_eq.iloc[-1] ** (1 / c_years) - 1
+            c_sharpe = chunk.mean() / chunk.std() * np.sqrt(ann_factor) if chunk.std() > 0 else 0
+            out[f"{label}_cagr"] = float(c_cagr)
+            out[f"{label}_sharpe"] = float(c_sharpe)
+            out[f"{label}_start"] = str(chunk.index[0].date())
+            out[f"{label}_end"] = str(chunk.index[-1].date())
 
     return out
 

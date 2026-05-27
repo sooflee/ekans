@@ -434,7 +434,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <header class="hero">
   <div class="hero-main">
     <h1>Trading Signals Research</h1>
-    <p class="sub">404 signals backtested across macro, crypto, commodities, geopolitics, OSINT, supply chains, and cross-domain causal chains. Free data only.</p>
+    <p class="sub"><span id="hero-tagline-count">—</span> signals backtested across macro, crypto, commodities, geopolitics, OSINT, supply chains, and cross-domain causal chains. Free data only.</p>
     <div class="stats">
       <div class="stat"><span class="v" id="hero-total">—</span><span class="l">signals tested</span></div>
       <div class="stat"><span class="v" id="hero-count">24</span><span class="l">high return</span></div>
@@ -4196,7 +4196,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 410-row catalog</a> for every signal we attempted, including duds. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 410-row catalog</a> for every signal we attempted, including duds. View <a href="analysis.html">signal analysis</a> for multiple-testing correction, transaction costs, IS/OOS splits, and cross-signal correlation. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 
@@ -5576,8 +5576,10 @@ if (catIframe) {
         const n = countEl.textContent.trim();
         const heroTotal = document.getElementById('hero-total');
         const tabCount = document.getElementById('tab-catalog-count');
+        const taglineCount = document.getElementById('hero-tagline-count');
         if (heroTotal) heroTotal.textContent = n;
         if (tabCount) tabCount.textContent = n;
+        if (taglineCount) taglineCount.textContent = n;
       }
     } catch(e) {}
   });
