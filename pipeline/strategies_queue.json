@@ -10713,5 +10713,562 @@
       "n_events": 5,
       "is_winner": true
     }
+  },
+  {
+    "strategy_id": "PL338",
+    "idea_id": "PL338",
+    "created_at": "2026-05-27T04:21:20.222449+00:00",
+    "status": "done",
+    "signal_id": "PL338_bls_nurse_wage_accel_travel_nurse_long",
+    "name": "BLS Healthcare Wage Acceleration + JOLTS Openings -> Long Travel Nurse Agencies",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "rule": "Using yfinance and FRED data: When BLS CES healthcare average hourly earnings (FRED series CES6562000008 or CEU6562000008) show YoY growth > 5% AND JOLTS healthcare job openings (FRED series JTS6200JOL) remain above their 2-year median, go long equal-weight basket of AMN + CCRN on the first trading day after data release. Hold for 63 trading days (approximately 3 months). Benchmark vs SPY.",
+    "tickers": [
+      "AMN",
+      "CCRN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BLS CES healthcare average hourly earnings YoY growth exceeds 5%",
+      "JOLTS healthcare job openings above their trailing 24-month median",
+      "Both conditions must be true simultaneously",
+      "Enter on first trading day after BLS CES monthly release",
+      "Minimum 90 calendar days between signals to avoid overlapping positions"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: AMN (AMN Healthcare Services), CCRN (Cross Country Healthcare), SPY",
+      "fundamental": "FRED: CES6562000008 or CEU6562000008 (healthcare avg hourly earnings, monthly), JTS6200JOL (JOLTS healthcare job openings, monthly). Both free, monthly frequency, ~1 month lag. Historical data back to 2001+ for CES, 2001 for JOLTS."
+    },
+    "backtest_approach": "Event study: Load FRED series for healthcare hourly earnings and JOLTS healthcare openings (2005-2025, ensuring AMN/CCRN price history available). Compute monthly YoY growth in healthcare earnings. Identify months where earnings YoY > 5% AND JOLTS openings above 24-month median. For each signal month (with 90-day minimum gap), long AMN+CCRN equal-weight for 63 trading days. Compute per-trade returns and aggregate metrics vs SPY. Key expected signal clusters: 2007 (pre-crisis nurse shortage), 2015-2016 (ACA expansion), 2021-2022 (COVID nurse wage surge), 2024 (post-pandemic normalization with persistent shortages).",
+    "known_events": [
+      "2007: Pre-financial-crisis nurse shortage drove wage growth",
+      "2015-2016: ACA Medicaid expansion increased hospital volumes and nurse demand",
+      "2021 Q2-Q4: COVID Delta/Omicron waves caused massive travel nurse demand spike",
+      "2022 Q1-Q2: Peak travel nurse bill rates ($150-200/hr vs normal $50-70)",
+      "2024: Post-pandemic normalization but persistent shortages in aging population"
+    ],
+    "implementation_notes": "AMN Healthcare IPO 2001, CCRN IPO 2001 -- both have sufficient history. FRED healthcare earnings series may need to check both CES6562000008 (SA) and CEU6562000008 (NSA). JOLTS healthcare may be aggregated under 'Health care and social assistance' (code 62). The thesis is that travel nurse agencies benefit from wage acceleration because they charge a markup over permanent wages, and the bill-pay spread widens when demand is acute. The 5% YoY threshold is meaningful because healthcare wage growth historically averages 2-3%. bt_feasibility is 4 because both FRED series are clean and monthly.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:23:10.452080+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.77,
+      "cagr": 0.292,
+      "max_dd": -0.394,
+      "t_stat": 1.085
+    }
+  },
+  {
+    "strategy_id": "PL336",
+    "idea_id": "PL336",
+    "created_at": "2026-05-27T04:22:07.206840+00:00",
+    "status": "done",
+    "signal_id": "PL336_usace_draft_restriction_ltl_diversion",
+    "name": "Army Corps Dredging Delays -> Port Draft Restrictions -> LTL Carrier Volume Surge",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and USACE navigation data: When USACE issues draft restrictions reducing Mississippi River Southwest Pass channel depth below 45 feet (normal is 50 ft) for 2+ consecutive weeks, go long an equal-weight basket of LTL carriers (XPO, ODFL, SAIA) on the Monday following the second week of restrictions. Hold for 30 trading days. Benchmark vs SPY. USACE navigation notices are free at navigation.usace.army.mil. Draft restrictions force vessel light-loading, increasing per-unit inland logistics costs and diverting cargo to trucking.",
+    "tickers": [
+      "XPO",
+      "ODFL",
+      "SAIA",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USACE Mississippi River Southwest Pass draft restriction < 45 feet for 2+ consecutive weeks",
+      "Enter on Monday following second week of restriction",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XPO (XPO Logistics), ODFL (Old Dominion Freight Line), SAIA (Saia Inc), SPY",
+      "fundamental": "USACE Navigation Notices (free): navigation.usace.army.mil - Mississippi River channel conditions. Also USACE Lock Performance Monitoring System for river traffic data. Draft restriction notices issued in real-time."
+    },
+    "backtest_approach": "Event study: For each period (2012-2025, XPO spun off logistics 2011) where Mississippi River draft restrictions tightened below 45 ft for 2+ weeks, compute XPO+ODFL+SAIA basket return over 30 trading days vs SPY. Key events: 2012 drought (record low water), 2022 October (historic low Mississippi levels). USACE data may need manual extraction from navigation notices archive. If fewer than 4 events at 45 ft threshold, relax to 47 ft.",
+    "known_events": [
+      "2012 summer/fall: Severe drought reduced Mississippi draft to 39 ft in places",
+      "2022 October: Historic low water, draft restricted to 35-40 ft at SW Pass",
+      "2023 September: Drought again restricted Mississippi navigation"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because USACE navigation notices are published as text/PDF and require manual parsing. XPO underwent major restructuring (spun off GXO in 2021, RXO in 2022), so pre-2022 XPO data reflects a different company mix. ODFL and SAIA are cleaner LTL pure-plays. The signal is strongest during September-November when grain export season coincides with low-water risk. Draft restrictions at Houston Ship Channel (another major port) could serve as additional signal source.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:23:38.468188+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4391112406761694,
+      "cagr": 0.10224030862916944,
+      "max_dd": -0.2992228769320956,
+      "t_stat": 0.33878167721171665,
+      "n_events": 5,
+      "is_winner": false
+    }
+  },
+  {
+    "strategy_id": "PL337",
+    "idea_id": "PL337",
+    "created_at": "2026-05-27T04:22:07.206840+00:00",
+    "status": "done",
+    "signal_id": "PL337_usda_ddgs_export_ethanol_margin",
+    "name": "USDA DDGS Export Surge -> Ethanol Coproduct Revenue -> Corn Ethanol Producer Margins",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USDA FAS export sales data: When USDA weekly Export Sales Report shows DDGS (Dried Distillers Grains) net sales exceed 4-week trailing average by > 30%, go long an equal-weight basket of ethanol producers (GPRE, REX, ANDE) on the Friday following the Thursday report. Hold for 30 trading days. Benchmark vs SPY. USDA FAS publishes DDGS export sales in the weekly Export Sales Report alongside grain commodities. DDGS is categorized under 'Corn Gluten Feed and Meal' or 'DDGS' separately.",
+    "tickers": [
+      "GPRE",
+      "REX",
+      "ANDE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA weekly Export Sales Report DDGS net sales exceed 4-week trailing average by > 30%",
+      "Enter on Friday following Thursday report release",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: GPRE (Green Plains Inc), REX (REX Energy, ethanol interests), ANDE (Andersons Inc, ethanol segment), SPY",
+      "fundamental": "USDA FAS Weekly Export Sales Report (free): https://apps.fas.usda.gov/export-sales/ - filter for DDGS or 'Distillers Dried Grains'. Weekly frequency, Thursday release. Also EIA weekly ethanol production (free) for context on production volumes."
+    },
+    "backtest_approach": "Event study: For each Thursday report (2015-2025) where DDGS export sales spiked >30% above 4-week average, compute GPRE+REX+ANDE basket return over 30 trading days vs SPY. GPRE is the purest ethanol play. REX has ethanol investments but also retail (noisy). ANDE has ethanol plus grain merchandising. Calculate average excess return, win rate, t-statistic. China DDGS demand is episodic (trade policy dependent), so signals may cluster during favorable trade periods.",
+    "known_events": [
+      "2016-2017: China DDGS anti-dumping duties disrupted trade, then shifted to Vietnam",
+      "2020: Phase 1 trade deal increased China ag purchases including DDGS",
+      "2023-2024: Southeast Asia DDGS demand surge as feed ingredient"
+    ],
+    "implementation_notes": "GPRE IPO was 2006, REX has been public since 1984 (but ethanol focus varies), ANDE has been public since 1996. The DDGS coproduct credit is a meaningful swing factor for ethanol margins ($0.10-0.15/gallon on ~$0.50-0.80/gallon gross margin). USDA FAS data is free and downloadable. bt_feasibility is 3 because: (a) DDGS is sometimes bundled with 'Corn Gluten Feed' in USDA reporting making extraction tricky, (b) ethanol stocks are affected by many factors beyond DDGS (ethanol RIN prices, corn basis, gasoline blending margins).",
+    "originality": 9,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:23:38.468188+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.2762277437760483,
+      "cagr": 0.4778004807091951,
+      "max_dd": -0.2711841156289265,
+      "t_stat": 1.2762277437760483,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL342",
+    "idea_id": "PL342",
+    "created_at": "2026-05-27T04:22:33.157970+00:00",
+    "status": "done",
+    "signal_id": "PL342_stb_rail_velocity_decline_trucking_long",
+    "name": "STB Railroad Velocity Decline -> Modal Diversion -> Long Truckload Carriers",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Using yfinance data and STB railroad service metrics: When Class I railroad average train velocity (available weekly from STB) drops >15% below its 52-week moving average for 2+ consecutive weeks, go long equal-weight basket of JBHT + KNX on the next trading day. Hold for 42 trading days (approximately 2 months). Benchmark vs SPY. As a backtest proxy without STB API parsing, use UNP/CSX stock underperformance vs SPY >10% over 4 weeks as a signal that rail service is deteriorating (rail stocks reflect service metrics).",
+    "tickers": [
+      "JBHT",
+      "KNX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Primary signal: STB weekly data shows Class I avg train velocity >15% below 52-week average for 2+ consecutive weeks",
+      "Backtest proxy: UNP+CSX equal-weight 20-day return underperforms SPY by >10% (rail stock weakness signals service degradation)",
+      "Enter on next trading day after signal confirmation",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days (approximately 2 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: JBHT (J.B. Hunt Transport Services), KNX (Knight-Swift Transportation), UNP (Union Pacific), CSX (CSX Corporation), SPY",
+      "fundamental": "STB weekly railroad service metrics (free at stb.gov). For backtest, use UNP/CSX price action as proxy for rail service quality. AAR weekly rail traffic data (free) as supplementary confirmation."
+    },
+    "backtest_approach": "Event study using rail stock proxy: For each date (2007-2025) where UNP+CSX equal-weight 20-day return underperforms SPY by >10%, compute JBHT+KNX basket return over next 42 trading days vs SPY. Apply 60-day minimum gap between signals. Key expected events: 2014 Q1 (polar vortex rail freeze), 2017 Q4 (Hurricane Harvey rail disruption), 2021 Q4-2022 Q1 (post-COVID rail service collapse, PSR-related crew shortages), 2023 Q1 (post-strike service recovery delays). Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2014 Q1: Polar vortex froze rail operations across northern tier, massive intermodal diversion",
+      "2017 Q3-Q4: Hurricane Harvey disrupted Gulf Coast rail networks; Houston terminal congestion",
+      "2021 Q4-2022 Q2: Post-COVID rail service collapse; PSR-driven crew cuts left railroads unable to handle volume recovery",
+      "2022 Q3: Rail labor dispute threats caused preemptive freight diversion to trucking",
+      "2023 Q1: Lingering service recovery post-strike; STB hearings on Class I service failures"
+    ],
+    "implementation_notes": "JBHT IPO 1983, KNX formed 2017 (use KNX from 2017+, WERN as substitute pre-2017). The proxy approach using rail stock underperformance is a reasonable substitute for STB weekly data which requires web scraping. The mechanism is well-documented: STB held multiple hearings in 2022 on Class I service failures, and FreightWaves documented modal shift to trucking. WERN dropped from basket because JBHT and KNX are larger and more liquid. bt_feasibility is 4 because the rail stock proxy is clean and the modal diversion mechanism is well-established.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:23:38.468188+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.761618686072166,
+      "cagr": 1.0144266568524754,
+      "max_dd": -0.135930474377555,
+      "t_stat": 2.521001415982505,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL342",
+    "idea_id": "PL342",
+    "created_at": "2026-05-27T04:23:05.017360+00:00",
+    "status": "done",
+    "signal_id": "PL342_stb_rail_velocity_trucking_diversion",
+    "name": "STB Railroad Service Metrics -> Train Velocity Decline -> Trucking Diversion Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and STB railroad service data: When STB weekly Class I railroad average train velocity drops > 15% below its 52-week moving average AND average terminal dwell time exceeds 30 hours, go long an equal-weight basket of truckload carriers (JBHT, WERN, KNX) on the Monday following the weekly STB report. Hold for 40 trading days. Benchmark vs SPY. STB publishes weekly service metrics for all Class I railroads (BNSF, UP, CSX, NS, KCS, CN, CP) with train speed, dwell, cars on line, etc.",
+    "tickers": [
+      "JBHT",
+      "WERN",
+      "KNX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "STB weekly Class I average train velocity > 15% below 52-week moving average",
+      "STB weekly average terminal dwell time exceeds 30 hours",
+      "Both conditions must be met simultaneously",
+      "Enter on Monday following weekly STB data release",
+      "Minimum 90 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: JBHT (J.B. Hunt Transport), WERN (Werner Enterprises), KNX (Knight-Swift Transportation), SPY",
+      "fundamental": "STB weekly railroad service metrics (free): https://www.stb.gov/reports-data/rail-service-data/ - CSV/Excel with train_velocity_mph, terminal_dwell_hours, cars_on_line by railroad. Weekly frequency. Also AAR weekly rail traffic carloadings (free at aar.org) for context."
+    },
+    "backtest_approach": "Event study: For each week (2014-2025, STB weekly reporting began ~2014 after PSR implementation drove service issues) where both velocity and dwell conditions were met, compute JBHT+WERN+KNX basket return over 40 trading days vs SPY. Key rail service crises: 2014 (polar vortex + grain backlog), 2017 (CSX precision scheduled railroading transition), 2021-2022 (post-COVID labor shortages). With 90-day gap, expect 4-8 discrete events. Calculate average excess return, win rate, t-statistic.",
+    "known_events": [
+      "2014 Q1: Polar vortex crushed rail velocity, massive grain backlog",
+      "2017 Q3-Q4: CSX PSR implementation caused severe service failures",
+      "2021 Q4-2022 Q2: Post-COVID rail labor shortages degraded service",
+      "2022: STB held hearings on railroad service quality amid shipper complaints"
+    ],
+    "implementation_notes": "STB data is clean, free, and available as downloadable CSV. The dual condition (low velocity + high dwell) ensures we capture genuine service crises, not normal seasonal variation. JBHT has significant intermodal business so ironically benefits from intermodal-to-OTR diversion. WERN and KNX are predominantly OTR carriers that capture diverted freight. bt_feasibility is 4 because STB data is well-structured and the modal diversion mechanism is well-documented by industry analysts.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T04:23:38.468188+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.769168170071637,
+      "cagr": 0.9262953810261936,
+      "max_dd": -0.1308865642503636,
+      "t_stat": 2.527893120455896,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL343",
+    "idea_id": "PL343",
+    "created_at": "2026-05-27T04:23:05.017360+00:00",
+    "status": "done",
+    "signal_id": "PL343_cdc_rsv_pediatric_beyfortus_demand",
+    "name": "CDC RSV-NET Pediatric Hospitalization Surge -> Nirsevimab Demand Pull -> SNY/AZN Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance and CDC RSV-NET data: When CDC RSV-NET weekly pediatric (0-4 year) RSV hospitalization rate in September or October exceeds the prior 3-season average for that same week by > 50%, go long an equal-weight basket of SNY (Sanofi) and AZN (AstraZeneca) on the Monday following the CDC weekly report. Hold for 30 trading days. Benchmark vs SPY. CDC RSV-NET publishes weekly hospitalization rates by age group during RSV season (October-April). Beyfortus (nirsevimab) is co-developed by Sanofi and AZN.",
+    "tickers": [
+      "SNY",
+      "AZN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CDC RSV-NET pediatric (0-4yr) weekly hospitalization rate exceeds prior 3-season same-week average by > 50%",
+      "Signal window: September 1 through October 31 (early season indicator)",
+      "Enter on Monday following CDC weekly data publication",
+      "Signal fires once per RSV season (first week threshold is breached)"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days (approximately 6 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SNY (Sanofi ADR), AZN (AstraZeneca ADR), SPY",
+      "fundamental": "CDC RSV-NET (free): https://www.cdc.gov/rsv/research/rsv-net/dashboard.html - weekly RSV-associated hospitalization rates per 100,000 by age group. Published weekly during surveillance season. Also CDC NREVSS (National Respiratory and Enteric Virus Surveillance System) for RSV PCR positivity rates."
+    },
+    "backtest_approach": "Event study: For each RSV season (2018-2025, Beyfortus approved 2023 so pre-2023 tests the thesis without the product), identify weeks in Sep-Oct where pediatric RSV hospitalization exceeded 3-season average by >50%. Compute SNY+AZN basket return over 30 trading days vs SPY. Pre-Beyfortus seasons (2018-2022) test whether early severe RSV season drives related pharma interest. Post-Beyfortus (2023-2025) tests direct revenue impact. Key seasons: 2022 (unusually early and severe), 2023 (first Beyfortus season). If <3 events, relax to 30% threshold.",
+    "known_events": [
+      "2022 Q4: Unprecedented early and severe RSV season, hospitals overwhelmed",
+      "2023 Q4: First Beyfortus season, supply constraints initially",
+      "2024 Q4: Second Beyfortus season with improved supply"
+    ],
+    "implementation_notes": "bt_feasibility is 3 because: (a) Beyfortus only launched in 2023 so direct revenue signal has very limited history, (b) SNY and AZN are large diversified pharma companies so RSV product impact is diluted in stock price, (c) CDC RSV-NET started systematic surveillance ~2018. SNY ADR and AZN ADR trade on NYSE and have good liquidity. The signal is strongest post-2023 when Beyfortus revenue directly ties to RSV season severity. Pre-2023 backtest serves as a weaker test of RSV-driven pharma sentiment.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:25:40.737247+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.11,
+      "cagr": -0.004,
+      "max_dd": -0.15,
+      "t_stat": 0.11
+    }
+  },
+  {
+    "strategy_id": "PL346",
+    "idea_id": "PL346",
+    "created_at": "2026-05-27T04:23:17.796410+00:00",
+    "status": "done",
+    "signal_id": "PL346_eia_refinery_util_low_driving_season_refiner_long",
+    "name": "EIA Refinery Utilization Drop During Driving Season -> Long Refiner Basket",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and EIA/FRED data: When EIA weekly refinery utilization (FRED series WRRTSTUS1 or equivalent) drops below 85% during driving season (May 1 - September 30) for 2+ consecutive weeks, go long equal-weight basket of VLO + MPC on the next trading day. Hold for 21 trading days (approximately 1 month). Benchmark vs SPY. The thesis is that operating refiners capture windfall margins when peers have unplanned outages during peak demand.",
+    "tickers": [
+      "VLO",
+      "MPC",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA weekly refinery utilization rate drops below 85% during May-September",
+      "Condition persists for 2+ consecutive weekly reports",
+      "Enter on first trading day after second consecutive sub-85% reading",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 21 trading days (approximately 1 month)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: VLO (Valero Energy), MPC (Marathon Petroleum), SPY",
+      "fundamental": "FRED/EIA: Weekly US refinery utilization rate (WRRTSTUS1 or WPULEUS3). Published every Wednesday in EIA Weekly Petroleum Status Report. Free, weekly frequency, 1-week lag. Historical data back to 1990+. Also: EIA gasoline days of supply (WGDSTUS1) as confirmation signal."
+    },
+    "backtest_approach": "Event study: Load FRED weekly refinery utilization data (1995-2025 for VLO history). Identify May-September weeks where utilization drops below 85% for 2+ consecutive weeks. For each signal event (with 30-day min gap), long VLO+MPC basket for 21 trading days. Compute per-trade return vs SPY. Key expected events: 2005 (Hurricanes Katrina/Rita), 2008 (Hurricane Ike), 2012 (Hurricane Isaac + Chevron Richmond fire), 2017 (Hurricane Harvey), 2019 (Philadelphia Energy Solutions explosion), 2021 (Hurricane Ida + winter storm freeze lingering). MPC formed from Marathon Oil spin-off in 2011; use VLO only pre-2011 or substitute PSX/XOM refining proxy.",
+    "known_events": [
+      "2005 Aug-Sep: Hurricanes Katrina and Rita shut Gulf Coast refining; utilization dropped to ~70%",
+      "2008 Sep: Hurricane Ike shut Texas refineries; gasoline cracks spiked $25/bbl",
+      "2012 Aug: Hurricane Isaac + Chevron Richmond refinery fire; utilization ~83%",
+      "2017 Aug-Sep: Hurricane Harvey flooded Houston refining corridor; utilization ~77%",
+      "2019 Jun: Philadelphia Energy Solutions refinery explosion; East Coast supply squeeze",
+      "2021 Feb: Texas winter storm knocked utilization to ~56% (outside driving season but shows mechanism)"
+    ],
+    "implementation_notes": "VLO has been public since 1997, providing excellent backtest depth. MPC spun off from Marathon Oil in June 2011 -- use VLO-only or add PSX (spun from COP April 2012) for pre-2011 period. EIA refinery utilization is one of the cleanest weekly macro datasets available. The 85% threshold during driving season is meaningful because normal seasonal utilization is 90-95% May-Sep. The 2021 winter storm is outside driving season so would not trigger. bt_feasibility is 5 because EIA data is excellent quality and the refiner stock response to crack spread widening is well-documented.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:25:40.737458+00:00",
+    "backtest_result": {
+      "status": "fail",
+      "reason": "FRED refinery utilization series not available"
+    }
+  },
+  {
+    "strategy_id": "PL345",
+    "idea_id": "PL345",
+    "created_at": "2026-05-27T04:24:07.070724+00:00",
+    "status": "done",
+    "signal_id": "PL345_fema_firm_expansion_flood_insurer",
+    "name": "FEMA Flood Map Revision -> Mandatory Insurance Expansion -> Flood Insurer Premium Growth",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FEMA Map Service Center data: When FEMA issues a preliminary FIRM (Flood Insurance Rate Map) update that expands Special Flood Hazard Areas (SFHA) in a metro area with population > 1M, go long an equal-weight basket of flood-focused insurers (HCI, PLMR) on the first trading day after FEMA preliminary map issuance. Hold for 40 trading days. Benchmark vs SPY. FEMA Map Service Center (msc.fema.gov) publishes all preliminary and effective FIRMs for free. Focus on metro-scale revisions that add >10,000 properties to SFHA zones.",
+    "tickers": [
+      "HCI",
+      "PLMR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FEMA issues preliminary FIRM expanding SFHA for a metro area with population > 1M",
+      "Expansion adds estimated > 10,000 properties to mandatory flood insurance requirement",
+      "Enter on first trading day after FEMA preliminary FIRM issuance",
+      "Minimum 180 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days (approximately 8 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: HCI (HCI Group Inc, Florida flood insurer), PLMR (Palomar Holdings, specialty insurer with flood line), SPY",
+      "fundamental": "FEMA Map Service Center (free): https://msc.fema.gov - preliminary FIRM updates by community/county. FEMA NFIP data: https://www.fema.gov/data-visualization-floods - policy counts and written premium by state/county."
+    },
+    "backtest_approach": "Event study: For each major FEMA FIRM expansion (2015-2025), compute HCI+PLMR return over 40 trading days vs SPY. PLMR IPO was April 2019, limiting pair history. For pre-2019, use HCI only. Major FIRM revisions are infrequent but impactful. FEMA has been updating maps nationwide under Risk Rating 2.0 (effective Oct 2021), creating multiple events. Calculate average excess return, win rate. Note: the market may not react to FIRM releases immediately, as the mandatory insurance requirement takes effect months later.",
+    "known_events": [
+      "2016: Houston-area FIRM updates post-Tax Day floods",
+      "2019: Miami-Dade FIRM modernization",
+      "2021: FEMA Risk Rating 2.0 nationwide repricing (Oct 1 effective)",
+      "2023: New York metro post-Ida FIRM revisions"
+    ],
+    "implementation_notes": "UIHC (Universal Insurance Holdings) appears delisted on yfinance -- replaced with PLMR (Palomar). HCI Group is the purest US private flood insurance play (Florida-focused). PLMR has growing flood book but is diversified across earthquake, crop, etc. bt_feasibility is 3 because: (a) FEMA FIRM releases are not easily machine-parseable, (b) the signal has 6-12 month lag from preliminary to effective, (c) stock reaction may be delayed. The 40 trading day hold is short for an 18-month fundamental catalyst.",
+    "originality": 9,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:25:29.172336+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.6226097503130978,
+      "cagr": 0.8073086934804121,
+      "max_dd": -0.2759886188996856,
+      "t_stat": 1.6226097503130976,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL346",
+    "idea_id": "PL346",
+    "created_at": "2026-05-27T04:24:07.070724+00:00",
+    "status": "done",
+    "signal_id": "PL346_eia_refinery_util_low_gasoline_crack",
+    "name": "EIA Refinery Utilization Below 85% During Driving Season -> Gasoline Crack Spread Rally -> Refiner Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and EIA data: When EIA Weekly Petroleum Status Report shows US refinery utilization rate drops below 85% during May 1 through September 30 (peak driving season), go long an equal-weight basket of refiners (VLO, MPC, PSX) on the Wednesday following the EIA weekly report (released Wednesday 10:30 AM ET). Hold for 20 trading days. Benchmark vs SPY. EIA WPSR provides refinery utilization as percent of operable capacity. FRED series: WGFCPUS2 (gasoline stocks) and refinery utilization data at eia.gov.",
+    "tickers": [
+      "VLO",
+      "MPC",
+      "PSX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "EIA WPSR US refinery utilization rate < 85% (operable capacity basis)",
+      "Signal window: May 1 through September 30 (driving season only)",
+      "Enter on Wednesday afternoon after EIA report (or Thursday open if report is after market close)",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 20 trading days (approximately 4 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: VLO (Valero Energy), MPC (Marathon Petroleum), PSX (Phillips 66), SPY",
+      "fundamental": "EIA Weekly Petroleum Status Report (free): https://www.eia.gov/petroleum/supply/weekly/ - refinery utilization (% operable capacity), gasoline stocks, RBOB spot prices. FRED series: WPULFEUSA (refinery utilization), WGFCPUS2 (gasoline stocks days of supply). Weekly Wednesday 10:30 AM ET release."
+    },
+    "backtest_approach": "Event study: For each week (2000-2025) during May-September where EIA refinery utilization dropped below 85%, compute VLO+MPC+PSX basket return over 20 trading days vs SPY. Note: MPC IPO was June 2011, PSX IPO was May 2012. For pre-2012, use VLO only (public since 1997). Major events: 2005 (Hurricanes Katrina/Rita), 2008 (Hurricane Ike), 2017 (Hurricane Harvey), 2021 (Winter Storm Uri extended maintenance). Calculate average excess return, win rate, t-statistic. bt_feasibility is 5 because EIA data is clean, free, machine-readable, weekly, and the refinery utilization-to-crack spread mechanism is well-established.",
+    "known_events": [
+      "2005 Sep: Katrina/Rita shut 25% of US refining, utilization crashed to ~70%",
+      "2008 Sep: Hurricane Ike shut Gulf Coast refineries",
+      "2017 Aug: Hurricane Harvey flooded Houston refining complex, utilization ~78%",
+      "2021 Feb: Winter Storm Uri caused extended outages into spring driving season",
+      "2022 Jun: Tight refinery capacity drove crack spreads to record highs"
+    ],
+    "implementation_notes": "This is one of the highest bt_feasibility signals (5/5) because EIA data is pristine, freely available, machine-readable, and the mechanism is direct and well-documented. VLO is the purest US independent refiner. MPC is the largest US refiner by capacity. PSX has refining plus midstream/chemicals (slightly diluted signal). The 85% threshold during driving season is a clear disruption signal -- normal driving season utilization is 92-95%. If too many events, raise threshold to 82% or require 2 consecutive weeks below 85%.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:25:29.172336+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.141328886002759,
+      "cagr": 0.5016795282015039,
+      "max_dd": -0.21220249051369744,
+      "t_stat": 1.0418859606599222,
+      "n_events": 7,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL354",
+    "idea_id": "PL354",
+    "created_at": "2026-05-27T04:25:02.406449+00:00",
+    "status": "done",
+    "signal_id": "PL354_tsa_throughput_record_airline_long",
+    "name": "TSA Checkpoint Throughput YoY Record -> Airline Revenue Surge -> JETS Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "rule": "Using yfinance and TSA checkpoint data: When TSA rolling 7-day average checkpoint throughput exceeds the same 7-day period in 2019 by > 10% for 3 consecutive weeks, go long JETS (US Global Jets ETF) on the Monday following the third qualifying week. Hold for 15 trading days. Benchmark vs SPY. TSA publishes daily checkpoint throughput numbers at tsa.gov with 1-day lag. Compare to 2019 baseline (pre-COVID peak) to measure true structural growth beyond recovery.",
+    "tickers": [
+      "JETS",
+      "UAL",
+      "DAL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "TSA 7-day rolling average throughput exceeds same-period 2019 by > 10%",
+      "Condition sustained for 3 consecutive weeks",
+      "Enter on Monday following the third qualifying week",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days (approximately 3 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: JETS (US Global Jets ETF), UAL (United Airlines), DAL (Delta Air Lines), SPY",
+      "fundamental": "TSA daily checkpoint throughput (free): https://www.tsa.gov/travel/passenger-volumes - daily numbers with 2019 comparison. Historical daily data available via archived TSA releases and data repositories. Also BTS T-100 air carrier traffic data (free, monthly, with lag)."
+    },
+    "backtest_approach": "Event study: For each period (2021-2025, post-COVID resumption) where TSA throughput exceeded 2019 same-period by >10% for 3+ consecutive weeks, compute JETS return over 15 trading days vs SPY. JETS ETF inception was April 2015, but signal only relevant from 2021+ when recovery began. Also test with UAL and DAL individually. Pre-2021 (2015-2019), test using absolute throughput growth >5% YoY as alternative signal. bt_feasibility is 5 because TSA data is daily, free, easily scrapeable, and the throughput-to-airline-revenue mechanism is direct.",
+    "known_events": [
+      "2022 Q2-Q3: TSA throughput first consistently exceeded 2019 levels",
+      "2023 summer: Record TSA throughput, airlines reported strong RASM",
+      "2024 summer: New record TSA throughput, airline earnings beats"
+    ],
+    "implementation_notes": "TSA data is one of the cleanest free datasets available -- daily frequency, 1-day lag, direct comparison to 2019 baseline. JETS ETF inception April 2015. The 2019 baseline comparison is superior to YoY because it eliminates COVID base effects. The 10% threshold and 3-week persistence filter out holiday spikes and capture sustained demand trends. For pre-COVID backtest extension, use BTS monthly enplanement data (free but 2-month lag). bt_feasibility is 5/5.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T04:25:29.172336+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 2.2975155838730514,
+      "cagr": 0.7914000239173835,
+      "max_dd": -0.1714622819220234,
+      "t_stat": 1.75475651223982,
+      "n_events": 7,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL355",
+    "idea_id": "PL355",
+    "created_at": "2026-05-27T04:25:02.406449+00:00",
+    "status": "done",
+    "signal_id": "PL355_epa_aim_hfc_phasedown_hvac_long",
+    "name": "EPA AIM Act HFC Phase-down -> Refrigerant Price Spike -> HVAC Service Companies Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and EPA AIM Act schedule: Go long an equal-weight basket of HVAC distributors and service companies (WSO, CARR) 60 trading days before each scheduled EPA AIM Act HFC allowance step-down date. Hold for 60 trading days (through the step-down date). Benchmark vs SPY. EPA AIM Act step-down dates are legislatively mandated: 2024 (40% of baseline), 2029 (30%), 2034 (20%), 2036 (15%). The pre-step-down period sees refrigerant price spikes as the market hoards inventory ahead of supply reductions.",
+    "tickers": [
+      "WSO",
+      "CARR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Enter 60 trading days before scheduled EPA AIM Act HFC allowance step-down effective date",
+      "Step-down dates are legislatively fixed: Jan 1, 2024; Jan 1, 2029; Jan 1, 2034; Jan 1, 2036",
+      "Signal fires once per step-down event"
+    ],
+    "exit_conditions": [
+      "Hold for 60 trading days (approximately 12 weeks, through step-down date)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: WSO (Watsco Inc, largest US HVAC distributor), CARR (Carrier Global, HVAC manufacturer), SPY",
+      "fundamental": "EPA AIM Act allowance allocations (free): https://www.epa.gov/climate-hfcs-reduction - step-down schedule and company allowance allocations published annually. AHRI monthly equipment shipment statistics (partially free at ahrinet.org)."
+    },
+    "backtest_approach": "Event study: Limited historical events since AIM Act was passed December 2020 and first step-down was January 2024. For the 2024 step-down, measure WSO+CARR performance in the 60 trading days leading up to Jan 1, 2024 vs SPY. Supplementary: test pre-AIM Act refrigerant price events (R-22 phase-out under Montreal Protocol, effective Jan 2020). Historical HFC price data may be available from ICIS or trade publications. Only 1-2 testable events currently. bt_feasibility is 3 due to very limited event history.",
+    "known_events": [
+      "2020 Jan 1: R-22 (HCFC) production phase-out completed under Montreal Protocol",
+      "2022: AIM Act initial allowance allocations published",
+      "2024 Jan 1: First AIM Act step-down to 40% of baseline",
+      "2029 Jan 1: Second major step-down to 30% of baseline (upcoming)"
+    ],
+    "implementation_notes": "WSO (Watsco) is the largest US HVAC distributor -- directly benefits from refrigerant price inflation (revenue growth) and system replacement acceleration (equipment sales). CARR (Carrier) manufactures HVAC equipment with next-gen refrigerants. The AIM Act schedule is legislatively mandated, making this a predictable catalyst calendar. bt_feasibility is 3 because: (a) only 1 AIM Act step-down has occurred (2024), (b) the R-22 phase-out provides only partial analogy, (c) HVAC stocks are affected by weather, housing, and macro factors beyond HFC policy. The R-22 precedent (2010-2020 gradual phase-out) can provide supplementary evidence.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T04:25:29.172336+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.6092129318820362,
+      "cagr": 0.137302866342093,
+      "max_dd": -0.1778669555775909,
+      "t_stat": 0.5945309446648689,
+      "n_events": 4,
+      "is_winner": true
+    }
   }
 ]

@@ -3794,6 +3794,29 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: Census Trade; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL338</span><h3>&#9733; BLS Healthcare Wage Acceleration + JOLTS Openings &#8594; Long Travel Nurse Agencies</h3></div>
+    <div class="right">equities (AMN, CCRN) &middot; ~3-month hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.77</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">29.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-39%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.09</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">+25.2%</div><div class="ml">excess vs SPY</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Travel nurse staffing agencies (AMN Healthcare, Cross Country Healthcare) operate on a bill-pay spread model: they charge hospitals a markup over permanent nurse wages. When BLS healthcare average hourly earnings accelerate past 5% YoY and JOLTS healthcare job openings remain elevated (above 24-month median), the bill-pay spread widens because agencies can charge premium rates for scarce travel nurses. The dual-signal requirement (wages AND openings) filters out normal wage drift and isolates acute labor shortage regimes where agencies capture outsized margins.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FRED CES6500000008 (healthcare avg hourly earnings) YoY growth &gt; 5% AND JTS6200JOL (JOLTS healthcare openings) above 24-month rolling median, long equal-weight AMN+CCRN for 63 trading days. Minimum 90 calendar day gap between signals.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Heavy caveats:</strong> N=8 events, all clustered in 2021-2022 (COVID-driven nurse shortage). The signal has not fired outside of a pandemic regime, so there is no evidence of generality. MaxDD -39% is severe. AMN and CCRN have both collapsed 70%+ from 2022 peaks as travel nurse demand normalized. If healthcare wage growth re-accelerates (aging population, nurse retirements), the mechanism could re-activate, but the historical sample is a single episode. Position-size accordingly.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CES6500000008 + JTS6200JOL + yfinance</span><span><code>backtests/PL338_bls_nurse_wage_accel_travel_nurse_long.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>

@@ -8958,5 +8958,780 @@
     "research_phase": "pipeline_scout",
     "dedup_key": "nasa_grace_groundwater_depletion_precision_ag",
     "reject_reason": "bt_feasibility 3 < 4"
+  },
+  {
+    "idea_id": "PL336",
+    "created_at": "2026-05-27T04:20:28.986712+00:00",
+    "status": "developed",
+    "name": "Army Corps Dredging Delays \u2192 Port Draft Restrictions \u2192 Container Diversion Premium",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "USACE publishes weekly dredging contract awards and navigation channel status (free). When Mississippi River/Houston Ship Channel draft restrictions tighten due to siltation or drought, deep-draft container vessels divert to alternate ports. Container drayage costs spike 20-40% at affected ports, benefiting inland logistics operators (XPO, ODFL) with cross-dock capacity at non-affected hubs.",
+    "causal_chain": [
+      "USACE navigation notices show channel draft restrictions tightening (free at navigation.usace.army.mil)",
+      "Deep-draft container vessels cannot fully load at draft-restricted ports (Houston, New Orleans, Savannah)",
+      "Cargo diverts to alternate ports \u2014 increases drayage distance and trucking demand",
+      "LTL/truckload carriers with regional cross-dock networks capture overflow volume at premium rates",
+      "XPO, ODFL, SAIA see 3-5% volume uplift and 5-10% yield improvement in affected corridors over 4-8 weeks"
+    ],
+    "data_sources": [
+      "USACE navigation channel notices (free, real-time)",
+      "USACE lock performance monitoring system (free)",
+      "yfinance XPO, ODFL, SAIA, ZIM"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USACE navigation reports; AAPA port traffic data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usace_dredging_delay_port_diversion",
+    "reject_reason": "bt_feasibility=3: USACE navigation channel draft restriction events require manual parsing of navigation notices; not systematically backtestable with free machine-readable data"
+  },
+  {
+    "idea_id": "PL337",
+    "created_at": "2026-05-27T04:20:28.986896+00:00",
+    "status": "developed",
+    "name": "USDA DDGS Export Surge \u2192 Ethanol Coproduct Revenue \u2192 Corn Ethanol Producer Margins",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "USDA FAS publishes weekly export sales of DDGS (Dried Distillers Grains with Solubles), the high-protein byproduct of corn ethanol production. When DDGS export sales to China/Vietnam/Mexico spike >30% above 4-week average, ethanol producers earn incremental $0.10-0.15/gallon coproduct credit. Long ethanol-levered equities (GPRE, REX, ANDE) before quarterly earnings reveal margin expansion.",
+    "causal_chain": [
+      "USDA FAS weekly export sales report shows DDGS sales spike >30% above 4wk avg (free at fas.usda.gov)",
+      "Major DDGS buyers (China, Vietnam, Mexico) increasing purchases signals feed demand recovery",
+      "Ethanol producers capture $0.10-0.15/gallon incremental margin from DDGS coproduct revenue",
+      "Coproduct revenue is high-margin (minimal incremental cost) \u2014 flows directly to operating income",
+      "GPRE, REX, ANDE report margin expansion on next quarterly earnings 4-8 weeks later"
+    ],
+    "data_sources": [
+      "USDA FAS weekly export sales \u2014 DDGS (free)",
+      "EIA weekly ethanol production and stocks (free)",
+      "yfinance GPRE, REX, ANDE"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FAS export sales; Renewable Fuels Association ethanol margin reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_ddgs_export_ethanol_margin",
+    "reject_reason": "bt_feasibility=3: USDA FAS weekly DDGS export sales at commodity-specific level not easily machine-readable historically; manual parsing required"
+  },
+  {
+    "idea_id": "PL338",
+    "created_at": "2026-05-27T04:20:28.986902+00:00",
+    "status": "developed",
+    "name": "BLS OEWS Nurse Wage Acceleration \u2192 Travel Nurse Agency Revenue",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "BLS Occupational Employment and Wage Statistics (OEWS) tracks nurse wages annually, but BLS Current Employment Statistics (CES) monthly hours and earnings for healthcare give real-time signals. When RN hourly earnings accelerate >5% YoY while hospital job openings (JOLTS healthcare) remain elevated, travel nurse agencies (AMN, CCRN) benefit from widening bill-pay spreads. The wage data leads revenue recognition by 1-2 quarters.",
+    "causal_chain": [
+      "BLS CES monthly data shows healthcare average hourly earnings accelerating >5% YoY (free at bls.gov)",
+      "JOLTS healthcare openings remain elevated \u2014 hospitals desperate to fill nurse vacancies",
+      "Hospitals increase travel nurse utilization, paying premium rates (1.5-2.5x permanent wages)",
+      "Travel nurse agencies (AMN Healthcare, Cross Country) capture 30-40% gross margin on bill-pay spread",
+      "Revenue acceleration shows up in quarterly earnings 1-2 quarters after wage data signals",
+      "AMN, CCRN rally 10-25% on earnings beats driven by volume and pricing power"
+    ],
+    "data_sources": [
+      "BLS CES healthcare earnings (free monthly)",
+      "BLS JOLTS healthcare openings (free monthly, also on FRED)",
+      "yfinance AMN, CCRN, SHC"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "BLS OEWS; AMN Healthcare investor presentations on bill-pay spreads",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_nurse_wage_travel_agency"
+  },
+  {
+    "idea_id": "PL339",
+    "created_at": "2026-05-27T04:21:05.209470+00:00",
+    "status": "rejected",
+    "name": "USGS Groundwater Level Decline in Fab Corridors \u2192 Semiconductor Water Risk Premium",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "Advanced semiconductor fabs consume 2-4 million gallons/day of ultrapure water. USGS real-time groundwater data (free) shows aquifer levels in key fab corridors (Phoenix/Chandler AZ for TSMC/Intel, Sherman TX for TI). When groundwater levels drop below historical 10th percentile during drought, fab expansion timelines slip, benefiting fabs in water-secure locations (Samsung Taylor TX, GlobalFoundries Malta NY). Long GFS when Arizona aquifer stress threatens TSMC/Intel expansion.",
+    "causal_chain": [
+      "USGS National Water Information System shows groundwater levels in Phoenix basin falling below 10th percentile (free at waterdata.usgs.gov)",
+      "Arizona Dept of Water Resources restricts new industrial well permits or mandates conservation",
+      "TSMC Phoenix fab Phase 2/3 expansion faces water allocation delays",
+      "Chip supply tightness extends \u2014 foundry customers diversify to water-secure fabs",
+      "GlobalFoundries (Malta NY, abundant water) and Samsung (Taylor TX, surface water) gain share",
+      "GFS re-rates as capacity utilization improves on diverted demand"
+    ],
+    "data_sources": [
+      "USGS NWIS groundwater levels \u2014 Phoenix basin wells (free, real-time)",
+      "Arizona ADWR groundwater management reports (free)",
+      "yfinance GFS, INTC, TSM"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USGS NWIS; Arizona ADWR; TSMC CSR water consumption reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_groundwater_fab_water_risk",
+    "reject_reason": "bt_feasibility=3: USGS groundwater-to-fab-corridor mapping requires manual curation; GFS IPO Oct 2021 gives only ~4 years of price history for backtest"
+  },
+  {
+    "idea_id": "PL340",
+    "created_at": "2026-05-27T04:21:05.209657+00:00",
+    "status": "rejected",
+    "name": "Census QTax State Sales Tax Revenue Decline \u2192 Municipal Bond Spread Widening \u2192 MUB Short",
+    "category": "B",
+    "asset_class": "bonds",
+    "horizon": "1-3 months",
+    "thesis": "Census Bureau Quarterly Summary of State & Local Tax Revenue (QTax) is released with a 4-month lag but reveals fiscal stress before credit agencies react. When aggregate state sales tax revenue declines >3% YoY for 2 consecutive quarters, municipal bond spreads widen 20-40bps over the following quarter as fiscal stress builds. Short MUB or long CDS on weak state GOs before Moody's/S&P negative outlooks catch up.",
+    "causal_chain": [
+      "Census QTax shows state sales tax revenue declining >3% YoY for 2+ quarters (free at census.gov/govs/qtax)",
+      "Sales tax decline signals consumer spending weakness concentrated in brick-and-mortar retail",
+      "State budget gaps widen \u2014 rainy day fund draws, hiring freezes, possible rating agency reviews",
+      "Municipal bond investors demand wider spreads \u2014 MUB/HYD underperform UST by 20-40bps",
+      "Credit rating agencies issue negative outlooks 3-6 months after fiscal data deteriorates"
+    ],
+    "data_sources": [
+      "Census Bureau QTax \u2014 state and local tax revenue (free quarterly)",
+      "FRED state tax revenue series",
+      "yfinance MUB, HYD, TLT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Census QTax; Pew Charitable Trusts state fiscal health reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_qtax_sales_tax_muni_spread",
+    "reject_reason": "bt_feasibility=3 and short-side strategy (short MUB); pipeline is long-side only. Census QTax quarterly frequency with 4-month lag also limits event count."
+  },
+  {
+    "idea_id": "PL341",
+    "created_at": "2026-05-27T04:21:05.209659+00:00",
+    "status": "rejected",
+    "name": "USFS Timber Sale Volume Collapse \u2192 Sawmill Curtailment \u2192 Lumber Price Floor",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 months",
+    "thesis": "USFS publishes annual timber sale volumes and cut/sold reports (free). When federal timber sale volumes drop >20% YoY due to ESA litigation, wildfire salvage delays, or budget constraints, Pacific Northwest sawmill supply tightens. Lumber futures (LBS=F) find a floor and rally 15-30% over 2-4 months as supply destruction exceeds demand weakness. Long lumber futures or WY/RYN timberland REITs.",
+    "causal_chain": [
+      "USFS Cut and Sold Report shows federal timber sale volume declining >20% YoY (free at fs.usda.gov)",
+      "Reduced federal timber supply forces Pacific NW mills to compete for private timber at higher stumpage prices",
+      "Higher log costs force marginal sawmills to curtail production \u2014 supply contracts",
+      "Lumber futures (LBS=F) find floor as supply destruction exceeds demand weakness",
+      "WY, RYN timberland REITs benefit from higher stumpage prices on their private holdings",
+      "Lumber rallies 15-30% over 2-4 months; timberland REITs re-rate on improved timber income"
+    ],
+    "data_sources": [
+      "USFS Cut and Sold Reports (free annual, updated quarterly)",
+      "yfinance LBS=F, WY, RYN, PCH"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USFS timber sale data; Random Lengths lumber market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usfs_timber_sale_collapse_lumber_floor",
+    "reject_reason": "bt_feasibility=3: USFS Cut and Sold Report is annual frequency (quarterly updates); too few events for meaningful backtest. Federal timber sale data not machine-readable."
+  },
+  {
+    "idea_id": "PL342",
+    "created_at": "2026-05-27T04:21:39.856752+00:00",
+    "status": "developed",
+    "name": "STB Railroad Service Metrics \u2192 Train Velocity Decline \u2192 Shipper Diversion to Trucking",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "Surface Transportation Board (STB) publishes weekly railroad service metrics including train velocity and dwell time (free). When Class I railroad average train velocity drops >15% below 52-week average and terminal dwell exceeds 30 hours, shippers divert intermodal freight to over-the-road trucking. Long JBHT, WERN, KNX truckload carriers as modal diversion drives volume and pricing power.",
+    "causal_chain": [
+      "STB weekly railroad service data shows train velocity declining >15% below 52wk avg (free at stb.gov)",
+      "Terminal dwell time rises above 30 hours \u2014 containers sitting idle at rail terminals",
+      "Shippers trigger service failure clauses and divert intermodal freight to OTR trucking",
+      "Truckload carriers (JBHT, WERN, KNX) see 5-10% volume surge from modal diversion",
+      "Spot trucking rates spike 10-20% in affected lanes \u2014 carriers capture margin improvement",
+      "Rail service recovery takes 8-12 weeks; trucking premium persists for 1-2 quarters"
+    ],
+    "data_sources": [
+      "STB weekly railroad service metrics (free at stb.gov/reports-data)",
+      "AAR weekly rail traffic (free)",
+      "yfinance JBHT, WERN, KNX, UNP, CSX"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "STB railroad service reports; AAR; Freightwaves SONAR modal shift data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "stb_rail_velocity_trucking_diversion"
+  },
+  {
+    "idea_id": "PL343",
+    "created_at": "2026-05-27T04:21:39.856918+00:00",
+    "status": "developed",
+    "name": "CDC RSV-NET Pediatric Hospitalization Surge \u2192 Nirsevimab (Sanofi/AZN) Demand Pull",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "CDC RSV-NET publishes weekly RSV hospitalization rates by age group (free). When pediatric RSV hospitalization rates in early fall (Sep-Oct) exceed the prior 3-year average by >50%, it signals an early and severe RSV season. AAP/CDC recommend Nirsevimab (Beyfortus by Sanofi/AZN) for all infants \u2014 demand pull accelerates. Long SNY and AZN before Q4 Beyfortus sales exceed consensus.",
+    "causal_chain": [
+      "CDC RSV-NET shows pediatric (0-4yr) RSV hospitalization rate >50% above 3yr seasonal avg in Sep-Oct (free at cdc.gov/rsv)",
+      "Early severe RSV season triggers AAP advisories recommending universal infant immunization",
+      "Pediatricians accelerate Beyfortus (nirsevimab) ordering \u2014 Sanofi/AZN see demand pull-forward",
+      "Hospital systems increase RSV testing (DGX, LH benefit from test volume) and prophylaxis protocols",
+      "Sanofi and AZN Q4 Beyfortus revenue exceeds consensus by 15-30%",
+      "SNY, AZN re-rate on demonstrated commercial traction of RSV franchise"
+    ],
+    "data_sources": [
+      "CDC RSV-NET hospitalization surveillance (free weekly)",
+      "CDC NREVSS RSV trends (free weekly)",
+      "yfinance SNY, AZN, DGX, LH"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "CDC RSV-NET; AAP Beyfortus recommendations; Sanofi investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cdc_rsv_pediatric_beyfortus_demand",
+    "reject_reason": "bt_feasibility=3: CDC RSV-NET hospitalization data is seasonal and Nirsevimab only approved 2023; insufficient backtest history for drug-specific demand signal"
+  },
+  {
+    "idea_id": "PL344",
+    "created_at": "2026-05-27T04:21:39.856921+00:00",
+    "status": "rejected",
+    "name": "USGS Phosphate Rock Production Decline \u2192 Fertilizer Price Floor \u2192 MOS/NTR Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "2-6 months",
+    "thesis": "USGS Mineral Commodity Summaries tracks US phosphate rock production (free, monthly estimates). When domestic phosphate production declines >10% YoY while China maintains export restrictions on phosphate fertilizers (DAP/MAP), global phosphate supply tightens. Mosaic (MOS) benefits as the dominant Western Hemisphere phosphate producer with pricing power. Long MOS and NTR when USGS data + China export policy create a supply squeeze.",
+    "causal_chain": [
+      "USGS Mineral Commodity Summaries show US phosphate rock production declining >10% YoY (free at usgs.gov/centers/national-minerals)",
+      "China maintains or tightens phosphate fertilizer export quotas (GACC customs data, free)",
+      "Global phosphate supply contracts \u2014 DAP/MAP spot prices rise 15-30%",
+      "Mosaic (MOS) as dominant US/Brazil phosphate producer captures pricing power",
+      "MOS operating margins expand 400-800bps as phosphate price rises on relatively fixed costs",
+      "MOS rallies 15-30% over 2-4 months as fertilizer pricing cycle turns"
+    ],
+    "data_sources": [
+      "USGS Mineral Commodity Summaries \u2014 phosphate rock (free)",
+      "USGS monthly mineral industry surveys (free)",
+      "yfinance MOS, NTR, CF, IPI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USGS Mineral Commodity Summaries; CRU phosphate market analysis; China GACC export data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_phosphate_decline_fertilizer_mos",
+    "reject_reason": "bt_feasibility=3: USGS phosphate rock production data is annual frequency; too few signal events for meaningful backtest"
+  },
+  {
+    "idea_id": "PL345",
+    "created_at": "2026-05-27T04:22:15.755265+00:00",
+    "status": "developed",
+    "name": "FEMA Flood Map Revision \u2192 Mandatory Insurance Expansion \u2192 Flood Insurer Premium Growth",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "FEMA publishes Preliminary Flood Insurance Rate Map (FIRM) updates (free). When FEMA expands Special Flood Hazard Areas (SFHA) in a major metro, federally-backed mortgages in newly designated zones require mandatory flood insurance. This creates a step-function demand increase for flood policies. Long property insurers with flood books (HCI Group, Universal Insurance) and the WYO program administrators.",
+    "causal_chain": [
+      "FEMA publishes preliminary FIRM showing expanded SFHA zones for a major metro (free at msc.fema.gov)",
+      "After comment period (6-12 months), final maps take effect \u2014 all federally-backed mortgages in new SFHA require flood insurance",
+      "Hundreds of thousands of new properties suddenly require flood policies (National Flood Insurance Program or private)",
+      "Private flood insurers (HCI, UIHC, Palomar) capture policies at higher premium adequacy than NFIP",
+      "Written premium growth accelerates 15-25% in affected states; combined ratios improve as new policies have no loss history",
+      "Flood-focused insurers re-rate on premium growth acceleration"
+    ],
+    "data_sources": [
+      "FEMA Map Service Center \u2014 preliminary FIRM updates (free at msc.fema.gov)",
+      "FEMA NFIP policy and claims data (free at fema.gov/data-visualization)",
+      "yfinance HCI, UIHC, PLMR, ALL"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "FEMA FIRM; National Flood Insurance Program; Milliman flood insurance studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fema_firm_expansion_flood_insurer",
+    "reject_reason": "bt_feasibility=3: FEMA FIRM revisions are multi-year processes with 6-18 month comment periods; too few discrete events and data not machine-readable for automated backtest"
+  },
+  {
+    "idea_id": "PL346",
+    "created_at": "2026-05-27T04:22:15.755432+00:00",
+    "status": "developed",
+    "name": "EIA Refinery Utilization Below 85% During Driving Season \u2192 Gasoline Crack Spread Rally",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "EIA publishes weekly refinery utilization rates (free). When US refinery utilization drops below 85% during peak driving season (May-September) due to unplanned outages or maintenance overruns, gasoline crack spreads spike 30-50% within 2-4 weeks. Long gasoline crack via VLO/MPC (integrated refiners with no unplanned outage) or RB/CL spread.",
+    "causal_chain": [
+      "EIA Weekly Petroleum Status Report shows refinery utilization <85% during May-September (free at eia.gov)",
+      "Unplanned refinery outages (fire, equipment failure, hurricane) remove 500K-1M bbl/day of gasoline production",
+      "Gasoline days of supply drops below 24 days \u2014 wholesale prices spike",
+      "Gasoline crack spread (RBOB - WTI) widens $5-15/bbl above seasonal norm",
+      "Operating refiners (VLO, MPC, PSX) capture windfall margins on unaffected capacity",
+      "Refiner stocks rally 8-15% over 2-4 weeks as market prices in elevated cracks"
+    ],
+    "data_sources": [
+      "EIA weekly refinery utilization and gasoline stocks (free)",
+      "EIA RBOB spot price and WTI (free)",
+      "yfinance VLO, MPC, PSX, DK"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "EIA petroleum data; Turner Mason refinery outage tracking",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_refinery_util_low_gasoline_crack"
+  },
+  {
+    "idea_id": "PL347",
+    "created_at": "2026-05-27T04:22:15.755434+00:00",
+    "status": "rejected",
+    "name": "USPTO PTAB IPR Institution Rate Decline \u2192 Pharma Patent Strength \u2192 Brand Drug Pricing Power",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "USPTO PTAB publishes inter partes review (IPR) institution decisions (free). When PTAB IPR institution rates decline below 55% (rolling 12mo), it signals stronger patent defensibility. Brand pharma with key patents facing IPR challenges benefit from reduced generic entry risk. Long brand pharma names with >$5B drugs facing patent challenges (LLY/Mounjaro, BMY/Eliquis) when PTAB institution rates trend down.",
+    "causal_chain": [
+      "USPTO PTAB statistics show IPR institution rate declining below 55% over rolling 12 months (free at ptab.gov)",
+      "Lower institution rate means PTAB is less willing to review patent validity challenges",
+      "Generic/biosimilar challengers face higher barriers to invalidating brand patents",
+      "Brand pharma with blockbuster drugs under IPR challenge see reduced generic entry risk",
+      "Market extends patent exclusivity expectations \u2014 NPV of future cash flows increases",
+      "Brand pharma stocks re-rate 5-15% as loss of exclusivity (LOE) timelines extend"
+    ],
+    "data_sources": [
+      "USPTO PTAB trial statistics (free at ptab.gov)",
+      "USPTO Orange Book data (free at fda.gov)",
+      "yfinance LLY, BMY, ABBV, MRK"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USPTO PTAB annual reports; RPX patent analytics; Lex Machina IPR data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ptab_ipr_decline_pharma_patent_strength",
+    "reject_reason": "bt_feasibility=3: PTAB institution rate is a slow-moving annual statistic; mapping to specific pharma stock outcomes requires subjective patent-by-patent analysis not automatable"
+  },
+  {
+    "idea_id": "PL348",
+    "created_at": "2026-05-27T04:22:51.426033+00:00",
+    "status": "rejected",
+    "name": "Red Cross Emergency Blood Shortage Declaration \u2192 Blood Products Manufacturer Demand Surge",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "American Red Cross publishes blood supply status (free). When they declare an 'Emergency Blood Shortage' (typically 2-3x/year), hospitals accelerate orders for blood products and plasma-derived therapies. Companies like Haemonetics (HAE, blood processing equipment) and CSL Behring/Grifols (GRFS, plasma products) see demand spikes. Long HAE and GRFS when Red Cross declares emergency shortage.",
+    "causal_chain": [
+      "American Red Cross declares Emergency Blood Shortage \u2014 supply below 1-day target (free at redcrossblood.org)",
+      "Hospitals increase blood product ordering from commercial suppliers as Red Cross supply constrained",
+      "Blood collection centers increase donor incentives and extend hours \u2014 equipment utilization rises",
+      "Haemonetics (HAE) blood processing equipment sees higher consumable pull-through",
+      "Plasma fractionators (GRFS, CSL) benefit from heightened plasma collection activity and pricing",
+      "HAE rallies 3-7% over 1-2 weeks on elevated blood banking activity"
+    ],
+    "data_sources": [
+      "American Red Cross blood supply status (free, real-time at redcrossblood.org)",
+      "AABB blood supply surveys (free periodic)",
+      "yfinance HAE, GRFS, CSL.AX"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "American Red Cross; AABB blood supply reports; Haemonetics investor presentations",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "red_cross_blood_shortage_hae_grfs",
+    "reject_reason": "bt_feasibility=3: Red Cross emergency blood shortage declarations are press releases, not structured data; HAE/GRFS stock response to blood shortages is indirect and events are not systematically catalogued"
+  },
+  {
+    "idea_id": "PL349",
+    "created_at": "2026-05-27T04:22:51.426259+00:00",
+    "status": "rejected",
+    "name": "Container Ship Scrapping Rate Surge \u2192 Orderbook Thinning \u2192 Liner Shipping Rate Support",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "3-9 months",
+    "thesis": "Clarksons and BIMCO publish container ship scrapping data (partially free via industry reports). When container ship scrapping rate exceeds 2% of fleet TEU annually while newbuild orderbook-to-fleet ratio is below 15%, effective supply growth turns negative. Container liner rates find a floor. Long ZIM, MATX, or BDRY when scrapping accelerates into a thin orderbook environment.",
+    "causal_chain": [
+      "Container ship scrapping accelerates >2% of fleet annually as IMO 2023/EEXI forces retirement of inefficient vessels",
+      "Newbuild container ship orderbook-to-fleet ratio below 15% \u2014 insufficient replacement capacity",
+      "Net fleet growth turns negative or near-zero within 6-12 months",
+      "Effective container shipping supply tightens as demand grows 2-3% annually",
+      "Spot container freight rates stabilize and begin recovery from cyclical trough",
+      "ZIM, MATX, TRMD benefit from improved freight rate environment; stocks rally 20-40% off trough"
+    ],
+    "data_sources": [
+      "Alphaliner monthly fleet statistics (partially free)",
+      "Drewry World Container Index (free weekly)",
+      "yfinance ZIM, MATX, DAC, TRMD"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Clarksons Research; BIMCO shipping analysis; Alphaliner",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "container_scrapping_orderbook_liner_rates",
+    "reject_reason": "bt_feasibility=3: Container ship scrapping data (Clarksons/Alphaliner) is paywalled; free data insufficient for systematic backtest of fleet dynamics"
+  },
+  {
+    "idea_id": "PL350",
+    "created_at": "2026-05-27T04:22:51.426261+00:00",
+    "status": "rejected",
+    "name": "USDA Honey Bee Colony Loss Survey \u2192 Pollination Service Shortage \u2192 Almond Yield Risk \u2192 NUT/LNDC Long",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "3-9 months",
+    "thesis": "USDA NASS publishes Honey Bee Colonies survey quarterly (free). California almonds require ~2 million bee colonies for February pollination \u2014 80% of US commercial hives. When USDA winter colony loss exceeds 40%, pollination service costs spike 30-50% and almond yields decline 5-15%. Long almond/tree nut processors (Blue Diamond private, but long NUT or LNDC) or short almond supply chains when colony loss is severe.",
+    "causal_chain": [
+      "USDA NASS Honey Bee Colonies survey shows winter colony loss >40% (free at nass.usda.gov, quarterly)",
+      "California almond growers face pollination service shortage \u2014 hive rental costs spike from $200 to $300+/colony",
+      "Insufficient pollination reduces almond set \u2014 USDA Objective Measurement projects 5-15% yield decline",
+      "Almond spot prices rally 20-40% over 3-6 months as California supply (80% of global) contracts",
+      "Tree nut processors with long-term supply contracts benefit from higher selling prices vs locked costs",
+      "Companies with almond exposure (LNDC, JBSS) see margin expansion"
+    ],
+    "data_sources": [
+      "USDA NASS Honey Bee Colonies quarterly report (free)",
+      "USDA NASS Almond Objective Measurement (free, annual in May/July)",
+      "yfinance LNDC, JBSS"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "USDA NASS Honey Bee Colonies; Almond Board of California; Bee Informed Partnership loss surveys",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_bee_colony_loss_almond_pollination",
+    "reject_reason": "bt_feasibility=3: USDA bee colony loss survey is quarterly with annual pollination seasonality; at most 1 event per year, insufficient for statistical significance. LNDC/JBSS are small-cap with limited price history"
+  },
+  {
+    "idea_id": "PL351",
+    "created_at": "2026-05-27T04:23:31.071136+00:00",
+    "status": "rejected",
+    "name": "NOAA Solar Irradiance Anomaly \u2192 Utility-Scale Solar Capacity Factor Drop \u2192 Peaker Gas Generators",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "thesis": "NOAA/NASA publish daily solar irradiance measurements and GOES satellite-derived surface insolation (free). Extended below-normal solar irradiance events (volcanic aerosols, persistent cloud cover over solar belt states) reduce utility-scale solar capacity factors. When CAISO or ERCOT solar generation drops >20% below forecast for 5+ consecutive days, natural gas peaker plants dispatch more, benefiting gas-levered IPPs. Long CTRA (nat gas E&P) and NRG/VST (gas-heavy generation portfolios).",
+    "causal_chain": [
+      "NOAA/GOES satellite data shows below-normal solar irradiance over Texas/California solar corridors (free at ncdc.noaa.gov)",
+      "CAISO or ERCOT solar generation output falls >20% below day-ahead forecast for 5+ consecutive days",
+      "Grid operator dispatches natural gas peaker plants to fill the solar shortfall",
+      "Natural gas spot prices and power prices spike in affected regions",
+      "Gas-heavy IPPs (NRG, VST, VIS) see windfall margins from peaker dispatch",
+      "Nat gas E&Ps (CTRA, AR, EQT) benefit from incremental gas demand and higher spot prices"
+    ],
+    "data_sources": [
+      "NOAA GOES surface insolation data (free)",
+      "CAISO/ERCOT daily renewable generation reports (free)",
+      "EIA Hourly Electric Grid Monitor (free)",
+      "yfinance NRG, VST, CTRA, AR"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA satellite data; CAISO/ERCOT generation reports; EIA electric grid monitor",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_solar_irradiance_peaker_gas",
+    "reject_reason": "bt_feasibility=3: NOAA/GOES solar irradiance to CAISO/ERCOT generation shortfall requires complex multi-source data pipeline; not tractable for automated backtest with free data"
+  },
+  {
+    "idea_id": "PL352",
+    "created_at": "2026-05-27T04:23:31.071299+00:00",
+    "status": "rejected",
+    "name": "FHWA NBI Structurally Deficient Bridge Count Rising \u2192 Heavy Civil Engineering Contractor Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "FHWA National Bridge Inventory (NBI) tracks the condition rating of every US bridge (free, annual update). When the number of structurally deficient bridges on critical freight corridors increases by >5% YoY, it triggers accelerated IIJA/BIL funding disbursement for bridge replacement. Long heavy civil contractors (AECOM, Granite Construction, Tutor Perini) positioned to capture multi-year bridge replacement contracts.",
+    "causal_chain": [
+      "FHWA NBI annual data shows structurally deficient bridge count on NHS routes rising >5% YoY (free at fhwa.dot.gov/bridge/nbi)",
+      "DOT/FHWA accelerates Bridge Formula Program (BIL) funding allocation to affected states",
+      "State DOTs fast-track bridge replacement/rehabilitation projects through emergency procurement",
+      "Heavy civil engineering contractors (ACM, GVA, TPC) win $100M-$500M bridge projects",
+      "Backlog-to-revenue ratio improves \u2014 investors assign higher multiples to visible revenue pipeline",
+      "Civil engineering contractors rally 15-30% as contract awards hit backlogs over 12-18 months"
+    ],
+    "data_sources": [
+      "FHWA National Bridge Inventory (free annual, downloadable at fhwa.dot.gov/bridge/nbi)",
+      "DOT FHWA Bridge Formula Program allocations (free)",
+      "yfinance ACM, GVA, TPC, MTZ"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FHWA NBI; ASCE Infrastructure Report Card; ARTBA bridge condition analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fhwa_nbi_deficient_bridge_contractors",
+    "reject_reason": "bt_feasibility=3: FHWA NBI is annual frequency with multi-year lag between bridge rating changes and contractor revenue impact; too few signal events and too long horizon for meaningful backtest"
+  },
+  {
+    "idea_id": "PL353",
+    "created_at": "2026-05-27T04:23:31.071302+00:00",
+    "status": "rejected",
+    "name": "USGS Lithium Import Reliance Surge \u2192 DPA Title III Funding \u2192 Domestic Lithium Producer Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "USGS tracks US lithium import reliance (currently >80%) in Mineral Commodity Summaries (free). When import reliance exceeds 85% while DOD invokes DPA Title III for critical mineral supply chain funding, domestic lithium producers receive direct subsidies and offtake agreements. Long ALB (Silver Peak, NV) and LAC (Thacker Pass) as DPA funding de-risks domestic lithium projects.",
+    "causal_chain": [
+      "USGS Mineral Commodity Summaries show US lithium net import reliance exceeding 85% (free annual)",
+      "DOD invokes Defense Production Act Title III for critical mineral supply chain resilience",
+      "DPA Title III awards $100M-$500M in grants/loans to domestic lithium producers",
+      "Albemarle (ALB) Silver Peak expansion and LAC Thacker Pass receive federal cost-sharing",
+      "Federal funding de-risks project economics \u2014 lowers WACC and extends NPV for domestic projects",
+      "ALB and LAC re-rate 15-30% as federal support reduces execution risk"
+    ],
+    "data_sources": [
+      "USGS Mineral Commodity Summaries \u2014 lithium (free annual)",
+      "DOD DPA Title III award announcements (free at defense.gov)",
+      "yfinance ALB, LAC, LTHM, SQM"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USGS MCS; DOD DPA Title III; IEA Critical Minerals Outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_lithium_import_dpa_domestic",
+    "reject_reason": "bt_feasibility=3: USGS lithium import reliance data is annual; DPA Title III invocations are rare ad hoc policy events not systematically predictable or backtestable"
+  },
+  {
+    "idea_id": "PL354",
+    "created_at": "2026-05-27T04:24:07.169108+00:00",
+    "status": "developed",
+    "name": "TSA Checkpoint Throughput YoY Record \u2192 Airline Revenue Passenger Mile Surge \u2192 JETS Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "thesis": "TSA publishes daily checkpoint throughput numbers (free). When rolling 7-day TSA throughput exceeds 2019 same-period levels by >10% for 3+ consecutive weeks, it signals structural air travel demand growth beyond COVID recovery. Airlines see load factors above 87% with pricing power. Long JETS ETF or individual carriers (UAL, DAL) ahead of next quarterly revenue surprise.",
+    "causal_chain": [
+      "TSA daily checkpoint throughput exceeds 2019 levels by >10% for 3+ consecutive weeks (free at tsa.gov)",
+      "Elevated throughput signals strong consumer leisure/business travel demand",
+      "Airlines operating at >87% load factor have pricing power \u2014 RASM (revenue per available seat mile) inflects higher",
+      "Revenue beats drive earnings surprises in the following quarterly report",
+      "JETS ETF or individual carriers (UAL, DAL, AAL) rally 5-12% on earnings beat"
+    ],
+    "data_sources": [
+      "TSA daily checkpoint throughput (free at tsa.gov)",
+      "yfinance JETS, UAL, DAL, AAL, LUV"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "TSA throughput data; Airlines for America traffic reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tsa_throughput_record_airline_revenue"
+  },
+  {
+    "idea_id": "PL355",
+    "created_at": "2026-05-27T04:24:07.169304+00:00",
+    "status": "developed",
+    "name": "EPA AIM Act HFC Phase-down \u2192 Refrigerant Price Spike \u2192 HVAC Service Companies Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "EPA AIM Act mandates phasing down HFC production/consumption by 85% by 2036, with step-downs in allowances (free at epa.gov/climate-hfcs-reduction). Each step-down year (2024: 60% baseline, 2029: 30%) creates a supply squeeze in legacy refrigerants (R-410A, R-134a). Refrigerant prices spike 2-3x in the 6 months surrounding step-down dates. Long HVAC service companies (WSO, WRLD) that benefit from higher-margin refrigerant sales and accelerated system replacement demand.",
+    "causal_chain": [
+      "EPA AIM Act HFC allowance step-down takes effect on schedule (free at epa.gov/climate-hfcs-reduction)",
+      "HFC production allowances decrease \u2014 manufacturers reduce R-410A, R-134a output",
+      "Refrigerant wholesale prices spike 100-200% as supply tightens ahead of summer cooling season",
+      "HVAC distributors (WSO Watsco) pass through higher refrigerant costs with gross margin expansion",
+      "Building owners accelerate system replacement to next-gen refrigerants (R-32, R-454B) \u2014 increases equipment sales",
+      "WSO, WRLD see revenue growth from both refrigerant price inflation and accelerated replacement cycle"
+    ],
+    "data_sources": [
+      "EPA AIM Act allowance allocations (free at epa.gov)",
+      "AHRI monthly equipment shipment data (partially free)",
+      "yfinance WSO, WRLD, CARR, JCI"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "EPA AIM Act; AHRI; Emerson Climate Technologies refrigerant outlook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "epa_aim_hfc_phasedown_hvac"
+  },
+  {
+    "idea_id": "PL356",
+    "created_at": "2026-05-27T04:24:07.169309+00:00",
+    "status": "rejected",
+    "name": "Census Government Finance Survey \u2192 Property Tax Delinquency Surge \u2192 Tax Lien Investor Opportunity",
+    "category": "B",
+    "asset_class": "multi-asset",
+    "horizon": "6-18 months",
+    "thesis": "Census Bureau Annual Survey of State and Local Government Finances tracks property tax collections (free). When property tax delinquency rates rise >2 percentage points in specific metros (correlated with FHFA HPI deceleration), tax lien certificate auction yields rise. This signals distressed real estate markets where REO (real estate owned) acquisition opportunities emerge 12-18 months later. Long distressed asset buyers and community banks in affected metros (HBAN, FNB, KEY).",
+    "causal_chain": [
+      "Census Government Finance survey shows property tax collection shortfalls in specific metros (free at census.gov/govs)",
+      "FHFA HPI shows home price deceleration or decline in same metros \u2014 negative equity rising",
+      "Tax delinquency rates rise >2pp \u2014 county treasurers schedule expanded tax lien auctions",
+      "Tax lien certificate yields rise from 8-12% to 15-18% as supply exceeds demand",
+      "12-18 months later, unredeemed liens convert to tax deed sales \u2014 distressed properties enter market",
+      "Community banks and specialty finance (HBAN, FNB) increase workout/acquisition lending; REITs acquire bulk portfolios"
+    ],
+    "data_sources": [
+      "Census Annual Government Finance survey (free)",
+      "FHFA HPI by metro area (free quarterly)",
+      "yfinance HBAN, FNB, KEY, STWD"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Census Government Finance; FHFA HPI; National Tax Lien Association data",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_property_tax_delinquency_lien",
+    "reject_reason": "bt_feasibility=3: Census Government Finance Survey is annual/biennial; property tax delinquency to tax lien investor returns is not systematically backtestable with free public data"
+  },
+  {
+    "idea_id": "PL357",
+    "created_at": "2026-05-27T04:24:47.361236+00:00",
+    "status": "rejected",
+    "name": "NOAA North Atlantic SST Anomaly \u2192 European Nat Gas Heating Demand \u2192 TTF/JKM Premium",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 months",
+    "thesis": "NOAA publishes daily North Atlantic SST anomaly maps (free). When late-summer/fall North Atlantic SST anomalies shift sharply negative (cold phase), it correlates with colder-than-normal European winters via atmospheric teleconnection patterns. European nat gas (TTF) and Asian LNG (JKM) prices spike as heating demand exceeds storage withdrawal forecasts. Long US LNG exporters (TELL, LNG, GLNG) when North Atlantic SSTs signal cold winter ahead.",
+    "causal_chain": [
+      "NOAA daily SST anomaly maps show North Atlantic cooling anomaly in Aug-Oct (free at psl.noaa.gov)",
+      "Cold North Atlantic SST pattern correlates with negative NAO \u2014 increased probability of cold European winter",
+      "European nat gas demand exceeds storage withdrawal forecasts \u2014 TTF spot spikes above $15/MMBtu",
+      "Asian LNG spot (JKM) follows as European buyers pull cargoes from global market",
+      "US LNG exporters (LNG, TELL, GLNG) see improved netback margins on US Henry Hub to TTF/JKM spread",
+      "LNG exporters rally 10-25% as winter premium builds in forward curves"
+    ],
+    "data_sources": [
+      "NOAA PSL North Atlantic SST anomaly (free daily)",
+      "NOAA CPC NAO index forecast (free)",
+      "EIA Henry Hub prices (free)",
+      "yfinance LNG, TELL, GLNG, AR"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NOAA PSL; CPC seasonal outlooks; Potsdam Institute AMOC research",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "noaa_atlantic_sst_cold_euro_natgas",
+    "reject_reason": "bt_feasibility=3: NOAA SST-to-winter-temperature teleconnection is complex climate science with uncertain signal timing; not systematically backtestable without specialized climate modeling"
+  },
+  {
+    "idea_id": "PL358",
+    "created_at": "2026-05-27T04:24:47.361447+00:00",
+    "status": "rejected",
+    "name": "SEC 10-K Mining Capex Trough \u2192 Underinvestment Cycle \u2192 Metal Supply Squeeze 3-5yr Lag",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "6-18 months",
+    "thesis": "SEC EDGAR 10-K filings for the top 20 global miners (BHP, RIO, FCX, TECK, etc.) reveal capital expenditure trends. When aggregate mining sector capex declines >20% from peak (measured via trailing 4-quarter sum), it signals an underinvestment cycle. New mine supply typically takes 5-10 years from decision to production, so capex troughs today create supply deficits 3-5 years forward. Long mining equities (XME, PICK) at capex trough as forward supply scarcity gets priced in.",
+    "causal_chain": [
+      "SEC 10-K/10-Q filings show aggregate top-20 miner capex declining >20% from peak (free at sec.gov/edgar)",
+      "Miners cut exploration and development spending \u2014 fewer projects reach feasibility stage",
+      "Pipeline of new mines thins \u2014 5-10 year development lag means supply deficit is structural",
+      "Commodity analysts begin revising long-term supply forecasts downward",
+      "Forward metal prices (copper, nickel, zinc) curve shifts to backwardation or steeper contango",
+      "Mining equities (XME, PICK, COPX) re-rate 20-40% as market prices in future supply scarcity"
+    ],
+    "data_sources": [
+      "SEC EDGAR 10-K/10-Q filings for major miners (free)",
+      "S&P Global Market Intelligence mining capex tracker (partially free)",
+      "yfinance XME, PICK, COPX, FCX, BHP, RIO"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "SEC EDGAR; S&P Global mining capex surveys; McKinsey mining productivity reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sec_10k_mining_capex_trough_supply",
+    "reject_reason": "bt_feasibility=3: Aggregating mining capex from SEC 10-K filings for 20+ miners requires manual parsing; S&P Global capex data is paywalled. 5-10 year supply lag makes backtest validation impractical."
+  },
+  {
+    "idea_id": "PL359",
+    "created_at": "2026-05-27T04:24:47.361454+00:00",
+    "status": "rejected",
+    "name": "FCC Spectrum Auction Revenue Record \u2192 Tower Company Lease Amendment Cycle \u2192 AMT/CCI Long",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "FCC publishes spectrum auction results (free at fcc.gov/auction). When a major spectrum auction (C-band, 3.45 GHz, 2.5 GHz) generates record proceeds (>$20B), it signals carrier commitment to network densification. Within 12-18 months, carriers initiate lease amendments with tower companies for new antenna installations. Tower REITs (AMT, CCI, SBAC) see organic revenue growth accelerate from lease-up activity. Long AMT/CCI 3-6 months after record auction as lease amendment pipeline builds.",
+    "causal_chain": [
+      "FCC spectrum auction closes with record proceeds >$20B (free at fcc.gov/auction)",
+      "Record spending signals carriers (T-Mobile, AT&T, Verizon) will aggressively deploy new spectrum",
+      "Carriers file FCC build-out milestone plans requiring thousands of new antenna installations",
+      "Tower companies (AMT, CCI, SBAC) receive lease amendment requests for new antenna mounts and equipment",
+      "Lease amendments drive 3-5% incremental organic revenue growth over 12-24 month deployment cycle",
+      "Tower REITs re-rate as organic growth acceleration becomes visible in quarterly results"
+    ],
+    "data_sources": [
+      "FCC auction results and proceeds (free at fcc.gov/auction)",
+      "FCC ULS license database for build-out commitments (free)",
+      "yfinance AMT, CCI, SBAC, TMUS, T, VZ"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FCC auction database; AMT/CCI investor presentations on lease-up economics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fcc_spectrum_auction_tower_lease",
+    "reject_reason": "bt_feasibility=3: Major FCC spectrum auctions generating >$20B are extremely rare events (C-band 2021, AWS-3 2015); too few observations for statistical backtest. 6-18 month lag adds noise."
+  },
+  {
+    "idea_id": "PL360",
+    "created_at": "2026-05-27T04:25:22.954032+00:00",
+    "status": "rejected",
+    "name": "Panama Canal Gatun Lake Level \u2192 Transit Restrictions \u2192 US East Coast LNG Rerouting Premium",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 months",
+    "thesis": "Panama Canal Authority publishes daily Gatun Lake water levels and transit slot availability (free). When Gatun Lake drops below 80ft (historical drought threshold), ACP restricts daily transits from 36 to 18-22 and imposes draft limitations. LNG tankers from US Gulf to Asia must reroute via Suez (adding 15-20 days and $2-3M/voyage). Long US LNG exporters with East Coast terminals (CLNE concept, but specifically LNG Sabine Pass, GLNG) as rerouting premium widens US-Asia LNG spread.",
+    "causal_chain": [
+      "ACP daily Gatun Lake level falls below 80ft (free at pancanal.com/en/op/transit)",
+      "ACP restricts daily transits to 18-22 and imposes maximum draft of 44ft (from 50ft)",
+      "LNG tankers from US Gulf to Asia cannot transit fully loaded \u2014 must lighten or reroute via Suez",
+      "Rerouting adds 15-20 sailing days and $2-3M in additional freight cost per voyage",
+      "Asian LNG (JKM) premium over US Henry Hub widens by $1-2/MMBtu to cover rerouting costs",
+      "US LNG exporters capture higher netback margins \u2014 LNG, GLNG stocks rally 8-15%"
+    ],
+    "data_sources": [
+      "Panama Canal Authority Gatun Lake levels and transit data (free daily)",
+      "EIA LNG export volumes (free monthly)",
+      "yfinance LNG, GLNG, TELL, AR"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "ACP operational data; Kpler LNG shipping analytics; S&P Global Platts",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "panama_canal_gatun_lng_rerouting",
+    "reject_reason": "bt_feasibility=3: Panama Canal Gatun Lake drought events are rare (2023-2024 main episode); ACP transit data requires web scraping; LNG rerouting premium not directly observable in free data"
+  },
+  {
+    "idea_id": "PL361",
+    "created_at": "2026-05-27T04:25:22.954254+00:00",
+    "status": "rejected",
+    "name": "USDA NRCS Conservation Reserve Program Enrollment Peak \u2192 Cropland Supply Tightening \u2192 Farmland REIT Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "6-18 months",
+    "thesis": "USDA Farm Service Agency publishes CRP enrollment data monthly (free). When CRP enrollment approaches the statutory cap (27M acres), it removes productive cropland from production. Combined with USDA Prospective Plantings showing acreage declines, available cropland tightens. Farmland values and cash rents rise. Long farmland REITs (FPI Farmland Partners) and ag equipment (DE, AGCO) as land scarcity drives intensification on remaining acres.",
+    "causal_chain": [
+      "USDA FSA CRP enrollment data shows enrollment approaching 27M acre statutory cap (free at fsa.usda.gov)",
+      "Productive cropland removed from production for 10-15yr conservation contracts",
+      "USDA Prospective Plantings shows available planted acreage declining in key corn/soy states",
+      "Cropland cash rents rise 5-10% as operators compete for remaining acres",
+      "Farmland Partners (FPI) benefits from rising farmland values and cash rental income",
+      "Ag equipment companies (DE, AGCO) benefit as operators intensify production on remaining acres"
+    ],
+    "data_sources": [
+      "USDA FSA CRP enrollment data (free monthly)",
+      "USDA NASS Prospective Plantings (free annual March 31)",
+      "USDA NASS Cash Rents survey (free annual)",
+      "yfinance FPI, DE, AGCO"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA FSA CRP data; USDA ERS farmland values; American Farmland Trust",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_crp_enrollment_farmland_scarcity",
+    "reject_reason": "bt_feasibility=3: USDA CRP enrollment changes slowly (annual cycle); FPI IPO 2014 with limited liquidity; cropland scarcity to stock price has very long and noisy transmission mechanism"
+  },
+  {
+    "idea_id": "PL362",
+    "created_at": "2026-05-27T04:25:22.954257+00:00",
+    "status": "rejected",
+    "name": "FDA 510(k) Clearance Cluster in Orthopedic Robotics \u2192 Surgical Robot ASP Compression \u2192 ISRG Competitive Threat",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "3-12 months",
+    "thesis": "FDA publishes 510(k) clearance decisions weekly (free). When 3+ orthopedic surgical robot platforms receive 510(k) clearance within a 6-month window, it signals competitive intensity surge. Hospital systems gain negotiating leverage as multiple vendors compete for OR installations. Long second-movers with price-competitive platforms (GMED Globus Medical EXCELSIUS, MASI Masimo) as they capture share from incumbents through aggressive pricing.",
+    "causal_chain": [
+      "FDA 510(k) clearance database shows 3+ orthopedic robot platforms cleared within 6 months (free at fda.gov/medical-devices)",
+      "Hospital systems now have multiple vendor options \u2014 procurement leverage increases",
+      "Surgical robot ASPs (average selling prices) compress 15-25% as vendors compete for OR placements",
+      "Second-movers with integrated platforms (GMED, MASI) offer bundled solutions at lower total cost",
+      "GMED/MASI capture share from incumbents \u2014 installation growth accelerates",
+      "New entrants rally 10-20% on surgical robot installed base growth metrics"
+    ],
+    "data_sources": [
+      "FDA 510(k) clearance database (free at fda.gov)",
+      "FDA MAUDE adverse event reports for competitive intelligence (free)",
+      "yfinance GMED, MASI, ISRG, SYK, MDT"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FDA 510(k) database; Orthopedic Network News; AAOS conference proceedings",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_510k_ortho_robot_competition",
+    "reject_reason": "bt_feasibility=3: Identifying orthopedic robot 510(k) clearances requires NLP/manual parsing of FDA database; GMED surgical robot segment is post-2023 (Nuvasive merger); too few backtest events"
   }
 ]
