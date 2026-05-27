@@ -12197,7 +12197,7 @@
   {
     "idea_id": "PL450",
     "created_at": "2026-05-27T17:54:54.729026+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "NOAA Hurricane Season Upgrade to Above-Normal Signals Gulf Shut-In and Crude Price Support",
     "category": "G",
     "asset_class": "commodities",
@@ -12224,7 +12224,7 @@
   {
     "idea_id": "PL451",
     "created_at": "2026-05-27T17:54:54.729026+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "IRS SOI Partnership Return Surge Signals Legal and Compliance Services Demand",
     "category": "F",
     "asset_class": "equities",
@@ -12246,12 +12246,13 @@
     "bt_feasibility": 3,
     "source_reference": "IRS SOI Bulletin; Kauffman Foundation business formation data",
     "research_phase": "pipeline_scout",
-    "dedup_key": "irs_soi_partnership_surge_legal_compliance"
+    "dedup_key": "irs_soi_partnership_surge_legal_compliance",
+    "reject_reason": "bt_feasibility=3: IRS SOI partnership return data has 2+ year lag; legal/compliance services demand is diffuse and not concentrated in publicly traded firms"
   },
   {
     "idea_id": "PL452",
     "created_at": "2026-05-27T17:54:54.729026+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "Satellite Parking Lot Fill Rate at Big-Box Retailers Nowcasts Same-Store Sales",
     "category": "J",
     "asset_class": "equities",
@@ -12273,12 +12274,13 @@
     "bt_feasibility": 3,
     "source_reference": "Katona et al. (JFE 2019) on satellite imagery and retail foot traffic; RS Metrics methodology",
     "research_phase": "pipeline_scout",
-    "dedup_key": "satellite_parking_lot_costco_sss"
+    "dedup_key": "satellite_parking_lot_costco_sss",
+    "reject_reason": "bt_feasibility=3: Satellite parking lot data is paywalled (Orbital Insight, RS Metrics); free data insufficient for systematic backtest"
   },
   {
     "idea_id": "PL453",
     "created_at": "2026-05-27T17:55:26.928024+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Fed H.4.1 Discount Window Spike and Decline Signals Regional Bank Recovery",
     "category": "B",
     "asset_class": "equities",
@@ -12305,7 +12307,7 @@
   {
     "idea_id": "PL454",
     "created_at": "2026-05-27T17:55:26.928024+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "CBO Budget Baseline Defense Upward Revision Signals Prime Contractor Outperformance",
     "category": "F",
     "asset_class": "equities",
@@ -12327,12 +12329,13 @@
     "bt_feasibility": 3,
     "source_reference": "CBO Budget and Economic Outlook; CSIS defense budget analysis",
     "research_phase": "pipeline_scout",
-    "dedup_key": "cbo_baseline_defense_uprevision_primes"
+    "dedup_key": "cbo_baseline_defense_uprevision_primes",
+    "reject_reason": "bt_feasibility=3: CBO budget baseline revisions are infrequent; defense spending upward revisions are often offset by continuing resolutions and sequestration risk"
   },
   {
     "idea_id": "PL455",
     "created_at": "2026-05-27T17:55:26.928024+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "Container Shipping Alliance Restructuring Creates Freight Forwarder Margin Expansion Window",
     "category": "G",
     "asset_class": "equities",
@@ -12354,12 +12357,13 @@
     "bt_feasibility": 3,
     "source_reference": "FMC alliance agreement filings; Alphaliner fleet deployment data",
     "research_phase": "pipeline_scout",
-    "dedup_key": "container_alliance_restructure_forwarder_margin"
+    "dedup_key": "container_alliance_restructure_forwarder_margin",
+    "reject_reason": "bt_feasibility=3: Container shipping alliance restructuring events are rare (2M dissolution 2025); freight forwarder margin impact requires proprietary rate data not publicly available"
   },
   {
     "idea_id": "PL456",
     "created_at": "2026-05-27T17:56:02.968144+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "USGS Mineral Commodity Summary Titanium Sponge Stockpile Drawdown Signals Aerospace Bottleneck Premium",
     "category": "G",
     "asset_class": "equities",
@@ -12381,12 +12385,13 @@
     "bt_feasibility": 3,
     "source_reference": "USGS MCS 2024 titanium chapter; DLA Strategic Materials annual report",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usgs_mcs_titanium_stockpile_draw_defense_aero"
+    "dedup_key": "usgs_mcs_titanium_stockpile_draw_defense_aero",
+    "reject_reason": "bt_feasibility=3: USGS titanium sponge stockpile data is annual; titanium pricing not freely available; aerospace bottleneck impact is diffuse"
   },
   {
     "idea_id": "PL457",
     "created_at": "2026-05-27T17:56:02.968144+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "FDIC Call Report Fixed-Rate Loan Repricing Wall Drives Community Bank NII Acceleration",
     "category": "E",
     "asset_class": "equities",
@@ -12408,12 +12413,13 @@
     "bt_feasibility": 3,
     "source_reference": "FDIC Quarterly Banking Profile; S&P Global bank NIM analysis",
     "research_phase": "pipeline_scout",
-    "dedup_key": "fdic_call_report_fixed_rate_repricing_nii"
+    "dedup_key": "fdic_call_report_fixed_rate_repricing_nii",
+    "reject_reason": "bt_feasibility=3: FDIC Call Report loan repricing data requires bank-level analysis of thousands of filings; aggregate repricing wall timing is not a clean signal"
   },
   {
     "idea_id": "PL458",
     "created_at": "2026-05-27T17:56:02.968144+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "DOT Air Travel Consumer Report Operational Quality Divergence Signals Airline Pair Trade",
     "category": "K",
     "asset_class": "equities",
@@ -12435,6 +12441,255 @@
     "bt_feasibility": 4,
     "source_reference": "DOT Air Travel Consumer Report; Wittman & Swelbar (2013) on airline operational quality and revenue premium",
     "research_phase": "pipeline_scout",
-    "dedup_key": "dot_atcr_operational_quality_spread"
+    "dedup_key": "dot_atcr_operational_quality_spread",
+    "reject_reason": "bt_feasibility=4 but partially SHORT-SIDE: \"pair trade\" framing implies short leg vs airline basket. Also, target stock changes each cycle making systematic backtest impractical."
+  },
+  {
+    "idea_id": "PL459",
+    "created_at": "2026-05-27T17:56:37.796849+00:00",
+    "status": "rejected",
+    "name": "NIST NVD Critical CVE Publication Spike Drives Cybersecurity Spending Acceleration",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When NIST National Vulnerability Database shows critical-severity (CVSS 9.0+) CVE publications exceeding 2x the 12-month rolling monthly average, it signals a wave of zero-day/critical patches forcing enterprises to accelerate security tool adoption and incident response spending. CIBR/HACK ETFs outperform as CISOs justify budget expansion to boards.",
+    "causal_chain": [
+      "1. NIST NVD publishes critical-severity CVEs at 2x the rolling 12-month average",
+      "2. High-profile exploits in the wild force CISO emergency budget requests",
+      "3. Enterprise security tool procurement cycles compress (EDR, SIEM, identity)",
+      "4. Cybersecurity vendors see deal velocity increase and pipeline conversion improve",
+      "5. CRWD/PANW/S (SentinelOne)/ZS see revenue acceleration, CIBR outperforms tech"
+    ],
+    "data_sources": [
+      "NIST NVD API (nvd.nist.gov/developers, free)",
+      "CISA KEV catalog updates",
+      "yfinance for CIBR/CRWD/PANW"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "NIST NVD documentation; Mandiant M-Trends annual report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nist_nvd_critical_cve_spike_cyber_etf",
+    "reject_reason": "bt_feasibility=3: NIST NVD CVE publication spikes are frequent and not correlated with cybersecurity stock returns at monthly frequency"
+  },
+  {
+    "idea_id": "PL460",
+    "created_at": "2026-05-27T17:56:37.796849+00:00",
+    "status": "developed",
+    "name": "Census Housing Completions Surge Drives HVAC Equipment Demand with 2-Quarter Lag",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "Housing completions lead HVAC equipment installation by 1-2 quarters (mechanical rough-in occurs late in construction). When Census new residential housing completions show 3-month moving average exceeding 1.4M SAAR, it signals a coming demand wave for residential HVAC units. Long CARR (Carrier Global) and LII (Lennox International), which derive 40-50% of revenue from residential new construction.",
+    "causal_chain": [
+      "1. Census housing completions 3-month average exceeds 1.4M SAAR",
+      "2. HVAC rough-in and equipment installation occurs 2-4 months before certificate of occupancy",
+      "3. High completion rate signals surge in HVAC unit shipments with 1-2 quarter lag",
+      "4. Residential HVAC order books fill, pricing power improves",
+      "5. CARR/LII residential segment revenue accelerates, driving earnings beats"
+    ],
+    "data_sources": [
+      "Census Bureau New Residential Construction (HOUST series, monthly, free)",
+      "AHRI monthly shipment data (ahri.org, free summary stats)",
+      "yfinance for CARR/LII"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Census Bureau housing completions data; AHRI statistical reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "census_completions_hvac_equipment_carrier"
+  },
+  {
+    "idea_id": "PL461",
+    "created_at": "2026-05-27T17:56:37.796849+00:00",
+    "status": "rejected",
+    "name": "Global Port Congestion Resolution Triggers Warehouse REIT Demand Surge from Inventory Bullwhip",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "When global container port congestion (measured by vessel queue days at LA/LB, Savannah, Rotterdam) declines >40% from peak within 8 weeks, it signals a flood of delayed cargo arriving simultaneously. Importers need temporary overflow warehouse space, driving near-term warehouse REIT occupancy and spot rental rate spikes. Long PLD/REXR in the port hinterland markets.",
+    "causal_chain": [
+      "1. Container port congestion (vessel queue days) declines >40% from peak in 8 weeks",
+      "2. Backlogged vessels discharge simultaneously, creating cargo surge at port complexes",
+      "3. Importers scramble for temporary warehouse overflow space in port hinterland",
+      "4. Warehouse spot rental rates spike in gateway markets (LA/LB, Savannah, NJ)",
+      "5. PLD/REXR see occupancy improvement and rental rate acceleration in inland empire/port-adjacent markets"
+    ],
+    "data_sources": [
+      "Marine Exchange of Southern California vessel queue data (free)",
+      "Descartes Datamyne port throughput (limited free)",
+      "yfinance for PLD/REXR"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "Marine Exchange SOCAL daily reports; CBRE Industrial & Logistics market reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "port_congestion_index_bullwhip_warehouse_reit",
+    "reject_reason": "bt_feasibility=3: Port congestion resolution timing is unpredictable; warehouse REIT demand bullwhip is a one-time post-COVID phenomenon (2021-2022) without recurring precedent"
+  },
+  {
+    "idea_id": "PL462",
+    "created_at": "2026-05-27T17:57:09.032038+00:00",
+    "status": "rejected",
+    "name": "FERC Hydroelectric Relicensing Cluster Triggers Dam Safety and Modernization Capex",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "Many FERC hydroelectric licenses issued in the 1960s-70s are hitting their 50-year relicensing windows in clusters. When FERC's relicensing docket shows >5 GW of capacity entering the relicensing process in a single year, dam safety upgrades, fish passage installations, and turbine modernizations are mandated. This benefits heavy civil/hydro engineering firms like MYR Group (MYRG) and Quanta Services (PWR) hydropower segments.",
+    "causal_chain": [
+      "1. FERC relicensing docket shows >5 GW of hydro capacity entering relicensing in 12 months",
+      "2. FERC mandates dam safety upgrades, fish passage, and environmental flow compliance",
+      "3. License holders must commit to 5-10 year modernization capex programs",
+      "4. Heavy civil and hydropower engineering contractors see backlog growth",
+      "5. PWR/MYRG/ACM see infrastructure segment revenue acceleration"
+    ],
+    "data_sources": [
+      "FERC eLibrary relicensing docket (ferc.gov/industries-data/hydropower, free)",
+      "FERC Dam Safety reports",
+      "yfinance for PWR/MYRG"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "FERC hydropower relicensing timeline data; National Hydropower Association reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ferc_hydro_relicense_cluster_dam_safety",
+    "reject_reason": "bt_feasibility=3: FERC hydroelectric relicensing is a multi-year process; dam safety capex beneficiaries are private companies or small utilities not cleanly tradable"
+  },
+  {
+    "idea_id": "PL463",
+    "created_at": "2026-05-27T17:57:09.032038+00:00",
+    "status": "rejected",
+    "name": "EIA SEDS Industrial Electricity Consumption Rebound Signals Utility Load Growth and Rate Base Expansion",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When EIA State Energy Data System (SEDS) shows industrial electricity consumption YoY growth turning positive after a decline period, it signals manufacturing recovery in specific states. Regulated utilities in those states (identifiable from EIA-861 service territory data) benefit from volume-driven revenue increases and load growth that justifies rate base expansion. Long utilities with high industrial load share.",
+    "causal_chain": [
+      "1. EIA SEDS annual/monthly industrial electricity sales turn YoY positive in specific states",
+      "2. Manufacturing recovery drives incremental load growth for local regulated utilities",
+      "3. Higher industrial load = better capacity utilization of existing generation assets",
+      "4. Load growth justifies new transmission/distribution capex in rate cases",
+      "5. Industrial-heavy utilities see revenue acceleration and rate base growth"
+    ],
+    "data_sources": [
+      "EIA SEDS (eia.gov/state/seds, annual and monthly estimates)",
+      "EIA-861 utility service territory data",
+      "yfinance for utility equities"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "EIA State Energy Data System documentation; Edison Electric Institute statistical yearbook",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eia_seds_industrial_electricity_rebound_ute",
+    "reject_reason": "bt_feasibility=3: EIA SEDS data is annual with 18+ month lag; industrial electricity consumption to utility rate base expansion has multi-year regulatory lag"
+  },
+  {
+    "idea_id": "PL464",
+    "created_at": "2026-05-27T17:57:09.032038+00:00",
+    "status": "rejected",
+    "name": "BEA Regional GDP Per Capita Acceleration Signals State-Concentrated REIT Outperformance",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When BEA quarterly state GDP data shows per-capita GDP growth in a specific state accelerating >2pp above the national average, REITs with >50% NOI concentration in that state benefit from stronger tenant demand and rent growth. The market is slow to price in state-level economic acceleration for geographically concentrated REITs. Long the state-concentrated REIT.",
+    "causal_chain": [
+      "1. BEA quarterly state GDP shows per-capita growth accelerating >2pp above national average",
+      "2. State-level economic strength drives employment growth and household formation",
+      "3. Demand for commercial/residential real estate in that state increases",
+      "4. REITs concentrated in the outperforming state see occupancy and rent growth acceleration",
+      "5. State-concentrated REIT (identifiable from 10-K geographic revenue disclosures) outperforms REIT index"
+    ],
+    "data_sources": [
+      "BEA Regional Economic Accounts (bea.gov/data/gdp/gdp-state, quarterly, free)",
+      "SEC EDGAR 10-K geographic concentration",
+      "yfinance for state-concentrated REITs"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "BEA Regional Economic Accounts; Green Street state-level REIT demand analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bea_regional_gdp_divergence_state_reit",
+    "reject_reason": "bt_feasibility=3: BEA regional GDP data is annual/quarterly with significant lag; state-concentrated REITs have many other drivers beyond regional GDP growth"
+  },
+  {
+    "idea_id": "PL465",
+    "created_at": "2026-05-27T17:57:40.969549+00:00",
+    "status": "new",
+    "name": "USDA NAHMS Disease Prevalence Survey Spike Drives Veterinary Pharmaceutical Demand",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When USDA NAHMS publishes periodic herd health surveys showing disease prevalence (e.g., BRD in cattle, PRRS in swine) increasing >15% from prior survey, it signals an upcoming surge in veterinary pharmaceutical and vaccine procurement. Animal health companies like Zoetis (ZTS) and Elanco (ELAN) see livestock segment revenue acceleration as producers increase prophylactic treatment protocols.",
+    "causal_chain": [
+      "1. USDA NAHMS survey reports disease prevalence increase >15% from prior survey wave",
+      "2. Livestock producers increase prophylactic treatment protocols and vaccination rates",
+      "3. Veterinary pharmaceutical procurement surges for antibiotics, vaccines, and diagnostics",
+      "4. Animal health companies see livestock segment order book growth",
+      "5. ZTS/ELAN livestock segment revenue beats in subsequent quarter"
+    ],
+    "data_sources": [
+      "USDA APHIS NAHMS studies (aphis.usda.gov/nahms, periodic surveys, free)",
+      "USDA APHIS disease situation reports",
+      "yfinance for ZTS/ELAN"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USDA NAHMS study publications; AVMA veterinary market analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_nahms_disease_prevalence_vet_pharma"
+  },
+  {
+    "idea_id": "PL466",
+    "created_at": "2026-05-27T17:57:40.969549+00:00",
+    "status": "new",
+    "name": "TIC Foreign Agency MBS Purchase Surge Compresses Mortgage Spreads, Long Homebuilders",
+    "category": "B",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "When Treasury TIC data shows net foreign private purchases of US agency MBS exceeding $15B/month for 3+ consecutive months (vs ~$5B baseline), it signals strong foreign demand for agency MBS paper. This compresses the agency MBS-Treasury spread (current coupon OAS), pulling mortgage rates lower relative to Treasuries. Lower mortgage rates support housing demand. Long homebuilders (XHB).",
+    "causal_chain": [
+      "1. Treasury TIC monthly data shows foreign private agency MBS net purchases >$15B/month for 3 months",
+      "2. Strong foreign demand compresses agency MBS current coupon OAS",
+      "3. Mortgage rates decline relative to Treasury yields",
+      "4. Lower mortgage rates improve housing affordability and application volumes",
+      "5. Homebuilders (XHB, DHI, LEN) see new order growth acceleration"
+    ],
+    "data_sources": [
+      "Treasury TIC data (treasury.gov/resource-center/data-chart-center/tic, monthly, free)",
+      "FRED MORTGAGE30US",
+      "yfinance for XHB"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "Treasury TIC methodology; Bertaut & Tryon (Fed IFD 2007) on foreign holdings of US securities",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tic_foreign_agency_mbs_purchases_mortgage"
+  },
+  {
+    "idea_id": "PL467",
+    "created_at": "2026-05-27T17:57:40.969549+00:00",
+    "status": "new",
+    "name": "GitHub Trending Repository Stars for Enterprise Tools Predicts SaaS Revenue Acceleration",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When a public company's open-source enterprise tool (e.g., Grafana/GTLB, Terraform/HCP, dbt/CLCO) sees GitHub star growth rate exceeding its 90-day moving average by >3x, it signals developer adoption inflection. Developer adoption leads enterprise procurement by 2-3 quarters. Long the company when star growth acceleration is confirmed.",
+    "causal_chain": [
+      "1. GitHub API shows star growth rate for company's OSS project exceeding 90-day MA by 3x",
+      "2. Developer adoption inflection = bottom-up enterprise adoption starting",
+      "3. Developer-led procurement drives POC-to-paid conversion in subsequent quarters",
+      "4. Enterprise SaaS revenue accelerates as developer adoption converts to contracts",
+      "5. Company beats revenue estimates 2-3 quarters after star growth inflection"
+    ],
+    "data_sources": [
+      "GitHub API (api.github.com, free with rate limits)",
+      "GitHub star history (star-history.com)",
+      "yfinance for GTLB/MDB/DDOG/ESTC"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Beaulieu et al. on open-source adoption metrics; Bessemer cloud index methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "github_trending_enterprise_tool_adoption"
   }
 ]

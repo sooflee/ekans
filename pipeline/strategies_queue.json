@@ -13894,7 +13894,7 @@
     "strategy_id": "PL440",
     "idea_id": "PL440",
     "created_at": "2026-05-27T17:54:35.431436+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL440_usda_fas_protein_export_surge_packer_long",
     "name": "USDA FAS Protein Export Surge -> Long US Protein Packers (TSN/PPC)",
     "category": "G",
@@ -13928,15 +13928,13 @@
     "implementation_notes": "TSN (Tyson Foods) is the largest US protein company with beef, pork, and chicken segments. PPC (Pilgrim's Pride) is primarily chicken but has export exposure. USDA FAS GATS data is the gold standard for agricultural trade. bt_feasibility is 4 because USDA trade data is free, monthly, and well-structured.",
     "originality": 7,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T17:55:32.637816+00:00",
+    "backtested_at": "2026-05-27T17:57:37.894510+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.0460281559752556,
-      "cagr": 0.2936103893278441,
-      "max_dd": -0.165919001665207,
-      "t_stat": 1.0460281559752558,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": 0.44170279127968515,
+      "cagr": 0.08921310390581705,
+      "max_dd": -0.20328740476659501,
+      "t_stat": 0.45720582559124257
     },
     "backtest_started_at": "2026-05-27T17:55:41.049000+00:00"
   },
@@ -13986,7 +13984,7 @@
     "strategy_id": "PL439",
     "idea_id": "PL439",
     "created_at": "2026-05-27T17:54:58.689413+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL439_asce_water_grade_decline_utility_capex",
     "name": "ASCE Water Infrastructure Grade Decline -> Water Utility Capex and Rate Base Growth Long",
     "category": "K",
@@ -14019,15 +14017,13 @@
     "implementation_notes": "AWK is the purest US water utility play. WTR (Essential Utilities) also has water exposure but is diversified into gas. The 4-year frequency makes traditional backtesting nearly impossible (only 3 data points). The supplementary approach using EPA SDWIS (Safe Drinking Water Information System) violation counts as a higher-frequency proxy could improve testability. bt_feasibility is 3.",
     "originality": 7,
     "bt_feasibility": 3,
-    "backtested_at": "2026-05-27T17:55:32.637816+00:00",
+    "backtested_at": "2026-05-27T17:57:37.894741+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.6064493825831223,
-      "cagr": 0.32367789848161177,
-      "max_dd": -0.10476027760069329,
-      "t_stat": 1.9200742615109205,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": 0.8728782562262011,
+      "cagr": 0.17039143534375634,
+      "max_dd": -0.22306552284341152,
+      "t_stat": 1.0983477194426092
     },
     "backtest_started_at": "2026-05-27T17:55:41.049001+00:00"
   },
@@ -14035,7 +14031,7 @@
     "strategy_id": "PL440",
     "idea_id": "PL440",
     "created_at": "2026-05-27T17:54:58.689413+00:00",
-    "status": "in_progress",
+    "status": "done",
     "signal_id": "PL440_usda_gats_protein_export_packer_revenue",
     "name": "USDA FAS GATS Protein Export Surprise -> US Packer Revenue Beat -> TSN/PPC Long",
     "category": "C",
@@ -14071,15 +14067,13 @@
     "implementation_notes": "TSN is the most diversified US protein company (beef, pork, chicken, prepared foods). PPC (Pilgrim's Pride) is a major chicken processor with growing export business. USDA GATS data is free, monthly, and well-structured for automated extraction. The 5-year seasonal average comparison adjusts for normal seasonal patterns in protein exports. The 2-month persistence filter ensures sustained demand, not a one-off trade. bt_feasibility is 4 because GATS data is clean and monthly.",
     "originality": 7,
     "bt_feasibility": 4,
-    "backtested_at": "2026-05-27T17:55:32.637816+00:00",
+    "backtested_at": "2026-05-27T17:57:37.894791+00:00",
     "backtest_result": {
       "status": "ok",
-      "sharpe": 1.0460281559752556,
-      "cagr": 0.2936103893278441,
-      "max_dd": -0.165919001665207,
-      "t_stat": 1.0460281559752558,
-      "n_events": 6,
-      "is_winner": true
+      "sharpe": 0.44170279127968515,
+      "cagr": 0.08921310390581705,
+      "max_dd": -0.20328740476659501,
+      "t_stat": 0.45720582559124257
     },
     "backtest_started_at": "2026-05-27T17:55:41.049002+00:00"
   },
@@ -14087,7 +14081,7 @@
     "strategy_id": "PL444",
     "idea_id": "PL444",
     "created_at": "2026-05-27T17:55:48.715382+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL444_usace_lock_closure_grain_rail_diversion",
     "name": "USACE Scheduled Lock Closure -> Grain Rail Diversion -> Class I Railroad Revenue Long",
     "category": "G",
@@ -14121,13 +14115,19 @@
     ],
     "implementation_notes": "UNP handles the majority of western grain origination (connecting Great Plains to Gulf export terminals). NSC handles eastern grain. When barge routes are closed, grain must move by rail at higher per-ton cost, benefiting railroad revenue per carload. USACE closure schedules are published well in advance, making this a predictable catalyst. bt_feasibility is 4 because closure dates are known months ahead and the grain diversion mechanism is well-documented.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:56:10.771052+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8388902873737895,
+      "cagr": 0.2158733473523935
+    }
   },
   {
     "strategy_id": "PL445",
     "idea_id": "PL445",
     "created_at": "2026-05-27T17:55:48.715382+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL445_nasa_firms_fire_timber_lumber_supply",
     "name": "NASA FIRMS Active Fire Anomaly in Timber Regions -> Lumber Supply Shock -> Timberland REIT Long",
     "category": "J",
@@ -14163,13 +14163,19 @@
     ],
     "implementation_notes": "NASA FIRMS data is excellent: free, near-real-time, global coverage, CSV download with lat/lon coordinates for geofencing. The thesis has a counterintuitive element: wildfire destroys timber supply, which benefits timberland REITs that own unburned forests (rising stumpage prices). WY and PCH own millions of acres in PNW. The risk is that fires could burn WY/PCH's own timberland, which would be negative. The backtester should examine whether the net effect is positive or negative. bt_feasibility is 3 because: (a) the direction of effect is uncertain, (b) fire-to-lumber-price transmission has lag.",
     "originality": 8,
-    "bt_feasibility": 3
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T17:56:10.771053+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7507350037637078,
+      "cagr": 0.22167790080395688
+    }
   },
   {
     "strategy_id": "PL444",
     "idea_id": "PL444",
     "created_at": "2026-05-27T17:55:50.381424+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL444_usace_lock_closure_grain_rail_diversion_long",
     "name": "USACE Lock Closure During Harvest -> Long Class I Railroads (UNP)",
     "category": "K",
@@ -14197,13 +14203,19 @@
     "backtest_approach": "Event study: Hand-code major USACE lock closures during harvest season. Known events include Lock 25 and LaGrange Lock rehabilitation projects. Long UNP for 42 trading days per event. Limited events but large effect size expected.",
     "implementation_notes": "USACE publishes lock rehabilitation schedules well in advance (6-12 months). UNP is the primary western railroad serving grain export corridors. bt_feasibility is 4 because events are well-documented but require manual identification.",
     "originality": 8,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:56:10.771054+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.156266961289369,
+      "cagr": 0.3236297707350613
+    }
   },
   {
     "strategy_id": "PL446",
     "idea_id": "PL446",
     "created_at": "2026-05-27T17:55:50.381424+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL446_bls_ecec_health_cost_accel_mco_long",
     "name": "BLS ECEC Health Benefit Cost Acceleration -> Long Managed Care (UNH/ELV)",
     "category": "E",
@@ -14231,13 +14243,19 @@
     "backtest_approach": "Event study: Load BLS ECEC health insurance costs (2004-2025). Compute quarterly YoY growth. Identify periods of >5% growth for 2+ consecutive quarters. Long UNH+ELV for 42 trading days per signal. Key expected events: 2006-2007 (pre-ACA premium acceleration), 2018-2019 (post-ACA stabilization premium growth), 2023-2024 (post-COVID healthcare cost catch-up).",
     "implementation_notes": "UNH and ELV are the two largest US managed care organizations. Premium revenue growth directly tracks employer health benefit cost trends. BLS ECEC is the authoritative source for employer compensation costs. bt_feasibility is 4 because BLS data is free and quarterly.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:56:10.771055+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8004093258411286,
+      "cagr": 0.20732522710658507
+    }
   },
   {
     "strategy_id": "PL447",
     "idea_id": "PL447",
     "created_at": "2026-05-27T17:55:50.381424+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL447_ssa_cola_above_expect_retiree_consumer_long",
     "name": "SSA COLA Exceeds Expectations -> Long Retiree-Consumer Exposed Stocks",
     "category": "F",
@@ -14265,13 +14283,19 @@
     "backtest_approach": "Event study: Identify years where SSA COLA exceeded 3%: 2005 (4.1%), 2006 (3.3%), 2007 (2.3% - skip), 2009 (5.8%), 2012 (3.6%), 2018 (2.8% - skip), 2022 (5.9%), 2023 (8.7%), 2024 (3.2%). For each qualifying year, long WELL+DG from mid-October for 63 trading days. Compare to non-qualifying years. The 2022-2024 period provides the strongest test with historically high COLAs (5.9%, 8.7%, 3.2%).",
     "implementation_notes": "WELL (Welltower) is the largest senior housing REIT. DG (Dollar General) serves low/middle-income consumers including many retirees on fixed incomes. SSA COLA is mechanically determined by CPI-W, so it's predictable once Q3 CPI data is known (before the official announcement). bt_feasibility is 4 because the event dates and COLA percentages are public record.",
     "originality": 7,
-    "bt_feasibility": 4
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:56:10.771056+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.1112373767829928,
+      "cagr": 0.30011768462672705
+    }
   },
   {
     "strategy_id": "PL449",
     "idea_id": "PL449",
     "created_at": "2026-05-27T17:55:50.381424+00:00",
-    "status": "ready",
+    "status": "done",
     "signal_id": "PL449_tips_real_curve_inversion_gold_long",
     "name": "TIPS Real Yield Curve Deep Inversion -> Long Gold (GLD)",
     "category": "B",
@@ -14303,6 +14327,327 @@
     ],
     "implementation_notes": "FRED DFII2 (2-year TIPS real yield) data starts around 2004, coinciding with GLD launch. The -50bp threshold captures the deepest decile of inversions. Gold's relationship with real yields is one of the most robust in macro finance. bt_feasibility is 5 because FRED TIPS data is daily, clean, and GLD is extremely liquid.",
     "originality": 7,
-    "bt_feasibility": 5
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T17:56:10.771057+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.0788167019974102,
+      "cagr": 0.2085654300707036
+    }
+  },
+  {
+    "strategy_id": "PL450",
+    "idea_id": "PL450",
+    "created_at": "2026-05-27T17:56:44.857798+00:00",
+    "status": "done",
+    "signal_id": "PL450_noaa_hurricane_above_normal_xop_long",
+    "name": "NOAA Above-Normal Hurricane Season Outlook -> Long Oil E&P (XOP)",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-16 weeks",
+    "rule": "Using yfinance data: When NOAA CPC May hurricane season outlook categorizes the season as 'above normal' with >15 predicted named storms, go long XOP (SPDR S&P Oil & Gas Exploration & Production ETF) on June 1. Hold for 63 trading days (through mid-August peak hurricane season). Benchmark vs SPY. The thesis is that above-normal hurricane forecasts create a risk premium in Gulf crude and benefit E&P stocks.",
+    "tickers": [
+      "XOP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA CPC May hurricane outlook: 'above normal' category with >15 predicted named storms",
+      "Enter on June 1 (or first trading day of June) each qualifying year",
+      "One signal per year"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (through mid-August)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XOP (SPDR S&P Oil & Gas E&P, launched Jun 2006), CL=F (WTI), SPY",
+      "fundamental": "NOAA CPC Atlantic Hurricane Season Outlook (free at cpc.ncep.noaa.gov). Published annually in late May. Data back to 1998."
+    },
+    "backtest_approach": "Seasonal event study: Identify years where NOAA forecast >15 named storms (above-normal): 2005, 2010, 2011, 2017, 2020, 2021, 2022, 2023, 2024, 2025. Long XOP (from 2006) on June 1 for 63 trading days. Compare to non-above-normal years. The key question is whether the forecast itself creates tradable risk premium or only actual storms matter.",
+    "known_events": [
+      "2005: Forecast above-normal, actual record season (Katrina/Rita); XOP benefited enormously",
+      "2017: Forecast above-normal; Harvey/Irma/Maria produced massive GOM shut-ins",
+      "2020: Record 30 named storms; multiple GOM shut-in events",
+      "2023: Forecast above-normal but season was less active than predicted"
+    ],
+    "implementation_notes": "XOP launched June 2006. NOAA hurricane forecasts have become increasingly accurate. The signal is most actionable in years where NOAA confidently predicts above-normal activity. bt_feasibility is 4 because NOAA forecasts are public record and XOP is liquid.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5132505901666345,
+      "cagr": 0.12165333698734249,
+      "max_dd": -0.20842077731691122,
+      "t_stat": 0.5132505901666345,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL453",
+    "idea_id": "PL453",
+    "created_at": "2026-05-27T17:56:44.857798+00:00",
+    "status": "done",
+    "signal_id": "PL453_fed_h41_discount_window_decline_kre_long",
+    "name": "Fed H.4.1 Discount Window Spike Resolution -> Long Regional Banks (KRE)",
+    "category": "B",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FRED data: When Fed H.4.1 discount window borrowings (FRED series WDCI or similar) spike above $10B and then decline >50% from peak over 4 consecutive weeks, go long KRE on the first trading day after the 4th consecutive declining week. Hold for 42 trading days. Benchmark vs SPY. The thesis is that resolving discount window usage signals the acute banking liquidity crisis is ending, and regional bank stocks recover sharply from panic lows.",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Fed H.4.1 discount window borrowings spike above $10B (crisis threshold)",
+      "Borrowings decline >50% from peak over 4 consecutive weeks",
+      "Enter on first trading day after 4th consecutive declining week",
+      "Minimum 180 calendar days between signals (one per crisis episode)"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KRE (SPDR S&P Regional Banking ETF, launched Jun 2006), SPY",
+      "fundamental": "FRED: WDCI (Discount Window Borrowings) or Fed H.4.1 primary credit line items. Weekly frequency, published Thursday. Data back to 2003."
+    },
+    "backtest_approach": "Event study: Load FRED discount window borrowing data (2006-2025 for KRE). Identify spike-and-decline episodes: (1) 2008 Q4: GFC discount window peaked ~$110B, declined through Q1 2009; (2) 2020 Q1-Q2: COVID-era precautionary borrowing spiked then resolved; (3) 2023 Mar: SVB/Signature crisis spiked discount window to $153B, declined over 8 weeks. For each event, long KRE from signal date for 42 trading days vs SPY. The 2023 SVB episode is the cleanest modern test.",
+    "known_events": [
+      "2008 Q3-Q4: GFC discount window borrowing peaked at ~$110B; bank stocks bottomed Mar 2009",
+      "2020 Mar: COVID precautionary borrowing spike; banks recovered quickly as Fed backstop proved sufficient",
+      "2023 Mar: SVB/Signature bank crisis; discount window hit $153B; KRE dropped 30% then recovered 15% over 6 weeks as borrowing declined"
+    ],
+    "implementation_notes": "Fed H.4.1 is published every Thursday at 4:30pm ET. Discount window borrowing above $10B is unusual and signals genuine stress (normal is near-zero due to stigma). The 50% decline threshold confirms the crisis is resolving rather than deepening. KRE launched June 2006, providing data for the GFC, COVID, and SVB episodes. bt_feasibility is 5 because FRED data is weekly, clean, and the crisis episodes are well-documented.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.9977232959942163,
+      "cagr": 0.28750356524900345,
+      "max_dd": -0.15695145642498076,
+      "t_stat": 0.9977232959942162,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL450",
+    "idea_id": "PL450",
+    "created_at": "2026-05-27T17:56:52.459467+00:00",
+    "status": "done",
+    "signal_id": "PL450_noaa_hurricane_season_above_normal_crude",
+    "name": "NOAA Hurricane Season Upgrade to Above-Normal -> Gulf Shut-In Risk -> E&P/Crude Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and NOAA data: When NOAA Climate Prediction Center issues its annual or mid-season Atlantic Hurricane Outlook upgrading the season to 'Above Normal' (or higher, e.g., 'Extremely Active') with predicted named storms > 20, go long XOP (SPDR S&P Oil & Gas Exploration & Production ETF) on the first trading day after the NOAA outlook publication. Hold for 40 trading days. Benchmark vs SPY. NOAA issues the initial outlook in late May and an updated outlook in early August. Above-normal seasons increase the probability of Gulf of Mexico production shut-ins, supporting crude oil prices.",
+    "tickers": [
+      "XOP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA CPC Atlantic Hurricane Outlook rates season as 'Above Normal' or higher",
+      "Predicted named storms > 20 (vs 30-year average of ~14)",
+      "Enter on first trading day after NOAA outlook publication (late May or early August update)",
+      "At most 2 signals per year (initial + mid-season update)"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XOP (SPDR S&P Oil & Gas E&P ETF), CL=F (WTI crude futures), SPY",
+      "fundamental": "NOAA Climate Prediction Center Atlantic Hurricane Outlook (free): https://www.cpc.ncep.noaa.gov/products/outlooks/hurricane.shtml - issued late May and updated early August. Categories: Below Normal, Near Normal, Above Normal."
+    },
+    "backtest_approach": "Event study: For each year (2007-2025, XOP inception June 2006) where NOAA issued 'Above Normal' hurricane outlook, compute XOP return over 40 trading days post-outlook vs SPY. Above-normal years: 2010, 2011, 2012, 2017, 2020, 2021, 2022, 2023, 2024, 2025. The signal fires frequently in recent years due to warmer SSTs. Not every above-normal outlook leads to Gulf shut-ins, so the win rate may be moderate. Calculate average excess return, win rate.",
+    "known_events": [
+      "2005: Katrina/Rita devastated Gulf production (not in XOP backtest window)",
+      "2008: Gustav/Ike shut in ~90% of Gulf oil production",
+      "2017: Harvey shut in ~25% of Gulf production",
+      "2020: Multiple storms impacted Gulf in hyperactive season",
+      "2021: Ida shut in 95% of Gulf production"
+    ],
+    "implementation_notes": "XOP is equal-weighted E&P ETF, benefiting from crude price support during hurricane risk periods. The NOAA outlook is a well-publicized event so some pricing may already occur, but the 'risk premium' tends to persist through peak hurricane season (August-October). bt_feasibility is 4 because NOAA outlooks are precisely dated, free, and the above-normal classification is binary/clear.",
+    "originality": 5,
+    "bt_feasibility": 4,
+    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.3929788081095404,
+      "cagr": 0.8485928727289473,
+      "max_dd": -0.46515117263170835,
+      "t_stat": 1.6649281236490472,
+      "n_events": 6,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL451",
+    "idea_id": "PL451",
+    "created_at": "2026-05-27T17:56:52.459467+00:00",
+    "status": "done",
+    "signal_id": "PL451_irs_soi_partnership_returns_legal_demand",
+    "name": "IRS SOI Partnership Return Surge -> Legal and Compliance Services Demand -> TRI Long",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and IRS SOI data: When IRS Statistics of Income shows partnership return filings growing > 8% YoY (indicating accelerating business formation and complexity), go long TRI (Thomson Reuters, legal/tax/compliance information provider) on the first trading day after IRS SOI publication. Hold for 30 trading days. Benchmark vs SPY. IRS SOI publishes partnership statistics annually (free at irs.gov/statistics/soi-tax-stats). Rising partnership filings drive demand for tax compliance, legal research, and regulatory information services.",
+    "tickers": [
+      "TRI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "IRS SOI annual partnership return count grows > 8% YoY",
+      "Enter on first trading day after IRS SOI partnership statistics publication",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: TRI (Thomson Reuters, legal/tax/compliance data), SPY",
+      "fundamental": "IRS Statistics of Income - Partnership Returns (free): https://www.irs.gov/statistics/soi-tax-stats-partnership-statistics - annual data on number of returns, total assets, income. Published with ~18 month lag."
+    },
+    "backtest_approach": "Event study: For each IRS SOI publication (2010-2025) where partnership filings grew >8% YoY, compute TRI return over 30 trading days vs SPY. TRI was restructured in 2018 (sold Financial & Risk to Blackstone), so post-2018 TRI is a purer legal/tax play. Partnership filings have grown steadily since 2010 (LLC popularity). The 8% threshold may fire frequently; raise to 10% if needed. bt_feasibility is 3 due to annual frequency and 18-month publication lag.",
+    "known_events": [
+      "2015-2019: Partnership filings grew steadily as LLC formations surged",
+      "2020: Slight dip due to COVID, then strong recovery",
+      "2021-2023: Post-COVID business formation boom drove partnership growth"
+    ],
+    "implementation_notes": "TRI (Thomson Reuters) owns Westlaw, Checkpoint, and other legal/tax research platforms. More partnership filings = more tax complexity = more demand for TRI's compliance tools. INTU (Intuit) was in original idea but serves primarily individual/small business filers, not the complex partnership space. bt_feasibility is 3 because: (a) annual frequency with 18-month lag, (b) partnership filing growth is a secular trend (may always exceed 8%), (c) TRI revenue is driven by many factors beyond partnership filings.",
+    "originality": 6,
+    "bt_feasibility": 3,
+    "backtested_at": "2026-05-27T17:57:28.243159+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 1.9939853042388374,
+      "cagr": 0.42623318748770567,
+      "max_dd": -0.12447033099105598,
+      "t_stat": 2.1756163312628622,
+      "n_events": 5,
+      "is_winner": true
+    }
+  },
+  {
+    "strategy_id": "PL460",
+    "idea_id": "PL460",
+    "created_at": "2026-05-27T17:57:32.823489+00:00",
+    "status": "ready",
+    "signal_id": "PL460_census_housing_completions_hvac_long",
+    "name": "Census Housing Completions Surge -> Long Residential HVAC (CARR/LII)",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and FRED data: When Census new residential housing completions (FRED COMPUTSA) 3-month moving average exceeds 1.4M SAAR, go long equal-weight CARR + LII on the first trading day after the Census release. Hold for 63 trading days. Benchmark vs SPY. The thesis is that high housing completions drive HVAC equipment demand with a 1-2 quarter lag as mechanical installation occurs late in the construction process.",
+    "tickers": [
+      "CARR",
+      "LII",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Census COMPUTSA 3-month moving average exceeds 1.4M SAAR",
+      "Enter on first trading day after Census housing completions monthly release",
+      "Minimum 180 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CARR (Carrier Global, IPO Apr 2020 spin from UTX), LII (Lennox International), SPY",
+      "fundamental": "FRED: COMPUTSA (New Privately-Owned Housing Units Completed, monthly SA). Published monthly ~3 weeks after reference month. Data back to 1968."
+    },
+    "backtest_approach": "Event study: Load FRED COMPUTSA (2005-2025). Compute 3-month MA. Identify months exceeding 1.4M SAAR. CARR IPO April 2020 (spun from United Technologies); pre-2020 use LII only or add JCI (Johnson Controls, HVAC segment). Key expected signal periods: 2005-2006 (housing boom completions >1.8M), 2020 Q4-2021 (pandemic housing surge), 2023-2024 (multifamily completion wave). For each signal (180-day gap), long CARR+LII for 63 trading days vs SPY.",
+    "known_events": [
+      "2005-2006: Housing boom completions exceeded 2.0M SAAR; HVAC manufacturers had record years",
+      "2021-2022: Post-COVID housing completion surge drove residential HVAC demand to records",
+      "2023-2024: Multifamily completion wave (built during 2021-2022 starts boom) drove continued HVAC demand"
+    ],
+    "implementation_notes": "CARR (Carrier Global) spun from United Technologies in April 2020; 40%+ of revenue from residential HVAC. LII (Lennox International) is ~50% residential HVAC. The 1.4M SAAR threshold is meaningful because it represents the 75th percentile of historical completions. FRED COMPUTSA data is clean and monthly. bt_feasibility is 4 because FRED data is excellent but CARR's short trading history (2020+) limits backtest depth.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL456",
+    "idea_id": "PL456",
+    "created_at": "2026-05-27T17:57:37.751710+00:00",
+    "status": "ready",
+    "signal_id": "PL456_usgs_titanium_sponge_stockpile_aerospace",
+    "name": "USGS Titanium Sponge Stockpile Drawdown -> Aerospace Supply Tightening -> Specialty Metals Long",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and USGS data: When USGS Mineral Commodity Summaries shows US titanium sponge stockpile declining > 15% YoY while aerospace production rates (Boeing/Airbus deliveries) are rising, go long an equal-weight basket of specialty metals companies (CRS, ATI) on the first trading day after USGS MCS publication (late January). Hold for 40 trading days. Benchmark vs SPY. Titanium sponge is critical for aerospace (jet engine and airframe components). USGS MCS is the definitive free source.",
+    "tickers": [
+      "CRS",
+      "ATI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USGS MCS titanium sponge chapter shows US apparent consumption or stockpile declining > 15% YoY",
+      "Boeing + Airbus deliveries trending upward (confirming demand growth)",
+      "Enter on first trading day after USGS MCS publication (late January)",
+      "Signal fires at most once per year"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: CRS (Carpenter Technology, specialty alloys), ATI (ATI Inc, titanium and specialty metals), SPY",
+      "fundamental": "USGS MCS Titanium (free): https://www.usgs.gov/centers/national-minerals-information-center/titanium-statistics-and-information - annual sponge production, imports, consumption, stockpile estimates."
+    },
+    "backtest_approach": "Event study: For each USGS MCS (2010-2025) where titanium indicators showed tightening (declining stockpile + rising aerospace demand), compute CRS+ATI return over 40 trading days vs SPY. ATI reorganized post-bankruptcy in 2020. CRS has long history. Annual frequency limits events. Key years: 2014-2015 (aerospace cycle peak), 2018 (737 MAX production ramp), 2023-2025 (post-COVID aerospace recovery). bt_feasibility is 3 due to annual USGS frequency.",
+    "known_events": [
+      "2014-2015: Peak aerospace cycle, titanium sponge tight",
+      "2018: 737 MAX production rate drove titanium demand",
+      "2023-2025: Post-COVID aerospace recovery strained titanium supply"
+    ],
+    "implementation_notes": "CRS (Carpenter Technology) is a specialty alloys manufacturer with significant titanium aerospace exposure. ATI (formerly Allegheny Technologies) is a major titanium producer for aerospace. USGS annual data has significant lag but provides the definitive supply picture. bt_feasibility is 3.",
+    "originality": 7,
+    "bt_feasibility": 3
+  },
+  {
+    "strategy_id": "PL457",
+    "idea_id": "PL457",
+    "created_at": "2026-05-27T17:57:37.751710+00:00",
+    "status": "ready",
+    "signal_id": "PL457_fdic_call_report_fixed_rate_repricing_kre",
+    "name": "FDIC Call Report Fixed-Rate Loan Repricing Wall -> Community Bank NII Acceleration -> KRE Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "rule": "Using yfinance and FDIC Call Report data: When FDIC quarterly aggregate Call Report data shows the share of community bank loans maturing/repricing within 1 year increasing by > 5 percentage points YoY, go long KRE (SPDR S&P Regional Banking ETF) on the first trading day after FDIC Call Report aggregate publication. Hold for 30 trading days. Benchmark vs SPY. Rising share of loans approaching repricing means community banks will earn higher rates as older fixed-rate loans roll off into current higher rates, boosting Net Interest Income.",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FDIC aggregate Call Report shows share of community bank loans repricing within 1 year increased > 5pp YoY",
+      "Current interest rate environment has rates higher than when original loans were originated",
+      "Enter on first trading day after FDIC quarterly aggregate publication",
+      "At most one signal per quarter"
+    ],
+    "exit_conditions": [
+      "Hold for 30 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: KRE (SPDR S&P Regional Banking ETF), SPY",
+      "fundamental": "FDIC Quarterly Banking Profile and aggregate Call Report data (free): https://www.fdic.gov/analysis/quarterly-banking-profile - Schedule RC-C loan maturity/repricing buckets. Published ~8 weeks after quarter end."
+    },
+    "backtest_approach": "Event study: For each FDIC quarterly publication (2015-2025) where the repricing wall condition was met, compute KRE return over 30 trading days vs SPY. The repricing wall thesis is most relevant in rate-hiking cycles: 2017-2019 (gradual hikes), 2022-2024 (aggressive hikes creating large fixed-rate loan book that will reprice higher). KRE inception June 2006. Calculate average excess return.",
+    "known_events": [
+      "2017-2019: Gradual rate hikes created NII tailwind for banks",
+      "2023-2024: Massive repricing wall as 2020-2021 low-rate loans approach maturity",
+      "2025: Peak repricing year for 5-year fixed-rate loans originated in 2020"
+    ],
+    "implementation_notes": "FDIC Call Report aggregate data is free and well-structured. The repricing wall concept is well-known among bank analysts but the specific quantitative threshold (5pp YoY increase in near-term repricing share) adds precision. KRE captures the community bank beneficiaries broadly. bt_feasibility is 3 because: (a) quarterly frequency limits data points, (b) Call Report data requires parsing FDIC aggregates, (c) the repricing thesis is well-known and may be priced in.",
+    "originality": 6,
+    "bt_feasibility": 3
   }
 ]
