@@ -3442,6 +3442,226 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: DOE SPR announcements; yfinance</span><span><code>backtests/PL275_doe_spr_refill_procurement_crude_floor.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL293_sec_13f_hedge_fund_short_unwinding_squeeze</span><h3>Hedge Fund Short Unwinding &rarr; Long Small Caps (IWM)</h3></div>
+    <div class="right">sentiment &middot; ~3-week hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">3.82</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">294.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-10.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.12</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>SEC 13F data shows hedge fund aggregate short ratio declining, signaling consensus short positions being unwound. Small caps (IWM) are disproportionately affected by short squeezes. 8/8 events positive &mdash; every identified unwinding episode produced gains.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long IWM 21d when SEC 13F data shows hedge fund aggregate short ratio declining</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Extreme metrics (Sharpe 3.82, CAGR 294%) are inflated by short 21-day hold periods and market recovery timing (Mar 2009, Oct 2022 troughs). t-stat 3.12 is significant but N=8 events. Several event dates coincide with major market bottoms, introducing look-ahead bias risk. 13F data has 45-day lag. Hand-coded events may overfit to known bottoms.</div>
+  </div>
+  <div class="card-foot"><span>Source: SEC 13F; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL282_cftc_bank_participation_net_long_flip_commodity</span><h3>CFTC Bank Participation Net Long Flip &rarr; Commodity Trend</h3></div>
+    <div class="right">commodities &middot; ~2-month hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.99</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">65.2%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-15.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">2.30</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When CFTC Bank Participation Report shows large banks flipping from net short to net long in commodity futures, it confirms an underlying commodity trend. DBC and GSG broad commodity ETFs benefit. 7/8 events positive, t-stat 2.30 significant.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long DBC+GSG equal-weight 42d when CFTC Bank Participation Report shows net long flip</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events, t-stat 2.30 significant. Bank Participation Report is monthly with ~1 week lag. The 2007 and 2021-2022 commodity booms drive much of the performance. DBC and GSG have roll yield drag. Bank positioning may be hedging-related rather than directional. Related to C17 (commodity backwardation).</div>
+  </div>
+  <div class="card-foot"><span>Source: CFTC Bank Participation; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL281_bts_ontime_deterioration_mro_demand_surge</span><h3>BTS Airline On-Time Deterioration &rarr; Long MRO/Aerospace</h3></div>
+    <div class="right">transport &middot; ~2-month hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.46</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">31.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-19.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.68</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>BTS airline on-time performance dropping below 75% for 3+ months signals fleet aging and utilization stress. MRO providers (TDG, HEI) and engine makers (GE) benefit from increased maintenance demand. 7/8 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long TDG+HEI+GE equal-weight 42d when BTS on-time performance drops below 75% for 3+ months</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events, t-stat 1.68 borderline. TDG and HEI are secular growers (aftermarket monopoly business models) which may inflate returns regardless of signal. BTS data has 2-month lag. GE is a conglomerate, not pure-play MRO. Related to AK2 (FAA hub capacity) and PL204 (airline load factor).</div>
+  </div>
+  <div class="card-foot"><span>Source: BTS; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL286_fdic_unrealized_loss_regional_bank</span><h3>FDIC Unrealized Loss Improvement &rarr; Long Regional Banks (KRE)</h3></div>
+    <div class="right">financials &middot; ~2-month hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.47</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">42.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-14.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.47</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FDIC quarterly banking profile showing unrealized loss improvement &gt;20% signals reduced mark-to-market risk for regional banks. KRE benefits from improved sentiment and reduced capital adequacy concerns. Perfect 6/6 win rate.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long KRE 42d when FDIC quarterly profile shows unrealized loss improvement &gt;20%</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=6 events, t-stat 1.47 not significant at 5%. FDIC data is quarterly with ~2 month lag. The 6/6 win rate is promising but small sample. Hand-coded events may coincide with broader rate-cycle recoveries. Related to PL084 (TED spread normalization KRE) and PL115 (CMBS spread regional banks).</div>
+  </div>
+  <div class="card-foot"><span>Source: FDIC Quarterly Profile; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL296_usitc_affirmative_injury_domestic_producer_long</span><h3>USITC Affirmative Injury Determination &rarr; Long Steel Producers</h3></div>
+    <div class="right">trade &middot; ~2-month hold &middot; 7 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.38</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">48.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-29.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.49</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When USITC issues an affirmative injury determination in steel/metals trade cases, it leads to tariffs and duties that protect domestic producers. NUE+STLD benefit from improved pricing power. 4/7 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long NUE+STLD 42d when USITC issues affirmative injury determination in steel/metals</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=7 events, t-stat 1.49. X ticker failed to load (possibly delisted), using NUE+STLD only. Trade cases are public and well-telegraphed &mdash; market may price in before determination. MaxDD -29.5% suggests significant drawdown risk. Steel producers are cyclical beyond trade policy. Related to PL009 (scrap steel HRC spread).</div>
+  </div>
+  <div class="card-foot"><span>Source: USITC; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL295_strips_deep_inversion_defensive</span><h3>Deep Yield Curve Inversion &rarr; Long Utilities + Staples</h3></div>
+    <div class="right">macro &middot; ~3-month hold &middot; 5 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.32</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">19.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-8.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.44</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When Treasury 2s10s spread falls below -50bp (deep inversion), recession risk is elevated. Defensive sectors (XLU utilities, XLP staples) outperform. Low max drawdown (-8.9%) reflects defensive nature. 4/5 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long XLU+XLP equal-weight 60d when Treasury 2s10s spread falls below -50bp</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=5 events, t-stat 1.44 not significant. Three of five events from 2022-2023 (same inversion cycle). Low max drawdown is attractive but small sample. Related to C08 (yield curve 10y2y) and PL076 (yield curve uninversion cyclicals). The -50bp threshold makes this a rare signal.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED T10Y2Y; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-E">PL291_nhtsa_recall_volume_spike_aftermarket_parts</span><h3>NHTSA Recall Volume Spike &rarr; Long Aftermarket Auto Parts</h3></div>
+    <div class="right">autos &middot; ~2-month hold &middot; 8 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.64</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.4%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-23.5%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.74</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>NHTSA recall volume spikes signal vehicle safety issues requiring repair. Aftermarket parts retailers (ORLY, AZO, AAP) benefit from increased demand for replacement parts and repair services. 6/8 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ORLY+AZO+AAP equal-weight 42d when NHTSA monthly recall volume &gt;2x trailing 12mo average</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=8 events, t-stat 0.74 weak. ORLY and AZO are secular growth stories that may outperform regardless. AAP has been a notable underperformer. NHTSA recall data is public and immediate but aftermarket impact has unclear timing. Related to PL112 (vehicle age auto parts).</div>
+  </div>
+  <div class="card-foot"><span>Source: NHTSA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL297_noaa_hurricane_gulf_shutin_inland_refiner</span><h3>Gulf Hurricane Crude Shut-In &rarr; Long Inland Refiners</h3></div>
+    <div class="right">energy &middot; ~2-week hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.99</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">206.3%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-30.3%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.97</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When NOAA hurricane track forces &gt;50% Gulf offshore crude production shut-in, inland/East Coast refiners (PBF, VLO) benefit from crack spread widening as Gulf Coast refinery operations are disrupted. 4/6 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long PBF+VLO equal-weight 10d when NOAA hurricane forces &gt;50% Gulf offshore crude shut-in</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=6 events, t-stat 0.97 weak. Extreme CAGR (206.3%) inflated by short 10-day holding period. MaxDD -30.3% is significant. PBF may not have been available for early events. Hurricane timing is inherently unpredictable. Related to PL017 (hurricane season refiners).</div>
+  </div>
+  <div class="card-foot"><span>Source: NOAA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL298_eia_ethanol_collapse_corn_surplus_poultry_feed</span><h3>EIA Ethanol Production Collapse &rarr; Long Protein Packers</h3></div>
+    <div class="right">commodities &middot; ~2-month hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.31</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">110.6%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-37.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.31</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>EIA weekly ethanol production dropping &gt;10% from peak signals corn demand destruction (ethanol consumes ~40% of US corn). Cheaper feed costs benefit protein packers (PPC, TSN) whose #1 input cost is corn-based feed. 5/6 events positive.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long PPC+TSN equal-weight 42d when EIA weekly ethanol production drops &gt;10% from peak</div>
+    <h4>Caveats</h4>
+    <div class="caveat">N=6 events, t-stat 1.31. MaxDD -37.2% driven by 2008 financial crisis event. Ethanol production collapse can signal broader economic weakness that hurts meat demand. Feed cost is only one input &mdash; cattle prices matter more. Related to PL272 (slaughter recovery packers) and PL012 (cattle on feed).</div>
+  </div>
+  <div class="card-foot"><span>Source: EIA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL292_eia_coal_stockpile_low_days_burn_producer_long</span><h3>EIA Coal Stockpiles Low Days-of-Burn &rarr; Long Coal Producer</h3></div>
+    <div class="right">energy &middot; ~6-week hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.48</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">145.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-44.4%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">1.02</div><div class="ml">t-stat</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When EIA power plant coal stockpiles fall below 60 days-of-burn, utilities must procure urgently, giving coal producers (BTU) pricing power. 3/6 events positive but winners were outsized. Extreme CAGR inflated by 2021-2022 energy crisis events.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long BTU 30d when EIA coal stockpiles fall below 60 days-of-burn</div>
+    <h4>Caveats</h4>
+    <div class="caveat">Only N=6 events, t-stat 1.02 weak. MaxDD -44.4% is severe (single-stock risk). Win rate only 50% &mdash; BTU is extremely volatile. Coal is a declining sector with structural headwinds. ARCH and CEIX were intended but unavailable on yfinance. Related to PL090 (Henry Hub below cash cost).</div>
+  </div>
+  <div class="card-foot"><span>Source: EIA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>

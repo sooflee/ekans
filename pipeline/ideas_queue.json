@@ -8721,7 +8721,7 @@
   {
     "idea_id": "PL327",
     "created_at": "2026-05-27T00:00:57.403303+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "BEA GDP Advance Beat vs Atlanta Fed GDPNow -> Growth Surprise Rotation",
     "category": "G",
     "asset_class": "equities",
@@ -8748,7 +8748,7 @@
   {
     "idea_id": "PL328",
     "created_at": "2026-05-27T00:00:57.403303+00:00",
-    "status": "claimed",
+    "status": "developed",
     "name": "NOAA PDO Phase Shift to Positive -> Multi-Year Agricultural Productivity Boost",
     "category": "J",
     "asset_class": "equities",
@@ -8774,7 +8774,7 @@
   {
     "idea_id": "PL329",
     "created_at": "2026-05-27T00:00:57.403303+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Census Trade Data Rare Earth Import Disruption -> Domestic Processor Premium",
     "category": "G",
     "asset_class": "equities",
@@ -8796,5 +8796,163 @@
     "source_reference": "Census Bureau trade statistics and DOD critical minerals strategy",
     "research_phase": "pipeline_scout",
     "dedup_key": "census_rare_earth_import_disruption_domestic_mp"
+  },
+  {
+    "idea_id": "PL330",
+    "created_at": "2026-05-27T00:01:29.514028+00:00",
+    "status": "new",
+    "name": "CBP Monthly Tariff Revenue Spike -> Import Cost Pass-Through -> Dollar Store Margin Squeeze",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "CBP publishes monthly trade and tariff revenue statistics. When tariff revenue spikes >25% YoY (indicating increased tariff rates or enforcement on consumer goods), the cost increase flows through to importers with low pricing power. Dollar stores (DLTR, DG) with fixed price points cannot pass through costs, facing margin compression. Conversely, warehouse clubs (COST) with flexible pricing pass through and benefit from trade-down behavior.",
+    "causal_chain": [
+      "1. CBP tariff revenue spikes >25% YoY on consumer goods categories (free data)",
+      "2. Import cost increase flows to retailers within 30-60 days",
+      "3. Fixed-price retailers cannot pass through, face margin compression",
+      "4. Flexible-price retailers (warehouse clubs) pass through and gain share",
+      "5. Long COST on tariff spike (trade-down beneficiary with pricing flexibility)"
+    ],
+    "data_sources": [
+      "CBP monthly trade statistics (free)",
+      "yfinance (COST, DLTR, DG)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "CBP trade statistics and tariff pass-through analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cbp_tariff_revenue_spike_warehouse_club_long"
+  },
+  {
+    "idea_id": "PL331",
+    "created_at": "2026-05-27T00:01:29.514028+00:00",
+    "status": "new",
+    "name": "USGS Colorado River Flow Below Critical -> Water Utility Emergency Capex",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "USGS real-time streamflow data at key Colorado River gauges (Lee Ferry, Hoover Dam inflows) shows water supply for 40M people. When monthly average flow drops below 50% of historical median for 3+ months, mandatory water conservation and alternative supply projects accelerate. Water utilities serving Phoenix, Las Vegas, and SoCal must invest urgently in recycled water, desalination, and conservation infrastructure.",
+    "causal_chain": [
+      "1. USGS streamflow at Lee Ferry < 50% of median for 3+ months (free real-time)",
+      "2. Bureau of Reclamation triggers shortage declarations and allocation cuts",
+      "3. Municipal water utilities accelerate emergency supply investments",
+      "4. Water technology and infrastructure companies see project pipeline growth",
+      "5. Long water infrastructure (XYL, AWK, WMS) on Colorado River crisis signal"
+    ],
+    "data_sources": [
+      "USGS NWIS real-time streamflow data (free)",
+      "yfinance (XYL, AWK, WMS)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "USGS NWIS streamflow data and Bureau of Reclamation shortage guidelines",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_colorado_river_low_flow_water_utility_capex"
+  },
+  {
+    "idea_id": "PL332",
+    "created_at": "2026-05-27T00:01:29.514028+00:00",
+    "status": "new",
+    "name": "FTC HSR Filing Count Surge -> M&A Cycle Inflection -> Advisory Fee Revenue",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "FTC publishes annual HSR (Hart-Scott-Rodino) premerger notification filing statistics, and quarterly transaction counts are estimable from SEC filings. When HSR filings surge >30% above trailing 4-quarter average, it signals an M&A cycle acceleration. Investment banks and boutique advisory firms (EVR, PJT, LAZ, HLI) see fee revenue acceleration 1-2 quarters later as deals close.",
+    "causal_chain": [
+      "1. FTC HSR filing count surges >30% above trailing average (free annual/est quarterly)",
+      "2. Filing surge signals deal pipeline filling across sectors",
+      "3. Advisory mandates convert to fees upon deal completion (3-6 month lag)",
+      "4. Investment banks and advisory boutiques see revenue acceleration",
+      "5. Long M&A advisory boutiques (EVR, PJT, LAZ) on HSR filing surge"
+    ],
+    "data_sources": [
+      "FTC HSR Annual Report (free)",
+      "SEC filing analysis",
+      "yfinance (EVR, PJT, LAZ)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FTC Hart-Scott-Rodino annual report on premerger notification filings",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ftc_hsr_filing_surge_ma_advisory_revenue"
+  },
+  {
+    "idea_id": "PL333",
+    "created_at": "2026-05-27T00:02:02.388025+00:00",
+    "status": "new",
+    "name": "DOE AFDC EV Registration Surge -> Charging Infrastructure Demand Acceleration",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "thesis": "DOE Alternative Fuels Data Center (AFDC) tracks EV registrations by state. When quarterly EV registrations show >40% YoY growth in states with low charger-to-EV ratios (below 1:20), it signals an imminent charging infrastructure buildout. NEVI formula funding flows to states based on EV adoption, benefiting EVSE manufacturers and installation companies.",
+    "causal_chain": [
+      "1. DOE AFDC shows EV registrations >40% YoY in low-charger-ratio states (free)",
+      "2. Charger-to-EV ratio drops below 1:20, creating charging deserts",
+      "3. NEVI formula funding triggers for states meeting EV corridor requirements",
+      "4. EVSE manufacturers and contractors see funded order backlog growth",
+      "5. Long EVSE companies (CHPT, BLNK) on DOE registration/charger gap signal"
+    ],
+    "data_sources": [
+      "DOE AFDC (free)",
+      "NEVI state plans (public)",
+      "yfinance (CHPT, BLNK)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "DOE Alternative Fuels Data Center and NEVI formula program",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_afdc_ev_registration_charger_gap_evse"
+  },
+  {
+    "idea_id": "PL334",
+    "created_at": "2026-05-27T00:02:02.388025+00:00",
+    "status": "new",
+    "name": "BLS Terms of Trade Improvement -> Export-Heavy Industrial Margin Expansion",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-8 weeks",
+    "thesis": "BLS publishes monthly import and export price indices. When the export/import price ratio improves for 3+ consecutive months (export prices rising faster than import prices), US terms of trade improve. Export-heavy industrial companies see margin expansion as they sell at higher prices while input costs (imported materials) decline. This cross-domain signal is overlooked vs individual CPI/PPI focus.",
+    "causal_chain": [
+      "1. BLS export/import price ratio improving for 3+ months (free monthly)",
+      "2. US terms of trade improving = selling high, buying low",
+      "3. Export-heavy industrials see revenue per unit rising vs input costs",
+      "4. Margin expansion flows to earnings ahead of analyst revisions",
+      "5. Long export-heavy industrials (CAT, DE, EMR) on terms of trade signal"
+    ],
+    "data_sources": [
+      "BLS import/export price indices via FRED (free)",
+      "yfinance (CAT, DE, EMR)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BLS international price program and terms of trade economic analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_terms_of_trade_improvement_industrial_margin"
+  },
+  {
+    "idea_id": "PL335",
+    "created_at": "2026-05-27T00:02:02.388025+00:00",
+    "status": "new",
+    "name": "NASA GRACE Groundwater Mass Loss Acceleration -> Precision Ag Water Tech",
+    "category": "K",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "NASA GRACE/GRACE-FO satellite data measures terrestrial water storage anomalies, revealing groundwater depletion rates invisible to surface monitoring. When major agricultural aquifer regions (Central Valley, Ogallala, Indo-Gangetic) show accelerating mass loss (>20 mm/year equivalent water thickness decline), regulatory response forces precision agriculture water technology adoption. Long ag-tech and irrigation companies.",
+    "causal_chain": [
+      "1. NASA GRACE-FO data shows accelerating groundwater mass loss (free public data)",
+      "2. Satellite evidence triggers regulatory and political response",
+      "3. State/federal water agencies impose pumping caps and efficiency mandates",
+      "4. Farmers forced to adopt precision irrigation, soil moisture sensors, variable rate",
+      "5. Long precision ag companies (LNN, AGCO precision, DE tech) on GRACE signal"
+    ],
+    "data_sources": [
+      "NASA GRACE-FO terrestrial water storage (free)",
+      "yfinance (LNN, DE, AGCO)"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "NASA GRACE-FO data products and groundwater depletion research literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nasa_grace_groundwater_depletion_precision_ag"
   }
 ]

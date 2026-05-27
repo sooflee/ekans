@@ -10206,5 +10206,152 @@
     "implementation_notes": "USDA export sales data is freely downloadable in CSV format. The 'Unknown Destinations' coding is standard USDA practice when the final buyer's country hasn't been confirmed at booking time. SOYB ETF tracks soybean futures but with tracking error and contango effects. ZS=F provides purer soybean exposure for longer history. The signal is well-known among agricultural commodity traders but underutilized by equity-focused investors. The 1.5M MT threshold may need adjustment; if fewer than 5 events, try 1.0M MT. bt_feasibility is 4 because USDA data is clean, free, and the mechanism is direct.",
     "originality": 8,
     "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL329",
+    "idea_id": "PL329",
+    "created_at": "2026-05-27T00:01:22.170699+00:00",
+    "status": "ready",
+    "signal_id": "PL329_census_rare_earth_import_disruption_domestic_mp",
+    "name": "Census Trade Data Rare Earth Import Disruption -> Domestic Processor Premium",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-8 weeks",
+    "rule": "Using yfinance data: 1. Census trade data shows Chinese rare earth imports to US drop >30% MoM (free) Long (MP) for 42 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "(MP)",
+      "SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance (MP), SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Load fundamental data. Identify signal events. Long (MP) for 42 days per event. Compute per-trade returns and aggregate metrics vs SPY.",
+    "originality": 7,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL323",
+    "idea_id": "PL323",
+    "created_at": "2026-05-27T00:01:37.890152+00:00",
+    "status": "ready",
+    "signal_id": "PL323_temp_help_recovery_cyclical_long",
+    "name": "FRED Temp Help Employment YoY Turns Positive -> Long Staffing + Small-Cap Cyclicals",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Use FRED TEMPHELPS (All Employees, Temporary Help Services). When YoY growth turns positive after 3+ consecutive months of negative YoY growth, the early-cycle recovery is confirmed. Temp help is a well-known leading indicator: firms hire temps before committing to permanent headcount. Long RHI+MAN+IWM equal-weight for 63 trading days. Benchmark vs SPY.",
+    "tickers": [
+      "RHI",
+      "MAN",
+      "IWM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FRED TEMPHELPS YoY growth turns positive (crosses above 0%)",
+      "Must have been negative for at least 3 consecutive prior months",
+      "No signal in prior 6 months (cooldown to avoid duplicate entries in same cycle)"
+    ],
+    "exit_conditions": [
+      "Hold for 63 trading days (approximately 3 months)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance RHI, MAN, IWM, SPY",
+      "fundamental": "FRED TEMPHELPS"
+    },
+    "backtest_approach": "Load FRED TEMPHELPS monthly. Compute YoY % change. Track consecutive negative months. When YoY crosses above 0% after 3+ months negative, and no signal in prior 6 months, enter long RHI+MAN+IWM equal-weight. Hold 63 trading days. Compute per-event returns and aggregate metrics vs SPY. Expected 5-6 signal events from 2002-2024.",
+    "known_events": [
+      "2002-11: post-dot-com recovery signal",
+      "2003-07: sustained recovery confirmation",
+      "2010-02: post-GFC recovery signal",
+      "2016-09: mid-cycle recovery after mini-industrial-recession",
+      "2021-03: post-COVID recovery signal"
+    ],
+    "implementation_notes": "TEMPHELPS is monthly, seasonally adjusted. RHI (Robert Half) and MAN (ManpowerGroup) are pure-play staffing firms that benefit directly from temp hiring recovery. IWM (Russell 2000) captures broader small-cap cyclical recovery. HSON (Heidrick & Struggles) is delisted, excluded. This is a well-known leading indicator but the specific long-basket construction adds alpha potential.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL327",
+    "idea_id": "PL327",
+    "created_at": "2026-05-27T00:02:05.209645+00:00",
+    "status": "ready",
+    "signal_id": "PL327_gdp_advance_beat_gdpnow_cyclical",
+    "name": "BEA GDP Advance Beat vs Atlanta Fed GDPNow -> Growth Surprise Rotation",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "rule": "Using yfinance and BEA/Atlanta Fed data: When BEA GDP advance estimate exceeds the final Atlanta Fed GDPNow estimate by > 0.5 percentage points (annualized), go long an equal-weight basket of cyclical sector ETFs (XLI, XLB, XLF) on the GDP release date. Hold for 15 trading days. Benchmark vs SPY. BEA GDP advance published ~30 days after quarter end (late January, April, July, October). GDPNow final estimate published on last business day before GDP release.",
+    "tickers": [
+      "XLI",
+      "XLB",
+      "XLF",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "BEA GDP advance estimate exceeds final GDPNow estimate by > 0.5 percentage points (annualized QoQ)",
+      "Enter on BEA GDP advance release date",
+      "At most one signal per quarter"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days (approximately 3 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: XLI (Industrial Select Sector SPDR), XLB (Materials Select Sector SPDR), XLF (Financial Select Sector SPDR), SPY",
+      "fundamental": "BEA GDP advance estimate: FRED series GDP or A191RL1Q225SBEA. Atlanta Fed GDPNow: https://www.atlantafed.org/cqer/research/gdpnow (free, historical estimates archived). GDP release dates at BEA website. GDPNow has been published since 2011."
+    },
+    "backtest_approach": "Event study: For each quarter (2011Q3-2025, GDPNow inception mid-2011), compare BEA GDP advance to final GDPNow. When BEA beat GDPNow by >0.5pp, compute equal-weight XLI+XLB+XLF return over 15 trading days vs SPY. Calculate average excess return, win rate, t-statistic. The GDPNow model is designed to converge to the advance estimate, so large divergences are relatively rare (expect 5-12 events over 14 years). If too few at 0.5pp, relax to 0.3pp.",
+    "known_events": [
+      "2014 Q3: GDP advance significantly beat expectations and tracking models",
+      "2021 Q4: Strong GDP growth exceeded most nowcast estimates",
+      "2023 Q3: GDP advance of 4.9% surprised to the upside vs models"
+    ],
+    "implementation_notes": "GDPNow historical estimates are archived on the Atlanta Fed website. The 'final' GDPNow is the last estimate published before the BEA advance release (typically the day before). XLI (industrials), XLB (materials), XLF (financials) are the most GDP-sensitive sector ETFs. All three have inception Dec 1998. The 0.5pp threshold is meaningful: GDPNow typically converges to within 0.3pp of the advance estimate, so a 0.5pp miss signals genuine hidden strength not captured by standard high-frequency data. bt_feasibility is 4 because all data is free, quarterly frequency gives manageable events, and the mechanism is direct.",
+    "originality": 6,
+    "bt_feasibility": 4
+  },
+  {
+    "strategy_id": "PL328",
+    "idea_id": "PL328",
+    "created_at": "2026-05-27T00:02:05.209645+00:00",
+    "status": "ready",
+    "signal_id": "PL328_noaa_pdo_phase_shift_farm_equipment",
+    "name": "NOAA PDO Phase Shift to Positive -> Multi-Year Agricultural Productivity -> Farm Equipment Long",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "8-24 weeks",
+    "rule": "Using yfinance and NOAA PDO data: When NOAA PDO monthly index shifts from negative to positive (3-month average crosses above zero after being below zero for at least 12 consecutive months), go long an equal-weight basket of farm equipment companies (DE, AGCO, CNH) on the first trading day of the following month. Hold for 60 trading days. Benchmark vs SPY. NOAA PDO index published monthly. The 12-month negative prerequisite ensures this captures genuine phase shifts, not noise.",
+    "tickers": [
+      "DE",
+      "AGCO",
+      "CNH",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOAA PDO 3-month moving average crosses above zero",
+      "Prior 12 months of 3-month average were all below zero (genuine negative phase ending)",
+      "Enter on first trading day of month following the crossover month",
+      "Signal fires at most once per multi-year PDO cycle"
+    ],
+    "exit_conditions": [
+      "Hold for 60 trading days (approximately 12 weeks)",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: DE (Deere & Company), AGCO (AGCO Corporation), CNH (CNH Industrial), SPY",
+      "fundamental": "NOAA PDO index: https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.pdo.dat (free). Monthly index values since 1854. Also available via NOAA Climate Prediction Center."
+    },
+    "backtest_approach": "Event study: For each PDO negative-to-positive phase transition (1990-2025), compute equal-weight DE+AGCO+CNH return over 60 trading days vs SPY. PDO phase shifts are rare (roughly 20-30 year cycles with shorter fluctuations). Major shifts: ~1998 (negative started), ~2014 (brief positive), ~2023 (potential positive shift). Given rarity (~2-4 events in 35 years), this is a low-frequency signal. Supplement with medium-term PDO fluctuations (12-month negative then positive) which occur more frequently. Calculate cumulative excess return per event.",
+    "known_events": [
+      "1977: PDO shifted to warm/positive phase (lasted until ~1998)",
+      "1998-1999: PDO shifted to cool/negative phase",
+      "2014-2015: Brief positive PDO excursion",
+      "2023-2024: Potential PDO positive phase shift"
+    ],
+    "implementation_notes": "PDO phase shifts are decadal-scale phenomena; the 12-month negative prerequisite captures genuine transitions but may produce only 2-4 events in the backtest window. AGCO IPO was 1994, CNH IPO (as CNH Global) was 1999 (re-IPO as CNH Industrial 2013). DE has data back to 1970s. The agricultural mechanism (precipitation patterns -> crop yields -> farm income -> equipment demand) operates with significant lag (12-24 months), so the 60 trading day hold may not capture the full effect. bt_feasibility is 3 due to extremely low signal frequency. The backtester should also consider running a regression of PDO on DE returns to assess correlation at monthly frequency as a supplement to the event study.",
+    "originality": 9,
+    "bt_feasibility": 3
   }
 ]
