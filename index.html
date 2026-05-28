@@ -361,9 +361,9 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-#tab-catalog { padding: 0; max-width: 1280px; margin: 0 auto; }
-#tab-catalog iframe {
-  width: 100%; border: none; min-height: calc(100vh - 100px);
+#tab-catalog, #tab-portfolio, #tab-analysis { padding: 0; max-width: 1280px; margin: 0 auto; }
+#tab-catalog iframe, #tab-portfolio iframe, #tab-analysis iframe {
+  width: 100%; border: none; min-height: calc(100vh - 100px); display: block;
 }
 #tab-validation .layout { grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
 #tab-validation .card { margin: 0 0 14px 0; }
