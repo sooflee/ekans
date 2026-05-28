@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio Analysis — Trading Signals Research</title>
+<style>
+:root {
+  --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
+  --fg: #e6e9ef; --fg-dim: #9ca3af;
+  --accent: #7dd3fc; --good: #34d399; --bad: #f87171; --warn: #fbbf24;
+  --border: #2d3548;
+}
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+h1 { font-size: 1.5em; margin-bottom: 4px; }
+h2 { font-size: 1.2em; margin: 40px 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.sub { color: var(--fg-dim); font-size: 13px; margin-bottom: 24px; }
+.disclaimer { background: rgba(251,191,36,0.08); border-left: 3px solid var(--warn); padding: 10px 14px; border-radius: 4px; font-size: 12px; color: var(--fg-dim); margin: 16px 0; line-height: 1.5; }
+.disclaimer strong { color: var(--warn); }
+.stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
+.stat-box { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; min-width: 120px; }
+.stat-box .v { font-size: 1.6em; font-weight: 700; font-family: "SF Mono", monospace; }
+.stat-box .l { color: var(--fg-dim); font-size: 11px; margin-top: 2px; }
+.pos { color: var(--good); } .neg { color: var(--bad); } .dim { color: var(--fg-dim); }
+canvas { display: block; width: 100%; margin: 12px 0; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 24px; }
+th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--fg-dim); font-size: 11px; text-transform: uppercase; }
+td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+.name-col { max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.scroll-x { overflow-x: auto; }
+
+.active-card { background: var(--bg-2); border: 1px solid var(--good); border-radius: 8px; padding: 16px; margin: 10px 0; }
+.active-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.active-name { font-weight: 700; font-size: 15px; }
+.active-position { background: rgba(52,211,153,0.15); color: var(--good); padding: 3px 10px; border-radius: 4px; font-weight: 600; font-size: 13px; }
+.active-reason { color: var(--fg-dim); font-size: 13px; margin: 4px 0; }
+.active-tickers { font-size: 13px; margin: 4px 0; }
+.active-meta { font-size: 12px; color: var(--fg-dim); }
+
+.inactive-card { display: flex; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 13px; opacity: 0.5; }
+.inactive-name { font-weight: 600; min-width: 200px; }
+.inactive-reason { color: var(--fg-dim); }
+
+.ticker-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.ticker-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; min-width: 140px; text-align: center; }
+.ticker-card.long { border-color: var(--good); }
+.ticker-card.short { border-color: var(--bad); }
+.ticker-sym { font-size: 1.3em; font-weight: 700; font-family: "SF Mono", monospace; }
+.ticker-card.long .ticker-sym { color: var(--good); }
+.ticker-card.short .ticker-sym { color: var(--bad); }
+.ticker-dir { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 2px 0; }
+.ticker-card.long .ticker-dir { color: var(--good); }
+.ticker-card.short .ticker-dir { color: var(--bad); }
+.ticker-count { font-size: 11px; color: var(--fg-dim); }
+.ticker-signals { font-size: 10px; color: var(--fg-dim); margin-top: 4px; }
+
+.nav-links { display: flex; gap: 12px; margin: 12px 0; font-size: 13px; }
+.nav-links a { color: var(--accent); text-decoration: none; padding: 6px 12px; background: var(--bg-3); border-radius: 6px; border: 1px solid var(--border); }
+.nav-links a:hover { background: var(--accent); color: var(--bg); }
+
+.legend { display: flex; gap: 16px; font-size: 12px; color: var(--fg-dim); margin: 8px 0; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 16px; height: 3px; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Portfolio Analysis</h1>
+<p class="sub">Equal-weight portfolio of 31 uncorrelated winning signals vs SPY buy-and-hold</p>
+
+<div class="nav-links">
+  <a href="index.html">Signals</a>
+  <a href="full_catalog.html">Full Catalog</a>
+  <a href="analysis.html">Analysis</a>
+</div>
+
+<div class="disclaimer">
+<strong>Not investment advice.</strong> All backtests use free public data with no transaction costs, slippage, or taxes.
+The "currently active" signals reflect mechanical rule-checking, not a recommendation to trade.
+Past performance is not predictive of future results. Do your own research.
+</div>
+
+<div class="stat-row">
+  <div class="stat-box"><div class="v pos">1.06</div><div class="l">Portfolio Sharpe</div></div>
+  <div class="stat-box"><div class="v pos">21.0%</div><div class="l">Raw CAGR</div></div>
+  <div class="stat-box"><div class="v">19.9%</div><div class="l">Raw Vol</div></div>
+  <div class="stat-box"><div class="v neg">-53.1%</div><div class="l">Raw MaxDD</div></div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-box"><div class="v pos">15.9%</div><div class="l">Vol-Targeted CAGR (0.8x lever)</div></div>
+  <div class="stat-box"><div class="v">15.0%</div><div class="l">Target Vol</div></div>
+  <div class="stat-box"><div class="v neg">-42.7%</div><div class="l">Vol-Targeted MaxDD</div></div>
+  <div class="stat-box"><div class="v">31</div><div class="l">Signals</div></div>
+  <div class="stat-box"><div class="v">36.6</div><div class="l">Years</div></div>
+</div>
+
+<div class="disclaimer" style="background: rgba(125,211,252,0.05); border-color: var(--accent);">
+The portfolio's <strong>raw</strong> figures average across 31 signals, most of which sit in cash most of the time, so volatility (and CAGR) look small. The <strong>vol-targeted</strong> figures scale the same daily PnL stream up by 0.8x to match SPY-like 15% annual volatility — this is the apples-to-apples comparison.
+</div>
+
+<h2>Equity Curve</h2>
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background: var(--good)"></div> Portfolio (vol-targeted to 15%)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background: var(--accent)"></div> Portfolio (raw)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background: var(--fg-dim)"></div> SPY Buy & Hold</div>
+</div>
+<canvas id="eq-chart" height="380"></canvas>
+
+<h2>Currently Active Signals</h2>
+<p style="color: var(--fg-dim); font-size: 13px; margin-bottom: 12px;">
+Signals whose trading rules are currently generating positions as of May 2026.
+</p>
+
+<h3 style="font-size: 14px; color: var(--fg-dim); margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.05em;">Ticker Summary</h3>
+<div class="ticker-grid"><div class="ticker-card short">
+<div class="ticker-sym">AEP</div>
+<div class="ticker-dir">SHORT</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AG-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">AMSC</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div><div class="ticker-card short">
+<div class="ticker-sym">BF-B</div>
+<div class="ticker-dir">SHORT</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AI-4</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">BTC-USD</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">P6_howell_liquidity_btc</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">CRDO</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AS-B</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">ETN</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">HUBB</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">MOD</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">MPC</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AM-1</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">MRVL</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AS-B</div>
+</div><div class="ticker-card short">
+<div class="ticker-sym">NEE</div>
+<div class="ticker-dir">SHORT</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AG-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">PSX</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AM-1</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">PWR</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">SPY</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">3 signals</div>
+<div class="ticker-signals">V3_felder_margin_debt_gdp, C07_accel_dual_momentum, C08_yield_curve_10y2y</div>
+</div><div class="ticker-card short">
+<div class="ticker-sym">STZ</div>
+<div class="ticker-dir">SHORT</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AI-4</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">VLO</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AM-1</div>
+</div><div class="ticker-card long">
+<div class="ticker-sym">VRT</div>
+<div class="ticker-dir">LONG</div>
+<div class="ticker-count">1 signal</div>
+<div class="ticker-signals">AE-2</div>
+</div></div>
+
+<div class="active-card">
+<div class="active-header">
+  <span class="active-name">V3 Felder margin-debt/GDP roll</span>
+  <span class="active-position">100% SPY</span>
+</div>
+<div class="active-reason">Margin debt/GDP YoY is positive — fully invested</div>
+<div class="active-tickers">Tickers: <strong>SPY</strong></div>
+<div class="active-meta">Sharpe: 0.78 | OOS Sharpe: 0.93</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">C07 Accelerating Dual Momentum</span>
+  <span class="active-position">Long SPY</span>
+</div>
+<div class="active-reason">SPY has highest avg(1m,3m,6m) momentum at +9.0% vs SCZ +7.2% and TLT -2.8%</div>
+<div class="active-tickers">Tickers: <strong>SPY</strong></div>
+<div class="active-meta">Sharpe: 0.74 | OOS Sharpe: 0.63</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">C08 Yield curve (10Y-2Y) inversion timer</span>
+  <span class="active-position">50% SPY (reduced)</span>
+</div>
+<div class="active-reason">10Y-2Y spread at +0.48, just below the +0.50 all-clear threshold after inversion</div>
+<div class="active-tickers">Tickers: <strong>SPY</strong></div>
+<div class="active-meta">Sharpe: 0.65 | OOS Sharpe: 0.86</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">P6 Howell Liquidity BTC</span>
+  <span class="active-position">Long BTC</span>
+</div>
+<div class="active-reason">Global CB liquidity proxy trending positive and accelerating</div>
+<div class="active-tickers">Tickers: <strong>BTC-USD</strong></div>
+<div class="active-meta">Sharpe: 1.04 | OOS Sharpe: 1.34</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">AG-2 from 2022-07-01</span>
+  <span class="active-position">Long ETN+HUBB, Short NEE+AEP</span>
+</div>
+<div class="active-reason">Transformer lead times still &gt;100 weeks — grid equipment demand exceeds supply</div>
+<div class="active-tickers">Tickers: <strong>ETN, HUBB, NEE, AEP</strong></div>
+<div class="active-meta">Sharpe: 0.66 | OOS Sharpe: 0.20</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">AS-B Custom Silicon</span>
+  <span class="active-position">Long MRVL+CRDO</span>
+</div>
+<div class="active-reason">Custom silicon regime trade — hyperscaler ASIC demand continues accelerating</div>
+<div class="active-tickers">Tickers: <strong>MRVL, CRDO</strong></div>
+<div class="active-meta">Sharpe: 1.58 | OOS Sharpe: 2.14</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">GLP-1 → Short BF-B+STZ</span>
+  <span class="active-position">Short BF-B+STZ</span>
+</div>
+<div class="active-reason">GLP-1 adoption continues expanding — negative for spirits consumption</div>
+<div class="active-tickers">Tickers: <strong>BF-B, STZ</strong></div>
+<div class="active-meta">Sharpe: 0.60 | OOS Sharpe: 0.71</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">AM-1 Hormuz Refiner Pair</span>
+  <span class="active-position">Long VLO+PSX+MPC</span>
+</div>
+<div class="active-reason">Hormuz disruption premium — entered Mar 2026</div>
+<div class="active-tickers">Tickers: <strong>VLO, PSX, MPC</strong></div>
+<div class="active-meta">Sharpe: 1.19 | OOS Sharpe: —</div>
+</div><div class="active-card">
+<div class="active-header">
+  <span class="active-name">AE-2 Hyperscaler Capex → Power Infra</span>
+  <span class="active-position">Long ETN+VRT+PWR+HUBB+AMSC+MOD</span>
+</div>
+<div class="active-reason">All 4 hyperscalers reported capex &gt;20% YoY in recent quarters — power infra beneficiaries</div>
+<div class="active-tickers">Tickers: <strong>ETN, VRT, PWR, HUBB, AMSC, MOD</strong></div>
+<div class="active-meta">Sharpe: 1.23 | OOS Sharpe: 0.52</div>
+</div>
+
+<h3 style="font-size: 14px; color: var(--fg-dim); margin: 30px 0 10px; text-transform: uppercase; letter-spacing: 0.05em;">Currently Flat</h3>
+<div class="inactive-card">
+<span class="inactive-name">H07 Puell Multiple</span>
+<span class="inactive-reason">Puell Multiple between 0.5 and 3.0 — no trigger</span>
+</div><div class="inactive-card">
+<span class="inactive-name">A14 BTC halving cycle</span>
+<span class="inactive-reason">Last halving Apr 2024, H+18mo expired Oct 2025</span>
+</div><div class="inactive-card">
+<span class="inactive-name">AR-1 Carrier Exit → Long LTL</span>
+<span class="inactive-reason">Freight trough Oct 2024 trade expired Oct 2025</span>
+</div><div class="inactive-card">
+<span class="inactive-name">AQ-1 Copper Marginal Cost Floor</span>
+<span class="inactive-reason">Copper at $6.30/lb, well above marginal cost floor</span>
+</div>
+
+<h2>Portfolio Components (31 signals)</h2>
+<div class="scroll-x">
+<table>
+<thead><tr><th>ID</th><th>Name</th><th>Sharpe</th><th>OOS Sharpe</th><th>CAGR</th><th>N Days</th><th>BH Sig</th><th>Group</th></tr></thead>
+<tbody><tr>
+<td>AC-4</td><td class="name-col">AC-4 India Union Budget defense tilt</td>
+<td>1.43</td><td>—</td>
+<td>60.5%</td><td>83</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AC-6</td><td class="name-col">AC-6 Saudi breakeven Brent bull</td>
+<td>2.84</td><td>2.94</td>
+<td>147.7%</td><td>357</td>
+<td class="pos">YES</td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AE-1</td><td class="name-col">AE-1 PJM BRA Spike</td>
+<td>1.13</td><td>1.60</td>
+<td>46.5%</td><td>182</td>
+<td class=""></td>
+<td class="dim">Cluster 3 (2 correlated signals)</td>
+</tr><tr>
+<td>AF-3</td><td class="name-col">AF-3 Freight Spike → Short Retail</td>
+<td>0.89</td><td>—</td>
+<td>22.1%</td><td>93</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AG-5</td><td class="name-col">AG-5 Monsoon Failure → Sugar</td>
+<td>1.46</td><td>1.95</td>
+<td>54.0%</td><td>254</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AI-3</td><td class="name-col">Patent Cliff → Long ELV+CI</td>
+<td>0.56</td><td>1.01</td>
+<td>11.1%</td><td>360</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AI-4</td><td class="name-col">GLP-1 → Short BF-B+STZ</td>
+<td>0.60</td><td>0.71</td>
+<td>13.1%</td><td>747</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AJ-1</td><td class="name-col">Canada Wildfire → Long WOOD</td>
+<td>2.33</td><td>2.67</td>
+<td>38.8%</td><td>120</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AJ-4</td><td class="name-col">USDA G+E Drop → Long Corn</td>
+<td>1.13</td><td>2.63</td>
+<td>48.4%</td><td>160</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AK-2</td><td class="name-col">AK-2 FAA Hub Capacity Airline</td>
+<td>0.95</td><td>1.06</td>
+<td>39.2%</td><td>171</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AM-1</td><td class="name-col">AM-1 Hormuz Refiner Pair</td>
+<td>1.19</td><td>—</td>
+<td>55.8%</td><td>59</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AQ-1</td><td class="name-col">AQ-1 Copper Marginal Cost Floor</td>
+<td>1.79</td><td>1.42</td>
+<td>45.8%</td><td>756</td>
+<td class="pos">YES</td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>AR-1</td><td class="name-col">AR-1 Carrier Exit → Long LTL</td>
+<td>0.87</td><td>0.51</td>
+<td>33.0%</td><td>1009</td>
+<td class=""></td>
+<td class="dim">Cluster 4 (2 correlated signals)</td>
+</tr><tr>
+<td>AR-3</td><td class="name-col">AR-3 Cass Freight YoY → Long LTL</td>
+<td>2.58</td><td>2.20</td>
+<td>97.7%</td><td>251</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>F9_ustr_s301</td><td class="name-col">F9 USTR Section 301 comment-close basket</td>
+<td>1.75</td><td>—</td>
+<td>37.2%</td><td>60</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>G07_warn_act_layoffs</td><td class="name-col">G07 WARN Act short-event composite</td>
+<td>0.94</td><td>2.72</td>
+<td>26.0%</td><td>219</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>H07_puell_multiple</td><td class="name-col">H07 Puell Multiple</td>
+<td>0.87</td><td>0.78</td>
+<td>28.7%</td><td>3905</td>
+<td class="pos">YES</td>
+<td class="dim">Cluster 5 (2 correlated signals)</td>
+</tr><tr>
+<td>L6_sec_nt_10k</td><td class="name-col">L6 SEC NT 10-K/Q short 21d</td>
+<td>0.55</td><td>0.47</td>
+<td>16.3%</td><td>2772</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>O4_btc_mempool</td><td class="name-col">O4 BTC mempool&gt;90p -&gt; long miners 20d</td>
+<td>0.73</td><td>0.60</td>
+<td>32.7%</td><td>2360</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>O5_btc_difficulty_drop</td><td class="name-col">O5 BTC difficulty drop -&gt; long miners 14d</td>
+<td>0.80</td><td>0.81</td>
+<td>32.5%</td><td>2360</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>P6_howell_liquidity_btc</td><td class="name-col">P6 Howell Liquidity BTC</td>
+<td>1.04</td><td>1.34</td>
+<td>42.9%</td><td>4269</td>
+<td class="pos">YES</td>
+<td class="dim">Cluster 2 (6 correlated signals)</td>
+</tr><tr>
+<td>PL439_asce_water_grade_decline_utility_capex</td><td class="name-col">ASCE Water Grade -&gt; AWK Long</td>
+<td>0.87</td><td>1.44</td>
+<td>17.0%</td><td>399</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>PL472_baltic_ffa_contango_drybulk_recovery</td><td class="name-col">BDI Trough Recovery -&gt; Dry Bulk Long</td>
+<td>1.11</td><td>2.28</td>
+<td>88.5%</td><td>172</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>PL478_jolts_industry_divergence_sector_rotation_long</td><td class="name-col">JOLTS Divergence -&gt; Sector Rotation</td>
+<td>2.31</td><td>2.02</td>
+<td>80.2%</td><td>251</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>PL489_doe_iac_energy_efficiency_equipment</td><td class="name-col">DOE IAC -&gt; ROK+EMR Long</td>
+<td>0.80</td><td>2.52</td>
+<td>17.5%</td><td>240</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>R-D11_short_interest</td><td class="name-col">FINRA SVR low-minus-high (sextile, monthly)</td>
+<td>0.79</td><td>0.68</td>
+<td>13.7%</td><td>252</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>ST-3</td><td class="name-col">ST-3 Solar Tariff Pair</td>
+<td>0.84</td><td>0.57</td>
+<td>22.6%</td><td>510</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>U15_china_antimony_licenses</td><td class="name-col">U15 China Sb licence backlog -&gt; long PPTA+UAMY 30d</td>
+<td>1.33</td><td>0.72</td>
+<td>89.4%</td><td>397</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>V3_felder_margin_debt_gdp</td><td class="name-col">V3 Felder margin-debt/GDP roll</td>
+<td>0.78</td><td>0.93</td>
+<td>11.2%</td><td>7901</td>
+<td class="pos">YES</td>
+<td class="dim">Cluster 1 (11 correlated signals)</td>
+</tr><tr>
+<td>Z4_wells_to_litigation_gap</td><td class="name-col">Z4 Wells-&gt;litigation gap short 120d</td>
+<td>0.66</td><td>0.56</td>
+<td>23.0%</td><td>914</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr><tr>
+<td>Z6_antitrust_reversion</td><td class="name-col">Z6 Antitrust reversion long 90d</td>
+<td>0.70</td><td>0.84</td>
+<td>16.4%</td><td>1120</td>
+<td class=""></td>
+<td class="dim">Independent</td>
+</tr></tbody>
+</table>
+</div>
+
+<div style="text-align:center; color: var(--fg-dim); margin-top: 32px; padding: 16px; font-size: 12px;">
+Generated by <code>build_portfolio.py</code>. <a href="analysis.html">Full analysis</a> | <a href="index.html">Signal catalog</a>
+</div>
+
+</div>
+
+<script>
+const DATES = ["1995-01-08", "1995-01-15", "1995-01-22", "1995-01-29", "1995-02-05", "1995-02-12", "1995-02-19", "1995-02-26", "1995-03-05", "1995-03-12", "1995-03-19", "1995-03-26", "1995-04-02", "1995-04-09", "1995-04-16", "1995-04-23", "1995-04-30", "1995-05-07", "1995-05-14", "1995-05-21", "1995-05-28", "1995-06-04", "1995-06-11", "1995-06-18", "1995-06-25", "1995-07-02", "1995-07-09", "1995-07-16", "1995-07-23", "1995-07-30", "1995-08-06", "1995-08-13", "1995-08-20", "1995-08-27", "1995-09-03", "1995-09-10", "1995-09-17", "1995-09-24", "1995-10-01", "1995-10-08", "1995-10-15", "1995-10-22", "1995-10-29", "1995-11-05", "1995-11-12", "1995-11-19", "1995-11-26", "1995-12-03", "1995-12-10", "1995-12-17", "1995-12-24", "1995-12-31", "1996-01-07", "1996-01-14", "1996-01-21", "1996-01-28", "1996-02-04", "1996-02-11", "1996-02-18", "1996-02-25", "1996-03-03", "1996-03-10", "1996-03-17", "1996-03-24", "1996-03-31", "1996-04-07", "1996-04-14", "1996-04-21", "1996-04-28", "1996-05-05", "1996-05-12", "1996-05-19", "1996-05-26", "1996-06-02", "1996-06-09", "1996-06-16", "1996-06-23", "1996-06-30", "1996-07-07", "1996-07-14", "1996-07-21", "1996-07-28", "1996-08-04", "1996-08-11", "1996-08-18", "1996-08-25", "1996-09-01", "1996-09-08", "1996-09-15", "1996-09-22", "1996-09-29", "1996-10-06", "1996-10-13", "1996-10-20", "1996-10-27", "1996-11-03", "1996-11-10", "1996-11-17", "1996-11-24", "1996-12-01", "1996-12-08", "1996-12-15", "1996-12-22", "1996-12-29", "1997-01-05", "1997-01-12", "1997-01-19", "1997-01-26", "1997-02-02", "1997-02-09", "1997-02-16", "1997-02-23", "1997-03-02", "1997-03-09", "1997-03-16", "1997-03-23", "1997-03-30", "1997-04-06", "1997-04-13", "1997-04-20", "1997-04-27", "1997-05-04", "1997-05-11", "1997-05-18", "1997-05-25", "1997-06-01", "1997-06-08", "1997-06-15", "1997-06-22", "1997-06-29", "1997-07-06", "1997-07-13", "1997-07-20", "1997-07-27", "1997-08-03", "1997-08-10", "1997-08-17", "1997-08-24", "1997-08-31", "1997-09-07", "1997-09-14", "1997-09-21", "1997-09-28", "1997-10-05", "1997-10-12", "1997-10-19", "1997-10-26", "1997-11-02", "1997-11-09", "1997-11-16", "1997-11-23", "1997-11-30", "1997-12-07", "1997-12-14", "1997-12-21", "1997-12-28", "1998-01-04", "1998-01-11", "1998-01-18", "1998-01-25", "1998-02-01", "1998-02-08", "1998-02-15", "1998-02-22", "1998-03-01", "1998-03-08", "1998-03-15", "1998-03-22", "1998-03-29", "1998-04-05", "1998-04-12", "1998-04-19", "1998-04-26", "1998-05-03", "1998-05-10", "1998-05-17", "1998-05-24", "1998-05-31", "1998-06-07", "1998-06-14", "1998-06-21", "1998-06-28", "1998-07-05", "1998-07-12", "1998-07-19", "1998-07-26", "1998-08-02", "1998-08-09", "1998-08-16", "1998-08-23", "1998-08-30", "1998-09-06", "1998-09-13", "1998-09-20", "1998-09-27", "1998-10-04", "1998-10-11", "1998-10-18", "1998-10-25", "1998-11-01", "1998-11-08", "1998-11-15", "1998-11-22", "1998-11-29", "1998-12-06", "1998-12-13", "1998-12-20", "1998-12-27", "1999-01-03", "1999-01-10", "1999-01-17", "1999-01-24", "1999-01-31", "1999-02-07", "1999-02-14", "1999-02-21", "1999-02-28", "1999-03-07", "1999-03-14", "1999-03-21", "1999-03-28", "1999-04-04", "1999-04-11", "1999-04-18", "1999-04-25", "1999-05-02", "1999-05-09", "1999-05-16", "1999-05-23", "1999-05-30", "1999-06-06", "1999-06-13", "1999-06-20", "1999-06-27", "1999-07-04", "1999-07-11", "1999-07-18", "1999-07-25", "1999-08-01", "1999-08-08", "1999-08-15", "1999-08-22", "1999-08-29", "1999-09-05", "1999-09-12", "1999-09-19", "1999-09-26", "1999-10-03", "1999-10-10", "1999-10-17", "1999-10-24", "1999-10-31", "1999-11-07", "1999-11-14", "1999-11-21", "1999-11-28", "1999-12-05", "1999-12-12", "1999-12-19", "1999-12-26", "2000-01-02", "2000-01-09", "2000-01-16", "2000-01-23", "2000-01-30", "2000-02-06", "2000-02-13", "2000-02-20", "2000-02-27", "2000-03-05", "2000-03-12", "2000-03-19", "2000-03-26", "2000-04-02", "2000-04-09", "2000-04-16", "2000-04-23", "2000-04-30", "2000-05-07", "2000-05-14", "2000-05-21", "2000-05-28", "2000-06-04", "2000-06-11", "2000-06-18", "2000-06-25", "2000-07-02", "2000-07-09", "2000-07-16", "2000-07-23", "2000-07-30", "2000-08-06", "2000-08-13", "2000-08-20", "2000-08-27", "2000-09-03", "2000-09-10", "2000-09-17", "2000-09-24", "2000-10-01", "2000-10-08", "2000-10-15", "2000-10-22", "2000-10-29", "2000-11-05", "2000-11-12", "2000-11-19", "2000-11-26", "2000-12-03", "2000-12-10", "2000-12-17", "2000-12-24", "2000-12-31", "2001-01-07", "2001-01-14", "2001-01-21", "2001-01-28", "2001-02-04", "2001-02-11", "2001-02-18", "2001-02-25", "2001-03-04", "2001-03-11", "2001-03-18", "2001-03-25", "2001-04-01", "2001-04-08", "2001-04-15", "2001-04-22", "2001-04-29", "2001-05-06", "2001-05-13", "2001-05-20", "2001-05-27", "2001-06-03", "2001-06-10", "2001-06-17", "2001-06-24", "2001-07-01", "2001-07-08", "2001-07-15", "2001-07-22", "2001-07-29", "2001-08-05", "2001-08-12", "2001-08-19", "2001-08-26", "2001-09-02", "2001-09-09", "2001-09-16", "2001-09-23", "2001-09-30", "2001-10-07", "2001-10-14", "2001-10-21", "2001-10-28", "2001-11-04", "2001-11-11", "2001-11-18", "2001-11-25", "2001-12-02", "2001-12-09", "2001-12-16", "2001-12-23", "2001-12-30", "2002-01-06", "2002-01-13", "2002-01-20", "2002-01-27", "2002-02-03", "2002-02-10", "2002-02-17", "2002-02-24", "2002-03-03", "2002-03-10", "2002-03-17", "2002-03-24", "2002-03-31", "2002-04-07", "2002-04-14", "2002-04-21", "2002-04-28", "2002-05-05", "2002-05-12", "2002-05-19", "2002-05-26", "2002-06-02", "2002-06-09", "2002-06-16", "2002-06-23", "2002-06-30", "2002-07-07", "2002-07-14", "2002-07-21", "2002-07-28", "2002-08-04", "2002-08-11", "2002-08-18", "2002-08-25", "2002-09-01", "2002-09-08", "2002-09-15", "2002-09-22", "2002-09-29", "2002-10-06", "2002-10-13", "2002-10-20", "2002-10-27", "2002-11-03", "2002-11-10", "2002-11-17", "2002-11-24", "2002-12-01", "2002-12-08", "2002-12-15", "2002-12-22", "2002-12-29", "2003-01-05", "2003-01-12", "2003-01-19", "2003-01-26", "2003-02-02", "2003-02-09", "2003-02-16", "2003-02-23", "2003-03-02", "2003-03-09", "2003-03-16", "2003-03-23", "2003-03-30", "2003-04-06", "2003-04-13", "2003-04-20", "2003-04-27", "2003-05-04", "2003-05-11", "2003-05-18", "2003-05-25", "2003-06-01", "2003-06-08", "2003-06-15", "2003-06-22", "2003-06-29", "2003-07-06", "2003-07-13", "2003-07-20", "2003-07-27", "2003-08-03", "2003-08-10", "2003-08-17", "2003-08-24", "2003-08-31", "2003-09-07", "2003-09-14", "2003-09-21", "2003-09-28", "2003-10-05", "2003-10-12", "2003-10-19", "2003-10-26", "2003-11-02", "2003-11-09", "2003-11-16", "2003-11-23", "2003-11-30", "2003-12-07", "2003-12-14", "2003-12-21", "2003-12-28", "2004-01-04", "2004-01-11", "2004-01-18", "2004-01-25", "2004-02-01", "2004-02-08", "2004-02-15", "2004-02-22", "2004-02-29", "2004-03-07", "2004-03-14", "2004-03-21", "2004-03-28", "2004-04-04", "2004-04-11", "2004-04-18", "2004-04-25", "2004-05-02", "2004-05-09", "2004-05-16", "2004-05-23", "2004-05-30", "2004-06-06", "2004-06-13", "2004-06-20", "2004-06-27", "2004-07-04", "2004-07-11", "2004-07-18", "2004-07-25", "2004-08-01", "2004-08-08", "2004-08-15", "2004-08-22", "2004-08-29", "2004-09-05", "2004-09-12", "2004-09-19", "2004-09-26", "2004-10-03", "2004-10-10", "2004-10-17", "2004-10-24", "2004-10-31", "2004-11-07", "2004-11-14", "2004-11-21", "2004-11-28", "2004-12-05", "2004-12-12", "2004-12-19", "2004-12-26", "2005-01-02", "2005-01-09", "2005-01-16", "2005-01-23", "2005-01-30", "2005-02-06", "2005-02-13", "2005-02-20", "2005-02-27", "2005-03-06", "2005-03-13", "2005-03-20", "2005-03-27", "2005-04-03", "2005-04-10", "2005-04-17", "2005-04-24", "2005-05-01", "2005-05-08", "2005-05-15", "2005-05-22", "2005-05-29", "2005-06-05", "2005-06-12", "2005-06-19", "2005-06-26", "2005-07-03", "2005-07-10", "2005-07-17", "2005-07-24", "2005-07-31", "2005-08-07", "2005-08-14", "2005-08-21", "2005-08-28", "2005-09-04", "2005-09-11", "2005-09-18", "2005-09-25", "2005-10-02", "2005-10-09", "2005-10-16", "2005-10-23", "2005-10-30", "2005-11-06", "2005-11-13", "2005-11-20", "2005-11-27", "2005-12-04", "2005-12-11", "2005-12-18", "2005-12-25", "2006-01-01", "2006-01-08", "2006-01-15", "2006-01-22", "2006-01-29", "2006-02-05", "2006-02-12", "2006-02-19", "2006-02-26", "2006-03-05", "2006-03-12", "2006-03-19", "2006-03-26", "2006-04-02", "2006-04-09", "2006-04-16", "2006-04-23", "2006-04-30", "2006-05-07", "2006-05-14", "2006-05-21", "2006-05-28", "2006-06-04", "2006-06-11", "2006-06-18", "2006-06-25", "2006-07-02", "2006-07-09", "2006-07-16", "2006-07-23", "2006-07-30", "2006-08-06", "2006-08-13", "2006-08-20", "2006-08-27", "2006-09-03", "2006-09-10", "2006-09-17", "2006-09-24", "2006-10-01", "2006-10-08", "2006-10-15", "2006-10-22", "2006-10-29", "2006-11-05", "2006-11-12", "2006-11-19", "2006-11-26", "2006-12-03", "2006-12-10", "2006-12-17", "2006-12-24", "2006-12-31", "2007-01-07", "2007-01-14", "2007-01-21", "2007-01-28", "2007-02-04", "2007-02-11", "2007-02-18", "2007-02-25", "2007-03-04", "2007-03-11", "2007-03-18", "2007-03-25", "2007-04-01", "2007-04-08", "2007-04-15", "2007-04-22", "2007-04-29", "2007-05-06", "2007-05-13", "2007-05-20", "2007-05-27", "2007-06-03", "2007-06-10", "2007-06-17", "2007-06-24", "2007-07-01", "2007-07-08", "2007-07-15", "2007-07-22", "2007-07-29", "2007-08-05", "2007-08-12", "2007-08-19", "2007-08-26", "2007-09-02", "2007-09-09", "2007-09-16", "2007-09-23", "2007-09-30", "2007-10-07", "2007-10-14", "2007-10-21", "2007-10-28", "2007-11-04", "2007-11-11", "2007-11-18", "2007-11-25", "2007-12-02", "2007-12-09", "2007-12-16", "2007-12-23", "2007-12-30", "2008-01-06", "2008-01-13", "2008-01-20", "2008-01-27", "2008-02-03", "2008-02-10", "2008-02-17", "2008-02-24", "2008-03-02", "2008-03-09", "2008-03-16", "2008-03-23", "2008-03-30", "2008-04-06", "2008-04-13", "2008-04-20", "2008-04-27", "2008-05-04", "2008-05-11", "2008-05-18", "2008-05-25", "2008-06-01", "2008-06-08", "2008-06-15", "2008-06-22", "2008-06-29", "2008-07-06", "2008-07-13", "2008-07-20", "2008-07-27", "2008-08-03", "2008-08-10", "2008-08-17", "2008-08-24", "2008-08-31", "2008-09-07", "2008-09-14", "2008-09-21", "2008-09-28", "2008-10-05", "2008-10-12", "2008-10-19", "2008-10-26", "2008-11-02", "2008-11-09", "2008-11-16", "2008-11-23", "2008-11-30", "2008-12-07", "2008-12-14", "2008-12-21", "2008-12-28", "2009-01-04", "2009-01-11", "2009-01-18", "2009-01-25", "2009-02-01", "2009-02-08", "2009-02-15", "2009-02-22", "2009-03-01", "2009-03-08", "2009-03-15", "2009-03-22", "2009-03-29", "2009-04-05", "2009-04-12", "2009-04-19", "2009-04-26", "2009-05-03", "2009-05-10", "2009-05-17", "2009-05-24", "2009-05-31", "2009-06-07", "2009-06-14", "2009-06-21", "2009-06-28", "2009-07-05", "2009-07-12", "2009-07-19", "2009-07-26", "2009-08-02", "2009-08-09", "2009-08-16", "2009-08-23", "2009-08-30", "2009-09-06", "2009-09-13", "2009-09-20", "2009-09-27", "2009-10-04", "2009-10-11", "2009-10-18", "2009-10-25", "2009-11-01", "2009-11-08", "2009-11-15", "2009-11-22", "2009-11-29", "2009-12-06", "2009-12-13", "2009-12-20", "2009-12-27", "2010-01-03", "2010-01-10", "2010-01-17", "2010-01-24", "2010-01-31", "2010-02-07", "2010-02-14", "2010-02-21", "2010-02-28", "2010-03-07", "2010-03-14", "2010-03-21", "2010-03-28", "2010-04-04", "2010-04-11", "2010-04-18", "2010-04-25", "2010-05-02", "2010-05-09", "2010-05-16", "2010-05-23", "2010-05-30", "2010-06-06", "2010-06-13", "2010-06-20", "2010-06-27", "2010-07-04", "2010-07-11", "2010-07-18", "2010-07-25", "2010-08-01", "2010-08-08", "2010-08-15", "2010-08-22", "2010-08-29", "2010-09-05", "2010-09-12", "2010-09-19", "2010-09-26", "2010-10-03", "2010-10-10", "2010-10-17", "2010-10-24", "2010-10-31", "2010-11-07", "2010-11-14", "2010-11-21", "2010-11-28", "2010-12-05", "2010-12-12", "2010-12-19", "2010-12-26", "2011-01-02", "2011-01-09", "2011-01-16", "2011-01-23", "2011-01-30", "2011-02-06", "2011-02-13", "2011-02-20", "2011-02-27", "2011-03-06", "2011-03-13", "2011-03-20", "2011-03-27", "2011-04-03", "2011-04-10", "2011-04-17", "2011-04-24", "2011-05-01", "2011-05-08", "2011-05-15", "2011-05-22", "2011-05-29", "2011-06-05", "2011-06-12", "2011-06-19", "2011-06-26", "2011-07-03", "2011-07-10", "2011-07-17", "2011-07-24", "2011-07-31", "2011-08-07", "2011-08-14", "2011-08-21", "2011-08-28", "2011-09-04", "2011-09-11", "2011-09-18", "2011-09-25", "2011-10-02", "2011-10-09", "2011-10-16", "2011-10-23", "2011-10-30", "2011-11-06", "2011-11-13", "2011-11-20", "2011-11-27", "2011-12-04", "2011-12-11", "2011-12-18", "2011-12-25", "2012-01-01", "2012-01-08", "2012-01-15", "2012-01-22", "2012-01-29", "2012-02-05", "2012-02-12", "2012-02-19", "2012-02-26", "2012-03-04", "2012-03-11", "2012-03-18", "2012-03-25", "2012-04-01", "2012-04-08", "2012-04-15", "2012-04-22", "2012-04-29", "2012-05-06", "2012-05-13", "2012-05-20", "2012-05-27", "2012-06-03", "2012-06-10", "2012-06-17", "2012-06-24", "2012-07-01", "2012-07-08", "2012-07-15", "2012-07-22", "2012-07-29", "2012-08-05", "2012-08-12", "2012-08-19", "2012-08-26", "2012-09-02", "2012-09-09", "2012-09-16", "2012-09-23", "2012-09-30", "2012-10-07", "2012-10-14", "2012-10-21", "2012-10-28", "2012-11-04", "2012-11-11", "2012-11-18", "2012-11-25", "2012-12-02", "2012-12-09", "2012-12-16", "2012-12-23", "2012-12-30", "2013-01-06", "2013-01-13", "2013-01-20", "2013-01-27", "2013-02-03", "2013-02-10", "2013-02-17", "2013-02-24", "2013-03-03", "2013-03-10", "2013-03-17", "2013-03-24", "2013-03-31", "2013-04-07", "2013-04-14", "2013-04-21", "2013-04-28", "2013-05-05", "2013-05-12", "2013-05-19", "2013-05-26", "2013-06-02", "2013-06-09", "2013-06-16", "2013-06-23", "2013-06-30", "2013-07-07", "2013-07-14", "2013-07-21", "2013-07-28", "2013-08-04", "2013-08-11", "2013-08-18", "2013-08-25", "2013-09-01", "2013-09-08", "2013-09-15", "2013-09-22", "2013-09-29", "2013-10-06", "2013-10-13", "2013-10-20", "2013-10-27", "2013-11-03", "2013-11-10", "2013-11-17", "2013-11-24", "2013-12-01", "2013-12-08", "2013-12-15", "2013-12-22", "2013-12-29", "2014-01-05", "2014-01-12", "2014-01-19", "2014-01-26", "2014-02-02", "2014-02-09", "2014-02-16", "2014-02-23", "2014-03-02", "2014-03-09", "2014-03-16", "2014-03-23", "2014-03-30", "2014-04-06", "2014-04-13", "2014-04-20", "2014-04-27", "2014-05-04", "2014-05-11", "2014-05-18", "2014-05-25", "2014-06-01", "2014-06-08", "2014-06-15", "2014-06-22", "2014-06-29", "2014-07-06", "2014-07-13", "2014-07-20", "2014-07-27", "2014-08-03", "2014-08-10", "2014-08-17", "2014-08-24", "2014-08-31", "2014-09-07", "2014-09-14", "2014-09-21", "2014-09-28", "2014-10-05", "2014-10-12", "2014-10-19", "2014-10-26", "2014-11-02", "2014-11-09", "2014-11-16", "2014-11-23", "2014-11-30", "2014-12-07", "2014-12-14", "2014-12-21", "2014-12-28", "2015-01-04", "2015-01-11", "2015-01-18", "2015-01-25", "2015-02-01", "2015-02-08", "2015-02-15", "2015-02-22", "2015-03-01", "2015-03-08", "2015-03-15", "2015-03-22", "2015-03-29", "2015-04-05", "2015-04-12", "2015-04-19", "2015-04-26", "2015-05-03", "2015-05-10", "2015-05-17", "2015-05-24", "2015-05-31", "2015-06-07", "2015-06-14", "2015-06-21", "2015-06-28", "2015-07-05", "2015-07-12", "2015-07-19", "2015-07-26", "2015-08-02", "2015-08-09", "2015-08-16", "2015-08-23", "2015-08-30", "2015-09-06", "2015-09-13", "2015-09-20", "2015-09-27", "2015-10-04", "2015-10-11", "2015-10-18", "2015-10-25", "2015-11-01", "2015-11-08", "2015-11-15", "2015-11-22", "2015-11-29", "2015-12-06", "2015-12-13", "2015-12-20", "2015-12-27", "2016-01-03", "2016-01-10", "2016-01-17", "2016-01-24", "2016-01-31", "2016-02-07", "2016-02-14", "2016-02-21", "2016-02-28", "2016-03-06", "2016-03-13", "2016-03-20", "2016-03-27", "2016-04-03", "2016-04-10", "2016-04-17", "2016-04-24", "2016-05-01", "2016-05-08", "2016-05-15", "2016-05-22", "2016-05-29", "2016-06-05", "2016-06-12", "2016-06-19", "2016-06-26", "2016-07-03", "2016-07-10", "2016-07-17", "2016-07-24", "2016-07-31", "2016-08-07", "2016-08-14", "2016-08-21", "2016-08-28", "2016-09-04", "2016-09-11", "2016-09-18", "2016-09-25", "2016-10-02", "2016-10-09", "2016-10-16", "2016-10-23", "2016-10-30", "2016-11-06", "2016-11-13", "2016-11-20", "2016-11-27", "2016-12-04", "2016-12-11", "2016-12-18", "2016-12-25", "2017-01-01", "2017-01-08", "2017-01-15", "2017-01-22", "2017-01-29", "2017-02-05", "2017-02-12", "2017-02-19", "2017-02-26", "2017-03-05", "2017-03-12", "2017-03-19", "2017-03-26", "2017-04-02", "2017-04-09", "2017-04-16", "2017-04-23", "2017-04-30", "2017-05-07", "2017-05-14", "2017-05-21", "2017-05-28", "2017-06-04", "2017-06-11", "2017-06-18", "2017-06-25", "2017-07-02", "2017-07-09", "2017-07-16", "2017-07-23", "2017-07-30", "2017-08-06", "2017-08-13", "2017-08-20", "2017-08-27", "2017-09-03", "2017-09-10", "2017-09-17", "2017-09-24", "2017-10-01", "2017-10-08", "2017-10-15", "2017-10-22", "2017-10-29", "2017-11-05", "2017-11-12", "2017-11-19", "2017-11-26", "2017-12-03", "2017-12-10", "2017-12-17", "2017-12-24", "2017-12-31", "2018-01-07", "2018-01-14", "2018-01-21", "2018-01-28", "2018-02-04", "2018-02-11", "2018-02-18", "2018-02-25", "2018-03-04", "2018-03-11", "2018-03-18", "2018-03-25", "2018-04-01", "2018-04-08", "2018-04-15", "2018-04-22", "2018-04-29", "2018-05-06", "2018-05-13", "2018-05-20", "2018-05-27", "2018-06-03", "2018-06-10", "2018-06-17", "2018-06-24", "2018-07-01", "2018-07-08", "2018-07-15", "2018-07-22", "2018-07-29", "2018-08-05", "2018-08-12", "2018-08-19", "2018-08-26", "2018-09-02", "2018-09-09", "2018-09-16", "2018-09-23", "2018-09-30", "2018-10-07", "2018-10-14", "2018-10-21", "2018-10-28", "2018-11-04", "2018-11-11", "2018-11-18", "2018-11-25", "2018-12-02", "2018-12-09", "2018-12-16", "2018-12-23", "2018-12-30", "2019-01-06", "2019-01-13", "2019-01-20", "2019-01-27", "2019-02-03", "2019-02-10", "2019-02-17", "2019-02-24", "2019-03-03", "2019-03-10", "2019-03-17", "2019-03-24", "2019-03-31", "2019-04-07", "2019-04-14", "2019-04-21", "2019-04-28", "2019-05-05", "2019-05-12", "2019-05-19", "2019-05-26", "2019-06-02", "2019-06-09", "2019-06-16", "2019-06-23", "2019-06-30", "2019-07-07", "2019-07-14", "2019-07-21", "2019-07-28", "2019-08-04", "2019-08-11", "2019-08-18", "2019-08-25", "2019-09-01", "2019-09-08", "2019-09-15", "2019-09-22", "2019-09-29", "2019-10-06", "2019-10-13", "2019-10-20", "2019-10-27", "2019-11-03", "2019-11-10", "2019-11-17", "2019-11-24", "2019-12-01", "2019-12-08", "2019-12-15", "2019-12-22", "2019-12-29", "2020-01-05", "2020-01-12", "2020-01-19", "2020-01-26", "2020-02-02", "2020-02-09", "2020-02-16", "2020-02-23", "2020-03-01", "2020-03-08", "2020-03-15", "2020-03-22", "2020-03-29", "2020-04-05", "2020-04-12", "2020-04-19", "2020-04-26", "2020-05-03", "2020-05-10", "2020-05-17", "2020-05-24", "2020-05-31", "2020-06-07", "2020-06-14", "2020-06-21", "2020-06-28", "2020-07-05", "2020-07-12", "2020-07-19", "2020-07-26", "2020-08-02", "2020-08-09", "2020-08-16", "2020-08-23", "2020-08-30", "2020-09-06", "2020-09-13", "2020-09-20", "2020-09-27", "2020-10-04", "2020-10-11", "2020-10-18", "2020-10-25", "2020-11-01", "2020-11-08", "2020-11-15", "2020-11-22", "2020-11-29", "2020-12-06", "2020-12-13", "2020-12-20", "2020-12-27", "2021-01-03", "2021-01-10", "2021-01-17", "2021-01-24", "2021-01-31", "2021-02-07", "2021-02-14", "2021-02-21", "2021-02-28", "2021-03-07", "2021-03-14", "2021-03-21", "2021-03-28", "2021-04-04", "2021-04-11", "2021-04-18", "2021-04-25", "2021-05-02", "2021-05-09", "2021-05-16", "2021-05-23", "2021-05-30", "2021-06-06", "2021-06-13", "2021-06-20", "2021-06-27", "2021-07-04", "2021-07-11", "2021-07-18", "2021-07-25", "2021-08-01", "2021-08-08", "2021-08-15", "2021-08-22", "2021-08-29", "2021-09-05", "2021-09-12", "2021-09-19", "2021-09-26", "2021-10-03", "2021-10-10", "2021-10-17", "2021-10-24", "2021-10-31", "2021-11-07", "2021-11-14", "2021-11-21", "2021-11-28", "2021-12-05", "2021-12-12", "2021-12-19", "2021-12-26", "2022-01-02", "2022-01-09", "2022-01-16", "2022-01-23", "2022-01-30", "2022-02-06", "2022-02-13", "2022-02-20", "2022-02-27", "2022-03-06", "2022-03-13", "2022-03-20", "2022-03-27", "2022-04-03", "2022-04-10", "2022-04-17", "2022-04-24", "2022-05-01", "2022-05-08", "2022-05-15", "2022-05-22", "2022-05-29", "2022-06-05", "2022-06-12", "2022-06-19", "2022-06-26", "2022-07-03", "2022-07-10", "2022-07-17", "2022-07-24", "2022-07-31", "2022-08-07", "2022-08-14", "2022-08-21", "2022-08-28", "2022-09-04", "2022-09-11", "2022-09-18", "2022-09-25", "2022-10-02", "2022-10-09", "2022-10-16", "2022-10-23", "2022-10-30", "2022-11-06", "2022-11-13", "2022-11-20", "2022-11-27", "2022-12-04", "2022-12-11", "2022-12-18", "2022-12-25", "2023-01-01", "2023-01-08", "2023-01-15", "2023-01-22", "2023-01-29", "2023-02-05", "2023-02-12", "2023-02-19", "2023-02-26", "2023-03-05", "2023-03-12", "2023-03-19", "2023-03-26", "2023-04-02", "2023-04-09", "2023-04-16", "2023-04-23", "2023-04-30", "2023-05-07", "2023-05-14", "2023-05-21", "2023-05-28", "2023-06-04", "2023-06-11", "2023-06-18", "2023-06-25", "2023-07-02", "2023-07-09", "2023-07-16", "2023-07-23", "2023-07-30", "2023-08-06", "2023-08-13", "2023-08-20", "2023-08-27", "2023-09-03", "2023-09-10", "2023-09-17", "2023-09-24", "2023-10-01", "2023-10-08", "2023-10-15", "2023-10-22", "2023-10-29", "2023-11-05", "2023-11-12", "2023-11-19", "2023-11-26", "2023-12-03", "2023-12-10", "2023-12-17", "2023-12-24", "2023-12-31", "2024-01-07", "2024-01-14", "2024-01-21", "2024-01-28", "2024-02-04", "2024-02-11", "2024-02-18", "2024-02-25", "2024-03-03", "2024-03-10", "2024-03-17", "2024-03-24", "2024-03-31", "2024-04-07", "2024-04-14", "2024-04-21", "2024-04-28", "2024-05-05", "2024-05-12", "2024-05-19", "2024-05-26", "2024-06-02", "2024-06-09", "2024-06-16", "2024-06-23", "2024-06-30", "2024-07-07", "2024-07-14", "2024-07-21", "2024-07-28", "2024-08-04", "2024-08-11", "2024-08-18", "2024-08-25", "2024-09-01", "2024-09-08", "2024-09-15", "2024-09-22", "2024-09-29", "2024-10-06", "2024-10-13", "2024-10-20", "2024-10-27", "2024-11-03", "2024-11-10", "2024-11-17", "2024-11-24", "2024-12-01", "2024-12-08", "2024-12-15", "2024-12-22", "2024-12-29", "2025-01-05", "2025-01-12", "2025-01-19", "2025-01-26", "2025-02-02", "2025-02-09", "2025-02-16", "2025-02-23", "2025-03-02", "2025-03-09", "2025-03-16", "2025-03-23", "2025-03-30", "2025-04-06", "2025-04-13", "2025-04-20", "2025-04-27", "2025-05-04", "2025-05-11", "2025-05-18", "2025-05-25", "2025-06-01", "2025-06-08", "2025-06-15", "2025-06-22", "2025-06-29", "2025-07-06", "2025-07-13", "2025-07-20", "2025-07-27", "2025-08-03", "2025-08-10", "2025-08-17", "2025-08-24", "2025-08-31", "2025-09-07", "2025-09-14", "2025-09-21", "2025-09-28", "2025-10-05", "2025-10-12", "2025-10-19", "2025-10-26", "2025-11-02", "2025-11-09", "2025-11-16", "2025-11-23", "2025-11-30", "2025-12-07", "2025-12-14", "2025-12-21", "2025-12-28", "2026-01-04", "2026-01-11", "2026-01-18", "2026-01-25", "2026-02-01", "2026-02-08", "2026-02-15", "2026-02-22", "2026-03-01", "2026-03-08", "2026-03-15", "2026-03-22", "2026-03-29", "2026-04-05", "2026-04-12", "2026-04-19", "2026-04-26", "2026-05-03", "2026-05-10", "2026-05-17", "2026-05-24", "2026-05-31"];
+const EQ = [1.0053, 1.0128, 1.0108, 1.0169, 1.0268, 1.0303, 1.0313, 1.0371, 1.0348, 1.04, 1.046, 1.0529, 1.0517, 1.058, 1.0619, 1.0599, 1.0673, 1.0734, 1.0792, 1.0725, 1.0773, 1.0874, 1.0825, 1.095, 1.1056, 1.0995, 1.1248, 1.1305, 1.1176, 1.1355, 1.1292, 1.1226, 1.133, 1.1355, 1.1428, 1.1608, 1.185, 1.1825, 1.186, 1.1844, 1.1888, 1.1929, 1.1799, 1.2012, 1.2072, 1.2205, 1.2234, 1.2367, 1.2604, 1.2612, 1.2488, 1.2545, 1.2567, 1.229, 1.25, 1.2698, 1.2985, 1.3431, 1.325, 1.3454, 1.324, 1.2956, 1.3142, 1.3353, 1.3257, 1.3427, 1.3059, 1.3225, 1.3411, 1.318, 1.3398, 1.377, 1.3971, 1.3706, 1.3859, 1.3718, 1.3765, 1.3826, 1.3511, 1.3302, 1.3179, 1.3128, 1.3714, 1.3643, 1.3772, 1.3775, 1.3459, 1.3585, 1.4126, 1.4215, 1.4224, 1.4567, 1.4561, 1.4749, 1.4561, 1.4619, 1.5205, 1.5331, 1.5567, 1.5742, 1.5389, 1.5182, 1.5575, 1.579, 1.5628, 1.5842, 1.6141, 1.5972, 1.6317, 1.6486, 1.6896, 1.6727, 1.6473, 1.6824, 1.6583, 1.6386, 1.6086, 1.5844, 1.5328, 1.5994, 1.5988, 1.7013, 1.7261, 1.7385, 1.7711, 1.7789, 1.8044, 1.8743, 1.8786, 1.8645, 1.9307, 1.9248, 1.9147, 1.972, 1.991, 1.9582, 1.8829, 1.9412, 1.8953, 1.9533, 1.9432, 2.0003, 1.9884, 2.0342, 2.0391, 1.9845, 1.9786, 1.9378, 1.9562, 1.9588, 2.0365, 2.0128, 2.0825, 2.0154, 2.003, 1.9818, 2.0617, 1.9508, 2.0353, 2.0274, 2.0776, 2.1476, 2.1555, 2.1905, 2.2215, 2.2387, 2.2631, 2.3286, 2.3233, 2.3862, 2.3564, 2.3796, 2.3485, 2.3862, 2.3551, 2.3531, 2.3577, 2.3107, 2.3736, 2.3405, 2.34, 2.4171, 2.4416, 2.4762, 2.5207, 2.4257, 2.3765, 2.3201, 2.2563, 2.3081, 2.1978, 2.0782, 2.1619, 2.1782, 2.2242, 2.1489, 2.1022, 2.2616, 2.2796, 2.3469, 2.4349, 2.4156, 2.4883, 2.5496, 2.5256, 2.4989, 2.5367, 2.6263, 2.6397, 2.7347, 2.6624, 2.6236, 2.7327, 2.6557, 2.6464, 2.6598, 2.645, 2.7303, 2.7695, 2.7829, 2.7587, 2.7755, 2.8942, 2.8225, 2.9143, 2.8593, 2.8969, 2.8707, 2.8613, 2.794, 2.8587, 2.7856, 2.8908, 2.8347, 3.0005, 3.024, 3.0523, 2.9218, 2.8572, 2.8061, 2.866, 2.8821, 2.907, 2.9265, 2.9245, 2.8868, 2.7573, 2.7728, 2.8895, 2.6953, 2.8079, 2.957, 2.9759, 3.0163, 3.0757, 3.0528, 3.1047, 3.0622, 3.0873, 3.1695, 3.1779, 3.1536, 3.1799, 3.1252, 2.9399, 3.0853, 3.0008, 2.9277, 2.8848, 3.0535, 3.0319, 3.1873, 3.331, 3.2619, 3.285, 2.9501, 3.1196, 3.1473, 3.1135, 3.0979, 3.0613, 2.9935, 3.207, 3.1799, 3.1874, 3.1391, 3.1588, 3.22, 3.2886, 3.2112, 3.0895, 3.1826, 3.205, 3.2546, 3.2886, 3.3158, 3.2574, 3.1824, 3.1668, 3.1307, 3.1052, 3.0673, 3.0941, 3.0876, 3.1263, 3.0586, 3.0591, 3.0394, 3.0099, 3.0303, 3.0016, 3.0021, 3.0052, 2.9836, 3.016, 3.039, 3.0601, 3.0482, 3.0147, 2.9985, 2.9355, 2.92, 2.9175, 2.8218, 2.8162, 2.8438, 2.8033, 2.8714, 2.9396, 2.955, 2.9735, 2.9479, 3.0016, 2.9829, 2.967, 2.9703, 2.9138, 2.9258, 2.9229, 2.8806, 2.9193, 2.9086, 2.9025, 2.9161, 2.8845, 2.8537, 2.8817, 2.8224, 2.7548, 2.7716, 2.6122, 2.7073, 2.7433, 2.7725, 2.7453, 2.7833, 2.7703, 2.8141, 2.8347, 2.8512, 2.8312, 2.8624, 2.8203, 2.8479, 2.8609, 2.881, 2.8481, 2.826, 2.8311, 2.8203, 2.7884, 2.7987, 2.7833, 2.8352, 2.8756, 2.8756, 2.8558, 2.8494, 2.8266, 2.8109, 2.8295, 2.7601, 2.7627, 2.7395, 2.8061, 2.7782, 2.7593, 2.7094, 2.684, 2.661, 2.7543, 2.7823, 2.6373, 2.708, 2.8107, 2.8315, 2.9053, 2.9366, 2.9587, 2.9146, 2.8869, 2.8818, 2.8017, 2.7759, 2.7442, 2.8022, 2.877, 2.9027, 2.9041, 2.8945, 2.9228, 2.9553, 2.9646, 2.9338, 2.8911, 2.9091, 2.8668, 2.9316, 2.9592, 2.9209, 2.8515, 2.8467, 2.8028, 2.8153, 2.8327, 2.8283, 2.802, 2.8163, 2.914, 2.8659, 2.9274, 2.8919, 2.9719, 2.9941, 3.093, 3.1103, 3.1481, 3.1113, 3.2171, 3.2938, 3.3037, 3.3117, 3.2524, 3.2884, 3.3383, 3.314, 3.338, 3.2807, 3.273, 3.3177, 3.3227, 3.3783, 3.4246, 3.4119, 3.4658, 3.3414, 3.4564, 3.4959, 3.4855, 3.4628, 3.5203, 3.5307, 3.5256, 3.4839, 3.5587, 3.5721, 3.6152, 3.6578, 3.6847, 3.7361, 3.7751, 3.8369, 3.8436, 3.8117, 3.8443, 3.8671, 3.8587, 3.8634, 3.9091, 3.7815, 3.7435, 3.7425, 3.8497, 3.8451, 3.8362, 3.8454, 3.7879, 3.7711, 3.7725, 3.7686, 3.8208, 3.8229, 3.8461, 3.8411, 3.8447, 3.8286, 3.8091, 3.7917, 3.7619, 3.7942, 3.7256, 3.7316, 3.7886, 3.8052, 3.8168, 3.8328, 3.8423, 3.8137, 3.8511, 3.8125, 3.7701, 3.7271, 3.8359, 3.9741, 4.0253, 3.9907, 4.0223, 4.0529, 4.0556, 4.0785, 4.1239, 4.1273, 4.0443, 4.0375, 3.9877, 4.0098, 4.1055, 4.1239, 4.1109, 4.1464, 4.1908, 4.1109, 4.0637, 4.0157, 4.0256, 4.0451, 3.9132, 3.9618, 3.968, 4.0139, 3.967, 4.0835, 4.1223, 4.1188, 4.1206, 4.1771, 4.0952, 4.1141, 4.1757, 4.2281, 4.038, 4.0674, 3.9144, 3.8935, 3.8749, 3.8208, 3.8685, 3.9423, 3.9241, 3.8586, 3.9095, 3.8479, 3.8328, 3.8244, 3.8517, 3.8887, 3.9149, 3.9366, 3.9679, 3.9637, 3.9556, 3.9665, 3.9728, 3.9375, 3.9994, 4.0031, 3.9609, 4.0012, 3.9658, 3.9717, 4.0057, 4.015, 4.005, 4.0025, 4.042, 4.0357, 4.0299, 4.0255, 4.0126, 4.0506, 4.0555, 4.0718, 4.0213, 3.9881, 4.0083, 4.0182, 3.9611, 3.9591, 3.9559, 4.001, 3.9905, 3.9417, 3.8173, 3.8482, 3.9126, 3.7409, 3.7948, 3.782, 3.8054, 3.7889, 3.8217, 3.8146, 3.8452, 3.8936, 3.9404, 3.9464, 3.9773, 3.9378, 3.9868, 4.0497, 4.0476, 4.0439, 4.0785, 4.1279, 4.0818, 4.107, 4.0757, 4.154, 4.1418, 4.1218, 4.1995, 4.1743, 4.2262, 4.2137, 4.0215, 4.0827, 4.0334, 4.1749, 4.1344, 4.1996, 4.231, 4.3271, 4.3536, 4.3941, 4.3923, 4.4436, 4.4165, 4.4861, 4.3976, 4.4759, 4.4022, 4.3987, 4.4733, 4.5279, 4.4885, 4.2431, 4.2048, 4.2314, 4.2314, 4.3373, 4.3157, 4.2712, 4.354, 4.4648, 4.4827, 4.5561, 4.5632, 4.4654, 4.5241, 4.4887, 4.3985, 4.409, 4.3844, 4.4537, 4.4876, 4.4323, 4.4587, 4.4464, 4.3004, 4.2651, 4.0189, 4.0487, 4.2477, 4.0496, 4.1126, 4.1272, 4.0724, 3.9473, 3.9443, 4.0394, 4.0219, 4.1822, 4.1284, 4.2071, 4.2241, 4.2532, 4.214, 4.2708, 4.1953, 4.2364, 4.0802, 4.0847, 3.9908, 3.6871, 3.6544, 3.6018, 3.6974, 3.6803, 3.7082, 3.8025, 3.826, 3.8107, 3.7855, 3.657, 3.7061, 3.6693, 3.5726, 3.3461, 3.0009, 3.0917, 2.9915, 3.1611, 3.115, 2.996, 2.8755, 3.063, 3.0306, 3.0497, 3.0493, 3.0316, 3.1315, 3.0661, 2.9966, 2.9639, 2.987, 3.26, 3.0202, 2.6259, 2.4826, 2.4217, 2.6325, 2.6707, 2.8263, 3.0332, 3.1171, 3.2097, 3.0794, 3.1066, 3.2261, 3.1741, 3.0426, 3.2573, 3.3368, 3.4449, 3.6356, 3.6503, 3.5842, 3.5539, 3.5035, 3.546, 3.7474, 3.8146, 3.826, 3.8541, 3.8113, 3.8519, 3.8699, 3.7901, 3.5774, 3.5013, 3.6267, 3.5852, 3.4331, 3.3515, 3.3246, 3.5483, 3.525, 3.4578, 3.5492, 3.6014, 3.6428, 3.7294, 3.6524, 3.6981, 3.6013, 3.42, 3.4129, 3.4417, 3.4943, 3.5123, 3.6526, 3.7447, 3.7464, 3.773, 3.8068, 3.8673, 3.9379, 3.9687, 4.0723, 3.9687, 3.7165, 3.8044, 3.6447, 3.6534, 3.5682, 3.6638, 3.75, 3.6204, 3.4301, 3.6235, 3.5798, 3.7057, 3.701, 3.7722, 3.6352, 3.609, 3.5865, 3.7218, 3.7416, 3.7957, 3.8743, 3.8673, 3.9324, 3.9715, 3.9935, 3.9982, 4.1409, 4.0559, 4.0589, 4.0086, 4.1466, 4.2003, 4.2163, 4.2604, 4.2655, 4.3126, 4.3859, 4.3543, 4.3323, 4.4486, 4.5151, 4.5633, 4.4887, 4.4934, 4.4381, 4.3525, 4.4731, 4.5361, 4.5262, 4.4983, 4.5576, 4.6478, 4.5719, 4.5664, 4.5518, 4.5484, 4.4431, 4.347, 4.3497, 4.3415, 4.5849, 4.6014, 4.5086, 4.5218, 4.3542, 4.2849, 4.2795, 4.081, 4.2741, 4.2909, 4.252, 4.359, 4.2767, 4.3282, 4.3105, 4.3031, 4.2873, 4.2925, 4.2766, 4.2851, 4.2679, 4.225, 4.2669, 4.262, 4.2802, 4.313, 4.3472, 4.3296, 4.3394, 4.3916, 4.3895, 4.4347, 4.4317, 4.1446, 4.1819, 4.1477, 4.0729, 4.3463, 4.1895, 4.1479, 4.1329, 4.094, 4.1062, 4.1425, 4.0924, 4.0716, 3.9827, 4.0189, 3.9591, 4.035, 4.0614, 4.0515, 4.3467, 4.5687, 4.6116, 4.8243, 4.845, 4.8569, 4.8829, 4.9061, 4.8946, 4.8886, 4.9434, 4.9932, 4.9831, 4.9507, 5.0187, 4.9071, 4.9243, 4.8543, 4.8615, 4.7447, 4.6832, 4.8543, 4.8817, 4.8907, 4.88, 4.9385, 4.843, 5.0623, 5.0865, 5.1301, 5.1965, 5.2307, 5.2501, 5.2608, 5.2532, 5.2608, 5.376, 5.4134, 5.4122, 5.4753, 5.4509, 5.5727, 5.4921, 5.4848, 5.5873, 5.6327, 5.7552, 5.699, 5.6349, 5.6815, 5.6256, 5.5129, 5.5597, 5.6498, 5.8054, 5.863, 5.8609, 5.9247, 5.8678, 5.4198, 5.4462, 5.4489, 5.5565, 5.7333, 5.8958, 5.926, 6.149, 6.1781, 6.2408, 6.3926, 6.4356, 6.5476, 6.6432, 6.6964, 6.5872, 6.4573, 6.9738, 7.0068, 7.0952, 7.0581, 7.1064, 7.0871, 6.9038, 6.8764, 6.9342, 7.1017, 7.0967, 7.1893, 7.2643, 7.0416, 7.2099, 7.2527, 7.2883, 7.0878, 7.3567, 7.327, 7.3706, 7.3667, 7.3702, 7.4603, 7.5517, 7.6575, 7.6085, 7.7162, 7.7115, 7.8052, 7.7426, 7.7859, 7.7863, 7.567, 7.5741, 7.8137, 7.8881, 7.9218, 7.9255, 7.6428, 7.4247, 7.1319, 7.1568, 7.101, 7.086, 7.0786, 6.7287, 6.8118, 6.8535, 6.9084, 6.8427, 6.856, 6.7383, 6.8518, 6.8836, 6.8338, 6.815, 6.746, 6.6866, 6.6377, 6.8727, 6.8743, 6.7228, 7.0025, 7.144, 7.2619, 7.2387, 6.9214, 7.2054, 6.9161, 6.8154, 6.5846, 6.9809, 6.8695, 6.6486, 6.6517, 6.3946, 6.325, 6.5325, 6.7251, 7.0933, 7.7108, 8.5846, 8.2497, 8.4778, 8.5451, 7.9419, 7.7975, 7.506, 7.5733, 7.9686, 7.6416, 7.5889, 7.6741, 7.9622, 8.0184, 8.1619, 8.3391, 8.6089, 9.1804, 8.8944, 8.992, 9.4412, 9.7634, 9.8859, 9.9027, 9.6753, 9.7852, 9.9607, 9.6569, 10.1627, 9.992, 9.8643, 10.3045, 10.6945, 11.0727, 11.6158, 11.6438, 11.8341, 11.6966, 11.7207, 11.7005, 11.8187, 12.3176, 12.1877, 12.4237, 12.2799, 12.1988, 13.1486, 13.4817, 14.5858, 15.0462, 14.2814, 14.62, 14.4812, 14.9761, 15.0941, 14.9206, 15.016, 14.6979, 14.7808, 14.5751, 15.0402, 14.8728, 15.3524, 15.3072, 15.6087, 15.0573, 15.2144, 15.7423, 15.9986, 16.8919, 17.1956, 17.2852, 17.6047, 17.4853, 17.6049, 17.6896, 17.6175, 17.5526, 17.8913, 17.8741, 17.7181, 17.971, 17.7498, 17.9191, 17.8261, 17.7537, 18.1444, 18.7686, 17.5581, 18.1524, 18.7622, 19.063, 19.2157, 19.2963, 19.8688, 20.4451, 21.1622, 21.4816, 21.6626, 22.8544, 23.5852, 22.983, 23.5018, 23.5856, 23.7302, 23.454, 23.4263, 23.1419, 24.5572, 25.9529, 26.0524, 26.3535, 26.7706, 25.8328, 24.9582, 25.4358, 26.8893, 27.9423, 29.1847, 29.8022, 30.6833, 31.2937, 31.6596, 32.3333, 41.9904, 42.4843, 43.4959, 46.8686, 46.5298, 45.2695, 44.0802, 42.8933, 42.3161, 44.0474, 40.2181, 39.6734, 39.7864, 41.0199, 42.3369, 41.9192, 41.0576, 40.3833, 38.9967, 39.6718, 41.3187, 41.9156, 43.5228, 43.3087, 43.8908, 43.9758, 43.2553, 43.6328, 44.3947, 43.8659, 43.9651, 43.3901, 44.228, 43.9574, 45.6957, 48.0989, 46.3355, 45.7904, 46.2835, 45.877, 47.4047, 47.3374, 47.1583, 47.4756, 48.0784, 49.346, 48.6894, 49.9932, 48.822, 50.477, 49.323, 47.6474, 49.779, 49.4787, 48.6239, 47.7669, 50.2024, 48.1824, 52.5984, 49.2954, 49.93, 49.2465, 48.8833, 50.2929, 52.1171, 55.5462, 54.7778, 55.9921, 56.9596, 57.3221, 57.9688, 65.2676, 66.3724, 67.3635, 66.1565, 66.7292, 71.912, 82.3295, 87.7067, 88.5057, 81.0532, 88.6782, 97.7004, 88.6179, 87.2453, 75.757, 76.3939, 71.3611, 73.923, 72.1073, 67.9079, 66.4582, 66.511, 71.8119, 72.0796, 69.9209, 65.9328, 63.4807, 64.7379, 66.295, 73.4416, 71.767, 74.4727, 73.4554, 69.2085, 70.0538, 70.3106, 68.8348, 71.9821, 70.739, 71.4521, 73.6206, 75.0936, 76.0362, 77.0295, 81.5875, 80.7543, 78.7955, 71.1495, 64.2294, 53.831, 52.0117, 49.5579, 51.0494, 55.0694, 55.9657, 57.8443, 59.9875, 59.9689, 61.8541, 59.8069, 61.2141, 67.9942, 65.3676, 66.1172, 65.4144, 66.0969, 67.5628, 68.5961, 71.3872, 72.3269, 73.5041, 73.9175, 74.5697, 76.3507, 72.9683, 73.0212, 74.3871, 74.7978, 75.1963, 79.7504, 81.2877, 85.5534, 82.2214, 89.4838, 89.4107, 96.3366, 97.7959, 102.5364, 106.2145, 112.8763, 123.9906, 145.1655, 153.0104, 142.2382, 136.8179, 131.1875, 142.0367, 161.2379, 169.9432, 158.3001, 165.3966, 174.5648, 173.3266, 172.0241, 175.9926, 177.073, 176.5653, 174.1112, 175.1466, 169.8584, 160.7032, 153.9012, 154.0394, 154.7397, 159.7968, 158.4402, 163.5367, 166.4829, 163.9011, 161.074, 167.8786, 173.5143, 174.0731, 178.3727, 180.2672, 179.6795, 182.0083, 180.0772, 179.7444, 178.6524, 171.945, 183.8894, 195.1926, 194.2636, 198.8914, 202.2241, 212.4861, 206.8275, 206.8883, 204.2548, 202.9676, 201.3575, 204.305, 199.8938, 193.2347, 193.5528, 185.8748, 188.2897, 191.939, 196.1924, 195.5319, 197.8575, 200.8682, 199.0134, 198.5837, 201.0842, 201.7802, 195.5691, 191.8145, 188.5368, 186.0767, 188.9253, 182.6191, 178.7474, 181.2576, 176.1807, 169.1825, 167.727, 170.5012, 165.1362, 173.5881, 172.7722, 181.558, 186.2325, 189.2658, 189.6778, 193.0251, 190.4334, 190.7237, 194.6995, 192.3088, 190.0207, 192.1563, 192.3433, 188.8955, 192.251, 199.7988, 194.9423, 186.8172, 178.9988, 180.3757, 186.5973, 183.6248, 181.0108, 185.0471, 184.3414, 183.7256, 214.8629, 220.693, 225.1207, 224.0293, 217.1754, 222.0781, 229.4743, 230.6124, 245.6661, 267.5046, 274.5886, 274.285, 277.5954, 290.5352, 284.4307, 289.2668, 282.8963, 282.5543, 281.9277, 289.2529, 288.7961, 288.6242, 291.518, 301.541, 302.4701, 306.9014, 316.3473, 311.2542, 308.3572, 307.5148, 309.3804, 311.2063, 315.3393, 316.6511, 317.8207, 316.9845, 320.5056, 329.2218, 330.7307, 335.4842, 344.9341, 360.3007, 360.6438, 360.1787, 364.4191, 370.4776, 388.2483, 405.4563, 402.1003, 406.9324, 406.9645, 423.5405, 407.3921, 405.3419, 420.4984, 420.3134, 486.9378, 507.6553, 509.1882, 523.7914, 540.0169, 538.3548, 554.3636, 555.6133, 564.0353, 561.5423, 569.4947, 567.4464, 572.9143, 568.8525, 579.1556, 596.3062, 587.8324, 595.0931, 602.231, 599.1749, 606.7983, 586.4879, 604.0405, 618.9162, 609.6577, 574.8702, 574.8385, 571.1036, 598.596, 564.4541, 561.3345, 570.6428, 597.0731, 599.06, 601.0924, 610.266, 645.3619, 642.3037, 644.29, 704.5658, 719.2141, 731.237, 731.5389, 740.996, 757.0666, 737.9826, 740.5875, 743.814, 742.3341, 747.283, 756.8529, 742.2739, 753.0094, 752.0509, 733.0941, 808.6186, 773.4401, 762.2027, 794.5129, 787.8853, 724.3372, 739.2629, 744.2443, 740.8657, 732.3193, 764.1624, 780.3509, 793.5146, 800.6812, 825.1872, 830.8748, 811.8449, 823.1304, 824.6952, 855.7645, 872.7932, 886.5707, 878.7643, 895.2559, 895.7169, 895.252, 890.9399, 905.9715, 907.6543, 909.1318, 919.7986, 933.6954, 971.9256, 976.7056, 998.1047, 974.7122, 963.3315, 955.3411, 950.3917, 988.4907, 980.672, 975.9599, 979.7255, 980.2818, 1000.8391, 1002.8428, 994.5636, 964.6873, 921.8999, 909.3534, 901.105, 900.0056, 910.863, 926.7497, 957.5943, 949.6852, 934.0951, 961.9071, 965.4304, 972.5629, 995.2062, 1006.4945, 1044.326, 1027.8237, 1054.8058, 1066.9411];
+const SPY = [1.0058, 1.0208, 1.0167, 1.029, 1.0491, 1.0563, 1.0584, 1.0703, 1.0655, 1.0761, 1.0885, 1.1029, 1.1005, 1.1135, 1.1217, 1.1176, 1.1331, 1.1461, 1.1585, 1.144, 1.1543, 1.176, 1.1653, 1.1922, 1.2153, 1.2018, 1.2319, 1.2381, 1.2239, 1.2436, 1.2367, 1.2295, 1.2408, 1.2436, 1.2515, 1.2712, 1.2978, 1.295, 1.2988, 1.2971, 1.302, 1.3065, 1.2922, 1.3155, 1.3221, 1.3367, 1.3398, 1.3543, 1.3804, 1.3812, 1.3676, 1.3739, 1.3763, 1.346, 1.369, 1.3907, 1.4221, 1.471, 1.4511, 1.4734, 1.45, 1.4189, 1.4393, 1.4624, 1.4519, 1.4705, 1.4301, 1.4484, 1.4687, 1.4435, 1.4673, 1.508, 1.5301, 1.501, 1.5178, 1.5024, 1.5075, 1.5142, 1.4797, 1.4568, 1.4434, 1.4377, 1.5019, 1.4941, 1.5082, 1.5086, 1.474, 1.4878, 1.547, 1.5567, 1.5578, 1.5954, 1.5947, 1.6152, 1.5947, 1.601, 1.6652, 1.679, 1.7049, 1.724, 1.6854, 1.6627, 1.7058, 1.7293, 1.7115, 1.735, 1.7677, 1.7492, 1.787, 1.8055, 1.8504, 1.8318, 1.8041, 1.8425, 1.8162, 1.7945, 1.7616, 1.7352, 1.6787, 1.7516, 1.7509, 1.8632, 1.8903, 1.9039, 1.9397, 1.9482, 1.9761, 2.0526, 2.0574, 2.042, 2.1144, 2.108, 2.0969, 2.1597, 2.1805, 2.1446, 2.0621, 2.1259, 2.0757, 2.1392, 2.1281, 2.1906, 2.1777, 2.2277, 2.2331, 2.1733, 2.1669, 2.1222, 2.1424, 2.1453, 2.2303, 2.2043, 2.2807, 2.2072, 2.1936, 2.1704, 2.2579, 2.1364, 2.229, 2.2203, 2.2753, 2.352, 2.3606, 2.399, 2.433, 2.4518, 2.4785, 2.5502, 2.5444, 2.6133, 2.5807, 2.606, 2.572, 2.6133, 2.5792, 2.577, 2.5821, 2.5306, 2.5995, 2.5633, 2.5627, 2.6471, 2.674, 2.7118, 2.7606, 2.6565, 2.6027, 2.5409, 2.471, 2.5278, 2.407, 2.276, 2.3677, 2.3855, 2.4359, 2.3534, 2.3023, 2.4768, 2.4965, 2.5703, 2.6667, 2.6455, 2.7251, 2.7922, 2.766, 2.7368, 2.7781, 2.8762, 2.8909, 2.9949, 2.9158, 2.8733, 2.9927, 2.9085, 2.8982, 2.9129, 2.8968, 2.9902, 3.033, 3.0477, 3.0213, 3.0397, 3.1696, 3.0911, 3.1917, 3.1315, 3.1726, 3.1439, 3.1337, 3.0598, 3.1307, 3.0507, 3.1659, 3.1044, 3.286, 3.3118, 3.3427, 3.1998, 3.1291, 3.0731, 3.1387, 3.1564, 3.1836, 3.205, 3.2028, 3.1616, 3.0197, 3.0367, 3.1645, 2.9518, 3.0751, 3.2384, 3.2591, 3.3034, 3.3684, 3.3433, 3.4002, 3.3536, 3.3811, 3.4711, 3.4803, 3.4537, 3.4826, 3.4226, 3.2197, 3.3789, 3.2863, 3.2064, 3.1593, 3.3441, 3.3204, 3.4907, 3.6481, 3.5723, 3.5976, 3.2308, 3.4164, 3.4469, 3.4097, 3.3927, 3.3526, 3.2783, 3.5122, 3.4825, 3.4907, 3.4379, 3.4594, 3.5264, 3.6016, 3.5167, 3.3835, 3.4855, 3.51, 3.5644, 3.6016, 3.6313, 3.5673, 3.4853, 3.4681, 3.4286, 3.3674, 3.2839, 3.3398, 3.3249, 3.4085, 3.2615, 3.2619, 3.219, 3.1563, 3.1981, 3.1361, 3.1353, 3.1413, 3.0934, 3.1608, 3.209, 3.2535, 3.2278, 3.1569, 3.1224, 2.9922, 2.9599, 2.9539, 2.7613, 2.7486, 2.8017, 2.7203, 2.8535, 2.9892, 3.0199, 3.0574, 3.0048, 3.115, 3.0756, 3.0427, 3.0492, 2.9339, 2.958, 2.9519, 2.8665, 2.9433, 2.9216, 2.9088, 2.9361, 2.8723, 2.8111, 2.8658, 2.7485, 2.6177, 2.6498, 2.3511, 2.5241, 2.5916, 2.6464, 2.5945, 2.6662, 2.6404, 2.7242, 2.7639, 2.7958, 2.7564, 2.817, 2.7342, 2.7877, 2.8132, 2.8524, 2.7875, 2.744, 2.7537, 2.7319, 2.6698, 2.6892, 2.6589, 2.7583, 2.8372, 2.837, 2.7979, 2.7852, 2.7407, 2.7098, 2.7453, 2.6118, 2.6164, 2.5712, 2.6972, 2.6434, 2.6077, 2.5133, 2.4661, 2.423, 2.4152, 2.4238, 2.2417, 2.0674, 2.0891, 2.1182, 2.228, 2.2751, 2.3088, 2.24, 2.1965, 2.1885, 2.0679, 2.0286, 1.9808, 2.0632, 2.173, 2.2113, 2.213, 2.1978, 2.2407, 2.2902, 2.304, 2.2561, 2.1902, 2.217, 2.1527, 2.2505, 2.2926, 2.2335, 2.128, 2.1202, 2.0551, 2.0731, 2.0985, 2.0916, 2.0527, 2.0726, 2.218, 2.1448, 2.1821, 2.1557, 2.2153, 2.2319, 2.3056, 2.3184, 2.3466, 2.3192, 2.3981, 2.4552, 2.4626, 2.4685, 2.4244, 2.4512, 2.4884, 2.4703, 2.4882, 2.4455, 2.4398, 2.473, 2.4767, 2.5182, 2.5527, 2.5433, 2.5834, 2.4907, 2.5765, 2.6059, 2.5981, 2.5812, 2.6241, 2.6318, 2.628, 2.5969, 2.6527, 2.6627, 2.6948, 2.7266, 2.7466, 2.7849, 2.814, 2.86, 2.865, 2.8413, 2.8655, 2.8826, 2.8763, 2.8798, 2.9139, 2.8187, 2.7904, 2.7897, 2.8804, 2.8736, 2.86, 2.8733, 2.7879, 2.7628, 2.7648, 2.759, 2.8356, 2.8387, 2.8731, 2.8654, 2.8707, 2.8465, 2.8175, 2.7918, 2.7476, 2.7951, 2.6944, 2.703, 2.786, 2.8104, 2.8273, 2.851, 2.8652, 2.8224, 2.8778, 2.849, 2.8173, 2.7852, 2.8665, 2.9698, 3.008, 2.9821, 3.0057, 3.0286, 3.0306, 3.0478, 3.0817, 3.0842, 3.0222, 3.0171, 2.9799, 2.9965, 3.0679, 3.0817, 3.072, 3.0985, 3.1317, 3.072, 3.0367, 3.0008, 3.0082, 3.0228, 2.9242, 2.9606, 2.9652, 2.9995, 2.9644, 3.0515, 3.0805, 3.0779, 3.0792, 3.1215, 3.0602, 3.0744, 3.1204, 3.1595, 3.1775, 3.1827, 3.1606, 3.1652, 3.15, 3.106, 3.1449, 3.2048, 3.19, 3.1368, 3.1781, 3.0895, 3.0653, 3.0513, 3.0945, 3.1541, 3.1967, 3.2321, 3.2838, 3.2766, 3.2631, 3.2812, 3.2916, 3.2332, 3.3352, 3.3414, 3.2711, 3.3378, 3.2789, 3.2885, 3.3448, 3.3604, 3.3435, 3.3391, 3.4053, 3.3946, 3.3847, 3.3771, 3.3555, 3.4191, 3.4275, 3.4548, 3.3693, 3.3135, 3.3469, 3.3631, 3.2679, 3.264, 3.2585, 3.3329, 3.3154, 3.2344, 3.2457, 3.3512, 3.357, 3.3258, 3.4222, 3.3991, 3.4413, 3.4115, 3.4706, 3.4578, 3.5132, 3.5509, 3.5935, 3.599, 3.6271, 3.5911, 3.6358, 3.6931, 3.6913, 3.6879, 3.7194, 3.7645, 3.7225, 3.7455, 3.7169, 3.7883, 3.7772, 3.7589, 3.8298, 3.8068, 3.8542, 3.8428, 3.6674, 3.7232, 3.6783, 3.8073, 3.7704, 3.8299, 3.8586, 3.9462, 3.9703, 4.0073, 4.0057, 4.0524, 4.0277, 4.0912, 4.0104, 4.0819, 4.0147, 4.0115, 4.0795, 4.1293, 4.0933, 3.8696, 3.8347, 3.8589, 3.8589, 3.9555, 3.9357, 3.8952, 3.9707, 4.0717, 4.0881, 4.1757, 4.1886, 4.0101, 4.116, 4.0511, 3.8888, 3.9062, 3.8617, 3.9831, 4.0433, 3.9431, 3.9899, 3.9676, 3.8062, 3.775, 3.5571, 3.5835, 3.7596, 3.5843, 3.64, 3.653, 3.6045, 3.4938, 3.4911, 3.5752, 3.5598, 3.7054, 3.6104, 3.7485, 3.7788, 3.8305, 3.7598, 3.8616, 3.7257, 3.7991, 3.6892, 3.6854, 3.5795, 3.4693, 3.4361, 3.3689, 3.4272, 3.4136, 3.4321, 3.5194, 3.5412, 3.527, 3.5036, 3.3847, 3.4302, 3.3961, 3.3066, 3.0191, 2.4215, 2.5504, 2.3815, 2.6494, 2.5682, 2.3701, 2.1758, 2.465, 2.4059, 2.4349, 2.4326, 2.4042, 2.5642, 2.4574, 2.3463, 2.2925, 2.2848, 2.3992, 2.2828, 2.1355, 2.0393, 1.9011, 2.0988, 2.1311, 2.2672, 2.3408, 2.3839, 2.4192, 2.4075, 2.4417, 2.5831, 2.4645, 2.4731, 2.5706, 2.6267, 2.6414, 2.5714, 2.5658, 2.5091, 2.4574, 2.6298, 2.7396, 2.7606, 2.8273, 2.8159, 2.8768, 2.8882, 2.8513, 2.9271, 2.9957, 2.932, 2.877, 3.0109, 3.0567, 3.0339, 2.907, 3.0073, 3.0771, 3.0718, 3.0757, 3.1162, 3.119, 3.1104, 3.1744, 3.1451, 3.2334, 3.2072, 3.0821, 3.0308, 3.0102, 3.0491, 3.1366, 3.1253, 3.2244, 3.2585, 3.2864, 3.3037, 3.3383, 3.3879, 3.3825, 3.4519, 3.3669, 3.1529, 3.2275, 3.092, 3.0994, 3.0271, 3.1082, 3.1813, 3.0714, 2.91, 3.074, 3.037, 3.1437, 3.1397, 3.2001, 3.0839, 3.0617, 3.0426, 3.1574, 3.1742, 3.2201, 3.2868, 3.2808, 3.336, 3.3692, 3.3878, 3.3919, 3.5129, 3.4408, 3.4434, 3.4007, 3.5178, 3.5633, 3.5769, 3.6143, 3.6186, 3.6586, 3.7208, 3.694, 3.6753, 3.774, 3.8304, 3.8713, 3.808, 3.812, 3.7651, 3.6924, 3.7947, 3.8482, 3.8398, 3.8161, 3.8664, 3.943, 3.8785, 3.8739, 3.8615, 3.8586, 3.7693, 3.6878, 3.6901, 3.6831, 3.8896, 3.9036, 3.8249, 3.9088, 3.7563, 3.4877, 3.4307, 3.2716, 3.4264, 3.4229, 3.3668, 3.5477, 3.3148, 3.3034, 3.3781, 3.5784, 3.6193, 3.7544, 3.6634, 3.6978, 3.5612, 3.3965, 3.6453, 3.68, 3.5723, 3.7133, 3.6872, 3.7521, 3.7853, 3.8767, 3.8729, 3.9528, 3.9475, 4.0077, 4.023, 4.0342, 4.0418, 4.1401, 4.1209, 4.1551, 4.125, 4.0468, 4.0707, 4.1427, 4.0427, 4.0017, 3.8285, 3.8981, 3.7818, 3.9276, 3.9788, 3.9586, 4.0369, 4.0188, 4.0266, 4.0479, 4.1135, 4.1333, 4.1775, 4.2173, 4.1974, 4.187, 4.2811, 4.3674, 4.3498, 4.2932, 4.3579, 4.261, 4.2759, 4.215, 4.2213, 4.1199, 4.0665, 4.215, 4.2389, 4.2467, 4.2374, 4.2882, 4.2053, 4.3957, 4.4167, 4.4546, 4.5122, 4.542, 4.5588, 4.5681, 4.5615, 4.5681, 4.6681, 4.7006, 4.6937, 4.7259, 4.6804, 4.7902, 4.69, 4.7733, 4.8677, 4.9293, 5.0357, 4.9866, 4.9305, 4.9712, 4.9223, 4.8237, 4.8647, 4.9435, 5.0797, 5.13, 5.1282, 5.184, 5.1343, 5.0287, 5.0527, 4.9626, 5.0351, 5.1349, 5.2022, 5.1471, 5.1465, 5.1882, 5.3141, 5.3616, 5.3695, 5.4025, 5.4866, 5.5097, 5.5155, 5.5137, 5.4274, 5.5626, 5.6328, 5.6034, 5.6417, 5.6263, 5.4808, 5.459, 5.505, 5.638, 5.634, 5.7075, 5.7679, 5.6576, 5.7299, 5.7081, 5.7361, 5.5856, 5.7358, 5.7327, 5.7872, 5.7841, 5.7869, 5.8577, 5.9294, 6.0124, 5.974, 6.0586, 6.0549, 6.1284, 6.0793, 6.1133, 6.1136, 5.9522, 5.9751, 6.0518, 6.1591, 6.2061, 6.2184, 6.1572, 6.2348, 6.1478, 6.1049, 5.9191, 5.8548, 6.1021, 6.2646, 6.3168, 6.3447, 6.4205, 6.4367, 6.4615, 6.2407, 6.451, 6.5109, 6.4169, 6.3801, 6.2982, 6.4025, 6.2301, 6.4207, 6.5528, 6.5984, 6.5803, 6.4816, 6.4294, 6.6018, 6.4553, 6.4772, 6.5902, 6.5246, 6.6407, 6.6115, 6.6398, 6.6655, 6.6828, 6.6247, 6.5817, 6.5893, 6.6465, 6.6153, 6.5362, 6.5415, 6.6992, 6.5579, 6.6368, 6.5564, 6.6027, 6.2373, 6.283, 6.0721, 6.2029, 6.1943, 6.1119, 6.18, 6.3806, 6.4421, 6.5765, 6.5898, 6.6567, 6.419, 6.6336, 6.6415, 6.6434, 6.3981, 6.3769, 6.5573, 6.4996, 6.1186, 5.9876, 6.074, 6.176, 5.9921, 5.95, 6.1212, 6.2197, 6.3899, 6.4642, 6.5495, 6.5091, 6.6309, 6.5533, 6.6584, 6.6966, 6.612, 6.5924, 6.5616, 6.585, 6.7372, 6.7385, 6.7318, 6.6525, 6.5468, 6.762, 6.8499, 6.9524, 6.9978, 6.9939, 7.028, 7.0371, 7.0396, 6.9994, 7.0342, 6.8702, 6.9078, 6.9927, 7.0027, 6.9619, 6.8997, 6.9276, 6.881, 6.7518, 7.0066, 7.0739, 7.1717, 7.1121, 7.3332, 7.3286, 7.3504, 7.2794, 7.3993, 7.394, 7.3839, 7.4566, 7.4686, 7.5393, 7.6559, 7.7096, 7.7643, 7.7405, 7.7526, 7.6489, 7.7104, 7.6928, 7.6048, 7.6728, 7.787, 7.84, 7.8164, 7.7945, 7.9057, 7.9862, 7.9613, 7.9748, 7.9909, 7.9472, 7.9574, 8.0708, 8.1142, 8.1152, 8.1316, 8.0235, 7.9771, 8.0379, 8.1457, 8.1043, 8.2307, 8.239, 8.2981, 8.4018, 8.421, 8.4923, 8.5122, 8.5366, 8.5247, 8.5171, 8.5997, 8.7351, 8.7698, 8.8478, 8.881, 8.8594, 9.0772, 9.2266, 9.3093, 9.5141, 9.1446, 8.6815, 9.0669, 9.12, 8.9331, 9.2582, 9.1396, 8.6013, 8.7713, 8.6569, 8.8379, 8.8866, 8.8849, 8.8669, 9.0946, 9.0439, 9.0712, 9.1196, 9.2726, 9.2787, 9.1987, 9.0828, 9.2215, 9.3611, 9.3641, 9.4224, 9.4953, 9.4806, 9.5442, 9.6263, 9.72, 9.6293, 9.7391, 9.8205, 9.7778, 9.6803, 9.281, 9.2911, 8.9238, 9.1445, 9.3419, 9.2064, 8.8539, 9.2709, 8.8647, 8.7604, 8.1427, 8.3812, 8.5382, 8.7611, 9.0142, 8.9912, 9.136, 9.1498, 9.3833, 9.4432, 9.4864, 9.2848, 9.5585, 9.4885, 9.5982, 9.8052, 9.8592, 9.8544, 9.9696, 9.9907, 9.7892, 9.7124, 9.6084, 9.3532, 9.7739, 9.8286, 10.0382, 10.0041, 10.1905, 10.2653, 10.1465, 10.3117, 9.9911, 9.957, 9.8624, 9.7258, 9.9853, 10.1765, 10.2803, 10.2314, 10.1326, 10.0966, 10.1628, 10.2208, 10.3453, 10.501, 10.5971, 10.6948, 10.6664, 10.7813, 10.8005, 10.8845, 11.0556, 11.129, 11.1135, 11.2272, 11.4423, 11.3327, 11.09, 11.4509, 11.6371, 11.4951, 10.2121, 10.2535, 9.2835, 7.9331, 8.7868, 8.6054, 9.646, 9.9386, 9.8113, 9.8051, 10.1397, 9.9261, 10.2437, 10.5516, 11.0724, 10.5478, 10.7485, 10.4493, 10.8735, 11.0602, 11.204, 11.1747, 11.3712, 11.6515, 11.7306, 11.8225, 12.209, 11.9301, 11.6337, 11.5611, 11.4939, 11.6726, 12.1275, 12.1429, 12.0901, 11.4174, 12.2432, 12.5209, 12.424, 12.7156, 12.9317, 12.8076, 12.9633, 12.957, 13.1283, 13.3875, 13.1922, 13.4443, 12.9945, 13.6139, 13.7871, 13.6954, 13.3559, 13.4707, 13.8369, 13.7209, 13.9499, 14.113, 14.4963, 14.6995, 14.6812, 14.701, 14.8708, 14.6756, 14.6178, 14.7975, 14.8877, 14.9479, 14.6649, 15.0781, 15.3294, 15.393, 15.2453, 15.5492, 15.4987, 15.6394, 15.7606, 15.6701, 15.9136, 16.0137, 15.7436, 15.6508, 15.7398, 15.3969, 15.5253, 15.8093, 16.0664, 16.2837, 16.6128, 16.5681, 16.6255, 16.2738, 16.077, 16.6911, 16.363, 16.7448, 16.8999, 16.5843, 16.5356, 15.5841, 15.7254, 15.9656, 15.6724, 15.4507, 15.5759, 15.3774, 14.9468, 15.866, 16.1576, 16.1658, 15.9748, 15.6257, 15.2064, 14.7052, 14.6817, 14.3383, 13.9068, 14.8216, 14.6531, 13.9129, 13.1148, 13.983, 13.6661, 13.9325, 13.8056, 14.1626, 14.7684, 14.8215, 15.31, 15.1322, 14.529, 14.0604, 14.5752, 13.8778, 13.2439, 12.8563, 13.0582, 12.8725, 13.4721, 14.0023, 13.5463, 14.3439, 14.2546, 14.4814, 14.6462, 14.1556, 13.8587, 13.8457, 13.8283, 14.0326, 14.4094, 14.3146, 14.669, 14.9102, 14.7543, 14.7261, 14.3327, 14.6151, 13.9541, 14.1555, 14.3646, 14.8597, 14.8524, 14.9711, 14.9616, 15.097, 14.9773, 14.9395, 15.1947, 15.2455, 15.5322, 15.6041, 16.0104, 15.7827, 16.1495, 15.9772, 16.3681, 16.4738, 16.6465, 16.2781, 16.2359, 15.9025, 16.0289, 16.4377, 16.2311, 16.2098, 15.7363, 15.6288, 15.7042, 15.7758, 15.3989, 15.0146, 15.8924, 16.1089, 16.4811, 16.6459, 16.7849, 16.8251, 17.2285, 17.387, 17.448, 17.1767, 17.4983, 17.7093, 17.8921, 18.1469, 18.3984, 18.3363, 18.6425, 18.826, 18.7845, 18.7733, 19.1923, 19.2608, 19.09, 18.8109, 18.2331, 18.7155, 18.8271, 19.1787, 19.4958, 19.4954, 19.4192, 19.6637, 19.9866, 20.115, 20.1043, 20.4892, 20.6869, 20.2805, 20.1124, 19.6861, 19.6894, 20.477, 20.7659, 20.8232, 19.9617, 20.7615, 21.0564, 21.1757, 21.2316, 21.4762, 21.6619, 21.4562, 21.1598, 22.1658, 21.7048, 22.0665, 22.3274, 22.5223, 22.3889, 21.9787, 22.1222, 22.0084, 21.5823, 22.2177, 22.604, 22.3754, 22.3363, 22.6683, 22.3055, 22.0913, 21.4124, 20.925, 21.0316, 20.7213, 18.8426, 19.9113, 19.6305, 20.5341, 21.1352, 21.045, 22.1585, 21.5958, 21.9791, 22.3427, 22.2629, 22.227, 22.9986, 23.3887, 23.3244, 23.4725, 23.8285, 23.2533, 23.8315, 24.0657, 24.1356, 24.1259, 24.2078, 24.5882, 24.8923, 24.8217, 25.0989, 24.4917, 24.9181, 25.4004, 25.5808, 25.1649, 25.2009, 24.7171, 25.6307, 25.717, 25.5696, 25.6011, 25.9668, 25.6982, 26.1082, 26.0175, 25.9261, 26.0292, 25.9784, 25.6448, 25.9337, 25.8043, 25.2923, 24.9128, 24.4633, 23.9171, 24.7371, 25.6284, 26.7856, 26.929, 27.1821, 27.8222, 27.8806, 28.1247, 28.3114];
+const LEV = [1.004, 1.0097, 1.0081, 1.0127, 1.0202, 1.0228, 1.0236, 1.0279, 1.0262, 1.0301, 1.0345, 1.0397, 1.0388, 1.0435, 1.0464, 1.0449, 1.0504, 1.055, 1.0592, 1.0543, 1.0579, 1.0654, 1.0618, 1.0709, 1.0788, 1.0743, 1.093, 1.0971, 1.0877, 1.1009, 1.0963, 1.0914, 1.099, 1.1009, 1.1062, 1.1193, 1.1369, 1.1351, 1.1376, 1.1365, 1.1397, 1.1427, 1.1333, 1.1487, 1.153, 1.1626, 1.1647, 1.1743, 1.1913, 1.1919, 1.183, 1.1871, 1.1888, 1.169, 1.1841, 1.1982, 1.2186, 1.2501, 1.2373, 1.2517, 1.2368, 1.2169, 1.23, 1.245, 1.2382, 1.2502, 1.2243, 1.2361, 1.2492, 1.233, 1.2484, 1.2744, 1.2885, 1.27, 1.2807, 1.2709, 1.2742, 1.2785, 1.2565, 1.2418, 1.2334, 1.2298, 1.2711, 1.2661, 1.2752, 1.2754, 1.2533, 1.2622, 1.3, 1.3061, 1.3068, 1.3306, 1.3301, 1.3431, 1.3302, 1.3342, 1.3744, 1.383, 1.3991, 1.4109, 1.3871, 1.373, 1.3999, 1.4144, 1.4035, 1.4181, 1.4383, 1.427, 1.4502, 1.4616, 1.489, 1.4778, 1.4609, 1.4844, 1.4684, 1.4552, 1.4352, 1.419, 1.3842, 1.4294, 1.4291, 1.4979, 1.5145, 1.5227, 1.5443, 1.5495, 1.5662, 1.6119, 1.6147, 1.6057, 1.6487, 1.6449, 1.6385, 1.6755, 1.6877, 1.6668, 1.6183, 1.6562, 1.6266, 1.6642, 1.6578, 1.6946, 1.687, 1.7163, 1.7195, 1.6847, 1.681, 1.6563, 1.6683, 1.6701, 1.7199, 1.7049, 1.7494, 1.7067, 1.6988, 1.6854, 1.7365, 1.6657, 1.7201, 1.7151, 1.747, 1.7914, 1.7964, 1.8184, 1.8378, 1.8486, 1.8639, 1.9044, 1.9012, 1.94, 1.9217, 1.936, 1.9169, 1.9403, 1.9212, 1.92, 1.9229, 1.894, 1.9329, 1.9127, 1.9126, 1.96, 1.9751, 1.9962, 2.0232, 1.9655, 1.9356, 1.9011, 1.8616, 1.894, 1.8257, 1.7514, 1.8052, 1.8156, 1.8449, 1.7979, 1.7685, 1.8693, 1.8806, 1.9225, 1.9768, 1.965, 2.0095, 2.0468, 2.0327, 2.0165, 2.0398, 2.0941, 2.1022, 2.1592, 2.1162, 2.0931, 2.1586, 2.1127, 2.1073, 2.1154, 2.1067, 2.1579, 2.1813, 2.1894, 2.1754, 2.1855, 2.2558, 2.2136, 2.268, 2.2357, 2.258, 2.2428, 2.2373, 2.1976, 2.236, 2.1928, 2.2551, 2.222, 2.3195, 2.3333, 2.3497, 2.2737, 2.2357, 2.2056, 2.2411, 2.2507, 2.2655, 2.2773, 2.2761, 2.2541, 2.1776, 2.1869, 2.2562, 2.141, 2.2083, 2.2966, 2.3078, 2.3315, 2.366, 2.3527, 2.383, 2.3584, 2.373, 2.4206, 2.4255, 2.4126, 2.4279, 2.3964, 2.2888, 2.374, 2.3249, 2.2823, 2.2571, 2.3562, 2.3439, 2.4347, 2.5173, 2.4779, 2.4912, 2.298, 2.3973, 2.4139, 2.3945, 2.3858, 2.3647, 2.3252, 2.4497, 2.4341, 2.4385, 2.4107, 2.4222, 2.4577, 2.4972, 2.4528, 2.3825, 2.4365, 2.4495, 2.4782, 2.4977, 2.5133, 2.4799, 2.4368, 2.428, 2.4071, 2.3924, 2.3704, 2.3862, 2.3824, 2.4049, 2.3656, 2.366, 2.3545, 2.3373, 2.3493, 2.3326, 2.333, 2.3349, 2.3224, 2.3414, 2.3549, 2.3672, 2.3603, 2.3407, 2.3313, 2.2943, 2.2852, 2.2837, 2.2272, 2.2239, 2.2404, 2.2165, 2.2571, 2.2975, 2.3066, 2.3175, 2.3024, 2.3341, 2.3231, 2.3138, 2.3157, 2.2825, 2.2896, 2.2879, 2.2629, 2.2858, 2.2796, 2.276, 2.284, 2.2653, 2.2471, 2.2637, 2.2285, 2.1882, 2.1983, 2.1024, 2.1599, 2.1817, 2.1992, 2.1829, 2.2057, 2.198, 2.2242, 2.2365, 2.2463, 2.2345, 2.2531, 2.2281, 2.2445, 2.2523, 2.2642, 2.2447, 2.2316, 2.2346, 2.2282, 2.2093, 2.2154, 2.2063, 2.2373, 2.2613, 2.2613, 2.2496, 2.2458, 2.2322, 2.2229, 2.234, 2.1926, 2.1942, 2.1804, 2.2203, 2.2036, 2.1924, 2.1624, 2.1471, 2.1333, 2.1896, 2.2066, 2.1194, 2.1624, 2.2243, 2.2369, 2.2809, 2.2995, 2.3127, 2.2866, 2.2703, 2.2673, 2.2197, 2.2043, 2.1855, 2.2205, 2.2653, 2.2806, 2.2815, 2.2758, 2.2927, 2.3119, 2.3175, 2.2993, 2.274, 2.2848, 2.2597, 2.2982, 2.3145, 2.2919, 2.2508, 2.248, 2.2218, 2.2293, 2.2397, 2.2371, 2.2215, 2.2301, 2.2883, 2.2598, 2.2965, 2.2755, 2.323, 2.3363, 2.3944, 2.4046, 2.4267, 2.4053, 2.467, 2.5113, 2.5171, 2.5218, 2.4878, 2.5086, 2.5375, 2.5236, 2.5375, 2.5046, 2.5003, 2.5261, 2.529, 2.5609, 2.5874, 2.5802, 2.611, 2.5401, 2.606, 2.6284, 2.6226, 2.6097, 2.6424, 2.6483, 2.6455, 2.6219, 2.6644, 2.672, 2.6963, 2.7203, 2.7354, 2.7642, 2.786, 2.8204, 2.8241, 2.8065, 2.8246, 2.8373, 2.8327, 2.8353, 2.8606, 2.7901, 2.769, 2.7686, 2.8283, 2.8258, 2.8208, 2.8259, 2.794, 2.7847, 2.7855, 2.7834, 2.8124, 2.8135, 2.8265, 2.8237, 2.8257, 2.8168, 2.806, 2.7963, 2.7797, 2.7978, 2.7595, 2.7629, 2.7947, 2.804, 2.8104, 2.8193, 2.8246, 2.8087, 2.8295, 2.8081, 2.7846, 2.7606, 2.8213, 2.8978, 2.926, 2.907, 2.9244, 2.9412, 2.9427, 2.9553, 2.9801, 2.982, 2.9367, 2.933, 2.9057, 2.9179, 2.9703, 2.9804, 2.9734, 2.9928, 3.0171, 2.9736, 2.9478, 2.9215, 2.9271, 2.9378, 2.8653, 2.8924, 2.8959, 2.9212, 2.8954, 2.9595, 2.9807, 2.9788, 2.9798, 3.0106, 2.966, 2.9764, 3.01, 3.0385, 2.935, 2.9513, 2.8673, 2.8559, 2.8456, 2.8156, 2.8422, 2.883, 2.873, 2.8368, 2.865, 2.8309, 2.8225, 2.8179, 2.8331, 2.8536, 2.8681, 2.8801, 2.8974, 2.8951, 2.8906, 2.8967, 2.9002, 2.8807, 2.9148, 2.9169, 2.8936, 2.9158, 2.8964, 2.8996, 2.9184, 2.9235, 2.918, 2.9166, 2.9383, 2.9349, 2.9317, 2.9293, 2.9222, 2.9431, 2.9458, 2.9547, 2.927, 2.9088, 2.9199, 2.9254, 2.894, 2.893, 2.8912, 2.9161, 2.9104, 2.8835, 2.8146, 2.8318, 2.8676, 2.7724, 2.8025, 2.7954, 2.8084, 2.7992, 2.8175, 2.8136, 2.8306, 2.8575, 2.8833, 2.8867, 2.9037, 2.882, 2.909, 2.9436, 2.9425, 2.9405, 2.9595, 2.9866, 2.9614, 2.9752, 2.9581, 3.0009, 2.9943, 2.9834, 3.0258, 3.0121, 3.0404, 3.0336, 2.929, 2.9627, 2.9358, 3.0133, 2.9913, 3.0269, 3.044, 3.096, 3.1104, 3.1322, 3.1313, 3.1589, 3.1444, 3.1817, 3.1344, 3.1766, 3.1371, 3.1353, 3.1754, 3.2048, 3.1837, 3.0519, 3.0314, 3.0463, 3.0465, 3.1039, 3.0925, 3.0686, 3.1134, 3.1733, 3.1829, 3.2222, 3.226, 3.1738, 3.2052, 3.1863, 3.138, 3.1437, 3.1305, 3.1679, 3.1862, 3.1565, 3.1708, 3.1642, 3.0856, 3.0666, 2.9324, 2.9491, 3.0581, 2.9502, 2.9848, 2.9928, 2.963, 2.8943, 2.893, 2.9463, 2.9368, 3.025, 2.9957, 3.0387, 3.048, 3.0639, 3.0426, 3.0735, 3.0324, 3.0548, 2.9698, 2.9725, 2.9209, 2.7521, 2.7338, 2.7043, 2.7586, 2.7492, 2.7651, 2.8184, 2.8317, 2.8233, 2.8093, 2.7373, 2.7654, 2.7465, 2.692, 2.5643, 2.3626, 2.4181, 2.3593, 2.4604, 2.4337, 2.3637, 2.2923, 2.4046, 2.386, 2.3975, 2.3974, 2.3869, 2.4461, 2.4076, 2.3664, 2.3471, 2.361, 2.5232, 2.3834, 2.1458, 2.0575, 2.0217, 2.1539, 2.1782, 2.274, 2.3992, 2.4499, 2.5049, 2.4293, 2.4459, 2.5173, 2.4878, 2.41, 2.5379, 2.5848, 2.6479, 2.7585, 2.7672, 2.7294, 2.7121, 2.6832, 2.7078, 2.8238, 2.8624, 2.869, 2.885, 2.8609, 2.884, 2.8942, 2.8491, 2.7279, 2.6842, 2.7565, 2.7329, 2.6453, 2.598, 2.5827, 2.714, 2.7007, 2.6619, 2.715, 2.7451, 2.7691, 2.8187, 2.775, 2.8012, 2.7458, 2.6411, 2.637, 2.6541, 2.6848, 2.6952, 2.7763, 2.8291, 2.83, 2.8452, 2.8645, 2.8988, 2.9387, 2.9562, 3.0143, 2.9567, 2.8143, 2.865, 2.7743, 2.7796, 2.7312, 2.7865, 2.836, 2.7618, 2.6518, 2.7642, 2.7393, 2.8119, 2.8092, 2.85, 2.7718, 2.7569, 2.744, 2.8221, 2.8335, 2.8644, 2.9093, 2.9053, 2.9423, 2.9644, 2.9768, 2.9795, 3.0595, 3.012, 3.0139, 2.9858, 3.0632, 3.0931, 3.102, 3.1265, 3.1293, 3.1554, 3.1958, 3.1785, 3.1665, 3.2305, 3.2669, 3.2932, 3.2527, 3.2555, 3.2253, 3.1785, 3.2448, 3.2793, 3.2739, 3.2587, 3.2911, 3.3403, 3.299, 3.2961, 3.2882, 3.2864, 3.2291, 3.1763, 3.178, 3.1736, 3.3071, 3.3161, 3.2657, 3.273, 3.1811, 3.1433, 3.1417, 3.0318, 3.14, 3.1497, 3.1281, 3.1874, 3.1419, 3.1705, 3.1607, 3.1566, 3.1479, 3.1508, 3.142, 3.1467, 3.1372, 3.1134, 3.1367, 3.1339, 3.144, 3.1622, 3.1811, 3.1714, 3.1768, 3.2056, 3.2045, 3.2294, 3.2278, 3.0693, 3.0904, 3.0719, 3.0303, 3.1832, 3.0962, 3.073, 3.0647, 3.0429, 3.0498, 3.0701, 3.0421, 3.0304, 2.9804, 3.0008, 2.9671, 3.01, 3.0249, 3.0194, 3.1844, 3.307, 3.3307, 3.4461, 3.4573, 3.4638, 3.4778, 3.4902, 3.4841, 3.4808, 3.5103, 3.537, 3.5316, 3.5143, 3.5507, 3.491, 3.5003, 3.4628, 3.4667, 3.4039, 3.3707, 3.4633, 3.4781, 3.483, 3.4773, 3.5088, 3.4575, 3.5754, 3.5883, 3.6115, 3.6467, 3.6649, 3.6752, 3.6809, 3.677, 3.6812, 3.7419, 3.7616, 3.761, 3.7941, 3.7813, 3.845, 3.8034, 3.7996, 3.8531, 3.8767, 3.9403, 3.9113, 3.8781, 3.9024, 3.8736, 3.8153, 3.8398, 3.8867, 3.9674, 3.997, 3.996, 4.0288, 3.9996, 3.7686, 3.7826, 3.7844, 3.8407, 3.9329, 4.0169, 4.0325, 4.1467, 4.1617, 4.1935, 4.2709, 4.2927, 4.3492, 4.3971, 4.4238, 4.3693, 4.3043, 4.5629, 4.5792, 4.6228, 4.6046, 4.6284, 4.619, 4.5288, 4.5153, 4.5444, 4.627, 4.6246, 4.6701, 4.707, 4.5978, 4.6806, 4.7017, 4.7192, 4.6212, 4.7531, 4.7387, 4.7599, 4.7581, 4.7599, 4.8038, 4.8482, 4.8994, 4.8757, 4.9278, 4.9255, 4.9707, 4.9406, 4.9616, 4.9618, 4.8561, 4.8597, 4.9755, 5.0114, 5.0276, 5.0293, 4.8936, 4.7891, 4.6476, 4.6599, 4.6326, 4.6252, 4.6222, 4.4496, 4.4911, 4.5119, 4.5392, 4.5066, 4.5132, 4.4547, 4.5113, 4.5271, 4.5024, 4.4932, 4.4588, 4.4292, 4.4048, 4.5225, 4.5303, 4.4555, 4.5953, 4.6656, 4.724, 4.7135, 4.5581, 4.699, 4.5561, 4.5062, 4.3914, 4.5901, 4.5349, 4.4247, 4.4264, 4.297, 4.2617, 4.3669, 4.464, 4.6482, 4.9515, 5.3717, 5.2136, 5.3222, 5.3543, 5.0709, 5.0015, 4.8609, 4.8942, 5.0863, 4.9284, 4.9028, 4.9445, 5.0841, 5.1112, 5.1805, 5.2653, 5.3939, 5.664, 5.531, 5.5769, 5.7869, 5.936, 5.9926, 6.001, 5.8981, 5.9487, 6.0292, 5.8915, 6.1233, 6.0458, 5.9876, 6.1887, 6.3652, 6.5345, 6.7757, 6.7889, 6.8727, 6.8126, 6.8232, 6.8144, 6.8664, 7.0843, 7.0281, 7.1309, 7.0686, 7.0334, 7.4452, 7.5874, 8.0543, 8.2457, 7.9288, 8.0717, 8.0144, 8.2208, 8.2698, 8.1984, 8.2383, 8.1064, 8.141, 8.0554, 8.249, 8.1799, 8.3784, 8.36, 8.4842, 8.2579, 8.3231, 8.5406, 8.6457, 9.0089, 9.1313, 9.1672, 9.2949, 9.2473, 9.295, 9.3288, 9.3002, 9.2745, 9.4094, 9.4027, 9.3408, 9.4415, 9.3538, 9.4212, 9.3844, 9.3558, 9.5111, 9.7582, 9.2843, 9.5221, 9.7631, 9.8811, 9.9408, 9.9724, 10.1951, 10.4177, 10.693, 10.8155, 10.8876, 11.3377, 11.611, 11.3884, 11.5855, 11.6171, 11.6712, 11.5689, 11.5587, 11.453, 11.9829, 12.4957, 12.5324, 12.6416, 12.7953, 12.4578, 12.14, 12.3164, 12.8451, 13.2235, 13.6662, 13.8841, 14.1949, 14.4078, 14.5355, 14.7686, 18.0352, 18.1992, 18.5317, 19.6134, 19.5104, 19.1217, 18.7445, 18.3648, 18.1888, 18.7488, 17.5121, 17.3394, 17.3834, 17.7938, 18.2245, 18.0932, 17.8138, 17.593, 17.1362, 17.3607, 17.9031, 18.0982, 18.6209, 18.5521, 18.7411, 18.7691, 18.5367, 18.6588, 18.9047, 18.7346, 18.7668, 18.5814, 18.8525, 18.7656, 19.3258, 20.0958, 19.5384, 19.3696, 19.527, 19.3975, 19.8835, 19.8632, 19.8066, 19.9073, 20.0989, 20.4979, 20.2925, 20.702, 20.3354, 20.8557, 20.4972, 19.9706, 20.644, 20.556, 20.2902, 20.0237, 20.796, 20.1662, 21.5594, 20.5334, 20.7366, 20.5224, 20.4089, 20.8521, 21.421, 22.5039, 22.2687, 22.6416, 22.9375, 23.0478, 23.2439, 25.4346, 25.7637, 26.0543, 25.7026, 25.8712, 27.3867, 30.3759, 31.8783, 32.1004, 30.0483, 32.1633, 34.6149, 32.2132, 31.856, 28.6746, 28.8708, 27.4305, 28.177, 27.66, 26.4402, 26.0164, 26.0334, 27.5943, 27.6721, 27.0455, 25.8769, 25.1485, 25.5244, 25.9886, 28.0952, 27.613, 28.3972, 28.1052, 26.873, 27.1223, 27.1974, 26.7668, 27.6907, 27.3304, 27.5383, 28.1693, 28.5965, 28.868, 29.1545, 30.4529, 30.2252, 29.6765, 27.4819, 25.463, 22.3489, 21.7962, 21.0288, 21.5078, 22.7973, 23.081, 23.669, 24.3351, 24.3618, 24.945, 24.3268, 24.762, 26.8117, 26.0495, 26.2757, 26.068, 26.2735, 26.7132, 27.0212, 27.849, 28.1411, 28.4871, 28.6094, 28.8006, 29.3196, 28.34, 28.3569, 28.7581, 28.8797, 28.9973, 30.3158, 30.7576, 31.9713, 31.0343, 33.1021, 33.0837, 35.0109, 35.4483, 36.7406, 37.7383, 39.5189, 42.4551, 47.8661, 49.8358, 47.1795, 45.8271, 44.4098, 47.1634, 51.9367, 54.0442, 51.2351, 52.968, 55.1771, 54.8836, 54.5733, 55.5218, 55.7802, 55.6613, 55.0781, 55.3256, 54.0648, 51.862, 50.2041, 50.241, 50.4176, 51.6733, 51.3461, 52.5977, 53.3151, 52.6935, 52.0078, 53.6624, 55.0205, 55.1575, 56.1848, 56.635, 56.4962, 57.0506, 56.5958, 56.519, 56.2631, 54.6672, 57.5155, 60.1758, 59.9612, 61.0434, 61.8274, 64.1899, 62.8996, 62.9142, 62.3109, 62.0166, 61.6474, 62.3281, 61.3112, 59.7662, 59.8419, 58.0497, 58.6199, 59.4777, 60.4733, 60.3242, 60.8663, 61.5673, 61.1408, 61.0419, 61.6215, 61.783, 60.3437, 59.4682, 58.7001, 58.1217, 58.7926, 57.312, 56.3943, 56.9921, 55.7861, 54.1086, 53.7724, 54.4452, 53.1488, 55.1983, 55.0056, 57.1134, 58.2312, 58.9481, 59.0457, 59.8314, 59.2251, 59.2939, 60.2256, 59.6703, 59.1354, 59.6383, 59.6864, 58.8782, 59.6684, 61.4322, 60.307, 58.4076, 56.5557, 56.8848, 58.3616, 57.6595, 57.0459, 58.0053, 57.8388, 57.6942, 64.9679, 66.3042, 67.3146, 67.0722, 65.5239, 66.6431, 68.3182, 68.5771, 71.9707, 76.7745, 78.3128, 78.2502, 78.9635, 81.7316, 80.438, 81.4694, 80.114, 80.0419, 79.9092, 81.4754, 81.379, 81.3457, 81.9612, 84.0826, 84.2796, 85.2124, 87.1908, 86.1347, 85.53, 85.3548, 85.7467, 86.1285, 86.9908, 87.264, 87.5074, 87.3339, 88.068, 89.875, 90.191, 91.173, 93.1079, 96.2317, 96.3029, 96.2106, 97.07, 98.2891, 101.8335, 105.228, 104.5829, 105.5372, 105.5546, 108.8045, 105.6754, 105.2789, 108.2453, 108.2149, 120.9883, 124.8697, 125.1555, 127.8581, 130.8411, 130.5555, 133.4834, 133.7132, 135.2411, 134.8011, 136.2413, 135.8718, 136.8601, 136.1281, 137.9956, 141.0996, 139.5864, 140.8875, 142.1629, 141.6204, 142.9837, 139.3754, 142.5184, 145.1734, 143.5382, 137.3422, 137.3778, 136.7095, 141.6588, 135.5315, 134.9952, 136.6911, 141.4485, 141.8042, 142.1734, 143.8201, 150.0363, 149.5068, 149.8684, 160.3803, 162.9152, 164.9692, 165.022, 166.6409, 169.3656, 166.1378, 166.5849, 167.1364, 166.892, 167.7416, 169.3687, 166.9071, 168.7307, 168.5717, 165.3596, 178.2113, 172.3707, 170.513, 175.9587, 174.8686, 164.1891, 166.7668, 167.616, 167.0572, 165.6083, 171.0243, 173.7682, 175.9807, 177.1854, 181.2675, 182.2125, 179.0591, 180.9391, 181.2056, 186.3465, 189.1406, 191.3925, 190.1232, 192.8177, 192.8951, 192.8282, 192.1301, 194.573, 194.8466, 195.0862, 196.8147, 199.0582, 205.1933, 205.9686, 209.3747, 205.6651, 203.8605, 202.5862, 201.7998, 207.8844, 206.6546, 205.9112, 206.52, 206.6092, 209.8725, 210.1911, 208.8825, 204.1376, 197.3008, 195.3789, 194.0569, 193.8832, 195.6567, 198.2379, 203.2067, 201.9437, 199.4399, 203.9152, 204.4892, 205.6371, 209.2423, 211.0332, 216.9985, 214.4109, 218.6496, 220.5472];
+const DD = [0.0, 0.0, -0.0052, -0.0037, -0.0022, 0.0, -0.0026, -0.0027, -0.004, -0.0059, -0.0009, -0.0013, -0.0031, -0.0019, -0.0017, -0.0051, -0.0014, -0.0014, -0.0004, -0.0091, -0.0057, -0.0059, -0.0076, -0.0048, -0.0016, -0.0079, -0.0047, -0.0048, -0.0194, -0.0097, -0.013, -0.0176, -0.0108, -0.013, -0.0099, 0.0, -0.0003, -0.0082, -0.0106, -0.0101, -0.0152, -0.0074, -0.0243, -0.0148, -0.0071, -0.0081, -0.0052, -0.0023, -0.0053, -0.0072, -0.026, -0.0134, -0.0115, -0.0376, -0.0354, -0.0165, -0.0042, -0.0002, -0.021, -0.0306, -0.037, -0.0426, -0.0391, -0.0159, -0.0204, -0.009, -0.0471, -0.027, -0.0157, -0.0261, -0.0311, -0.0012, -0.0041, -0.0192, -0.0165, -0.0183, -0.027, -0.021, -0.0332, -0.0488, -0.0762, -0.0758, -0.071, -0.0244, -0.0244, -0.0182, -0.0369, -0.0415, -0.0168, -0.0048, -0.0005, -0.0009, -0.0138, -0.0016, -0.0136, -0.0193, -0.0022, -0.004, -0.0015, -0.0051, -0.0238, -0.0394, -0.0493, -0.0145, -0.0268, -0.0189, -0.0024, -0.0266, -0.0293, -0.0188, -0.0095, -0.0187, -0.0332, -0.0321, -0.0317, -0.0427, -0.0559, -0.0866, -0.1004, -0.0883, -0.0674, -0.0525, -0.0225, -0.0137, -0.0107, -0.0061, -0.0088, 0.0, -0.0049, -0.0276, -0.0175, -0.011, -0.0262, -0.026, -0.0049, -0.0277, -0.0651, -0.0443, -0.0626, -0.0335, -0.0504, -0.0368, -0.0208, -0.0136, -0.0134, -0.0398, -0.0426, -0.112, -0.0535, -0.0783, -0.0407, -0.0325, -0.007, -0.0341, -0.0382, -0.0522, -0.0296, -0.0632, -0.0461, -0.0265, -0.0271, -0.0019, -0.0058, -0.0053, -0.0078, -0.0157, -0.0038, 0.0, -0.0085, -0.009, -0.0203, -0.0158, -0.0202, -0.0401, -0.0332, -0.0207, -0.0221, -0.0359, -0.0461, -0.0326, -0.0492, -0.019, -0.0068, -0.0067, -0.0019, -0.0377, -0.0572, -0.0975, -0.1049, -0.0859, -0.1281, -0.1903, -0.1692, -0.1397, -0.1364, -0.1636, -0.1824, -0.1568, -0.0996, -0.0959, -0.0599, -0.051, -0.0346, -0.0063, -0.0348, -0.0218, -0.0481, -0.0043, -0.008, -0.0103, -0.0511, -0.0406, -0.0308, -0.0289, -0.0487, -0.0391, -0.0328, -0.0387, -0.0096, -0.017, -0.0435, -0.0269, -0.0024, -0.0351, -0.05, -0.0291, -0.0255, -0.0259, -0.0291, -0.0639, -0.0553, -0.0548, -0.0539, -0.0382, -0.0264, -0.0002, -0.008, -0.0428, -0.0639, -0.0807, -0.0928, -0.0652, -0.0476, -0.0688, -0.0498, -0.0696, -0.0966, -0.1033, -0.0763, -0.117, -0.1105, -0.0962, -0.0482, -0.0333, -0.0094, -0.0099, -0.0234, -0.0217, -0.0215, -0.0128, -0.002, -0.0621, -0.026, -0.0174, -0.0757, -0.0506, -0.0565, -0.0795, -0.093, -0.074, -0.0689, -0.0706, -0.0051, -0.0317, -0.0285, -0.1144, -0.0834, -0.0737, -0.0834, -0.1005, -0.081, -0.1024, -0.072, -0.0462, -0.0566, -0.0576, -0.0588, -0.056, -0.035, -0.036, -0.0725, -0.0666, -0.0423, -0.0299, -0.0193, -0.0187, -0.0238, -0.0446, -0.0663, -0.0681, -0.0678, -0.0943, -0.0903, -0.0831, -0.0689, -0.0818, -0.0854, -0.0968, -0.0964, -0.0926, -0.0989, -0.1151, -0.0978, -0.106, -0.102, -0.0917, -0.0846, -0.0849, -0.095, -0.0998, -0.1187, -0.1234, -0.1242, -0.1529, -0.1672, -0.1524, -0.1695, -0.1538, -0.1425, -0.1279, -0.1149, -0.115, -0.1142, -0.1045, -0.1143, -0.1083, -0.126, -0.1274, -0.1266, -0.1352, -0.1381, -0.1291, -0.1396, -0.1285, -0.1368, -0.1433, -0.1467, -0.1558, -0.173, -0.1679, -0.2158, -0.202, -0.1879, -0.1813, -0.1758, -0.1709, -0.1816, -0.1629, -0.1578, -0.1502, -0.1527, -0.1526, -0.1573, -0.1489, -0.1459, -0.1474, -0.145, -0.1529, -0.1545, -0.1623, -0.1708, -0.1598, -0.1696, -0.1587, -0.1427, -0.1408, -0.1427, -0.148, -0.1515, -0.1593, -0.1594, -0.1714, -0.1734, -0.1802, -0.1692, -0.166, -0.1725, -0.1866, -0.1943, -0.2012, -0.1867, -0.182, -0.2083, -0.1871, -0.1849, -0.15, -0.1648, -0.1389, -0.1128, -0.125, -0.1417, -0.1359, -0.1591, -0.1691, -0.1762, -0.1899, -0.1564, -0.1376, -0.1367, -0.1311, -0.1378, -0.1275, -0.121, -0.1221, -0.1321, -0.1329, -0.1394, -0.1358, -0.1197, -0.1231, -0.144, -0.1536, -0.1586, -0.1652, -0.1539, -0.1593, -0.1617, -0.173, -0.1412, -0.1397, -0.1494, -0.133, -0.1209, -0.1069, -0.0856, -0.079, -0.0585, -0.0789, -0.0496, -0.0302, -0.0212, -0.0183, -0.0372, -0.0362, -0.0197, -0.0276, -0.0298, -0.0275, -0.0481, -0.0261, -0.015, -0.0135, -0.0056, -0.0166, -0.0153, -0.0408, -0.0408, -0.0033, -0.0109, -0.0195, -0.0169, -0.0074, -0.0117, -0.0246, -0.0076, -0.007, -0.0081, -0.005, -0.001, -0.0004, -0.0087, -0.0072, -0.0058, -0.0216, -0.0261, -0.012, -0.0111, -0.0153, -0.0059, -0.0452, -0.0445, -0.0562, -0.0292, -0.0164, -0.0224, -0.0269, -0.031, -0.0353, -0.0403, -0.0391, -0.0339, -0.0259, -0.0185, -0.021, -0.0193, -0.0206, -0.0269, -0.03, -0.0377, -0.0386, -0.0469, -0.0463, -0.0405, -0.032, -0.0306, -0.022, -0.0206, -0.0267, -0.0275, -0.0247, -0.0409, -0.0466, -0.0477, -0.016, -0.0034, -0.0111, -0.0064, -0.0078, -0.0103, -0.0072, -0.007, -0.004, -0.0276, -0.0308, -0.0377, -0.0396, -0.0264, -0.0169, -0.0093, -0.0227, -0.0066, -0.0195, -0.0308, -0.0442, -0.0473, -0.0383, -0.0667, -0.0696, -0.0663, -0.0483, -0.0539, -0.045, -0.0237, -0.0231, -0.0196, -0.0141, -0.0233, -0.0219, -0.0192, -0.0006, -0.0494, -0.0547, -0.0764, -0.0813, -0.0878, -0.0985, -0.0963, -0.078, -0.0806, -0.0935, -0.0887, -0.0936, -0.1004, -0.0994, -0.0977, -0.0899, -0.082, -0.0782, -0.0688, -0.0701, -0.0679, -0.0662, -0.0665, -0.0709, -0.0628, -0.0554, -0.0654, -0.0637, -0.0642, -0.0672, -0.0637, -0.056, -0.0569, -0.0601, -0.0547, -0.05, -0.0514, -0.0502, -0.0535, -0.0534, -0.0471, -0.047, -0.0512, -0.0623, -0.0662, -0.0626, -0.0654, -0.0758, -0.0695, -0.0686, -0.0584, -0.0699, -0.0993, -0.0965, -0.0889, -0.1173, -0.117, -0.1082, -0.1055, -0.1073, -0.1055, -0.0999, -0.0965, -0.0944, -0.0807, -0.0717, -0.0645, -0.0709, -0.0604, -0.057, -0.0449, -0.0581, -0.0394, -0.0356, -0.0369, -0.0312, -0.0383, -0.0347, -0.0246, -0.0274, -0.028, -0.015, -0.0184, -0.0057, -0.0511, -0.0601, -0.054, -0.0368, -0.0257, -0.0234, -0.0106, -0.0003, -0.0038, -0.0091, -0.0105, -0.0042, -0.0102, -0.0025, -0.0324, -0.0289, -0.0188, -0.0336, -0.0107, -0.0164, -0.0101, -0.0642, -0.0727, -0.0668, -0.0905, -0.0673, -0.0732, -0.058, -0.0598, -0.0449, -0.0191, -0.0019, -0.0032, -0.0219, -0.019, -0.0173, -0.0365, -0.0413, -0.0479, -0.0502, -0.032, -0.0291, -0.0361, -0.0261, -0.058, -0.074, -0.1197, -0.1286, -0.1007, -0.1131, -0.1084, -0.1015, -0.108, -0.1354, -0.1468, -0.1448, -0.119, -0.1159, -0.0957, -0.0972, -0.081, -0.0792, -0.077, -0.0718, -0.0811, -0.0777, -0.1063, -0.1228, -0.1259, -0.1929, -0.2054, -0.211, -0.2243, -0.1979, -0.204, -0.1953, -0.1722, -0.1824, -0.1822, -0.2015, -0.2067, -0.2492, -0.2323, -0.2788, -0.3427, -0.3346, -0.3447, -0.3564, -0.3288, -0.3473, -0.3867, -0.3483, -0.3588, -0.336, -0.3366, -0.3398, -0.3369, -0.3284, -0.3463, -0.3609, -0.3486, -0.3623, -0.3384, -0.4248, -0.4562, -0.5048, -0.4749, -0.415, -0.3929, -0.3947, -0.3624, -0.3333, -0.3476, -0.3426, -0.3015, -0.3487, -0.3335, -0.3157, -0.2751, -0.2754, -0.2532, -0.2264, -0.2149, -0.2269, -0.2369, -0.2295, -0.233, -0.1845, -0.166, -0.1794, -0.1652, -0.1788, -0.1568, -0.1698, -0.2164, -0.2371, -0.2214, -0.2147, -0.248, -0.2679, -0.2815, -0.2397, -0.2279, -0.2426, -0.2408, -0.2255, -0.2188, -0.1942, -0.2, -0.2019, -0.2112, -0.2509, -0.2554, -0.2472, -0.2489, -0.2355, -0.2271, -0.1961, -0.1812, -0.1795, -0.1687, -0.1629, -0.1488, -0.1351, -0.1323, -0.1331, -0.1859, -0.1667, -0.2131, -0.2158, -0.2184, -0.2281, -0.1987, -0.2103, -0.2487, -0.2437, -0.2159, -0.2129, -0.1893, -0.175, -0.2037, -0.2095, -0.2264, -0.2258, -0.194, -0.1718, -0.1685, -0.1565, -0.1593, -0.1378, -0.1372, -0.125, -0.1239, -0.1116, -0.1267, -0.1245, -0.1242, -0.0927, -0.0828, -0.0742, -0.0664, -0.0565, -0.0565, -0.0484, -0.051, -0.0439, -0.0195, -0.0117, -0.0272, -0.0272, -0.0346, -0.0625, -0.0352, -0.0226, -0.0086, -0.019, -0.0257, -0.0027, -0.0207, -0.0175, -0.0239, -0.0328, -0.0441, -0.0647, -0.069, -0.0659, -0.0576, -0.0143, -0.0356, -0.0374, -0.0632, -0.0781, -0.1199, -0.122, -0.1213, -0.0768, -0.0852, -0.0795, -0.0815, -0.0718, -0.0773, -0.0751, -0.0776, -0.0874, -0.0807, -0.0796, -0.0834, -0.091, -0.0886, -0.083, -0.08, -0.0793, -0.0696, -0.0685, -0.0693, -0.0645, -0.0569, -0.0574, -0.0465, -0.1083, -0.1003, -0.1076, -0.1401, -0.1285, -0.1001, -0.1094, -0.1108, -0.1232, -0.1195, -0.1203, -0.1195, -0.124, -0.1431, -0.1357, -0.1482, -0.1484, -0.1374, -0.1317, -0.1023, -0.0502, -0.018, 0.0, -0.0132, -0.0074, 0.0, -0.0002, -0.0054, -0.006, -0.0045, -0.0028, -0.0021, -0.0109, -0.0072, -0.0222, -0.0192, -0.0354, -0.0332, -0.0558, -0.0718, -0.0484, -0.0402, -0.0339, -0.028, -0.0166, -0.0354, -0.019, -0.0056, -0.0007, 0.0, -0.0064, -0.0112, -0.0012, -0.0185, -0.0277, -0.0022, -0.0022, -0.0091, -0.0024, -0.0086, -0.0007, -0.0254, -0.0178, -0.0108, -0.0012, -0.0047, -0.0111, -0.0223, -0.0353, -0.0324, -0.0465, -0.0555, -0.0305, -0.0141, -0.0037, -0.0058, -0.0054, -0.0104, -0.0936, -0.0958, -0.1041, -0.0738, -0.0434, -0.0269, -0.01, -0.0131, -0.0125, -0.0053, -0.0125, -0.0154, -0.0139, -0.0045, -0.0084, -0.0189, -0.0529, -0.0104, -0.0096, -0.0001, -0.0097, -0.0126, -0.0162, -0.0314, -0.0397, -0.057, -0.0253, -0.009, -0.0004, -0.0095, -0.0307, -0.0175, -0.0112, -0.013, -0.0402, -0.0352, -0.0129, -0.0132, -0.0138, -0.0135, -0.0127, -0.0007, -0.0005, -0.0105, -0.0067, -0.0063, -0.0011, -0.0099, -0.0126, -0.0047, -0.0327, -0.0474, -0.0344, -0.0092, -0.014, -0.0045, -0.04, -0.0768, -0.1042, -0.1019, -0.1081, -0.1154, -0.1295, -0.1552, -0.158, -0.1441, -0.1413, -0.1405, -0.1435, -0.1536, -0.1599, -0.1374, -0.1416, -0.1534, -0.155, -0.1601, -0.1663, -0.1602, -0.1507, -0.1556, -0.1623, -0.108, -0.1022, -0.1177, -0.1306, -0.1316, -0.1316, -0.1501, -0.1729, -0.1709, -0.1372, -0.1672, -0.1717, -0.1968, -0.2055, -0.199, -0.172, -0.1329, -0.1016, -0.0364, -0.039, -0.0325, -0.0133, -0.0915, -0.094, -0.1341, -0.1465, -0.1274, -0.1121, -0.1183, -0.1238, -0.1064, -0.082, -0.0712, -0.053, -0.0276, -0.017, -0.0476, -0.0409, -0.0471, -0.0128, -0.0201, -0.0346, -0.063, -0.0489, -0.0491, -0.0815, -0.0526, -0.0259, -0.0385, -0.0244, -0.0086, -0.0017, -0.0126, -0.0333, -0.0322, -0.038, -0.0301, -0.0289, -0.0267, -0.0082, -0.0256, -0.0301, -0.0163, -0.0208, -0.0201, -0.0056, -0.0039, -0.0036, -0.0508, -0.0442, -0.0412, -0.0345, -0.0096, -0.0246, -0.0442, -0.0392, -0.0439, -0.0505, -0.0492, -0.0277, -0.0231, -0.0135, -0.0057, -0.0378, -0.0332, -0.0269, -0.0088, -0.0155, -0.0101, -0.0113, 0.0, -0.0081, -0.0016, -0.0012, -0.0127, -0.017, -0.0178, -0.0108, -0.0194, -0.0216, -0.0228, -0.0231, -0.0215, -0.0265, -0.014, -0.0185, -0.0994, -0.0782, -0.0235, -0.0052, -0.0034, -0.0099, -0.002, 0.0, -0.0077, -0.015, -0.053, -0.0085, -0.011, -0.0328, -0.0284, -0.0391, -0.0204, -0.0333, -0.0399, -0.0487, -0.0463, -0.0218, -0.0161, -0.0175, -0.0376, -0.0735, -0.1174, -0.0929, -0.0749, -0.0283, -0.0132, -0.0119, -0.0203, -0.0058, -0.0104, -0.0081, 0.0, -0.0464, -0.0465, -0.0208, -0.0291, -0.0948, -0.078, -0.1078, -0.1252, -0.12, -0.1584, -0.1933, -0.181, -0.1416, -0.1321, -0.1567, -0.1572, -0.1549, -0.1839, -0.1932, -0.1729, -0.1354, -0.1162, -0.0977, -0.1074, -0.0946, -0.0948, -0.0948, -0.0805, -0.0827, -0.08, -0.092, -0.0944, -0.0834, -0.0711, -0.0289, -0.067, -0.0756, -0.077, -0.0738, -0.0634, -0.05, -0.0479, -0.0527, -0.0587, -0.0241, -0.0248, -0.0204, -0.0259, -0.038, -0.0399, -0.0619, -0.0668, -0.0419, -0.0714, -0.0591, -0.0323, -0.0701, -0.0886, -0.0729, -0.0687, -0.0739, -0.0813, -0.0849, -0.0457, -0.0802, -0.0929, -0.1022, -0.0785, -0.0566, -0.0529, -0.03, -0.0299, -0.0231, -0.0327, -0.0407, -0.0184, -0.0315, -0.0222, -0.0302, -0.0898, -0.0848, -0.0118, -0.1589, -0.2061, -0.281, -0.3036, -0.3281, -0.3282, -0.3257, -0.3626, -0.3693, -0.3817, -0.3307, -0.3209, -0.3397, -0.3742, -0.3975, -0.3938, -0.3911, -0.3921, -0.3219, -0.3143, -0.3064, -0.3432, -0.3351, -0.3372, -0.348, -0.3489, -0.3373, -0.3286, -0.316, -0.2933, -0.2947, -0.2783, -0.2563, -0.2371, -0.275, -0.3247, -0.3904, -0.5073, -0.5146, -0.5297, -0.5306, -0.4857, -0.4933, -0.492, -0.4475, -0.4345, -0.4473, -0.4324, -0.4263, -0.3996, -0.382, -0.3735, -0.3858, -0.3752, -0.3619, -0.3588, -0.3503, -0.3136, -0.3138, -0.3124, -0.2967, -0.2926, -0.3149, -0.3106, -0.2981, -0.308, -0.2963, -0.2886, -0.2393, -0.2202, -0.2305, -0.1942, -0.1567, -0.1361, -0.1264, -0.0599, -0.049, -0.0164, -0.0435, -0.019, -0.0598, -0.126, -0.1651, -0.1939, -0.192, -0.0557, -0.0171, -0.0685, -0.0507, -0.0309, -0.0154, -0.028, -0.0097, -0.0134, -0.0159, -0.0353, -0.028, -0.0533, -0.1043, -0.1422, -0.1544, -0.1413, -0.1517, -0.118, -0.1309, -0.0949, -0.0962, -0.1076, -0.1118, -0.0432, -0.0431, -0.0352, -0.0044, -0.0085, -0.0138, -0.0316, -0.0273, -0.0448, -0.0716, -0.0649, -0.0103, -0.0121, -0.0176, -0.0276, -0.014, -0.0368, -0.0316, -0.0387, -0.0448, -0.0538, -0.0547, -0.0593, -0.0906, -0.0953, -0.1405, -0.1306, -0.1132, -0.0943, -0.0798, -0.0853, -0.0547, -0.0634, -0.0654, -0.0639, -0.0597, -0.0796, -0.0973, -0.1127, -0.1243, -0.1179, -0.1559, -0.1588, -0.1641, -0.1709, -0.2038, -0.2413, -0.2098, -0.2241, -0.204, -0.2016, -0.1662, -0.1707, -0.129, -0.1073, -0.1088, -0.1038, -0.1059, -0.1064, -0.095, -0.1057, -0.1019, -0.0955, -0.1157, -0.1115, -0.0776, -0.0946, -0.1208, -0.1576, -0.1617, -0.1485, -0.1359, -0.1537, -0.1485, -0.1365, -0.1453, -0.127, -0.026, -0.0245, -0.0243, -0.0601, -0.0538, -0.0174, -0.0134, -0.0392, -0.0167, -0.0155, -0.0098, -0.0123, -0.0056, -0.0328, -0.0229, -0.0325, -0.0408, -0.0358, -0.042, -0.0167, -0.0156, -0.0151, -0.0035, -0.0108, -0.0061, -0.0105, -0.0343, -0.0354, -0.0434, -0.0408, -0.0321, -0.0251, -0.0129, -0.0125, -0.0091, -0.0128, -0.0098, -0.0192, -0.0175, -0.0102, -0.0133, -0.0133, -0.016, -0.0219, -0.0086, -0.0067, -0.005, -0.026, -0.0223, -0.0322, -0.0113, -0.0584, -0.0632, -0.0666, -0.0286, -0.0393, -0.0152, -0.0154, -0.0033, -0.0082, -0.0359, -0.016, -0.0118, -0.0019, -0.0251, -0.0127, -0.0083, -0.0119, -0.0127, -0.0129, -0.0246, -0.0291, -0.0281, -0.0133, -0.0154, -0.0219, -0.0383, -0.0418, -0.0262, -0.0327, -0.0749, -0.0853, -0.081, -0.0762, -0.0917, -0.1114, -0.0817, -0.0828, -0.0377, -0.0572, -0.0452, -0.009, -0.0236, -0.0292, -0.032, -0.0183, -0.0161, -0.0088, -0.0132, -0.0094, -0.0317, -0.0345, -0.0385, -0.0357, -0.032, -0.0157, -0.0346, -0.0355, -0.0219, -0.0473, -0.0747, -0.0448, -0.0783, -0.0627, -0.0348, -0.1126, -0.1142, -0.096, -0.0924, -0.1028, -0.1018, -0.0732, -0.0434, -0.0344, -0.014, -0.0059, -0.028, -0.0263, -0.0234, -0.0191, -0.003, -0.005, -0.0185, -0.0087, -0.0119, -0.0147, -0.0228, -0.0148, -0.0038, -0.0021, -0.0078, -0.0075, -0.0106, -0.0273, -0.0173, -0.0282, -0.0462, -0.0428, -0.0598, -0.0313, -0.0241, -0.0226, -0.0395, -0.0228, -0.0169, -0.0088, -0.012, -0.0417, -0.0842, -0.1452, -0.1237, -0.1145, -0.1112, -0.0837, -0.0837, -0.0566, -0.0721, -0.0779, -0.042, -0.0338, -0.0325, -0.0162, -0.0007, -0.0215, -0.0204, 0.0];
+
+(function() {
+  const canvas = document.getElementById('eq-chart');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = 380 * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const W = rect.width, H = 380;
+
+  const margin = {top: 20, right: 60, bottom: 30, left: 60};
+  const pw = W - margin.left - margin.right;
+  const ph = H - margin.top - margin.bottom;
+
+  // Normalize to start at 1.0; use log scale for vast vol-targeted gains
+  const eqN = EQ.map(v => v / EQ[0]);
+  const spyN = SPY.map(v => v / SPY[0]);
+  const levN = LEV.map(v => v / LEV[0]);
+
+  // Use log scale
+  const logEqN = eqN.map(v => Math.log10(Math.max(v, 0.01)));
+  const logSpyN = spyN.map(v => Math.log10(Math.max(v, 0.01)));
+  const logLevN = levN.map(v => Math.log10(Math.max(v, 0.01)));
+
+  const allLog = logEqN.concat(logSpyN, logLevN);
+  const maxY = Math.max(...allLog) + 0.1;
+  const minY = Math.min(...allLog) - 0.1;
+  const n = DATES.length;
+
+  function x(i) { return margin.left + (i / (n - 1)) * pw; }
+  function y(v) { return margin.top + (1 - (v - minY) / (maxY - minY)) * ph; }
+
+  // Background
+  ctx.fillStyle = '#1a1f2e';
+  ctx.fillRect(0, 0, W, H);
+
+  // Log scale grid lines (powers of 10 and intermediate)
+  ctx.strokeStyle = '#2d3548';
+  ctx.lineWidth = 0.5;
+  ctx.fillStyle = '#9ca3af'; ctx.font = '10px monospace'; ctx.textAlign = 'right';
+  const tickVals = [];
+  for (let p = Math.floor(minY); p <= Math.ceil(maxY); p++) {
+    for (let m = 1; m < 10; m++) {
+      const v = Math.log10(m * Math.pow(10, p));
+      if (v >= minY && v <= maxY) tickVals.push({log: v, val: m * Math.pow(10, p)});
+    }
+  }
+  // Subsample if too many
+  const tickStep = Math.max(1, Math.floor(tickVals.length / 8));
+  tickVals.forEach((t, idx) => {
+    if (idx % tickStep !== 0) return;
+    ctx.strokeStyle = '#2d3548';
+    ctx.beginPath(); ctx.moveTo(margin.left, y(t.log)); ctx.lineTo(W - margin.right, y(t.log)); ctx.stroke();
+    const label = t.val >= 1 ? t.val.toFixed(0) + 'x' : t.val.toFixed(2) + 'x';
+    ctx.fillStyle = '#9ca3af';
+    ctx.fillText(label, margin.left - 6, y(t.log) + 3);
+  });
+
+  // Date labels
+  ctx.textAlign = 'center'; ctx.fillStyle = '#9ca3af'; ctx.font = '10px monospace';
+  const step = Math.max(1, Math.floor(n / 8));
+  for (let i = 0; i < n; i += step) {
+    ctx.fillText(DATES[i].substring(0, 7), x(i), H - 8);
+  }
+
+  // SPY line
+  ctx.strokeStyle = '#6b7280';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    if (i === 0) ctx.moveTo(x(i), y(logSpyN[i]));
+    else ctx.lineTo(x(i), y(logSpyN[i]));
+  }
+  ctx.stroke();
+
+  // Raw portfolio line
+  ctx.strokeStyle = '#7dd3fc';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    if (i === 0) ctx.moveTo(x(i), y(logEqN[i]));
+    else ctx.lineTo(x(i), y(logEqN[i]));
+  }
+  ctx.stroke();
+
+  // Vol-targeted portfolio line (emphasized)
+  ctx.strokeStyle = '#34d399';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    if (i === 0) ctx.moveTo(x(i), y(logLevN[i]));
+    else ctx.lineTo(x(i), y(logLevN[i]));
+  }
+  ctx.stroke();
+
+  // End labels
+  ctx.font = '11px monospace'; ctx.textAlign = 'left';
+  ctx.fillStyle = '#34d399';
+  ctx.fillText(levN[n-1].toFixed(0) + 'x', x(n-1) + 6, y(logLevN[n-1]) + 4);
+  ctx.fillStyle = '#7dd3fc';
+  ctx.fillText(eqN[n-1].toFixed(1) + 'x', x(n-1) + 6, y(logEqN[n-1]) + 4);
+  ctx.fillStyle = '#6b7280';
+  ctx.fillText(spyN[n-1].toFixed(1) + 'x', x(n-1) + 6, y(logSpyN[n-1]) + 4);
+
+  // Hover tooltip
+  canvas.addEventListener('mousemove', function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const i = Math.round((mx - margin.left) / pw * (n - 1));
+    if (i >= 0 && i < n) {
+      canvas.title = DATES[i] + ' | Vol-tgt: ' + levN[i].toFixed(2) + 'x | Raw: ' + eqN[i].toFixed(3) + 'x | SPY: ' + spyN[i].toFixed(2) + 'x';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

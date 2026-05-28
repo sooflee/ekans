@@ -13470,7 +13470,7 @@
   {
     "idea_id": "PL496",
     "created_at": "2026-05-27T18:03:20.470555+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "LME Copper Warrant Cancellation Surge Signals Physical Market Tightness and Price Spike",
     "category": "C",
     "asset_class": "commodities",
@@ -13497,7 +13497,7 @@
   {
     "idea_id": "PL497",
     "created_at": "2026-05-27T18:03:20.470555+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "State Cannabis Legalization Ballot Initiative Passage Drives MSO and Cannabis REIT Re-Rating",
     "category": "F",
     "asset_class": "equities",
@@ -13524,7 +13524,7 @@
   {
     "idea_id": "PL498",
     "created_at": "2026-05-27T18:03:53.884675+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "FHWA Travel Time Reliability Deterioration Drives Truck-to-Intermodal Conversion for Rails",
     "category": "K",
     "asset_class": "equities",
@@ -13546,12 +13546,13 @@
     "bt_feasibility": 3,
     "source_reference": "FHWA Freight Performance Measures; AAR intermodal competitive analysis",
     "research_phase": "pipeline_scout",
-    "dedup_key": "fhwa_lottr_congestion_shift_intermodal_rail"
+    "dedup_key": "fhwa_lottr_congestion_shift_intermodal_rail",
+    "reject_reason": "bt_feasibility=3: below development threshold"
   },
   {
     "idea_id": "PL499",
     "created_at": "2026-05-27T18:03:53.884675+00:00",
-    "status": "new",
+    "status": "rejected",
     "name": "USDA RMA Crop Insurance Indemnity Payment Surge Supports Ag Lender Credit Quality",
     "category": "G",
     "asset_class": "equities",
@@ -13573,12 +13574,13 @@
     "bt_feasibility": 3,
     "source_reference": "USDA RMA program data; KC Fed Agricultural Finance Databook",
     "research_phase": "pipeline_scout",
-    "dedup_key": "usda_rma_indemnity_surge_ag_lender_credit"
+    "dedup_key": "usda_rma_indemnity_surge_ag_lender_credit",
+    "reject_reason": "bt_feasibility=3: below development threshold"
   },
   {
     "idea_id": "PL500",
     "created_at": "2026-05-27T18:03:53.884675+00:00",
-    "status": "new",
+    "status": "developed",
     "name": "Corporate Buyback Blackout Window End Creates Predictable Buying Pressure for SPY",
     "category": "A",
     "asset_class": "equities",
@@ -13601,5 +13603,252 @@
     "source_reference": "Dittmar & Field (JFE 2015) on buyback timing; Goldman Sachs CIO buyback reports",
     "research_phase": "pipeline_scout",
     "dedup_key": "corporate_buyback_blackout_end_spy_pressure"
+  },
+  {
+    "idea_id": "PL501",
+    "created_at": "2026-05-27T18:04:28.982425+00:00",
+    "status": "developed",
+    "name": "OECD CLI G7 Divergence Signals Cross-Country Equity Rotation Opportunity",
+    "category": "E",
+    "asset_class": "multi-asset",
+    "horizon": "4-12 weeks",
+    "thesis": "When the OECD Composite Leading Indicator for a G7 economy crosses above 100 (expansion) while the US CLI is below 100 (contraction), the divergence signals relative economic improvement. Long the outperforming country's equity ETF (e.g., EWJ, EWG, EWC) funded by underweight SPY. The OECD CLI historically leads GDP turning points by 6-9 months.",
+    "causal_chain": [
+      "1. OECD CLI for G7 country crosses above 100 while US CLI below 100",
+      "2. Leading indicators signal relative economic acceleration in the outperforming country",
+      "3. Corporate earnings revisions turn positive in the accelerating economy",
+      "4. Capital flows rotate toward the improving economy's equity market",
+      "5. Country ETF outperforms SPY over subsequent quarter as CLI signal leads GDP"
+    ],
+    "data_sources": [
+      "OECD CLI database (data.oecd.org, monthly, free)",
+      "FRED USALOLITONOSTSAM for US CLI",
+      "yfinance for country ETFs EWJ/EWG/EWC"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "OECD CLI methodology; Graff (JBES 2010) on CLI forecasting power",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "oecd_cli_g7_divergence_equity_rotation"
+  },
+  {
+    "idea_id": "PL502",
+    "created_at": "2026-05-27T18:04:28.982425+00:00",
+    "status": "rejected",
+    "name": "USGS/VAAC Volcanic Ash Advisory Triggers Flight Rerouting and Fuel Surcharge Revenue for Airlines",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "2-6 weeks",
+    "thesis": "When Volcanic Ash Advisory Centers (VAACs) issue extended ash cloud advisories forcing North Pacific or transatlantic flight rerouting for >7 consecutive days, airlines incur higher fuel costs from longer routes but pass through costs via fuel surcharges within 2-4 weeks. Airlines with strong fuel surcharge pass-through mechanisms (premium carriers UAL, DAL) actually benefit from the event as surcharge revenue exceeds incremental fuel cost.",
+    "causal_chain": [
+      "1. USGS/VAAC issues volcanic ash cloud advisory affecting major flight corridors for >7 days",
+      "2. Airlines reroute flights on longer paths, increasing per-flight fuel consumption",
+      "3. Airlines implement fuel surcharge increases within 2-4 weeks",
+      "4. Premium carriers with strong pricing power pass through >100% of incremental fuel cost",
+      "5. UAL/DAL see transient fuel surcharge revenue boost exceeding incremental fuel cost"
+    ],
+    "data_sources": [
+      "USGS Volcano Hazards Program (usgs.gov/programs/volcano-hazards)",
+      "Washington/Tokyo VAAC advisory archive",
+      "yfinance for UAL/DAL"
+    ],
+    "originality": 9,
+    "bt_feasibility": 3,
+    "source_reference": "VAAC advisory protocols; ICAO volcanic ash procedures; Mazzocchi et al. (2010) on Eyjafjallajokull airline impact",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usgs_volcanic_so2_flight_rerouting_fuel",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL503",
+    "created_at": "2026-05-27T18:04:28.982425+00:00",
+    "status": "developed",
+    "name": "NY Fed SCE 3-Year Inflation Expectations Jump Signals TIPS Breakeven Widening",
+    "category": "B",
+    "asset_class": "bonds",
+    "horizon": "2-6 weeks",
+    "thesis": "When the NY Fed Survey of Consumer Expectations median 3-year inflation expectation jumps >0.5pp in a single month, it signals a regime shift in inflation expectations that the bond market has not yet fully priced. TIPS breakevens widen with a 2-4 week lag as institutional investors adjust inflation hedges. Long TIPS (TIP) or TIPS breakeven wideners when SCE 3-year jumps >0.5pp.",
+    "causal_chain": [
+      "1. NY Fed SCE median 3-year inflation expectation jumps >0.5pp in a single month",
+      "2. Consumer inflation expectations shift signals potential wage-price spiral risk",
+      "3. Institutional investors adjust inflation hedging allocations toward TIPS",
+      "4. TIPS breakevens widen as demand for inflation protection increases",
+      "5. TIP outperforms nominal Treasury duration-equivalent (IEF) over subsequent month"
+    ],
+    "data_sources": [
+      "NY Fed Survey of Consumer Expectations (newyorkfed.org/microeconomics/sce, monthly, free)",
+      "FRED T5YIE/T10YIE breakeven rates",
+      "yfinance for TIP/IEF"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "NY Fed SCE methodology; Armantier et al. (AER 2016) on inflation expectations measurement",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nyfed_sce_inflation_expectation_jump_tips"
+  },
+  {
+    "idea_id": "PL504",
+    "created_at": "2026-05-27T18:05:05.498027+00:00",
+    "status": "rejected",
+    "name": "Reddit WallStreetBets Bullish Consensus Extreme Signals Retail Exhaustion for Contrarian Long Vol",
+    "category": "J",
+    "asset_class": "equities",
+    "horizon": "2-4 weeks",
+    "thesis": "When sentiment analysis of WallStreetBets daily discussion threads shows >85% bullish mentions for a specific ticker AND that ticker has gained >30% in the prior 30 days, retail buying exhaustion is near. The ticker historically underperforms over the next 2-4 weeks as the speculative frenzy fades. Contrarian approach: buy SPY when WSB sentiment on meme stocks hits euphoria extremes as a signal that retail risk appetite will rotate back to quality.",
+    "causal_chain": [
+      "1. WSB daily thread sentiment analysis shows >85% bullish on specific tickers after 30%+ run",
+      "2. Retail buying exhaustion signals peak speculative positioning",
+      "3. Meme stock flows peak and begin to reverse",
+      "4. Retail capital rotation from meme stocks back to index/quality names",
+      "5. SPY/QQQ benefit from capital reallocation as meme trade unwinds"
+    ],
+    "data_sources": [
+      "Reddit API (reddit.com/dev/api, free with rate limits)",
+      "pushshift.io Reddit archive",
+      "yfinance for SPY and target tickers"
+    ],
+    "originality": 6,
+    "bt_feasibility": 3,
+    "source_reference": "Cookson et al. (JFE 2023) on social media and retail trading; Barber & Odean (RFS 2008)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "reddit_wsb_bullish_extreme_contrarian_put",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL505",
+    "created_at": "2026-05-27T18:05:05.498027+00:00",
+    "status": "rejected",
+    "name": "FEMA Risk Rating 2.0 Premium Increase Drives Coastal-to-Inland Housing Demand Shift",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "12-24 weeks",
+    "thesis": "When FEMA implements Risk Rating 2.0 premium increases exceeding $1,000/year for >500K NFIP policies in coastal counties, it creates a material increase in the total cost of coastal homeownership. This drives demand shift from coastal to inland housing markets. Homebuilders with land positions in inland metros (NVR, MDC in mid-Atlantic/Midwest) benefit from the migration pattern.",
+    "causal_chain": [
+      "1. FEMA Risk Rating 2.0 annual premium increases of >$1,000 hit >500K coastal NFIP policies",
+      "2. Total cost of coastal homeownership rises, reducing demand in affected flood zones",
+      "3. Homebuyers shift preference toward inland metros with lower insurance costs",
+      "4. Inland-focused homebuilders see order growth acceleration in non-coastal communities",
+      "5. NVR/MDC with inland land banks see net new order improvement"
+    ],
+    "data_sources": [
+      "FEMA NFIP policy data (fema.gov/flood-insurance/work-with-nfip/data-analytics)",
+      "FEMA Risk Rating 2.0 premium data",
+      "yfinance for NVR/MDC"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "FEMA Risk Rating 2.0 methodology; CBO analysis of NFIP rate adequacy",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fema_rr20_rate_increase_coastal_inland_builder",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL506",
+    "created_at": "2026-05-27T18:05:05.498027+00:00",
+    "status": "rejected",
+    "name": "NASA SMAP Soil Moisture Deficit in HRW Wheat Belt Predicts Abandonment and Bakery Input Relief",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "NASA SMAP satellite-measured soil moisture in the HRW wheat belt (KS, OK, TX panhandle) declining below the 10th percentile by March signals high winter wheat abandonment rates. This initially spikes wheat futures but the abandonment is quickly priced in. The counter-trade: when wheat futures subsequently pull back 15%+ from the panic spike (as global supply adjustments occur), bakery/snack companies (MDLZ, GIS) see input cost relief. Long MDLZ/GIS on the wheat pullback.",
+    "causal_chain": [
+      "1. NASA SMAP soil moisture in HRW wheat belt below 10th percentile by March",
+      "2. USDA crop condition reports confirm high abandonment rates (>20% vs 10% normal)",
+      "3. Wheat futures spike on supply fear but global supply chain adjusts within 2-3 months",
+      "4. Wheat futures pull back >15% from panic peak as substitution and global trade offset",
+      "5. MDLZ/GIS input cost outlook improves, supporting margin expansion narrative"
+    ],
+    "data_sources": [
+      "NASA SMAP soil moisture (nsidc.org/data/smap, free)",
+      "USDA NASS Crop Progress (weekly, free)",
+      "yfinance for MDLZ/GIS and ZW=F"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "NASA SMAP mission data; Bolten & Crow (2012) on satellite soil moisture and crop yields",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nasa_smap_soil_moisture_wheat_abandon_bakery",
+    "reject_reason": "bt_feasibility=3: below development threshold"
+  },
+  {
+    "idea_id": "PL507",
+    "created_at": "2026-05-27T18:05:38.849027+00:00",
+    "status": "new",
+    "name": "DOE Hydrogen Shot Cost Target Achievement Signals Electrolyzer OEM Production Scale-Up",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "8-24 weeks",
+    "thesis": "When DOE announces Hydrogen Shot milestone achievement ($2/kg clean hydrogen target met in specific pathways), it validates the economic viability of green hydrogen production. This triggers utility and industrial procurement of electrolyzers at scale. Long electrolyzer-exposed companies (PLUG, BE, NEL) and industrial gas companies positioned for H2 distribution (APD, LIN).",
+    "causal_chain": [
+      "1. DOE announces Hydrogen Shot cost milestone achievement for specific production pathway",
+      "2. Economic viability validated, triggering utility/industrial FID decisions",
+      "3. Electrolyzer purchase orders accelerate as projects move from FEED to procurement",
+      "4. Electrolyzer OEMs see order book expansion and revenue visibility improvement",
+      "5. PLUG/BE and APD/LIN re-rate on validated hydrogen economy thesis"
+    ],
+    "data_sources": [
+      "DOE Hydrogen and Fuel Cell Technologies Office (energy.gov/eere/fuelcells)",
+      "DOE Hydrogen Shot progress reports",
+      "yfinance for PLUG/BE/APD"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "DOE Hydrogen Shot framework; IRENA green hydrogen cost analysis",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "doe_hydrogen_shot_electrolyzer_cost_milestone"
+  },
+  {
+    "idea_id": "PL508",
+    "created_at": "2026-05-27T18:05:38.849027+00:00",
+    "status": "new",
+    "name": "BLS OEWS Registered Nurse Wage Growth Deceleration Signals Hospital Margin Recovery",
+    "category": "E",
+    "asset_class": "equities",
+    "horizon": "8-16 weeks",
+    "thesis": "When BLS Occupational Employment and Wage Statistics (OEWS) annual data shows registered nurse (SOC 29-1141) median wage growth decelerating from >5% to <3% YoY, it signals the end of the post-pandemic travel nurse premium cycle. Hospital operators (HCA, THC, UHS) see labor cost normalization as their largest expense line (nurses = 25-30% of opex) decelerates. Long hospital operators on nurse wage deceleration confirmation.",
+    "causal_chain": [
+      "1. BLS OEWS shows RN median wage growth decelerating from >5% to <3% YoY",
+      "2. Travel nurse premium rates decline as permanent staff supply normalizes",
+      "3. Hospital labor cost per adjusted patient day growth rate declines",
+      "4. Hospital EBITDA margins expand as revenue per admission grows faster than labor costs",
+      "5. HCA/THC/UHS report margin expansion and earnings beats"
+    ],
+    "data_sources": [
+      "BLS OEWS (bls.gov/oes, annual, free)",
+      "BLS Employment Cost Index healthcare",
+      "yfinance for HCA/THC/UHS"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "BLS OEWS methodology; Kaufman Hall national hospital flash report",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "bls_oews_rn_wage_inflection_hospital_margin"
+  },
+  {
+    "idea_id": "PL509",
+    "created_at": "2026-05-27T18:05:38.849027+00:00",
+    "status": "new",
+    "name": "IEA Oil Market Report Demand Upward Revision Predicts Crude Futures Momentum",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-6 weeks",
+    "thesis": "When the IEA monthly Oil Market Report revises global oil demand upward by >0.3 mb/d from the prior month's estimate, it signals demand strength that the futures market has not fully priced. Crude futures (WTI/Brent) historically rally 3-5% in the 3 weeks following large IEA upward revisions as the demand data percolates through analyst models. Long WTI or XOP on IEA revision day.",
+    "causal_chain": [
+      "1. IEA Oil Market Report revises global oil demand estimate upward by >0.3 mb/d",
+      "2. Upward revision signals demand strength beyond market consensus",
+      "3. Energy analysts and traders adjust supply-demand balance models",
+      "4. Net speculative positioning in crude futures increases",
+      "5. WTI/Brent rally 3-5% over subsequent 3 weeks as models adjust"
+    ],
+    "data_sources": [
+      "IEA Oil Market Report (iea.org/reports/oil-market-report, monthly, free summary)",
+      "FRED DCOILWTICO",
+      "yfinance for USO/XOP"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "IEA OMR methodology; Baumeister & Kilian (JEL 2016) on oil market forecasting",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "iea_omr_demand_uprevision_crude_momentum"
   }
 ]

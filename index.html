@@ -449,13 +449,23 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <nav class="page-tabs">
   <button data-tab="catalog">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
   <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">24</span></button>
+  <button data-tab="portfolio">Portfolio</button>
+  <button data-tab="analysis">Analysis</button>
   <button data-tab="validation">Validation</button>
   <button data-tab="pipeline">Pipeline</button>
   <button data-tab="signals">Signals<span class="tab-count" id="tab-sig-count">0</span></button>
 </nav>
 
 <div id="tab-catalog" class="tab-panel">
-  <iframe src="full_catalog.html" loading="lazy"></iframe>
+  <iframe src="full_catalog.html"></iframe>
+</div>
+
+<div id="tab-portfolio" class="tab-panel">
+  <iframe src="portfolio.html"></iframe>
+</div>
+
+<div id="tab-analysis" class="tab-panel">
+  <iframe src="analysis.html"></iframe>
 </div>
 
 <div id="tab-strategies" class="tab-panel active">
@@ -4185,6 +4195,29 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   <div class="card-foot"><span>Source: FRED JOLTS + yfinance</span><span><code>backtests/PL478_jolts_industry_divergence_sector_rotation_long.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL489</span><h3>&#9733; DOE Industrial Assessment Center Efficiency Surge &#8594; Long ROK+EMR</h3></div>
+    <div class="right">equities (ROK, EMR) &middot; ~40-day hold &middot; 6 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.80</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">17.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-26%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">0.77</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">83%</div><div class="ml">win rate</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When DOE Industrial Assessment Center (IAC) annual data shows implementation recommendation rates increasing (&gt;10pp YoY) and average projected savings per assessment rising (&gt;20%), it signals a surge in industrial energy efficiency investment. This drives demand for automation and process control equipment from Rockwell Automation (ROK) and Emerson Electric (EMR). The IAC program conducts free energy assessments for mid-size manufacturers; rising adoption rates are a leading indicator of broader industrial efficiency capex. Energy price spikes and IRA incentives have been the strongest catalysts.</p>
+    <h4>Rule</h4>
+    <div class="rule">When DOE IAC annual data shows rising efficiency recommendation adoption and savings, long equal-weight ROK+EMR for 40 trading days post-publication.</div>
+    <h4>Caveats</h4>
+    <div class="caveat">6 events over 2008-2023. 83% win rate (5/6) with only the 2008 GFC event producing a loss (-20.6%). The 2022-2023 events showed strong returns (+9.5%, +17.5%) driven by IRA incentives and energy price spikes. Small sample size limits statistical confidence (t-stat 0.77). DOE IAC data is annual with significant lag. ROK and EMR are diversified industrials, so IAC adoption is one of many revenue drivers. The signal may simply capture industrial capex cycle timing.</div>
+  </div>
+  <div class="card-foot"><span>Source: DOE Industrial Assessment Center + yfinance</span><span><code>backtests/PL489_doe_iac_energy_efficiency_equipment.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -4403,7 +4436,7 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 <div class="empty-msg hide" id="empty-msg">No signals in this category. <button onclick="document.querySelector('.sidebar button[data-cat=&quot;&quot;]').click()" style="background:var(--bg-3);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:6px;margin-left:8px;cursor:pointer">Show all</button></div>
 
 <div class="footer">
-Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 410-row catalog</a> for every signal we attempted, including duds. View <a href="analysis.html">signal analysis</a> for multiple-testing correction, transaction costs, IS/OOS splits, and cross-signal correlation. <br>
+Generated from <code>backtests/*.py</code> + <code>results/*.json</code>. Free data only (yfinance, FRED, public APIs). View <a href="full_catalog.html">full 410-row catalog</a> for every signal we attempted, including duds. View <a href="analysis.html">signal analysis</a> for multiple-testing correction, transaction costs, IS/OOS splits, and cross-signal correlation. View <a href="portfolio.html">portfolio</a> for the combined equal-weight basket of uncorrelated winners and currently active signals. <br>
 Past performance is not predictive. Backtests don't include slippage, borrow, or taxes. Nothing here is investment advice.
 </div>
 

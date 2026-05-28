@@ -15418,9 +15418,13 @@
     "originality": 9,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T18:03:39.040638+00:00",
-    "backtested_at": "2026-05-27T18:03:59.957233+00:00",
+    "backtested_at": "2026-05-27T18:04:52.606246+00:00",
     "backtest_result": {
-      "status": "fail"
+      "status": "ok",
+      "sharpe": 0.7998470384982015,
+      "cagr": 0.1750904236327595,
+      "max_dd": -0.21834272359956952,
+      "t_stat": 0.7805707832180631
     }
   },
   {
@@ -15464,9 +15468,218 @@
     "originality": 8,
     "bt_feasibility": 3,
     "backtest_started_at": "2026-05-27T18:03:39.040828+00:00",
-    "backtested_at": "2026-05-27T18:03:59.957242+00:00",
+    "backtested_at": "2026-05-27T18:04:52.606524+00:00",
     "backtest_result": {
-      "status": "fail"
+      "status": "ok",
+      "sharpe": -0.8040286481085427,
+      "cagr": -0.35649759474207865,
+      "max_dd": -0.3480678730622595,
+      "t_stat": -0.5992875710093196
     }
+  },
+  {
+    "strategy_id": "PL496",
+    "idea_id": "PL496",
+    "created_at": "2026-05-27T18:04:30.539292+00:00",
+    "status": "in_progress",
+    "signal_id": "PL496_lme_copper_warrant_cancellation_physical_long",
+    "name": "LME Copper Warrant Cancellation Surge -> Long Copper (COPX)",
+    "category": "C",
+    "asset_class": "commodities",
+    "horizon": "2-4 weeks",
+    "rule": "Using yfinance and LME data: When LME copper cancelled warrants exceed 50% of total on-warrant inventory (indicating acute physical demand pulling metal from exchange warehouses), go long COPX on the next trading day. Hold for 15 trading days. Benchmark vs SPY. The thesis is that high cancelled warrant ratios signal physical market tightness that precedes spot price spikes.",
+    "tickers": [
+      "COPX",
+      "HG=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "LME copper cancelled warrants exceed 50% of total on-warrant stock",
+      "Enter on next trading day after threshold crossed",
+      "Minimum 30 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: COPX (Global X Copper Miners ETF), HG=F (COMEX copper), SPY",
+      "fundamental": "LME daily warehouse stock reports (free at lme.com). Cancelled warrants published daily. Data back to 2000+."
+    },
+    "backtest_approach": "Event study: Download LME copper cancelled warrant data (2010-2025 for COPX). Identify dates where cancelled/total ratio exceeds 50%. Long COPX for 15 trading days per event. Key expected events: 2011 (physical tightness from China demand), 2013 (warehouse queue controversy), 2018 (Rusal sanctions), 2021 (post-COVID restocking), 2024 (green transition demand). The cancelled warrant ratio is a well-known physical market indicator used by commodity traders.",
+    "known_events": [
+      "2011: Chinese physical demand drove cancelled warrants to 80%+ of total; copper hit $4.60/lb",
+      "2013: LME warehouse queue controversy; cancelled warrants spiked as traders sought physical delivery",
+      "2018: Rusal sanctions drove aluminum AND copper physical tightness",
+      "2021: Post-COVID industrial restocking; LME copper stocks fell to multi-year lows"
+    ],
+    "implementation_notes": "LME publishes daily stock reports including on-warrant, off-warrant, and cancelled warrant tonnages. The 50% threshold is meaningful -- normally cancelled warrants are 10-30% of total. When >50%, it signals genuine physical urgency. COPX (launched 2010) provides diversified copper mining exposure. bt_feasibility is 5 because LME data is free, daily, and well-structured.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtest_started_at": "2026-05-27T18:04:52.606527+00:00"
+  },
+  {
+    "strategy_id": "PL497",
+    "idea_id": "PL497",
+    "created_at": "2026-05-27T18:04:30.539292+00:00",
+    "status": "in_progress",
+    "signal_id": "PL497_state_cannabis_legalization_mso_long",
+    "name": "State Cannabis Legalization Ballot Passage -> Long Cannabis REIT (IIPR)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance data: When a US state with >5M population passes a cannabis legalization ballot initiative (November elections), go long IIPR (Innovative Industrial Properties, cannabis REIT) on the first trading day after election results are certified. Hold for 42 trading days. Benchmark vs SPY. IIPR is preferred over OTC MSOs (GTBIF, CURLF) for liquidity. The thesis is that TAM expansion from large-state legalization drives IIPR sale-leaseback pipeline growth.",
+    "tickers": [
+      "IIPR",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Large-population state (>5M residents) passes cannabis legalization ballot",
+      "Enter on first trading day after November election results certified",
+      "One signal per election cycle (November even years)"
+    ],
+    "exit_conditions": [
+      "Hold for 42 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: IIPR (Innovative Industrial Properties, IPO Dec 2016), MSOS (AdvisorShares Pure US Cannabis ETF, launched 2020), SPY",
+      "fundamental": "Ballotpedia state cannabis initiative tracking (free). Election results from state SOS offices. Hand-coded events."
+    },
+    "backtest_approach": "Event study with hand-coded dates: (1) Nov 2016: CA, NV, MA passed (large states), (2) Nov 2018: MI passed, (3) Nov 2020: AZ, NJ passed, (4) Nov 2022: MO, MD passed, (5) Nov 2024: FL failed (control). IIPR IPO Dec 2016; backtest from 2018+. Long IIPR for 42 trading days post each qualifying election. Limited events (4-5) but effect size should be large.",
+    "known_events": [
+      "Nov 2016: CA (39M pop) legalized; massive TAM expansion for cannabis industry",
+      "Nov 2018: MI (10M pop) legalized; IIPR rallied significantly in Dec 2018-Jan 2019",
+      "Nov 2020: AZ (7M) and NJ (9M) legalized; IIPR was in strong uptrend through Q1 2021",
+      "Nov 2022: MO and MD legalized; cannabis sector was in bear market, muted response",
+      "Nov 2024: FL Amendment 3 failed (60% threshold); negative control event"
+    ],
+    "implementation_notes": "IIPR (IPO Dec 2016) is the only publicly traded cannabis REIT with NYSE listing and institutional liquidity. MSOs like GTBIF and CURLF trade OTC with limited liquidity and yfinance data quality issues. MSOS ETF launched Sep 2020 as alternative. The main risk is that cannabis sector returns are driven by federal policy (SAFE Banking, Schedule I reclassification) more than state-level legalization. bt_feasibility is 4 because events are well-documented but few in number.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtest_started_at": "2026-05-27T18:04:52.606529+00:00"
+  },
+  {
+    "strategy_id": "PL503",
+    "idea_id": "PL503",
+    "created_at": "2026-05-27T18:05:13.086386+00:00",
+    "status": "in_progress",
+    "signal_id": "PL503_nyfed_sce_inflation_jump_tips_long",
+    "name": "NY Fed SCE 3-Year Inflation Expectations Jump -> Long TIPS (TIP)",
+    "category": "B",
+    "asset_class": "bonds",
+    "horizon": "2-6 weeks",
+    "rule": "Using yfinance and FRED data: When NY Fed Survey of Consumer Expectations median 3-year inflation expectation (available on NY Fed website, also partially on FRED) jumps >0.5 percentage points in a single month, go long TIP (iShares TIPS Bond ETF) on the first trading day after the SCE release. Hold for 21 trading days. Benchmark vs IEF (7-10yr nominal Treasury ETF, similar duration). The thesis is that consumer inflation expectation regime shifts lead TIPS breakeven widening as institutional investors adjust hedges.",
+    "tickers": [
+      "TIP",
+      "IEF",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NY Fed SCE median 3-year inflation expectation increases >0.5pp MoM",
+      "Enter on first trading day after monthly SCE release (typically 2nd Monday of month)",
+      "Minimum 60 calendar days between signals"
+    ],
+    "exit_conditions": [
+      "Hold for 21 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: TIP (iShares TIPS Bond ETF, launched Dec 2003), IEF (iShares 7-10 Year Treasury, benchmark), SPY",
+      "fundamental": "NY Fed SCE (free monthly at newyorkfed.org/microeconomics/sce). Published ~2nd Monday of each month for prior month's survey. Also FRED: T5YIE (5-Year Breakeven Inflation Rate), T10YIE (10-Year Breakeven). SCE data back to June 2013."
+    },
+    "backtest_approach": "Event study: Load NY Fed SCE 3-year inflation expectations (2013-2025). Compute monthly changes. Identify months with >0.5pp jump. For each signal (60-day gap), long TIP for 21 trading days and compute excess return vs IEF (duration-matched comparison). Key expected events: 2018 Q1 (oil price recovery drove expectations up), 2021 Q2-Q3 (post-COVID inflation surge), 2022 Q1 (Ukraine war inflation shock). The 2021 events are the cleanest test as consumer inflation expectations shifted dramatically from 3% to 5%+ over several months.",
+    "known_events": [
+      "2018 Feb: SCE 3yr expectations jumped as oil prices surged; TIPS breakevens widened",
+      "2021 May-Jun: SCE 3yr expectations spiked from 3.0% to 3.6%; TIPS outperformed nominals significantly",
+      "2021 Oct: Another large jump in expectations; breakevens hit cycle highs",
+      "2022 Mar: Ukraine war drove expectations up sharply; TIPS initially sold off with all bonds but then outperformed nominals"
+    ],
+    "implementation_notes": "NY Fed SCE is one of the most closely watched consumer inflation expectation surveys. The 3-year horizon is preferred over the 1-year because it captures medium-term expectation anchoring/unanchoring. A >0.5pp single-month jump is unusual (happens maybe 3-4 times per year in volatile periods) and signals genuine regime change vs noise. TIP vs IEF comparison controls for duration risk and isolates the inflation component. bt_feasibility is 5 because FRED breakeven data is daily and SCE data is clean and monthly.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtest_started_at": "2026-05-27T18:05:37.548092+00:00"
+  },
+  {
+    "strategy_id": "PL500",
+    "idea_id": "PL500",
+    "created_at": "2026-05-27T18:05:25.644717+00:00",
+    "status": "in_progress",
+    "signal_id": "PL500_buyback_blackout_end_sp500_buying",
+    "name": "Corporate Buyback Blackout Window End -> Predictable Buying Pressure -> SPY Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "1-4 weeks",
+    "rule": "Using yfinance and earnings calendar data: When the bulk of S&P 500 companies (>60%) have reported quarterly earnings (identifiable from earnings calendar -- typically 3-4 weeks after quarter end), go long SPY on the Monday following the week when 60% reporting threshold is crossed. Hold for 15 trading days. Benchmark vs cash/T-bills. The thesis: buyback blackout windows close ~2 days after earnings, so the window 3-5 weeks after quarter end sees a synchronized surge of corporate buyback activity. This creates predictable buying pressure that supports equity prices.",
+    "tickers": [
+      "SPY"
+    ],
+    "entry_conditions": [
+      ">60% of S&P 500 companies have reported quarterly earnings (typically 3-4 weeks after quarter end)",
+      "Enter on Monday following the week the 60% threshold is crossed",
+      "Signal fires 4 times per year (once per quarter)"
+    ],
+    "exit_conditions": [
+      "Hold for 15 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SPY (S&P 500 ETF). Benchmark against T-bill rate or cash.",
+      "fundamental": "Earnings calendar from SEC EDGAR filing dates (free) or yfinance earnings calendar. S&P 500 buyback blackout guidance from Goldman Sachs research (partially free via media reports). The 60% reporting threshold typically falls in the 3rd-4th week of January, April, July, October."
+    },
+    "backtest_approach": "Calendar study: For each quarter (2005-2025), identify the week when >60% of S&P 500 had reported. Compute SPY return over the subsequent 15 trading days vs the prior 15 trading days (pre-blackout-end vs post-blackout-end). 4 events per year = 80 observations. The buyback blackout effect has been studied by Goldman Sachs and academic papers. Calculate average excess return vs seasonal baseline and t-statistic.",
+    "known_events": [
+      "2018-2019: Record corporate buybacks made the blackout/open window effect pronounced",
+      "2020 Q2: Buybacks suspended during COVID, no effect",
+      "2022-2024: Buyback tax introduced but buyback volumes remained high"
+    ],
+    "implementation_notes": "This is a well-known calendar effect among institutional investors. The 1% excise tax on buybacks (effective Jan 2023) slightly reduced but did not eliminate buyback activity. The signal is purely calendar-driven, so no external data is needed beyond the earnings calendar. bt_feasibility is 4 because the calendar is deterministic and SPY data is perfect. The effect may be small (20-50bps per window) but highly consistent.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtest_started_at": "2026-05-27T18:05:37.548576+00:00"
+  },
+  {
+    "strategy_id": "PL501",
+    "idea_id": "PL501",
+    "created_at": "2026-05-27T18:05:25.644717+00:00",
+    "status": "in_progress",
+    "signal_id": "PL501_oecd_cli_g7_divergence_country_rotation",
+    "name": "OECD CLI G7 Divergence -> Cross-Country Equity Rotation -> Outperforming Economy ETF Long",
+    "category": "G",
+    "asset_class": "equities",
+    "horizon": "4-12 weeks",
+    "rule": "Using yfinance and OECD data: When OECD monthly Composite Leading Indicator (CLI) for a G7 economy crosses above 100 (expansion signal) while the US CLI is below 100 (contraction signal), go long the corresponding country ETF on the first trading day after OECD CLI publication. Hold for 40 trading days. Benchmark vs SPY. Country-to-ETF mapping: Japan->EWJ, Germany->EWG, Canada->EWC, UK->EWU, France->EWQ, Italy->EWI. OECD CLI published monthly (free at data.oecd.org), typically around the 10th of each month with ~2 month lag.",
+    "tickers": [
+      "EWJ",
+      "EWG",
+      "EWC",
+      "EWU",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "OECD CLI for a G7 country crosses above 100 in the current month",
+      "US OECD CLI is simultaneously below 100",
+      "Enter the corresponding country ETF on first trading day after OECD CLI publication",
+      "Minimum 90 calendar days between signals for the same country"
+    ],
+    "exit_conditions": [
+      "Hold for 40 trading days",
+      "Time-based exit only"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: EWJ (iShares MSCI Japan), EWG (iShares MSCI Germany), EWC (iShares MSCI Canada), EWU (iShares MSCI United Kingdom), SPY",
+      "fundamental": "OECD Composite Leading Indicators (free): https://data.oecd.org/leadind/composite-leading-indicator-cli.htm - monthly, published ~10th of month with 2-month lag. Available for all G7 countries individually."
+    },
+    "backtest_approach": "Event study: For each month (2000-2025) where a G7 country CLI crossed above 100 while US CLI was below 100, compute the corresponding country ETF return over 40 trading days vs SPY. EWJ inception 1996, EWG 1996, EWC 1996, EWU 1996. Key divergence periods: 2001 (Japan recovered before US), 2009 (Germany/Canada recovered before US), 2020 Q3-Q4 (various G7 recovery timings). Expected 15-30 events across all G7 countries over 25 years. bt_feasibility is 5 because OECD CLI is clean, free, monthly, and the 100 threshold is the standard expansion/contraction indicator.",
+    "known_events": [
+      "2002: Japan CLI crossed 100 ahead of US post-dotcom recession",
+      "2009 Q2: Germany CLI crossed 100 months before US, EWG outperformed",
+      "2020 Q3: Multiple G7 CLIs diverged during uneven COVID recovery",
+      "2023: Japan CLI showed expansion while US showed late-cycle deceleration"
+    ],
+    "implementation_notes": "OECD CLI is one of the cleanest free macro datasets available: monthly, standardized methodology across countries, long history (1960s+), and the 100 threshold is the universally accepted expansion/contraction boundary. The divergence signal captures relative economic momentum, which historically leads relative equity market performance by 1-3 months. bt_feasibility is 5/5. Note: country ETFs include FX exposure (EWJ/EWG/etc. are unhedged), so currency movements may add noise. For hedged versions, use DXJ (Japan hedged) or HEWG (Germany hedged) if available.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_started_at": "2026-05-27T18:05:37.548580+00:00"
   }
 ]
