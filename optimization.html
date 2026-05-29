@@ -297,8 +297,8 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     } catch(e) { return null; }
   }
 
-  let bhOnly = localStorage.getItem('ekans-opt-bh') === '1';
-  // Default ON: only off if the user has explicitly disabled it (localStorage = '0').
+  // Default ON: only off if user has explicitly disabled it (localStorage = '0').
+  let bhOnly = localStorage.getItem('ekans-opt-bh') !== '0';
   let excludeMomentum = localStorage.getItem('ekans-opt-no-momentum') !== '0';
 
   // Heuristic: momentum-based signals are identified by name/id keyword match.
