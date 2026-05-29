@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Optimized Basket — Trading Signals Research</title>
+<title>Optimized Basket — bsig</title>
 <style>
 :root {
   --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
@@ -55,6 +55,46 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
 .bar > div { background: var(--good); height: 100%; border-radius: 3px; }
 .scroll-x { overflow-x: auto; }
 .footnote { color: var(--fg-dim); font-size: 11px; font-style: italic; margin-top: 12px; }
+
+/* Hoverable signal rows in the basket detail table */
+#opt-detail tr.opt-sig-row { cursor: help; transition: background 0.12s; }
+#opt-detail tr.opt-sig-row:hover { background: var(--bg-3, rgba(255,255,255,0.04)); }
+
+/* Floating tooltip shared by all rows; positioned by JS, shown via .visible */
+.opt-sig-tooltip {
+  position: absolute; z-index: 9999;
+  display: none;
+  background: var(--bg-3, var(--bg-2)); border: 1px solid var(--accent);
+  border-radius: 6px; padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  font-size: 12px; line-height: 1.45; color: var(--fg);
+  pointer-events: none;
+  max-width: 420px;
+}
+.opt-sig-tooltip.visible { display: block; }
+.opt-sig-tooltip .tt-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.opt-sig-tooltip .tt-id { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.opt-sig-tooltip .tt-name { font-weight: 600; }
+.opt-sig-tooltip .tt-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--fg-dim); margin-bottom: 8px;
+}
+.opt-sig-tooltip .tt-trades { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.opt-sig-tooltip .tt-trade {
+  font-family: var(--mono); font-size: 10px; padding: 2px 6px;
+  border-radius: 3px; font-weight: 700;
+}
+.opt-sig-tooltip .tt-trade.long { background: rgba(52,211,153,0.15); color: var(--good); }
+.opt-sig-tooltip .tt-trade.short { background: rgba(248,113,113,0.15); color: var(--bad); }
+.opt-sig-tooltip .tt-rule {
+  margin-top: 6px; white-space: pre-wrap; word-break: break-word;
+}
+.opt-sig-tooltip .tt-rule.tt-empty { color: var(--fg-dim); font-style: italic; }
+.opt-sig-tooltip .tt-source {
+  margin-top: 6px; font-size: 11px; color: var(--fg-dim);
+}
 .basket-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 14px; margin: 20px 0 24px;
@@ -116,6 +156,11 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
     <input type="checkbox" id="opt-bh-only" style="width:16px;height:16px;cursor:pointer;">
     <span>BH-survivors only</span>
     <span style="color:var(--fg-dim);font-size:11px;">(filter to signals that pass multiple-testing correction)</span>
+  </label>
+  <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none;">
+    <input type="checkbox" id="opt-no-momentum" style="width:16px;height:16px;cursor:pointer;">
+    <span>Exclude momentum signals</span>
+    <span style="color:var(--fg-dim);font-size:11px;">(drop momentum / trend-following / MA-crossover rules)</span>
   </label>
   <span id="opt-eligible-count" style="color:var(--fg-dim);font-size:12px;font-family:var(--mono);"></span>
 </div>
@@ -243,11 +288,31 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
       const getStatus = window.parent && window.parent.EKANS_GET_STATUS;
       if (!sigs || !getStatus) return null;
       return sigs.filter(function(s) { return getStatus(s.id) === 'active'; })
-                 .map(function(s) { return {id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId, trades: s.trades, beta: signalBeta(s), bh: bhStatus(s.id)}; });
+                 .map(function(s) { return {
+                   id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr,
+                   cardId: s.cardId, trades: s.trades, beta: signalBeta(s),
+                   bh: bhStatus(s.id),
+                   rule: s.rule || '', maxdd: s.maxdd, source: s.source || ''
+                 }; });
     } catch(e) { return null; }
   }
 
   let bhOnly = localStorage.getItem('ekans-opt-bh') === '1';
+  // Default ON: only off if the user has explicitly disabled it (localStorage = '0').
+  let excludeMomentum = localStorage.getItem('ekans-opt-no-momentum') !== '0';
+
+  // Heuristic: momentum-based signals are identified by name/id keyword match.
+  // The set covers explicit momentum (dual momentum, time-series momentum), trend
+  // following, and MA-crossover styles. Add IDs to MOMENTUM_IDS for hand-tagged
+  // overrides when the name doesn't match the keyword pattern.
+  const MOMENTUM_KEYWORDS = /\b(momentum|trend[\s-]?following|golden\s+cross|MA\s*cross|moving\s+average\s+cross|MACD|dual\s+momentum)\b/i;
+  const MOMENTUM_IDS = new Set([
+    'C07',  // Accelerating Dual Momentum
+  ]);
+  function isMomentum(s) {
+    if (MOMENTUM_IDS.has(s.id)) return true;
+    return MOMENTUM_KEYWORDS.test(s.name || '') || MOMENTUM_KEYWORDS.test(s.id || '');
+  }
 
   function computeBasket(signals, strat) {
     const arr = signals.map(function(s) {
@@ -317,6 +382,10 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
   function renderDetail(eligible, baskets) {
     const strat = STRATEGIES.find(function(s){ return s.key === activeKey; });
     const basket = baskets[activeKey];
+    // Lookup map for hover: enrich basket entries with rule/maxdd from the
+    // parent EKANS_SIGNALS source (computeBasket only carries Sharpe/CAGR/vol/weight).
+    const eligByIdLocal = {};
+    eligible.forEach(function(e) { eligByIdLocal[e.id] = e; });
     let html = '<div class="detail-block">';
     html += '<h3>' + strat.label + ' — ' + basket.signals.length + ' signals</h3>';
     html += '<div class="formula">' + escapeHtml(strat.formula) + '</div>';
@@ -330,7 +399,7 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     basket.signals.forEach(function(s) {
       const barW = Math.min(s.weight * (220 / CAP), 220);
       const betaColor = s.beta > 0.7 ? 'var(--bad)' : s.beta < 0 ? 'var(--good)' : 'var(--fg-dim)';
-      html += '<tr>';
+      html += '<tr class="opt-sig-row" data-sig-id="' + escapeHtml(s.id) + '">';
       html += '<td class="id-col">' + escapeHtml(s.id) + '</td>';
       html += '<td class="name-col">' + escapeHtml(s.name) + '</td>';
       html += '<td class="num">' + s.sharpe.toFixed(2) + '</td>';
@@ -345,6 +414,63 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     html += '</tbody></table></div>';
     html += '</div>';
     detailEl.innerHTML = html;
+    attachSignalHover(eligByIdLocal, basket.signals);
+  }
+
+  // ---- Hover tooltip on signal rows ----
+  let hoverTooltipEl = null;
+  function ensureTooltipEl() {
+    if (hoverTooltipEl) return hoverTooltipEl;
+    hoverTooltipEl = document.createElement('div');
+    hoverTooltipEl.className = 'opt-sig-tooltip';
+    document.body.appendChild(hoverTooltipEl);
+    return hoverTooltipEl;
+  }
+  function buildTooltipHtml(sig, basketEntry) {
+    let ttTrades = '';
+    if (sig.trades && sig.trades.length) {
+      ttTrades = '<div class="tt-trades">' + sig.trades.map(function(t) {
+        const dir = (t.d || '').toUpperCase();
+        const cls = (t.d === 'short' ? 'short' : 'long');
+        return '<span class="tt-trade ' + cls + '">' + dir + ' ' + (t.g || '') + '</span>';
+      }).join('') + '</div>';
+    }
+    const ddBlock = (sig.maxdd !== null && sig.maxdd !== undefined)
+      ? ' · DD ' + sig.maxdd.toFixed(0) + '%' : '';
+    const weight = basketEntry ? ' · Weight ' + basketEntry.weight.toFixed(1) + '%' : '';
+    const rule = sig.rule ? '<div class="tt-rule">' + escapeHtml(sig.rule) + '</div>' : '<div class="tt-rule tt-empty">No rule text available.</div>';
+    const source = sig.source ? '<div class="tt-source">Source: ' + escapeHtml(sig.source) + '</div>' : '';
+    return (
+      '<div class="tt-head"><span class="tt-id">' + escapeHtml(sig.id) + '</span><span class="tt-name">' + escapeHtml(sig.name || '') + '</span></div>' +
+      '<div class="tt-meta">S ' + sig.sharpe.toFixed(2) + ' · CAGR ' + sig.cagr.toFixed(1) + '%' + ddBlock + weight + '</div>' +
+      ttTrades + rule + source
+    );
+  }
+  function attachSignalHover(eligibleById, basketRows) {
+    const tooltip = ensureTooltipEl();
+    const basketById = {};
+    (basketRows || []).forEach(function(b) { basketById[b.id] = b; });
+    document.querySelectorAll('#opt-detail tbody tr.opt-sig-row').forEach(function(tr) {
+      tr.addEventListener('mouseenter', function() {
+        const sid = tr.dataset.sigId;
+        const sig = eligibleById[sid];
+        if (!sig) return;
+        tooltip.innerHTML = buildTooltipHtml(sig, basketById[sid]);
+        const rect = tr.getBoundingClientRect();
+        const ttW = Math.min(420, rect.width);
+        // Prefer placing the tooltip to the right of the cursor; flip if off-screen.
+        let left = rect.right + 8;
+        if (left + ttW > window.innerWidth) left = Math.max(8, rect.left - ttW - 8);
+        const top = Math.min(rect.top, window.innerHeight - 320);
+        tooltip.style.left = (left + window.scrollX) + 'px';
+        tooltip.style.top = (top + window.scrollY) + 'px';
+        tooltip.style.width = ttW + 'px';
+        tooltip.classList.add('visible');
+      });
+      tr.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('visible');
+      });
+    });
   }
 
   function render() {
@@ -362,20 +488,29 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     if (bhOnly) {
       eligible = eligible.filter(function(s) { return s.bh === 'survives'; });
     }
+    let momentumDropped = 0;
+    if (excludeMomentum) {
+      const before = eligible.length;
+      eligible = eligible.filter(function(s) { return !isMomentum(s); });
+      momentumDropped = before - eligible.length;
+    }
     if (countEl) {
-      if (bhOnly) {
-        countEl.textContent = eligible.length + ' / ' + totalCount + ' active signals pass BH';
-      } else {
-        countEl.textContent = totalCount + ' active signals eligible (Sharpe ≥ 0.5, CAGR > 0)';
-      }
+      const parts = [];
+      if (bhOnly) parts.push(eligible.length + ' / ' + totalCount + ' pass BH');
+      else parts.push(totalCount + ' active eligible (Sharpe ≥ 0.5, CAGR > 0)');
+      if (excludeMomentum && momentumDropped > 0) parts.push(momentumDropped + ' momentum dropped');
+      countEl.textContent = parts.join(' · ');
     }
     if (eligible.length === 0) {
       cardsEl.innerHTML = '';
-      detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
-        (bhOnly
+      const emptyMsg = (bhOnly && excludeMomentum)
+        ? 'No non-momentum signals survive BH. Loosen one of the toggles above.'
+        : bhOnly
           ? 'No active signals also survive BH @ 5% FDR. Untick the toggle above to widen the universe, or toggle more BH-surviving signals to <strong>Active</strong> in the Signals tab.'
-          : 'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.') +
-        '</div>';
+          : excludeMomentum
+            ? 'All active eligible signals are tagged momentum. Untick "Exclude momentum signals" to include them.'
+            : 'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.';
+      detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' + emptyMsg + '</div>';
       return;
     }
     const baskets = {};
@@ -393,6 +528,16 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     bhToggle.addEventListener('change', function() {
       bhOnly = this.checked;
       localStorage.setItem('ekans-opt-bh', bhOnly ? '1' : '0');
+      render();
+    });
+  }
+  // Wire the exclude-momentum toggle
+  const momentumToggle = document.getElementById('opt-no-momentum');
+  if (momentumToggle) {
+    momentumToggle.checked = excludeMomentum;
+    momentumToggle.addEventListener('change', function() {
+      excludeMomentum = this.checked;
+      localStorage.setItem('ekans-opt-no-momentum', excludeMomentum ? '1' : '0');
       render();
     });
   }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Regime — Trading Signals Research</title>
+<title>Regime — bsig</title>
 <style>
 :root {
   --bg: #0f1419; --bg-2: #1a1f2e; --bg-3: #232a3d;
@@ -66,7 +66,40 @@ h2 { font-size: 1.1em; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 
 .sig-card {
   background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px;
   padding: 12px 14px; display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start;
+  position: relative;
 }
+.sig-tooltip {
+  display: none;
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 1000;
+  margin-top: 6px;
+  background: var(--bg-3, var(--bg-2)); border: 1px solid var(--accent);
+  border-radius: 6px; padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  font-size: 12px; line-height: 1.45; color: var(--fg);
+  pointer-events: none;
+}
+.sig-card:hover .sig-tooltip { display: block; }
+.sig-tooltip .tt-head {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.sig-tooltip .tt-id { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.sig-tooltip .tt-name { font-weight: 600; }
+.sig-tooltip .tt-fit {
+  display: inline-block; padding: 2px 8px; border-radius: 3px;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.sig-tooltip .tt-fit.aligned { background: rgba(52,211,153,0.15); color: var(--good); }
+.sig-tooltip .tt-fit.working { background: rgba(125,211,252,0.15); color: var(--accent); }
+.sig-tooltip .tt-fit.crossing { background: rgba(248,113,113,0.15); color: var(--bad); }
+.sig-tooltip .tt-meta {
+  font-family: var(--mono); font-size: 11px; color: var(--fg-dim); margin-bottom: 8px;
+}
+.sig-tooltip .tt-reason, .sig-tooltip .tt-rule {
+  margin-top: 6px; white-space: pre-wrap; word-break: break-word;
+}
+.sig-tooltip strong { color: var(--fg); }
 .sig-card.aligned { border-left: 3px solid var(--good); }
 .sig-card.working { border-left: 3px solid var(--accent); }
 .sig-card.crossing { border-left: 3px solid var(--bad); opacity: 0.92; }
@@ -254,6 +287,16 @@ Fits are <em>not</em> backtest evidence under this regime. They are categorical 
         html += '<div class="reason">' + escapeHtml(it.reason) + '</div>';
         html += '</div>';
         html += '<div class="metrics">S:' + (s.sharpe||0).toFixed(2) + '<br>C:' + (s.cagr||0).toFixed(0) + '%</div>';
+        // Hover tooltip — fit category, full reason, metrics, rule snippet.
+        var fitLabel = ({aligned:'Aligned with regime', working:'Working through regime', crossing:'Crossing regime'})[bucketKey] || bucketKey;
+        var ruleSnip = (s.rule || '').slice(0, 320);
+        html += '<div class="sig-tooltip" role="tooltip">';
+        html += '<div class="tt-head"><span class="tt-id">' + escapeHtml(s.id) + '</span><span class="tt-name">' + escapeHtml(s.name || '') + '</span></div>';
+        html += '<div class="tt-fit ' + bucketKey + '">' + fitLabel + '</div>';
+        html += '<div class="tt-meta">S ' + (s.sharpe||0).toFixed(2) + ' · CAGR ' + (s.cagr||0).toFixed(0) + '%</div>';
+        html += '<div class="tt-reason"><strong>Regime fit:</strong> ' + escapeHtml(it.reason) + '</div>';
+        if (ruleSnip) html += '<div class="tt-rule"><strong>Rule:</strong> ' + escapeHtml(ruleSnip) + (s.rule.length > 320 ? '…' : '') + '</div>';
+        html += '</div>';
         html += '</div>';
       });
       el.innerHTML = html;
