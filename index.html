@@ -7014,6 +7014,15 @@ document.querySelectorAll('#tab-strategies .card').forEach(function(card) {
   }
   sharpe = isNaN(sharpe) ? 0 : sharpe;
   cagr = isNaN(cagr) ? 0 : cagr;
+  var maxdd = NaN;
+  card.querySelectorAll('.m').forEach(function(m) {
+    var ll = ((m.querySelector('.ml')||{}).textContent||'').toLowerCase();
+    var vt = ((m.querySelector('.mv')||{}).textContent||'').trim();
+    if (ll.indexOf('maxdd') >= 0 || ll.indexOf('drawdown') >= 0 || (ll.indexOf('dd') >= 0 && ll.indexOf('day') < 0)) {
+      var num = parseFloat(vt.replace(/[^-0-9.]/g, ''));
+      if (!isNaN(num) && isNaN(maxdd)) maxdd = num;
+    }
+  });
   var ruleEl = card.querySelector('.rule');
   var rule = ruleEl ? ruleEl.textContent.trim() : '';
   if (!card.id) card.id = 'card-' + Math.random().toString(36).slice(2,8);
@@ -7021,7 +7030,8 @@ document.querySelectorAll('#tab-strategies .card').forEach(function(card) {
     id: id, name: name, sharpe: sharpe, cagr: cagr, rule: rule, cardId: card.id,
     trades: meta.t.map(function(pair) { return {g: pair[0], d: pair[1]}; }),
     defTrades: meta.td ? meta.td.map(function(pair) { return {g: pair[0], d: pair[1]}; }) : null,
-    defaultStatus: meta.s || 'unknown'
+    defaultStatus: meta.s || 'unknown',
+    maxdd: isNaN(maxdd) ? null : maxdd
   });
 });
 signals.sort(function(a,b) { return b.cagr - a.cagr; });
@@ -7386,6 +7396,14 @@ function render() {
       cards += '<span class="sig-trade-tag defensive">CASH / FLAT</span>';
     }
     cards += '</div>';
+    if (sig.maxdd !== null && sig.maxdd !== undefined) {
+      var ddAbs = Math.abs(sig.maxdd);
+      var ddColor, ddLabel;
+      if (ddAbs < 15) { ddColor = 'var(--good)'; ddLabel = 'Low DD: ' + sig.maxdd.toFixed(0) + '%'; }
+      else if (ddAbs < 40) { ddColor = 'var(--warn)'; ddLabel = 'Med DD: ' + sig.maxdd.toFixed(0) + '%'; }
+      else { ddColor = 'var(--bad)'; ddLabel = 'High DD: ' + sig.maxdd.toFixed(0) + '%'; }
+      cards += '<div style="margin-top:6px;font-size:11px;display:inline-block;background:rgba(255,255,255,0.03);color:' + ddColor + ';padding:3px 10px;border:1px solid ' + ddColor + ';border-radius:4px;font-family:var(--mono);font-weight:600;">' + ddLabel + '</div>';
+    }
     var ruleShort = sig.rule.length > 200 ? sig.rule.substring(0,200) + '…' : sig.rule;
     cards += '<div class="sig-rule">' + ruleShort + '</div>';
     cards += '</div>';
