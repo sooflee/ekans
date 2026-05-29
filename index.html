@@ -6520,6 +6520,10 @@ new MutationObserver(() => {
     <div id="sig-history-body" style="margin-top:10px;font-size:12px;color:var(--fg-dim);"></div>
   </details>
   <div id="sig-convergence"></div>
+  <div style="display:flex;gap:8px;margin:16px 0 8px;flex-wrap:wrap;align-items:center;">
+    <input type="text" id="sig-search" placeholder="Search by ID, asset, name, or rule..." style="flex:1;min-width:200px;background:var(--bg-3);color:var(--fg);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;font-family:inherit;">
+    <button id="sig-search-clear" style="background:var(--bg-3);border:1px solid var(--border);color:var(--fg-dim);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;display:none;">Clear</button>
+  </div>
   <div style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap;">
     <button class="sig-filter active" data-sigfilter="all">All</button>
     <button class="sig-filter" data-sigfilter="active">Active</button>
@@ -7062,6 +7066,7 @@ var countEl = document.getElementById('tab-sig-count');
 var historyEl = document.getElementById('sig-history-body');
 var cronHealthEl = document.getElementById('sig-cron-health');
 var currentFilter = 'all';
+var searchTerm = (localStorage.getItem('ekans-sig-search') || '').trim();
 
 // Cache of one-shot fetches: live P&L by signal id, last-update info, status-change history
 var liveResults = {};
@@ -7287,7 +7292,24 @@ function render() {
   }
 
   // Signal cards
-  var filtered = currentFilter === 'all' ? signals : signals.filter(function(s) { return getStatus(s.id) === currentFilter; });
+  function matchesSearch(sig) {
+    if (!searchTerm) return true;
+    var q = searchTerm.toLowerCase();
+    if (sig.id.toLowerCase().indexOf(q) >= 0) return true;
+    if (sig.name.toLowerCase().indexOf(q) >= 0) return true;
+    if (sig.rule && sig.rule.toLowerCase().indexOf(q) >= 0) return true;
+    var assets = (sig.trades || []).map(function(t){return t.g;}).join(' ').toLowerCase();
+    if (assets.indexOf(q) >= 0) return true;
+    if (sig.defTrades) {
+      var dassets = sig.defTrades.map(function(t){return t.g;}).join(' ').toLowerCase();
+      if (dassets.indexOf(q) >= 0) return true;
+    }
+    return false;
+  }
+  var filtered = signals.filter(function(s) {
+    var statusOk = currentFilter === 'all' || getStatus(s.id) === currentFilter;
+    return statusOk && matchesSearch(s);
+  });
   var cards = '';
   filtered.forEach(function(sig) {
     var st = getStatus(sig.id);
@@ -7367,6 +7389,26 @@ document.querySelectorAll('.sig-filter').forEach(function(btn) {
     render();
   });
 });
+
+var searchInput = document.getElementById('sig-search');
+var searchClear = document.getElementById('sig-search-clear');
+if (searchInput) {
+  searchInput.value = searchTerm;
+  searchClear.style.display = searchTerm ? '' : 'none';
+  searchInput.addEventListener('input', function() {
+    searchTerm = this.value.trim();
+    localStorage.setItem('ekans-sig-search', searchTerm);
+    searchClear.style.display = searchTerm ? '' : 'none';
+    render();
+  });
+  searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchTerm = '';
+    localStorage.removeItem('ekans-sig-search');
+    searchClear.style.display = 'none';
+    render();
+  });
+}
 
 render();
 })();
