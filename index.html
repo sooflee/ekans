@@ -396,8 +396,8 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-#tab-catalog, #tab-portfolio, #tab-analysis { padding: 0; max-width: 1280px; margin: 0 auto; }
-#tab-catalog iframe, #tab-portfolio iframe, #tab-analysis iframe {
+#tab-catalog, #tab-portfolio, #tab-analysis, #tab-optimize { padding: 0; max-width: 1280px; margin: 0 auto; }
+#tab-catalog iframe, #tab-portfolio iframe, #tab-analysis iframe, #tab-optimize iframe {
   width: 100%; border: none; min-height: calc(100vh - 100px); display: block;
 }
 #tab-validation .layout { grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
@@ -537,6 +537,7 @@ article.card.demoted .demoted-banner code {
     <button type="button" class="dd-trigger">Research <span class="dd-caret">▾</span></button>
     <div class="dd-menu" role="menu">
       <button data-tab="signals">Signals<span class="tab-count" id="tab-sig-count">0</span></button>
+      <button data-tab="optimize">Optimize</button>
       <button data-tab="portfolio">Portfolio</button>
       <button data-tab="analysis">Analysis</button>
       <button data-tab="pipeline">Pipeline</button>
@@ -560,6 +561,10 @@ article.card.demoted .demoted-banner code {
 
 <div id="tab-analysis" class="tab-panel">
   <iframe src="analysis.html"></iframe>
+</div>
+
+<div id="tab-optimize" class="tab-panel">
+  <iframe src="optimization.html"></iframe>
 </div>
 
 <div id="tab-strategies" class="tab-panel active">

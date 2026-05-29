@@ -110,15 +110,6 @@ The portfolio's <strong>raw</strong> figures average across 31 signals, most of 
 </div>
 <canvas id="eq-chart" height="380"></canvas>
 
-<h2>Optimized Basket — Max Sharpe</h2>
-<p style="color: var(--fg-dim); font-size: 13px; margin-bottom: 12px;">
-Mean-variance optimization over currently active signals. Assumes signals are uncorrelated (a known weak assumption — many trend signals co-move). Volatility per signal ≈ CAGR/Sharpe. Weights cap at 20% per signal, normalized to 100%. Defensive signals excluded.
-</p>
-<div id="opt-basket"></div>
-<p style="color: var(--fg-dim); font-size: 11px; font-style: italic; margin-top: 8px;">
-Formula: w<sub>i</sub> ∝ Sharpe<sub>i</sub><sup>2</sup>/CAGR<sub>i</sub> (closed-form tangency under diagonal covariance). Filtered to Sharpe ≥ 0.5 and CAGR > 0.
-</p>
-
 <h2>Currently Active Signals</h2>
 <p style="color: var(--fg-dim); font-size: 13px; margin-bottom: 12px;">
 Signals whose trading rules are currently generating positions as of May 2026.
@@ -659,7 +650,8 @@ function drawChart() {
   });
 })();
 
-// ===== Optimized Basket — Max Sharpe =====
+// (Optimized Basket moved to its own Optimize tab — see optimization.html)
+/* removed_block_start
 (function() {
   const optEl = document.getElementById('opt-basket');
   if (!optEl) return;
@@ -783,6 +775,7 @@ function drawChart() {
   }
   tryRender();
 })();
+removed_block_end */
 </script>
 
 </body>
