@@ -586,7 +586,6 @@ article.card.demoted .demoted-banner code {
 <header class="hero">
   <div class="hero-main">
     <h1>bsig</h1>
-    <p class="sub"><span id="hero-tagline-count">—</span> signals backtested across macro, crypto, commodities, geopolitics, OSINT, supply chains, and cross-domain causal chains. Free data only.</p>
     <div class="stats">
       <div class="stat"><span class="v" id="hero-total">—</span><span class="l">signals tested</span></div>
       <div class="stat"><span class="v" id="hero-count">24</span><span class="l">high return</span></div>
@@ -6018,10 +6017,8 @@ if (catIframe) {
         const n = countEl.textContent.trim();
         const heroTotal = document.getElementById('hero-total');
         const tabCount = document.getElementById('tab-catalog-count');
-        const taglineCount = document.getElementById('hero-tagline-count');
         if (heroTotal) heroTotal.textContent = n;
         if (tabCount) tabCount.textContent = n;
-        if (taglineCount) taglineCount.textContent = n;
       }
     } catch(e) {}
   });
