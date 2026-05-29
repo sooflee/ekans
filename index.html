@@ -343,62 +343,82 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   .sidebar { position: static; max-height: none; margin-bottom: 12px; }
 }
 
-/* ----- Top-level dropdown nav ----- */
+/* ----- Top-level flat tab bar ----- */
 .page-tabs {
   display: flex; gap: 4px; max-width: 1280px; margin: 0 auto;
   padding: 0 20px; border-bottom: 2px solid var(--border);
+  flex-wrap: wrap;
 }
-.page-tabs .dropdown { position: relative; }
-.page-tabs .dd-trigger {
+.page-tabs > button {
   background: transparent; border: none; border-bottom: 2px solid transparent;
   color: var(--fg-dim); font: 600 14px/1 var(--mono); padding: 12px 18px;
   cursor: pointer; margin-bottom: -2px;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
   display: inline-flex; align-items: center; gap: 6px;
 }
-.page-tabs .dd-caret {
-  font-size: 10px; transition: transform 0.15s;
-}
-.page-tabs .dropdown.open .dd-caret { transform: rotate(180deg); }
-.page-tabs .dd-trigger:hover { color: var(--fg); }
-.page-tabs .dropdown.has-active .dd-trigger {
-  color: var(--accent); border-bottom-color: var(--accent);
-}
-.page-tabs .dropdown.open .dd-trigger { background: var(--bg-2); }
-.page-tabs .dd-menu {
-  position: absolute; top: 100%; left: 0; z-index: 50;
-  min-width: 180px;
-  background: var(--bg-2); border: 1px solid var(--border);
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  display: none; flex-direction: column; padding: 4px;
-}
-.page-tabs .dropdown.open .dd-menu { display: flex; }
-.page-tabs .dd-menu button {
-  background: transparent; border: none;
-  color: var(--fg-dim); font: 600 13px/1.2 var(--mono);
-  padding: 10px 14px; text-align: left; cursor: pointer;
-  border-radius: 4px; transition: background 0.12s, color 0.12s;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.page-tabs .dd-menu button:hover { background: var(--bg-3); color: var(--fg); }
-.page-tabs .dd-menu button.active { color: var(--accent); background: var(--bg-3); }
+.page-tabs > button:hover { color: var(--fg); }
+.page-tabs > button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .page-tabs .tab-count {
   font-size: 11px; font-weight: 400; color: var(--fg-dim);
-  background: var(--bg-3); padding: 1px 6px; border-radius: 8px; margin-left: 6px;
+  background: var(--bg-3); padding: 1px 6px; border-radius: 8px; margin-left: 2px;
 }
-.page-tabs .dd-menu button.active .tab-count {
-  background: var(--bg); color: var(--accent);
-}
+.page-tabs > button.active .tab-count { background: var(--bg); color: var(--accent); }
 @media (max-width: 640px) {
-  .page-tabs { gap: 0; padding: 0 8px; flex-wrap: wrap; }
-  .page-tabs .dd-trigger { padding: 10px 12px; font-size: 13px; }
+  .page-tabs { gap: 0; padding: 0 8px; }
+  .page-tabs > button { padding: 10px 12px; font-size: 13px; }
 }
+
+/* ----- Sub-tab strips (inside merged panels) ----- */
+.sub-tabs {
+  display: flex; gap: 4px; padding: 10px 20px 0; max-width: 1280px; margin: 0 auto;
+  border-bottom: 1px solid var(--border); flex-wrap: wrap;
+}
+.sub-tabs button {
+  background: transparent; border: 1px solid transparent;
+  color: var(--fg-dim); font: 600 12px/1 var(--mono); padding: 8px 14px;
+  cursor: pointer; border-radius: 6px 6px 0 0;
+  transition: color 0.12s, background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.sub-tabs button:hover { color: var(--fg); }
+/* Active state: box-shadow paints a 1px line in panel-bg color directly under the
+   button, covering the strip's bottom border at the active segment — DPI-proof. */
+.sub-tabs button.active {
+  color: var(--accent); border-color: var(--border); background: var(--bg);
+  box-shadow: 0 1px 0 0 var(--bg);
+}
+.sub-tabs .tab-count {
+  font-size: 11px; font-weight: 400; color: var(--fg-dim);
+  background: var(--bg-3); padding: 1px 6px; border-radius: 8px;
+}
+.sub-tabs button.active .tab-count { background: var(--bg-2); color: var(--accent); }
+.sub-panel { display: none; }
+.sub-panel.active { display: block; }
+
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-#tab-catalog, #tab-portfolio, #tab-analysis, #tab-optimize, #tab-regime { padding: 0; max-width: 1280px; margin: 0 auto; }
-#tab-catalog iframe, #tab-portfolio iframe, #tab-analysis iframe, #tab-optimize iframe, #tab-regime iframe {
-  width: 100%; border: none; min-height: calc(100vh - 100px); display: block;
+/* iframe sub-panels fill the viewport beneath the chrome. --chrome-h is set by JS
+   from the actual measured header+nav heights; falls back to 140px if JS is off. */
+.sub-panel-iframe { padding: 0; max-width: 1280px; margin: 0 auto; }
+.sub-panel-iframe iframe {
+  width: 100%; border: none;
+  min-height: calc(100dvh - var(--chrome-h, 140px));
+  display: block;
+}
+
+/* Mobile: collapse counts and tighten padding so 5 top + sub-tab strips fit
+   without spilling to multiple rows. */
+@media (max-width: 640px) {
+  .sub-tabs { padding: 8px 8px 0; gap: 2px; }
+  .sub-tabs button { padding: 6px 10px; font-size: 11px; }
+  .page-tabs > button .tab-count,
+  .sub-tabs button .tab-count { display: none; }
+}
+
+/* Light-mode override: the box-shadow seam already references var(--bg) so it
+   tracks the theme; we just need the active border to use the themed border. */
+[data-theme="light"] .sub-tabs button.active {
+  border-color: var(--border); box-shadow: 0 1px 0 0 var(--bg);
 }
 #tab-validation .layout { grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
 #tab-validation .card { margin: 0 0 14px 0; }
@@ -525,54 +545,20 @@ article.card.demoted .demoted-banner code {
   </aside>
 </header>
 
-<nav class="page-tabs">
-  <div class="dropdown" data-menu="catalog">
-    <button type="button" class="dd-trigger">Catalog <span class="dd-caret">▾</span></button>
-    <div class="dd-menu" role="menu">
-      <button data-tab="catalog">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
-      <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">28</span></button>
-    </div>
-  </div>
-  <div class="dropdown" data-menu="research">
-    <button type="button" class="dd-trigger">Research <span class="dd-caret">▾</span></button>
-    <div class="dd-menu" role="menu">
-      <button data-tab="signals">Signals<span class="tab-count" id="tab-sig-count">0</span></button>
-      <button data-tab="regime">Regime</button>
-      <button data-tab="optimize">Optimize</button>
-      <button data-tab="portfolio">Portfolio</button>
-      <button data-tab="analysis">Analysis</button>
-      <button data-tab="pipeline">Pipeline</button>
-    </div>
-  </div>
-  <div class="dropdown" data-menu="more">
-    <button type="button" class="dd-trigger">More <span class="dd-caret">▾</span></button>
-    <div class="dd-menu" role="menu">
-      <button data-tab="validation">Validation</button>
-    </div>
-  </div>
+<nav class="page-tabs" role="tablist" aria-label="Sections">
+  <button class="active" data-tab="strategies" id="tabbtn-strategies" role="tab" aria-selected="true" aria-controls="tab-strategies" tabindex="0">Strategies</button>
+  <button data-tab="live" id="tabbtn-live" role="tab" aria-selected="false" aria-controls="tab-live" tabindex="-1">Live<span class="tab-count" id="tab-sig-count">0</span></button>
+  <button data-tab="construction" id="tabbtn-construction" role="tab" aria-selected="false" aria-controls="tab-construction" tabindex="-1">Construction</button>
+  <button data-tab="pipeline" id="tabbtn-pipeline" role="tab" aria-selected="false" aria-controls="tab-pipeline" tabindex="-1">Pipeline</button>
+  <button data-tab="validation" id="tabbtn-validation" role="tab" aria-selected="false" aria-controls="tab-validation" tabindex="-1">Validation</button>
 </nav>
 
-<div id="tab-catalog" class="tab-panel">
-  <iframe src="full_catalog.html"></iframe>
+<div id="tab-strategies" class="tab-panel active" role="tabpanel" aria-labelledby="tabbtn-strategies">
+<div class="sub-tabs" data-subtabs-for="strategies" role="tablist" aria-label="Strategy views">
+  <button data-subtab="highreturn" class="active" id="subbtn-strategies-highreturn" role="tab" aria-selected="true" aria-controls="subpanel-strategies-highreturn" tabindex="0">High Return<span class="tab-count" id="tab-strat-count">28</span></button>
+  <button data-subtab="catalog" id="subbtn-strategies-catalog" role="tab" aria-selected="false" aria-controls="tab-catalog" tabindex="-1">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
 </div>
-
-<div id="tab-portfolio" class="tab-panel">
-  <iframe src="portfolio.html"></iframe>
-</div>
-
-<div id="tab-analysis" class="tab-panel">
-  <iframe src="analysis.html"></iframe>
-</div>
-
-<div id="tab-optimize" class="tab-panel">
-  <iframe src="optimization.html"></iframe>
-</div>
-
-<div id="tab-regime" class="tab-panel">
-  <iframe src="regime.html"></iframe>
-</div>
-
-<div id="tab-strategies" class="tab-panel active">
+<div class="sub-panel active" data-subpanel="highreturn" id="subpanel-strategies-highreturn" role="tabpanel" aria-labelledby="subbtn-strategies-highreturn">
 <div class="layout">
 
 <aside class="sidebar">
@@ -593,7 +579,7 @@ article.card.demoted .demoted-banner code {
   <h4>Other</h4>
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
-  <a href="#" onclick="document.querySelector('.page-tabs button[data-tab=catalog]').click();return false;">Full catalog ↗</a>
+  <a href="#" onclick="switchTab('catalog');return false;">Full catalog ↗</a>
   <button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 </aside>
 
@@ -4822,9 +4808,13 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 
 </main>
 </div>
+</div><!-- end sub-panel highreturn -->
+<div id="tab-catalog" class="sub-panel sub-panel-iframe" data-subpanel="catalog" role="tabpanel" aria-labelledby="subbtn-strategies-catalog">
+  <iframe src="full_catalog.html" title="Full signal catalog"></iframe>
+</div>
 </div><!-- end tab-strategies -->
 
-<div id="tab-validation" class="tab-panel">
+<div id="tab-validation" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-validation">
 <div class="layout" style="padding-top:24px;">
 <main class="container">
 <h2 style="margin-top:0;">Strategy Validation</h2>
@@ -5879,7 +5869,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div>
 </div><!-- end tab-validation -->
 
-<div id="tab-pipeline" class="tab-panel">
+<div id="tab-pipeline" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-pipeline">
 <div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
 
 <div id="pl-ghpages-notice" style="display:none;padding:16px 20px;background:rgba(248,113,113,0.1);border-left:3px solid var(--bad);border-radius:4px;margin-bottom:16px;">
@@ -6153,9 +6143,12 @@ new MutationObserver(() => {
 }).observe(document.getElementById('tab-pipeline'), { attributes: true, attributeFilter: ['class'] });
 </script>
 
-</div><!-- end tab-pipeline -->
-
-<div id="tab-signals" class="tab-panel">
+<div id="tab-live" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-live">
+<div class="sub-tabs" data-subtabs-for="live" role="tablist" aria-label="Live views">
+  <button data-subtab="signals" class="active" id="subbtn-live-signals" role="tab" aria-selected="true" aria-controls="tab-signals" tabindex="0">Signals<span class="tab-count" id="tab-sig-subcount">0</span></button>
+  <button data-subtab="regime" id="subbtn-live-regime" role="tab" aria-selected="false" aria-controls="tab-regime" tabindex="-1">Regime</button>
+</div>
+<div id="tab-signals" class="sub-panel active" data-subpanel="signals" role="tabpanel" aria-labelledby="subbtn-live-signals">
 <div style="max-width:1280px;margin:0 auto;padding:24px 20px 60px;">
   <h2 style="margin-top:0;">Active Signals</h2>
   <p class="sub">Which high-return signals are firing right now? Toggle each signal's status. When multiple active signals agree on the same trade, they appear in the convergence section.</p>
@@ -6179,72 +6172,192 @@ new MutationObserver(() => {
   </div>
   <div id="sig-grid"></div>
 </div>
-</div><!-- end tab-signals -->
+</div><!-- end sub-panel signals -->
+<div id="tab-regime" class="sub-panel sub-panel-iframe" data-subpanel="regime" role="tabpanel" aria-labelledby="subbtn-live-regime">
+  <iframe data-src="regime.html" title="Market regime"></iframe>
+</div>
+</div><!-- end tab-live -->
+
+<div id="tab-construction" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-construction">
+<div class="sub-tabs" data-subtabs-for="construction" role="tablist" aria-label="Construction views">
+  <button data-subtab="portfolio" class="active" id="subbtn-construction-portfolio" role="tab" aria-selected="true" aria-controls="tab-portfolio" tabindex="0">Portfolio</button>
+  <button data-subtab="optimize" id="subbtn-construction-optimize" role="tab" aria-selected="false" aria-controls="tab-optimize" tabindex="-1">Optimize</button>
+  <button data-subtab="analysis" id="subbtn-construction-analysis" role="tab" aria-selected="false" aria-controls="tab-analysis" tabindex="-1">Analysis</button>
+</div>
+<div id="tab-portfolio" class="sub-panel sub-panel-iframe active" data-subpanel="portfolio" role="tabpanel" aria-labelledby="subbtn-construction-portfolio">
+  <iframe data-src="portfolio.html" title="Portfolio basket"></iframe>
+</div>
+<div id="tab-optimize" class="sub-panel sub-panel-iframe" data-subpanel="optimize" role="tabpanel" aria-labelledby="subbtn-construction-optimize">
+  <iframe data-src="optimization.html" title="Portfolio optimization"></iframe>
+</div>
+<div id="tab-analysis" class="sub-panel sub-panel-iframe" data-subpanel="analysis" role="tabpanel" aria-labelledby="subbtn-construction-analysis">
+  <iframe data-src="analysis.html" title="Signal analysis"></iframe>
+</div>
+</div><!-- end tab-construction -->
 
 <script>
-// ----- Page-level tab switching (dropdown nav, with localStorage persistence) -----
-function _closeAllDropdowns() {
-  document.querySelectorAll('.page-tabs .dropdown.open').forEach(d => d.classList.remove('open'));
+// ----- Page-level tab switching (flat nav, history-driven) -----
+//
+// Tab structure after the 2026-05-29 dropdown→flat-tab refactor:
+//   Strategies   { High Return, Full Catalog }
+//   Live         { Signals, Regime }
+//   Construction { Portfolio, Optimize, Analysis }
+//   Pipeline
+//   Validation
+//
+// Legacy top-level names (catalog/portfolio/optimize/analysis/regime/signals)
+// from before the merge are routed to their new home below. This keeps three
+// classes of old links alive without redirects:
+//   1. Bookmarks like  ?tab=portfolio        → Construction → Portfolio
+//   2. localStorage values written by older builds
+//   3. In-code calls like  switchTab('catalog')  from the pipeline tab
+const LEGACY_TAB_MAP = {
+  catalog:   { top: 'strategies',   sub: 'catalog' },
+  portfolio: { top: 'construction', sub: 'portfolio' },
+  optimize:  { top: 'construction', sub: 'optimize' },
+  analysis:  { top: 'construction', sub: 'analysis' },
+  regime:    { top: 'live',         sub: 'regime' },
+  signals:   { top: 'live',         sub: 'signals' },
+};
+function _resetIframeIfStrayed(panel) {
+  if (!panel) return;
+  panel.querySelectorAll('iframe').forEach(iframe => {
+    const intendedSrc = iframe.getAttribute('src');
+    try {
+      const actualHref = iframe.contentWindow && iframe.contentWindow.location && iframe.contentWindow.location.href;
+      if (actualHref && intendedSrc && !actualHref.endsWith(intendedSrc) && !actualHref.endsWith(intendedSrc.replace(/^\//, ''))) {
+        iframe.src = intendedSrc;
+      }
+    } catch(e) { /* cross-origin or not loaded yet */ }
+  });
 }
-function _markActiveDropdown(tabName) {
-  document.querySelectorAll('.page-tabs .dropdown').forEach(d => d.classList.remove('has-active'));
-  const btn = document.querySelector(`.page-tabs .dd-menu button[data-tab="${tabName}"]`);
-  if (btn) {
-    const parent = btn.closest('.dropdown');
-    if (parent) parent.classList.add('has-active');
-  }
+// Lazy-load: iframes with data-src don't request their page until the user
+// first opens the sub-tab they live in. Saves ~4 page loads on initial visit.
+function _materializeLazyIframe(panel) {
+  if (!panel) return;
+  panel.querySelectorAll('iframe[data-src]').forEach(iframe => {
+    iframe.src = iframe.getAttribute('data-src');
+    iframe.removeAttribute('data-src');
+  });
 }
-function switchTab(tabName) {
-  document.querySelectorAll('.page-tabs .dd-menu button').forEach(b => b.classList.remove('active'));
+// Measure actual chrome (header + page-tabs + visible sub-tabs) so iframe
+// sub-panels fill the remaining viewport at any zoom or wrapped-nav state.
+function _updateChromeHeight() {
+  let h = 0;
+  const header = document.querySelector('header');
+  const nav = document.querySelector('.page-tabs');
+  const sub = document.querySelector('.tab-panel.active > .sub-tabs');
+  if (header) h += header.offsetHeight;
+  if (nav) h += nav.offsetHeight;
+  if (sub) h += sub.offsetHeight;
+  if (h > 0) document.documentElement.style.setProperty('--chrome-h', h + 'px');
+}
+window.addEventListener('resize', _updateChromeHeight);
+window.addEventListener('load', _updateChromeHeight);
+function _persistAndPush(name, opts) {
+  localStorage.setItem('ekans-tab', name);
+  if (opts && opts.history === false) return;
+  const url = new URL(location.href);
+  if (url.searchParams.get('tab') === name) return;  // no-op, don't pollute history
+  url.searchParams.set('tab', name);
+  const method = (opts && opts.history === 'replace') ? 'replaceState' : 'pushState';
+  history[method]({tab: name}, '', url);
+}
+function switchSubTab(topTab, subName, opts) {
+  const panel = document.getElementById('tab-' + topTab);
+  if (!panel) return;
+  panel.querySelectorAll(':scope > .sub-tabs > button[data-subtab]').forEach(b => {
+    const isActive = b.dataset.subtab === subName;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    b.setAttribute('tabindex', isActive ? '0' : '-1');
+  });
+  // Note: we intentionally do NOT call _resetIframeIfStrayed here. Sub-tab
+  // navigation should preserve in-iframe state if the user navigated within
+  // (e.g. clicked a link inside portfolio.html). Top-tab activation is still
+  // a stronger signal and handled in switchTab.
+  panel.querySelectorAll(':scope > .sub-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.subpanel === subName);
+  });
+  _materializeLazyIframe(panel.querySelector(':scope > .sub-panel.active'));
+  // Persist as the legacy name when one exists, so refresh restores top+sub.
+  // High Return is the default; save the top name for it so users don't see
+  // a stale 'catalog' selection if they last viewed High Return.
+  const legacyName = Object.keys(LEGACY_TAB_MAP).find(k =>
+    LEGACY_TAB_MAP[k].top === topTab && LEGACY_TAB_MAP[k].sub === subName
+  );
+  _persistAndPush(legacyName || topTab, opts);
+  _updateChromeHeight();
+}
+function switchTab(tabName, opts) {
+  // Route legacy names (catalog/portfolio/...) to the new merged structure,
+  // but persist the legacy name so a refresh restores both top + sub.
+  const originalName = tabName;
+  const legacy = LEGACY_TAB_MAP[tabName];
+  let subTarget = null;
+  if (legacy) { subTarget = legacy.sub; tabName = legacy.top; }
+  document.querySelectorAll('.page-tabs > button[data-tab]').forEach(b => {
+    const isActive = b.dataset.tab === tabName;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    b.setAttribute('tabindex', isActive ? '0' : '-1');
+  });
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  const btn = document.querySelector(`.page-tabs .dd-menu button[data-tab="${tabName}"]`);
-  if (btn) btn.classList.add('active');
-  _markActiveDropdown(tabName);
   const panel = document.getElementById('tab-' + tabName);
-  if (panel) panel.classList.add('active');
-  // If this tab has an iframe that got navigated away (cross-tab link before fix),
-  // reset it to the original src so the right content shows.
   if (panel) {
-    const iframe = panel.querySelector('iframe');
-    if (iframe) {
-      const intendedSrc = iframe.getAttribute('src');
-      try {
-        const actualHref = iframe.contentWindow && iframe.contentWindow.location && iframe.contentWindow.location.href;
-        if (actualHref && intendedSrc && !actualHref.endsWith(intendedSrc) && !actualHref.endsWith(intendedSrc.replace(/^\//, ''))) {
-          iframe.src = intendedSrc;
-        }
-      } catch(e) { /* cross-origin or not loaded yet */ }
-    }
+    panel.classList.add('active');
+    // Sub-tab activation also persists; suppress its push so we only push once.
+    if (subTarget) switchSubTab(tabName, subTarget, {history: false});
+    const activeChild = panel.querySelector('.sub-panel.active') || panel;
+    _materializeLazyIframe(activeChild);
+    _resetIframeIfStrayed(activeChild);
   }
-  _closeAllDropdowns();
-  localStorage.setItem('ekans-tab', tabName);
+  _persistAndPush(originalName, opts);
+  _updateChromeHeight();
 }
-// Dropdown trigger toggle
-document.querySelectorAll('.page-tabs .dd-trigger').forEach(trig => {
-  trig.addEventListener('click', e => {
-    e.stopPropagation();
-    const dd = trig.closest('.dropdown');
-    const wasOpen = dd.classList.contains('open');
-    _closeAllDropdowns();
-    if (!wasOpen) dd.classList.add('open');
+window.addEventListener('popstate', e => {
+  const tab = (e.state && e.state.tab)
+           || new URLSearchParams(location.search).get('tab')
+           || 'strategies';
+  if (document.getElementById('tab-' + tab) || LEGACY_TAB_MAP[tab]) {
+    switchTab(tab, {history: false});
+  }
+});
+// Top-level tab click
+document.querySelectorAll('.page-tabs > button[data-tab]').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+// Sub-tab click (delegated, works for all merged panels)
+document.querySelectorAll('.sub-tabs').forEach(strip => {
+  const topName = strip.dataset.subtabsFor;
+  strip.querySelectorAll('button[data-subtab]').forEach(btn => {
+    btn.addEventListener('click', () => switchSubTab(topName, btn.dataset.subtab));
   });
 });
-// Menu item click
-document.querySelectorAll('.page-tabs .dd-menu button[data-tab]').forEach(btn => {
-  btn.addEventListener('click', e => {
-    e.stopPropagation();
-    switchTab(btn.dataset.tab);
+// Keyboard nav (ARIA tab pattern): Left/Right move + activate within a tablist,
+// Home/End jump to first/last. Scoped per tablist so sub-tabs don't fight top tabs.
+function _wireTablistKeys(tablist, activateByElement) {
+  tablist.addEventListener('keydown', e => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+    const tabs = Array.from(tablist.querySelectorAll(':scope > button[role="tab"]'));
+    if (!tabs.length) return;
+    const current = tabs.indexOf(document.activeElement);
+    let next = current;
+    if (e.key === 'ArrowLeft')  next = (current <= 0 ? tabs.length : current) - 1;
+    if (e.key === 'ArrowRight') next = (current + 1) % tabs.length;
+    if (e.key === 'Home') next = 0;
+    if (e.key === 'End')  next = tabs.length - 1;
+    e.preventDefault();
+    tabs[next].focus();
+    activateByElement(tabs[next]);
   });
+}
+_wireTablistKeys(document.querySelector('.page-tabs'),
+                 btn => switchTab(btn.dataset.tab));
+document.querySelectorAll('.sub-tabs').forEach(strip => {
+  _wireTablistKeys(strip,
+                   btn => switchSubTab(strip.dataset.subtabsFor, btn.dataset.subtab));
 });
-// Click outside / Esc closes dropdowns
-document.addEventListener('click', e => {
-  if (!e.target.closest('.page-tabs')) _closeAllDropdowns();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') _closeAllDropdowns();
-});
-// Initial highlight: whichever menu owns the currently-active tab panel
-_markActiveDropdown((document.querySelector('.tab-panel.active') || {id: 'tab-strategies'}).id.replace(/^tab-/, ''));
 // Sync catalog count from iframe
 const catIframe = document.querySelector('#tab-catalog iframe');
 if (catIframe) {
@@ -6268,7 +6381,10 @@ if (catIframe) {
 // URL ?tab= param takes priority over localStorage
 const urlTab = new URLSearchParams(location.search).get('tab');
 const savedTab = urlTab || localStorage.getItem('ekans-tab');
-if (savedTab && document.getElementById('tab-' + savedTab)) switchTab(savedTab);
+if (savedTab && document.getElementById('tab-' + savedTab)) {
+  // Use replaceState so the initial load doesn't add a synthetic back-button entry.
+  switchTab(savedTab, {history: 'replace'});
+}
 
 // Collect high-return catalog IDs from backtest code references
 const highReturnIds = new Set();
@@ -6587,11 +6703,11 @@ var META = {
   'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 740 > 200d SMA 722
   'A16':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Entering weak June → cash
   'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, 3 weeks away
-  'A06':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Week 5 of FOMC cycle (odd = cash)
+  'A06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},              // Week 4 of FOMC cycle (even = long)
   'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2) ~90+, far above 5
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
   'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // VIX/VIX3M = 0.86 < 0.92 → long
-  'C11':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // MOVE/VIX = 4.61, neutral band
+  'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX ≈ 3.5 < 4 → long active
   'C07':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY top-ranked on blended momentum
   'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
   'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 4/5 above 10mo SMA; IEF below
@@ -6599,7 +6715,7 @@ var META = {
   'C08 / C09':{t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // 10Y-2Y +0.43%, normal
   'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive', oos:'2024-12-31'}, // Gold >> lumber → long TLT
   'N4':       {t:[['Semis','long']], s:'active', oos:'2024-12-31'},            // Electronics orders up 11/12 mo
-  'R-N5':     {t:[['Semis','long']], s:'defensive', oos:'2025-12-31'},         // TSMC Apr YoY +17.5% decelerating vs ~35% trail
+  'R-N5':     {t:[['Semis','long']], s:'inactive', oos:'2025-12-31'},          // TSMC Apr YoY +17.5% — decelerated, not actively defensive
   'R-D11':    {t:[['Equity L/S','long']], oos:'2025-12-31'},
   'Z4':       {t:[['Event Equity','long']], oos:'2025-12-31'},                 // No known current Wells Notices
   'Z6':       {t:[['Event Equity','long']], s:'active', oos:'2025-12-31'},     // DOJ vs NYP Mar 26; FTC merger trials
@@ -6623,7 +6739,7 @@ var META = {
   'AG-2':     {t:[['Power Infra','long'],['Growth Utilities','short']], s:'active', oos:'2026-04-30'},
   'AC-6':     {t:[['Brent Crude','long']], s:'inactive', oos:'2025-12-31'},    // Q1-only window past
   'PL5':      {t:[['Aggregates','long']], s:'inactive', oos:'2025-12-31'},     // Permits/Completions = 0.99, below 1.3
-  'O5':       {t:[['BTC Miners','long']], s:'active', oos:'2025-12-31'},       // -3.07% difficulty drop May 2
+  'O5':       {t:[['BTC Miners','long']], s:'inactive', oos:'2025-12-31'},   // Last difficulty -2.31%, below -3% threshold
   'O4':       {t:[['BTC Miners','long']], s:'inactive', oos:'2025-12-31'},     // Mempool quiet, ~49K txns
   'P6':       {t:[['BTC','long']], s:'defensive', oos:'2025-12-31'},           // Global liquidity peaked Q4 2025; contracting
   'P12':      {t:[['SPY','long'],['BTC','long']], s:'inactive', oos:'2025-12-31'},
@@ -6631,7 +6747,7 @@ var META = {
   'A14':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // Window closed Oct 2025
   'H06':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // MVRV Z=0.77; needs <0
   'H11':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // BTC-NDX corr 0.96 = tech proxy
-  'H05':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // Hash Ribbons buy signal late Apr
+  'H05':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},             // No recent capitulation→recovery cross
   'H07 / H08':{t:[['BTC','long']], s:'inactive', oos:'2025-12-31'}            // Puell 0.79; NUPL 0.17
 };
 
@@ -6770,7 +6886,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-05-28';
+var CUR_VER = '2026-05-29';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
@@ -6809,6 +6925,7 @@ function computeConvergence() {
 var convEl = document.getElementById('sig-convergence');
 var gridEl = document.getElementById('sig-grid');
 var countEl = document.getElementById('tab-sig-count');
+var subCountEl = document.getElementById('tab-sig-subcount');
 var historyEl = document.getElementById('sig-history-body');
 var cronHealthEl = document.getElementById('sig-cron-health');
 var currentFilter = 'all';
@@ -6915,7 +7032,9 @@ function render() {
   var conv = computeConvergence();
   var activeCount = signals.filter(function(s) { return getStatus(s.id) === 'active'; }).length;
   var defCount = signals.filter(function(s) { return getStatus(s.id) === 'defensive'; }).length;
-  if (countEl) countEl.textContent = activeCount + (defCount ? '/' + defCount : '');
+  var countText = activeCount + (defCount ? '/' + defCount : '');
+  if (countEl) countEl.textContent = countText;
+  if (subCountEl) subCountEl.textContent = countText;
 
   // Build all active trade groups (convergence + singles) + anti-signals
   var allGroups = {};

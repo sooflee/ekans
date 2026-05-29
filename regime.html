@@ -100,7 +100,7 @@ h2 { font-size: 1.1em; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 
 <p class="sub">Current market conditions and which active signals fit them. Designed to help you weight conviction across your active signal set, not pick winners.</p>
 
 <div class="disclaimer">
-<strong>Regime as of 2026-05-29.</strong> Conditions and signal-fit reasoning are updated by the daily cron alongside signal statuses. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones, etc. It is not a backtest of the signal under this regime — it's directional guidance about which active signals deserve more conviction right now.
+<strong>Regime as of 2026-05-29.</strong> Late-cycle risk-on tape — strong growth, low vol, steepening curve, tight risk-asset correlations — with liquidity contracting as the soft spot. Conditions update daily alongside signal statuses. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones. It is not a backtest under this regime — it's directional guidance about which active signals deserve more conviction.
 </div>
 
 <h2>Current Regime</h2>
@@ -145,12 +145,12 @@ Fits are <em>not</em> backtest evidence under this regime. They are categorical 
 (function() {
   // Current regime (hand-curated; updated by cron alongside signal statuses)
   const REGIME = {
-    trend:     { label: 'Trend',         value: 'UP',          tone: 'good', desc: 'SPY 50-day SMA above 200-day SMA (golden cross active). Favors trend-following, hurts mean-reversion.' },
-    vol:       { label: 'Volatility',    value: 'LOW',         tone: 'good', desc: 'VIX/VIX3M ≈ 0.86 (deep contango). Favors carry/long-equity, hurts vol-spike strategies.' },
-    curve:     { label: 'Yield Curve',   value: 'NORMAL +0.4', tone: 'good', desc: '10Y-2Y positive after multi-year inversion. Recession-timer dormant; favors cyclicals.' },
-    growth:    { label: 'Growth',        value: 'STRONG',      tone: 'good', desc: 'GDPNow Q2 ≈ 4.3%, well above 3% threshold. Bullish bias for growth-sensitive signals.' },
-    liquidity: { label: 'Liquidity',     value: 'MIXED',       tone: 'warn', desc: 'Fed RRP drained; ECB/BOJ contracting. Margin debt YoY +38% (high). Global liquidity past peak.' },
-    risk:      { label: 'Risk Appetite', value: 'TECH-RISK-ON', tone: 'good', desc: 'BTC-NDX correlation ≈ 0.96 (tech proxy mode). Speculative risk-on, but concentrated.' }
+    trend:     { label: 'Trend',         value: 'UP',          tone: 'good', desc: 'SPY 50d ≈ 740.6 vs 200d ≈ 722.4, spread +2.5% (golden cross intact). Favors trend-following, breakouts; hurts mean-reversion and inverse strategies.' },
+    vol:       { label: 'Volatility',    value: 'LOW (0.85)',  tone: 'good', desc: 'VIX 16.29 / VIX3M 19.11 = 0.85 (steep contango). Favors short-vol carry, risk-on dip-buying; hurts long-vol hedges and tail-risk strategies.' },
+    curve:     { label: 'Yield Curve',   value: 'NORMAL +43bp', tone: 'good', desc: '10Y 4.56% – 2Y 4.13% — bull-steepening from prior inversion. Favors banks/cyclicals/long-duration carry; hurts recession-timer trades.' },
+    growth:    { label: 'Growth',        value: 'STRONG 3.8%', tone: 'good', desc: 'GDPNow Q2 ≈ 3.8% (down from 4.3% on May 21). Favors cyclicals/small-caps/industrials; deceleration warns against chasing peak-cycle names.' },
+    liquidity: { label: 'Liquidity',     value: 'CONTRACTING', tone: 'warn', desc: 'Fed RRP ≈ $3B (drained); Fed QT $60-80B/mo; ECB passive runoff. G3 13-week trend net negative. Favors quality/large-cap; hurts unprofitable growth.' },
+    risk:      { label: 'Risk Appetite', value: 'TECH-RISK-ON (~0.9)', tone: 'good', desc: 'BTC-NDX 60d corr extreme (April 0.96, still ~0.9 in May). BTC trading as pure tech-beta proxy. Hurts "BTC as digital gold" thesis.' }
   };
 
   // Per-signal regime fit. fit: 'aligned' | 'working' | 'crossing'. reason is regime-specific commentary.
@@ -160,7 +160,9 @@ Fits are <em>not</em> backtest evidence under this regime. They are categorical 
     'C14':   { fit: 'aligned',  reason: 'TSMOM long across all 6 assets; trend regime is exactly when this works.' },
     'C07':   { fit: 'aligned',  reason: 'Blended-lookback momentum favors directional regimes. SPY currently the top-ranked asset.' },
     'C05':   { fit: 'aligned',  reason: 'GTAA 10mo SMA filter: 4/5 buckets above MA right now (only IEF flat). Designed for this.' },
-    'C06':   { fit: 'aligned',  reason: 'Dual momentum: SPY ≫ ACWX and positive — the bullish branch of the rule.' },
+    'C06':   { fit: 'aligned',  reason: 'Dual momentum: ACWX 12m +36% > SPY 12m +28% — winner flipped to international tilt this week.' },
+    'A06':   { fit: 'aligned',  reason: 'Week 4 of FOMC cycle = even week (rule is long). Cieslak biweekly equity-return pattern in its on-phase.' },
+    'C11':   { fit: 'aligned',  reason: 'MOVE/VIX ≈ 3.5 — equity vol leads rate vol, the long-SPY trigger of the rule.' },
     'D02':   { fit: 'aligned',  reason: 'Cross-sectional momentum factor — MTUM +21% YTD confirms factor is alive.' },
     'D04':   { fit: 'aligned',  reason: 'Industry momentum (Moskowitz-Grinblatt) thrives when persistent sector leadership exists. Tech/semis driving in 2026.' },
     // Vol-regime — long-equity branch active
