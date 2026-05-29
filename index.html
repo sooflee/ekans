@@ -396,9 +396,12 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-#tab-catalog, #tab-portfolio, #tab-analysis { padding: 0; max-width: 1280px; margin: 0 auto; }
+#tab-catalog, #tab-portfolio, #tab-analysis { padding: 0 24px; max-width: 1280px; margin: 0 auto; }
 #tab-catalog iframe, #tab-portfolio iframe, #tab-analysis iframe {
   width: 100%; border: none; min-height: calc(100vh - 100px); display: block;
+}
+@media (max-width: 700px) {
+  #tab-catalog, #tab-portfolio, #tab-analysis { padding: 0 12px; }
 }
 #tab-validation .layout { grid-template-columns: 1fr; max-width: 1280px; margin: 0 auto; }
 #tab-validation .card { margin: 0 0 14px 0; }
@@ -530,7 +533,7 @@ article.card.demoted .demoted-banner code {
     <button type="button" class="dd-trigger">Catalog <span class="dd-caret">▾</span></button>
     <div class="dd-menu" role="menu">
       <button data-tab="catalog">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
-      <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">26</span></button>
+      <button class="active" data-tab="strategies">High Return<span class="tab-count" id="tab-strat-count">28</span></button>
     </div>
   </div>
   <div class="dropdown" data-menu="research">
@@ -1411,7 +1414,7 @@ article.card.demoted .demoted-banner code {
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.1%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.1%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-A">A04</span><h3>First Five Days of January</h3></div>
     <div class="right">equities · 12-month decision</div>
@@ -4538,6 +4541,56 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: ADF&amp;G Bristol Bay annual season summaries, NOAA NMFS landings, ASMI market reports; yfinance</span><span><code>backtests/PL524_adfg_bristol_bay_sockeye_shortfall_salmon.py</code></span></div>
 </article>
 
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">PL661</span><h3>FRED CPI Communication Subindex YoY Trough → Long XLY+XLP</h3></div>
+    <div class="right">macro · monthly trigger · 1810 days · 29 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.58</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">22.6%</div><div class="ml">CAGR (in-pos)</div></div>
+    <div class="m"><div class="mv neg">-14.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">4.22</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">2.39</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CPI Communication subindex (FRED <code>CUSR0000SEEB</code>) prints monthly. A YoY trough after 2+ months of deflation marks a deflationary inflection in a granular consumer category — historically followed by a discretionary + staples rotation as real wages firm and household budgets reallocate. Family-enumerated variant of the broader "CPI subindex YoY trough → consumer basket long" pattern, surviving BH-correction at FDR=0.05 across the ~800-test catalog and a positive OOS Sharpe (2.39) on the held-out second half.</p>
+    <h4>Rule</h4>
+    <div class="rule">Each month: pull FRED <code>CUSR0000SEEB</code> (Communication CPI). When YoY change troughs (current month &gt; prior month, after 2+ consecutive months of negative YoY), go long 50% XLY + 50% XLP for 42 trading days. Benchmark vs SPY.</div>
+    <h4>Why it's promising</h4>
+    <p>29 events across 1810 in-position days, t-stat 4.22, OOS Sharpe 2.39 (vs IS — OOS edge is real, not curve-fit). One of only 6 PL-prefixed strategies to pass the canonical winner gate (Sharpe&gt;0.5 + CAGR&gt;10% + BH-significant + OOS&gt;0 + sample-size floor).</p>
+    <h4>Caveats</h4>
+    <div class="caveat">This is a family-enumeration variant of the CPI-subindex pattern — many sibling CPI subseries were tested. BH correction passed, but the underlying mechanism is auto-generated rather than hand-derived, so the causal story for "Communication CPI" specifically is weaker than for the broader pattern. Sample is 29 events over ~7 years — meaningful but not deep. Strategy is fully in / fully out; portfolio-level CAGR including cash periods is lower than the in-position figure.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CUSR0000SEEB; family enumeration of CPI subindex variants</span><span><code>backtests/PL661_cpi_subindex_cusr0000seeb.py</code></span></div>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">PL651</span><h3>FRED CPI Shelter Subindex YoY Trough → Long XLY+XLP</h3></div>
+    <div class="right">macro · monthly trigger · 1260 days · 20 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.48</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">26.6%</div><div class="ml">CAGR (in-pos)</div></div>
+    <div class="m"><div class="mv neg">-16.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv pos">3.30</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">1.74</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>CPI Shelter subindex (FRED <code>CUSR0000SAH1</code>) is the largest single component of headline CPI (~33% weight) and famously lags rent-market reality by 6-18 months. A YoY trough after 2+ months of deflation in this lagging series tends to coincide with the end of the disinflation phase that real wages and consumer budgets respond to. The discretionary + staples basket captures both the recovering middle-class spend (XLY) and the defensive bid that lingers from the prior tight-budget regime (XLP).</p>
+    <h4>Rule</h4>
+    <div class="rule">Each month: pull FRED <code>CUSR0000SAH1</code> (Shelter CPI). When YoY change troughs (current month &gt; prior month after 2+ consecutive months of decline), go long 50% XLY + 50% XLP for 42 trading days. Benchmark vs SPY.</div>
+    <h4>Why it's promising</h4>
+    <p>20 events across 1260 in-position days, t-stat 3.30, OOS Sharpe 1.74 (vs IS, OOS edge survives the holdout). Shelter is structurally the slowest-moving CPI subindex, so the trough signal is reliable and non-noisy. Passes the canonical winner gate (Sharpe&gt;0.5 + CAGR&gt;10% + BH-significant + OOS&gt;0 + sample-size).</p>
+    <h4>Caveats</h4>
+    <div class="caveat">Same family-enumeration caveat as PL661 — the Shelter subindex variant survived BH but the broader mechanism is auto-generated rather than hand-derived. Shelter CPI has a known 6-18 month lag vs real rent prints; the YoY-trough signal can therefore mis-time relative to the actual rent regime change. Sample is 20 events over ~5 years.</div>
+  </div>
+  <div class="card-foot"><span>Source: FRED CUSR0000SAH1; family enumeration of CPI subindex variants</span><span><code>backtests/PL651_cpi_subindex_cusr0000sah1.py</code></span></div>
+</article>
+
 <!-- ================== APPENDIX ================== -->
 <h2 class="tier" id="appendix">Appendix — Tried Without Edge <span class="tier-count">Signals tested but showed no meaningful alpha after honest backtesting</span></h2>
 <p class="sub">For completeness. Each tried with free data. If you have a better implementation of any of these — particularly the ones that needed paid feeds — these may still hold edge.</p>
@@ -6717,6 +6770,10 @@ if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setI
 signals.forEach(function(s) { if (!(s.id in state)) state[s.id] = s.defaultStatus; });
 function saveState() { localStorage.setItem(STORE, JSON.stringify(state)); }
 function getStatus(id) { return state[id] || 'unknown'; }
+
+// Expose signals + statuses to child iframes (portfolio.html uses this for optimization)
+window.EKANS_SIGNALS = signals;
+window.EKANS_GET_STATUS = getStatus;
 
 // Convergence: group active + defensive signals by trade direction + asset
 function computeConvergence() {

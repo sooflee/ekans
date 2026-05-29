@@ -110,6 +110,15 @@ The portfolio's <strong>raw</strong> figures average across 31 signals, most of 
 </div>
 <canvas id="eq-chart" height="380"></canvas>
 
+<h2>Optimized Basket — Max Sharpe</h2>
+<p style="color: var(--fg-dim); font-size: 13px; margin-bottom: 12px;">
+Mean-variance optimization over currently active signals. Assumes signals are uncorrelated (a known weak assumption — many trend signals co-move). Volatility per signal ≈ CAGR/Sharpe. Weights cap at 20% per signal, normalized to 100%. Defensive signals excluded.
+</p>
+<div id="opt-basket"></div>
+<p style="color: var(--fg-dim); font-size: 11px; font-style: italic; margin-top: 8px;">
+Formula: w<sub>i</sub> ∝ Sharpe<sub>i</sub><sup>2</sup>/CAGR<sub>i</sub> (closed-form tangency under diagonal covariance). Filtered to Sharpe ≥ 0.5 and CAGR > 0.
+</p>
+
 <h2>Currently Active Signals</h2>
 <p style="color: var(--fg-dim); font-size: 13px; margin-bottom: 12px;">
 Signals whose trading rules are currently generating positions as of May 2026.
@@ -648,6 +657,131 @@ function drawChart() {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(tryDraw, 150);
   });
+})();
+
+// ===== Optimized Basket — Max Sharpe =====
+(function() {
+  const optEl = document.getElementById('opt-basket');
+  if (!optEl) return;
+
+  function getSignals() {
+    try {
+      const sigs = window.parent && window.parent.EKANS_SIGNALS;
+      const getStatus = window.parent && window.parent.EKANS_GET_STATUS;
+      if (!sigs || !getStatus) return null;
+      return sigs.filter(function(s) { return getStatus(s.id) === 'active'; })
+                 .map(function(s) { return {id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId}; });
+    } catch(e) { return null; }
+  }
+
+  function render() {
+    const active = getSignals();
+    if (!active) {
+      optEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
+        'Optimization requires the parent index.html context. Open this tab from the main app to see the optimized basket.</div>';
+      return;
+    }
+    // Filter: positive CAGR + Sharpe >= 0.5
+    const eligible = active.filter(function(s) { return s.cagr > 0 && s.sharpe >= 0.5; });
+    if (eligible.length === 0) {
+      optEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
+        'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.</div>';
+      return;
+    }
+
+    // Compute raw weights: w_i ∝ sharpe^2 / cagr (tangency under diagonal covariance)
+    eligible.forEach(function(s) {
+      s.vol = s.cagr / s.sharpe; // implied annualized vol (%)
+      s.rawWeight = (s.sharpe * s.sharpe) / s.cagr;
+    });
+    const rawSum = eligible.reduce(function(a,s){ return a + s.rawWeight; }, 0);
+    eligible.forEach(function(s) { s.weight = (s.rawWeight / rawSum) * 100; });
+
+    // Cap individual weight at 20%, redistribute excess
+    const CAP = 20;
+    for (let pass = 0; pass < 5; pass++) {
+      let excess = 0;
+      let uncapped = [];
+      eligible.forEach(function(s) {
+        if (s.weight > CAP) { excess += s.weight - CAP; s.weight = CAP; }
+        else uncapped.push(s);
+      });
+      if (excess < 0.01 || uncapped.length === 0) break;
+      const uncapTotal = uncapped.reduce(function(a,s){ return a + s.weight; }, 0);
+      if (uncapTotal === 0) break;
+      uncapped.forEach(function(s) { s.weight += excess * (s.weight / uncapTotal); });
+    }
+
+    // Sort by weight desc
+    eligible.sort(function(a,b){ return b.weight - a.weight; });
+
+    // Portfolio expected metrics (assume uncorrelated)
+    const portReturn = eligible.reduce(function(a,s){ return a + (s.weight/100) * s.cagr; }, 0);
+    const portVar = eligible.reduce(function(a,s){ return a + Math.pow(s.weight/100, 2) * Math.pow(s.vol, 2); }, 0);
+    const portVol = Math.sqrt(portVar);
+    const portSharpe = portReturn / portVol;
+
+    // Equal-weight baseline for comparison
+    const ewWeight = 100 / eligible.length;
+    const ewReturn = eligible.reduce(function(a,s){ return a + (ewWeight/100) * s.cagr; }, 0);
+    const ewVar = eligible.reduce(function(a,s){ return a + Math.pow(ewWeight/100, 2) * Math.pow(s.vol, 2); }, 0);
+    const ewVol = Math.sqrt(ewVar);
+    const ewSharpe = ewReturn / ewVol;
+
+    // Render
+    let html = '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;">';
+    html += '<div style="background:var(--bg-2);border:1px solid var(--good);border-radius:8px;padding:14px 20px;flex:1;min-width:200px;">';
+    html += '<div style="color:var(--good);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;">Max-Sharpe Basket</div>';
+    html += '<div style="margin-top:6px;font-family:var(--mono);font-size:14px;line-height:1.7;">';
+    html += 'E[CAGR] <strong style="color:var(--good);">' + portReturn.toFixed(1) + '%</strong><br>';
+    html += 'E[Vol] <strong>' + portVol.toFixed(1) + '%</strong><br>';
+    html += 'E[Sharpe] <strong style="color:var(--good);">' + portSharpe.toFixed(2) + '</strong>';
+    html += '</div></div>';
+    html += '<div style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:14px 20px;flex:1;min-width:200px;">';
+    html += '<div style="color:var(--fg-dim);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.06em;">Equal-Weight Baseline</div>';
+    html += '<div style="margin-top:6px;font-family:var(--mono);font-size:14px;line-height:1.7;">';
+    html += 'E[CAGR] <strong>' + ewReturn.toFixed(1) + '%</strong><br>';
+    html += 'E[Vol] <strong>' + ewVol.toFixed(1) + '%</strong><br>';
+    html += 'E[Sharpe] <strong>' + ewSharpe.toFixed(2) + '</strong>';
+    html += '</div></div></div>';
+
+    // Weights table
+    html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+    html += '<thead><tr style="color:var(--fg-dim);font-size:11px;text-transform:uppercase;border-bottom:2px solid var(--border);">';
+    html += '<th style="text-align:left;padding:8px 10px;">ID</th>';
+    html += '<th style="text-align:left;padding:8px 10px;">Name</th>';
+    html += '<th style="text-align:right;padding:8px 10px;">Sharpe</th>';
+    html += '<th style="text-align:right;padding:8px 10px;">CAGR</th>';
+    html += '<th style="text-align:right;padding:8px 10px;">Vol</th>';
+    html += '<th style="text-align:right;padding:8px 10px;">Weight</th>';
+    html += '<th style="padding:8px 10px;width:200px;"></th>';
+    html += '</tr></thead><tbody>';
+    eligible.forEach(function(s) {
+      const barW = Math.round(s.weight * 5); // 100% = 500px, but width 200 means cap at 200
+      const barWClamped = Math.min(barW, 200);
+      html += '<tr style="border-bottom:1px solid var(--border);">';
+      html += '<td style="padding:6px 10px;font-family:var(--mono);font-weight:700;color:var(--accent);">' + s.id + '</td>';
+      html += '<td style="padding:6px 10px;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + s.name + '</td>';
+      html += '<td style="padding:6px 10px;text-align:right;font-family:var(--mono);">' + s.sharpe.toFixed(2) + '</td>';
+      html += '<td style="padding:6px 10px;text-align:right;font-family:var(--mono);color:var(--good);">' + s.cagr.toFixed(1) + '%</td>';
+      html += '<td style="padding:6px 10px;text-align:right;font-family:var(--mono);color:var(--fg-dim);">' + s.vol.toFixed(1) + '%</td>';
+      html += '<td style="padding:6px 10px;text-align:right;font-family:var(--mono);font-weight:700;">' + s.weight.toFixed(1) + '%</td>';
+      html += '<td style="padding:6px 10px;"><div style="background:var(--bg-3);height:10px;border-radius:2px;width:200px;"><div style="background:var(--good);height:100%;width:' + barWClamped + 'px;border-radius:2px;"></div></div></td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    optEl.innerHTML = html;
+  }
+
+  // Retry a few times in case parent hasn't initialized yet
+  let attempts = 0;
+  function tryRender() {
+    const sigs = getSignals();
+    if (sigs || attempts > 20) { render(); return; }
+    attempts++;
+    setTimeout(tryRender, 100);
+  }
+  tryRender();
 })();
 </script>
 
