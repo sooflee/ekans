@@ -435,29 +435,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   #sig-history-body .sig-hist-row { flex-wrap: wrap; }
   /* Live P&L stays inline with other metrics — wraps via parent */
 }
-
-/* ===== Demoted cards (no longer pass winner gate) ===== */
-article.card.demoted {
-  opacity: 0.55;
-  border-color: var(--warn);
-  position: relative;
-}
-article.card.demoted:hover { opacity: 0.85; }
-article.card.demoted .demoted-banner {
-  background: rgba(251,191,36,0.08);
-  border-left: 3px solid var(--warn);
-  padding: 8px 12px;
-  margin: 0 0 12px 0;
-  border-radius: 4px;
-  font-size: 12px;
-  color: var(--fg-dim);
-  line-height: 1.5;
-}
-article.card.demoted .demoted-banner strong { color: var(--warn); }
-article.card.demoted .demoted-banner code {
-  background: var(--bg-3); padding: 1px 5px; border-radius: 3px;
-  font-size: 11px; color: var(--fg);
-}
 </style>
 <script>
 (function(){
@@ -536,12 +513,8 @@ article.card.demoted .demoted-banner code {
 
 <!-- All trading signals, sorted by CAGR descending by default -->
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">Z4</span><h3>★ Wells Notice → Litigation Release Gap (Long Stressed Equity)</h3></div>
     <div class="right">single-name equity · ~6 months hold · 10 events</div>
   </div>
@@ -563,12 +536,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; SEC EDGAR Wells Notice 10-Q disclosures + Litigation Releases</span><span><code>backtests/Z4_wells_to_litigation_gap.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">Z6</span><h3>★ Antitrust Complaint Filing → Long Defendant (Reversion)</h3></div>
     <div class="right">single-name equity · 90-day hold · 17 events</div>
   </div>
@@ -590,12 +559,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; justice.gov/atr/antitrust-case-filings + ftc.gov/legal-library</span><span><code>backtests/Z6_antitrust_reversion.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe missing; CAGR missing; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>0</code>, n_events=<code>16</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">Y5</span><h3>★ De-SPAC Short Post High-Redemption Close</h3></div>
     <div class="right">single-name equity short · 40-day hold · 16 events</div>
   </div>
@@ -642,12 +607,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Jesse Felder (The Felder Report)</span><span><code>backtests/V3_felder_margin_debt_gdp.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-H">O5</span><h3>★ BTC Difficulty Drop → Long Miner Basket</h3></div>
     <div class="right">crypto / miner equities · 14-day hold · 48 events</div>
   </div>
@@ -668,12 +629,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; api.blockchain.info/charts/difficulty</span><span><code>backtests/O5_btc_difficulty_drop.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-H">O4</span><h3>★ BTC Mempool Backlog → Long Miner Basket</h3></div>
     <div class="right">crypto / miner equities · 20-day hold · 113 events</div>
   </div>
@@ -719,12 +676,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Michael Howell (CrossBorder Capital); Forward Guidance / Capital Wars</span><span><code>backtests/P6_howell_liquidity_btc.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">P12</span><h3>★ Steno Multi-CB Liquidity Flip → Long SPY + BTC</h3></div>
     <div class="right">cross-asset · 8-week hold</div>
   </div>
@@ -746,12 +699,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Andreas Steno Larsen / Steno Research</span><span><code>backtests/P12_steno_global_liquidity.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">R-D11</span><h3>★ FINRA Short Interest Long/Short Basket</h3></div>
     <div class="right">equities · monthly rebalance · ~30 large/mid-caps</div>
   </div>
@@ -772,12 +721,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; FINRA Reg SHO Daily API</span><span><code>backtests/R-D11_short_interest.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">R-N5</span><h3>★ TSMC Monthly Revenue Surprise → AI-Semi Basket</h3></div>
     <div class="right">AI/semi single-names · 1-quarter hold · 19 events</div>
   </div>
@@ -798,12 +743,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; TSMC monthly revenue via Macrotrends</span><span><code>backtests/R-N5_tsmc_revenue.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>60</code>, n_events=<code>10</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">F9</span><h3>★ USTR Section 301 Comment-Window Close → Long US Importers</h3></div>
     <div class="right">consumer/retail · 5-day hold · 10 events</div>
   </div>
@@ -827,12 +768,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; USTR Federal Register notices</span><span><code>backtests/F9_ustr_s301.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.45</code> &le; 0.50; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">F5</span><h3>★ FDA PDUFA + Favorable AdComm Pre-Drift → Long Biotech</h3></div>
     <div class="right">small/mid biotech · 10-day hold · 24 events</div>
   </div>
@@ -855,12 +792,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; FDA Drug Approvals calendar + AdComm transcripts</span><span><code>backtests/F5_fda_pdufa.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">N4</span><h3>★ Semiconductor Billings 3-Month Acceleration → Long SOXX</h3></div>
     <div class="right">semi equity ETF · 60-day hold · 110 events</div>
   </div>
@@ -883,12 +816,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; FRED A36SNO (Census M3 proxy for SIA)</span><span><code>backtests/N4_sia_billings.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; OOS Sharpe <code>0.00</code> &le; 0.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-H">M3</span><h3>★ stETH Discount Extreme → Long ETH</h3></div>
     <div class="right">crypto · 90-day hold · 2020–2026</div>
   </div>
@@ -985,12 +914,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: cross-asset regime work (CME, JPM)</span><span><code>backtests/H11_btc_correlation_regime.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.4%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C02</span><h3>Utilities/SPY Ratio (Gayed)</h3></div>
     <div class="right">equities · 1-month rebalance · 2000-2026</div>
   </div>
@@ -1059,12 +984,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Jesse Felder / FINRA monthly</span><span><code>backtests/F03_margin_debt_yoy.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>5.5%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C14</span><h3>Time-Series Momentum (TSMOM)</h3></div>
     <div class="right">multi-asset · 1-12 months</div>
   </div>
@@ -1087,12 +1008,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Moskowitz-Ooi-Pedersen JFE 2012</span><span><code>backtests/C14_tsmom.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.4%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">F09</span><h3>Golden Cross (50/200 SMA)</h3></div>
     <div class="right">equities · months-to-years</div>
   </div>
@@ -1115,12 +1032,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Universal TA folklore</span><span><code>backtests/F09_golden_cross.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>9.9%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">A16</span><h3>Heston-Sadka Same-Calendar-Month Seasonality</h3></div>
     <div class="right">equities · monthly</div>
   </div>
@@ -1142,12 +1055,8 @@ article.card.demoted .demoted-banner code {
 </article>
 
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>4.4%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C05</span><h3>Faber GTAA 10-Month Moving Average</h3></div>
     <div class="right">multi-asset · monthly</div>
   </div>
@@ -1168,12 +1077,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Mebane Faber 2007 SSRN 962461</span><span><code>backtests/C05_faber_gtaa.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.7%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C06</span><h3>Dual Momentum (Antonacci GEM)</h3></div>
     <div class="right">equities/bonds · monthly</div>
   </div>
@@ -1214,12 +1119,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Estrella-Mishkin 1998; Chicago Fed 2018</span><span><code>backtests/C08_yield_curve_10y2y.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.1%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C01</span><h3>Lumber/Gold Ratio (Gayed)</h3></div>
     <div class="right">equities vs bonds · 13-week</div>
   </div>
@@ -1240,12 +1141,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Gayed 2015 SSRN 2604248</span><span><code>backtests/C01_lumber_gold.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>6.6%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-B">B01</span><h3>VIX Term Structure (VIX/VIX3M)</h3></div>
     <div class="right">equities · days-to-weeks</div>
   </div>
@@ -1265,12 +1162,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: VIX and More blog (Bill Luby)</span><span><code>backtests/B01_vix_term_structure.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.6%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">C11</span><h3>MOVE / VIX Ratio</h3></div>
     <div class="right">cross-asset · 2-8 weeks</div>
   </div>
@@ -1291,12 +1184,8 @@ article.card.demoted .demoted-banner code {
 </article>
 
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">L6</span><h3>★ SEC NT-10K / NT-10Q Late-Filing Short</h3></div>
     <div class="right">single-name equities · 30-day hold · 2015-2026</div>
   </div>
@@ -1322,12 +1211,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; SEC EDGAR full-text search (free)</span><span><code>backtests/L6_sec_nt_10k.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe missing; CAGR missing; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">E09</span><h3>IPO Lockup Expiry Short</h3></div>
     <div class="right">single-name equities · ~10 days</div>
   </div>
@@ -1350,12 +1235,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Field-Hanka JF 2001</span><span><code>backtests/E09_ipo_lockup.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.49</code> &le; 0.50; CAGR <code>1.7%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">A07</span><h3>Pre-FOMC Drift (UNCONDITIONAL)</h3></div>
     <div class="right">equities · 1-2 days · 8 events/year</div>
   </div>
@@ -1378,12 +1259,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Lucca-Moench JF 2015</span><span><code>backtests/A07_pre_fomc_drift.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>6.7%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">A06</span><h3>FOMC Even-Week Effect</h3></div>
     <div class="right">equities · biweekly cycle</div>
   </div>
@@ -1404,12 +1281,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Cieslak-Morse-Vissing-Jorgensen JF 2019</span><span><code>backtests/A06_fomc_even_week.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.49</code> &le; 0.50; CAGR <code>2.1%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">F08</span><h3>RSI(2) Mean Reversion (Connors)</h3></div>
     <div class="right">equities · days · ~211 trades</div>
   </div>
@@ -1432,12 +1305,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Connors 2009</span><span><code>backtests/F08_rsi2_connors.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>8.1%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">A04</span><h3>First Five Days of January</h3></div>
     <div class="right">equities · 12-month decision</div>
   </div>
@@ -1460,12 +1329,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Yale Hirsch, Stock Trader's Almanac</span><span><code>backtests/A04_first_five_days.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe missing; CAGR missing; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">E10</span><h3>Spin-Off Drift (Greenblatt)</h3></div>
     <div class="right">single-name · 24 months</div>
   </div>
@@ -1485,12 +1350,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Greenblatt 1997; Cusatis-Miles-Woolridge JFE 1993</span><span><code>backtests/E10_spinoff_drift.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.41</code> &le; 0.50; CAGR <code>5.1%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">D02</span><h3>Cross-Sectional Momentum (UMD) — Clean</h3></div>
     <div class="right">equities · 1-12 months · Ken French data</div>
   </div>
@@ -1511,12 +1372,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Jegadeesh-Titman JF 1993; Ken French data library</span><span><code>backtests/D02_momentum_umd.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.46</code> &le; 0.50; CAGR <code>2.7%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">K4</span><h3>★ SLOOS "Willingness to Lend to Consumers" → Long XLY</h3></div>
     <div class="right">consumer discretionary · quarterly · 1990-2026</div>
   </div>
@@ -1539,12 +1396,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; FRED DRIWCIL (SLOOS)</span><span><code>backtests/K4_sloos_willingness.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>3.3%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">K9</span><h3>★ Treasury DTS DoD Outlays Surge → Long ITA</h3></div>
     <div class="right">defense ETF · 10-day hold · daily data</div>
   </div>
@@ -1567,12 +1420,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; fiscaldata.treasury.gov DTS Table III-A</span><span><code>backtests/K9_dod_treasury_outlays.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>141</code>, n_events=<code>9</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">K5</span><h3>★ ClinicalTrials.gov Phase-3 Completion Slip → Short Sponsor</h3></div>
     <div class="right">single-name biotech · 20-day · CAUTION: N=9</div>
   </div>
@@ -1595,12 +1444,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; ClinicalTrials.gov StudyVersions API</span><span><code>backtests/K5_phase3_completion_slip.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.23</code> &le; 0.50; CAGR <code>1.4%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">J7</span><h3>★ Fed RRP Drain → Short TLT (regime-specific)</h3></div>
     <div class="right">bonds · 1-2 weeks · 2021-2024</div>
   </div>
@@ -1622,12 +1467,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; FRED RRPONTSYD</span><span><code>backtests/J7_rrp_drain.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>-0.53</code> &le; 0.50; CAGR <code>-1.3%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">L3-inv</span><h3>★ Weak Treasury Auction Direct Bidders → LONG TLT (inverse)</h3></div>
     <div class="right">bonds · 5-day hold · 1985-2026</div>
   </div>
@@ -1649,12 +1490,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: own research; TreasuryDirect.gov auction results</span><span><code>backtests/L3_auction_direct_bidder.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.33</code> &le; 0.50; CAGR <code>4.9%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">D04</span><h3>Industry Momentum</h3></div>
     <div class="right">equities · 6-month rebalance</div>
   </div>
@@ -1678,12 +1515,8 @@ article.card.demoted .demoted-banner code {
 </article>
 
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-H">H05</span><h3>Hash Ribbons (Edwards)</h3></div>
     <div class="right">crypto · 3-12 months</div>
   </div>
@@ -1726,12 +1559,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: D. Puell; Glassnode</span><span><code>backtests/H07_puell_multiple.py</code>, <code>H08_nupl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">AE-2</span><h3>★ Hyperscaler Capex Ratchet → Power-Infra Basket</h3></div>
     <div class="right">industrials · 90 days (quarterly) · 2024-2025</div>
   </div>
@@ -1755,12 +1584,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: hyperscaler 10-Q capex filings; own research</span><span><code>backtests/AE2_hyperscaler_capex.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">AG-2</span><h3>Transformer Shortage → OEM vs Utility Pair</h3></div>
     <div class="right">industrials · regime trade · 2022-2026</div>
   </div>
@@ -1808,12 +1633,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: IMF Article IV MENA REO; Saudi MoF budget</span><span><code>backtests/AC6_saudi_breakeven_brent.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL5</span><h3>★ Housing Permits/Completions Ratio → Long Aggregates</h3></div>
     <div class="right">equities · 6-month hold · 2012-2022</div>
   </div>
@@ -1837,12 +1658,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PERMIT + COMPUTSA; own research</span><span><code>backtests/PL5_housing_permits_completions_aggregate.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">AI-4</span><h3>GLP-1 Mass Adoption → Short Premium Spirits</h3></div>
     <div class="right">consumer / healthcare · regime trade · 2023-2026</div>
   </div>
@@ -1863,12 +1680,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: STEP trial data; Nielsen spirits scanner; BF.B/STZ earnings</span><span><code>backtests/AI4_glp1_spirits_short.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.49</code> &le; 0.50; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">AI-5</span><h3>Office CMBS Stress → Regional Bank CRE Pair</h3></div>
     <div class="right">financials · regime trade · 2023-2026</div>
   </div>
@@ -1889,12 +1702,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Trepp CMBS data; FDIC call reports; Kastle barometer</span><span><code>backtests/AI5_office_cmbs_regional_bank.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">AS-B</span><h3>★ Inference Cost Reversal → Custom Silicon (MRVL + CRDO)</h3></div>
     <div class="right">semiconductors · regime trade · 2024-2026</div>
   </div>
@@ -1942,12 +1751,8 @@ article.card.demoted .demoted-banner code {
 
 
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL83_continued_claims_decline_iwm</span><h3>Continued Claims Decline → Long IWM</h3></div>
     <div class="right">small-cap equities (IWM) · 3 events</div>
   </div>
@@ -1968,12 +1773,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED CCSA; yfinance</span><span><code>backtests/PL83_continued_claims_decline_iwm.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>40</code>, n_events=<code>4</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL3_china_pmi_expansion_metals</span><h3>China PMI Expansion → Long Copper</h3></div>
     <div class="right">copper futures · 10-day hold · 4 events</div>
   </div>
@@ -1994,12 +1795,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: China NBS PMI; yfinance</span><span><code>backtests/PL3_china_pmi_expansion_metals.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL73_commercial_paper_spike_gold</span><h3>CP Spike → Long GLD</h3></div>
     <div class="right">gold · ~8-week hold · 6 events</div>
   </div>
@@ -2020,12 +1817,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED COMPOUT; yfinance</span><span><code>backtests/PL73_commercial_paper_spike_gold.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL78_gdpnow_consensus_gap_spy</span><h3>GDPNow &gt; 3% → Long SPY</h3></div>
     <div class="right">equities (SPY) · 10 events</div>
   </div>
@@ -2046,12 +1839,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED GDPNOW; yfinance</span><span><code>backtests/PL78_gdpnow_consensus_gap_spy.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL97_core_capex_orders_capital_goods</span><h3>Core Capex Orders Turn → Long ETN+ROK+AME</h3></div>
     <div class="right">capital goods equities · 3-month hold · 5 events</div>
   </div>
@@ -2072,12 +1861,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED NEWORDER; yfinance</span><span><code>backtests/PL97_core_capex_orders_capital_goods.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL41_existing_home_low_supply_builders</span><h3>Existing Home Low Supply → Long Homebuilders</h3></div>
     <div class="right">homebuilders · ~12-month hold · 1 events</div>
   </div>
@@ -2098,12 +1883,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MSACSR; yfinance</span><span><code>backtests/PL41_existing_home_low_supply_builders.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL95_savings_rate_decline_leisure</span><h3>Savings Rate Decline → Long Leisure</h3></div>
     <div class="right">leisure/travel equities · 12-month hold · 4 events</div>
   </div>
@@ -2124,12 +1905,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PSAVERT; yfinance</span><span><code>backtests/PL95_savings_rate_decline_leisure.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>226</code>, n_events=<code>2</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL62_m2_reacceleration_gold</span><h3>M2 Reacceleration → Long Gold</h3></div>
     <div class="right">gold · ~12-month hold · 2 events</div>
   </div>
@@ -2150,12 +1927,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED M2SL; yfinance</span><span><code>backtests/PL62_m2_reacceleration_gold.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL42_semi_b2b_crossing_one_smh</span><h3>SEMI B2B Cross 1.0 -&gt; Long SMH</h3></div>
     <div class="right">semiconductors (SMH) · 6-month hold · 5 events</div>
   </div>
@@ -2176,12 +1949,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: SEMI B2B press releases (hand-coded crossing dates); yfinance SMH</span><span><code>backtests/PL42_semi_b2b_crossing_one_smh.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL48_cre_distressed_alt_managers</span><h3>CRE Trough -&gt; Long Alt Managers</h3></div>
     <div class="right">alt managers · 12-month hold · 2 events</div>
   </div>
@@ -2202,12 +1971,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: MSCI RCA CRE volume (hand-coded trough dates); yfinance BX, ARES, KKR</span><span><code>backtests/PL48_cre_distressed_alt_managers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>90</code>, n_events=<code>3</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL49_plantings_corn_soy_spread</span><h3>Plantings Surprise -&gt; Long Soy</h3></div>
     <div class="right">soybean futures · 3 events</div>
   </div>
@@ -2228,12 +1993,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA Prospective Plantings (hand-coded surprise years); yfinance ZS=F, ZC=F</span><span><code>backtests/PL49_plantings_corn_soy_spread.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>250</code>, n_events=<code>2</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL59_durable_goods_surge_industrials</span><h3>Durable Goods Surge → Long XLI</h3></div>
     <div class="right">industrials (XLI) · ~6-month hold · 2 events</div>
   </div>
@@ -2254,12 +2015,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DGORDER; yfinance</span><span><code>backtests/PL59_durable_goods_surge_industrials.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-B">PL76_yield_curve_uninversion_cyclicals</span><h3>Yield Curve Un-Inversion → Long XLI+XLF</h3></div>
     <div class="right">industrials (XLI) · 3 events</div>
   </div>
@@ -2280,12 +2037,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED T10Y2Y; yfinance</span><span><code>backtests/PL76_yield_curve_uninversion_cyclicals.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL75_durable_goods_ex_transport_xli</span><h3>Durable Goods ex-Transport Turn → Long XLI</h3></div>
     <div class="right">industrials (XLI) · ~6-month hold · 6 events</div>
   </div>
@@ -2306,12 +2059,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED NEWORDER; yfinance</span><span><code>backtests/PL75_durable_goods_ex_transport_xli.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL38_rrp_drain_equity_liquidity</span><h3>RRP Drain → Long SPY</h3></div>
     <div class="right">equities (SPY) · ~12-month hold · 6 events</div>
   </div>
@@ -2332,12 +2081,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED RRPONTSYD; yfinance</span><span><code>backtests/PL38_rrp_drain_equity_liquidity.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL35_drought_outlook_water_infra</span><h3>Drought Outlook -&gt; Long Water Infra</h3></div>
     <div class="right">cross-asset · 6-month hold · 4 events</div>
   </div>
@@ -2358,12 +2103,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: NOAA seasonal drought outlook (hand-coded); yfinance AWK, XYL</span><span><code>backtests/PL35_drought_outlook_water_infra.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL87_twd_decline_industrial_exporters</span><h3>TWD Decline → Long Exporters</h3></div>
     <div class="right">cross-asset · 6-month hold · 9 events</div>
   </div>
@@ -2384,12 +2125,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DTWEXBGS; yfinance</span><span><code>backtests/PL87_twd_decline_industrial_exporters.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL10_class8_truck_replacement</span><h3>Class 8 Replacement Cycle</h3></div>
     <div class="right">truck/transport equities · 12-month hold · 4 events</div>
   </div>
@@ -2410,12 +2147,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: ACT Research Class 8 order data; yfinance</span><span><code>backtests/PL10_class8_truck_replacement.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL102_core_capex_orders_automation</span><h3>Core Capex A34SNO Turn → Long ROK+ETN+AME</h3></div>
     <div class="right">capital goods equities · 3-month hold · 8 events</div>
   </div>
@@ -2436,12 +2169,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED A34SNO; yfinance</span><span><code>backtests/PL102_core_capex_orders_automation.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL82_mfg_weekly_hours_cyclicals</span><h3>Mfg Hours → Long XLI</h3></div>
     <div class="right">industrials (XLI) · 5 events</div>
   </div>
@@ -2462,12 +2191,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED AWHMAN; yfinance</span><span><code>backtests/PL82_mfg_weekly_hours_cyclicals.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>186</code>, n_events=<code>3</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL46_dxy_spike_em_reversal</span><h3>DXY Spike → Long EEM</h3></div>
     <div class="right">emerging markets · ~12-week hold · 3 events</div>
   </div>
@@ -2488,12 +2213,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DTWEXBGS; yfinance</span><span><code>backtests/PL46_dxy_spike_em_reversal.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL57_housing_starts_lumber_lag</span><h3>Housing Starts → Long WOOD (lagged)</h3></div>
     <div class="right">cross-asset · ~6-month hold · 14 events</div>
   </div>
@@ -2514,12 +2235,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED HOUST; yfinance</span><span><code>backtests/PL57_housing_starts_lumber_lag.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL14_soybean_export_season</span><h3>Soybean Export Season (Oct-Jan)</h3></div>
     <div class="right">soybean futures · 16 events</div>
   </div>
@@ -2540,12 +2257,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: yfinance ZS=F; USDA export calendar</span><span><code>backtests/PL14_soybean_export_season.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL60_used_car_cpi_disinflation_tlt</span><h3>Used Car CPI Disinflation → Long TLT</h3></div>
     <div class="right">bonds (TLT) · ~12-week hold · 10 events</div>
   </div>
@@ -2566,12 +2279,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED CUSR0000SETA02; yfinance</span><span><code>backtests/PL60_used_car_cpi_disinflation_tlt.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL30_rig_count_production_lag</span><h3>Rig Count Lag → Long XOP</h3></div>
     <div class="right">oil &amp; gas (XOP) · 6-month hold · 5 events</div>
   </div>
@@ -2592,12 +2301,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Baker Hughes rig count (hand-coded crossing dates); yfinance XOP</span><span><code>backtests/PL30_rig_count_production_lag.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL69_capacity_utilization_recovery_xlb</span><h3>CapUtil Recovery → Long XLB</h3></div>
     <div class="right">materials (XLB) · 6-month hold · 4 events</div>
   </div>
@@ -2618,12 +2323,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TCU + yfinance</span><span><code>backtests/PL69_capacity_utilization_recovery_xlb.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL79_resi_construction_cement</span><h3>Resi Construction → Long EXP+SUM</h3></div>
     <div class="right">cross-asset · 3-month hold · 22 events</div>
   </div>
@@ -2644,12 +2345,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PRRESCONS; yfinance</span><span><code>backtests/PL79_resi_construction_cement.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL43_lei_inflection_long_spy</span><h3>LEI Inflection → Long SPY</h3></div>
     <div class="right">equities (SPY) · ~12-month hold · 13 events</div>
   </div>
@@ -2670,12 +2367,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED USSLIND; yfinance</span><span><code>backtests/PL43_lei_inflection_long_spy.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL15_wheat_drought_abandonment</span><h3>Wheat Drought Abandonment (Mar-May)</h3></div>
     <div class="right">wheat futures · 6 events</div>
   </div>
@@ -2696,12 +2389,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA Crop Progress winter wheat conditions; yfinance KE=F</span><span><code>backtests/PL15_wheat_drought_abandonment.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL94_umich_sentiment_low_xrt</span><h3>UMich Sentiment Trough → Long XRT</h3></div>
     <div class="right">retail (XRT) · 3 events</div>
   </div>
@@ -2722,12 +2411,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED UMCSENT; yfinance</span><span><code>backtests/PL94_umich_sentiment_low_xrt.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-F">PL34_ism_orders_inventories_spread</span><h3>ISM Orders-Inventories → Long XLI</h3></div>
     <div class="right">industrials (XLI) · ~6-month hold · 10 events</div>
   </div>
@@ -2748,12 +2433,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: ISM Manufacturing Report (hand-coded); yfinance</span><span><code>backtests/PL34_ism_orders_inventories_spread.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL66_sloos_easing_small_cap_iwm</span><h3>SLOOS Easing → Long IWM</h3></div>
     <div class="right">small-cap equities (IWM) · 12-month hold · 5 events</div>
   </div>
@@ -2774,12 +2455,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED hand-coded (SLOOS) + yfinance</span><span><code>backtests/PL66_sloos_easing_small_cap_iwm.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL23_semi_b2b_specialty_chem</span><h3>SEMI B2B Inflection → Specialty Chem+Equip</h3></div>
     <div class="right">cross-asset · 6-month hold · 4 events</div>
   </div>
@@ -2800,12 +2477,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: SEMI B2B press releases (hand-coded inflection dates); yfinance</span><span><code>backtests/PL23_semi_b2b_specialty_chem.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-B">PL64_bank_credit_reacceleration_xlf</span><h3>Bank Credit Reacceleration → Long XLF</h3></div>
     <div class="right">financials (XLF) · 12-month hold · 3 events</div>
   </div>
@@ -2826,12 +2499,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TOTBKCR (H.8 bank credit) + yfinance</span><span><code>backtests/PL64_bank_credit_reacceleration_xlf.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-B">PL54_bankruptcy_surge_restructuring</span><h3>Bankruptcy Surge → Long Restructuring</h3></div>
     <div class="right">restructuring equities · ~12-month hold · 5 events</div>
   </div>
@@ -2852,12 +2521,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: ABI/US Courts data (hand-coded surge periods); yfinance</span><span><code>backtests/PL54_bankruptcy_surge_restructuring.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>96</code>, n_events=<code>3</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL44_corn_planting_delay_long</span><h3>Corn Planting Delay -&gt; Long ZC=F</h3></div>
     <div class="right">corn futures · 3 events</div>
   </div>
@@ -2878,12 +2543,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA Crop Progress (hand-coded delay years); yfinance ZC=F</span><span><code>backtests/PL44_corn_planting_delay_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL70_new_home_supply_spike_delayed_long</span><h3>New Home Supply Spike → Delayed Long Builders</h3></div>
     <div class="right">homebuilders · 12-month hold · 3 events</div>
   </div>
@@ -2904,12 +2565,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MNEWSRSA + yfinance</span><span><code>backtests/PL70_new_home_supply_spike_delayed_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL31_auto_inventory_trough_dealers</span><h3>Auto Inventory Trough → Long Dealers</h3></div>
     <div class="right">cross-asset · ~6-month hold · 15 events</div>
   </div>
@@ -2930,12 +2587,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED AISRSA; yfinance</span><span><code>backtests/PL31_auto_inventory_trough_dealers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-D">PL90_henry_hub_below_cash_cost_producers</span><h3>HH Below Cash Cost → Long NatGas Producers</h3></div>
     <div class="right">natural gas · 6 events</div>
   </div>
@@ -2956,12 +2609,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MHHNGSP; yfinance</span><span><code>backtests/PL90_henry_hub_below_cash_cost_producers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL81_jolts_quits_staffing</span><h3>JOLTS Quits → Long RHI</h3></div>
     <div class="right">cross-asset · 6-month hold · 5 events</div>
   </div>
@@ -2982,12 +2631,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED JTSQUR; yfinance</span><span><code>backtests/PL81_jolts_quits_staffing.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL107_semi_ppi_deflation_trough</span><h3>Semiconductor PPI Deflation Trough &rarr; Long SMH</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 10 events</div>
   </div>
@@ -3008,12 +2653,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PCU33443344; yfinance</span><span><code>backtests/PL107_semi_ppi_deflation_trough.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL112_vehicle_age_auto_parts</span><h3>Vehicle Sales Drought &rarr; Long Auto Parts (AZO+ORLY)</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
   </div>
@@ -3034,12 +2675,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TOTALSA; yfinance</span><span><code>backtests/PL112_vehicle_age_auto_parts.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL113_motor_vehicle_ip_suppliers</span><h3>Motor Vehicle IP Recovery &rarr; Long OEM Suppliers (BWA+LEA)</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 8 events</div>
   </div>
@@ -3060,12 +2697,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED IPG3361T3S; yfinance</span><span><code>backtests/PL113_motor_vehicle_ip_suppliers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL114_cre_delinquency_trough_reits</span><h3>CRE Delinquency Trough &rarr; Long Office/Retail REITs (BXP+SPG)</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 11 events</div>
   </div>
@@ -3086,12 +2719,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DRCLACBS; yfinance</span><span><code>backtests/PL114_cre_delinquency_trough_reits.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL116_nonres_construction_industrial_reits</span><h3>Nonres Construction Inflection &rarr; Long PLD</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 3 events</div>
   </div>
@@ -3112,12 +2741,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TLNRESCONS; yfinance</span><span><code>backtests/PL116_nonres_construction_industrial_reits.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL117_michigan_expectations_luxury</span><h3>Michigan Expectations Trough &rarr; Long Luxury Retail (RL+TPR)</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 63 events</div>
   </div>
@@ -3138,12 +2763,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MICH; yfinance</span><span><code>backtests/PL117_michigan_expectations_luxury.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL119_freight_rate_collapse_retailers</span><h3>Import Price Collapse &rarr; Long COST+TGT</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 5 events</div>
   </div>
@@ -3164,12 +2785,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED IR; yfinance</span><span><code>backtests/PL119_freight_rate_collapse_retailers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL122_hdd_spike_utilities</span><h3>Natural Gas Price Spike &rarr; Long XLU</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 16 events</div>
   </div>
@@ -3190,12 +2807,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MHHNGSP; yfinance</span><span><code>backtests/PL122_hdd_spike_utilities.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL124_defense_spending_primes</span><h3>Federal Defense Spending Acceleration &rarr; Long LMT+RTX+NOC</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
   </div>
@@ -3216,12 +2829,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED FDEFX; yfinance</span><span><code>backtests/PL124_defense_spending_primes.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL126_fed_nondefense_invest_it</span><h3>Federal Nondefense Investment &rarr; Long ACN+LDOS</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
   </div>
@@ -3242,12 +2851,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED A782RX1Q020SBEA; yfinance</span><span><code>backtests/PL126_fed_nondefense_invest_it.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>249</code>, n_events=<code>2</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL127_nfci_easing_small_cap_value</span><h3>NFCI Easing From Tight &rarr; Long Small-Cap Value (IWN)</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 2 events</div>
   </div>
@@ -3268,12 +2873,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED NFCI; yfinance</span><span><code>backtests/PL127_nfci_easing_small_cap_value.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL128_m2_velocity_commodities</span><h3>M2 Velocity Inflection &rarr; Long Commodities (DJP)</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 5 events</div>
   </div>
@@ -3294,12 +2895,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED M2V; yfinance</span><span><code>backtests/PL128_m2_velocity_commodities.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL129_term_premium_positive_xlf</span><h3>Term Premium Turning Positive &rarr; Long Financials (XLF)</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 12 events</div>
   </div>
@@ -3320,12 +2917,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED THREEFYTP10; yfinance</span><span><code>backtests/PL129_term_premium_positive_xlf.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL132_bank_reserves_surge_qqq</span><h3>Bank Reserves Surge &rarr; Long QQQ</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 7 events</div>
   </div>
@@ -3346,12 +2939,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TOTRESNS; yfinance</span><span><code>backtests/PL132_bank_reserves_surge_qqq.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL135_personal_income_acceleration_xly</span><h3>Personal Income YoY Reaccelerates &gt; +5% &rarr; Long XLY</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 7 events</div>
   </div>
@@ -3372,12 +2961,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PI; yfinance</span><span><code>backtests/PL135_personal_income_acceleration_xly.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL136_corporate_profits_recovery_spy</span><h3>Corporate Profits YoY Turns Positive After 2Q Negative &rarr; Long SPY</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 7 events</div>
   </div>
@@ -3398,12 +2983,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED CP; yfinance</span><span><code>backtests/PL136_corporate_profits_recovery_spy.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL138_real_disposable_income_negative_xlp</span><h3>Real Disposable Income YoY Turns Negative &rarr; Long XLP</h3></div>
     <div class="right">macro &middot; ~12-month hold &middot; 4 events</div>
   </div>
@@ -3424,12 +3005,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DSPIC96; yfinance</span><span><code>backtests/PL138_real_disposable_income_negative_xlp.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL140_mortgage_application_surge_homebuilders</span><h3>Mortgage Rate Drop &gt; 50bps &rarr; Long Homebuilders (1mo lag)</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 19 events</div>
   </div>
@@ -3450,12 +3027,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MORTGAGE30US; yfinance</span><span><code>backtests/PL140_mortgage_application_surge_homebuilders.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL142_sloos_credit_card_willingness_xly</span><h3>SLOOS Credit Card Tightening Crosses Zero &rarr; Long XLY</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 6 events</div>
   </div>
@@ -3476,12 +3049,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DRTSCLCC; yfinance</span><span><code>backtests/PL142_sloos_credit_card_willingness_xly.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL145_dgorder_acceleration_semi_equipment</span><h3>Durable Goods 3mo MoM Acceleration &rarr; Long AMAT+LRCX+KLAC</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 5 events</div>
   </div>
@@ -3502,12 +3071,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED DGORDER; yfinance</span><span><code>backtests/PL145_dgorder_acceleration_semi_equipment.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL147_permit1_acceleration_supplier_stocks</span><h3>Single-Family Permits YoY Improving 3mo &rarr; Long SHW+VMC+MLM</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 26 events</div>
   </div>
@@ -3528,12 +3093,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PERMIT1; yfinance</span><span><code>backtests/PL147_permit1_acceleration_supplier_stocks.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL172_nfci_easing_streak_high_beta</span><h3>NFCI Easing Streak 8+ Weeks &rarr; Long High-Beta Equities</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 15 events</div>
   </div>
@@ -3554,12 +3115,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED NFCI; yfinance</span><span><code>backtests/PL172_nfci_easing_streak_high_beta.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL212_rsxfs_surge_payment_processors</span><h3>Retail Sales Control Group Surge &rarr; Long Payment Processors</h3></div>
     <div class="right">macro &middot; ~2-month hold &middot; 24 events</div>
   </div>
@@ -3580,12 +3137,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED RSXFS; yfinance</span><span><code>backtests/PL212_rsxfs_surge_payment_processors.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL205_cass_freight_inflection_ltl_truckers</span><h3>Cass Freight Index YoY Inflection &rarr; Long LTL Truckers</h3></div>
     <div class="right">freight &middot; ~2-month hold &middot; 20 events</div>
   </div>
@@ -3606,12 +3159,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TSIFRGHT; yfinance</span><span><code>backtests/PL205_cass_freight_inflection_ltl_truckers.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL209_ev_penetration_new_high_lithium_miners</span><h3>EV Adoption Proxy New High &rarr; Long Lithium Miners</h3></div>
     <div class="right">thematic &middot; ~3-month hold &middot; 14 events</div>
   </div>
@@ -3632,12 +3181,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TOTALSA; yfinance</span><span><code>backtests/PL209_ev_penetration_new_high_lithium_miners.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL193_altsales_17m_surge_dealer_groups</span><h3>Light Vehicle Sales &gt; 17M SAAR &rarr; Long Auto Dealers</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 29 events</div>
   </div>
@@ -3658,12 +3203,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED ALTSALES; yfinance</span><span><code>backtests/PL193_altsales_17m_surge_dealer_groups.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL160_revolsl_deceleration_xlp_defensive</span><h3>Revolving Credit Deceleration &rarr; Long XLP Defensive</h3></div>
     <div class="right">macro &middot; ~6-month hold &middot; 23 events</div>
   </div>
@@ -3684,12 +3225,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED REVOLSL; yfinance</span><span><code>backtests/PL160_revolsl_deceleration_xlp_defensive.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL194_indpro_yoy_cross_zero_xlb_long</span><h3>Industrial Production YoY Crosses Zero &rarr; Long Materials (XLB)</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 25 events</div>
   </div>
@@ -3710,12 +3247,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED INDPRO; yfinance</span><span><code>backtests/PL194_indpro_yoy_cross_zero_xlb_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL226_reserves_scarcity_dealer_repo_profit</span><h3>Bank Reserves Decline to Scarcity &rarr; Long Dealer Banks</h3></div>
     <div class="right">monetary &middot; ~2-month hold &middot; 17 events</div>
   </div>
@@ -3736,12 +3269,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED WRESBAL; yfinance</span><span><code>backtests/PL226_reserves_scarcity_dealer_repo_profit.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL233_business_applications_surge_small_cap</span><h3>High-Propensity Business Applications Surge &rarr; Long Small-Cap</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 7 events</div>
   </div>
@@ -3762,12 +3291,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED BABATOTALSAUS; yfinance</span><span><code>backtests/PL233_business_applications_surge_small_cap.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL228_multifamily_permit_collapse_reit_supply_cliff</span><h3>Multi-Family Permits Collapse &rarr; Long Apartment REITs</h3></div>
     <div class="right">housing &middot; ~2-month hold &middot; 31 events</div>
   </div>
@@ -3788,12 +3313,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED PERMIT5; yfinance</span><span><code>backtests/PL228_multifamily_permit_collapse_reit_supply_cliff.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL245_manemp_acceleration_industrial_gas</span><h3>Manufacturing Employment Acceleration &rarr; Long Industrial Gas</h3></div>
     <div class="right">macro &middot; ~2-month hold &middot; 9 events</div>
   </div>
@@ -3814,12 +3335,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED MANEMP; yfinance</span><span><code>backtests/PL245_manemp_acceleration_industrial_gas.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL243_nonrescons_surge_aggregates_cement</span><h3>Nonresidential Construction Spending Surge &rarr; Long Aggregates/Cement</h3></div>
     <div class="right">construction &middot; ~2-month hold &middot; 11 events</div>
   </div>
@@ -3840,12 +3357,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TLNRESCONS; yfinance</span><span><code>backtests/PL243_nonrescons_surge_aggregates_cement.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL258_wasde_wheat_low_stocks_fertilizer_demand</span><h3>WASDE Global Wheat Stocks-to-Use &lt; 30% &rarr; Long Fertilizers</h3></div>
     <div class="right">commodities &middot; ~2-month hold &middot; 10 events</div>
   </div>
@@ -3866,12 +3379,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA WASDE; yfinance</span><span><code>backtests/PL258_wasde_wheat_low_stocks_fertilizer_demand.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL263_census_advance_import_surge_drayage_warehouse</span><h3>Census Advance Trade Goods Import Surge &rarr; Long Drayage &amp; Warehouse</h3></div>
     <div class="right">macro &middot; ~2-week hold &middot; 22 events</div>
   </div>
@@ -3892,12 +3401,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED IMPGS; yfinance</span><span><code>backtests/PL263_census_advance_import_surge_drayage_warehouse.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>80</code>, n_events=<code>8</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL272_usda_fsis_slaughter_recovery_packer_margins</span><h3>USDA FSIS Slaughter Recovery &rarr; Long Protein Packers</h3></div>
     <div class="right">commodities &middot; ~2-week hold &middot; 8 events</div>
   </div>
@@ -3918,12 +3423,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA FSIS; yfinance</span><span><code>backtests/PL272_usda_fsis_slaughter_recovery_packer_margins.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>126</code>, n_events=<code>3</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL267_fhwa_vmt_surge_auto_insurer_premium_growth</span><h3>FHWA Traffic Volume Surge &rarr; Long Auto Insurers</h3></div>
     <div class="right">macro &middot; ~2-month hold &middot; 3 events</div>
   </div>
@@ -3944,12 +3445,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED TRFVOLUSM227NFWA; yfinance</span><span><code>backtests/PL267_fhwa_vmt_surge_auto_insurer_premium_growth.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>180</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL275_doe_spr_refill_procurement_crude_floor</span><h3>DOE SPR Refill Procurement &rarr; Long Crude/E&amp;P</h3></div>
     <div class="right">energy &middot; ~6-week hold &middot; 6 events</div>
   </div>
@@ -3970,12 +3467,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: DOE SPR announcements; yfinance</span><span><code>backtests/PL275_doe_spr_refill_procurement_crude_floor.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>168</code>, n_events=<code>8</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL293_sec_13f_hedge_fund_short_unwinding_squeeze</span><h3>Hedge Fund Short Unwinding &rarr; Long Small Caps (IWM)</h3></div>
     <div class="right">sentiment &middot; ~3-week hold &middot; 8 events</div>
   </div>
@@ -3996,12 +3489,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: SEC 13F; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL282_cftc_bank_participation_net_long_flip_commodity</span><h3>CFTC Bank Participation Net Long Flip &rarr; Commodity Trend</h3></div>
     <div class="right">commodities &middot; ~2-month hold &middot; 8 events</div>
   </div>
@@ -4022,12 +3511,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: CFTC Bank Participation; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL281_bts_ontime_deterioration_mro_demand_surge</span><h3>BTS Airline On-Time Deterioration &rarr; Long MRO/Aerospace</h3></div>
     <div class="right">transport &middot; ~2-month hold &middot; 8 events</div>
   </div>
@@ -4048,12 +3533,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: BTS; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL286_fdic_unrealized_loss_regional_bank</span><h3>FDIC Unrealized Loss Improvement &rarr; Long Regional Banks (KRE)</h3></div>
     <div class="right">financials &middot; ~2-month hold &middot; 6 events</div>
   </div>
@@ -4074,12 +3555,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FDIC Quarterly Profile; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL296_usitc_affirmative_injury_domestic_producer_long</span><h3>USITC Affirmative Injury Determination &rarr; Long Steel Producers</h3></div>
     <div class="right">trade &middot; ~2-month hold &middot; 7 events</div>
   </div>
@@ -4100,12 +3577,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USITC; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL295_strips_deep_inversion_defensive</span><h3>Deep Yield Curve Inversion &rarr; Long Utilities + Staples</h3></div>
     <div class="right">macro &middot; ~3-month hold &middot; 5 events</div>
   </div>
@@ -4126,12 +3599,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED T10Y2Y; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL291_nhtsa_recall_volume_spike_aftermarket_parts</span><h3>NHTSA Recall Volume Spike &rarr; Long Aftermarket Auto Parts</h3></div>
     <div class="right">autos &middot; ~2-month hold &middot; 8 events</div>
   </div>
@@ -4152,12 +3621,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: NHTSA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>60</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL297_noaa_hurricane_gulf_shutin_inland_refiner</span><h3>Gulf Hurricane Crude Shut-In &rarr; Long Inland Refiners</h3></div>
     <div class="right">energy &middot; ~2-week hold &middot; 6 events</div>
   </div>
@@ -4178,12 +3643,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: NOAA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL298_eia_ethanol_collapse_corn_surplus_poultry_feed</span><h3>EIA Ethanol Production Collapse &rarr; Long Protein Packers</h3></div>
     <div class="right">commodities &middot; ~2-month hold &middot; 6 events</div>
   </div>
@@ -4204,12 +3665,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: EIA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>120</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL292_eia_coal_stockpile_low_days_burn_producer_long</span><h3>EIA Coal Stockpiles Low Days-of-Burn &rarr; Long Coal Producer</h3></div>
     <div class="right">energy &middot; ~6-week hold &middot; 6 events</div>
   </div>
@@ -4230,12 +3687,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: EIA; yfinance</span><span><code>backtests/_run_batch_pl.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL316_census_defense_orders_spike_primes</span><h3>Census Defense New Orders Surge &rarr; Long Defense Primes</h3></div>
     <div class="right">defense &middot; ~2-month hold &middot; 7 events</div>
   </div>
@@ -4256,12 +3709,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Census; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>126</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL315_hpai_outbreak_egg_producer_long</span><h3>HPAI Avian Flu Outbreak &rarr; Long Egg Producers (CALM)</h3></div>
     <div class="right">agriculture &middot; ~3-week hold &middot; 6 events</div>
   </div>
@@ -4282,12 +3731,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA APHIS; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>168</code>, n_events=<code>8</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL327_gdp_advance_beat_gdpnow_cyclical</span><h3>BEA GDP Advance Beats GDPNow &rarr; Cyclical Sector Rotation</h3></div>
     <div class="right">macro &middot; ~3-week hold &middot; 8 events</div>
   </div>
@@ -4308,12 +3753,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: BEA, Atlanta Fed; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL326_census_mfg_construction_record_industrial_gas</span><h3>Census Mfg Construction Record &rarr; Long Industrial Gas</h3></div>
     <div class="right">construction &middot; ~2-month hold &middot; 7 events</div>
   </div>
@@ -4334,12 +3775,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Census; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>126</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL322_usda_export_unknown_soybean_china</span><h3>USDA Export Sales Unknown Destination &rarr; Long Soybeans</h3></div>
     <div class="right">agriculture &middot; ~3-week hold &middot; 6 events</div>
   </div>
@@ -4360,12 +3797,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA Export Sales; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>210</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL329_census_rare_earth_import_disruption_domestic_mp</span><h3>Rare Earth Import Disruption &rarr; Long MP Materials</h3></div>
     <div class="right">supply chain &middot; ~2-month hold &middot; 6 events</div>
   </div>
@@ -4386,12 +3819,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Census Trade; yfinance</span><span><code>backtests/_run_batch_pl2.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL338</span><h3>&#9733; BLS Healthcare Wage Acceleration + JOLTS Openings &#8594; Long Travel Nurse Agencies</h3></div>
     <div class="right">equities (AMN, CCRN) &middot; ~3-month hold &middot; 8 events</div>
   </div>
@@ -4413,12 +3842,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED CES6500000008 + JTS6200JOL + yfinance</span><span><code>backtests/PL338_bls_nurse_wage_accel_travel_nurse_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL367</span><h3>&#9733; BEA International Travel Receipts Surge &#8594; Long Hotel REITs</h3></div>
     <div class="right">equities (HST, PK, MAR) &middot; ~42-day hold &middot; 6 events</div>
   </div>
@@ -4440,12 +3865,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED BEA travel receipts + yfinance</span><span><code>backtests/PL367_bea_travel_receipts_hotel_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL396</span><h3>&#9733; Broker-Dealer Momentum &#8594; Long M&amp;A Boutique Banks</h3></div>
     <div class="right">equities (EVR, PJT) &middot; ~42-day hold &middot; 36 events</div>
   </div>
@@ -4467,12 +3888,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FTC HSR (proxy via IAI momentum) + yfinance</span><span><code>backtests/PL396_ftc_hsr_early_term_ma_ibank_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL398</span><h3>&#9733; NOAA H1 Severe Weather Season &#8594; Long P&amp;C Reinsurers</h3></div>
     <div class="right">equities (RNR, ACGL) &middot; ~63-day hold (Jul-Sep) &middot; 12 events</div>
   </div>
@@ -4494,12 +3911,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: NOAA NCEI Billion-Dollar Disasters + yfinance</span><span><code>backtests/PL398_noaa_severe_weather_reinsurer_hardening_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL408</span><h3>&#9733; PNW Grain Season UNP Outperformance &#8594; Long Union Pacific</h3></div>
     <div class="right">equities (UNP) &middot; ~42-day hold &middot; 35 events</div>
   </div>
@@ -4521,12 +3934,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USDA PNW grain (proxy via UNP/CSX relative strength) + yfinance</span><span><code>backtests/PL408_usda_pnw_grain_export_unp_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">PL409</span><h3>&#9733; Census M3 Core Capex Inflection &#8594; Long Industrial Distributors</h3></div>
     <div class="right">equities (FAST, GWW) &middot; ~42-day hold &middot; 31 events</div>
   </div>
@@ -4548,12 +3957,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED A34SNO + yfinance</span><span><code>backtests/PL409_census_m3_core_capex_industrial_dist_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL418</span><h3>&#9733; Treasury Bill Issuance Surge &#8594; Long Money Market Asset Managers</h3></div>
     <div class="right">equities (STT, BLK) &middot; ~42-day hold &middot; 51 events</div>
   </div>
@@ -4575,12 +3980,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED WTREGEN + yfinance</span><span><code>backtests/PL418_treasury_bill_shift_mmf_asset_mgr_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL425</span><h3>&#9733; Census E-Commerce Share Sequential Decline &#8594; Long Mall REITs</h3></div>
     <div class="right">equities (SPG, MAC) &middot; ~30-day hold &middot; 22 events</div>
   </div>
@@ -4602,12 +4003,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED ECOMPCTNSA + yfinance</span><span><code>backtests/PL425_census_ecommerce_share_decline_mall_reit_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.05</code> &le; 0.50; CAGR <code>-3.4%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; OOS Sharpe <code>-0.16</code> &le; 0.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL436</span><h3>&#9733; FDA Novel Drug Approval Cluster &#8594; Long XBI (Biotech M&amp;A Wave)</h3></div>
     <div class="right">equities (XBI) &middot; ~42-day hold &middot; 8 events</div>
   </div>
@@ -4629,12 +4026,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FDA CDER Novel Drug Approvals + yfinance</span><span><code>backtests/PL436_fda_nme_cluster_biotech_ma_wave.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>210</code>, n_events=<code>5</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL435</span><h3>&#9733; Columbia River Low Flow &#8594; Long Thermal IPPs (NRG)</h3></div>
     <div class="right">equities (NRG) &middot; ~42-day hold (Jul-Aug) &middot; 5 events</div>
   </div>
@@ -4656,12 +4049,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USGS NWIS (proxy via curated drought years) + yfinance</span><span><code>backtests/PL435_usgs_columbia_low_flow_thermal_ipp_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-K">PL439</span><h3>&#9733; ASCE Water Infrastructure Grade Decline &#8594; Long AWK (Water Utility Capex)</h3></div>
     <div class="right">equities (AWK) &middot; ~40-day hold &middot; 10 events</div>
   </div>
@@ -4683,12 +4072,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: ASCE Infrastructure Report Card + EPA SDWIS + yfinance</span><span><code>backtests/PL439_asce_water_grade_decline_utility_capex.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL451</span><h3>&#9733; IRS Partnership Return Surge &#8594; Long Thomson Reuters (Legal Demand)</h3></div>
     <div class="right">equities (TRI) &middot; ~42-day hold &middot; 7 events</div>
   </div>
@@ -4710,12 +4095,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: IRS SOI + yfinance</span><span><code>backtests/PL451_irs_soi_partnership_returns_legal_demand.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> Sharpe <code>0.45</code> &le; 0.50; CAGR <code>9.5%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-A">PL460</span><h3>&#9733; Census Housing Completions Surge &#8594; Long Residential HVAC</h3></div>
     <div class="right">equities (CARR, LII) &middot; ~42-day hold &middot; 40 events</div>
   </div>
@@ -4737,12 +4118,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED COMPUTSA + yfinance</span><span><code>backtests/PL460_census_housing_completions_hvac_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL456</span><h3>&#9733; USGS Titanium Sponge Tightening &#8594; Long Specialty Metals (CRS+ATI)</h3></div>
     <div class="right">equities (CRS, ATI) &middot; ~40-day hold &middot; 7 events</div>
   </div>
@@ -4764,12 +4141,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: USGS MCS Titanium + yfinance</span><span><code>backtests/PL456_usgs_titanium_sponge_stockpile_aerospace.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>210</code>, n_events=<code>5</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-E">PL473</span><h3>&#9733; CMS MA Star Rating Upgrade Cycle &#8594; Long Managed Care</h3></div>
     <div class="right">equities (UNH, HUM, ELV) &middot; ~42-day hold &middot; 5 events</div>
   </div>
@@ -4791,12 +4164,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: CMS MA Star Ratings + yfinance</span><span><code>backtests/PL473_cms_ma_star_upgrade_mco_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>172</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL472</span><h3>&#9733; Baltic FFA Contango Flip &#8594; Long Dry Bulk Shippers (SBLK+GNK)</h3></div>
     <div class="right">equities (SBLK, GNK) &middot; ~30-day hold &middot; 6 events</div>
   </div>
@@ -4818,12 +4187,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: Baltic Exchange BDI (proxy via trough events) + yfinance</span><span><code>backtests/PL472_baltic_ffa_contango_drybulk_recovery.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>251</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL478</span><h3>&#9733; JOLTS Industry Openings Divergence &#8594; Sector Rotation (XHB/XLI)</h3></div>
     <div class="right">equities (XHB, XLI) &middot; ~42-day hold &middot; 6 events</div>
   </div>
@@ -4845,12 +4210,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: FRED JOLTS + yfinance</span><span><code>backtests/PL478_jolts_industry_divergence_sector_rotation_long.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>240</code>, n_events=<code>6</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-G">PL489</span><h3>&#9733; DOE Industrial Assessment Center Efficiency Surge &#8594; Long ROK+EMR</h3></div>
     <div class="right">equities (ROK, EMR) &middot; ~40-day hold &middot; 6 events</div>
   </div>
@@ -4872,12 +4233,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: DOE Industrial Assessment Center + yfinance</span><span><code>backtests/PL489_doe_iac_energy_efficiency_equipment.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>45</code>, n_events=<code>0</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-C">PL509</span><h3>&#9733; IEA Oil Market Report Demand Up-Revision &#8594; Long USO + XOP</h3></div>
     <div class="right">commodities/energy (USO, XOP) &middot; ~15-day hold &middot; 3 events</div>
   </div>
@@ -4899,12 +4256,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: IEA Oil Market Report press releases + yfinance</span><span><code>backtests/PL509_iea_omr_demand_uprevision_crude.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; OOS Sharpe <code>-0.76</code> &le; 0.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL511</span><h3>&#9733; CDC C. auris Surge Announcements &#8594; Long Antifungal/Diagnostics vs XLV</h3></div>
     <div class="right">equities/healthcare (SCYX, DHR, TMO vs XLV) &middot; 60-day hold &middot; 5 events</div>
   </div>
@@ -4926,12 +4279,8 @@ article.card.demoted .demoted-banner code {
   <div class="card-foot"><span>Source: CDC HAN/MMWR archive + AR Threats Report; yfinance</span><span><code>backtests/PL511_candida_auris_antifungal_event.py</code></span></div>
 </article>
 
-<article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>210</code>, n_events=<code>5</code>.</div>
-
-
-
-  <div class="card-head">
+<article class="card">
+    <div class="card-head">
     <div class="left"><span class="badge cat-J">PL524</span><h3>&#9733; ADF&amp;G Bristol Bay Sockeye Mid-Run Shortfall &#8594; Long Norwegian Salmon Farmers (MHGVY+BKFKF) vs KR</h3></div>
     <div class="right">equities/consumer-staples (MHGVY, BKFKF vs KR) &middot; 42-day hold &middot; 5 events</div>
   </div>
@@ -7428,7 +6777,7 @@ function render() {
       var netClass = netCagr >= 0 ? 'var(--good)' : 'var(--bad)';
       netBlock = ' &middot; <span style="color:' + netClass + ';">Net:' + netCagr.toFixed(1) + '%</span>';
     }
-    cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%' + netBlock + liveBlock + '</span>';
+    var oosBlock = '';
     if (sig.oos) {
       var oosDate = new Date(sig.oos);
       var nowDate = new Date();
@@ -7438,9 +6787,10 @@ function render() {
         if (oosMonths < 12) { oosColor = 'var(--fg-dim)'; oosLabel = 'OOS ' + oosMonths + 'mo'; }
         else if (oosMonths < 24) { oosColor = 'var(--warn)'; oosLabel = 'OOS ' + oosMonths + 'mo'; }
         else { oosColor = 'var(--bad)'; oosLabel = 'OOS ' + oosMonths + 'mo (stale)'; }
-        cards += '<span style="font-family:var(--mono);font-size:11px;color:' + oosColor + ';white-space:nowrap;">' + oosLabel + '</span>';
+        oosBlock = ' &middot; <span style="color:' + oosColor + ';">' + oosLabel + '</span>';
       }
     }
+    cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%' + netBlock + liveBlock + oosBlock + '</span>';
     cards += '</a>';
     cards += '<div class="sig-trades">';
     showTrades.forEach(function(t) {
