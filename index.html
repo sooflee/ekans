@@ -6983,6 +6983,41 @@ var PLMETA = {
   'PL81': {t:[['Staffing','long']]}
 };
 
+// Annualized cost haircut (%) by trade asset/group — accounts for borrow, slippage, spreads.
+var COST_PCT = {
+  // Liquid large-cap, ETFs
+  'SPY': 1.5, 'TLT': 1.5, 'GLD': 1.5, 'IWM': 2, 'EFA': 2, 'EEM': 3,
+  'XLI': 2, 'XLF': 2, 'XLY': 2, 'XLB': 2, 'XLE': 2, 'XLU': 2, 'XLP': 2,
+  'XRT': 3, 'XOP': 3, 'XHB': 3,
+  // Crypto
+  'BTC': 3, 'ETH': 3, 'BTC Miners': 8,
+  // Specialty industrials/tech
+  'Power Infra': 3, 'Custom Silicon': 3, 'Semis': 3, 'Semi Equipment': 3,
+  'Industrials': 3, 'Homebuilders': 3, 'Auto Dealers': 4, 'Trucks': 4,
+  'Alt Managers': 3, 'Restructuring': 4, 'Staffing': 4, 'Water Infra': 3,
+  'Leisure': 3, 'Large Banks': 2, 'Aggregates': 3, 'Lumber': 4, 'Exporters': 3,
+  // Commodities futures
+  'Brent Crude': 4, 'Copper': 4, 'Soybeans': 4, 'Corn': 4, 'Wheat': 4,
+  'NatGas Producers': 4,
+  // Hard-to-borrow shorts
+  'NT Filers': 12, 'IPO Lockups': 8, 'De-SPAC': 10,
+  'Regional CRE Banks': 6, 'Growth Utilities': 3, 'Spirits': 5,
+  // Biotech / event-driven
+  'Biotech': 6, 'Event Equity': 5, 'Spin-offs': 4,
+  'US Importers': 3,
+  // Generic
+  'Equity L/S': 5, 'Equity Momentum': 4, 'Industry Momentum': 4,
+  'ITA': 2,
+  'default': 3
+};
+
+function getCost(sig) {
+  var st = (typeof getStatus === 'function') ? getStatus(sig.id) : 'unknown';
+  var trades = (st === 'defensive' && sig.defTrades) ? sig.defTrades : sig.trades;
+  if (!trades || !trades[0]) return COST_PCT.default;
+  return COST_PCT[trades[0].g] || COST_PCT.default;
+}
+
 function getMeta(id) {
   if (META[id]) return META[id];
   var m = id.match(/^(PL\d+)/);
@@ -7385,7 +7420,14 @@ function render() {
       var sign = pnl >= 0 ? '+' : '';
       liveBlock = ' &middot; <span style="color:' + liveColor + ';font-weight:600;">Live:' + sign + pnl.toFixed(1) + '%</span>';
     }
-    cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%' + liveBlock + '</span>';
+    var netBlock = '';
+    if (sig.cagr !== 0) {
+      var cost = getCost(sig);
+      var netCagr = sig.cagr - cost;
+      var netClass = netCagr >= 0 ? 'var(--good)' : 'var(--bad)';
+      netBlock = ' &middot; <span style="color:' + netClass + ';">Net:' + netCagr.toFixed(1) + '%</span>';
+    }
+    cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%' + netBlock + liveBlock + '</span>';
     cards += '</a>';
     cards += '<div class="sig-trades">';
     showTrades.forEach(function(t) {
