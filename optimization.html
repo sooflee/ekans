@@ -55,6 +55,42 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
 .bar > div { background: var(--good); height: 100%; border-radius: 3px; }
 .scroll-x { overflow-x: auto; }
 .footnote { color: var(--fg-dim); font-size: 11px; font-style: italic; margin-top: 12px; }
+.basket-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px; margin: 20px 0 24px;
+}
+@media (max-width: 720px) { .basket-grid { grid-template-columns: 1fr; } }
+.basket-card {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; cursor: pointer;
+  transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+}
+.basket-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.basket-card.selected {
+  border-color: var(--good);
+  box-shadow: 0 0 0 1px var(--good) inset, 0 6px 18px rgba(52,211,153,0.08);
+}
+.basket-card .bn { font: 700 13px/1 var(--mono); color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+.basket-card.selected .bn { color: var(--good); }
+.basket-card .bsub { color: var(--fg-dim); font-size: 11px; margin-top: 4px; }
+.basket-card .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 12px; }
+.basket-card .stat .l { color: var(--fg-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+.basket-card .stat .v { font: 700 16px var(--mono); margin-top: 2px; }
+.basket-card.selected .stat .v.cagr,
+.basket-card.selected .stat .v.sharpe { color: var(--good); }
+.detail-block {
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 18px 20px; margin-top: 8px;
+}
+.detail-block h3 {
+  font: 700 13px/1 var(--mono); color: var(--good);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;
+}
+.detail-block .formula {
+  background: var(--bg-3); border-left: 3px solid var(--good);
+  padding: 8px 14px; border-radius: 4px; font-family: var(--mono); font-size: 12px;
+  color: var(--fg-dim); margin-bottom: 14px;
+}
 </style>
 <script>
 (function(){
@@ -67,26 +103,54 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
 <body>
 <div class="container">
 
-<h1>Optimized Basket — Max Sharpe</h1>
-<p class="sub">Mean-variance optimization over currently active signals. Reads live from the Signals tab — flip a signal active/defensive there and this updates.</p>
+<h1>Optimized Baskets</h1>
+<p class="sub">Three optimization strategies applied to currently active signals. Click a card to see its detailed weights.</p>
 
 <div class="disclaimer">
-<strong>Not investment advice.</strong> Assumes signals are uncorrelated — a known weak assumption since many trend-following signals co-move and the diagonal-covariance shortcut will overweight them. Volatility is implied (σ ≈ CAGR/Sharpe), not measured. Real correlations and live performance will differ.
+<strong>Not investment advice.</strong> Assumes signals are uncorrelated — a known weak assumption since many trend-following signals co-move. Volatility is implied (σ ≈ CAGR/Sharpe), not measured. Real correlations and live performance will differ.
 </div>
 
-<div id="opt-basket"></div>
+<div id="opt-cards" class="basket-grid"></div>
+<div id="opt-detail"></div>
 
 <p class="footnote">
-Formula: w<sub>i</sub> ∝ Sharpe<sub>i</sub><sup>2</sup>/CAGR<sub>i</sub> — closed-form tangency portfolio under diagonal covariance.
-Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal, redistributed up to 5 passes. Equal-weight baseline shown for reference.
+Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5 passes). Strategies: <strong>Max Sharpe</strong> tangency under diagonal cov (w ∝ Sharpe²/CAGR); <strong>Max CAGR</strong> return-weighted (w ∝ CAGR); <strong>Risk Parity</strong> inverse-vol (w ∝ 1/σ) — each signal contributes equal risk.
 </p>
 
 </div>
 
 <script>
 (function() {
-  const optEl = document.getElementById('opt-basket');
-  if (!optEl) return;
+  const cardsEl = document.getElementById('opt-cards');
+  const detailEl = document.getElementById('opt-detail');
+  if (!cardsEl || !detailEl) return;
+
+  const CAP = 20;
+  const STRATEGIES = [
+    {
+      key: 'sharpe',
+      label: 'Max Sharpe',
+      tagline: 'Best risk-adjusted return (tangency)',
+      formula: 'wᵢ ∝ Sharpeᵢ² / CAGRᵢ — closed-form max-Sharpe under diagonal covariance.',
+      rawWeight: function(s) { return (s.sharpe * s.sharpe) / s.cagr; }
+    },
+    {
+      key: 'cagr',
+      label: 'Max CAGR',
+      tagline: 'Pure return-weighted, ignores risk',
+      formula: 'wᵢ ∝ CAGRᵢ — tilts hardest toward the highest-return signals. Expect higher vol.',
+      rawWeight: function(s) { return s.cagr; }
+    },
+    {
+      key: 'rp',
+      label: 'Risk Parity',
+      tagline: 'Each signal contributes equal risk',
+      formula: 'wᵢ ∝ 1 / σᵢ (where σᵢ = CAGRᵢ/Sharpeᵢ) — inverse-vol weighting. Spreads risk evenly.',
+      rawWeight: function(s) { return s.sharpe / s.cagr; }  // = 1/σ for σ = CAGR/Sharpe
+    }
+  ];
+
+  let activeKey = 'sharpe';
 
   function getSignals() {
     try {
@@ -98,32 +162,21 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal, redistributed up to 5
     } catch(e) { return null; }
   }
 
-  function render() {
-    const active = getSignals();
-    if (!active) {
-      optEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
-        'Optimization requires the parent app context. Open this tab from the main page.</div>';
-      return;
-    }
-    const eligible = active.filter(function(s) { return s.cagr > 0 && s.sharpe >= 0.5; });
-    if (eligible.length === 0) {
-      optEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
-        'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.</div>';
-      return;
-    }
-
-    eligible.forEach(function(s) {
-      s.vol = s.cagr / s.sharpe;
-      s.rawWeight = (s.sharpe * s.sharpe) / s.cagr;
+  function computeBasket(signals, strat) {
+    const arr = signals.map(function(s) {
+      return {
+        id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId,
+        vol: s.cagr / s.sharpe,
+        raw: strat.rawWeight(s)
+      };
     });
-    const rawSum = eligible.reduce(function(a,s){ return a + s.rawWeight; }, 0);
-    eligible.forEach(function(s) { s.weight = (s.rawWeight / rawSum) * 100; });
-
-    const CAP = 20;
+    const rawSum = arr.reduce(function(a,s){ return a + s.raw; }, 0);
+    arr.forEach(function(s) { s.weight = (s.raw / rawSum) * 100; });
+    // Cap + redistribute
     for (let pass = 0; pass < 5; pass++) {
       let excess = 0;
-      let uncapped = [];
-      eligible.forEach(function(s) {
+      const uncapped = [];
+      arr.forEach(function(s) {
         if (s.weight > CAP) { excess += s.weight - CAP; s.weight = CAP; }
         else uncapped.push(s);
       });
@@ -132,47 +185,63 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal, redistributed up to 5
       if (uncapTotal === 0) break;
       uncapped.forEach(function(s) { s.weight += excess * (s.weight / uncapTotal); });
     }
+    arr.sort(function(a,b){ return b.weight - a.weight; });
+    const ret = arr.reduce(function(a,s){ return a + (s.weight/100) * s.cagr; }, 0);
+    const variance = arr.reduce(function(a,s){ return a + Math.pow(s.weight/100, 2) * Math.pow(s.vol, 2); }, 0);
+    const vol = Math.sqrt(variance);
+    const sharpe = vol > 0 ? ret / vol : 0;
+    return { signals: arr, cagr: ret, vol: vol, sharpe: sharpe };
+  }
 
-    eligible.sort(function(a,b){ return b.weight - a.weight; });
+  function escapeHtml(s) {
+    return String(s || '').replace(/[<>&"]/g, function(c){ return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]; });
+  }
 
-    const portReturn = eligible.reduce(function(a,s){ return a + (s.weight/100) * s.cagr; }, 0);
-    const portVar = eligible.reduce(function(a,s){ return a + Math.pow(s.weight/100, 2) * Math.pow(s.vol, 2); }, 0);
-    const portVol = Math.sqrt(portVar);
-    const portSharpe = portReturn / portVol;
+  function renderCards(eligible, baskets) {
+    let html = '';
+    STRATEGIES.forEach(function(strat) {
+      const b = baskets[strat.key];
+      const selected = strat.key === activeKey;
+      html += '<div class="basket-card' + (selected ? ' selected' : '') + '" data-key="' + strat.key + '" role="button" tabindex="0">';
+      html += '<div class="bn">' + strat.label + '</div>';
+      html += '<div class="bsub">' + strat.tagline + '</div>';
+      html += '<div class="stats">';
+      html += '<div class="stat"><div class="l">E[CAGR]</div><div class="v cagr">' + b.cagr.toFixed(1) + '%</div></div>';
+      html += '<div class="stat"><div class="l">E[Vol]</div><div class="v">' + b.vol.toFixed(1) + '%</div></div>';
+      html += '<div class="stat"><div class="l">E[Sharpe]</div><div class="v sharpe">' + b.sharpe.toFixed(2) + '</div></div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    cardsEl.innerHTML = html;
+    cardsEl.querySelectorAll('.basket-card').forEach(function(el) {
+      el.addEventListener('click', function() {
+        activeKey = el.dataset.key;
+        renderCards(eligible, baskets);
+        renderDetail(eligible, baskets);
+      });
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+      });
+    });
+  }
 
-    const ewWeight = 100 / eligible.length;
-    const ewReturn = eligible.reduce(function(a,s){ return a + (ewWeight/100) * s.cagr; }, 0);
-    const ewVar = eligible.reduce(function(a,s){ return a + Math.pow(ewWeight/100, 2) * Math.pow(s.vol, 2); }, 0);
-    const ewVol = Math.sqrt(ewVar);
-    const ewSharpe = ewReturn / ewVol;
-
-    let html = '<div class="stat-row">';
-    html += '<div class="stat-card primary"><div class="h">Max-Sharpe Basket — ' + eligible.length + ' signals</div>';
-    html += '<div class="b">E[CAGR] <strong>' + portReturn.toFixed(1) + '%</strong><br>';
-    html += 'E[Vol] <strong>' + portVol.toFixed(1) + '%</strong><br>';
-    html += 'E[Sharpe] <strong>' + portSharpe.toFixed(2) + '</strong></div></div>';
-    html += '<div class="stat-card"><div class="h">Equal-Weight Baseline</div>';
-    html += '<div class="b">E[CAGR] <strong>' + ewReturn.toFixed(1) + '%</strong><br>';
-    html += 'E[Vol] <strong>' + ewVol.toFixed(1) + '%</strong><br>';
-    html += 'E[Sharpe] <strong>' + ewSharpe.toFixed(2) + '</strong></div></div>';
-    html += '<div class="stat-card"><div class="h">Lift vs Equal-Weight</div>';
-    const lift = portSharpe - ewSharpe;
-    const liftPct = ewSharpe > 0 ? ((portSharpe - ewSharpe) / ewSharpe * 100) : 0;
-    html += '<div class="b">Sharpe Δ <strong style="color:' + (lift>=0?'var(--good)':'var(--bad)') + ';">' + (lift>=0?'+':'') + lift.toFixed(2) + '</strong><br>';
-    html += '<span style="font-size:11px;color:var(--fg-dim);">(' + (liftPct>=0?'+':'') + liftPct.toFixed(0) + '% relative)</span></div></div>';
-    html += '</div>';
-
+  function renderDetail(eligible, baskets) {
+    const strat = STRATEGIES.find(function(s){ return s.key === activeKey; });
+    const basket = baskets[activeKey];
+    let html = '<div class="detail-block">';
+    html += '<h3>' + strat.label + ' — ' + basket.signals.length + ' signals</h3>';
+    html += '<div class="formula">' + escapeHtml(strat.formula) + '</div>';
     html += '<div class="scroll-x"><table>';
     html += '<thead><tr>';
     html += '<th>ID</th><th>Name</th>';
     html += '<th class="num">Sharpe</th><th class="num">CAGR</th><th class="num">Vol (implied)</th>';
     html += '<th class="num">Weight</th><th class="bar-col"></th>';
     html += '</tr></thead><tbody>';
-    eligible.forEach(function(s) {
+    basket.signals.forEach(function(s) {
       const barW = Math.min(s.weight * (220 / CAP), 220);
       html += '<tr>';
-      html += '<td class="id-col">' + s.id + '</td>';
-      html += '<td class="name-col">' + s.name + '</td>';
+      html += '<td class="id-col">' + escapeHtml(s.id) + '</td>';
+      html += '<td class="name-col">' + escapeHtml(s.name) + '</td>';
       html += '<td class="num">' + s.sharpe.toFixed(2) + '</td>';
       html += '<td class="num" style="color:var(--good);">' + s.cagr.toFixed(1) + '%</td>';
       html += '<td class="num" style="color:var(--fg-dim);">' + s.vol.toFixed(1) + '%</td>';
@@ -181,8 +250,31 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal, redistributed up to 5
       html += '</tr>';
     });
     html += '</tbody></table></div>';
+    html += '</div>';
+    detailEl.innerHTML = html;
+  }
 
-    optEl.innerHTML = html;
+  function render() {
+    const active = getSignals();
+    if (!active) {
+      cardsEl.innerHTML = '';
+      detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
+        'Optimization requires the parent app context. Open this tab from the main page.</div>';
+      return;
+    }
+    const eligible = active.filter(function(s) { return s.cagr > 0 && s.sharpe >= 0.5; });
+    if (eligible.length === 0) {
+      cardsEl.innerHTML = '';
+      detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
+        'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.</div>';
+      return;
+    }
+    const baskets = {};
+    STRATEGIES.forEach(function(strat) {
+      baskets[strat.key] = computeBasket(eligible, strat);
+    });
+    renderCards(eligible, baskets);
+    renderDetail(eligible, baskets);
   }
 
   let attempts = 0;
@@ -198,5 +290,3 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal, redistributed up to 5
 
 </body>
 </html>
-</content>
-</invoke>
