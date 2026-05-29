@@ -6886,101 +6886,101 @@ themeToggle.addEventListener('click', () => {
 // Trade metadata — statuses checked 2026-05-26 via live data
 // t: [[group, direction], ...], s: 'active'|'inactive'|'unknown' (default: unknown)
 var META = {
-  'V3':       {t:[['SPY','long']], s:'active'},             // YoY +38.7% → full 100% SPY (bullish state)
-  'F03':      {t:[['SPY','long']], s:'active'},             // YoY margin debt +38.7% > 0% bullish
-  'C02':      {t:[['SPY','long']], s:'active'},             // SPY 4wk +10.5% >> XLU -2% → long SPY
-  'F09':      {t:[['SPY','long']], s:'active'},             // 50d SMA 740 > 200d SMA 722
-  'A16':      {t:[['SPY','long']], s:'defensive'},           // Entering weak June → cash
-  'A07':      {t:[['SPY','long']], s:'inactive'},           // Next FOMC Jun 16-17, 3 weeks away
-  'A06':      {t:[['SPY','long']], s:'defensive'},           // Week 5 of FOMC cycle (odd = cash)
-  'F08':      {t:[['SPY','long']], s:'inactive'},           // RSI(2) ~90+, far above 5
-  'A04':      {t:[['SPY','long']], s:'active'},             // First 5 days of Jan 2026 positive
-  'B01':      {t:[['SPY','long']], s:'active'},             // VIX/VIX3M = 0.86 < 0.92 → long
-  'C11':      {t:[['SPY','long']], s:'inactive'},           // MOVE/VIX = 4.61, neutral band
-  'C07':      {t:[['SPY','long']], s:'active'},             // SPY top-ranked on blended momentum
-  'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active'}, // All 6 assets positive 12m
-  'C05':      {t:[['SPY','long']], s:'active'},             // 4/5 above 10mo SMA; IEF below
-  'C06':      {t:[['SPY','long']], s:'active'},             // SPY 12m +29.4% > ACWX +16.4%
-  'C08 / C09':{t:[['SPY','long']], s:'inactive'},           // 10Y-2Y +0.43%, normal
-  'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive'}, // Gold >> lumber → long TLT
-  'N4':       {t:[['Semis','long']], s:'active'},            // Electronics orders up 11/12 mo
-  'R-N5':     {t:[['Semis','long']], s:'defensive'},         // TSMC Apr YoY +17.5% decelerating vs ~35% trail
-  'R-D11':    {t:[['Equity L/S','long']]},
-  'Z4':       {t:[['Event Equity','long']]},                 // No known current Wells Notices
-  'Z6':       {t:[['Event Equity','long']], s:'active'},     // DOJ vs NYP Mar 26; FTC merger trials
-  'Y5':       {t:[['De-SPAC','short']], s:'active'},         // 85-95% redemption persist; 11 de-SPACs in Q1
-  'F9':       {t:[['US Importers','long']], s:'active'},     // S301 review comment windows open
-  'F5':       {t:[['Biotech','long']]},                      // No confirmed AdComm+PDUFA pair found
-  'L6':       {t:[['NT Filers','short']], s:'active'},       // Q1 2026 NT-10Q filings confirmed on EDGAR
-  'E09':      {t:[['IPO Lockups','short']], s:'active'},     // Medline lockup ~Jun 16
-  'E10':      {t:[['Spin-offs','long']], s:'active'},        // FedEx Freight + Enviri II completing Jun
-  'D02':      {t:[['Equity Momentum','long']], s:'active'},  // MTUM +21.5% YTD; momentum leading
+  'V3':       {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY +38.7% → full 100% SPY (bullish state)
+  'F03':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY margin debt +38.7% > 0% bullish
+  'C02':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 4wk +10.5% >> XLU -2% → long SPY
+  'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 740 > 200d SMA 722
+  'A16':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Entering weak June → cash
+  'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, 3 weeks away
+  'A06':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Week 5 of FOMC cycle (odd = cash)
+  'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2) ~90+, far above 5
+  'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
+  'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // VIX/VIX3M = 0.86 < 0.92 → long
+  'C11':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // MOVE/VIX = 4.61, neutral band
+  'C07':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY top-ranked on blended momentum
+  'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
+  'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 4/5 above 10mo SMA; IEF below
+  'C06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 12m +29.4% > ACWX +16.4%
+  'C08 / C09':{t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // 10Y-2Y +0.43%, normal
+  'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive', oos:'2024-12-31'}, // Gold >> lumber → long TLT
+  'N4':       {t:[['Semis','long']], s:'active', oos:'2024-12-31'},            // Electronics orders up 11/12 mo
+  'R-N5':     {t:[['Semis','long']], s:'defensive', oos:'2025-12-31'},         // TSMC Apr YoY +17.5% decelerating vs ~35% trail
+  'R-D11':    {t:[['Equity L/S','long']], oos:'2025-12-31'},
+  'Z4':       {t:[['Event Equity','long']], oos:'2025-12-31'},                 // No known current Wells Notices
+  'Z6':       {t:[['Event Equity','long']], s:'active', oos:'2025-12-31'},     // DOJ vs NYP Mar 26; FTC merger trials
+  'Y5':       {t:[['De-SPAC','short']], s:'active', oos:'2025-12-31'},         // 85-95% redemption persist; 11 de-SPACs in Q1
+  'F9':       {t:[['US Importers','long']], s:'active', oos:'2025-12-31'},     // S301 review comment windows open
+  'F5':       {t:[['Biotech','long']], oos:'2025-12-31'},                      // No confirmed AdComm+PDUFA pair found
+  'L6':       {t:[['NT Filers','short']], s:'active', oos:'2025-12-31'},       // Q1 2026 NT-10Q filings confirmed on EDGAR
+  'E09':      {t:[['IPO Lockups','short']], s:'active', oos:'2025-12-31'},     // Medline lockup ~Jun 16
+  'E10':      {t:[['Spin-offs','long']], s:'active', oos:'2025-12-31'},        // FedEx Freight + Enviri II completing Jun
+  'D02':      {t:[['Equity Momentum','long']], s:'active', oos:'2024-12-31'},  // MTUM +21.5% YTD; momentum leading
   'D04':      {t:[['Industry Momentum','long']], s:'active'},
-  'K4':       {t:[['XLY','long']], s:'inactive'},            // No +10pp DRIWCIL jump; banks tighter
-  'K9':       {t:[['ITA','long']]},                          // Daily DTS data not web-accessible
-  'K5':       {t:[['Biotech','short']]},                     // Needs ClinicalTrials.gov monitoring
-  'J7':       {t:[['TLT','short']], s:'inactive'},           // RRP drained to near-zero
-  'L3-inv':   {t:[['TLT','long']]},                         // Can't confirm direct bidder %
-  'AI-4':     {t:[['Spirits','short']], s:'active'},         // US spirits -15.4%; BF-B -26% 1yr
-  'AI-5':     {t:[['Large Banks','long'],['Regional CRE Banks','short']], s:'active'},
-  'AS-B':     {t:[['Custom Silicon','long']], s:'active'},   // MRVL +42% rev; CRDO +201%
-  'AE-2':     {t:[['Power Infra','long']], s:'active'},      // All 4 hyperscalers >20% YoY capex Q1
-  'AG-2':     {t:[['Power Infra','long'],['Growth Utilities','short']], s:'active'},
+  'K4':       {t:[['XLY','long']], s:'inactive', oos:'2025-12-31'},            // No +10pp DRIWCIL jump; banks tighter
+  'K9':       {t:[['ITA','long']], oos:'2025-12-31'},                          // Daily DTS data not web-accessible
+  'K5':       {t:[['Biotech','short']], oos:'2025-12-31'},                     // Needs ClinicalTrials.gov monitoring
+  'J7':       {t:[['TLT','short']], s:'inactive', oos:'2025-12-31'},           // RRP drained to near-zero
+  'L3-inv':   {t:[['TLT','long']], oos:'2025-12-31'},                         // Can't confirm direct bidder %
+  'AI-4':     {t:[['Spirits','short']], s:'active', oos:'2026-04-30'},         // US spirits -15.4%; BF-B -26% 1yr
+  'AI-5':     {t:[['Large Banks','long'],['Regional CRE Banks','short']], s:'active', oos:'2026-04-30'},
+  'AS-B':     {t:[['Custom Silicon','long']], s:'active', oos:'2026-04-30'},   // MRVL +42% rev; CRDO +201%
+  'AE-2':     {t:[['Power Infra','long']], s:'active', oos:'2026-04-30'},      // All 4 hyperscalers >20% YoY capex Q1
+  'AG-2':     {t:[['Power Infra','long'],['Growth Utilities','short']], s:'active', oos:'2026-04-30'},
   'AC-6':     {t:[['Brent Crude','long']], s:'inactive'},    // Q1-only window past
-  'PL5':      {t:[['Aggregates','long']], s:'inactive'},     // Permits/Completions = 0.99, below 1.3
-  'O5':       {t:[['BTC Miners','long']], s:'active'},       // -3.07% difficulty drop May 2
-  'O4':       {t:[['BTC Miners','long']], s:'inactive'},     // Mempool quiet, ~49K txns
-  'P6':       {t:[['BTC','long']], s:'defensive'},           // Global liquidity peaked Q4 2025; contracting
-  'P12':      {t:[['SPY','long'],['BTC','long']], s:'inactive'},
-  'M3':       {t:[['ETH','long']], s:'inactive'},            // stETH at parity, no discount
-  'A14':      {t:[['BTC','long']], s:'inactive'},            // Window closed Oct 2025
-  'H06':      {t:[['BTC','long']], s:'inactive'},            // MVRV Z=0.77; needs <0
-  'H11':      {t:[['BTC','long']], s:'active'},              // BTC-NDX corr 0.96 = tech proxy
-  'H05':      {t:[['BTC','long']], s:'active'},              // Hash Ribbons buy signal late Apr
-  'H07 / H08':{t:[['BTC','long']], s:'inactive'}            // Puell 0.79; NUPL 0.17
+  'PL5':      {t:[['Aggregates','long']], s:'inactive', oos:'2025-12-31'},     // Permits/Completions = 0.99, below 1.3
+  'O5':       {t:[['BTC Miners','long']], s:'active', oos:'2025-12-31'},       // -3.07% difficulty drop May 2
+  'O4':       {t:[['BTC Miners','long']], s:'inactive', oos:'2025-12-31'},     // Mempool quiet, ~49K txns
+  'P6':       {t:[['BTC','long']], s:'defensive', oos:'2025-12-31'},           // Global liquidity peaked Q4 2025; contracting
+  'P12':      {t:[['SPY','long'],['BTC','long']], s:'inactive', oos:'2025-12-31'},
+  'M3':       {t:[['ETH','long']], s:'inactive', oos:'2025-12-31'},            // stETH at parity, no discount
+  'A14':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // Window closed Oct 2025
+  'H06':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // MVRV Z=0.77; needs <0
+  'H11':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // BTC-NDX corr 0.96 = tech proxy
+  'H05':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // Hash Ribbons buy signal late Apr
+  'H07 / H08':{t:[['BTC','long']], s:'inactive', oos:'2025-12-31'}            // Puell 0.79; NUPL 0.17
 };
 
 var PLMETA = {
-  'PL83': {t:[['IWM','long']]},
-  'PL3':  {t:[['Copper','long']], s:'active'},               // China PMI crossed 50 in Mar
-  'PL73': {t:[['GLD','long']], s:'inactive'},                // No +10% 4-week CP spike
-  'PL78': {t:[['SPY','long']], s:'active'},                  // GDPNow 4.3% > 3.0%
-  'PL97': {t:[['Industrials','long']]},
-  'PL41': {t:[['Homebuilders','long']], s:'inactive'},       // Months supply 4.4, above 3.0
-  'PL95': {t:[['Leisure','long']]},
-  'PL62': {t:[['GLD','long']], s:'inactive'},                // M2 YoY already >4% for 12mo
-  'PL42': {t:[['Semis','long']]},                            // SEMI B2B discontinued 2017
-  'PL48': {t:[['Alt Managers','long']]},
-  'PL49': {t:[['Soybeans','long']]},
-  'PL59': {t:[['XLI','long']]},
-  'PL76': {t:[['XLI','long'],['XLF','long']]},
-  'PL75': {t:[['XLI','long']]},
-  'PL38': {t:[['SPY','long']]},
-  'PL35': {t:[['Water Infra','long']]},
-  'PL87': {t:[['Exporters','long']], s:'active'},            // Broad TWD down 9.4% from peak
-  'PL10': {t:[['Trucks','long']]},
-  'PL102':{t:[['Industrials','long']]},
-  'PL82': {t:[['XLI','long']]},
-  'PL46': {t:[['EEM','long']]},
-  'PL57': {t:[['Lumber','long']]},
-  'PL14': {t:[['Soybeans','long']], s:'inactive'},
-  'PL60': {t:[['TLT','long']]},
-  'PL30': {t:[['XOP','long']], s:'inactive'},                // Only 5% decline, not 20%
-  'PL69': {t:[['XLB','long']]},
-  'PL79': {t:[['Aggregates','long']]},
-  'PL43': {t:[['SPY','long']], s:'inactive'},                // LEI 6mo rate still negative
-  'PL15': {t:[['Wheat','long']]},
-  'PL94': {t:[['XRT','long']]},
-  'PL34': {t:[['XLI','long']]},
-  'PL66': {t:[['IWM','long']]},
-  'PL23': {t:[['Semi Equipment','long']]},
-  'PL64': {t:[['XLF','long']]},
-  'PL54': {t:[['Restructuring','long']]},
-  'PL44': {t:[['Corn','long']]},
-  'PL70': {t:[['Homebuilders','long']]},
-  'PL31': {t:[['Auto Dealers','long']]},
-  'PL90': {t:[['NatGas Producers','long']]},
-  'PL81': {t:[['Staffing','long']]}
+  'PL83': {t:[['IWM','long']], oos:'2025-12-31'},
+  'PL3':  {t:[['Copper','long']], s:'active', oos:'2025-12-31'},               // China PMI crossed 50 in Mar
+  'PL73': {t:[['GLD','long']], s:'inactive', oos:'2025-12-31'},                // No +10% 4-week CP spike
+  'PL78': {t:[['SPY','long']], s:'active', oos:'2025-12-31'},                  // GDPNow 4.3% > 3.0%
+  'PL97': {t:[['Industrials','long']], oos:'2025-12-31'},
+  'PL41': {t:[['Homebuilders','long']], s:'inactive', oos:'2025-12-31'},       // Months supply 4.4, above 3.0
+  'PL95': {t:[['Leisure','long']], oos:'2025-12-31'},
+  'PL62': {t:[['GLD','long']], s:'inactive', oos:'2025-12-31'},                // M2 YoY already >4% for 12mo
+  'PL42': {t:[['Semis','long']], oos:'2025-12-31'},                            // SEMI B2B discontinued 2017
+  'PL48': {t:[['Alt Managers','long']], oos:'2025-12-31'},
+  'PL49': {t:[['Soybeans','long']], oos:'2025-12-31'},
+  'PL59': {t:[['XLI','long']], oos:'2025-12-31'},
+  'PL76': {t:[['XLI','long'],['XLF','long']], oos:'2025-12-31'},
+  'PL75': {t:[['XLI','long']], oos:'2025-12-31'},
+  'PL38': {t:[['SPY','long']], oos:'2025-12-31'},
+  'PL35': {t:[['Water Infra','long']], oos:'2025-12-31'},
+  'PL87': {t:[['Exporters','long']], s:'active', oos:'2025-12-31'},            // Broad TWD down 9.4% from peak
+  'PL10': {t:[['Trucks','long']], oos:'2025-12-31'},
+  'PL102':{t:[['Industrials','long']], oos:'2025-12-31'},
+  'PL82': {t:[['XLI','long']], oos:'2025-12-31'},
+  'PL46': {t:[['EEM','long']], oos:'2025-12-31'},
+  'PL57': {t:[['Lumber','long']], oos:'2025-12-31'},
+  'PL14': {t:[['Soybeans','long']], s:'inactive', oos:'2025-12-31'},
+  'PL60': {t:[['TLT','long']], oos:'2025-12-31'},
+  'PL30': {t:[['XOP','long']], s:'inactive', oos:'2025-12-31'},                // Only 5% decline, not 20%
+  'PL69': {t:[['XLB','long']], oos:'2025-12-31'},
+  'PL79': {t:[['Aggregates','long']], oos:'2025-12-31'},
+  'PL43': {t:[['SPY','long']], s:'inactive', oos:'2025-12-31'},                // LEI 6mo rate still negative
+  'PL15': {t:[['Wheat','long']], oos:'2025-12-31'},
+  'PL94': {t:[['XRT','long']], oos:'2025-12-31'},
+  'PL34': {t:[['XLI','long']], oos:'2025-12-31'},
+  'PL66': {t:[['IWM','long']], oos:'2025-12-31'},
+  'PL23': {t:[['Semi Equipment','long']], oos:'2025-12-31'},
+  'PL64': {t:[['XLF','long']], oos:'2025-12-31'},
+  'PL54': {t:[['Restructuring','long']], oos:'2025-12-31'},
+  'PL44': {t:[['Corn','long']], oos:'2025-12-31'},
+  'PL70': {t:[['Homebuilders','long']], oos:'2025-12-31'},
+  'PL31': {t:[['Auto Dealers','long']], oos:'2025-12-31'},
+  'PL90': {t:[['NatGas Producers','long']], oos:'2025-12-31'},
+  'PL81': {t:[['Staffing','long']], oos:'2025-12-31'}
 };
 
 // Annualized cost haircut (%) by trade asset/group — accounts for borrow, slippage, spreads.
@@ -7066,7 +7066,8 @@ document.querySelectorAll('#tab-strategies .card').forEach(function(card) {
     trades: meta.t.map(function(pair) { return {g: pair[0], d: pair[1]}; }),
     defTrades: meta.td ? meta.td.map(function(pair) { return {g: pair[0], d: pair[1]}; }) : null,
     defaultStatus: meta.s || 'unknown',
-    maxdd: isNaN(maxdd) ? null : maxdd
+    maxdd: isNaN(maxdd) ? null : maxdd,
+    oos: meta.oos || null
   });
 });
 signals.sort(function(a,b) { return b.cagr - a.cagr; });
@@ -7428,6 +7429,18 @@ function render() {
       netBlock = ' &middot; <span style="color:' + netClass + ';">Net:' + netCagr.toFixed(1) + '%</span>';
     }
     cards += '<span style="margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--fg-dim);white-space:nowrap;">S:' + sig.sharpe.toFixed(2) + ' &middot; C:' + sig.cagr.toFixed(1) + '%' + netBlock + liveBlock + '</span>';
+    if (sig.oos) {
+      var oosDate = new Date(sig.oos);
+      var nowDate = new Date();
+      var oosMonths = Math.floor((nowDate - oosDate) / (1000*60*60*24*30.4375));
+      if (oosMonths >= 0) {
+        var oosColor, oosLabel;
+        if (oosMonths < 12) { oosColor = 'var(--fg-dim)'; oosLabel = 'OOS ' + oosMonths + 'mo'; }
+        else if (oosMonths < 24) { oosColor = 'var(--warn)'; oosLabel = 'OOS ' + oosMonths + 'mo'; }
+        else { oosColor = 'var(--bad)'; oosLabel = 'OOS ' + oosMonths + 'mo (stale)'; }
+        cards += '<span style="font-family:var(--mono);font-size:11px;color:' + oosColor + ';white-space:nowrap;">' + oosLabel + '</span>';
+      }
+    }
     cards += '</a>';
     cards += '<div class="sig-trades">';
     showTrades.forEach(function(t) {
