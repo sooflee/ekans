@@ -52,9 +52,10 @@ at most 5% are expected to be false positives.
 </p>
 
 <div class="stat-row">
-  <div class="stat-box"><div class="v">285</div><div class="l">signals tested</div></div>
+  <div class="stat-box"><div class="v">296</div><div class="l">signals tested</div></div>
   <div class="stat-box"><div class="v pos">26</div><div class="l">survive BH @ 5% FDR</div></div>
-  <div class="stat-box"><div class="v neg">259</div><div class="l">rejected</div></div>
+  <div class="stat-box"><div class="v neg">265</div><div class="l">rejected</div></div>
+  <div class="stat-box"><div class="v warn">5</div><div class="l">insufficient N</div></div>
   <div class="stat-box"><div class="v">9%</div><div class="l">survival rate</div></div>
 </div>
 
@@ -2056,8 +2057,88 @@ at most 5% are expected to be false positives.
 <td class="verdict">no</td>
 <td>-0.00</td>
 <td>-2.3%</td>
+</tr><tr class="not-sig">
+<td>Y5_de_spac_short</td><td class="name-col">Y5 De-SPAC short post high-redemption (event)</td>
+<td>2.58</td><td>16 ev</td>
+<td>0.0098</td><td>0.0046</td>
+<td class="verdict">no</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr><tr class="not-sig">
+<td>E09_ipo_lockup</td><td class="name-col">E09 IPO lockup expiry short (event)</td>
+<td>2.10</td><td>59 ev</td>
+<td>0.0357</td><td>0.0046</td>
+<td class="verdict">no</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr><tr class="not-sig">
+<td>E10_spinoff_drift</td><td class="name-col">E10 Spin-off drift long 24mo (event)</td>
+<td>0.96</td><td>40 ev</td>
+<td>0.3370</td><td>0.0500</td>
+<td class="verdict">no</td>
+<td>n/a</td>
+<td>11.7%</td>
+</tr><tr class="not-sig">
+<td>PL78_gdpnow_consensus_gap_spy</td><td class="name-col">PL78 GDPNow &gt;3% long SPY (event)</td>
+<td>2.18</td><td>10 ev</td>
+<td>0.0293</td><td>0.0046</td>
+<td class="verdict">no</td>
+<td>1.70</td>
+<td>29.9%</td>
+</tr><tr class="not-sig">
+<td>PL87_twd_decline_industrial_exporters</td><td class="name-col">PL87 TWD decline long HON/CAT/DE (event)</td>
+<td>2.09</td><td>9 ev</td>
+<td>0.0366</td><td>0.0500</td>
+<td class="verdict">no</td>
+<td>0.98</td>
+<td>26.2%</td>
+</tr><tr class="not-sig">
+<td>PL3_china_pmi_expansion_metals</td><td class="name-col">PL3 China PMI expansion long copper (event)</td>
+<td>0.72</td><td>4 ev</td>
+<td>0.4716</td><td>0.0500</td>
+<td class="verdict">no</td>
+<td>1.81</td>
+<td>86.2%</td>
+</tr><tr class="not-sig">
+<td>ASB_inference_cost_custom_silicon</td><td class="name-col">AS-B Custom silicon MRVL+CRDO (regime trade)</td>
+<td>n/a</td><td>1 reg</td>
+<td>—</td><td>—</td>
+<td class="verdict">n/a</td>
+<td>1.58</td>
+<td>129.0%</td>
+</tr><tr class="not-sig">
+<td>AE2_hyperscaler_capex</td><td class="name-col">AE-2 Hyperscaler capex ratchet (regime trade)</td>
+<td>n/a</td><td>5 reg</td>
+<td>—</td><td>—</td>
+<td class="verdict">n/a</td>
+<td>1.23</td>
+<td>57.2%</td>
+</tr><tr class="not-sig">
+<td>AG2_transformer_shortage</td><td class="name-col">AG-2 Transformer shortage OEM/util pair (regime trade)</td>
+<td>n/a</td><td>1 reg</td>
+<td>—</td><td>—</td>
+<td class="verdict">n/a</td>
+<td>0.66</td>
+<td>17.5%</td>
+</tr><tr class="not-sig">
+<td>AI4_glp1_short_spirits</td><td class="name-col">AI-4 GLP-1 mass adoption short spirits (regime trade)</td>
+<td>n/a</td><td>1 reg</td>
+<td>—</td><td>—</td>
+<td class="verdict">n/a</td>
+<td>0.60</td>
+<td>13.1%</td>
+</tr><tr class="not-sig">
+<td>AI5_office_cmbs_regional_pair</td><td class="name-col">AI-5 Office CMBS regional bank pair (regime trade)</td>
+<td>n/a</td><td>1 reg</td>
+<td>—</td><td>—</td>
+<td class="verdict">n/a</td>
+<td>0.49</td>
+<td>11.7%</td>
 </tr></tbody>
 </table>
+<p style="color: var(--fg-dim); font-size: 12px; margin-top: 12px; line-height: 1.5;">
+<strong style="color: var(--warn);">Note on additions.</strong> The 11 rows above (event-driven and regime trades) were added post-hoc. They use event/regime sample sizes, not daily-return regression. None pass the BH/FDR threshold; the 5 regime trades (AS-B, AE-2, AG-2, AI-4, AI-5) have insufficient observations to compute a statistically meaningful p-value (N=1–5 regime windows). They appear in the catalog and may be active in the Signals tab — but treat their Sharpe/CAGR as in-sample regime fits, not validated edges.
+</p>
 </div>
 
 <!-- ===== Transaction Costs ===== -->

@@ -111,6 +111,15 @@ td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
 <strong>Not investment advice.</strong> Assumes signals are uncorrelated — a known weak assumption since many trend-following signals co-move. Volatility is implied (σ ≈ CAGR/Sharpe), not measured. Real correlations and live performance will differ.
 </div>
 
+<div style="display:flex;align-items:center;gap:14px;margin:0 0 18px;flex-wrap:wrap;">
+  <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none;">
+    <input type="checkbox" id="opt-bh-only" style="width:16px;height:16px;cursor:pointer;">
+    <span>BH-survivors only</span>
+    <span style="color:var(--fg-dim);font-size:11px;">(filter to signals that pass multiple-testing correction)</span>
+  </label>
+  <span id="opt-eligible-count" style="color:var(--fg-dim);font-size:12px;font-family:var(--mono);"></span>
+</div>
+
 <div id="opt-cards" class="basket-grid"></div>
 <div id="opt-detail"></div>
 
@@ -127,6 +136,41 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
   if (!cardsEl || !detailEl) return;
 
   const CAP = 20;
+
+  // BH @ 5% FDR survivors from analysis.html. These are signals whose t-stats survive
+  // multiple-testing correction. All others (active or not) sit outside the rigorous set.
+  const BH_SURVIVORS = new Set([
+    'V3', 'F03', 'C02', 'F09', 'A04', 'C07', 'C14', 'H11', 'H05',
+    // Survivors from analysis that are not currently active (still passed BH):
+    'A14', 'P6', 'V9', 'H06', 'C08 / C09', 'D06', 'D05', 'F13', 'AC-6', 'AC-10',
+    'A16', 'AQ-1', 'R-L13', 'P11', 'H07 / H08'
+  ]);
+
+  // For non-survivors that were tested but rejected. Used to label "Rejected" vs "Untested".
+  // Active signals that were tested:
+  const BH_TESTED_REJECTED = new Set([
+    'B01', 'C05', 'C06', 'N4', 'Z6', 'F9', 'L6', 'D02', 'D04', 'O5',
+    'Y5', 'E09', 'E10', 'PL78', 'PL87', 'PL3'
+  ]);
+
+  // Signals with too few events/regimes to compute meaningful BH:
+  const BH_INSUFFICIENT_N = new Set([
+    'AS-B', 'AE-2', 'AG-2', 'AI-4', 'AI-5'
+  ]);
+
+  function bhStatus(id) {
+    if (BH_SURVIVORS.has(id)) return 'survives';
+    if (BH_TESTED_REJECTED.has(id)) return 'rejected';
+    if (BH_INSUFFICIENT_N.has(id)) return 'insufficient';
+    return 'untested';
+  }
+  function bhLabel(status) {
+    return { survives: 'Survives', rejected: 'Rejected', insufficient: 'Insufficient N', untested: 'Untested' }[status] || '—';
+  }
+  function bhColor(status) {
+    return { survives: 'var(--good)', rejected: 'var(--bad)', insufficient: 'var(--warn)', untested: 'var(--fg-dim)' }[status];
+  }
+
   const STRATEGIES = [
     {
       key: 'sharpe',
@@ -199,15 +243,17 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
       const getStatus = window.parent && window.parent.EKANS_GET_STATUS;
       if (!sigs || !getStatus) return null;
       return sigs.filter(function(s) { return getStatus(s.id) === 'active'; })
-                 .map(function(s) { return {id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId, trades: s.trades, beta: signalBeta(s)}; });
+                 .map(function(s) { return {id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId, trades: s.trades, beta: signalBeta(s), bh: bhStatus(s.id)}; });
     } catch(e) { return null; }
   }
+
+  let bhOnly = localStorage.getItem('ekans-opt-bh') === '1';
 
   function computeBasket(signals, strat) {
     const arr = signals.map(function(s) {
       return {
         id: s.id, name: s.name, sharpe: s.sharpe, cagr: s.cagr, cardId: s.cardId,
-        vol: s.cagr / s.sharpe, beta: s.beta,
+        vol: s.cagr / s.sharpe, beta: s.beta, bh: s.bh,
         raw: strat.rawWeight(s)
       };
     });
@@ -278,6 +324,7 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     html += '<thead><tr>';
     html += '<th>ID</th><th>Name</th>';
     html += '<th class="num">Sharpe</th><th class="num">CAGR</th><th class="num">Vol</th><th class="num">β</th>';
+    html += '<th>BH</th>';
     html += '<th class="num">Weight</th><th class="bar-col"></th>';
     html += '</tr></thead><tbody>';
     basket.signals.forEach(function(s) {
@@ -290,6 +337,7 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
       html += '<td class="num" style="color:var(--good);">' + s.cagr.toFixed(1) + '%</td>';
       html += '<td class="num" style="color:var(--fg-dim);">' + s.vol.toFixed(1) + '%</td>';
       html += '<td class="num" style="color:' + betaColor + ';">' + s.beta.toFixed(2) + '</td>';
+      html += '<td style="font-size:11px;font-weight:600;color:' + bhColor(s.bh) + ';">' + bhLabel(s.bh) + '</td>';
       html += '<td class="num" style="font-weight:700;">' + s.weight.toFixed(1) + '%</td>';
       html += '<td><div class="bar"><div style="width:' + barW + 'px;"></div></div></td>';
       html += '</tr>';
@@ -301,17 +349,33 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
 
   function render() {
     const active = getSignals();
+    const countEl = document.getElementById('opt-eligible-count');
     if (!active) {
       cardsEl.innerHTML = '';
       detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
         'Optimization requires the parent app context. Open this tab from the main page.</div>';
+      if (countEl) countEl.textContent = '';
       return;
     }
-    const eligible = active.filter(function(s) { return s.cagr > 0 && s.sharpe >= 0.5; });
+    let eligible = active.filter(function(s) { return s.cagr > 0 && s.sharpe >= 0.5; });
+    const totalCount = eligible.length;
+    if (bhOnly) {
+      eligible = eligible.filter(function(s) { return s.bh === 'survives'; });
+    }
+    if (countEl) {
+      if (bhOnly) {
+        countEl.textContent = eligible.length + ' / ' + totalCount + ' active signals pass BH';
+      } else {
+        countEl.textContent = totalCount + ' active signals eligible (Sharpe ≥ 0.5, CAGR > 0)';
+      }
+    }
     if (eligible.length === 0) {
       cardsEl.innerHTML = '';
       detailEl.innerHTML = '<div style="padding:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;color:var(--fg-dim);font-size:13px;">' +
-        'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.</div>';
+        (bhOnly
+          ? 'No active signals also survive BH @ 5% FDR. Untick the toggle above to widen the universe, or toggle more BH-surviving signals to <strong>Active</strong> in the Signals tab.'
+          : 'No active signals meet the filter (Sharpe ≥ 0.5, CAGR > 0). Toggle more signals to <strong>Active</strong> in the Signals tab.') +
+        '</div>';
       return;
     }
     const baskets = {};
@@ -320,6 +384,17 @@ Filter: Sharpe ≥ 0.5, CAGR &gt; 0. Caps: 20% per signal (redistributed up to 5
     });
     renderCards(eligible, baskets);
     renderDetail(eligible, baskets);
+  }
+
+  // Wire the BH-only toggle
+  const bhToggle = document.getElementById('opt-bh-only');
+  if (bhToggle) {
+    bhToggle.checked = bhOnly;
+    bhToggle.addEventListener('change', function() {
+      bhOnly = this.checked;
+      localStorage.setItem('ekans-opt-bh', bhOnly ? '1' : '0');
+      render();
+    });
   }
 
   let attempts = 0;
