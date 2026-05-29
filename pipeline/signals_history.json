@@ -1,0 +1,13 @@
+[
+  {
+    "date": "2026-05-28",
+    "changes": [
+      {"id": "P6", "from": "inactive", "to": "defensive"},
+      {"id": "R-N5", "from": "inactive", "to": "defensive"},
+      {"id": "V3", "from": "inactive", "to": "active"},
+      {"id": "C01", "from": "inactive", "to": "defensive"},
+      {"id": "A06", "from": "inactive", "to": "defensive"},
+      {"id": "A16", "from": "inactive", "to": "defensive"}
+    ]
+  }
+]
