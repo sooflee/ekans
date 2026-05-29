@@ -6520,6 +6520,7 @@ new MutationObserver(() => {
     <div id="sig-history-body" style="margin-top:10px;font-size:12px;color:var(--fg-dim);"></div>
   </details>
   <div id="sig-convergence"></div>
+  <div id="sig-allocation"></div>
   <div style="display:flex;gap:8px;margin:16px 0 8px;flex-wrap:wrap;align-items:center;">
     <input type="text" id="sig-search" placeholder="Search by ID, asset, name, or rule..." style="flex:1;min-width:200px;background:var(--bg-3);color:var(--fg);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:13px;font-family:inherit;">
     <button id="sig-search-clear" style="background:var(--bg-3);border:1px solid var(--border);color:var(--fg-dim);padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;display:none;">Clear</button>
@@ -7289,6 +7290,52 @@ function render() {
       html += '</div>';
     }
     convEl.innerHTML = html;
+  }
+
+  // Suggested allocation panel
+  var allocEl = document.getElementById('sig-allocation');
+  if (allocEl) {
+    if (sortedGroups.length === 0) {
+      allocEl.innerHTML = '';
+    } else {
+      var weights = sortedGroups.map(function(g) {
+        var multiplier = g.signals.length > 1 ? 1.0 : 0.5;
+        var raw = (g.score || 0) * multiplier;
+        var antiScore = (antiGroups[g.group] || []).reduce(function(s,sig){ return s + Math.max(0.3, Math.abs(sig.sharpe||0)); }, 0);
+        return Math.max(0, raw - antiScore);
+      });
+      var totalWeight = weights.reduce(function(a,b){return a+b;}, 0);
+      if (totalWeight === 0) {
+        allocEl.innerHTML = '';
+      } else {
+        var pcts = weights.map(function(w){ return (w/totalWeight)*100; });
+        var CAP = 25;
+        var capped = pcts.map(function(p){ return Math.min(p, CAP); });
+        var allocSum = capped.reduce(function(a,b){return a+b;}, 0);
+        var cash = Math.max(0, 100 - allocSum);
+
+        var allocHtml = '<h3 style="margin:16px 0 12px;font-size:14px;color:var(--accent);">Suggested allocation — equal-weight by confidence score</h3>';
+        allocHtml += '<div style="background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:0 0 24px;">';
+        allocHtml += '<div style="display:grid;grid-template-columns:1fr auto 200px;gap:10px;align-items:center;font-size:13px;">';
+        sortedGroups.forEach(function(g, i) {
+          var pct = capped[i];
+          if (pct < 0.5) return;
+          var dc = g.dir === 'long' ? 'var(--good)' : 'var(--bad)';
+          allocHtml += '<div><span style="color:' + dc + ';font-weight:700;font-family:var(--mono);">' + g.dir.toUpperCase() + '</span> <span style="font-weight:600;">' + g.group + '</span></div>';
+          allocHtml += '<div style="font-family:var(--mono);font-weight:600;text-align:right;">' + pct.toFixed(1) + '%</div>';
+          allocHtml += '<div style="background:var(--bg-3);height:14px;border-radius:3px;overflow:hidden;"><div style="background:' + dc + ';height:100%;width:' + (pct/CAP*100) + '%;"></div></div>';
+        });
+        if (cash > 0.5) {
+          allocHtml += '<div><span style="color:var(--fg-dim);font-weight:700;font-family:var(--mono);">CASH</span> <span style="color:var(--fg-dim);font-size:11px;">(from 25% cap)</span></div>';
+          allocHtml += '<div style="font-family:var(--mono);font-weight:600;text-align:right;color:var(--fg-dim);">' + cash.toFixed(1) + '%</div>';
+          allocHtml += '<div style="background:var(--bg-3);height:14px;border-radius:3px;overflow:hidden;"><div style="background:var(--fg-dim);height:100%;width:' + (cash/CAP*100) + '%;"></div></div>';
+        }
+        allocHtml += '</div>';
+        allocHtml += '<div style="margin-top:10px;font-size:11px;color:var(--fg-dim);font-style:italic;">Allocation = (score × 1.0 multi / 0.5 single) − anti-score, capped 25% per trade, overflow → cash. Not financial advice.</div>';
+        allocHtml += '</div>';
+        allocEl.innerHTML = allocHtml;
+      }
+    }
   }
 
   // Signal cards
