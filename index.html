@@ -41,27 +41,18 @@ body {
   font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 header.hero {
-  padding: 14px 24px 12px; max-width: 1280px; margin: 0 auto;
-  border-bottom: 1px solid var(--border);
+  padding: 10px 24px 6px; max-width: 1280px; margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 24px;
   align-items: start;
 }
-.hero-disclaimer {
-  max-width: 260px;
-  font-size: 10.5px;
-  line-height: 1.4;
-  color: var(--fg-dim);
-  background: rgba(251,191,36,0.05);
-  border-left: 2px solid var(--warn);
-  padding: 6px 8px;
-  border-radius: 3px;
+.hero-about {
+  font-size: 12px; color: var(--fg-dim); text-decoration: none;
+  padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px;
+  align-self: start;
 }
-.hero-disclaimer strong { color: var(--warn); font-weight: 600; }
-@media (max-width: 700px) {
-  header.hero { grid-template-columns: 1fr; }
-}
+.hero-about:hover { color: var(--accent); border-color: var(--accent); }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 h1 { font-size: 1.4em; margin: 0 0 2px; letter-spacing: -0.01em; }
 h2.tier {
@@ -169,7 +160,6 @@ a { color: var(--accent); }
 [data-theme="light"] .caveat { background: rgba(217,119,6,0.06); }
 [data-theme="light"] .counter { background: rgba(220,38,38,0.05); }
 [data-theme="light"] .intro-caveat { background: rgba(217,119,6,0.06); }
-[data-theme="light"] .hero-disclaimer { background: rgba(217,119,6,0.05); }
 
 /* ----- Two-column layout with left sidebar tabs ----- */
 .layout {
@@ -592,9 +582,7 @@ article.card.demoted .demoted-banner code {
       <div class="stat"><span class="v">24</span><span class="l">validated</span></div>
     </div>
   </div>
-  <aside class="hero-disclaimer">
-    <strong>Read first.</strong> Backtests use free data with no transaction costs, slippage, or borrow. Several "wins" ride on small N (BTC halvings N=3, K5 Phase-3 slip N=9). Crypto signals carry -60% to -77% drawdowns. Past performance is not predictive. Not investment advice.
-  </aside>
+  <a class="hero-about" href="about.html">About</a>
 </header>
 
 <nav class="page-tabs" role="tablist" aria-label="Sections">
