@@ -1,5 +1,9 @@
 [
   {
+    "date": "2026-05-30",
+    "changes": []
+  },
+  {
     "date": "2026-05-29",
     "changes": [
       {"id": "A06", "from": "defensive", "to": "active"},

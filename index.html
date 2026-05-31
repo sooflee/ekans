@@ -537,6 +537,33 @@ article.card.demoted .demoted-banner code {
   font-size: 11px; color: var(--fg);
 }
 
+/* ===== Watchlist cards (untestable forward scenarios) ===== */
+article.card.watch { border-left: 3px solid var(--accent); }
+article.card.watch .watch-block {
+  margin-top: 6px; display: grid; gap: 10px;
+  background: rgba(125,211,252,0.04);
+  padding: 12px 14px; border-radius: 6px;
+}
+article.card.watch .watch-row {
+  display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: start;
+  font-size: 13px;
+}
+article.card.watch .watch-label {
+  text-transform: uppercase; font-size: 10px; letter-spacing: 0.06em;
+  color: var(--accent); font-weight: 700; padding-top: 2px;
+}
+article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
+.watch-disclaimer {
+  background: rgba(125,211,252,0.08); border-left: 3px solid var(--accent);
+  padding: 10px 14px; border-radius: 4px; font-size: 12px;
+  color: var(--fg-dim); margin: 16px 0 24px; line-height: 1.5;
+}
+.watch-disclaimer strong { color: var(--accent); }
+#tab-watchlist .layout { grid-template-columns: 1fr; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 640px) {
+  article.card.watch .watch-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
 /* ===== Inline validation block inside strategy cards ===== */
 .section.validation-inline {
   background: rgba(125,211,252,0.05);
@@ -590,6 +617,7 @@ article.card.demoted .demoted-banner code {
   <button data-tab="live" id="tabbtn-live" role="tab" aria-selected="false" aria-controls="tab-live" tabindex="-1">Live<span class="tab-count" id="tab-sig-count">0</span></button>
   <button data-tab="construction" id="tabbtn-construction" role="tab" aria-selected="false" aria-controls="tab-construction" tabindex="-1">Construction</button>
   <button data-tab="pipeline" id="tabbtn-pipeline" role="tab" aria-selected="false" aria-controls="tab-pipeline" tabindex="-1">Pipeline</button>
+  <button data-tab="watchlist" id="tabbtn-watchlist" role="tab" aria-selected="false" aria-controls="tab-watchlist" tabindex="-1">Watchlist<span class="tab-count" id="tab-watch-count">10</span></button>
 </nav>
 
 <div id="tab-strategies" class="tab-panel active" role="tabpanel" aria-labelledby="tabbtn-strategies">
@@ -5606,6 +5634,155 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div>
 </div><!-- end tab-pipeline -->
 
+<div id="tab-watchlist" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-watchlist">
+<div class="layout" style="padding-top:24px;">
+<main class="container">
+<h2 style="margin-top:0;">Watchlist — Untestable Forward Scenarios</h2>
+<p class="sub">Trade setups for events that <em>haven't happened yet</em> — no historical occurrence to backtest against. Each card states the trigger we'd need to see fire, the trade we'd put on if it does, and the mechanism we think connects them. These are theorized, not validated. Auto-populated by the strategy_developer loop whenever it flags an idea as "no historical analog." Hand-curated examples seeded below.</p>
+
+<div class="watch-disclaimer">
+<strong>How to use this.</strong> These are NOT backtested. They are hypotheses about events that may or may not occur, and the trades you would place IF they do. Use the cards as a playbook to watch — set price alerts or news alerts on the named tickers, monitor the trigger conditions, and have the position structure ready. Sizing should be smaller than for backtested signals because the edge is theoretical only.
+</div>
+
+<div id="watchlist-grid">
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL807</span><h3>King Salman Succession Event → Long GLD / Short EWG+EWY</h3></div>
+    <div class="right">geopolitical · tail · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">SPA royal-court absence &gt;21d + ceremony no-show + Polymarket Salman-mortality contract &gt;15%. Composite signal of three independent indicators.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long GLD (gold tail bid on Saudi succession uncertainty). Short basket EWG+EWY (Saudi-dependent industrial exporters on Vision 2030 paus). Sizing: smaller than backtested positions.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Saudi succession transitions are decennial-rare events. MBS is consolidated but the King's death triggers ceremonial uncertainty windows during which OPEC+ discipline, Aramco IPO follow-on, and Vision 2030 capex schedules all face re-pricing risk. Gold catches the tail bid; German/Korean exporters with Saudi infrastructure exposure get marked down.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">No analog. Salman's predecessors (Abdullah 2015, Fahd 2005) preceded the MBS consolidation and capital-market integration. The current setup has no historical parallel.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL775</span><h3>Taiwan Strait Subsea Cable Mass Severance → Long IRDM/ASTS, Short EWT</h3></div>
+    <div class="right">geopolitical · infrastructure · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">≥3 Taiwan-landing cables severed within 30 days, or Chunghwa Telecom rerouting confirmation. Submarine Cable Map status changes plus MarineTraffic anomaly clusters near landing stations.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long IRDM, ASTS (satellite/D2D alternative bandwidth). Short EWT (Taiwan single-country ETF on capital-flight risk).</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Taiwan has 14 international subsea cables. Mass severance forces traffic onto LEO satellite providers (Iridium, ASTS SpaceMobile) on multi-month MTTR while repair ships transit. EWT prices the geopolitical capital-flight tail.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">Matsu Islands 2023 (2 cables) is closest analog but isolated and rural. Red Sea cluster 2024 is wrong geography. A Taiwan-mainland severance cluster would be Cat-5 unique.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL799</span><h3>SCOTUS Strikes Down CFPB Authority → Long UPST/OPRT/LC, Short XLF Pair</h3></div>
+    <div class="right">policy · tail · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">SCOTUS cert grant on a CFPB structure/authority case followed by adverse ruling (within 6-9 months). Watch SupCt docket + Oyez.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long subprime fintechs UPST, OPRT, LC (regulatory-overhang discount evaporates). Short XLF to isolate the alpha — JPM/BAC have minimal CFPB exposure.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Subprime fintech multiples carry an embedded regulatory discount. CFPB authority removal eliminates the largest enforcement risk, triggering multiple expansion. The pair structure removes broad financial beta.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">Loper Bright 2024 ended Chevron but didn't directly strike a regulator. CFPB-specific strike would be its own event type. No CFPB-direct precedent.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL804</span><h3>US Sovereign Negative Watch Pre-2027 X-Date → Long GLD / Short UUP</h3></div>
+    <div class="right">macro · tail · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">S&amp;P/Moody's/Fitch place US on negative watch within 60 days of Treasury X-date approach, or any of the three issue a methodology review. Combination with extraordinary-measures depletion timeline.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long GLD (reserve-currency stress tail bid). Short UUP (DXY weakness). Cross-asset pair, no direct duration leg.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">2011 S&amp;P downgrade is the only analog and was AAA→AA+ in steady-state Treasury conditions. A combined neg-watch + X-date convergence has never happened. The reserve-currency tail is what gold and DXY trade through.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">2011 downgrade analog occurred AFTER the X-date was resolved — different sequencing. Aug 2023 Fitch was X-date-distal. The combined scenario (pre-X neg-watch) is novel.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL823</span><h3>NK-Russia Munitions Axis Public Confirmation → Long LMT/RTX/GD</h3></div>
+    <div class="right">geopolitical · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">UN MSMT quarterly report explicitly names Rason → Dunai shipping lane, or RUSI Project Sandstone publishes new evidence cluster, or DoS issues sanctions package targeting NK-Russia arms flows.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long LMT, RTX, GD (FMS backfill demand for stockpile-replenishment ammunition / missile production). Optional EWY overlay (Korean defense).</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Confirmation of axis triggers US/EU sanctions response, supplemental defense appropriations targeting NK proliferation, and ROK procurement acceleration. Defense primes catch backlog upgrades on a 6-12 month lag.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">NK-Russia arms flows during Cold War (1953-1990) operated in a different geopolitical regime. 2022+ activity is post-Ukraine and post-MSMT. No clean analog.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-A">PL767</span><h3>BoJ Hikes Beyond 0.75% with Core-Core CPI &gt;2% → Long MUFG / Short SMFG NIM Pair</h3></div>
+    <div class="right">policy · novel-regime · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">BoJ MPM raises policy rate beyond 0.75% AND Core-Core CPI prints &gt;2% for 6+ consecutive months. Both conditions required.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long MUFG (8306). Short SMFG (8316). Intra-bank NIM pair — MUFG's fixed-rate loan mix gives asymmetric upside on the steeper hike path.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Japanese banks have ~75% of book in fixed-rate corporate/mortgage loans repricing slowly. MUFG's book composition is structurally more rate-sensitive than SMFG's. A definitive end-of-deflation regime amplifies the gap.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">BoJ has held below 0.75% for the entire post-2000 era. 2024 hike to 0.25-0.5% range is closest analog but rates are still negative-real with CPI persistence not yet structural. The regime above is novel.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL801</span><h3>BCRA Net Reserves Cross Zero → Short ARGT / Long GLD</h3></div>
+    <div class="right">macro · tail · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">BCRA net reserves (gross minus PBoC swap + encajes) crossing zero during an IMF review window. Watch BCRA weekly Comunicación A 4xxx series plus Reuters ARG reserve tracker.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Short ARGT (Argentine equity ETF). Long GLD hedge. Optional short YPF.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">Net-reserves negative during an IMF disbursement cycle signals disorderly devaluation risk. ARGT is composition-weighted to banks and YPF — exactly the names exposed to peso reset and capital-controls reimposition.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">Argentina has had multiple FX crises (2001, 2018-19, 2023) but each had unique political backdrops. Under Milei's reform program with IMF EFF, the dynamics are different — no analog.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-B">PL811</span><h3>USMCA 2026 Sunset Review Failure → Short MGA/LEA vs Long XLI Pair</h3></div>
+    <div class="right">policy · novel-event · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">USTR signals USMCA Article 34.7 sunset review outcome unfavorable (July 2026 deadline). Watch USTR press releases, Mexican Senate floor votes, and Polymarket USMCA-renewal contract.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Short MGA, LEA (Mexico-content-heavy auto suppliers). Long XLI for industrial hedge. Captures supplier-specific tariff risk without broad sector beta.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">USMCA's 16-year term with 6-year reviews means 2026 is the first sunset review. Failure (any of the 3 parties not affirming) extends to 10-year wind-down with tariff snap-backs. Mexico-content suppliers face 25-50% effective cost increases.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">USMCA replaced NAFTA in 2020. No prior sunset review has occurred. The mechanism is unique to USMCA's specific text.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL814</span><h3>CHIPS Act 2.0 Advanced-Packaging Earmark → Long AMKR / Short TSM Pair</h3></div>
+    <div class="right">policy · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">Congressional CHIPS Act 2.0 markup with explicit NIST CHIPS R&amp;D NAPMP earmark for advanced packaging (CoWoS / FOWLP) domestic capacity. Watch HFAC, SFRC, and CBO scoring.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long AMKR (Amkor Technology — domestic advanced-packaging incumbent). Short TSM ADR (packaging moat erodes). Pair structure isolates the policy-shift alpha.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">TSMC's CoWoS packaging is the chokepoint for high-end AI chips (H100/B200 family). Domestic packaging earmarks reshore the value chain, hurting TSMC's packaging margin and lifting AMKR's contract pipeline.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">CHIPS Act 1.0 (2022) is the only analog and was a one-time singular event with retroactive tax credits. CHIPS 2.0 has no template — markup may be structurally different.</span></div>
+  </div>
+</article>
+
+<article class="card watch">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-G">PL800</span><h3>SCOTUS Strikes NLRB Authority → Short F/GM/UAL/AAL/UPS (Counter-Intuitive)</h3></div>
+    <div class="right">policy · counter-intuitive · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">SCOTUS cert grant on Jarkesy-style NLRB challenge followed by adverse ruling for the agency (6-9 month window).</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">SHORT union-heavy basket (F, GM, UAL, AAL, UPS). Long XLI hedge optional. Counter-intuitive: most assume NLRB weakening = corporate-friendly = long.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">NLRB weakening accelerates union brinkmanship — unions go on strike sooner because mediation mechanisms are weakened. UAW 2023, UPS 2023, Boeing IAM 2024 all show that union-mediated dispute resolution prevents short-term operational disruption. Without it, operational shocks rise 2-8 weeks post-ruling.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">No prior SCOTUS strike of NLRB authority. The counter-intuitive thesis depends on the specific structure of post-ruling labor relations, which can't be inferred from historical strike clusters.</span></div>
+  </div>
+</article>
+
+</div>
+
+<p class="footnote" style="margin-top:32px;">More scenarios populated automatically: when the <code>strategy_developer</code> loop flags an idea with <code>status: "watchlist"</code> (no historical analog), it appears here. Curated by ekans signal-hunt pipeline.</p>
+</main>
+</div>
+</div><!-- end tab-watchlist -->
+
 <script>
 // ----- Pipeline tab logic -----
 function goToCatalog(signalId) {
@@ -6520,7 +6697,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-05-29';
+var CUR_VER = '2026-05-30';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
