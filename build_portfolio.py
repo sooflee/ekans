@@ -18,15 +18,21 @@ RESULTS = ROOT / "results"
 PNL_DIR = RESULTS / "pnl"
 
 sys.path.insert(0, str(ROOT / "backtests"))
+sys.path.insert(0, str(ROOT / "pipeline"))
+from winner_gate import is_winner, load_mt_data
 
 
 def load_winner_data():
+    """Load signals that pass the canonical winner gate (pipeline/winner_gate.py)."""
+    mt = load_mt_data()
     results = {}
     for fp in sorted(RESULTS.glob("*.json")):
         if fp.stem.startswith("_"):
             continue
         d = json.load(open(fp))
-        if d.get("status") == "ok" and (d.get("sharpe", 0) or 0) > 0.5 and (d.get("cagr", 0) or 0) > 0.1:
+        if not d.get("signal_id"):
+            d["signal_id"] = fp.stem
+        if is_winner(d, mt):
             results[fp.stem] = d
     return results
 

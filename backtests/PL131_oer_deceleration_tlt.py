@@ -35,10 +35,10 @@ def main():
     trigger_dates = []
     fired = False
     for i in range(6, len(decel)):
-        if decel.iloc[i] > 2 and not fired:
+        if decel.iloc[i] > 1 and not fired:
             trigger_dates.append(yoy.index[i])
             fired = True
-        elif decel.iloc[i] < 2 / 2:
+        elif decel.iloc[i] < 0.5:
             fired = False
 
     

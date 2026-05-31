@@ -1,22 +1,18 @@
 """
 Batch develop 28 new ideas into strategies, create backtest files, run them.
+
+This script's write-out at the end goes through pipeline/queue_io.py so it
+won't race against live agents.
 """
 import json, os, sys, datetime as dt
 from pathlib import Path
 
 ROOT = Path("/Users/benson/Projects/ekans")
+sys.path.insert(0, str(ROOT / "pipeline"))
+from queue_io import append_strategies, update_idea_status  # noqa: E402
 
-# ---- Step 1: Load ideas, develop new ones ----
-with open(ROOT / "pipeline/ideas_queue.json") as f:
-    ideas = json.load(f)
-
-with open(ROOT / "pipeline/strategies_queue.json") as f:
-    strategies = json.load(f)
-
-new_ideas = [i for i in ideas if i['status'] == 'new']
-print(f"Found {len(new_ideas)} new ideas to develop")
-
-# Strategy definitions for each new idea
+# Strategy definitions for each new idea (module-level constant; inert when
+# this file is imported rather than executed).
 STRATEGY_DEFS = {
     "PL102": {
         "signal_id": "PL102_soybean_oil_ppi_food",
@@ -328,60 +324,69 @@ STRATEGY_DEFS = {
     },
 }
 
-# ---- Develop ideas and create strategies ----
-now_str = dt.datetime.utcnow().isoformat() + "+00:00"
-existing_signal_ids = {s.get('signal_id') for s in strategies}
+def main():
+    # Snapshot the queues (read-only is safe under the atomic-rename writer).
+    with open(ROOT / "pipeline/ideas_queue.json") as f:
+        ideas = json.load(f)
+    with open(ROOT / "pipeline/strategies_queue.json") as f:
+        strategies = json.load(f)
 
-new_strategies = []
-for idea in new_ideas:
-    iid = idea['idea_id']
-    if iid not in STRATEGY_DEFS:
-        print(f"WARNING: No strategy def for {iid}, skipping")
-        continue
-    
-    sdef = STRATEGY_DEFS[iid]
-    
-    # Check reject conditions
-    if idea.get('bt_feasibility', 0) < 4:
-        idea['status'] = 'rejected'
-        idea['reject_reason'] = f"bt_feasibility {idea.get('bt_feasibility')} < 4"
-        continue
-    
-    # Mark as developed
-    idea['status'] = 'developed'
-    
-    # Create strategy if not already exists
-    if sdef['signal_id'] in existing_signal_ids:
-        print(f"Strategy {sdef['signal_id']} already exists, skipping")
-        continue
-    
-    strat = {
-        "strategy_id": iid,
-        "idea_id": iid,
-        "created_at": now_str,
-        "status": "ready",
-        "signal_id": sdef['signal_id'],
-        "name": sdef['name'],
-        "category": sdef.get('category', 'C'),
-        "rule": sdef['rule'],
-        "tickers": sdef['tickers'],
-        "data_sources_concrete": {
-            "prices": f"yfinance {', '.join(sdef['tickers'])}",
-            "fundamental": f"FRED {', '.join(sdef['fred_series'])}"
-        },
-        "originality": idea.get('originality', 7),
-        "bt_feasibility": idea.get('bt_feasibility', 5),
-    }
-    strategies.append(strat)
-    new_strategies.append(strat)
-    print(f"Developed: {iid} -> {sdef['signal_id']}")
+    new_ideas = [i for i in ideas if i['status'] == 'new']
+    print(f"Found {len(new_ideas)} new ideas to develop")
 
-# Save updated ideas and strategies
-with open(ROOT / "pipeline/ideas_queue.json", "w") as f:
-    json.dump(ideas, f, indent=2)
+    existing_signal_ids = {s.get('signal_id') for s in strategies}
 
-with open(ROOT / "pipeline/strategies_queue.json", "w") as f:
-    json.dump(strategies, f, indent=2)
+    new_strategies = []
+    idea_status_updates: list[tuple[str, str, dict]] = []  # (idea_id, new_status, extras)
+    for idea in new_ideas:
+        iid = idea['idea_id']
+        if iid not in STRATEGY_DEFS:
+            print(f"WARNING: No strategy def for {iid}, skipping")
+            continue
 
-print(f"\nDeveloped {len(new_strategies)} new strategies, total strategies now: {len(strategies)}")
-print(f"Ready strategies: {[s['signal_id'] for s in strategies if s['status'] == 'ready']}")
+        sdef = STRATEGY_DEFS[iid]
+
+        # Check reject conditions
+        if idea.get('bt_feasibility', 0) < 4:
+            idea_status_updates.append((
+                iid, "rejected",
+                {"reject_reason": f"bt_feasibility {idea.get('bt_feasibility')} < 4"},
+            ))
+            continue
+
+        # Create strategy if not already exists
+        if sdef['signal_id'] in existing_signal_ids:
+            print(f"Strategy {sdef['signal_id']} already exists, skipping")
+            idea_status_updates.append((iid, "developed", {}))
+            continue
+
+        strat = {
+            "strategy_id": iid,
+            "idea_id": iid,
+            "signal_id": sdef['signal_id'],
+            "name": sdef['name'],
+            "category": sdef.get('category', 'C'),
+            "rule": sdef['rule'],
+            "tickers": sdef['tickers'],
+            "data_sources_concrete": {
+                "prices": f"yfinance {', '.join(sdef['tickers'])}",
+                "fundamental": f"FRED {', '.join(sdef['fred_series'])}"
+            },
+            "originality": idea.get('originality', 7),
+            "bt_feasibility": idea.get('bt_feasibility', 5),
+        }
+        new_strategies.append(strat)
+        idea_status_updates.append((iid, "developed", {}))
+        print(f"Developed: {iid} -> {sdef['signal_id']}")
+
+    # Persist via queue_io (single locked append + per-idea status updates).
+    if new_strategies:
+        append_strategies(new_strategies)
+    for iid, new_status, extras in idea_status_updates:
+        update_idea_status(iid, new_status, **extras)
+
+    print(f"\nDeveloped {len(new_strategies)} new strategies, total strategies now: {len(strategies) + len(new_strategies)}")
+
+
+if __name__ == "__main__":
+    main()

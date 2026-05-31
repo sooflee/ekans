@@ -1,0 +1,42 @@
+
+[drain] #1 claimed PL096 -> PL96_retail_sales_ex_auto_xly
+[drain] FAILED PL96_retail_sales_ex_auto_xly: no events
+
+[drain] #2 claimed PL099 -> PL99_breakeven_below_target_tips
+[drain] FAILED PL99_breakeven_below_target_tips: no events
+
+[drain] #3 claimed PL115 -> PL115_cmbs_spread_regional_banks
+[drain] FAILED PL115_cmbs_spread_regional_banks: no trigger events found
+
+[drain] #4 claimed PL118 -> PL118_consumer_confidence_travel
+[drain] FAILED PL118_consumer_confidence_travel: no trigger events found
+
+[drain] #5 claimed PL131 -> PL131_oer_deceleration_tlt
+[drain] DONE   PL131_oer_deceleration_tlt: Sharpe=0.1822107826092667, CAGR=0.015890037019870462
+
+[drain] #6 claimed PL555 -> PL555_move_spike_hyg_compressed_iwm_reversion
+[drain] FAILED PL555_move_spike_hyg_compressed_iwm_reversion: No events found for BAMLH0A0HYM2 YoY signal
+
+[drain] #7 claimed PL596 -> PL596_naaim_2sigma_defensive_spy_fade
+[drain] DONE   PL596_naaim_2sigma_defensive_spy_fade: Sharpe=-0.4757608835643141, CAGR=-0.048419126102504983
+
+[drain] #8 claimed PL028 -> PL028_dcfc_grid_transformer_event
+[drain] FAILED PL028_dcfc_grid_transformer_event: Could not parse FRED series from strategy rule
+
+[drain] #9 claimed PL251 -> PL251_gulf_sst_marine_heatwave_event
+[drain] FAILED PL251_gulf_sst_marine_heatwave_event: Could not parse FRED series from strategy rule
+
+[drain] #10 claimed PL259 -> PL259_faa_opsnet_travel_event
+[drain] FAILED PL259_faa_opsnet_travel_event: Could not parse FRED series from strategy rule
+
+[drain] #11 claimed PL254 -> PL254_census_housing_starts
+[drain] FAILED PL254_census_housing_starts: Could not parse FRED series from strategy rule
+[drain] queue empty — sleeping 45s for stragglers...
+[drain] queue still empty — exiting loop.
+
+=== DRAIN REPORT ===
+claimed: 11
+done:    2
+failed:  9
+winners: 0
+[drain] report -> /Users/benson/Projects/ekans/pipeline/_drain_second_pass_report.json

@@ -218,6 +218,24 @@ def load_results():
         except Exception:
             pass
 
+    # Merge counter_signal flag from strategies_queue.json (the flag lives on
+    # the strategy/idea, not the backtest result file). Join on signal_id.
+    strats_path = ROOT / "pipeline" / "strategies_queue.json"
+    if strats_path.exists():
+        try:
+            with open(strats_path) as f:
+                strats = json.load(f)
+            counter_map = {
+                s.get("signal_id"): (bool(s.get("counter_signal")), s.get("counters", ""))
+                for s in strats if s.get("signal_id")
+            }
+            for r in results:
+                flag, counters = counter_map.get(r["id"], (False, ""))
+                r["counter_signal"] = flag
+                r["counters"] = counters
+        except Exception:
+            pass
+
     return results
 
 
@@ -282,6 +300,8 @@ def render_html(results):
             "is_sharpe": r.get("is_sharpe"),
             "oos_sharpe": r.get("oos_sharpe"),
             "bh_sig": r.get("bh_significant"),
+            "counter": bool(r.get("counter_signal")),
+            "counters": r.get("counters") or "",
         }
         table_data.append(row)
 
@@ -463,6 +483,17 @@ a { color: var(--accent); }
 }
 #reset-btn:hover { color: var(--accent); border-color: var(--accent); }
 
+.bh-checkbox {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; font-size: 13px; color: var(--fg-dim);
+  padding: 6px 0;
+}
+.bh-checkbox input[type="checkbox"] {
+  width: 14px; height: 14px; accent-color: var(--accent); cursor: pointer;
+}
+.bh-checkbox:hover { color: var(--fg); }
+.bh-checkbox input:checked + span { color: var(--accent); font-weight: 600; }
+
 /* Sidebar summary counts */
 .sb-stats {
   display: flex; gap: 8px; font-size: 11px; color: var(--fg-dim);
@@ -512,6 +543,12 @@ main {
   border-color: var(--fg-dim);
   background: var(--bg-3);
 }
+.signal-card.counter {
+  border-left: 3px solid var(--warn);
+}
+.signal-card.counter:hover {
+  border-left-color: var(--warn);
+}
 .signal-card.expanded {
   border-color: var(--accent);
   background: var(--bg-2);
@@ -554,6 +591,9 @@ main {
 }
 .card-status-badge.ok {
   background: rgba(52,211,153,0.12); color: var(--good);
+}
+.card-status-badge.counter {
+  background: rgba(251,191,36,0.14); color: var(--warn);
 }
 .card-status-badge.fail {
   background: rgba(248,113,113,0.15); color: var(--bad);
@@ -679,6 +719,13 @@ main {
         <button data-status="ok">OK</button>
         <button data-status="fail">Fail</button>
       </div>
+    </div>
+
+    <div class="sb-group">
+      <label class="bh-checkbox">
+        <input type="checkbox" id="bh-only" checked>
+        <span>BH survivor only</span>
+      </label>
     </div>
 
     <div class="sb-group">
@@ -819,6 +866,7 @@ sharpeSlider.addEventListener("input", () => {
 });
 
 document.getElementById("search").addEventListener("input", render);
+document.getElementById("bh-only").addEventListener("change", render);
 
 // Sort buttons
 document.querySelectorAll("#sort-btns .sort-btn").forEach(btn => {
@@ -850,6 +898,7 @@ document.getElementById("reset-btn").addEventListener("click", () => {
   document.querySelector('#status-toggle button[data-status=""]').classList.add("active");
   cagrSlider.value = 0; cagrVal.textContent = "0%";
   sharpeSlider.value = -10; sharpeVal.textContent = "any";
+  document.getElementById("bh-only").checked = true;
   currentSort = { key: "sharpe", dir: -1 };
   document.querySelectorAll("#sort-btns .sort-btn").forEach(b => b.classList.remove("active", "asc"));
   document.querySelector('#sort-btns .sort-btn[data-sort="sharpe"]').classList.add("active");
@@ -861,7 +910,11 @@ document.getElementById("reset-btn").addEventListener("click", () => {
 function buildCard(r) {
   const isExp = expandedIds.has(r.id);
   const isFail = r.status === "fail";
-  const cls = "signal-card" + (isExp ? " expanded" : "") + (isFail ? " failed" : "");
+  const isCounter = !!r.counter;
+  const cls = "signal-card"
+    + (isExp ? " expanded" : "")
+    + (isFail ? " failed" : "")
+    + (isCounter ? " counter" : "");
   const swatchColor = CAT_COLORS[r.cat] || "var(--fg-dim)";
 
   // Collapsed row
@@ -875,6 +928,9 @@ function buildCard(r) {
 
   const bhBadge = r.bh_sig === true ? '<span class="card-status-badge ok" title="Survives BH multiple-testing correction">BH</span>'
     : r.bh_sig === false ? '<span class="card-status-badge fail" title="Does not survive BH correction">BH</span>' : '';
+  const counterBadge = isCounter
+    ? '<span class="card-status-badge counter" title="Counter-signal: defensive/short trigger against ' + escHtml(r.counters || 'a convergence group') + '">↓ ' + escHtml(r.counters || 'counter') + '</span>'
+    : '';
 
   let collapsed = '<div class="card-collapsed">' +
     '<div class="card-swatch" style="background:' + swatchColor + '"></div>' +
@@ -882,7 +938,7 @@ function buildCard(r) {
     '<div class="card-inline-metrics">' +
       '<span><span class="lbl">Sh</span><span class="' + shCls + '">' + shText + '</span></span>' +
       '<span><span class="lbl">CAGR</span><span class="' + cgCls + '">' + cgText + '</span></span>' +
-      bhBadge + statusBadge +
+      counterBadge + bhBadge + statusBadge +
     '</div>' +
   '</div>';
 
@@ -956,11 +1012,14 @@ function render() {
   const minSharpeRaw = parseInt(sharpeSlider.value);
   const minSharpe = minSharpeRaw <= -10 ? -Infinity : minSharpeRaw / 10;
 
+  const bhOnly = document.getElementById("bh-only").checked;
+
   let rows = DATA.filter(r => {
     if (activeCat && r.cat !== activeCat) return false;
     if (activeStatus && r.status !== activeStatus) return false;
     if (minCagr > 0 && (r.cagr === null || r.cagr === undefined || r.cagr < minCagr)) return false;
     if (minSharpe > -Infinity && (r.sharpe === null || r.sharpe === undefined || r.sharpe < minSharpe)) return false;
+    if (bhOnly && r.bh_sig !== true) return false;
     if (q) {
       const hay = (r.name + " " + r.id + " " + (r.source||"") + " " + (r.desc||"") + " " + r.asset).toLowerCase();
       if (!hay.includes(q)) return false;

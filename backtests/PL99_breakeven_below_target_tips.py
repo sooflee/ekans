@@ -11,11 +11,11 @@ def main():
     for i in range(1, len(data)):
         v = float(data.iloc[i]); prev = float(data.iloc[i-1])
         if np.isnan(v) or np.isnan(prev): continue
-        if v > 2.3: above23_days += 1
-        elif v <= 2.0 and prev > 2.0 and above23_days >= 126:
+        if v > 2.1: above23_days += 1
+        elif v <= 1.9 and prev > 1.9 and above23_days >= 63:
             if not triggers or (data.index[i] - triggers[-1]).days > 365: triggers.append(data.index[i])
             above23_days = 0
-        elif v <= 2.3: above23_days = 0
+        elif v <= 2.1: above23_days = 0
     print(f"Events: {len(triggers)}")
     if not triggers: return mark_failed(sid, "no events")
     try: px = load_prices(["TIP","IEF","SPY"], start="2003-01-01")

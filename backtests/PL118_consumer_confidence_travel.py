@@ -28,14 +28,14 @@ def main():
     yoy_chg = series.diff(12)
     yoy_chg = yoy_chg.dropna()
     
-    above = yoy_chg > 10
+    above = yoy_chg > 3
     trigger_dates = []
     streak = 0
     fired = False
     for i in range(len(above)):
         if above.iloc[i]:
             streak += 1
-            if streak >= 3 and not fired:
+            if streak >= 2 and not fired:
                 trigger_dates.append(yoy_chg.index[i])
                 fired = True
         else:

@@ -13,7 +13,7 @@ def main():
         v = float(mom.iloc[i]); prev = float(mom.iloc[i-1])
         if np.isnan(v) or np.isnan(prev): continue
         if v <= 0: flat_count += 1
-        elif v > 0.005 and prev > 0.005 and flat_count >= 3:
+        elif v > 0.003 and prev > 0.003 and flat_count >= 2:
             if not triggers or (mom.index[i] - triggers[-1]).days > 180: triggers.append(mom.index[i])
             flat_count = 0
         else: flat_count = 0 if v > 0 else flat_count

@@ -9,8 +9,9 @@ def main():
         pce = load_fred("PCEPILFE", start="1998-01-01").squeeze()
     except Exception as e: return mark_failed(sid, f"FRED: {e}")
     if dff.empty or pce.empty: return mark_failed(sid, "no data")
-    # Forward-fill PCE to daily
-    pce_daily = pce.resample("D").ffill()
+    # Convert PCE level to YoY % then forward-fill to daily
+    pce_yoy = pce.pct_change(12) * 100
+    pce_daily = pce_yoy.resample("D").ffill()
     idx = dff.index.intersection(pce_daily.index)
     real_rate = dff.loc[idx] - pce_daily.loc[idx]
     real_rate = real_rate.dropna()

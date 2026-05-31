@@ -30,7 +30,7 @@ def main():
 
     for i in range(1, len(vac_q) - 1):
         v_prev, v_curr, v_next = float(vac_q.iloc[i-1]), float(vac_q.iloc[i]), float(vac_q.iloc[i+1])
-        if np.isnan(v_curr) or v_curr >= v_prev or v_curr >= v_next or v_curr >= 5.5:
+        if np.isnan(v_curr) or v_curr >= v_prev or v_curr >= v_next or v_curr >= 8.0:
             continue
 
         # Entry: first trading day of the NEXT quarter
@@ -59,7 +59,7 @@ def main():
         })
 
     if not events:
-        return mark_failed(sid, "No vacancy trough events found with vacancy < 5.5%")
+        return mark_failed(sid, "No vacancy trough events found with vacancy < 8.0%")
 
     all_pnl = pd.concat(pnl_parts)
     m = compute_metrics(all_pnl, benchmark=spy_r.reindex(all_pnl.index).dropna(),

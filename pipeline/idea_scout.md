@@ -124,6 +124,39 @@ Counter-signal ideas MUST include two extra fields in the queue JSON:
 
 A counter-signal idea still needs originality >= 6, bt_feasibility >= 3, a concrete causal chain, free data sources, and a real `source_reference`. Lower the bar on nothing — just bias your domain hunt toward defensive/short mechanisms.
 
+## Asset-target diversification (EVERY iteration)
+
+The catalog skews heavily toward signals that predict SPY, QQQ, or BTC. Those are the lazy default — they're easy to find data for, easy to backtest, and feel "macro" enough that any cross-domain causal chain ends up pointed at them. The result is a portfolio that's mostly broad-index exposure under different names. This rule fixes it.
+
+### Quota for each 2-3 idea batch
+
+Across the 2-3 ideas you generate this iteration, the `asset_class` field MUST cover **at least 2 distinct buckets** from this list:
+
+- `single_name_equity` — a specific public company (e.g., HCA, CPRT, MOWI, KOF)
+- `sector_etf` — a sector or industry ETF (e.g., XLU, XLV, XBI, COPX, KRE)
+- `commodity` — a commodity future or commodity ETF (e.g., HG=F, GLD, CORN, USO)
+- `rates_bonds` — Treasuries or credit (e.g., TLT, HYG, IEF, EMLC)
+- `fx` — a currency pair or single-country ETF (e.g., USD/MXN, EWJ, EWZ)
+- `crypto` — a crypto asset or crypto-proxy equity (e.g., IBIT, COIN, MSTR)
+
+### Hard cap on SPY/QQQ/IWM
+
+**No more than one idea per batch** may trade SPY, QQQ, or IWM directly as the primary target. Counter-signals against `long_SPY` are exempt from this cap (since the whole point of those is to short SPY, that's the asset by design). Sector ETFs (XLY, XLP, XLU, etc.) do NOT count as broad-index targets — those are fine.
+
+### How to find non-index targets
+
+When designing the causal chain's terminal step (the tradable instrument), prefer:
+- **The specific company most exposed** to the mechanism — not its sector ETF, and definitely not SPY. If the mechanism is "China rare-earth export quota tightens," the target is MP, USAC, REMX-specific names, not "long SOXX" or "short SPY tech."
+- **Commodity futures or focused ETFs** when the mechanism is a physical-world supply/demand shock. USACE lock closures → CORN/SOYB/ZW=F, not "short SPY agriculture."
+- **Single-country ETFs** when the mechanism is country-specific. Egyptian fertilizer subsidy cut → ABUK.CA / MFPC.CA / EGPT, not "short SPY emerging markets."
+- **Curve-relative trades** when the mechanism is rates-specific. FOMC dot revision → TLT, IEF, 2s/10s, not "long SPY duration proxy."
+
+If your initial chain ends at SPY because "the macro shock affects equities broadly," push it one more step: which sub-industry is most exposed? Which single name has the highest revenue concentration in the affected business line? Trade that.
+
+### When the target list is consulted
+
+If `pipeline/target_assets.md` exists, the assets listed there are the project's preferred trading universe. Bias your terminal-asset selection toward names in that list when the mechanism plausibly touches them.
+
 ## JSON schema for each idea
 
 ```json

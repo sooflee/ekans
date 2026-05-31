@@ -4,7 +4,7 @@ import numpy as np, pandas as pd
 from harness import load_prices, load_fred, compute_metrics, save_result, mark_failed, daily_returns
 def main():
     sid = "PL93_intermodal_traffic_turn_rails"
-    try: fred = load_fred("RAILFRTINTERAM", start="2000-01-01"); data = fred.squeeze()
+    try: fred = load_fred("RAILFRTINTERMODAL", start="2000-01-01"); data = fred.squeeze()
     except Exception as e: return mark_failed(sid, f"FRED: {e}")
     if data.empty: return mark_failed(sid, "no data")
     yoy = data.pct_change(12).dropna()
@@ -38,8 +38,8 @@ def main():
     if len(ip)<30: return mark_failed(sid, f"insufficient days ({len(ip)})")
     m = compute_metrics(ip, benchmark=spy_r, name="Intermodal Traffic Turn → Long UNP+CSX")
     ra = [e["basket_return"] for e in evts]
-    save_result(sid, m, extra={"rule":"Long UNP+CSX 126d when RAILFRTINTERAM YoY turns positive after 6+ months negative",
-        "source":"FRED RAILFRTINTERAM; yfinance","n_events":len(evts),"avg_event_return":round(float(np.mean(ra)),4),
+    save_result(sid, m, extra={"rule":"Long UNP+CSX 126d when RAILFRTINTERMODAL YoY turns positive after 6+ months negative",
+        "source":"FRED RAILFRTINTERMODAL; yfinance","n_events":len(evts),"avg_event_return":round(float(np.mean(ra)),4),
         "event_win_rate":round(float(np.mean([r>0 for r in ra])),4),"events":evts})
     print(f"Done: {len(evts)} events")
 if __name__=="__main__": main()

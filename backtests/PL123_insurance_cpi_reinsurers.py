@@ -28,14 +28,14 @@ def main():
     yoy = series.pct_change(12) * 100
     yoy = yoy.dropna()
     
-    above = yoy > 8
+    above = yoy > 5
     trigger_dates = []
     streak = 0
     fired = False
     for i in range(len(above)):
         if above.iloc[i]:
             streak += 1
-            if streak >= 6 and not fired:
+            if streak >= 3 and not fired:
                 trigger_dates.append(yoy.index[i])
                 fired = True
         else:

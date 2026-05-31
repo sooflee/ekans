@@ -27,16 +27,17 @@ def main():
     trigger_dates = []
     above_count = 0
     fired = False
+    # BAMLH0A0HYM2 is in percent units (e.g. 5.0 = 500bps), not basis points
     for i in range(len(series)):
-        if series.iloc[i] > 500:
+        if series.iloc[i] > 5.0:
             above_count += 1
             fired = False
-        elif above_count >= 3 and series.iloc[i] < 400 and not fired:
+        elif above_count >= 60 and series.iloc[i] < 4.0 and not fired:
             trigger_dates.append(series.index[i])
             fired = True
             above_count = 0
         else:
-            if series.iloc[i] < 400:
+            if series.iloc[i] < 4.0:
                 above_count = 0
 
     

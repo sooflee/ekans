@@ -30,3 +30,7 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# queue_io fcntl sidecar locks + tmp files (atomic write artifacts)
+pipeline/*.lock
+pipeline/*.tmp
