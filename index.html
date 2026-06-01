@@ -559,7 +559,55 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   color: var(--fg-dim); margin: 16px 0 24px; line-height: 1.5;
 }
 .watch-disclaimer strong { color: var(--accent); }
-#tab-watchlist .layout { grid-template-columns: 1fr; max-width: 1100px; margin: 0 auto; }
+#tab-watchlist .layout { max-width: 1280px; margin: 0 auto; }
+/* Per-scenario nav links in the watchlist sidebar (mirrors .strat-link). */
+#watch-nav .watch-link {
+  display: grid !important; grid-template-columns: 10px 1fr; align-items: start;
+  gap: 8px; padding: 6px 10px !important; margin: 1px 0 !important;
+  text-decoration: none; font-size: 12.5px; color: var(--fg);
+  border: 1px solid transparent; border-radius: 5px; cursor: pointer;
+}
+#watch-nav .watch-link:hover { background: var(--bg-3); border-color: var(--border); }
+#watch-nav .watch-link.active {
+  background: rgba(125,211,252,0.18); border-color: var(--accent);
+  color: var(--accent); font-weight: 600;
+}
+#watch-nav .watch-link .swatch { width: 9px; height: 9px; border-radius: 2px; margin-top: 3px; }
+#watch-nav .watch-link .wl-text { min-width: 0; line-height: 1.35; }
+#watch-nav .watch-link .wl-id {
+  font-family: var(--mono); font-size: 10.5px; color: var(--fg-dim); margin-right: 5px;
+}
+#watch-nav .watch-link.active .wl-id { color: var(--accent); }
+#watch-nav .wl-group {
+  color: var(--fg-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em;
+  margin: 12px 8px 4px; padding-top: 8px; border-top: 1px solid var(--border);
+}
+#watch-nav .wl-group:first-child { border-top: none; padding-top: 0; margin-top: 4px; }
+.watch-show-all .count { float: right; color: var(--fg-dim); font-size: 11px; font-family: var(--mono); }
+/* Theme filter bar: mirrors .sub-tabs look, standalone so the global sub-tab
+   click/keyboard handlers don't also bind to it. */
+.watch-filter {
+  display: flex; gap: 4px; flex-wrap: wrap; margin: 0 0 22px;
+  border-bottom: 1px solid var(--border);
+}
+.watch-filter button {
+  background: transparent; border: 1px solid transparent;
+  color: var(--fg-dim); font: 600 12px/1 var(--mono); padding: 8px 14px;
+  cursor: pointer; border-radius: 6px 6px 0 0;
+  transition: color 0.12s, background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.watch-filter button:hover { color: var(--fg); }
+.watch-filter button.active {
+  color: var(--accent); border-color: var(--border); background: var(--bg);
+  box-shadow: 0 1px 0 0 var(--bg);
+}
+.watch-filter .tab-count {
+  font-size: 11px; font-weight: 400; color: var(--fg-dim);
+  background: var(--bg-3); padding: 1px 6px; border-radius: 8px;
+}
+.watch-filter button.active .tab-count { background: var(--bg-2); color: var(--accent); }
+.watch-empty { display: none; color: var(--fg-dim); font-size: 13px; padding: 24px 0; }
 @media (max-width: 640px) {
   article.card.watch .watch-row { grid-template-columns: 1fr; gap: 4px; }
 }
@@ -622,7 +670,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 
 <div id="tab-strategies" class="tab-panel active" role="tabpanel" aria-labelledby="tabbtn-strategies">
 <div class="sub-tabs" data-subtabs-for="strategies" role="tablist" aria-label="Strategy views">
-  <button data-subtab="highreturn" class="active" id="subbtn-strategies-highreturn" role="tab" aria-selected="true" aria-controls="subpanel-strategies-highreturn" tabindex="0">High Return<span class="tab-count" id="tab-strat-count">28</span></button>
+  <button data-subtab="highreturn" class="active" id="subbtn-strategies-highreturn" role="tab" aria-selected="true" aria-controls="subpanel-strategies-highreturn" tabindex="0">High Return<span class="tab-count" id="tab-strat-count">29</span></button>
   <button data-subtab="catalog" id="subbtn-strategies-catalog" role="tab" aria-selected="false" aria-controls="tab-catalog" tabindex="-1">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
 </div>
 <div class="sub-panel active" data-subpanel="highreturn" id="subpanel-strategies-highreturn" role="tabpanel" aria-labelledby="subbtn-strategies-highreturn">
@@ -654,6 +702,75 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 
 
 <!-- All trading signals, sorted by CAGR descending by default -->
+
+<article class="card" data-sharpe="0.88" data-cagr="35.8">
+    <div class="card-head">
+    <div class="left"><span class="badge cat-B">PL640</span><h3>★ VVIX Top-Decile + VIX9D &lt; VIX → Short SPY (Convexity Bid Precedes Vol Spike)</h3></div>
+    <div class="right">index equity (short) · ~10-day hold · 116 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.88</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">35.8%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-59.2%</div><div class="ml">MaxDD ⚠</div></div>
+    <div class="m"><div class="mv">3.85</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">0.90</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>VVIX (the vol-of-VIX) pushing into its top decile signals heavy convexity buying — desks bidding up VIX options to hedge tails — while VIX9D &lt; VIX means the 9-day front end is still calmer than 30-day vol, i.e. the spot tape remains complacent. That divergence — aggressive tail-hedging underneath a calm front end — has historically led volatility spikes and SPY drawdowns over the following ~2 weeks, as the hedging flow front-runs the realized move.</p>
+    <h4>Rule</h4>
+    <div class="rule">Short SPY when trailing VVIX sits in the top 10th percentile of its 252-day distribution while VIX9D / VIX ≤ 0.95 (calm front end). Hold ~10 trading days; exit early on a SPY profit move or stop.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Short-vol drawdown caveats:</strong> 116 events / 4,881 days, but the −59.2% MaxDD is real — this shorts SPY into complacent tapes and bleeds during sustained bull runs, with returns concentrated in 2008/2020-type clusters. Short SPY carries financing/borrow cost. t-stat 3.85, OOS Sharpe 0.90. Passes the full winner gate (BH-significant at FDR=0.05, positive OOS Sharpe) but size for the drawdown and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance ^VVIX / ^VIX / ^VIX9D / SPY; project queue spec</span><span><code>backtests/PL640_vvix_high_vix9d_low_short_spy.py</code></span></div>
+</article>
+
+<article class="card" data-sharpe="0.82" data-cagr="12.7">
+    <div class="card-head">
+    <div class="left"><span class="badge cat-J">PL613</span><h3>★ Lean-Hog Herd Contraction → Long Lean Hogs (HE=F)</h3></div>
+    <div class="right">commodity futures · ~5-month hold · 18 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.82</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">12.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-30.8%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.97</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">0.89</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Cobweb hog cycle: the lean-hog front-month price is a regime proxy for USDA's Quarterly Hogs &amp; Pigs breeding-herd data (PDF-only, not in FRED). A sustained low-margin price regime is the leading indicator that drives herd liquidation — producers cull the breeding herd when margins stay negative, which tightens supply after the ~10-month biological lag and squeezes prices higher. Buying the depressed regime front-runs that lagged supply response.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long HE=F front-month when its trailing 252-day percentile rank ≤ 0.15 (bottom 15th) AND it has closed below its trailing 252-day SMA for 60+ consecutive trading days. Hold the earlier of 100 trading days (~5 months) or +18% above entry.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Sparse, regime-driven:</strong> only 18 events across 5,928 days, with a −30.8% MaxDD. HE=F front-month roll/contango is a real holding cost not fully captured, and the price proxy stands in for the actual NASS herd data. t-stat 3.97, OOS Sharpe 0.89. Passes the full winner gate (BH-significant at FDR=0.05, positive OOS Sharpe) but the small event count means meaningful regime dependence — size accordingly.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance HE=F; price-regime proxy for USDA NASS Quarterly Hogs and Pigs</span><span><code>backtests/PL613_hog_herd_contraction_long_he.py</code></span></div>
+</article>
+
+<article class="card" data-sharpe="2.72" data-cagr="188.7">
+    <div class="card-head">
+    <div class="left"><span class="badge cat-K">PL742</span><h3>★★ FBI NICS Background-Check Acceleration → Long Gun Makers (RGR + SWBI)</h3></div>
+    <div class="right">single-name equity · 30-day hold · 15 events</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.72</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">188.7%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-18.2%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.63</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">3.13</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>FBI NICS monthly background checks are a high-frequency leading indicator of firearm unit sales. When year-over-year check growth accelerates sharply (fear events, policy/legislative uncertainty, seasonal surges), the demand flows directly into the two liquid US gun manufacturers — Ruger (RGR) and Smith &amp; Wesson (SWBI) — ahead of the earnings beats and analyst upgrades that follow. The acceleration (second derivative), not the level, front-runs the revenue surprise.</p>
+    <h4>Rule</h4>
+    <div class="rule">When FBI NICS monthly background checks show YoY growth accelerating ≥10pp month-over-month, go long equal-weight RGR + SWBI for 30 trading days from the approximate release date (~5 weeks after month-end).</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Regime-concentration caveats:</strong> 15 events / 450 active days. The 2020–2021 COVID demand surge dominates the in-sample window and inflates the 188.7% CAGR — expect materially lower forward returns. NICS checks include denied checks and permit re-checks (not a clean unit-sales proxy), and release dates are approximated. Two-name basket carries idiosyncratic single-name risk. Passes the full winner gate (BH-significant at FDR=0.05, OOS Sharpe 3.13), but size for the regime dependence.</div>
+  </div>
+  <div class="card-foot"><span>Source: pipeline; FBI NICS monthly firearm background-check statistics (public) + yfinance RGR/SWBI</span><span><code>backtests/PL742_nics_accel_long_rgr_swbi.py</code></span></div>
+</article>
 
 <article class="card demoted">
   <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
@@ -1328,7 +1445,8 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   </div></div>
 </article>
 
-<article class="card">
+<article class="card demoted">
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
   <div class="card-head">
     <div class="left"><span class="badge cat-C">C07</span><h3>Accelerating Dual Momentum</h3></div>
     <div class="right">multi-asset · monthly rebalance</div>
@@ -1400,7 +1518,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>5.5%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>5.5%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-C">C14</span><h3>Time-Series Momentum (TSMOM)</h3></div>
     <div class="right">multi-asset · 1-12 months</div>
@@ -1476,7 +1594,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>9.9%</code> &le; 10%; no OOS Sharpe computed (rerun via shared harness).</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> CAGR <code>9.9%</code> &le; 10%; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-A">A16</span><h3>Heston-Sadka Same-Calendar-Month Seasonality</h3></div>
     <div class="right">equities · monthly</div>
@@ -2545,7 +2663,8 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   </div></div>
 </article>
 
-<article class="card">
+<article class="card demoted">
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
   <div class="card-head">
     <div class="left"><span class="badge cat-C">AQ-1</span><h3>★ Copper Near Marginal Cost Floor → Long HG=F</h3></div>
     <div class="right">commodities · event-driven · 2016-2023</div>
@@ -4012,7 +4131,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> no OOS Sharpe computed (rerun via shared harness).</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-E">PL212_rsxfs_surge_payment_processors</span><h3>Retail Sales Control Group Surge &rarr; Long Payment Processors</h3></div>
     <div class="right">macro &middot; ~2-month hold &middot; 24 events</div>
@@ -4380,7 +4499,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>168</code>, n_events=<code>8</code>.</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>168</code>, n_events=<code>8</code>.</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-E">PL293_sec_13f_hedge_fund_short_unwinding_squeeze</span><h3>Hedge Fund Short Unwinding &rarr; Long Small Caps (IWM)</h3></div>
     <div class="right">sentiment &middot; ~3-week hold &middot; 8 events</div>
@@ -5636,6 +5755,11 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 
 <div id="tab-watchlist" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-watchlist">
 <div class="layout" style="padding-top:24px;">
+<aside class="sidebar">
+  <h4>Scenarios</h4>
+  <button id="watch-show-all" class="watch-show-all active">All scenarios<span class="count" id="watch-all-count"></span></button>
+  <div id="watch-nav"></div>
+</aside>
 <main class="container">
 <h2 style="margin-top:0;">Watchlist — Untestable Forward Scenarios</h2>
 <p class="sub">Trade setups for events that <em>haven't happened yet</em> — no historical occurrence to backtest against. Each card states the trigger we'd need to see fire, the trade we'd put on if it does, and the mechanism we think connects them. These are theorized, not validated. Auto-populated by the strategy_developer loop whenever it flags an idea as "no historical analog." Hand-curated examples seeded below.</p>
@@ -5644,9 +5768,16 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 <strong>How to use this.</strong> These are NOT backtested. They are hypotheses about events that may or may not occur, and the trades you would place IF they do. Use the cards as a playbook to watch — set price alerts or news alerts on the named tickers, monitor the trigger conditions, and have the position structure ready. Sizing should be smaller than for backtested signals because the edge is theoretical only.
 </div>
 
+<div class="watch-filter" id="watch-filter" role="tablist" aria-label="Watchlist themes">
+  <button data-wfilter="all" class="active" role="tab" aria-selected="true" tabindex="0">All<span class="tab-count" id="wf-cnt-all"></span></button>
+  <button data-wfilter="geopolitical" role="tab" aria-selected="false" tabindex="-1">Geopolitical<span class="tab-count" id="wf-cnt-geopolitical"></span></button>
+  <button data-wfilter="policy" role="tab" aria-selected="false" tabindex="-1">Policy<span class="tab-count" id="wf-cnt-policy"></span></button>
+  <button data-wfilter="macro" role="tab" aria-selected="false" tabindex="-1">Macro<span class="tab-count" id="wf-cnt-macro"></span></button>
+</div>
+
 <div id="watchlist-grid">
 
-<article class="card watch">
+<article class="card watch" data-theme="geopolitical">
   <div class="card-head">
     <div class="left"><span class="badge cat-G">PL807</span><h3>King Salman Succession Event → Long GLD / Short EWG+EWY</h3></div>
     <div class="right">geopolitical · tail · forward</div>
@@ -5659,7 +5790,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="geopolitical">
   <div class="card-head">
     <div class="left"><span class="badge cat-G">PL775</span><h3>Taiwan Strait Subsea Cable Mass Severance → Long IRDM/ASTS, Short EWT</h3></div>
     <div class="right">geopolitical · infrastructure · forward</div>
@@ -5672,7 +5803,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="policy">
   <div class="card-head">
     <div class="left"><span class="badge cat-F">PL799</span><h3>SCOTUS Strikes Down CFPB Authority → Long UPST/OPRT/LC, Short XLF Pair</h3></div>
     <div class="right">policy · tail · forward</div>
@@ -5685,7 +5816,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="macro">
   <div class="card-head">
     <div class="left"><span class="badge cat-J">PL804</span><h3>US Sovereign Negative Watch Pre-2027 X-Date → Long GLD / Short UUP</h3></div>
     <div class="right">macro · tail · forward</div>
@@ -5698,7 +5829,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="geopolitical">
   <div class="card-head">
     <div class="left"><span class="badge cat-G">PL823</span><h3>NK-Russia Munitions Axis Public Confirmation → Long LMT/RTX/GD</h3></div>
     <div class="right">geopolitical · forward</div>
@@ -5711,7 +5842,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="policy">
   <div class="card-head">
     <div class="left"><span class="badge cat-A">PL767</span><h3>BoJ Hikes Beyond 0.75% with Core-Core CPI &gt;2% → Long MUFG / Short SMFG NIM Pair</h3></div>
     <div class="right">policy · novel-regime · forward</div>
@@ -5724,7 +5855,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="macro">
   <div class="card-head">
     <div class="left"><span class="badge cat-J">PL801</span><h3>BCRA Net Reserves Cross Zero → Short ARGT / Long GLD</h3></div>
     <div class="right">macro · tail · forward</div>
@@ -5737,7 +5868,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="policy">
   <div class="card-head">
     <div class="left"><span class="badge cat-B">PL811</span><h3>USMCA 2026 Sunset Review Failure → Short MGA/LEA vs Long XLI Pair</h3></div>
     <div class="right">policy · novel-event · forward</div>
@@ -5750,7 +5881,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="policy">
   <div class="card-head">
     <div class="left"><span class="badge cat-F">PL814</span><h3>CHIPS Act 2.0 Advanced-Packaging Earmark → Long AMKR / Short TSM Pair</h3></div>
     <div class="right">policy · forward</div>
@@ -5763,7 +5894,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
   </div>
 </article>
 
-<article class="card watch">
+<article class="card watch" data-theme="policy">
   <div class="card-head">
     <div class="left"><span class="badge cat-G">PL800</span><h3>SCOTUS Strikes NLRB Authority → Short F/GM/UAL/AAL/UPS (Counter-Intuitive)</h3></div>
     <div class="right">policy · counter-intuitive · forward</div>
@@ -5777,6 +5908,8 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </article>
 
 </div>
+
+<p class="watch-empty" id="watch-empty">No scenarios in this theme yet.</p>
 
 <p class="footnote" style="margin-top:32px;">More scenarios populated automatically: when the <code>strategy_developer</code> loop flags an idea with <code>status: "watchlist"</code> (no historical analog), it appears here. Curated by ekans signal-hunt pipeline.</p>
 </main>
@@ -6171,6 +6304,118 @@ document.querySelectorAll('.sub-tabs').forEach(strip => {
   _wireTablistKeys(strip,
                    btn => switchSubTab(strip.dataset.subtabsFor, btn.dataset.subtab));
 });
+// Watchlist — theme filter (top tabs) + per-scenario nav (left sidebar).
+// Theme tabs filter to a group; each scenario also gets its own clickable tab on
+// the left that isolates a single card (mirrors the High Return sidebar nav).
+(function(){
+  const bar = document.getElementById('watch-filter');
+  const grid = document.getElementById('watchlist-grid');
+  const nav = document.getElementById('watch-nav');
+  if (!bar || !grid || !nav) return;
+  const cards = Array.from(grid.querySelectorAll('article.card.watch'));
+  const empty = document.getElementById('watch-empty');
+  const showAllBtn = document.getElementById('watch-show-all');
+  const allCountEl = document.getElementById('watch-all-count');
+  const btns = Array.from(bar.querySelectorAll('button[data-wfilter]'));
+  const THEME_LABEL = {geopolitical: 'Geopolitical', policy: 'Policy', macro: 'Macro'};
+
+  // Assign ids + collect metadata per card.
+  const meta = cards.map(c => {
+    const badge = c.querySelector('.badge');
+    const id = (badge ? badge.textContent.trim() : '') || ('w' + Math.random().toString(36).slice(2,7));
+    c.id = c.id || ('watch-' + id);
+    const catM = (badge ? badge.className : '').match(/cat-([A-K])/);
+    return {card: c, id, theme: c.dataset.theme || 'other',
+            cat: catM ? catM[1] : '', title: (c.querySelector('h3')?.textContent || '').trim()};
+  });
+
+  // Group scenarios by theme (stable within group) so the grid and the nav
+  // headers stay contiguous in the "All" view.
+  const THEME_ORDER = ['geopolitical', 'policy', 'macro', 'other'];
+  meta.sort((a, b) => THEME_ORDER.indexOf(a.theme) - THEME_ORDER.indexOf(b.theme));
+  meta.forEach(m => grid.appendChild(m.card));
+
+  // Theme tab counts.
+  const counts = {all: cards.length};
+  meta.forEach(m => { counts[m.theme] = (counts[m.theme]||0)+1; });
+  btns.forEach(b => {
+    const span = document.getElementById('wf-cnt-' + b.dataset.wfilter);
+    if (span) span.textContent = counts[b.dataset.wfilter] || 0;
+  });
+  if (allCountEl) allCountEl.textContent = cards.length;
+
+  let currentTheme = 'all';
+  let selectedId = null;
+
+  function inTheme(m) { return currentTheme === 'all' || m.theme === currentTheme; }
+
+  function renderNav() {
+    nav.innerHTML = '';
+    const visible = meta.filter(inTheme);
+    let lastTheme = null;
+    visible.forEach(m => {
+      if (currentTheme === 'all' && m.theme !== lastTheme) {
+        const h = document.createElement('div');
+        h.className = 'wl-group';
+        h.textContent = THEME_LABEL[m.theme] || m.theme;
+        nav.appendChild(h);
+        lastTheme = m.theme;
+      }
+      const a = document.createElement('a');
+      a.href = '#' + m.card.id;
+      a.className = 'watch-link' + (m.id === selectedId ? ' active' : '');
+      a.dataset.cardId = m.card.id;
+      a.innerHTML = `<span class="swatch" style="background:var(--cat-${m.cat})"></span>` +
+                    `<span class="wl-text"><span class="wl-id">${m.id}</span>${m.title}</span>`;
+      a.addEventListener('click', e => { e.preventDefault(); selectCard(m.id); });
+      nav.appendChild(a);
+    });
+  }
+
+  function renderCards() {
+    let shown = 0;
+    meta.forEach(m => {
+      const vis = selectedId ? (m.id === selectedId) : inTheme(m);
+      m.card.style.display = vis ? '' : 'none';
+      if (vis) shown++;
+    });
+    if (empty) empty.style.display = shown ? 'none' : 'block';
+    nav.querySelectorAll('.watch-link').forEach(l => {
+      l.classList.toggle('active', selectedId && l.dataset.cardId === ('watch-' + selectedId));
+    });
+    if (showAllBtn) showAllBtn.classList.toggle('active', !selectedId);
+  }
+
+  function setTheme(theme) {
+    currentTheme = theme;
+    selectedId = null;
+    btns.forEach(b => {
+      const on = b.dataset.wfilter === theme;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.setAttribute('tabindex', on ? '0' : '-1');
+    });
+    renderNav();
+    renderCards();
+  }
+
+  function selectCard(id) {
+    selectedId = id;
+    renderCards();
+    const card = document.getElementById('watch-' + id);
+    if (card && card.scrollIntoView) card.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('button[data-wfilter]');
+    if (b) setTheme(b.dataset.wfilter);
+  });
+  _wireTablistKeys(bar, b => setTheme(b.dataset.wfilter));
+  if (showAllBtn) showAllBtn.addEventListener('click', () => { selectedId = null; renderCards(); });
+
+  renderNav();
+  renderCards();
+})();
 // Sync catalog count from iframe
 const catIframe = document.querySelector('#tab-catalog iframe');
 if (catIframe) {
@@ -6510,20 +6755,20 @@ themeToggle.addEventListener('click', () => {
 var META = {
   'V3':       {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY +38.7% → full 100% SPY (bullish state)
   'F03':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY margin debt +38.7% > 0% bullish
-  'C02':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 4wk +10.5% >> XLU -2% → long SPY
-  'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 740 > 200d SMA 722
+  'C02':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 4wk +5.3% >> XLU -5.2% → long SPY
+  'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 703.6 > 200d SMA 678.7
   'A16':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Entering weak June → cash
-  'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, 3 weeks away
+  'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, ~17 days away
   'A06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},              // Week 4 of FOMC cycle (even = long)
   'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2) ~90+, far above 5
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
-  'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // VIX/VIX3M = 0.86 < 0.92 → long
-  'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX ≈ 3.5 < 4 → long active
+  'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // VIX/VIX3M = 0.82 < 0.92 → long
+  'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
   'C07':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY top-ranked on blended momentum
   'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
   'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 4/5 above 10mo SMA; IEF below
-  'C06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 12m +29.4% > ACWX +16.4%
-  'C08 / C09':{t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // 10Y-2Y +0.43%, normal
+  'C06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // Equity-on: SPY 12m +29.7%, ACWX +32.1% (intl narrowly leads); both > T-bills
+  'C08 / C09':{t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // 10Y-2Y ≈ +0.5%, normal (not inverted)
   'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive', oos:'2024-12-31'}, // Gold >> lumber → long TLT
   'N4':       {t:[['Semis','long']], s:'active', oos:'2024-12-31'},            // Electronics orders up 11/12 mo
   'R-N5':     {t:[['Semis','long']], s:'inactive', oos:'2025-12-31'},          // TSMC Apr YoY +17.5% — decelerated, not actively defensive
@@ -6557,12 +6802,13 @@ var META = {
   'M3':       {t:[['ETH','long']], s:'inactive', oos:'2025-12-31'},            // stETH at parity, no discount
   'A14':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // Window closed Oct 2025
   'H06':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},            // MVRV Z=0.77; needs <0
-  'H11':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // BTC-NDX corr 0.96 = tech proxy
+  'H11':      {t:[['BTC','long']], s:'active', oos:'2025-12-31'},              // BTC-NDX 60d corr 0.17, BTC-GLD 0.20 → default 0.75 sizing
   'H05':      {t:[['BTC','long']], s:'inactive', oos:'2025-12-31'},             // No recent capitulation→recovery cross
   'H07 / H08':{t:[['BTC','long']], s:'inactive', oos:'2025-12-31'}            // Puell 0.79; NUPL 0.17
 };
 
 var PLMETA = {
+  'PL742': {t:[['Gun Makers','long']], oos:'2024-12-31'},          // NICS YoY accel >=10pp → long RGR+SWBI (BH-sig winner; live trigger unverified)
   'PL83': {t:[['IWM','long']], oos:'2025-12-31'},
   'PL3':  {t:[['Copper','long']], s:'active', oos:'2025-12-31'},               // China PMI crossed 50 in Mar
   'PL73': {t:[['GLD','long']], s:'inactive', oos:'2025-12-31'},                // No +10% 4-week CP spike
@@ -6579,7 +6825,7 @@ var PLMETA = {
   'PL75': {t:[['XLI','long']], oos:'2025-12-31'},
   'PL38': {t:[['SPY','long']], oos:'2025-12-31'},
   'PL35': {t:[['Water Infra','long']], oos:'2025-12-31'},
-  'PL87': {t:[['Exporters','long']], s:'active', oos:'2025-12-31'},            // Broad TWD down 9.4% from peak
+  'PL87': {t:[['Exporters','long']], s:'active', oos:'2025-12-31'},            // Dollar weak: UUP -4.2% from 52wk peak, broad TWD off highs
   'PL10': {t:[['Trucks','long']], oos:'2025-12-31'},
   'PL102':{t:[['Industrials','long']], oos:'2025-12-31'},
   'PL82': {t:[['XLI','long']], oos:'2025-12-31'},

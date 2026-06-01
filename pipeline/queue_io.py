@@ -184,15 +184,26 @@ def claim_ready_strategy() -> dict | None:
 
 
 def update_strategy_status(strategy_id: str, new_status: str, **extras) -> bool:
-    """Set status (and any extra fields) on a specific strategy_id. Returns True if found."""
+    """Set status (and any extra fields) on a specific strategy. Returns True if found.
+
+    Matches the unique `signal_id` first. `strategy_id` mirrors the idea_id,
+    and idea_ids are reused across scout rounds (PL742 can map to two different
+    strategies), so it is NOT a safe key — a first-match-by-strategy_id update
+    can land on the wrong (often already-resolved) row and strand the real one
+    in 'in_progress'. We therefore prefer the unique `signal_id` and fall back
+    to `strategy_id` only for legacy callers that pass the short id.
+    """
     found = [False]
 
     def upd(data):
-        for i, d in enumerate(data):
-            if d.get("strategy_id") == strategy_id:
-                data[i] = {**d, "status": new_status, **extras}
-                found[0] = True
-                break
+        idx = next((i for i, d in enumerate(data)
+                    if d.get("signal_id") == strategy_id), None)
+        if idx is None:
+            idx = next((i for i, d in enumerate(data)
+                        if d.get("strategy_id") == strategy_id), None)
+        if idx is not None:
+            data[idx] = {**data[idx], "status": new_status, **extras}
+            found[0] = True
         return data
 
     _locked_update(STRATEGIES, [], upd)

@@ -1,19 +1,19 @@
 {
   "loops": {
     "idea_scout": {
-      "last_run": "2026-05-31T02:59:34.889576+00:00",
+      "last_run": "2026-05-31T17:03:44.158621+00:00",
       "status": "running",
       "job_id": "2279e0a5",
       "interval": "10m"
     },
     "strategy_developer": {
-      "last_run": "2026-05-30T00:47:39.263379+00:00",
+      "last_run": "2026-06-01T01:18:20.724712+00:00",
       "status": "running",
       "job_id": "dedda771",
       "interval": "10m"
     },
     "backtester": {
-      "last_run": "2026-05-31T04:43:11.859388+00:00",
+      "last_run": "2026-06-01T01:34:37.416851+00:00",
       "status": "running",
       "job_id": "07d31082",
       "interval": "10m"
