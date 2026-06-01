@@ -6434,12 +6434,14 @@ if (catIframe) {
   });
 }
 
-// URL ?tab= param takes priority over localStorage
+// Default landing view is always Strategies → High Return (the statically
+// active tab). Only an explicit ?tab= URL param overrides it on load — we
+// intentionally do NOT restore the last-viewed tab from localStorage, so every
+// fresh visit opens on High Return.
 const urlTab = new URLSearchParams(location.search).get('tab');
-const savedTab = urlTab || localStorage.getItem('ekans-tab');
-if (savedTab && document.getElementById('tab-' + savedTab)) {
+if (urlTab && document.getElementById('tab-' + urlTab)) {
   // Use replaceState so the initial load doesn't add a synthetic back-button entry.
-  switchTab(savedTab, {history: 'replace'});
+  switchTab(urlTab, {history: 'replace'});
 }
 
 // Collect high-return catalog IDs from backtest code references
