@@ -6029,7 +6029,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 <div class="fbl-layout">
   <aside class="fbl-side">
     <div class="fbl-side-head">Feedback Loops</div>
-    <button class="fbl-navitem fbl-overview active" data-fbl-id="overview">&#9632; Overview &mdash; all 31</button>
+    <button class="fbl-navitem fbl-overview active" data-fbl-id="overview">&#9632; Overview &mdash; all 34</button>
     <div id="fbl-nav"></div>
   </aside>
   <main class="fbl-main">
@@ -6332,7 +6332,37 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
       loop:'Prices&nbsp;&uarr; &rarr; collateral value&nbsp;&uarr; &rarr; borrowing capacity&nbsp;&uarr; &rarr; more buying &rarr; prices&nbsp;&uarr; ... <span class="rev">shock &rarr; margin calls &rarr; forced selling &rarr; prices&nbsp;&darr;</span> <span class="ret">&#8635; (reverses)</span>',
       why:'Rising markets inflate the collateral that backs margin loans, expanding borrowing power that buys more assets. The same leverage that lifts prices forces synchronized selling on the way down &mdash; a classic reflexive amplifier of both legs.',
       trade:[['conv','Tail hedges when margin debt is at extremes and still rising; deleverage into euphoria']],
-      brk:'Trigger: a sharp drawdown tripping margin calls; or a rate spike raising the cost of leverage and forcing unwinds.' }
+      brk:'Trigger: a sharp drawdown tripping margin calls; or a rate spike raising the cost of leverage and forcing unwinds.' },
+
+    { id:'ai-circular', group:'ai', kind:'fragility', nav:'AI Circular Financing',
+      title:'AI Circular Financing / Vendor-Funded Demand', strength:'reflexive &middot; funding-dependent',
+      chart:{ id:'aicirc', label:'Announced AI compute/equity commitments, cumulative $B', unit:'$B', dir:'up', log:true, latest:'~$1T+', note:'Illustrative cumulative tally of inter-linked AI compute + equity commitments (NVDA&rarr;OpenAI, OpenAI&rarr;Oracle, hyperscaler&rarr;lab, neocloud deals). Log scale, approximate.',
+        points:[['22',10],['23',60],['24',250],['25',1000]] },
+      loop:'Chip vendor / hyperscaler invests equity in an AI lab or neocloud &rarr; the lab spends it on <em>that</em> vendor\'s chips &amp; cloud &rarr; vendor books the revenue &rarr; revenue lifts guidance &amp; market cap &rarr; bigger balance sheet to commit again <span class="ret">&#8635;</span>',
+      why:'When the same balance sheet supplies both the capital and the product, a dollar of vendor equity can round-trip back as vendor revenue &mdash; inflating apparent end-demand without proportional outside cash. Bookings, backlog and valuation reinforce each other, so the loop self-validates as long as capital markets keep funding the labs. NVDA&rarr;OpenAI (up to $100B), OpenAI&rarr;Oracle (~$300B), Stargate, and the neocloud web are the visible nodes.',
+      trade:[['long','Direct beneficiaries while it runs &mdash; NVDA, AVGO, ORCL, neocloud capacity'],['conv','Hedge / fade the most circular-dependent names into any funding wobble']],
+      brk:'Trigger / reversal: an AI-lab funding gap, an ROI disappointment, or a credit-market freeze stops the equity-into-revenue round-trip &mdash; bookings reverse and the most circularly-financed names de-rate the hardest (positive feedback runs both ways).',
+      link:{ cardId:'AS-B', label:'Related live strategy: AS-B &mdash; Custom Silicon' } },
+
+    { id:'gpu-debt', group:'fragility', kind:'fragility', nav:'GPU-Collateralized Debt',
+      title:'GPU-Collateralized Debt / Neocloud Leverage', strength:'compounding &middot; collateral-fragile',
+      chart:{ id:'gpudebt', label:'GPU-backed / AI data-center private debt issued, $B/yr', unit:'$B', dir:'up', latest:'~$110B', note:'Illustrative annual issuance of GPU- and data-center-collateralized private debt (CoreWeave-style). Approximate.',
+        points:[['22',2],['23',12],['24',45],['25',110]] },
+      loop:'Tight GPU lease economics &rarr; accelerators treated as durable collateral &rarr; cheap debt to buy more GPUs &rarr; more rentable capacity &rarr; revenue &amp; implied collateral value&nbsp;&uarr; &rarr; borrow against it again <span class="ret">&#8635;</span>',
+      why:'The financing assumes a rapidly-depreciating asset holds value across a multi-year loan. Each annual GPU generation impairs the prior one\'s resale and lease rate, so the loop only holds while utilization stays high enough to amortize before obsolescence. It quietly stacks duration risk (long debt) on top of fast-decaying collateral.',
+      trade:[['long','Operators / lenders while utilization is tight &mdash; CRWV-type capacity, AI-REIT debt'],['short','Fragility leg: the most levered neoclouds / their debt into a GPU glut or rate shock']],
+      brk:'Trigger / reversal: a next-gen step-change or oversupply that craters GPU resale &amp; lease values, or AI-lab demand softening that drops utilization below debt service &mdash; collateral marks down and refinancing freezes.',
+      link:null },
+
+    { id:'sovereign-ai', group:'geopolicy', kind:'policy', nav:'Sovereign AI Compute',
+      title:'Sovereign AI Compute Race', strength:'arms-race &middot; price-insensitive',
+      chart:{ id:'sovai', label:'Sovereign AI compute commitments, $B/yr', unit:'$B', dir:'up', latest:'~$40B+', note:'Illustrative annual national / sovereign-fund AI compute commitments (Gulf, EU, India, Japan, etc.). Approximate.',
+        points:[['23',2],['24',12],['25',40]] },
+      loop:'One state builds sovereign AI capacity &rarr; rivals fear strategic dependence &rarr; they fund their own buildout &rarr; chip scarcity &amp; the &ldquo;compute = sovereignty&rdquo; framing&nbsp;&uarr; &rarr; pressure on the next state to commit <span class="ret">&#8635;</span>',
+      why:'Once AI compute is reframed as critical national infrastructure (like grid or defense), spending is driven by <em>relative</em> position, not project ROI &mdash; a security-dilemma dynamic that is price-insensitive and self-reinforcing. Gulf sovereign funds (HUMAIN, G42), the EU, India and Japan have all committed multi-year programs, each raising the bar for the rest.',
+      trade:[['long','Chip + system suppliers with sovereign backlog (NVDA, AVGO) &middot; power &amp; data-center infra (VRT, GEV)']],
+      brk:'What breaks the loop: export-control fragmentation that shrinks the addressable market; a credible open-weight / efficiency shift that lowers the compute bar; or fiscal retrenchment in the sponsoring states.',
+      link:{ cardId:'AE-2', label:'Related live strategy: AE-2 &mdash; Power Infrastructure' } }
   ];
 
   function byId(id){ for(var i=0;i<FBL.length;i++){ if(FBL[i].id===id) return FBL[i]; } return null; }
@@ -6399,7 +6429,7 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
       '</button>';
     }).join('');
     return '<h2>Positive Feedback Loops</h2>'+
-      '<p class="fbl-intro">Self-reinforcing dynamics where the output of a process feeds back as a larger input to the same process &mdash; each turn amplifies the next. These aren\'t single-event signals; they\'re <em>structural regimes</em> that persist until something breaks the loop. The edge is being positioned along the direction of reinforcement while it runs &mdash; and recognizing when it reverses (positive feedback runs both ways, which is why the unwinds are violent). Pick a loop from the left, or scan all 31 below.</p>'+
+      '<p class="fbl-intro">Self-reinforcing dynamics where the output of a process feeds back as a larger input to the same process &mdash; each turn amplifies the next. These aren\'t single-event signals; they\'re <em>structural regimes</em> that persist until something breaks the loop. The edge is being positioned along the direction of reinforcement while it runs &mdash; and recognizing when it reverses (positive feedback runs both ways, which is why the unwinds are violent). Pick a loop from the left, or scan all 34 below.</p>'+
       '<div class="fbl-disclaimer"><strong>On the charts:</strong> each is a small SVG of the underlying exponential &mdash; values are approximate / illustrative and meant to show <em>shape</em>, not to be precise data. Most loops are macro theses with no clean historical analog to backtest (regime-dependent, small-N), so size them as convictions, not as the validated signals in the Strategies tab. Where a loop already has a live backtested expression, it\'s linked.</div>'+
       '<div class="fbl-ov-grid">'+cards+'</div>';
   }
