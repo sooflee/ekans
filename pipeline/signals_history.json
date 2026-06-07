@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-06-07",
+    "changes": [
+      {
+        "id": "B01",
+        "from": "active",
+        "to": "inactive"
+      },
+      {
+        "id": "C07",
+        "from": "active",
+        "to": "inactive"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
+    "changes": [
+      {
+        "id": "A06",
+        "from": "active",
+        "to": "inactive"
+      },
+      {
+        "id": "PL87",
+        "from": "active",
+        "to": "inactive"
+      }
+    ]
+  },
+  {
     "date": "2026-05-31",
     "changes": []
   },
@@ -10,22 +40,66 @@
   {
     "date": "2026-05-29",
     "changes": [
-      {"id": "A06", "from": "defensive", "to": "active"},
-      {"id": "C11", "from": "inactive", "to": "active"},
-      {"id": "R-N5", "from": "defensive", "to": "inactive"},
-      {"id": "O5", "from": "active", "to": "inactive"},
-      {"id": "H05", "from": "active", "to": "inactive"}
+      {
+        "id": "A06",
+        "from": "defensive",
+        "to": "active"
+      },
+      {
+        "id": "C11",
+        "from": "inactive",
+        "to": "active"
+      },
+      {
+        "id": "R-N5",
+        "from": "defensive",
+        "to": "inactive"
+      },
+      {
+        "id": "O5",
+        "from": "active",
+        "to": "inactive"
+      },
+      {
+        "id": "H05",
+        "from": "active",
+        "to": "inactive"
+      }
     ]
   },
   {
     "date": "2026-05-28",
     "changes": [
-      {"id": "P6", "from": "inactive", "to": "defensive"},
-      {"id": "R-N5", "from": "inactive", "to": "defensive"},
-      {"id": "V3", "from": "inactive", "to": "active"},
-      {"id": "C01", "from": "inactive", "to": "defensive"},
-      {"id": "A06", "from": "inactive", "to": "defensive"},
-      {"id": "A16", "from": "inactive", "to": "defensive"}
+      {
+        "id": "P6",
+        "from": "inactive",
+        "to": "defensive"
+      },
+      {
+        "id": "R-N5",
+        "from": "inactive",
+        "to": "defensive"
+      },
+      {
+        "id": "V3",
+        "from": "inactive",
+        "to": "active"
+      },
+      {
+        "id": "C01",
+        "from": "inactive",
+        "to": "defensive"
+      },
+      {
+        "id": "A06",
+        "from": "inactive",
+        "to": "defensive"
+      },
+      {
+        "id": "A16",
+        "from": "inactive",
+        "to": "defensive"
+      }
     ]
   }
 ]

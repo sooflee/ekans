@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-05-31T16:20:00Z",
-  "signals_checked": 55,
-  "changes_count": 0,
-  "active_count": 30,
+  "timestamp": "2026-06-07T11:30:00Z",
+  "signals_checked": 15,
+  "changes_count": 2,
+  "active_count": 26,
   "defensive_count": 3,
-  "inactive_count": 22,
-  "unknown_count": 37
+  "inactive_count": 26,
+  "unknown_count": 38
 }

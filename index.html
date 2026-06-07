@@ -15,26 +15,6 @@
   --cat-E: #60a5fa; --cat-F: #f472b6; --cat-G: #a3e635; --cat-H: #fb923c;
   --cat-I: #94a3b8; --cat-J: #c084fc; --cat-K: #2dd4bf;
 }
-[data-theme="light"] {
-  --bg: #ffffff; --bg-2: #f9fafb; --bg-3: #f3f4f6;
-  --fg: #1f2937; --fg-dim: #6b7280;
-  --accent: #2563eb; --good: #16a34a; --bad: #dc2626; --warn: #d97706;
-  --border: #e5e7eb;
-  --cat-A: #7c3aed; --cat-B: #e11d48; --cat-C: #059669; --cat-D: #d97706;
-  --cat-E: #2563eb; --cat-F: #db2777; --cat-G: #65a30d; --cat-H: #ea580c;
-  --cat-I: #64748b; --cat-J: #9333ea; --cat-K: #0d9488;
-}
-#theme-toggle {
-  margin-top: 8px;
-  background: var(--bg-3) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--fg-dim);
-  text-align: center;
-}
-#theme-toggle:hover {
-  color: var(--accent);
-  border-color: var(--accent) !important;
-}
 * { box-sizing: border-box; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
@@ -43,16 +23,86 @@ body {
 header.hero {
   padding: 10px 24px 6px; max-width: 1280px; margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: start;
+  grid-template-columns: 1fr minmax(200px, 360px) auto;
+  gap: 16px;
+  align-items: center;
 }
 .hero-about {
   font-size: 12px; color: var(--fg-dim); text-decoration: none;
   padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px;
-  align-self: start;
+  align-self: center;
 }
 .hero-about:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ----- Global ticker search ----- */
+.hero-search { position: relative; }
+#ticker-search {
+  width: 100%; box-sizing: border-box;
+  background: var(--bg-3); color: var(--fg);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px 8px 32px; font-size: 13px; font-family: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: 11px center;
+}
+#ticker-search:focus { outline: none; border-color: var(--accent); }
+#ticker-results {
+  display: none; position: absolute; top: calc(100% + 6px); right: 0;
+  width: min(440px, 92vw); max-height: 70vh; overflow-y: auto;
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.45); z-index: 200; padding: 4px;
+  text-align: left;
+}
+#ticker-results.open { display: block; }
+.tkr-head {
+  padding: 12px 14px 10px; border-bottom: 1px solid var(--border);
+}
+.tkr-sym { font-family: var(--mono); font-weight: 700; font-size: 18px; color: var(--fg); }
+.tkr-name { font-size: 12px; color: var(--fg-dim); margin-left: 8px; }
+.tkr-groups { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tkr-grp-chip {
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
+}
+.tkr-net {
+  margin-top: 10px; font-size: 12px; font-weight: 600; display: inline-flex;
+  align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px;
+}
+.tkr-net.long { background: rgba(52,211,153,0.12); color: var(--good); border: 1px solid rgba(52,211,153,0.25); }
+.tkr-net.short { background: rgba(248,113,113,0.12); color: var(--bad); border: 1px solid rgba(248,113,113,0.25); }
+.tkr-net.mixed { background: rgba(251,191,36,0.12); color: var(--warn); border: 1px solid rgba(251,191,36,0.25); }
+.tkr-net.flat { background: var(--bg-3); color: var(--fg-dim); border: 1px solid var(--border); }
+.tkr-sec { padding: 8px 10px 4px; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-dim); }
+.tkr-row {
+  display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center;
+  padding: 8px 12px; border-radius: 8px; cursor: pointer; text-align: left;
+}
+.tkr-row:hover, .tkr-row.kbd-active { background: var(--bg-3); }
+.tkr-dir {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+}
+.tkr-dir.long { background: rgba(52,211,153,0.14); color: var(--good); }
+.tkr-dir.short { background: rgba(248,113,113,0.14); color: var(--bad); }
+.tkr-row-main { min-width: 0; }
+.tkr-row-id { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.tkr-row-name { font-size: 12px; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tkr-row-meta { font-size: 11px; color: var(--fg-dim); white-space: nowrap; text-align: right; }
+.tkr-status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.tkr-status-dot.active { background: var(--good); }
+.tkr-status-dot.defensive { background: var(--warn); }
+.tkr-status-dot.unknown { background: var(--accent); }
+.tkr-status-dot.inactive { background: var(--fg-dim); }
+.tkr-empty { padding: 18px 14px; font-size: 13px; color: var(--fg-dim); }
+.tkr-hint { padding: 6px 12px 10px; font-size: 11px; color: var(--fg-dim); border-top: 1px solid var(--border); margin-top: 4px; }
+.tkr-flash { animation: tkrFlash 1.6s ease-out; }
+@keyframes tkrFlash {
+  0%, 30% { box-shadow: 0 0 0 2px var(--accent), 0 0 18px var(--accent); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@media (max-width: 760px) {
+  header.hero { grid-template-columns: 1fr auto; }
+  .hero-search { grid-column: 1 / -1; order: 3; }
+}
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 h1 { font-size: 1.4em; margin: 0 0 2px; letter-spacing: -0.01em; }
 h2.tier {
@@ -148,18 +198,6 @@ summary { cursor: pointer; padding: 8px 0; color: var(--accent); font-weight: 60
 summary:hover { color: var(--good); }
 .footer { text-align: center; color: var(--fg-dim); padding: 40px 0 20px; font-size: 13px; }
 a { color: var(--accent); }
-
-/* ----- Light-mode overrides for hardcoded rgba backgrounds ----- */
-[data-theme="light"] nav.tiernav { background: rgba(255,255,255,0.92); }
-[data-theme="light"] .sidebar { background: var(--bg-2); }
-[data-theme="light"] .sidebar .group-tabs { background: var(--bg-3); }
-[data-theme="light"] .sidebar .group-tabs button.active { background: var(--bg); }
-[data-theme="light"] .sidebar a.active,
-[data-theme="light"] .sidebar button.active { background: rgba(37,99,235,0.1); border-color: var(--accent); color: var(--accent); }
-[data-theme="light"] .strat-link.active { background: rgba(37,99,235,0.08); border-color: var(--accent); }
-[data-theme="light"] .caveat { background: rgba(217,119,6,0.06); }
-[data-theme="light"] .counter { background: rgba(220,38,38,0.05); }
-[data-theme="light"] .intro-caveat { background: rgba(217,119,6,0.06); }
 
 /* ----- Two-column layout with left sidebar tabs ----- */
 .layout {
@@ -405,11 +443,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
   .sub-tabs button .tab-count { display: none; }
 }
 
-/* Light-mode override: the box-shadow seam already references var(--bg) so it
-   tracks the theme; we just need the active border to use the themed border. */
-[data-theme="light"] .sub-tabs button.active {
-  border-color: var(--border); box-shadow: 0 1px 0 0 var(--bg);
-}
 @media (max-width: 900px) {
   #pipeline-grid { grid-template-columns: 1fr !important; }
 }
@@ -480,7 +513,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 #tab-signals .sig-toggle button.unknown-st { background: var(--accent); color: var(--bg); }
 #tab-signals .sig-toggle button.inactive-st { background: var(--fg-dim); color: var(--bg); }
 #tab-signals .sig-trade-tag.defensive { background: rgba(251,191,36,0.12); color: var(--warn); border: 1px solid rgba(251,191,36,0.25); }
-[data-theme="light"] #tab-signals .sig-trade-tag.defensive { background: rgba(217,119,6,0.08); }
 .sig-filter {
   background: var(--bg-3); border: 1px solid var(--border); color: var(--fg-dim);
   padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
@@ -488,8 +520,6 @@ main.container { min-width: 0; padding: 0; max-width: none; }
 .sig-filter:hover { border-color: var(--accent); color: var(--fg); }
 .sig-filter.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 #tab-signals .sig-viewfull { font-size: 12px; margin-top: 8px; display: inline-block; }
-[data-theme="light"] #tab-signals .sig-trade-tag.long { background: rgba(22,163,74,0.08); }
-[data-theme="light"] #tab-signals .sig-trade-tag.short { background: rgba(220,38,38,0.08); }
 @media (max-width: 700px) {
   #tab-signals .sig-card { grid-template-columns: 1fr; }
   #tab-signals .sig-toggle { flex-direction: row; }
@@ -638,13 +668,6 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 .section.validation-inline .val-metrics .mv { font-weight: 600; font-family: var(--mono); }
 .section.validation-inline .val-metrics .ml { color: var(--fg-dim); font-size: 11px; }
 </style>
-<script>
-(function(){
-  var s = localStorage.getItem('theme');
-  if (s === 'light' || (!s && window.matchMedia('(prefers-color-scheme: light)').matches))
-    document.documentElement.setAttribute('data-theme','light');
-})();
-</script>
 </head>
 <body>
 
@@ -657,6 +680,12 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
       <div class="stat"><span class="v">24</span><span class="l">validated</span></div>
     </div>
   </div>
+  <div class="hero-search">
+    <input type="text" id="ticker-search" autocomplete="off" spellcheck="false"
+           placeholder="Search a ticker (e.g. MRVL) — see where it fits…"
+           aria-label="Search for a stock ticker">
+    <div id="ticker-results" role="listbox" aria-label="Ticker search results"></div>
+  </div>
   <a class="hero-about" href="about.html">About</a>
 </header>
 
@@ -666,6 +695,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   <button data-tab="construction" id="tabbtn-construction" role="tab" aria-selected="false" aria-controls="tab-construction" tabindex="-1">Construction</button>
   <button data-tab="pipeline" id="tabbtn-pipeline" role="tab" aria-selected="false" aria-controls="tab-pipeline" tabindex="-1">Pipeline</button>
   <button data-tab="watchlist" id="tabbtn-watchlist" role="tab" aria-selected="false" aria-controls="tab-watchlist" tabindex="-1">Watchlist<span class="tab-count" id="tab-watch-count">10</span></button>
+  <button data-tab="feedback" id="tabbtn-feedback" role="tab" aria-selected="false" aria-controls="tab-feedback" tabindex="-1">Feedback Loops<span class="tab-count" id="tab-fbl-count">31</span></button>
 </nav>
 
 <div id="tab-strategies" class="tab-panel active" role="tabpanel" aria-labelledby="tabbtn-strategies">
@@ -695,7 +725,6 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   <a id="show-appendix" href="#appendix">Appendix — duds</a>
   <a id="show-all" href="#">Show all on one page</a>
   <a href="#" onclick="switchTab('catalog');return false;">Full catalog ↗</a>
-  <button id="theme-toggle" aria-label="Toggle light/dark mode"></button>
 </aside>
 
 <main class="container">
@@ -5916,6 +5945,514 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div>
 </div><!-- end tab-watchlist -->
 
+<div id="tab-feedback" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-feedback">
+<style>
+  #tab-feedback .fbl-layout { display: flex; gap: 0; align-items: stretch; min-height: 70vh; }
+  #tab-feedback .fbl-side { flex: 0 0 248px; border-right: 1px solid var(--border); padding: 18px 10px 40px; overflow-y: auto; }
+  #tab-feedback .fbl-side-head { font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-dim); padding: 0 8px 10px; }
+  #tab-feedback .fbl-navgroup { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-dim);
+    padding: 14px 8px 5px; opacity: 0.75; }
+  #tab-feedback .fbl-navitem { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; background: none;
+    border: none; color: var(--fg); font: inherit; font-size: 13px; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+  #tab-feedback .fbl-navitem:hover { background: var(--bg-2); }
+  #tab-feedback .fbl-navitem.active { background: var(--bg-3); color: var(--accent); }
+  #tab-feedback .fbl-navitem.fbl-overview { font-weight: 600; margin-bottom: 4px; }
+  #tab-feedback .fbl-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; }
+  #tab-feedback .fbl-dot.macro { background: var(--cat-A); }
+  #tab-feedback .fbl-dot.market { background: var(--cat-E); }
+  #tab-feedback .fbl-dot.energy { background: var(--cat-G); }
+  #tab-feedback .fbl-dot.tech { background: var(--cat-K); }
+  #tab-feedback .fbl-dot.health { background: var(--cat-B); }
+  #tab-feedback .fbl-dot.fragility { background: var(--bad); }
+  #tab-feedback .fbl-dot.policy { background: var(--cat-H); }
+  #tab-feedback .fbl-main { flex: 1 1 auto; padding: 24px 28px 64px; min-width: 0; overflow-x: hidden; }
+  #tab-feedback h2 { margin: 0 0 6px; }
+  #tab-feedback .fbl-intro { color: var(--fg-dim); font-size: 14px; line-height: 1.6; max-width: 820px; }
+  #tab-feedback .fbl-disclaimer { background: var(--bg-2); border: 1px solid var(--border); border-left: 3px solid var(--warn);
+    border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--fg-dim); line-height: 1.55; margin: 18px 0 8px; }
+  #tab-feedback .fbl-disclaimer strong { color: var(--fg); }
+  #tab-feedback .fbl-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px 18px; max-width: 760px; }
+  #tab-feedback .fbl-card.seed { border-color: rgba(125,211,252,0.4); box-shadow: 0 0 0 1px rgba(125,211,252,0.12) inset; }
+  #tab-feedback .fbl-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  #tab-feedback .fbl-head h3 { margin: 0; font-size: 17px; }
+  #tab-feedback .fbl-kind { font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 5px; }
+  #tab-feedback .fbl-kind.macro { background: rgba(167,139,250,0.16); color: var(--cat-A); }
+  #tab-feedback .fbl-kind.market { background: rgba(96,165,250,0.16); color: var(--cat-E); }
+  #tab-feedback .fbl-kind.energy { background: rgba(163,230,53,0.16); color: var(--cat-G); }
+  #tab-feedback .fbl-kind.tech { background: rgba(45,212,191,0.16); color: var(--cat-K); }
+  #tab-feedback .fbl-kind.health { background: rgba(251,113,133,0.16); color: var(--cat-B); }
+  #tab-feedback .fbl-kind.fragility { background: rgba(248,113,113,0.16); color: var(--bad); }
+  #tab-feedback .fbl-kind.policy { background: rgba(251,146,60,0.16); color: var(--cat-H); }
+  #tab-feedback .fbl-strength { margin-left: auto; font-size: 11px; color: var(--fg-dim); font-family: var(--mono); }
+  #tab-feedback .fbl-chartwrap { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 12px 14px 8px; margin-bottom: 16px; }
+  #tab-feedback .fbl-chart-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  #tab-feedback .fbl-metric { font-size: 12px; color: var(--fg-dim); }
+  #tab-feedback .fbl-latest { font-family: var(--mono); font-size: 13px; font-weight: 700; white-space: nowrap; }
+  #tab-feedback .fbl-latest.up { color: var(--good); }
+  #tab-feedback .fbl-latest.down { color: var(--accent); }
+  #tab-feedback .fbl-latest.shock { color: var(--bad); }
+  #tab-feedback .fbl-svg { width: 100%; height: 132px; display: block; }
+  #tab-feedback .fbl-axis { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--fg-dim); margin-top: 2px; }
+  #tab-feedback .fbl-chart-note { font-size: 10.5px; color: var(--fg-dim); opacity: 0.8; margin-top: 6px; }
+  #tab-feedback .fbl-loop { font-family: var(--mono); font-size: 12.5px; line-height: 1.9; color: var(--accent);
+    background: var(--bg); border: 1px dashed var(--border); border-radius: 8px; padding: 12px 14px; margin: 0 0 14px; }
+  #tab-feedback .fbl-loop .rev { color: var(--bad); }
+  #tab-feedback .fbl-loop .ret { color: var(--warn); font-weight: 700; }
+  #tab-feedback .fbl-body p { font-size: 13.5px; line-height: 1.6; margin: 0 0 12px; }
+  #tab-feedback .fbl-body strong { color: var(--fg); }
+  #tab-feedback .fbl-trade { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 13px; line-height: 1.7; margin: 4px 0 14px; }
+  #tab-feedback .fbl-leg { font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+  #tab-feedback .fbl-leg.long { background: rgba(52,211,153,0.16); color: var(--good); }
+  #tab-feedback .fbl-leg.short { background: rgba(248,113,113,0.16); color: var(--bad); }
+  #tab-feedback .fbl-leg.conv { background: rgba(251,191,36,0.16); color: var(--warn); }
+  #tab-feedback .fbl-sep { color: var(--fg-dim); }
+  #tab-feedback .fbl-break { color: var(--fg-dim); font-size: 12.5px; line-height: 1.6; border-top: 1px solid var(--border); padding-top: 11px; margin: 2px 0 0; }
+  #tab-feedback .fbl-break strong { color: var(--bad); }
+  #tab-feedback .fbl-link { display: inline-block; margin-top: 12px; font-size: 12px; color: var(--accent); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 5px; padding: 4px 10px; cursor: pointer; }
+  #tab-feedback .fbl-link:hover { border-color: var(--accent); }
+  #tab-feedback .fbl-ov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 18px; }
+  #tab-feedback .fbl-ov-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px 10px;
+    cursor: pointer; text-align: left; color: inherit; font: inherit; display: block; }
+  #tab-feedback .fbl-ov-card:hover { border-color: var(--accent); }
+  #tab-feedback .fbl-ov-top { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  #tab-feedback .fbl-ov-title { font-size: 13px; font-weight: 600; }
+  #tab-feedback .fbl-ov-card .fbl-svg { height: 70px; }
+  #tab-feedback .fbl-ov-bot { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 4px; }
+  #tab-feedback .fbl-ov-metric { font-size: 10.5px; color: var(--fg-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @media (max-width: 720px) {
+    #tab-feedback .fbl-layout { flex-direction: column; }
+    #tab-feedback .fbl-side { flex-basis: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+<div class="fbl-layout">
+  <aside class="fbl-side">
+    <div class="fbl-side-head">Feedback Loops</div>
+    <button class="fbl-navitem fbl-overview active" data-fbl-id="overview">&#9632; Overview &mdash; all 31</button>
+    <div id="fbl-nav"></div>
+  </aside>
+  <main class="fbl-main">
+    <div id="fbl-detail"></div>
+  </main>
+</div>
+</div><!-- end tab-feedback -->
+
+<script>
+(function(){
+  var KIND = { macro:'Macro', market:'Market', energy:'Energy', tech:'Tech Curve', health:'Health', policy:'Policy', fragility:'Fragility' };
+  var GROUPS = [
+    { key:'money',     title:'Money & Debasement' },
+    { key:'ai',        title:'AI & Compute' },
+    { key:'energy',    title:'Energy & Physical' },
+    { key:'curves',    title:'Tech Cost Curves' },
+    { key:'geopolicy', title:'Geopolitics, Policy & Risk' },
+    { key:'health',    title:'Healthcare' },
+    { key:'market',    title:'Market Structure' },
+    { key:'fragility', title:'Fragility' }
+  ];
+  var FBL = [
+    { id:'debt-spiral', group:'money', kind:'macro', seed:true, nav:'US Debt Spiral',
+      title:'US Sovereign Debt Spiral &rarr; Currency Debasement', strength:'structural &middot; accelerating',
+      chart:{ id:'debt', label:'US public debt, $T', unit:'$T', dir:'up', latest:'~$37T', note:'Total US public debt outstanding. Approximate, annual.',
+        points:[['00',5.7],['08',10.0],['12',16.0],['16',19.6],['20',26.9],['22',30.9],['24',35.5],['25',37.0]] },
+      loop:'Deficit&nbsp;&uarr; &rarr; Debt stock&nbsp;&uarr; &rarr; Interest expense&nbsp;&uarr; &rarr; <em>Larger</em> deficit&nbsp;&uarr; &rarr; More issuance &rarr; Private demand can\'t absorb &rarr; Fed monetizes / term premium&nbsp;&uarr; &rarr; USD purchasing power&nbsp;&darr; <span class="ret">&#8635;</span>',
+      why:'Interest is now one of the largest federal outlays (&gt;$1T/yr and rising). Every uptick in rates enlarges the very deficit the borrowing finances. Past a threshold, debt/GDP only stabilizes through faster nominal GDP (inflation) or outright monetization &mdash; both debase the unit the debt is denominated in, which is the escape valve and the reason the loop self-perpetuates.',
+      trade:[['long','Gold (GLD/IAU), Bitcoin (IBIT), real assets'],['short','Long-duration USTs (TLT) &middot; 2s/30s steepener &middot; long TIPS breakevens']],
+      brk:'Genuine fiscal consolidation; a productivity/real-growth boom (AI) that out-grows the debt; or a deflationary debt-deleveraging shock that spikes the USD and forces a liquidity scramble &mdash; in which case the debasement basket sells off hard.' },
+
+    { id:'interest-expense', group:'money', kind:'macro', nav:'Federal Interest Expense',
+      title:'US Federal Interest Expense', strength:'pure exponential',
+      chart:{ id:'intexp', label:'Net interest outlay, $B/yr', unit:'$B', dir:'up', latest:'~$1.2T', note:'US federal net interest, annualized. Approximate.',
+        points:[['15',402],['18',523],['20',523],['22',717],['23',879],['24',1100],['25',1200]] },
+      loop:'Higher debt &times; higher rates &rarr; interest outlay&nbsp;&uarr; &rarr; wider deficit &rarr; more issuance &rarr; term premium / rates&nbsp;&uarr; &rarr; interest outlay&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Net interest has blown past $1T/yr and now rivals defense and Medicare as a top federal line item. Because it is itself deficit-financed, it compounds mechanically &mdash; the single cleanest exponential in US fiscal data and the engine inside the broader debt spiral.',
+      trade:[['long','Same debasement basket &mdash; gold, BTC, real assets'],['short','Long-duration nominal Treasuries &middot; curve steepener']],
+      brk:'Falling front-end rates (Fed cuts) ease the math temporarily; only a primary-surplus turn or financial repression stabilizes it structurally.',
+      link:null },
+
+    { id:'m2', group:'money', kind:'macro', nav:'M2 / Money Supply',
+      title:'M2 / Global Money Supply Ratchet', strength:'secular',
+      chart:{ id:'m2', label:'US M2 money stock, $T', unit:'$T', dir:'up', latest:'~$22T', note:'US M2. Note the brief 2022-23 dip then resumption.',
+        points:[['00',4.6],['08',7.5],['12',10.4],['16',13.2],['20',15.4],['21',21.5],['23',20.8],['25',22.0]] },
+      loop:'Crisis &rarr; monetary + fiscal expansion &rarr; M2&nbsp;&uarr; &rarr; asset & nominal-GDP reflation &rarr; debt serviced in cheaper dollars &rarr; next crisis met with <em>more</em> expansion <span class="ret">&#8635;</span>',
+      why:'Across cycles the money stock ratchets up &mdash; contractions are shallow and brief, expansions large and effectively permanent. This is the secular debasement backdrop behind gold, Bitcoin, and equities-as-real-assets.',
+      trade:[['long','Real assets, equities, gold/BTC'],['short','Cash drag &amp; long-duration nominal bonds (relative)']],
+      brk:'A sustained QT / hard-money regime &mdash; politically difficult given the debt load it would have to be financed against.' },
+
+    { id:'gold-cb', group:'money', kind:'macro', nav:'Sovereign Gold Buying',
+      title:'Sovereign Gold Accumulation', strength:'official-sector &middot; coordinated',
+      chart:{ id:'goldcb', label:'Central-bank net gold buying, tonnes/yr', unit:'t/yr', dir:'up', latest:'~1,045t', note:'Official-sector net purchases. Roughly doubled post-2022.',
+        points:[['10',79],['14',466],['18',656],['20',255],['22',1082],['23',1037],['24',1045]] },
+      loop:'Central banks de-dollarize &rarr; buy gold &rarr; price&nbsp;&uarr; &rarr; validates the reserve-diversification thesis &rarr; more reserve managers buy <span class="ret">&#8635;</span>',
+      why:'Since the 2022 reserve-freeze precedent, official-sector demand has roughly doubled to &gt;1,000t/yr. Each purchase both supports price and signals to other reserve managers that gold is the neutral reserve asset &mdash; a coordination loop. The official-sector leg of the debasement trade.',
+      trade:[['long','Gold (GLD/IAU) &middot; miners (GDX) &middot; alongside the debt-spiral basket']],
+      brk:'A credible high-real-rate regime that makes Treasuries attractive again, or a US fiscal turn that restores dollar confidence.' },
+
+    { id:'btc', group:'money', kind:'macro', nav:'Bitcoin Reflexivity',
+      title:'Hard-Asset Adoption Reflexivity (Bitcoin)', strength:'reflexive &middot; symmetric',
+      chart:{ id:'btc', label:'BTC price, $k', unit:'$k', dir:'up', latest:'~$95k', note:'Bitcoin price. Highly volatile &mdash; reflexivity runs both ways.',
+        points:[['13',0.8],['15',0.4],['17',13.9],['18',3.7],['21',47],['22',16.5],['24',60],['25',95]] },
+      loop:'Price&nbsp;&uarr; &rarr; media + institutional attention&nbsp;&uarr; &rarr; ETF inflows / adoption&nbsp;&uarr; &rarr; fixed supply meets new demand &rarr; price&nbsp;&uarr; &rarr; price <em>is</em> the marketing <span class="ret">&#8635;</span>',
+      why:'A known, fixed supply schedule means demand shocks transmit fully into price (no supply response to dampen them). Price action itself drives the attention that drives adoption &mdash; textbook Soros reflexivity, where perception and fundamentals feed each other. Pairs directly with the debasement loop.',
+      trade:[['long','BTC (IBIT) on adoption inflections &middot; miners as higher-beta expression']],
+      brk:'Reflexivity is <em>symmetric</em> &mdash; outflows feed price declines feed outflows. A regulatory shock or broad risk-off liquidity drain flips the sign. A high-volatility leg of the debasement thesis, not a standalone.' },
+
+    { id:'stablecoins', group:'money', kind:'macro', nav:'Stablecoin Float',
+      title:'Stablecoin / Tokenized-Treasury Flywheel', strength:'emerging &middot; policy-sensitive',
+      chart:{ id:'stbl', label:'Stablecoin supply, $B', unit:'$B', dir:'up', latest:'~$250B', note:'Aggregate stablecoin market cap. Approximate.',
+        points:[['19',5],['20',28],['21',140],['22',150],['23',128],['24',165],['25',250]] },
+      loop:'More issuance &rarr; more T-bill demand &rarr; issuer yield&nbsp;&uarr; &rarr; funds distribution / adoption &rarr; float&nbsp;&uarr; &rarr; more T-bill demand <span class="ret">&#8635;</span>',
+      why:'Stablecoins are now a top-20 holder of US Treasuries. The float earns the issuer the bill yield, which funds the distribution that grows the float &mdash; a money-market flywheel on crypto rails. Regulatory clarity (GENIUS-type frameworks) accelerates it.',
+      trade:[['long','COIN &middot; Circle-adjacent &middot; BTC complex &middot; beneficiaries of on-chain dollars']],
+      brk:'A de-peg / reserve scare; restrictive regulation; or a collapse in T-bill yields removing the economic engine.' },
+
+    { id:'private-credit', group:'money', kind:'market', nav:'Private Credit AUM',
+      title:'Private Credit / Shadow-Banking AUM', strength:'compounding &middot; cycle-exposed',
+      chart:{ id:'pcred', label:'Private credit AUM, $T', unit:'$T', dir:'up', latest:'~$2.1T', note:'Global private credit AUM. Approximate.',
+        points:[['10',0.3],['14',0.5],['18',0.8],['20',1.0],['22',1.4],['24',1.7],['25',2.1]] },
+      loop:'Strong returns &rarr; LP capital floods in &rarr; dry powder&nbsp;&uarr; &rarr; more deals &amp; fees &rarr; AUM&nbsp;&uarr; &rarr; attracts more capital <span class="ret">&#8635;</span>',
+      why:'Private credit has compounded from &lt;$0.5T to &gt;$2T as banks retreated from middle-market lending. Fee-driven AUM growth self-reinforces while defaults stay low &mdash; but the loop hides credit risk that only surfaces in a downturn.',
+      trade:[['long','APO, ARES, BX, KKR, OWL (managers)'],['short','Fragility expression: short the levered BDCs into a credit cycle']],
+      brk:'A default wave / mark-downs that break the low-loss narrative; or rate cuts compressing the yield premium that drew capital in.' },
+
+    { id:'ai-capex', group:'ai', kind:'market', nav:'AI Capex Flywheel',
+      title:'AI Compute Capex Flywheel', strength:'live &middot; mid-cycle',
+      chart:{ id:'capex', label:'Hyperscaler capex, $B/yr', unit:'$B', dir:'up', latest:'~$330B', note:'Combined MSFT+GOOG+AMZN+META capex. Approximate.',
+        points:[['19',88],['21',125],['22',148],['23',180],['24',235],['25',330]] },
+      loop:'AI demand&nbsp;&uarr; &rarr; hyperscaler capex&nbsp;&uarr; &rarr; bigger / cheaper models &rarr; cost-per-token&nbsp;&darr; &rarr; new workloads unlocked &rarr; demand&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Each model generation lowers cost-per-token and unlocks workloads that were uneconomic. Jevons-style, falling unit cost raises <em>aggregate</em> compute demand faster than efficiency cuts it &mdash; so capex guidance ratchets up yearly instead of saturating.',
+      trade:[['long','Custom silicon (MRVL, AVGO, CRDO) &middot; GPUs (NVDA) &middot; power infra (VRT, GEV)']],
+      brk:'ROI disappointment (enterprises fail to monetize), an efficiency step-change that collapses required compute, or a hard power/grid bottleneck that caps the physical buildout.',
+      link:{ cardId:'AS-B', label:'Live expression: AS-B &mdash; Custom Silicon (MRVL + CRDO)' } },
+
+    { id:'ai-inference', group:'ai', kind:'market', nav:'Inference Token Volume',
+      title:'AI Inference Token Volume', strength:'steepest curve in tech',
+      chart:{ id:'tokens', label:'Tokens processed, index (2022=1)', unit:'&times;', dir:'up', log:true, latest:'~230&times;', note:'Illustrative index of aggregate inference throughput. Log scale.',
+        points:[['22',1],['23',12],['24',60],['25',230]] },
+      loop:'Cheaper tokens &rarr; more AI-embedded products &rarr; usage&nbsp;&uarr; &rarr; inference volume&nbsp;&uarr; &rarr; scale drives cost/token&nbsp;&darr; &rarr; usage&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Token throughput is compounding faster than almost any metric in tech &mdash; each cost decline unlocks always-on agentic and multimodal workloads. This is the demand side of the capex flywheel.',
+      trade:[['long','Inference silicon (NVDA, AVGO, MRVL) &middot; networking (CRDO) &middot; hyperscalers']],
+      brk:'A monetization gap (usage without revenue), or a regulatory/energy cap on deployment.',
+      link:{ cardId:'AS-B', label:'Related live strategy: AS-B &mdash; Custom Silicon' } },
+
+    { id:'dc-power', group:'ai', kind:'market', nav:'Datacenter Power Density',
+      title:'Datacenter Power Density', strength:'physical &middot; accelerating',
+      chart:{ id:'dcpow', label:'Power per AI rack, kW', unit:'kW', dir:'up', latest:'~120kW', note:'Peak rack power for leading AI systems. Approximate.',
+        points:[['15',5],['18',8],['20',12],['22',20],['24',40],['25',120]] },
+      loop:'Bigger models &rarr; denser racks (more GPUs/rack) &rarr; power &amp; heat per rack&nbsp;&uarr; &rarr; liquid cooling + power upgrades &rarr; enables denser racks <span class="ret">&#8635;</span>',
+      why:'Rack power has gone from ~5kW to 100kW+ in a few generations as accelerators pack together. Each density jump forces a cooling/power retrofit that in turn enables the next density jump.',
+      trade:[['long','Thermal/power (VRT, ETN) &middot; custom liquid cooling &middot; grid (GEV)']],
+      brk:'A shift to efficient inference at the edge, or grid limits forcing distributed, lower-density builds.' },
+
+    { id:'data-gen', group:'ai', kind:'market', nav:'Global Data Creation',
+      title:'Global Data Creation', strength:'secular &middot; AI-accelerated',
+      chart:{ id:'data', label:'Data created, ZB/yr', unit:'ZB', dir:'up', latest:'~181 ZB', note:'Global data created/replicated per year. Approximate.',
+        points:[['10',2],['15',15],['18',33],['20',64],['22',97],['24',147],['25',181]] },
+      loop:'More devices &amp; AI output &rarr; more data created &rarr; more storage &amp; compute to use it &rarr; more AI trained on it &rarr; more data <span class="ret">&#8635;</span>',
+      why:'Global data creation rides a clean exponential (~180 ZB/yr), now turbo-charged by machine-generated content. Each dataset trains models that generate the next.',
+      trade:[['long','Storage / memory (MU, WDC) &middot; data infrastructure &middot; hyperscalers']],
+      brk:'Diminishing returns to data scale (model quality plateaus); storage-cost floors.' },
+
+    { id:'cyber', group:'ai', kind:'market', nav:'Cybersecurity Spend',
+      title:'Cybersecurity Spend', strength:'non-discretionary',
+      chart:{ id:'cyber', label:'Global security spend, $B/yr', unit:'$B', dir:'up', latest:'~$240B', note:'Worldwide information-security spend. Approximate.',
+        points:[['15',75],['18',114],['20',140],['22',172],['24',215],['25',240]] },
+      loop:'Digital surface&nbsp;&uarr; (cloud, AI, IoT) &rarr; attack surface&nbsp;&uarr; &rarr; breaches &rarr; security spend&nbsp;&uarr; &rarr; more digital adoption enabled <span class="ret">&#8635;</span>',
+      why:'Security spend compounds with everything else that digitizes &mdash; and AI now arms both attackers and defenders, ratcheting spend further. A non-discretionary, recession-resistant exponential.',
+      trade:[['long','CRWD, PANW, ZS, FTNT']],
+      brk:'Platform consolidation compressing vendor count; budget rationalization in a severe downturn.' },
+
+    { id:'grid-power', group:'energy', kind:'energy', nav:'Electricity Demand / Grid',
+      title:'Electricity Demand / Grid Buildout', strength:'inflecting after 20 flat years',
+      chart:{ id:'grid', label:'US datacenter electricity, TWh/yr', unit:'TWh', dir:'up', latest:'~200 &rarr; 400', note:'US datacenter load. 2026-28 are estimates (dashed in spirit).',
+        points:[['18',60],['20',76],['22',130],['24',200],['26',300],['28',400]] },
+      loop:'AI + EV + reshoring + electrification &rarr; load growth after 20 flat years &rarr; power prices&nbsp;&uarr; &rarr; capex into generation &amp; transmission &rarr; enables still more electrified demand <span class="ret">&#8635;</span>',
+      why:'US electricity demand was flat for two decades; it is now inflecting as datacenters, EV charging, and reshored manufacturing stack onto the same grid. Tight supply lifts power prices, which funds the buildout that makes further electrification viable &mdash; and AI\'s appetite has no natural ceiling.',
+      trade:[['long','Power producers (VST, CEG, NRG) &middot; grid equipment (GEV, ETN, PWR) &middot; nat-gas']],
+      brk:'Demand-response / efficiency gains, a datacenter-efficiency breakthrough, or a deep recession cutting industrial load. Permitting and interconnection delays cap the upside as much as the downside.' },
+
+    { id:'uranium', group:'energy', kind:'energy', nav:'Uranium / Nuclear Restart',
+      title:'Nuclear / Uranium Restart', strength:'reflexive &middot; supply-lagged',
+      chart:{ id:'uran', label:'Uranium spot, $/lb U3O8', unit:'$/lb', dir:'up', latest:'~$78', note:'U3O8 spot price. Volatile.',
+        points:[['16',26],['18',23],['20',30],['22',48],['23',73],['24',100],['25',78]] },
+      loop:'Reactor restarts + SMR orders + supply deficit &rarr; spot price&nbsp;&uarr; &rarr; idled mines &amp; new projects become economic &rarr; but supply lags years &rarr; deficit persists &rarr; price&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Post-Fukushima underinvestment left a structural primary-supply deficit just as nuclear is rehabilitated for clean baseload (and datacenter PPAs). Supply response takes 5-10 years, so demand shocks transmit straight to price &mdash; reflexive like the Bitcoin loop.',
+      trade:[['long','CCJ, URNM, URA']],
+      brk:'A major reactor incident reversing sentiment; or sustained high prices finally bringing enough supply online (2-3 yr lag). Spot is volatile &mdash; size accordingly.' },
+
+    { id:'batteries', group:'energy', kind:'energy', nav:'Battery Learning Curve',
+      title:'Wright\'s Law: Battery (&amp; Solar) Learning Curve', strength:'cost-down flywheel',
+      chart:{ id:'batt', label:'Li-ion pack cost, $/kWh', unit:'$/kWh', dir:'down', latest:'~$80', note:'Volume-weighted Li-ion pack price. Falling ~19% per doubling.',
+        points:[['10',1200],['13',700],['15',400],['18',230],['20',140],['23',100],['24',80]] },
+      loop:'More deployment &rarr; manufacturing scale &rarr; cost/kWh&nbsp;&darr; (Wright\'s law) &rarr; more applications economic &rarr; more deployment <span class="ret">&#8635;</span>',
+      why:'Li-ion pack costs have fallen ~10&times; in a decade along a learning curve &mdash; every doubling of cumulative volume cuts cost a fixed percentage. Cheaper storage unlocks EVs, then grid, then new markets, which drive the next doubling. The same engine drives solar modules.',
+      trade:[['long','Grid storage (FLNC) &middot; battery/solar makers &middot; lithium (volatile)']],
+      brk:'Raw-material supply shocks (lithium price spikes) temporarily reverse the curve; an eventual chemistry/physics plateau.' },
+
+    { id:'semis', group:'curves', kind:'tech', nav:'Transistor Density',
+      title:'Semiconductor Transistor Density', strength:'the original exponential',
+      chart:{ id:'semis', label:'Transistors per leading chip, billions', unit:'B', dir:'up', latest:'~130B', note:'Leading-edge logic/accelerator transistor count. Approximate.',
+        points:[['10',1.2],['14',5],['17',20],['20',40],['22',80],['24',130]] },
+      loop:'More transistors/chip &rarr; more compute/$ &rarr; new compute-hungry applications &rarr; demand funds the next node &rarr; more transistors <span class="ret">&#8635;</span>',
+      why:'The original exponential &mdash; leading-edge chips now pack 100B+ transistors. Each node funds the R&amp;D and fabs for the next, while new applications (now AI) supply the demand. A decades-long self-funding loop.',
+      trade:[['long','NVDA, TSM, AVGO, ASML']],
+      brk:'Physical/economic limits of scaling (cost-per-transistor already slowing); geopolitical fab disruption.' },
+
+    { id:'genomics', group:'curves', kind:'tech', nav:'Sequencing Cost',
+      title:'Genomic Sequencing Cost', strength:'faster than Moore\'s law',
+      chart:{ id:'genome', label:'Cost per genome, $ (log)', unit:'$', dir:'down', log:true, latest:'~$200', note:'Cost to sequence a human genome. Log scale &mdash; fell ~50,000&times;.',
+        points:[['07',10000000],['10',50000],['12',8000],['14',5000],['18',1000],['22',400],['24',200]] },
+      loop:'Cheaper sequencing &rarr; more sequencing &rarr; more data &amp; tools &rarr; better/cheaper instruments &rarr; cheaper sequencing <span class="ret">&#8635;</span>',
+      why:'Cost per genome fell from ~$10M to ~$200 &mdash; far faster than Moore\'s law. Each price drop expands clinical and research demand, funding the next instrument generation.',
+      trade:[['long','ILMN &amp; sequencing/tools &middot; diagnostics &middot; biotech enabled by cheap reads']],
+      brk:'Instrument-oligopoly pricing power; reimbursement limits on clinical adoption.' },
+
+    { id:'robotics', group:'curves', kind:'tech', nav:'Robotics / Automation',
+      title:'Robotics / Automation Deployment', strength:'labor-arbitrage flywheel',
+      chart:{ id:'robot', label:'Industrial robot installs, k units/yr', unit:'k', dir:'up', latest:'~600k', note:'Annual industrial robot installations. Approximate.',
+        points:[['10',120],['14',221],['17',400],['18',422],['20',394],['22',553],['24',600]] },
+      loop:'Cheaper, more capable robots &rarr; more deployment &rarr; data &amp; scale &rarr; better/cheaper robots &rarr; labor-cost arbitrage widens &rarr; more deployment <span class="ret">&#8635;</span>',
+      why:'Industrial installs keep ratcheting; humanoids and AI control now widen the addressable task set. Rising labor costs plus falling robot costs cross over more job categories each year.',
+      trade:[['long','Automation (ABB, ISRG, FANUC-class) &middot; AI-robotics enablers (NVDA)']],
+      brk:'Capability overhang (demos outrun deployable reality); capex pullback in a downturn.' },
+
+    { id:'glp1', group:'health', kind:'health', nav:'GLP-1 / Obesity TAM',
+      title:'GLP-1 / Obesity-Drug TAM', strength:'indication-expansion loop',
+      chart:{ id:'glp1', label:'GLP-1 drug revenue, $B/yr', unit:'$B', dir:'up', latest:'~$100B', note:'Combined GLP-1 class revenue. Approximate.',
+        points:[['20',10],['21',16],['22',25],['23',42],['24',65],['25',100]] },
+      loop:'Efficacy proven &rarr; demand&nbsp;&uarr; &rarr; manufacturing scale &rarr; supply &amp; access&nbsp;&uarr; &rarr; new indications (CV, sleep apnea, addiction) &rarr; eligible population&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'GLP-1 revenue has gone from ~$10B to ~$100B as indications expand from diabetes to obesity to cardiovascular and beyond. Each approved indication widens the eligible population, funding the trials for the next.',
+      trade:[['long','LLY, NVO'],['short','Second-order losers: dialysis, bariatric, snack/restaurant volume']],
+      brk:'Tolerability / long-term safety surprises; pricing &amp; reimbursement caps; an oral-formulation price war compressing margins.' },
+
+    { id:'passive', group:'market', kind:'market', nav:'Passive &rarr; Concentration',
+      title:'Passive Flows &rarr; Index Concentration', strength:'structural &middot; extended',
+      chart:{ id:'passive', label:'Passive share of US fund AUM, %', unit:'%', dir:'up', latest:'~58%', note:'Index/passive share of US fund assets. Approximate.',
+        points:[['05',15],['10',20],['14',30],['18',40],['21',50],['24',55],['25',58]] },
+      loop:'Payroll / passive inflows&nbsp;&uarr; &rarr; buy index by cap-weight &rarr; mega-caps get the biggest bid &rarr; their index weight&nbsp;&uarr; &rarr; next dollar buys <em>even more</em> mega-cap <span class="ret">&#8635;</span>',
+      why:'Passive capital is price-insensitive and cap-weighted &mdash; it mechanically reinforces whatever is already largest, regardless of valuation. Steady inflows funnel disproportionately into the top names, lifting their weight so the next inflow concentrates further. Concentration sits at multi-decade highs.',
+      trade:[['long','Cap-weighted (SPY)'],['short','Equal-weight (RSP) &mdash; i.e. the SPY/RSP ratio']],
+      brk:'Net <em>out</em>flows (boomer decumulation), a mega-cap earnings miss forcing rebalancing, or antitrust breakup. The reversal concentrates forced selling in the exact same names.' },
+
+    { id:'buybacks', group:'market', kind:'market', nav:'Corporate Buybacks',
+      title:'Corporate Buyback Loop', strength:'structural &middot; rate-sensitive',
+      chart:{ id:'buyback', label:'S&amp;P 500 buybacks, $B/yr', unit:'$B', dir:'up', latest:'~$950B', note:'S&P 500 gross buybacks. Approximate.',
+        points:[['10',300],['14',553],['18',806],['20',520],['22',922],['24',950]] },
+      loop:'Strong stock &rarr; cheap equity comp + debt capacity &rarr; buybacks&nbsp;&uarr; &rarr; share count&nbsp;&darr; &rarr; EPS&nbsp;&uarr; &rarr; stock&nbsp;&uarr; &rarr; cheaper to buy back more <span class="ret">&#8635;</span>',
+      why:'Buybacks are the single largest source of net US equity demand. A rising stock lowers the cost of funding the next repurchase (via stock comp and cheaper issuance) and boosts EPS mechanically through a shrinking share count &mdash; which lifts the stock that funds the next round.',
+      trade:[['long','High net-buyback-yield baskets (PKW) &middot; aggressive share-reducers (AAPL-class)']],
+      brk:'Sustained high rates make debt-funded buybacks uneconomic; an earnings recession dries up free cash flow; or a buyback excise-tax hike. The EPS tailwind reverses into a dilution headwind.' },
+
+    { id:'vol', group:'fragility', kind:'fragility', nav:'Short-Vol Compression',
+      title:'Vol-Targeting / Short-Vol Compression', strength:'builds fragility &middot; reverses violently',
+      chart:{ id:'vol', label:'Realized vol regime (VIX-style)', unit:'', dir:'shock', latest:'compress &rarr; spike', note:'Illustrative regime shape: long grind lower, then a deleveraging spike.',
+        points:[['',13],['',11],['',16],['',12],['',10],['',65],['',20]] },
+      loop:'Low realized vol &rarr; vol-target funds, risk-parity, dealer long-gamma <em>add</em> exposure &rarr; flows suppress vol further &rarr; leverage builds &rarr; <span class="rev">SHOCK &rarr; synchronized deleveraging &rarr; vol explodes</span> <span class="ret">&#8635; (in reverse)</span>',
+      why:'This loop manufactures <em>fragility</em>, not stability. The same mechanics that compress volatility amplify any reversal &mdash; positioning that suppressed vol must unwind all at once. A positive feedback loop whose payoff is asymmetric: small steady gains, then a cliff.',
+      trade:[['conv','Own cheap tail hedges (VIX calls, put spreads) when realized vol is pinned low and leverage is extended &mdash; position for the unwind, don\'t sell the carry into it']],
+      brk:'Trigger templates: Aug 2024 yen-carry unwind, Feb 2018 "volmageddon," Mar 2020. Any exogenous shock into extended positioning lights the fuse &mdash; the loop running backward is the trade.' },
+    { id:'frontier-compute', group:'ai', kind:'market', nav:'Frontier Training Compute',
+      title:'Frontier AI Training Compute (Scaling Laws)', strength:'doubling ~every 6 months',
+      chart:{ id:'ftc', label:'Compute to train frontier model, index (2018=1, log)', unit:'&times;', dir:'up', log:true, latest:'~30,000&times;', note:'Illustrative index of frontier training FLOPs. Log scale.',
+        points:[['18',1],['20',15],['21',60],['22',300],['23',1500],['24',8000],['25',30000]] },
+      loop:'Bigger training run &rarr; more capable model &rarr; more revenue &amp; investment &rarr; bigger next run &rarr; scaling-law gains justify still more compute <span class="ret">&#8635;</span>',
+      why:'Frontier training compute has doubled roughly every six months &mdash; far faster than Moore\'s law &mdash; because measured capability keeps scaling with compute (scaling laws). Each generation\'s commercial success funds an order-of-magnitude larger next run.',
+      trade:[['long','NVDA, TSM, AVGO, ASML &middot; power &amp; datacenter infra']],
+      brk:'Scaling laws bending (diminishing capability per FLOP), training-data exhaustion, or capital/energy ceilings on run size.',
+      link:{ cardId:'AS-B', label:'Related live strategy: AS-B &mdash; Custom Silicon' } },
+
+    { id:'copper', group:'energy', kind:'energy', nav:'Copper Deficit',
+      title:'Copper / Electrification-Metals Deficit', strength:'supply-lagged &middot; structural',
+      chart:{ id:'copper', label:'Copper price, $/lb', unit:'$/lb', dir:'up', latest:'~$4.6', note:'LME/COMEX copper. Approximate.',
+        points:[['16',2.1],['18',2.9],['20',2.8],['21',4.2],['22',3.7],['24',4.2],['25',4.6]] },
+      loop:'Electrification + EVs + grid + AI datacenters &rarr; copper demand&nbsp;&uarr; &rarr; price&nbsp;&uarr; &rarr; but new mines take 10-15 yrs &rarr; structural deficit &rarr; price&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Every electrified or AI marginal unit needs copper, while falling ore grades and decade-long permitting mean supply can\'t respond quickly. Demand shocks transmit to price with no fast supply offset &mdash; a slow-burn reflexive deficit, like uranium.',
+      trade:[['long','FCX, SCCO &middot; copper miners (COPX)']],
+      brk:'Recession cutting industrial demand; substitution (aluminium) at high prices; or a wave of new supply finally clearing permitting.' },
+
+    { id:'solar', group:'energy', kind:'energy', nav:'Solar / Swanson\'s Law',
+      title:'Solar Deployment (Swanson\'s Law)', strength:'cost-down deployment flywheel',
+      chart:{ id:'solar', label:'Cumulative global solar installed, GW', unit:'GW', dir:'up', latest:'~2,000 GW', note:'Cumulative installed PV capacity. Approximate.',
+        points:[['10',40],['14',180],['18',480],['20',720],['22',1050],['24',1600],['25',2000]] },
+      loop:'More installs &rarr; manufacturing scale &rarr; $/W&nbsp;&darr; (Swanson\'s law ~20%/doubling) &rarr; solar becomes cheapest power &rarr; more installs <span class="ret">&#8635;</span>',
+      why:'Module prices fall ~20% per doubling of cumulative volume; cheaper panels make more projects economic, driving the next doubling. Solar is now the cheapest new generation in much of the world &mdash; a self-reinforcing deployment curve, the photovoltaic twin of the battery learning curve.',
+      trade:[['long','FSLR &middot; inverters/microinverters (ENPH) &middot; utility-scale developers']],
+      brk:'Trade barriers / tariffs distorting the cost curve; grid-interconnection and storage bottlenecks capping <em>useful</em> deployment.' },
+
+    { id:'defense', group:'geopolicy', kind:'policy', nav:'Defense Arms Race',
+      title:'Defense Spending Arms Race', strength:'security-dilemma loop',
+      chart:{ id:'def', label:'Global military spending, $T/yr', unit:'$T', dir:'up', latest:'~$2.9T', note:'World military expenditure. Approximate.',
+        points:[['14',1.65],['18',1.85],['20',2.0],['22',2.24],['23',2.44],['24',2.7],['25',2.9]] },
+      loop:'Geopolitical tension &rarr; defense budgets&nbsp;&uarr; &rarr; rearmament &rarr; neighbours respond in kind &rarr; tension&nbsp;&uarr; &rarr; budgets&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'The security dilemma is textbook positive feedback: one nation\'s buildup is another\'s threat. Post-2022 Europe, the Middle East, and the Indo-Pacific are rearming simultaneously, each justifying the others\' spend &mdash; a synchronized ratchet.',
+      trade:[['long','LMT, RTX, NOC, GD &middot; European defense (Rheinmetall) &middot; ITA ETF']],
+      brk:'Durable d&eacute;tente / peace deals; or fiscal exhaustion forcing budget caps against the debt load.' },
+
+    { id:'reshoring', group:'geopolicy', kind:'policy', nav:'Reshoring Capex',
+      title:'Reshoring / Industrial-Policy Capex', strength:'agglomeration loop',
+      chart:{ id:'resh', label:'US manufacturing construction, $B/yr', unit:'$B', dir:'up', latest:'~$235B', note:'US manufacturing construction spending, annualized. Approximate.',
+        points:[['18',80],['20',80],['21',90],['22',130],['23',200],['24',235],['25',240]] },
+      loop:'Subsidies (CHIPS/IRA) + supply-chain security &rarr; factory build &rarr; supplier clusters &amp; skilled-labor pools &rarr; lower cost for the next plant &rarr; more investment <span class="ret">&#8635;</span>',
+      why:'Industrial policy plus supply-chain security has roughly tripled US factory construction. Clusters create supplier ecosystems and labor pools that lower the cost of the next plant &mdash; a classic agglomeration loop that compounds once a region reaches critical mass.',
+      trade:[['long','Electrical equipment (ETN, PWR) &middot; construction/aggregates (CAT, VMC) &middot; CHIPS beneficiaries']],
+      brk:'Subsidy reversal / political change; cost overruns and labor shortages; or end-demand for the output failing to materialize.' },
+
+    { id:'reinsurance', group:'geopolicy', kind:'policy', nav:'Reinsurance Pricing',
+      title:'Climate Risk &rarr; Reinsurance Pricing Spiral', strength:'hard-market loop',
+      chart:{ id:'reins', label:'Insured catastrophe losses, $B/yr', unit:'$B', dir:'up', latest:'~$140B', note:'Global insured nat-cat losses. Rising and volatile.',
+        points:[['14',35],['17',150],['18',90],['20',100],['21',130],['22',140],['23',120],['24',140]] },
+      loop:'Bigger catastrophe losses &rarr; reinsurance capital strained &rarr; premiums&nbsp;&uarr; (hard market) &rarr; marginal areas uninsurable &rarr; exposure concentrates on the insured &rarr; pricing&nbsp;&uarr; <span class="ret">&#8635;</span>',
+      why:'Rising climate-driven catastrophe losses erode reinsurer capital, forcing a hard market of higher premiums and tighter terms. As marginal areas become uninsurable, exposure concentrates on the remaining book, reinforcing the pricing spiral.',
+      trade:[['long','Reinsurers into the hard market (RNR, Everest EG) &middot; specialty insurers']],
+      brk:'A benign catastrophe year rebuilding capital and softening pricing; or alternative capital (cat bonds) flooding in to cap rate gains.' },
+
+    { id:'platforms', group:'market', kind:'market', nav:'Network-Effect Platforms',
+      title:'Network-Effect Platforms (Metcalfe)', strength:'winner-take-most',
+      chart:{ id:'plat', label:'Meta family daily users, billions', unit:'B', dir:'up', latest:'~3.4B', note:'Illustrative platform reach (Meta DAUs). Approximate.',
+        points:[['14',1.0],['17',1.4],['19',1.7],['21',2.8],['23',3.1],['24',3.3],['25',3.4]] },
+      loop:'More users &rarr; more value per user (Metcalfe) + more data &rarr; better product &amp; ad targeting &rarr; attracts more users &rarr; moat deepens <span class="ret">&#8635;</span>',
+      why:'Each new user makes the network more valuable to every other and feeds more data into ranking and ads, widening the quality and moat gap. Winner-take-most dynamics concentrate users and ad dollars into a handful of platforms.',
+      trade:[['long','META, GOOGL, AMZN &middot; ad-duopoly beneficiaries']],
+      brk:'Regulatory unbundling / antitrust; a platform shift (AI assistants disintermediating search &amp; social); or user fatigue.' },
+
+    { id:'zerodte', group:'fragility', kind:'fragility', nav:'0DTE / Dealer Gamma',
+      title:'0DTE Options &rarr; Dealer Gamma', strength:'pins, then gaps',
+      chart:{ id:'zdte', label:'0DTE share of SPX option volume, %', unit:'%', dir:'up', latest:'~58%', note:'Same-day-expiry share of index option volume. Approximate.',
+        points:[['16',5],['19',20],['21',35],['22',43],['23',50],['24',55],['25',58]] },
+      loop:'More 0DTE volume &rarr; dealer hedging pins / suppresses intraday vol &rarr; encourages more 0DTE selling &rarr; short-gamma positioning builds &rarr; <span class="rev">a gap move flips dealers short gamma &rarr; hedging amplifies it</span> <span class="ret">&#8635; (intraday reverse)</span>',
+      why:'0DTE options now dominate index volume. Dealer gamma hedging dampens small moves (selling rallies, buying dips) &mdash; until a large move flips dealers short gamma and hedging <em>accelerates</em> the move. Stability that manufactures gap risk.',
+      trade:[['conv','Own intraday convexity / avoid short-gamma exposure into key catalysts &mdash; the unwind is the trade, not the carry']],
+      brk:'Trigger: a catalyst gap beyond the pinned range (CPI, FOMC, geopolitical) flips dealer hedging from stabilizing to accelerating.' },
+
+    { id:'margin', group:'fragility', kind:'fragility', nav:'Margin Debt Spiral',
+      title:'Margin Debt / Market Leverage', strength:'reflexive amplifier',
+      chart:{ id:'margin', label:'FINRA margin debt, $B', unit:'$B', dir:'up', latest:'~$900B', note:'US broker margin debt outstanding. Approximate.',
+        points:[['10',280],['14',460],['18',640],['20',780],['21',910],['22',580],['24',820],['25',900]] },
+      loop:'Prices&nbsp;&uarr; &rarr; collateral value&nbsp;&uarr; &rarr; borrowing capacity&nbsp;&uarr; &rarr; more buying &rarr; prices&nbsp;&uarr; ... <span class="rev">shock &rarr; margin calls &rarr; forced selling &rarr; prices&nbsp;&darr;</span> <span class="ret">&#8635; (reverses)</span>',
+      why:'Rising markets inflate the collateral that backs margin loans, expanding borrowing power that buys more assets. The same leverage that lifts prices forces synchronized selling on the way down &mdash; a classic reflexive amplifier of both legs.',
+      trade:[['conv','Tail hedges when margin debt is at extremes and still rising; deleverage into euphoria']],
+      brk:'Trigger: a sharp drawdown tripping margin calls; or a rate spike raising the cost of leverage and forcing unwinds.' }
+  ];
+
+  function byId(id){ for(var i=0;i<FBL.length;i++){ if(FBL[i].id===id) return FBL[i]; } return null; }
+
+  function chart(c){
+    var pts=c.points, n=pts.length, W=360, H=132, top=10, bot=20, left=4, right=8;
+    var vals=pts.map(function(p){ return c.log ? Math.log(p[1])/Math.LN10 : p[1]; });
+    var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals), span=(hi-lo)||1;
+    function X(i){ return left + i*((W-left-right)/(n-1)); }
+    function Y(v){ var a=c.log ? Math.log(v)/Math.LN10 : v; return top + (1-(a-lo)/span)*(H-top-bot); }
+    var line='', i;
+    for(i=0;i<n;i++){ line += (i?'L':'M')+X(i).toFixed(1)+' '+Y(pts[i][1]).toFixed(1)+' '; }
+    var area='M'+X(0).toFixed(1)+' '+(H-bot);
+    for(i=0;i<n;i++){ area += ' L'+X(i).toFixed(1)+' '+Y(pts[i][1]).toFixed(1); }
+    area += ' L'+X(n-1).toFixed(1)+' '+(H-bot)+' Z';
+    var col = c.dir==='down' ? 'var(--accent)' : (c.dir==='shock' ? 'var(--bad)' : 'var(--good)');
+    var gid='fblg_'+c.id;
+    return '<svg class="fbl-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="chart">'+
+      '<defs><linearGradient id="'+gid+'" x1="0" y1="0" x2="0" y2="1">'+
+        '<stop offset="0" stop-color="'+col+'" stop-opacity="0.30"/>'+
+        '<stop offset="1" stop-color="'+col+'" stop-opacity="0"/>'+
+      '</linearGradient></defs>'+
+      '<path d="'+area+'" fill="url(#'+gid+')"/>'+
+      '<path d="'+line+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>'+
+      '</svg>';
+  }
+
+  function arrow(c){ return c.dir==='down' ? '&darr;' : (c.dir==='shock' ? '&#9889;' : '&uarr;'); }
+
+  function detail(L){
+    var c=L.chart;
+    var x0=c.points[0][0], x1=c.points[c.points.length-1][0];
+    var legs = L.trade.map(function(t){
+      var lab = t[0]==='long'?'LONG':(t[0]==='short'?'SHORT':'CONVEXITY');
+      return '<span class="fbl-leg '+t[0]+'">'+lab+'</span> '+t[1];
+    }).join('<span class="fbl-sep">&middot;</span> ');
+    var brkLabel = L.kind==='fragility' ? 'Trigger / reversal:' : 'What breaks the loop:';
+    return '<article class="fbl-card'+(L.seed?' seed':'')+'">'+
+      '<div class="fbl-head"><span class="fbl-kind '+L.kind+'">'+KIND[L.kind]+'</span><h3>'+L.title+'</h3>'+
+        '<span class="fbl-strength">'+L.strength+'</span></div>'+
+      '<div class="fbl-chartwrap">'+
+        '<div class="fbl-chart-top"><span class="fbl-metric">'+c.label+'</span>'+
+          '<span class="fbl-latest '+c.dir+'">'+arrow(c)+' '+c.latest+'</span></div>'+
+        chart(c)+
+        '<div class="fbl-axis"><span>'+(x0||'')+'</span><span>'+(x1||'')+'</span></div>'+
+        '<div class="fbl-chart-note">'+c.note+'</div>'+
+      '</div>'+
+      '<div class="fbl-loop">'+L.loop+'</div>'+
+      '<div class="fbl-body"><p><strong>Why it compounds:</strong> '+L.why+'</p></div>'+
+      '<div class="fbl-trade">'+legs+'</div>'+
+      '<p class="fbl-break"><strong>'+brkLabel+'</strong> '+L.brk+'</p>'+
+      (L.link ? '<a class="fbl-link" data-goto-cardid="'+L.link.cardId+'">&#8599; '+L.link.label+'</a>' : '')+
+    '</article>';
+  }
+
+  function overview(){
+    var cards = FBL.map(function(L){
+      var c=L.chart;
+      return '<button class="fbl-ov-card" data-fbl-open="'+L.id+'">'+
+        '<div class="fbl-ov-top"><span class="fbl-dot '+L.kind+'"></span><span class="fbl-ov-title">'+L.nav+'</span></div>'+
+        chart(c)+
+        '<div class="fbl-ov-bot"><span class="fbl-ov-metric">'+c.label+'</span>'+
+          '<span class="fbl-latest '+c.dir+'">'+arrow(c)+' '+c.latest+'</span></div>'+
+      '</button>';
+    }).join('');
+    return '<h2>Positive Feedback Loops</h2>'+
+      '<p class="fbl-intro">Self-reinforcing dynamics where the output of a process feeds back as a larger input to the same process &mdash; each turn amplifies the next. These aren\'t single-event signals; they\'re <em>structural regimes</em> that persist until something breaks the loop. The edge is being positioned along the direction of reinforcement while it runs &mdash; and recognizing when it reverses (positive feedback runs both ways, which is why the unwinds are violent). Pick a loop from the left, or scan all 31 below.</p>'+
+      '<div class="fbl-disclaimer"><strong>On the charts:</strong> each is a small SVG of the underlying exponential &mdash; values are approximate / illustrative and meant to show <em>shape</em>, not to be precise data. Most loops are macro theses with no clean historical analog to backtest (regime-dependent, small-N), so size them as convictions, not as the validated signals in the Strategies tab. Where a loop already has a live backtested expression, it\'s linked.</div>'+
+      '<div class="fbl-ov-grid">'+cards+'</div>';
+  }
+
+  function renderNav(){
+    var html='', nav=document.getElementById('fbl-nav');
+    GROUPS.forEach(function(g){
+      var items = FBL.filter(function(L){ return L.group===g.key; });
+      if(!items.length) return;
+      html += '<div class="fbl-navgroup">'+g.title+'</div>';
+      items.forEach(function(L){
+        html += '<button class="fbl-navitem" data-fbl-id="'+L.id+'"><span class="fbl-dot '+L.kind+'"></span>'+L.nav+'</button>';
+      });
+    });
+    nav.innerHTML = html;
+  }
+
+  function gotoStrategy(badgeId){
+    if(typeof switchTab==='function') switchTab('strategies');
+    var cards=document.querySelectorAll('#tab-strategies .card');
+    for(var i=0;i<cards.length;i++){
+      var b=cards[i].querySelector('.badge');
+      if(b && b.textContent.trim()===badgeId){
+        cards[i].scrollIntoView({behavior:'smooth',block:'center'});
+        cards[i].style.transition='box-shadow 0.3s';
+        cards[i].style.boxShadow='0 0 0 2px var(--accent)';
+        (function(cc){ setTimeout(function(){ cc.style.boxShadow=''; },1600); })(cards[i]);
+        break;
+      }
+    }
+  }
+
+  function select(id){
+    var d=document.getElementById('fbl-detail');
+    if(id==='overview'){ d.innerHTML=overview(); }
+    else { var L=byId(id); d.innerHTML = L?detail(L):overview(); }
+    var items=document.querySelectorAll('#tab-feedback .fbl-navitem');
+    for(var i=0;i<items.length;i++){ items[i].classList.toggle('active', items[i].getAttribute('data-fbl-id')===id); }
+    d.scrollTop=0;
+  }
+
+  var panel=document.getElementById('tab-feedback');
+  panel.addEventListener('click', function(e){
+    var nv=e.target.closest('.fbl-navitem'); if(nv){ select(nv.getAttribute('data-fbl-id')); return; }
+    var ov=e.target.closest('[data-fbl-open]'); if(ov){ select(ov.getAttribute('data-fbl-open')); return; }
+    var gl=e.target.closest('[data-goto-cardid]'); if(gl){ e.preventDefault(); gotoStrategy(gl.getAttribute('data-goto-cardid')); }
+  });
+
+  renderNav();
+  select('overview');
+})();
+</script>
+
 <script>
 // ----- Pipeline tab logic -----
 function goToCatalog(signalId) {
@@ -6728,23 +7265,6 @@ updateCagrLabel();
 const firstLink = document.querySelector('.strat-link');
 if (firstLink) showOnly(firstLink.dataset.cardId);
 
-// Theme toggle
-const themeToggle = document.getElementById('theme-toggle');
-function applyThemeLabel() {
-  themeToggle.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? 'Dark' : 'Light';
-}
-applyThemeLabel();
-themeToggle.addEventListener('click', () => {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  if (isLight) {
-    document.documentElement.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'light');
-    localStorage.setItem('theme', 'light');
-  }
-  applyThemeLabel();
-});
 </script>
 
 <script>
@@ -6761,12 +7281,12 @@ var META = {
   'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 703.6 > 200d SMA 678.7
   'A16':      {t:[['SPY','long']], s:'defensive', oos:'2024-12-31'},           // Entering weak June → cash
   'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, ~17 days away
-  'A06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},              // Week 4 of FOMC cycle (even = long)
+  'A06':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},            // Week 5 of FOMC cycle since Apr 29 (odd = flat)
   'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2) ~90+, far above 5
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
-  'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // VIX/VIX3M = 0.82 < 0.92 → long
+  'B01':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // VIX/VIX3M = 0.99 (≥ 0.92): curve flat/backwardated → no long (2026-06-07)
   'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
-  'C07':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY top-ranked on blended momentum
+  'C07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // EEM now top 12m mom (+42%) vs SPY +25% — SPY no longer rank-1, relative-mom long off (2026-06-07)
   'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
   'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 4/5 above 10mo SMA; IEF below
   'C06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // Equity-on: SPY 12m +29.7%, ACWX +32.1% (intl narrowly leads); both > T-bills
@@ -6827,7 +7347,7 @@ var PLMETA = {
   'PL75': {t:[['XLI','long']], oos:'2025-12-31'},
   'PL38': {t:[['SPY','long']], oos:'2025-12-31'},
   'PL35': {t:[['Water Infra','long']], oos:'2025-12-31'},
-  'PL87': {t:[['Exporters','long']], s:'active', oos:'2025-12-31'},            // Dollar weak: UUP -4.2% from 52wk peak, broad TWD off highs
+  'PL87': {t:[['Exporters','long']], s:'inactive', oos:'2025-12-31'},          // USD rallied back to highs: UUP only -0.8% from 52wk peak — weak-dollar condition no longer met
   'PL10': {t:[['Trucks','long']], oos:'2025-12-31'},
   'PL102':{t:[['Industrials','long']], oos:'2025-12-31'},
   'PL82': {t:[['XLI','long']], oos:'2025-12-31'},
@@ -6945,7 +7465,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-05-30';
+var CUR_VER = '2026-06-07';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
@@ -7427,6 +7947,414 @@ if (searchInput) {
 }
 
 render();
+})();
+</script>
+
+<!-- ===================== Global ticker search ===================== -->
+<script>
+(function(){
+  // Each strategy trades an asset GROUP (a basket / sector ETF), not a single
+  // ticker. This map links common tickers to the group(s) they belong to, so a
+  // search for "MRVL" resolves to the Semis + Custom Silicon strategies. A
+  // ticker can appear in several groups (e.g. JPM is in Large Banks AND XLF) —
+  // we surface every strategy that touches any of its groups.
+  var GROUP_MEMBERS = {
+    'Semis': ['NVDA','AMD','AVGO','MRVL','QCOM','TXN','MU','INTC','ADI','NXPI','MCHP','ON','SWKS','QRVO','TSM','ASML','MPWR','LSCC','SOXX','SMH'],
+    'Semi Equipment': ['AMAT','LRCX','KLAC','TER','ENTG','ACLS','ONTO','UCTT','KLIC','COHU','AEIS','ASML'],
+    'Custom Silicon': ['AVGO','MRVL','CRDO','ALAB','MTSI','SITM','RMBS'],
+    'Power Infra': ['GEV','ETN','PWR','VRT','POWL','NVT','HUBB','PRIM','MYRG','AGX','BWXT','NEE'],
+    'Growth Utilities': ['CEG','VST','NRG','TLN','AES','PEG','NEE'],
+    'Large Banks': ['JPM','BAC','WFC','C','GS','MS','USB','PNC','TFC','COF','XLF'],
+    'Regional CRE Banks': ['WAL','ZION','CMA','KEY','FHN','VLY','NYCB','EWBC','CFG','RF','HBAN','FITB'],
+    'Spirits': ['STZ','DEO','TAP','SAM','BF.B','BUD'],
+    'Biotech': ['XBI','IBB','MRNA','VRTX','REGN','GILD','BIIB','AMGN','ALNY','INCY'],
+    'Homebuilders': ['DHI','LEN','PHM','NVR','TOL','KBH','MTH','TMHC','XHB','ITB'],
+    'Auto Dealers': ['AN','GPI','LAD','ABG','SAH','PAG'],
+    'Trucks': ['PCAR','CMI','WNC','NKLA','ALSN','MTOR'],
+    'Industrials': ['HON','GE','CAT','DE','EMR','ETN','ITW','MMM','GD','LMT','PH','ROK','XLI'],
+    'Leisure': ['RCL','CCL','NCLH','MAR','HLT','LVS','WYNN','MGM','DKNG'],
+    'Alt Managers': ['BX','KKR','APO','ARES','CG','OWL','BAM','TPG'],
+    'Water Infra': ['XYL','AWK','WTRG','PNR','MWA','ROP','AOS','ECL'],
+    'Exporters': ['CAT','DE','BA','GE','MMM','EMR','ROK','DOV'],
+    'Staffing': ['RHI','MAN','KFY','ASGN','KFRC','HSII'],
+    'NatGas Producers': ['EQT','AR','RRC','CTRA','EXE','CHK','SWN','CNX'],
+    'Aggregates': ['VMC','MLM','EXP','SUM','CRH'],
+    'Gun Makers': ['RGR','SWBI','OLN','AOUT'],
+    'US Importers': ['WMT','TGT','COST','NKE','LOW','HD','DLTR','DG','FIVE'],
+    'Copper': ['FCX','SCCO','TECK','COPX'],
+    'Soybeans': ['SOYB','ADM','BG'],
+    'Corn': ['CORN','ADM'],
+    'Wheat': ['WEAT'],
+    'Lumber': ['WY','WOOD','PCH','RYN','LPX','WFG'],
+    'Brent Crude': ['BNO','USO','XLE','XOP'],
+    'BTC': ['BTC','GBTC','IBIT','MSTR','COIN'],
+    'ETH': ['ETH','ETHE','ETHA'],
+    'BTC Miners': ['MARA','RIOT','CLSK','CIFR','WULF','HUT','BITF','IREN','BTDR'],
+    'Equity Momentum': ['MTUM'],
+    // Sector / index ETFs that are themselves traded as a group — list a few
+    // marquee holdings so searching a constituent surfaces the ETF strategy too.
+    // Antitrust / litigation-reversion defendants (Z6 trades exactly these names).
+    'Event Equity': ['GOOGL','GOOG','META','AMZN','AAPL','MSFT','V','MA','TMUS','ABNB','TTD'],
+    // SPY = the S&P 500 itself. Listing the mega-cap constituents means searching
+    // any of them surfaces your index-overlay signals as BROAD (held via SPY).
+    'SPY': ['SPY','VOO','IVV','AAPL','MSFT','GOOGL','GOOG','AMZN','META','NVDA','TSLA','BRK.B','JPM','V','MA','UNH','JNJ','XOM','PG','HD','COST','ABBV','MRK','KO','PEP','AVGO','LLY','WMT','BAC','CVX','ORCL','CRM','ADBE','NFLX','AMD','DIS','CSCO','ACN','MCD','ABT','TMO','WFC','INTC','QCOM','TXN','PM','IBM','GE','CAT','BA','NKE','HON','UNP','GS','AMGN','LMT','LOW','INTU','SPGI','BKNG','NOW','UBER','PLTR'],
+    'IWM': ['IWM','VTWO'],
+    'EEM': ['EEM','VWO','IEMG'],
+    'XLY': ['XLY','AMZN','TSLA','HD','MCD','NKE','SBUX','LOW','BKNG','ABNB'],
+    'XLF': ['XLF','JPM','BAC','WFC','GS','MS','SPGI','BLK','BRK.B'],
+    'XLB': ['XLB','LIN','SHW','FCX','ECL','NEM','APD'],
+    'XLE': ['XLE','XOM','CVX','COP','SLB','EOG'],
+    'XLU': ['XLU','NEE','DUK','SO','D','AEP'],
+    'XLP': ['XLP','PG','KO','PEP','COST','WMT'],
+    'XRT': ['XRT'],
+    'XOP': ['XOP'],
+    'XHB': ['XHB','DHI','LEN','PHM'],
+    'ITA': ['ITA','LMT','RTX','GD','NOC','BA','LHX','HII'],
+    'TLT': ['TLT','IEF','TLH'],
+    'GLD': ['GLD','IAU','GDX']
+  };
+
+  // Display names for resolution (best-effort; missing names are simply omitted).
+  var NAMES = {
+    'NVDA':'NVIDIA','AMD':'Advanced Micro Devices','AVGO':'Broadcom','MRVL':'Marvell Technology',
+    'QCOM':'Qualcomm','TXN':'Texas Instruments','MU':'Micron','INTC':'Intel','TSM':'TSMC','ASML':'ASML',
+    'MCHP':'Microchip','NXPI':'NXP','ADI':'Analog Devices','CRDO':'Credo','ALAB':'Astera Labs','MTSI':'MACOM',
+    'AMAT':'Applied Materials','LRCX':'Lam Research','KLAC':'KLA Corp',
+    'GEV':'GE Vernova','ETN':'Eaton','PWR':'Quanta Services','VRT':'Vertiv','POWL':'Powell Industries',
+    'CEG':'Constellation Energy','VST':'Vistra','NRG':'NRG Energy','TLN':'Talen Energy','NEE':'NextEra',
+    'JPM':'JPMorgan Chase','BAC':'Bank of America','WFC':'Wells Fargo','C':'Citigroup','GS':'Goldman Sachs','MS':'Morgan Stanley',
+    'WAL':'Western Alliance','ZION':'Zions','CMA':'Comerica','KEY':'KeyCorp','EWBC':'East West Bancorp',
+    'STZ':'Constellation Brands','DEO':'Diageo','TAP':'Molson Coors','BF.B':'Brown-Forman',
+    'DHI':'D.R. Horton','LEN':'Lennar','PHM':'PulteGroup','NVR':'NVR Inc','TOL':'Toll Brothers',
+    'AN':'AutoNation','GPI':'Group 1 Auto','LAD':'Lithia Motors','PAG':'Penske',
+    'PCAR':'PACCAR','CMI':'Cummins','ALSN':'Allison Transmission',
+    'HON':'Honeywell','GE':'GE Aerospace','CAT':'Caterpillar','DE':'Deere','LMT':'Lockheed Martin','RTX':'RTX',
+    'RCL':'Royal Caribbean','CCL':'Carnival','NCLH':'Norwegian','MAR':'Marriott','LVS':'Las Vegas Sands','DKNG':'DraftKings',
+    'BX':'Blackstone','KKR':'KKR','APO':'Apollo','ARES':'Ares','OWL':'Blue Owl','BAM':'Brookfield',
+    'XYL':'Xylem','AWK':'American Water','PNR':'Pentair',
+    'RHI':'Robert Half','MAN':'ManpowerGroup','KFY':'Korn Ferry','ASGN':'ASGN Inc',
+    'EQT':'EQT Corp','AR':'Antero','RRC':'Range Resources','CTRA':'Coterra','EXE':'Expand Energy',
+    'VMC':'Vulcan Materials','MLM':'Martin Marietta',
+    'RGR':'Sturm Ruger','SWBI':'Smith & Wesson',
+    'FCX':'Freeport-McMoRan','SCCO':'Southern Copper',
+    'WY':'Weyerhaeuser','PCH':'PotlatchDeltic','RYN':'Rayonier',
+    'MSTR':'Strategy (MicroStrategy)','COIN':'Coinbase','MARA':'MARA Holdings','RIOT':'Riot Platforms','CLSK':'CleanSpark',
+    'WMT':'Walmart','TGT':'Target','COST':'Costco','HD':'Home Depot','LOW':'Lowe’s',
+    'SPY':'S&P 500 ETF','IWM':'Russell 2000 ETF','EEM':'Emerging Markets ETF','GLD':'Gold ETF','TLT':'20+yr Treasury ETF',
+    'XLF':'Financials ETF','XLI':'Industrials ETF','XLY':'Cons. Discretionary ETF','XLB':'Materials ETF',
+    'XLE':'Energy ETF','XLU':'Utilities ETF','XLP':'Cons. Staples ETF','XRT':'Retail ETF','XOP':'Oil & Gas E&P ETF',
+    'XHB':'Homebuilders ETF','ITA':'Aerospace & Defense ETF','MTUM':'Momentum Factor ETF','SMH':'Semiconductor ETF','SOXX':'Semiconductor ETF',
+    'GOOGL':'Alphabet (Google)','GOOG':'Alphabet (Google)','META':'Meta Platforms','AAPL':'Apple','MSFT':'Microsoft',
+    'AMZN':'Amazon','TSLA':'Tesla','NFLX':'Netflix','XOM':'Exxon Mobil','CVX':'Chevron','COP':'ConocoPhillips',
+    'V':'Visa','MA':'Mastercard','UNH':'UnitedHealth','LLY':'Eli Lilly','BRK.B':'Berkshire Hathaway',
+    'ORCL':'Oracle','CRM':'Salesforce','ADBE':'Adobe','BA':'Boeing','DIS':'Disney','UBER':'Uber','PLTR':'Palantir'
+  };
+
+  // Type a company name ("google", "apple") -> ticker.
+  var ALIASES = {
+    'google':'GOOGL','alphabet':'GOOGL','apple':'AAPL','microsoft':'MSFT','amazon':'AMZN',
+    'meta':'META','facebook':'META','tesla':'TSLA','nvidia':'NVDA','netflix':'NFLX','palantir':'PLTR','uber':'UBER',
+    'broadcom':'AVGO','marvell':'MRVL','micron':'MU','intel':'INTC','qualcomm':'QCOM','amd':'AMD',
+    'tsmc':'TSM','taiwan semi':'TSM','asml':'ASML','astera':'ALAB','credo':'CRDO','texas instruments':'TXN',
+    'jpmorgan':'JPM','jp morgan':'JPM','goldman':'GS','goldman sachs':'GS','morgan stanley':'MS',
+    'bank of america':'BAC','wells fargo':'WFC','citi':'C','citigroup':'C','visa':'V','mastercard':'MA',
+    'walmart':'WMT','costco':'COST','target':'TGT','home depot':'HD','lowes':'LOW','disney':'DIS',
+    'exxon':'XOM','exxonmobil':'XOM','chevron':'CVX','conocophillips':'COP','oracle':'ORCL','salesforce':'CRM','adobe':'ADBE',
+    'microstrategy':'MSTR','strategy':'MSTR','coinbase':'COIN','marathon':'MARA','riot':'RIOT','cleanspark':'CLSK',
+    'lockheed':'LMT','lockheed martin':'LMT','raytheon':'RTX','boeing':'BA','northrop':'NOC',
+    'caterpillar':'CAT','deere':'DE','john deere':'DE','honeywell':'HON','eaton':'ETN','vertiv':'VRT','quanta':'PWR','ge vernova':'GEV',
+    'blackstone':'BX','kkr':'KKR','apollo':'APO','brookfield':'BAM','blue owl':'OWL','ares':'ARES',
+    'constellation energy':'CEG','vistra':'VST','nextera':'NEE','talen':'TLN',
+    'freeport':'FCX','southern copper':'SCCO','vulcan':'VMC','martin marietta':'MLM',
+    'antero':'AR','range resources':'RRC','coterra':'CTRA','expand energy':'EXE',
+    'royal caribbean':'RCL','carnival':'CCL','norwegian':'NCLH','las vegas sands':'LVS','draftkings':'DKNG','marriott':'MAR',
+    'sturm ruger':'RGR','ruger':'RGR','smith wesson':'SWBI','smith & wesson':'SWBI',
+    'diageo':'DEO','constellation brands':'STZ','molson coors':'TAP','brown forman':'BF.B',
+    'd.r. horton':'DHI','dr horton':'DHI','lennar':'LEN','pulte':'PHM','toll brothers':'TOL','nvr':'NVR',
+    'autonation':'AN','lithia':'LAD','penske':'PAG','paccar':'PCAR','cummins':'CMI',
+    'moderna':'MRNA','vertex':'VRTX','regeneron':'REGN','gilead':'GILD','amgen':'AMGN','eli lilly':'LLY',
+    'berkshire':'BRK.B','unitedhealth':'UNH'
+  };
+
+  // Type a sector/theme word ("energy", "banks", "crypto") -> one or more groups.
+  var GROUP_ALIASES = {
+    'energy':['XLE','XOP','Brent Crude','NatGas Producers'],'oil':['XLE','XOP','Brent Crude'],'crude':['Brent Crude','XOP'],
+    'natgas':['NatGas Producers'],'natural gas':['NatGas Producers'],'gas':['NatGas Producers'],
+    'financials':['XLF','Large Banks','Regional CRE Banks'],'finance':['XLF','Large Banks'],'financial':['XLF','Large Banks'],
+    'banks':['Large Banks','Regional CRE Banks','XLF'],'bank':['Large Banks','Regional CRE Banks','XLF'],'banking':['Large Banks','Regional CRE Banks'],
+    'tech':['Semis','Custom Silicon'],'technology':['Semis','Custom Silicon'],
+    'semis':['Semis'],'semiconductors':['Semis'],'semiconductor':['Semis'],'chips':['Semis','Custom Silicon'],'chip':['Semis','Custom Silicon'],
+    'silicon':['Custom Silicon','Semis'],'asic':['Custom Silicon'],'ai':['Semis','Custom Silicon','Power Infra'],
+    'semi equipment':['Semi Equipment'],'equipment':['Semi Equipment'],
+    'utilities':['XLU','Growth Utilities'],'utility':['XLU','Growth Utilities'],'power':['Power Infra','Growth Utilities'],'grid':['Power Infra'],'datacenter':['Power Infra'],'data center':['Power Infra'],
+    'staples':['XLP'],'consumer staples':['XLP'],
+    'discretionary':['XLY'],'consumer discretionary':['XLY'],'retail':['XRT','XLY'],'retailers':['XRT','US Importers'],
+    'industrials':['XLI','Industrials'],'industrial':['XLI','Industrials'],
+    'defense':['ITA'],'defence':['ITA'],'aerospace':['ITA'],'military':['ITA'],
+    'materials':['XLB'],'copper':['Copper'],'gold':['GLD'],'lumber':['Lumber'],'timber':['Lumber'],'aggregates':['Aggregates'],'cement':['Aggregates'],
+    'homebuilders':['Homebuilders','XHB'],'homebuilder':['Homebuilders','XHB'],'housing':['Homebuilders','XHB'],'homes':['Homebuilders','XHB'],'builders':['Homebuilders','XHB'],
+    'biotech':['Biotech'],'biotechnology':['Biotech'],'pharma':['Biotech'],'pharmaceutical':['Biotech'],'drugs':['Biotech'],
+    'crypto':['BTC','ETH','BTC Miners'],'bitcoin':['BTC','BTC Miners'],'btc':['BTC'],'ethereum':['ETH'],'eth':['ETH'],'miners':['BTC Miners'],'mining':['BTC Miners'],
+    'bonds':['TLT'],'treasuries':['TLT'],'treasury':['TLT'],'rates':['TLT'],'duration':['TLT'],
+    'spirits':['Spirits'],'alcohol':['Spirits'],'liquor':['Spirits'],'beer':['Spirits'],
+    'leisure':['Leisure'],'cruise':['Leisure'],'cruises':['Leisure'],'casino':['Leisure'],'casinos':['Leisure'],'travel':['Leisure'],'gaming':['Leisure'],
+    'trucks':['Trucks'],'truck':['Trucks'],'trucking':['Trucks'],'autos':['Auto Dealers'],'auto':['Auto Dealers'],'dealers':['Auto Dealers'],'cars':['Auto Dealers'],
+    'staffing':['Staffing'],'labor':['Staffing'],'water':['Water Infra'],'guns':['Gun Makers'],'firearms':['Gun Makers'],'gun':['Gun Makers'],
+    'soybeans':['Soybeans'],'soy':['Soybeans'],'corn':['Corn'],'wheat':['Wheat'],'grains':['Soybeans','Corn','Wheat'],'agriculture':['Soybeans','Corn','Wheat'],'ag':['Soybeans','Corn','Wheat'],'commodities':['Copper','Brent Crude','Soybeans','Corn','Wheat','Lumber'],
+    'momentum':['Equity Momentum'],'exporters':['Exporters'],'exports':['Exporters'],'importers':['US Importers'],'imports':['US Importers'],'tariffs':['US Importers'],
+    'alt managers':['Alt Managers'],'private equity':['Alt Managers'],'asset managers':['Alt Managers'],'pe':['Alt Managers'],
+    'spx':['SPY'],'s&p':['SPY'],'s&p 500':['SPY'],'sp500':['SPY'],'index':['SPY'],'market':['SPY'],'stocks':['SPY'],'equities':['SPY'],
+    'small caps':['IWM'],'small cap':['IWM'],'smallcap':['IWM'],'russell':['IWM'],
+    'emerging markets':['EEM'],'emerging':['EEM'],'em':['EEM'],
+    'antitrust':['Event Equity'],'merger':['Event Equity'],'mergers':['Event Equity'],'litigation':['Event Equity']
+  };
+
+  // Build the inverted index: ticker -> [groups]
+  var TICKER_TO_GROUPS = {};
+  Object.keys(GROUP_MEMBERS).forEach(function(group){
+    GROUP_MEMBERS[group].forEach(function(t){
+      var k = t.toUpperCase();
+      if (!TICKER_TO_GROUPS[k]) TICKER_TO_GROUPS[k] = [];
+      if (TICKER_TO_GROUPS[k].indexOf(group) < 0) TICKER_TO_GROUPS[k].push(group);
+    });
+  });
+  var ALL_TICKERS = Object.keys(TICKER_TO_GROUPS).sort();
+
+  function normalize(s){ return (s||'').trim().toUpperCase().replace(/[.\-]/g,'.'); }
+  function statusOf(id){
+    return (typeof window.EKANS_GET_STATUS === 'function') ? window.EKANS_GET_STATUS(id) : 'unknown';
+  }
+  var STATUS_RANK = { active: 0, defensive: 1, unknown: 2, inactive: 3 };
+  var STATUS_LABEL = { active: 'Active', defensive: 'Defensive', unknown: 'Watch', inactive: 'Off' };
+
+  // Groups that represent broad/index exposure rather than a specific basket —
+  // shown in a separate, de-emphasised section so mega-caps don't flood with SPY.
+  var BROAD_GROUPS = { 'SPY':1, 'IWM':1, 'EEM':1, 'Equity Momentum':1, 'Equity L/S':1, 'Industry Momentum':1 };
+
+  // Resolve a query (ticker, company name, or sector/theme word) into groups.
+  // Returns { sym, name, groups, isSector }.
+  function resolveQuery(query){
+    var raw = (query||'').trim().toLowerCase();
+    var q = normalize(query);
+    var ticker = q;
+    // Company name -> ticker (e.g. "google" -> GOOGL)
+    if (ALIASES[raw]) ticker = normalize(ALIASES[raw]);
+    var groups = (TICKER_TO_GROUPS[ticker] || []).slice();
+    var hadTicker = groups.length > 0 || !!NAMES[ticker];
+
+    // Sector / theme words -> groups (e.g. "energy", "banks", "crypto")
+    var sectorGroups = [];
+    if (GROUP_ALIASES[raw]) sectorGroups = GROUP_ALIASES[raw].slice();
+    // Typing a group name verbatim ("semis", "custom silicon")
+    Object.keys(GROUP_MEMBERS).forEach(function(g){
+      if (g.toLowerCase() === raw && sectorGroups.indexOf(g) < 0) sectorGroups.push(g);
+    });
+    sectorGroups.forEach(function(g){ if (groups.indexOf(g) < 0) groups.push(g); });
+
+    var isSector = !hadTicker && sectorGroups.length > 0;
+    var sym = hadTicker ? ticker.replace(/\./g,'.') : (query||'').trim();
+    var name = hadTicker ? (NAMES[ticker] || NAMES[ticker.replace(/\./g,'')] || '') : '';
+    return { sym: sym, name: name, groups: groups, isSector: isSector };
+  }
+
+  // Watchlist scenarios that name this ticker directly (untestable forward trades).
+  function watchlistMatches(query){
+    var q = normalize(query).replace(/\./g,'');
+    if (q.length < 2) return [];
+    var re = new RegExp('\\b' + q.replace(/[^A-Z0-9]/g,'') + '\\b');
+    var out = [];
+    document.querySelectorAll('#tab-watchlist article.card.watch').forEach(function(card){
+      var txt = (card.textContent || '').toUpperCase();
+      if (re.test(txt)) {
+        var h = card.querySelector('h3');
+        out.push({ id: card.id, title: h ? h.textContent.trim() : 'Scenario' });
+      }
+    });
+    return out;
+  }
+
+  function findSignals(groups){
+    var signals = window.EKANS_SIGNALS || [];
+    var seen = {}, matches = [];
+    signals.forEach(function(sig){
+      var trades = (sig.trades || []).concat(sig.defTrades || []);
+      var dir = null, grp = null;
+      trades.forEach(function(t){ if (groups.indexOf(t.g) >= 0 && !dir) { dir = t.d; grp = t.g; } });
+      if (dir && !seen[sig.id]) {
+        seen[sig.id] = 1;
+        matches.push({ sig: sig, dir: dir, group: grp, broad: !!BROAD_GROUPS[grp], status: statusOf(sig.id) });
+      }
+    });
+    matches.sort(function(a,b){
+      var r = (STATUS_RANK[a.status]||9) - (STATUS_RANK[b.status]||9);
+      return r !== 0 ? r : (b.sig.cagr - a.sig.cagr);
+    });
+    return matches;
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  var input = document.getElementById('ticker-search');
+  var box = document.getElementById('ticker-results');
+
+  function close(){ box.classList.remove('open'); box.innerHTML=''; }
+
+  function gotoStrategy(cardId){
+    try { if (typeof switchTab === 'function') switchTab('strategies'); } catch(e){}
+    try { if (typeof switchSubTab === 'function') switchSubTab('strategies','highreturn'); } catch(e){}
+    try { if (typeof showOnly === 'function') showOnly(cardId); } catch(e){}
+    var card = document.getElementById(cardId);
+    if (card){
+      card.style.display = '';
+      card.scrollIntoView({ behavior:'smooth', block:'start' });
+      card.classList.remove('tkr-flash'); void card.offsetWidth; card.classList.add('tkr-flash');
+    }
+    close(); input.blur();
+  }
+
+  function gotoWatch(cardId){
+    try { if (typeof switchTab === 'function') switchTab('watchlist'); } catch(e){}
+    var card = document.getElementById(cardId);
+    if (card){
+      card.scrollIntoView({ behavior:'smooth', block:'center' });
+      card.classList.remove('tkr-flash'); void card.offsetWidth; card.classList.add('tkr-flash');
+    }
+    close(); input.blur();
+  }
+
+  function rowHtml(m){
+    var s = m.sig;
+    var dd = s.maxdd != null ? ' · DD '+s.maxdd+'%' : '';
+    return '<div class="tkr-row" role="option" data-card="'+esc(s.cardId)+'">'
+      + '<span class="tkr-dir '+m.dir+'">'+(m.dir==='long'?'LONG':'SHORT')+'</span>'
+      + '<div class="tkr-row-main"><div class="tkr-row-id">'+esc(s.id)
+        + ' <span class="tkr-status-dot '+m.status+'"></span><span style="color:var(--fg-dim);font-family:inherit;">'+STATUS_LABEL[m.status]+'</span></div>'
+      + '<div class="tkr-row-name">'+esc(s.name)+'</div></div>'
+      + '<div class="tkr-row-meta">CAGR '+(s.cagr!=null?s.cagr+'%':'—')+'<br>Sharpe '+(s.sharpe!=null?s.sharpe:'—')+dd+'</div>'
+      + '</div>';
+  }
+
+  function render(query){
+    var q = (query||'').trim();
+    if (!q){ close(); return; }
+    var r = resolveQuery(q);
+    var groups = r.groups;
+    var matches = groups.length ? findSignals(groups) : [];
+    var watch = watchlistMatches(q);
+
+    if (!groups.length && !watch.length){
+      // Suggest close ticker matches as the user types.
+      var qn = normalize(q).replace(/\./g,'');
+      var sugg = ALL_TICKERS.filter(function(t){ return t.replace(/\./g,'').indexOf(qn) === 0; }).slice(0,8);
+      var h = '<div class="tkr-empty">No strategy maps to <strong>'+esc(q.toUpperCase())+'</strong> yet.';
+      if (sugg.length) h += '<div style="margin-top:8px;">Try: '+sugg.map(function(t){
+        return '<span class="tkr-grp-chip" data-suggest="'+t+'" style="cursor:pointer;">'+t+'</span>'; }).join(' ')+'</div>';
+      else h += '<div style="margin-top:8px;">Try a sector word like <span class="tkr-grp-chip" data-suggest="energy" style="cursor:pointer;">energy</span> <span class="tkr-grp-chip" data-suggest="banks" style="cursor:pointer;">banks</span> <span class="tkr-grp-chip" data-suggest="crypto" style="cursor:pointer;">crypto</span></div>';
+      h += '</div>';
+      box.innerHTML = h; box.classList.add('open');
+      bindSuggest();
+      return;
+    }
+
+    // Split specific-basket hits from broad index exposure (SPY/IWM/EEM/momentum).
+    var specific = matches.filter(function(m){ return !m.broad; });
+    var broad = matches.filter(function(m){ return m.broad; });
+
+    // Net exposure: prefer the specific position; fall back to broad index.
+    var basis = specific.length ? specific : broad;
+    var on = basis.filter(function(m){ return m.status === 'active' || m.status === 'defensive'; });
+    var longs = on.filter(function(m){ return m.dir === 'long'; }).length;
+    var shorts = on.filter(function(m){ return m.dir === 'short'; }).length;
+    var viaIdx = specific.length ? '' : ' (via index)';
+    var net, netLabel;
+    if (!on.length){ net = 'flat'; netLabel = 'No live position — not currently firing'; }
+    else if (longs && !shorts){ net = 'long'; netLabel = 'Net LONG'+viaIdx+' · '+longs+' live signal'+(longs>1?'s':''); }
+    else if (shorts && !longs){ net = 'short'; netLabel = 'Net SHORT'+viaIdx+' · '+shorts+' live signal'+(shorts>1?'s':''); }
+    else { net = 'mixed'; netLabel = 'MIXED · '+longs+' long / '+shorts+' short live'; }
+
+    var html = '<div class="tkr-head">';
+    html += '<span class="tkr-sym">'+esc(r.isSector ? r.sym.toUpperCase() : r.sym)+'</span>';
+    if (r.name) html += '<span class="tkr-name">'+esc(r.name)+'</span>';
+    html += '<div class="tkr-groups">'+groups.map(function(g){
+      return '<span class="tkr-grp-chip">'+esc(g)+'</span>'; }).join('')+'</div>';
+    html += '<div><span class="tkr-net '+net+'">'+esc(netLabel)+'</span></div>';
+    html += '</div>';
+
+    if (specific.length){
+      html += '<div class="tkr-sec">Strategies trading this ('+specific.length+')</div>';
+      specific.forEach(function(m){ html += rowHtml(m); });
+    } else if (!broad.length) {
+      html += '<div class="tkr-empty">In our universe ('+esc(groups.join(', '))+') but no high-return strategy currently trades it directly.</div>';
+    }
+
+    if (broad.length){
+      var BCAP = 5;
+      html += '<div class="tkr-sec">Broad index exposure — held via the S&amp;P 500 book ('+broad.length+')</div>';
+      broad.slice(0,BCAP).forEach(function(m){ html += rowHtml(m); });
+      if (broad.length > BCAP) html += '<div class="tkr-hint" style="border:none;padding:2px 12px 8px;">+ '+(broad.length-BCAP)+' more index signals on the Live tab</div>';
+    }
+
+    if (watch.length){
+      html += '<div class="tkr-sec">Watchlist scenarios naming it ('+watch.length+')</div>';
+      watch.forEach(function(w){
+        html += '<div class="tkr-row" role="option" data-watch="'+esc(w.id)+'">'
+          + '<span class="tkr-dir" style="background:var(--bg-3);color:var(--fg-dim);">WATCH</span>'
+          + '<div class="tkr-row-main"><div class="tkr-row-name">'+esc(w.title)+'</div></div>'
+          + '<div class="tkr-row-meta">forward</div></div>';
+      });
+    }
+
+    html += '<div class="tkr-hint">Click a strategy to jump to its card · Esc to close</div>';
+    box.innerHTML = html;
+    box.classList.add('open');
+    bindRows();
+  }
+
+  function bindRows(){
+    box.querySelectorAll('.tkr-row[data-card]').forEach(function(r){
+      r.addEventListener('click', function(){ gotoStrategy(r.getAttribute('data-card')); });
+    });
+    box.querySelectorAll('.tkr-row[data-watch]').forEach(function(r){
+      r.addEventListener('click', function(){ gotoWatch(r.getAttribute('data-watch')); });
+    });
+  }
+  function bindSuggest(){
+    box.querySelectorAll('[data-suggest]').forEach(function(c){
+      c.addEventListener('click', function(){
+        input.value = c.getAttribute('data-suggest'); render(input.value); input.focus();
+      });
+    });
+  }
+
+  input.addEventListener('input', function(){ render(this.value); });
+  input.addEventListener('focus', function(){ if (this.value.trim()) render(this.value); });
+
+  // Keyboard: '/' focuses search from anywhere; arrows + Enter navigate results.
+  document.addEventListener('keydown', function(e){
+    if (e.key === '/' && document.activeElement !== input &&
+        !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||'')){
+      e.preventDefault(); input.focus(); input.select();
+    }
+  });
+  input.addEventListener('keydown', function(e){
+    var rows = Array.prototype.slice.call(box.querySelectorAll('.tkr-row'));
+    var cur = box.querySelector('.tkr-row.kbd-active');
+    if (e.key === 'Escape'){ close(); this.blur(); return; }
+    if (!rows.length) return;
+    var idx = rows.indexOf(cur);
+    if (e.key === 'ArrowDown'){ e.preventDefault(); idx = Math.min(rows.length-1, idx+1); }
+    else if (e.key === 'ArrowUp'){ e.preventDefault(); idx = Math.max(0, idx-1); }
+    else if (e.key === 'Enter'){ if (cur) cur.click(); return; }
+    else return;
+    rows.forEach(function(r){ r.classList.remove('kbd-active'); });
+    if (rows[idx]){ rows[idx].classList.add('kbd-active'); rows[idx].scrollIntoView({block:'nearest'}); }
+  });
+
+  // Click-away closes the dropdown.
+  document.addEventListener('click', function(e){
+    if (!box.contains(e.target) && e.target !== input) close();
+  });
 })();
 </script>
 
