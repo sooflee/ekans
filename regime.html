@@ -120,7 +120,7 @@ h2 { font-size: 1.1em; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 
 <p class="sub">Current market conditions and which active signals fit them. Designed to help you weight conviction across your active signal set, not pick winners.</p>
 
 <div class="disclaimer">
-<strong>Regime as of 2026-06-07.</strong> Late-cycle tape cooling at the edges — trend is still up and the curve is bull-steepening, but volatility is expanding (VIX/VIX3M back to 0.99 from 0.85), crypto is in a ~26% drawdown and decoupling from tech (BTC-NDX corr 0.96 → 0.40), and 12-month leadership has rotated out of US large-cap into EM and gold (EEM is now the top-ranked momentum asset; SPY 4th). Two signals flipped inactive on 2026-06-07: B01 (short-vol carry, contango gone) and C07 (US relative-momentum, SPY no longer rank-1). Conditions update daily alongside signal statuses. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones. It is not a backtest under this regime — it's directional guidance about which active signals deserve more conviction.
+<strong>Regime as of 2026-06-07.</strong> Late-cycle tape cooling at the edges — trend is still up and the curve is bull-steepening, but volatility is expanding (VIX/VIX3M back to 0.99 from 0.85), crypto is in a ~26% drawdown and decoupling from tech (BTC-NDX corr 0.96 → 0.40), and 12-month leadership has rotated out of US large-cap into EM and gold (EEM is now the top-ranked momentum asset; SPY 4th). Three signals changed on 2026-06-07: B01 (short-vol carry, contango gone) and C07 (US relative-momentum, SPY no longer rank-1) flipped inactive, and A16 corrected to active (its prior-10y June seasonality is positive, so the rule holds long — a fix to an earlier hardcoded "June = cash" assumption). Conditions update daily alongside signal statuses. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones. It is not a backtest under this regime — it's directional guidance about which active signals deserve more conviction.
 </div>
 
 <h2>Current Regime</h2>
@@ -183,6 +183,7 @@ Fits are <em>not</em> backtest evidence under this regime. They are categorical 
     'C11':   { fit: 'aligned',  reason: 'MOVE/VIX ≈ 3.5 — equity vol leads rate vol, the long-SPY trigger of the rule.' },
     'D02':   { fit: 'aligned',  reason: 'Cross-sectional momentum factor — MTUM +21% YTD confirms factor is alive.' },
     'D04':   { fit: 'aligned',  reason: 'Industry momentum (Moskowitz-Grinblatt) thrives when persistent sector leadership exists. Tech/semis driving in 2026.' },
+    'A16':   { fit: 'working',  reason: 'Heston-Sadka same-month seasonality: SPY\'s prior-10y June average is positive (+0.09%/day), so the rule holds long. Calendar-mechanical, regime-independent.' },
     // Vol-regime — note: B01 short-vol carry flipped INACTIVE 2026-06-07 (VIX/VIX3M 0.99 ≥ 0.92); kept for when contango returns
     'C02':   { fit: 'aligned',  reason: 'SPY outperforming XLU on 4-week basis = risk-on signal active. Defensive rotation absent — for now.' },
     // Regime trades — depend on structural conditions persisting

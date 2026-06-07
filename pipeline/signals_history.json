@@ -11,6 +11,11 @@
         "id": "C07",
         "from": "active",
         "to": "inactive"
+      },
+      {
+        "id": "A16",
+        "from": "defensive",
+        "to": "active"
       }
     ]
   },
