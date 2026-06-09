@@ -4,10 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "index.html"
-      - "full_catalog.html"
-      - "analysis.html"
-      - "portfolio.html"
+      - "*.html"
+      - "live_results.json"
       - "pipeline/*.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -33,8 +31,12 @@ jobs:
       - name: Stage site
         run: |
           mkdir -p _site/pipeline
-          cp index.html full_catalog.html analysis.html portfolio.html _site/
-          cp pipeline/ideas_queue.json pipeline/strategies_queue.json pipeline/status.json _site/pipeline/
+          # Stage every page (glob avoids the recurring "forgot to add a page" bug)
+          cp *.html _site/
+          cp live_results.json _site/
+          # Stage exactly the JSON the pages fetch at runtime
+          cp pipeline/ideas_queue.json pipeline/strategies_queue.json pipeline/status.json \
+             pipeline/signals_last_update.json pipeline/signals_history.json _site/pipeline/
 
       - uses: actions/configure-pages@v5
 
