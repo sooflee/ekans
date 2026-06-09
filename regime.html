@@ -120,7 +120,7 @@ h2 { font-size: 1.1em; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 
 <p class="sub">Current market conditions and which active signals fit them. Designed to help you weight conviction across your active signal set, not pick winners.</p>
 
 <div class="disclaimer">
-<strong>Regime as of 2026-06-07.</strong> Late-cycle tape cooling at the edges — trend is still up and the curve is bull-steepening, but volatility is expanding (VIX/VIX3M back to 0.99 from 0.85), crypto is in a ~26% drawdown and decoupling from tech (BTC-NDX corr 0.96 → 0.40), and 12-month leadership has rotated out of US large-cap into EM and gold (EEM is now the top-ranked momentum asset; SPY 4th). Three signals changed on 2026-06-07: B01 (short-vol carry, contango gone) and C07 (US relative-momentum, SPY no longer rank-1) flipped inactive, and A16 corrected to active (its prior-10y June seasonality is positive, so the rule holds long — a fix to an earlier hardcoded "June = cash" assumption). Conditions update daily alongside signal statuses. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones. It is not a backtest under this regime — it's directional guidance about which active signals deserve more conviction.
+<strong>Regime as of <!--RG-DATE-->2026-06-09<!--/RG-DATE-->.</strong> <!--RG-SUMMARY-->Trend UP, volatility CALM (0.91), curve STEEP +92bp, growth GDPNow 3.3%, liquidity CONTRACTING, risk CRYPTO RISK-OFF.<!--/RG-SUMMARY--> The six cards below are regenerated daily from live market data (and FRED) by the signal-check pipeline; the editorial read is summarized in one line above. "Fit" is a coarse heuristic: trend-following signals fit trending regimes, mean-reversion signals fit choppy ones. It is not a backtest under this regime — it's directional guidance about which active signals deserve more conviction.
 </div>
 
 <h2>Current Regime</h2>
@@ -163,15 +163,18 @@ Fits are <em>not</em> backtest evidence under this regime. They are categorical 
 
 <script>
 (function() {
-  // Current regime (hand-curated; updated by cron alongside signal statuses)
+  // Current regime — AUTO-GENERATED daily by pipeline/daily_check.py from live
+  // market data + FRED. Do not hand-edit between the markers; changes are overwritten.
+  /* REGIME-AUTO-START */
   const REGIME = {
-    trend:     { label: 'Trend',         value: 'UP',          tone: 'good', desc: 'SPY 50d ≈ 713.5 vs 200d ≈ 681.6, spread +4.7% (golden cross intact). Favors trend-following, breakouts; hurts mean-reversion and inverse strategies.' },
-    vol:       { label: 'Volatility',    value: 'RISING (0.99)', tone: 'warn', desc: 'VIX 21.5 / VIX3M 21.8 = 0.99 — contango all but gone (was 0.85), VIX up from a ~17.3 30-day average. Short-vol carry edge eroding; long-vol hedges no longer a drag. A risk-off wobble is underway.' },
-    curve:     { label: 'Yield Curve',   value: 'STEEP +91bp', tone: 'good', desc: '10Y 4.54% – 13wk 3.62% = +91bp (bull-steepening, front-end easing priced). Favors banks/cyclicals/long-duration carry; hurts recession-timer trades.' },
-    growth:    { label: 'Growth',        value: 'STRONG 3.8%*', tone: 'good', desc: 'GDPNow Q2 ≈ 3.8% (* late-May read; not refreshed this cycle — no live feed). Favors cyclicals/small-caps/industrials; watch for deceleration confirming the vol wobble.' },
-    liquidity: { label: 'Liquidity',     value: 'CONTRACTING', tone: 'warn', desc: 'Fed RRP ≈ $3B (drained); Fed QT runoff; ECB passive runoff. G3 13-week trend net negative. Favors quality/large-cap; hurts unprofitable growth. The likely culprit behind the vol expansion.' },
-    risk:      { label: 'Risk Appetite', value: 'CRYPTO RISK-OFF', tone: 'bad', desc: 'BTC −26% from its recent high to ~$61k; BTC-NDX 60d corr collapsed 0.96 → 0.40 — crypto de-leveraging and decoupling from tech. Equity tape still firm but the speculative tail is unwinding first.' }
+    trend:     { label: 'Trend', value: 'UP', tone: 'good', desc: 'SPY 50d ~715.4 vs 200d ~682.1, spread +4.9% (golden cross intact). Favors trend-following and breakouts; hurts mean-reversion and inverse strategies.' },
+    vol:       { label: 'Volatility', value: 'CALM (0.91)', tone: 'good', desc: 'VIX 18.9 / VIX3M 20.8 = 0.91 (contango); VIX vs ~17.3 30-day avg. Short-vol carry and dip-buying favored.' },
+    curve:     { label: 'Yield Curve', value: 'STEEP +92bp', tone: 'good', desc: '10Y 4.55% - 13wk 3.63% = +92bp. Favors banks/cyclicals/long-duration carry; hurts recession-timer trades.' },
+    growth:    { label: 'Growth', value: 'GDPNow 3.3%', tone: 'good', desc: 'Atlanta Fed GDPNow nowcast 3.3% (as of 2026-04-01). Favors cyclicals/small-caps/industrials; watch for deceleration.' },
+    liquidity: { label: 'Liquidity', value: 'CONTRACTING', tone: 'warn', desc: 'Fed QT runoff ongoing; RRP largely drained (live RRP feed unavailable this run). Favors quality/large-cap; hurts unprofitable growth.' },
+    risk:      { label: 'Risk Appetite', value: 'CRYPTO RISK-OFF', tone: 'bad', desc: 'BTC -23% from its ~4mo high; BTC-NDX 60d corr 0.41. Crypto de-leveraging - speculative tail unwinding.' }
   };
+  /* REGIME-AUTO-END */
 
   // Per-signal regime fit. fit: 'aligned' | 'working' | 'crossing'. reason is regime-specific commentary.
   const FIT = {

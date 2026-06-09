@@ -46,6 +46,7 @@ warnings.filterwarnings("ignore")
 
 REPO = Path(__file__).resolve().parent.parent
 INDEX_HTML = REPO / "index.html"
+REGIME_HTML = REPO / "regime.html"
 HISTORY = REPO / "pipeline" / "signals_history.json"
 LAST_UPDATE = REPO / "pipeline" / "signals_last_update.json"
 
@@ -362,6 +363,143 @@ def atomic_write(path: Path, text: str):
 
 
 # ----------------------------------------------------------------------------
+# Regime snapshot — regenerates the 6 cards (+ disclaimer date/summary) in
+# regime.html from live market data + FRED. Best-effort: any failure leaves
+# regime.html untouched and never aborts the signal check.
+# ----------------------------------------------------------------------------
+def fred_latest(series_id, timeout=15):
+    """Latest (date, value) for a FRED series via the keyless CSV endpoint, or None."""
+    import urllib.request
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as r:
+            rows = [ln for ln in r.read().decode().splitlines() if ln]
+        for ln in reversed(rows[1:]):  # skip header; find last numeric row
+            d, _, v = ln.partition(",")
+            if v not in ("", "."):
+                return d, float(v)
+    except Exception:
+        return None
+    return None
+
+
+def _card(label, value, tone, desc):
+    return {"label": label, "value": value, "tone": tone, "desc": desc}
+
+
+def compute_regime(m, today):
+    """Ordered dict of the 6 regime cards, computed from live data + FRED."""
+    cards = {}
+
+    spy = m.get("SPY", "2024-06-01")
+    s50, s200 = sma(spy, 50), sma(spy, 200)
+    spread = (s50 / s200 - 1) * 100
+    cards["trend"] = _card("Trend", "UP" if s50 > s200 else "DOWN",
+        "good" if s50 > s200 else "bad",
+        f"SPY 50d ~{s50:.1f} vs 200d ~{s200:.1f}, spread {spread:+.1f}% "
+        f"({'golden cross intact' if s50 > s200 else 'death cross'}). "
+        "Favors trend-following and breakouts; hurts mean-reversion and inverse strategies.")
+
+    v = float(m.get("^VIX").iloc[-1]); v3 = float(m.get("^VIX3M").iloc[-1])
+    ratio = v / v3; v30 = float(m.get("^VIX").iloc[-30:].mean())
+    vtone = "good" if ratio < 0.92 else ("warn" if ratio <= 1.0 else "bad")
+    vlabel = ("LOW" if ratio < 0.85 else "CALM" if ratio < 0.92
+              else "RISING" if ratio <= 1.0 else "STRESS")
+    cards["vol"] = _card("Volatility", f"{vlabel} ({ratio:.2f})", vtone,
+        f"VIX {v:.1f} / VIX3M {v3:.1f} = {ratio:.2f} "
+        f"({'contango' if ratio < 1 else 'backwardation'}); VIX vs ~{v30:.1f} 30-day avg. "
+        + ("Short-vol carry and dip-buying favored." if ratio < 0.92
+           else "Short-vol edge eroding; long-vol hedges no longer a drag."))
+
+    try:
+        tnx = float(m.get("^TNX").iloc[-1]); irx = float(m.get("^IRX").iloc[-1])
+        bps = (tnx - irx) * 100
+        ctone = "bad" if bps < 0 else ("warn" if bps < 20 else "good")
+        clabel = "INVERTED" if bps < 0 else "FLAT" if bps < 20 else "STEEP"
+        cards["curve"] = _card("Yield Curve", f"{clabel} {bps:+.0f}bp", ctone,
+            f"10Y {tnx:.2f}% - 13wk {irx:.2f}% = {bps:+.0f}bp. "
+            "Favors banks/cyclicals/long-duration carry; hurts recession-timer trades.")
+    except Exception:
+        cards["curve"] = _card("Yield Curve", "n/a", "warn", "Curve data unavailable this run.")
+
+    g = fred_latest("GDPNOW")
+    if g:
+        gd, gv = g
+        gtone = "good" if gv >= 2 else ("warn" if gv >= 0.5 else "bad")
+        cards["growth"] = _card("Growth", f"GDPNow {gv:.1f}%", gtone,
+            f"Atlanta Fed GDPNow nowcast {gv:.1f}% (as of {gd}). "
+            "Favors cyclicals/small-caps/industrials; watch for deceleration.")
+    else:
+        cards["growth"] = _card("Growth", "GDPNow n/a", "warn",
+            "GDPNow feed unavailable this run; treat growth as unknown.")
+
+    rrp = fred_latest("RRPONTSYD")
+    if rrp:
+        rd, rv = rrp
+        ltone = "warn" if rv < 100 else "good"
+        cards["liquidity"] = _card("Liquidity", f"RRP ${rv:.0f}B", ltone,
+            f"Fed overnight RRP ${rv:.0f}B (as of {rd}); QT runoff ongoing. "
+            + ("Drained - buffer thin, liquidity contracting. " if rv < 100 else "Cushion present. ")
+            + "Favors quality/large-cap; hurts unprofitable growth.")
+    else:
+        cards["liquidity"] = _card("Liquidity", "CONTRACTING", "warn",
+            "Fed QT runoff ongoing; RRP largely drained (live RRP feed unavailable this run). "
+            "Favors quality/large-cap; hurts unprofitable growth.")
+
+    btc = m.get("BTC-USD"); qqq = m.get("QQQ")
+    dd = (float(btc.iloc[-1]) / float(btc.iloc[-120:].max()) - 1) * 100
+    cbn = corr60(m.pd, btc, qqq)
+    if dd < -15:
+        rtone, rlabel = "bad", "CRYPTO RISK-OFF"
+    elif cbn > 0.7:
+        rtone, rlabel = "good", "TECH-RISK-ON"
+    else:
+        rtone, rlabel = "warn", "MIXED"
+    cards["risk"] = _card("Risk Appetite", rlabel, rtone,
+        f"BTC {dd:+.0f}% from its ~4mo high; BTC-NDX 60d corr {cbn:.2f}. "
+        + ("Crypto de-leveraging - speculative tail unwinding." if dd < -15 else "Risk appetite firm."))
+    return cards
+
+
+def render_regime_block(cards):
+    order = ["trend", "vol", "curve", "growth", "liquidity", "risk"]
+    def esc(s): return s.replace("\\", "\\\\").replace("'", "\\'")
+    out = ["  const REGIME = {"]
+    for i, k in enumerate(order):
+        c = cards[k]
+        out.append(f"    {k + ':':10s} {{ label: '{esc(c['label'])}', value: '{esc(c['value'])}', "
+                   f"tone: '{c['tone']}', desc: '{esc(c['desc'])}' }}"
+                   + ("," if i < len(order) - 1 else ""))
+    out.append("  };")
+    return "\n".join(out)
+
+
+def render_regime_summary(cards):
+    c = cards
+    return (f"Trend {c['trend']['value']}, volatility {c['vol']['value']}, "
+            f"curve {c['curve']['value']}, growth {c['growth']['value']}, "
+            f"liquidity {c['liquidity']['value']}, risk {c['risk']['value']}.")
+
+
+def write_regime(today, cards):
+    """Replace the REGIME object + disclaimer date/summary in regime.html (best-effort)."""
+    html = REGIME_HTML.read_text()
+    block = render_regime_block(cards)
+    summ = render_regime_summary(cards)
+    # Function replacements avoid re.sub backslash/group interpretation in the payload.
+    new = re.sub(r"/\* REGIME-AUTO-START \*/.*?/\* REGIME-AUTO-END \*/",
+                 lambda _: "/* REGIME-AUTO-START */\n" + block + "\n  /* REGIME-AUTO-END */",
+                 html, count=1, flags=re.S)
+    new = re.sub(r"<!--RG-DATE-->.*?<!--/RG-DATE-->",
+                 lambda _: f"<!--RG-DATE-->{today.isoformat()}<!--/RG-DATE-->", new, count=1, flags=re.S)
+    new = re.sub(r"<!--RG-SUMMARY-->.*?<!--/RG-SUMMARY-->",
+                 lambda _: "<!--RG-SUMMARY-->" + summ + "<!--/RG-SUMMARY-->", new, count=1, flags=re.S)
+    if new != html:
+        atomic_write(REGIME_HTML, new)
+    return summ
+
+
+# ----------------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------------
 def main(argv=None) -> int:
@@ -369,6 +507,7 @@ def main(argv=None) -> int:
     ap.add_argument("--date", help="YYYY-MM-DD run date (default: today)")
     ap.add_argument("--dry-run", action="store_true", help="compute + report, write nothing")
     ap.add_argument("--quiet", action="store_true", help="print only the summary line")
+    ap.add_argument("--no-regime", action="store_true", help="skip the regime.html refresh")
     args = ap.parse_args(argv)
 
     today = dt.date.fromisoformat(args.date) if args.date else dt.date.today()
@@ -419,6 +558,17 @@ def main(argv=None) -> int:
         day_total = write_history(date, changes)
         write_last_update(date, checked, day_total, counts)
 
+    # Regime snapshot — best-effort; never aborts the signal check.
+    regime_note = ""
+    if not args.no_regime:
+        try:
+            cards = compute_regime(market, today)
+            regime_note = render_regime_summary(cards)
+            if not args.dry_run:
+                write_regime(today, cards)
+        except Exception as e:
+            regime_note = f"(skipped: {e})"
+
     # Summary (always printed, even under --quiet)
     print(f"{date}: checked {checked}/{len(CHECKS)}, {len(changes)} change(s)"
           + (f", {len(errors)} skipped" if errors else "")
@@ -429,6 +579,8 @@ def main(argv=None) -> int:
         print(f"  CHANGE {c['id']}: {c['from']} -> {c['to']}")
     for sid, detail in errors:
         print(f"  SKIP   {sid}: {detail}")
+    if regime_note:
+        print(f"  REGIME {regime_note}")
     return 0
 
 
