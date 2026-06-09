@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-06-09",
+    "changes": [
+      {
+        "id": "F08",
+        "from": "inactive",
+        "to": "active"
+      },
+      {
+        "id": "B01",
+        "from": "inactive",
+        "to": "active"
+      }
+    ]
+  },
+  {
     "date": "2026-06-08",
     "changes": []
   },

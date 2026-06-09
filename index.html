@@ -7312,9 +7312,9 @@ var META = {
   'A16':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // Jun prior-10y avg +0.093%/day -> long [auto 2026-06-07]
   'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, ~17 days away
   'A06':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},            // Week 5 of FOMC cycle since Apr 29 (odd = flat)
-  'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2) ~90+, far above 5
+  'F08':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // RSI(2)=8 [auto 2026-06-09]
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
-  'B01':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // VIX/VIX3M = 0.99 (≥ 0.92): curve flat/backwardated → no long (2026-06-07)
+  'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // VIX/VIX3M=0.91 [auto 2026-06-09]
   'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
   'C07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // EEM now top 12m mom (+42%) vs SPY +25% — SPY no longer rank-1, relative-mom long off (2026-06-07)
   'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
@@ -7495,7 +7495,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-06-07';
+var CUR_VER = '2026-06-09';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }
