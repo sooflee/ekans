@@ -1,4 +1,4 @@
-"""PL762_usda_gats_protein_export_packer_revenue
+"""PL1188_usda_gats_protein_export_packer_revenue
 USDA FAS GATS Protein Export Surprise -> US Packer Revenue Beat -> TSN/PPC Long
 
 When USDA GATS shows US beef+pork export volume exceeding 5-year seasonal average
@@ -14,7 +14,7 @@ import pandas as pd
 
 
 def main():
-    sid = "PL762_usda_gats_protein_export_packer_revenue"
+    sid = "PL1188_usda_gats_protein_export_packer_revenue"
 
     # USDA GATS data is not directly on FRED, but we can use FRED proxy:
     # USDA ERS reports "Red Meat & Poultry Production" and exports.

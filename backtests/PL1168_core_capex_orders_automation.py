@@ -4,7 +4,7 @@ import numpy as np, pandas as pd
 from harness import load_prices, load_fred, compute_metrics, save_result, mark_failed, daily_returns
 
 def main():
-    sid = "PL742_core_capex_orders_automation"
+    sid = "PL1168_core_capex_orders_automation"
     try:
         fred = load_fred("A34SNO", start="1990-01-01")
         data = fred.squeeze()

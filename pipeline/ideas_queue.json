@@ -31431,5 +31431,186 @@
     "status": "developed",
     "created_at": "2026-05-31T17:03:39.887585+00:00",
     "claimed_at": "2026-06-01T01:16:19.119234+00:00"
+  },
+  {
+    "name": "IRS Daily Treasury Statement Refund Pace YoY -> Dollar Store Q1 Comps (DG/DLTR/FIVE)",
+    "category": "I",
+    "asset_class": "single_name_equity",
+    "horizon": "2-10 weeks",
+    "thesis": "The Daily Treasury Statement publishes 'IRS Tax Refunds Individual (EFT)' outlays every business day, so the cumulative Feb-Apr refund disbursement pace vs the prior year is observable in real time weeks before any retailer reports. Low-income households spend refunds within days at value retailers; when refunds run materially behind prior-year pace (PATH Act holds, IRS staffing/processing slowdowns), dollar-store Q1 comps miss, and when refunds run ahead, comps beat. Trade DG/DLTR/FIVE directionally on the cumulative YoY refund gap before Q1 earnings.",
+    "causal_chain": [
+      "1. IRS policy and capacity (PATH Act EITC/ACTC holds, filing-season open date, staffing levels) shift the weekly timing of individual refund disbursements each Feb-Apr",
+      "2. Treasury's Daily Treasury Statement (fiscal.treasury.gov API) reports 'IRS Tax Refunds Individual (EFT)' withdrawals daily, making the cumulative YoY refund pace visible in real time",
+      "3. EITC/refund recipients have very high marginal propensity to consume and spend within 1-2 weeks of receipt, disproportionately at dollar stores and value retailers (JPMC Institute spending-response data; 2017 PATH Act delay was cited by Dollar General and Dollar Tree for Q1 comp weakness)",
+      "4. Cumulative refunds running >8-10% behind prior-year pace by late February implies a same-quarter sales air-pocket at DG/DLTR/FIVE/OLLI; running ahead implies a pull-forward beat",
+      "5. Enter long (refunds ahead) or short (refunds behind) DG/DLTR/FIVE in early March and hold into Q1 earnings (late May), when the comp surprise is realized"
+    ],
+    "data_sources": [
+      "Treasury Fiscal Data API, Daily Treasury Statement deposits/withdrawals table (IRS Tax Refunds Individual EFT), free daily JSON back to 2005: https://fiscaldata.treasury.gov/datasets/daily-treasury-statement/",
+      "IRS Filing Season Statistics (weekly cumulative refunds issued, free): https://www.irs.gov/newsroom/filing-season-statistics",
+      "yfinance: DG, DLTR, FIVE, OLLI daily prices"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Farrell & Greig, JPMorgan Chase Institute (2018) 'Filing Taxes Early, Getting Healthcare Late' / tax-refund spending-response work showing immediate consumption spikes on refund receipt; Dollar General and Dollar Tree Q1 FY2017 earnings calls attributing comp weakness to PATH Act refund delays.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "irs_dts_tax_refund_pace_yoy_dollar_store_dg_dltr",
+    "dedup_annotation": "RELATED-VARIANT - closest is usda_fns_snap_redemption_yoy_dg_dltr_long (same DG/DLTR targets, different government-transfer mechanism: SNAP redemptions vs IRS refund disbursement timing) and dollar_store_foot_traffic_dg_cmg_pair; tax_refund/daily_treasury appear nowhere in queue or backtests",
+    "idea_id": "PL1056",
+    "status": "developed",
+    "created_at": "2026-06-12T20:06:25.487184+00:00",
+    "claimed_at": "2026-06-12T20:07:20.299328+00:00"
+  },
+  {
+    "name": "CFTC COT Bitcoin Futures Asset-Manager Net-Long Extreme -> IBIT Short (counter long_BTC)",
+    "category": "E",
+    "asset_class": "crypto",
+    "horizon": "2-6 weeks",
+    "thesis": "The CFTC Traders in Financial Futures report publishes weekly positioning in CME bitcoin futures. When asset-manager plus leveraged-fund net-long positioning hits a top-decile extreme as a share of open interest, the marginal institutional buyer is fully invested and the cash-and-carry basis trade is crowded; subsequent spot dips trigger futures deleveraging and ETF redemptions that amplify drawdowns. Fade the extreme by shorting IBIT or rotating BTC exposure to cash. Independent counter-mechanism (derivatives positioning crowding) against the catalog's long-BTC convergence.",
+    "causal_chain": [
+      "1. Institutional BTC demand flows through CME bitcoin futures and spot ETFs; CFTC's weekly Traders in Financial Futures report discloses asset-manager and leveraged-fund long/short positions every Friday",
+      "2. When asset-manager net-long (and dealer/leveraged-fund offsetting basis-trade positioning) reaches a top-decile z-score vs its 2-year window, the institutional bid is saturated and futures basis is crowded",
+      "3. At positioning saturation, marginal demand can only fall; any spot decline forces leveraged basis unwinds and CTA/momentum de-grossing in futures",
+      "4. Futures selling pressure transmits to spot via arbitrage and to ETF NAVs via AP redemptions, accelerating the drawdown (pattern seen Q1 2021, Nov 2021, Mar 2024 local tops)",
+      "5. Signal: net-long z-score > 90th percentile -> short IBIT (or exit BTC longs to cash) for 2-6 weeks until positioning normalizes below median"
+    ],
+    "data_sources": [
+      "CFTC Traders in Financial Futures (TFF) weekly report, CME Bitcoin futures (free CSV archives since Dec 2017): https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
+      "yfinance: BTC-USD, IBIT, FBTC daily prices",
+      "CME Group bitcoin futures open interest (free delayed): https://www.cmegroup.com/markets/cryptocurrencies/bitcoin/bitcoin.html"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Kang, Rouwenhorst & Tang (Journal of Finance, 2020) 'A Tale of Two Premiums: The Role of Hedgers and Speculators in Commodity Futures Markets' - positioning extremes predict reversals; Kapadia & Sircar / CME-CFTC basis-trade commentary documenting crowded BTC cash-and-carry positioning at 2021 and 2024 local tops.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "cftc_cot_btc_asset_manager_net_long_extreme_ibit_short_counter",
+    "dedup_annotation": "RELATED-VARIANT - COT-extreme fade structure exists for gold (cftc_cot_gold_mm_extreme_long_short_gld_counter) and arabica (PL612), and BTC sentiment counters exist (PL990 google trends, PL1009 fear&greed), but no idea or backtest uses CFTC BTC futures positioning; cot_btc/leveraged_fund have zero hits",
+    "counter_signal": true,
+    "counters": "long_BTC",
+    "idea_id": "PL1057",
+    "status": "developed",
+    "created_at": "2026-06-12T20:06:25.488017+00:00",
+    "claimed_at": "2026-06-12T20:07:20.299572+00:00"
+  },
+  {
+    "name": "USDA NASS Potato Stocks Glut -> Lamb Weston (LW) Frozen-Fry Margin Squeeze",
+    "category": "C",
+    "asset_class": "single_name_equity",
+    "horizon": "1-2 quarters",
+    "thesis": "USDA NASS quarterly Potato Stocks and the annual Crop Production report reveal the size of the Pacific Northwest process-potato crop months before frozen-fry processor earnings reflect it. A big crop plus elevated Dec 1 stocks collapses open-market raw potato prices and processor pricing power (industry adds capacity into oversupply), squeezing Lamb Weston - the dominant North American french-fry processor; a short crop (e.g., 2021 heat dome) hands LW contract-price escalation. Trade LW directionally on the Dec 1 stocks YoY swing.",
+    "causal_chain": [
+      "1. Fall potato harvest size in ID/WA/OR (process-potato heartland) is set by acreage and summer weather; USDA NASS Crop Production (Nov) and quarterly Potato Stocks (Dec 1, Feb 1, Apr 1, Jun 1) publish it for free",
+      "2. Dec 1 stocks up >4% YoY signals raw-potato oversupply: open-market potato prices collapse and processors negotiate next season's grower contracts from a surplus position",
+      "3. Frozen-fry capacity utilization falls industry-wide (LW, McCain, Simplot all expanded capacity 2022-2024), eroding LW's price/mix and triggering inventory writedowns and guidance cuts - the 2023 record crop preceded LW's FY2024-25 guidance cuts and share collapse",
+      "4. Conversely, a short crop (2021 PNW heat dome: stocks down sharply) gives LW contract price escalation and margin expansion the following fiscal year",
+      "5. Signal: Dec 1 Potato Stocks YoY > +4% -> short LW for the next 2 quarters; YoY < -4% -> long LW; sized by the stocks z-score"
+    ],
+    "data_sources": [
+      "USDA NASS Potato Stocks quarterly report (free, Quick Stats API): https://quickstats.nass.usda.gov/",
+      "USDA NASS Crop Production annual potato summary (free)",
+      "USDA AMS terminal-market potato prices (free, My Market News API)",
+      "yfinance: LW daily prices (IPO Nov 2016)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "Lamb Weston FQ2-2025 (Dec 2024) guidance cut and prior FY2025 cuts explicitly citing raw potato oversupply and industry capacity additions; North American Potato Market News and USDA NASS Potato Stocks showing record 2023 crop preceding the margin collapse.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_nass_potato_stocks_glut_lw_fry_margin",
+    "dedup_annotation": "NEW - potato/lamb_weston/LW have zero hits in queue and backtests; closest mechanism family is usda_cold_storage_dairy_surplus and cold_storage_poultry_glut (same USDA stocks-glut logic, different commodity and target)",
+    "idea_id": "PL1058",
+    "status": "developed",
+    "created_at": "2026-06-12T20:06:25.488020+00:00",
+    "claimed_at": "2026-06-12T20:07:21.631610+00:00"
+  },
+  {
+    "name": "Fed Excess Bond Premium (EBP) Rising With SPY at Highs -> Short SPY / Long IEF (counter long_SPY)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "thesis": "The Gilchrist-Zakrajsek Excess Bond Premium strips the expected-default component out of corporate credit spreads, leaving the pure investor risk-appetite residual; it leads equity drawdowns and recessions better than raw HY OAS. When the Fed's monthly EBP update turns positive (>= +0.2) and is rising over 3 months while SPY sits within 3% of its 52-week high, credit investors are repricing risk that equity investors are ignoring \u2014 go short SPY / rotate to IEF. Independent credit-microstructure mechanism countering the catalog's long-SPY convergence.",
+    "causal_chain": [
+      "1. The Fed publishes a monthly Gilchrist-Zakrajsek EBP series (FEDS Notes CSV): corporate bond spreads minus the component explained by firm-level expected defaults, isolating the cyclical price of bearing credit risk",
+      "2. Bond investors are structurally senior and downside-focused; a rising EBP means they demand more compensation per unit of default risk \u2014 risk appetite in credit is contracting even before defaults rise",
+      "3. Gilchrist-Zakrajsek (AER 2012) show EBP shocks lead declines in investment, output, and equity prices by 1-4 quarters; EBP >0 with positive 3-month slope historically precedes equity drawdowns and recession-probability spikes",
+      "4. When the same months show SPY within 3% of its 52-week high, the credit-equity divergence implies equities have not yet priced the risk-appetite contraction",
+      "5. Trade: short SPY (or long IEF defensive) while EBP >= +0.2 and rising; exit when EBP slope turns negative or SPY draws down 10%"
+    ],
+    "data_sources": [
+      "Federal Reserve FEDS Notes EBP monthly CSV (federalreserve.gov/econres/notes/feds-notes/ebp_csv.csv, free)",
+      "yfinance: SPY, IEF",
+      "FRED: BAMLH0A0HYM2 (raw HY OAS for comparison/validation)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Gilchrist & Zakrajsek, 'Credit Spreads and Business Cycle Fluctuations', American Economic Review 2012; Favara, Gilchrist, Lewis & Zakrajsek, 'Updating the Recession Risk and the Excess Bond Premium', FEDS Notes 2016 (monthly updated CSV)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fed_ebp_positive_rising_spy_high_divergence_short_counter",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "dedup_annotation": "RELATED-VARIANT \u2014 closest is hy_oas_equity_strength_divergence_spy_short (PL981, raw HY OAS vs SPY divergence). EBP is the default-adjusted residual premium from a different source (Fed FEDS Notes CSV, monthly), which Gilchrist-Zakrajsek show carries the predictive content raw OAS conflates with default expectations; distinct trigger construction (level + slope) and IEF defensive leg.",
+    "idea_id": "PL1059",
+    "status": "developed",
+    "created_at": "2026-06-13T00:42:17.760378+00:00",
+    "claimed_at": "2026-06-13T00:42:51.182197+00:00"
+  },
+  {
+    "name": "USDA Broiler Hatchery Chicks-Placed Contraction -> Chicken Supply Cliff 9 Weeks Out -> Long PPC",
+    "category": "J",
+    "asset_class": "single_name_equity",
+    "horizon": "6-12 weeks",
+    "thesis": "USDA NASS publishes weekly broiler eggs set and chicks placed; a sustained YoY contraction in chicks placed mechanically fixes ready-to-cook chicken supply ~9 weeks ahead (grow-out cycle is biology, not economics). Supply cliffs lift wholesale breast/leg-quarter prices while feed costs are already contracted, expanding Pilgrim's Pride spot-exposed margins. Long PPC when the 4-week average of chicks placed runs negative YoY for 4+ consecutive weeks.",
+    "causal_chain": [
+      "1. USDA NASS Broiler Hatchery report (weekly, free) discloses eggs set in incubators and chicks placed for meat production across the 19 major states",
+      "2. Broiler grow-out is a fixed ~6.5-week cycle plus processing lag: chicks placed this week ARE the slaughter supply ~9 weeks out \u2014 no producer response can change it once placements are made",
+      "3. When 4-week-average chicks placed runs negative YoY for 4+ weeks (hatchability problems, breeder flock culling, or deliberate cutbacks), ready-to-cook production contracts on a known schedule",
+      "4. US chicken demand is price-inelastic short-term; USDA AMS wholesale boneless-skinless-breast and leg-quarter prices rise into the supply trough",
+      "5. PPC is the purest US spot-chicken margin play (vs TSN's diversified segments); spot price gains flow to PPC operating margin with feed costs locked earlier via grain forwards",
+      "6. Trade: long PPC at signal, hold 6-12 weeks into the supply trough; exit when placements recover to positive YoY"
+    ],
+    "data_sources": [
+      "USDA NASS Broiler Hatchery weekly report via QuickStats API (free)",
+      "USDA AMS weekly wholesale chicken prices (free, validation)",
+      "yfinance: PPC, TSN"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "USDA NASS Broiler Hatchery weekly release; USDA ERS Livestock, Dairy & Poultry Outlook \u2014 broiler placement-to-slaughter lag documented at 8-10 weeks",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usda_nass_broiler_chicks_placed_contraction_supply_cliff_ppc_long",
+    "dedup_annotation": "NEW \u2014 closest are cold_storage_poultry_glut (PL21, USDA Cold Storage inventory glut -> SHORT TSN/PPC) and usda_fsis_slaughter_recovery_packer_margins (PL272, beef packers). Neither uses the Broiler Hatchery placements series, the 9-week biological supply lead, or the long-PPC direction.",
+    "idea_id": "PL1060",
+    "status": "developed",
+    "created_at": "2026-06-13T00:42:17.760581+00:00",
+    "claimed_at": "2026-06-13T00:42:51.182362+00:00"
+  },
+  {
+    "name": "Banxico Remittances YoY Deceleration -> MXN Flow Support Fades -> Long USD/MXN, Short EWW",
+    "category": "G",
+    "asset_class": "fx",
+    "horizon": "1-3 months",
+    "thesis": "Mexico receives ~$65B/yr in worker remittances \u2014 a top-two current-account inflow that is steadier than portfolio flows and a structural MXN bid. Banxico publishes monthly remittance totals (SIE API, ~1-month lag). When YoY remittance growth decelerates sharply (3-month avg crossing below zero from above +5%), driven by US construction/services labor weakness among Mexican-born workers, the marginal dollar supply into MXN fades just as carry positioning is typically crowded long-peso \u2014 go long USD/MXN (or short EWW as the unhedged equity proxy).",
+    "causal_chain": [
+      "1. Banxico publishes monthly family remittance inflows (SIE series SE27803, free API); remittances are ~3.5% of Mexican GDP and a persistent structural source of USD selling / MXN buying",
+      "2. Remittance volumes track US employment of Mexican-born workers, concentrated in construction and food services; US construction payroll weakness shows up in remittance growth within 1-2 months",
+      "3. A 3-month-average YoY remittance growth crossing below 0% from above +5% marks a regime break in the structural MXN bid \u2014 exchange-house dollar supply into the Mexican FX market contracts",
+      "4. MXN is a crowded carry long when Banxico's policy-rate spread over the Fed is wide; fading remittance flow support removes the spot-flow cushion that absorbs carry-unwind shocks",
+      "5. Peso depreciation pressure builds over the following 1-3 months; EWW compounds the move (equity drawdown + unhedged FX translation)",
+      "6. Trade: long USD/MXN (futures 6M=F inverse or UUP/EWW pair) or short EWW; exit when remittance YoY 3-month avg recovers above +2%"
+    ],
+    "data_sources": [
+      "Banxico SIE API \u2014 monthly family remittances (free)",
+      "FRED: DEXMXUS (USD/MXN spot), CUSR construction payrolls via CES (validation)",
+      "yfinance: EWW, MXN=X, 6M=F"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "BBVA Research Mexico 'Yearbook of Migration and Remittances' (annual, documents remittance-employment linkage); Banxico SIE remittance statistics; IMF WP on remittances and exchange-rate dynamics in Mexico",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "banxico_remittances_yoy_decel_mxn_flow_fade_usdmxn_long_eww_short",
+    "dedup_annotation": "NEW \u2014 closest are banxico_reer_overvaluation_dovish_pivot_kof_fmx_translation_short (PL629, REER valuation + rate pivot -> KOF/FMX short) and banxico_bop_fdi_manufacturing_breakout (FDI -> industrial REITs long). Neither uses the remittance-flow series or the structural-FX-bid mechanism; no 'remitt' match anywhere in queue or backtests.",
+    "idea_id": "PL1061",
+    "status": "developed",
+    "created_at": "2026-06-13T00:42:17.760583+00:00",
+    "claimed_at": "2026-06-13T00:42:56.101158+00:00"
   }
 ]

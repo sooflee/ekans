@@ -1,4 +1,4 @@
-"""PL756_eia_industrial_gas_dip_nitrogen_fert — EIA Industrial Gas Consumption Dip -> Nitrogen Fertilizer Price Spike
+"""PL1182_eia_industrial_gas_dip_nitrogen_fert — EIA Industrial Gas Consumption Dip -> Nitrogen Fertilizer Price Spike
 When FRED N3035US3M (industrial natural gas consumption) drops > 10% MoM during March-May,
 long CF+NTR for 20 trading days.
 """
@@ -12,7 +12,7 @@ from harness import load_prices, load_fred, compute_metrics, save_result, mark_f
 
 
 def main():
-    sid = "PL756_eia_industrial_gas_dip_nitrogen_fert"
+    sid = "PL1182_eia_industrial_gas_dip_nitrogen_fert"
     try:
         px = load_prices(["CF", "NTR", "SPY"], start="2005-01-01")
     except Exception as e:

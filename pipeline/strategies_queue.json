@@ -3238,11 +3238,11 @@
     }
   },
   {
-    "strategy_id": "PL742",
-    "idea_id": "PL742",
+    "strategy_id": "PL1168",
+    "idea_id": "PL1168",
     "created_at": "2026-05-26T22:44:59.478376+00:00",
     "status": "done",
-    "signal_id": "PL742_core_capex_orders_automation",
+    "signal_id": "PL1168_core_capex_orders_automation",
     "name": "Core Capex Orders A34SNO YoY Positive \u2192 Long ROK+ETN+AME",
     "rule": "Load FRED A34SNO (monthly). Compute 3mo MA, then YoY. When YoY turns positive after 6+ months negative: long ROK+ETN+AME equal-weight for 126 trading days.",
     "tickers": [
@@ -3266,11 +3266,11 @@
     }
   },
   {
-    "strategy_id": "PL743",
-    "idea_id": "PL743",
+    "strategy_id": "PL1169",
+    "idea_id": "PL1169",
     "created_at": "2026-05-26T22:44:59.478376+00:00",
     "status": "done",
-    "signal_id": "PL743_rfi_gdp_share_homebuilders",
+    "signal_id": "PL1169_rfi_gdp_share_homebuilders",
     "name": "RFI/GDP Crosses 4.0% from Below \u2192 Long Homebuilders 12mo",
     "rule": "Load FRED A011RE1Q156NBEA (quarterly). When RFI/GDP crosses above 4.0 after 2+ years (8 quarters) below: long LEN+DHI+TOL equal-weight for 252 trading days.",
     "tickers": [
@@ -8706,11 +8706,11 @@
     }
   },
   {
-    "strategy_id": "PL744",
-    "idea_id": "PL744",
+    "strategy_id": "PL1170",
+    "idea_id": "PL1170",
     "created_at": "2026-05-26T23:51:58.723457+00:00",
     "status": "done",
-    "signal_id": "PL744_warehouse_employment_surge_industrial_reit",
+    "signal_id": "PL1170_warehouse_employment_surge_industrial_reit",
     "name": "FRED Warehouse Employment YoY Surge -> Long Industrial REITs (STAG+PLD+REXR)",
     "category": "G",
     "asset_class": "equities",
@@ -9801,11 +9801,11 @@
     }
   },
   {
-    "strategy_id": "PL745",
-    "idea_id": "PL745",
+    "strategy_id": "PL1171",
+    "idea_id": "PL1171",
     "created_at": "2026-05-26T23:58:37.797066+00:00",
     "status": "done",
-    "signal_id": "PL745_retail_is_ratio_low_restocking",
+    "signal_id": "PL1171_retail_is_ratio_low_restocking",
     "name": "FRED Retail Inventory/Sales Ratio at 5-Year Low -> Long Retailers on Restocking",
     "category": "G",
     "asset_class": "equities",
@@ -10360,11 +10360,11 @@
     }
   },
   {
-    "strategy_id": "PL746",
-    "idea_id": "PL746",
+    "strategy_id": "PL1172",
+    "idea_id": "PL1172",
     "created_at": "2026-05-27T00:01:37.890152+00:00",
     "status": "done",
-    "signal_id": "PL746_temp_help_recovery_cyclical_long",
+    "signal_id": "PL1172_temp_help_recovery_cyclical_long",
     "name": "FRED Temp Help Employment YoY Turns Positive -> Long Staffing + Small-Cap Cyclicals",
     "category": "G",
     "asset_class": "equities",
@@ -10584,11 +10584,11 @@
     }
   },
   {
-    "strategy_id": "PL747",
-    "idea_id": "PL747",
+    "strategy_id": "PL1173",
+    "idea_id": "PL1173",
     "created_at": "2026-05-27T03:51:28.555680+00:00",
     "status": "done",
-    "signal_id": "PL747_cbp_tariff_spike_warehouse_club",
+    "signal_id": "PL1173_cbp_tariff_spike_warehouse_club",
     "name": "CBP Monthly Tariff Revenue Spike -> Import Cost Pass-Through -> COST Long",
     "category": "F",
     "asset_class": "equities",
@@ -10835,11 +10835,11 @@
     }
   },
   {
-    "strategy_id": "PL748",
-    "idea_id": "PL748",
+    "strategy_id": "PL1174",
+    "idea_id": "PL1174",
     "created_at": "2026-05-27T04:22:33.157970+00:00",
     "status": "done",
-    "signal_id": "PL748_stb_rail_velocity_decline_trucking_long",
+    "signal_id": "PL1174_stb_rail_velocity_decline_trucking_long",
     "name": "STB Railroad Velocity Decline -> Modal Diversion -> Long Truckload Carriers",
     "category": "G",
     "asset_class": "equities",
@@ -10988,11 +10988,11 @@
     }
   },
   {
-    "strategy_id": "PL749",
-    "idea_id": "PL749",
+    "strategy_id": "PL1175",
+    "idea_id": "PL1175",
     "created_at": "2026-05-27T04:23:17.796410+00:00",
     "status": "done",
-    "signal_id": "PL749_eia_refinery_util_low_driving_season_refiner_long",
+    "signal_id": "PL1175_eia_refinery_util_low_driving_season_refiner_long",
     "name": "EIA Refinery Utilization Drop During Driving Season -> Long Refiner Basket",
     "category": "C",
     "asset_class": "equities",
@@ -11394,11 +11394,11 @@
     }
   },
   {
-    "strategy_id": "PL750",
-    "idea_id": "PL750",
+    "strategy_id": "PL1176",
+    "idea_id": "PL1176",
     "created_at": "2026-05-27T04:28:00.679521+00:00",
     "status": "done",
-    "signal_id": "PL750_cftc_cot_copper_contrarian_long",
+    "signal_id": "PL1176_cftc_cot_copper_contrarian_long",
     "name": "CFTC COT Managed Money Net Short Extreme in Copper -> Contrarian Long COPX/FCX",
     "category": "G",
     "asset_class": "equities",
@@ -11444,11 +11444,11 @@
     }
   },
   {
-    "strategy_id": "PL751",
-    "idea_id": "PL751",
+    "strategy_id": "PL1177",
+    "idea_id": "PL1177",
     "created_at": "2026-05-27T04:28:00.679521+00:00",
     "status": "done",
-    "signal_id": "PL751_bea_travel_receipts_hotel_long",
+    "signal_id": "PL1177_bea_travel_receipts_hotel_long",
     "name": "BEA International Travel Receipts Surge -> Strong Dollar Tourism Spending -> Hotel REITs Long",
     "category": "E",
     "asset_class": "equities",
@@ -11642,11 +11642,11 @@
     }
   },
   {
-    "strategy_id": "PL752",
-    "idea_id": "PL752",
+    "strategy_id": "PL1178",
+    "idea_id": "PL1178",
     "created_at": "2026-05-27T04:28:54.740045+00:00",
     "status": "done",
-    "signal_id": "PL752_aphis_livestock_disease_vet_pharma",
+    "signal_id": "PL1178_aphis_livestock_disease_vet_pharma",
     "name": "USDA APHIS Livestock Disease Outbreak -> Veterinary Pharmaceutical Demand Surge -> IDXX/ZTS Long",
     "category": "E",
     "asset_class": "equities",
@@ -12040,11 +12040,11 @@
     }
   },
   {
-    "strategy_id": "PL753",
-    "idea_id": "PL753",
+    "strategy_id": "PL1179",
+    "idea_id": "PL1179",
     "created_at": "2026-05-27T04:31:20.303629+00:00",
     "status": "done",
-    "signal_id": "PL753_usda_barge_rate_surge_kirby_long",
+    "signal_id": "PL1179_usda_barge_rate_surge_kirby_long",
     "name": "USDA Grain Barge Rate Surge -> Long Inland Barge Operator KEX",
     "category": "G",
     "asset_class": "equities",
@@ -12091,11 +12091,11 @@
     }
   },
   {
-    "strategy_id": "PL754",
-    "idea_id": "PL754",
+    "strategy_id": "PL1180",
+    "idea_id": "PL1180",
     "created_at": "2026-05-27T04:31:20.303629+00:00",
     "status": "done",
-    "signal_id": "PL754_usaspending_dod_accel_defense_sub_long",
+    "signal_id": "PL1180_usaspending_dod_accel_defense_sub_long",
     "name": "USASpending DOD Contract Acceleration -> Long Defense Subcontractors",
     "category": "F",
     "asset_class": "equities",
@@ -12143,11 +12143,11 @@
     }
   },
   {
-    "strategy_id": "PL755",
-    "idea_id": "PL755",
+    "strategy_id": "PL1181",
+    "idea_id": "PL1181",
     "created_at": "2026-05-27T04:31:20.303629+00:00",
     "status": "done",
-    "signal_id": "PL755_itc_solar_adcvd_fslr_long",
+    "signal_id": "PL1181_itc_solar_adcvd_fslr_long",
     "name": "ITC Affirmative Solar AD/CVD Determination -> Long First Solar",
     "category": "F",
     "asset_class": "equities",
@@ -12394,11 +12394,11 @@
     }
   },
   {
-    "strategy_id": "PL756",
-    "idea_id": "PL756",
+    "strategy_id": "PL1182",
+    "idea_id": "PL1182",
     "created_at": "2026-05-27T04:32:19.423242+00:00",
     "status": "done",
-    "signal_id": "PL756_eia_industrial_gas_dip_nitrogen_fert",
+    "signal_id": "PL1182_eia_industrial_gas_dip_nitrogen_fert",
     "name": "EIA Natural Gas Industrial Consumption Dip -> Ammonia Plant Turnaround -> Nitrogen Fertilizer Price Spike",
     "category": "C",
     "asset_class": "commodities",
@@ -12537,11 +12537,11 @@
     }
   },
   {
-    "strategy_id": "PL757",
-    "idea_id": "PL757",
+    "strategy_id": "PL1183",
+    "idea_id": "PL1183",
     "created_at": "2026-05-27T04:32:38.707676+00:00",
     "status": "done",
-    "signal_id": "PL757_faa_airport_ops_record_hotel_long",
+    "signal_id": "PL1183_faa_airport_ops_record_hotel_long",
     "name": "FAA Airport Operations Record -> Long Airport-Adjacent Hotel REIT",
     "category": "E",
     "asset_class": "equities",
@@ -12941,11 +12941,11 @@
     }
   },
   {
-    "strategy_id": "PL758",
-    "idea_id": "PL758",
+    "strategy_id": "PL1184",
+    "idea_id": "PL1184",
     "created_at": "2026-05-27T04:35:51.737803+00:00",
     "status": "done",
-    "signal_id": "PL758_bls_import_price_petroleum_consumer",
+    "signal_id": "PL1184_bls_import_price_petroleum_consumer",
     "name": "BLS Import Price Index Petroleum Drop -> Terms of Trade Improvement -> Consumer Discretionary Long",
     "category": "G",
     "asset_class": "equities",
@@ -13567,11 +13567,11 @@
     }
   },
   {
-    "strategy_id": "PL759",
-    "idea_id": "PL759",
+    "strategy_id": "PL1185",
+    "idea_id": "PL1185",
     "created_at": "2026-05-27T17:53:34.126489+00:00",
     "status": "done",
-    "signal_id": "PL759_usgs_columbia_low_flow_thermal_ipp_long",
+    "signal_id": "PL1185_usgs_columbia_low_flow_thermal_ipp_long",
     "name": "USGS Columbia River Low Flow -> Long Thermal Power IPPs (NRG)",
     "category": "E",
     "asset_class": "equities",
@@ -13615,11 +13615,11 @@
     }
   },
   {
-    "strategy_id": "PL760",
-    "idea_id": "PL760",
+    "strategy_id": "PL1186",
+    "idea_id": "PL1186",
     "created_at": "2026-05-27T17:53:34.126489+00:00",
     "status": "done",
-    "signal_id": "PL760_fda_nme_cluster_biotech_ma_long",
+    "signal_id": "PL1186_fda_nme_cluster_biotech_ma_long",
     "name": "FDA Novel Drug Approval Cluster -> Long Small-Cap Biotech (XBI)",
     "category": "F",
     "asset_class": "equities",
@@ -13663,11 +13663,11 @@
     }
   },
   {
-    "strategy_id": "PL761",
-    "idea_id": "PL761",
+    "strategy_id": "PL1187",
+    "idea_id": "PL1187",
     "created_at": "2026-05-27T17:53:34.126489+00:00",
     "status": "done",
-    "signal_id": "PL761_gsci_roll_yield_energy_long",
+    "signal_id": "PL1187_gsci_roll_yield_energy_long",
     "name": "S&P GSCI Rebalance Roll Window -> Long Second-Month Energy Futures",
     "category": "A",
     "asset_class": "commodities",
@@ -13950,11 +13950,11 @@
     "backtest_started_at": "2026-05-27T17:55:41.049001+00:00"
   },
   {
-    "strategy_id": "PL762",
-    "idea_id": "PL762",
+    "strategy_id": "PL1188",
+    "idea_id": "PL1188",
     "created_at": "2026-05-27T17:54:58.689413+00:00",
     "status": "done",
-    "signal_id": "PL762_usda_gats_protein_export_packer_revenue",
+    "signal_id": "PL1188_usda_gats_protein_export_packer_revenue",
     "name": "USDA FAS GATS Protein Export Surprise -> US Packer Revenue Beat -> TSN/PPC Long",
     "category": "C",
     "asset_class": "equities",
@@ -14000,11 +14000,11 @@
     "backtest_started_at": "2026-05-27T17:55:41.049002+00:00"
   },
   {
-    "strategy_id": "PL763",
-    "idea_id": "PL763",
+    "strategy_id": "PL1189",
+    "idea_id": "PL1189",
     "created_at": "2026-05-27T17:55:48.715382+00:00",
     "status": "done",
-    "signal_id": "PL763_usace_lock_closure_grain_rail_diversion",
+    "signal_id": "PL1189_usace_lock_closure_grain_rail_diversion",
     "name": "USACE Scheduled Lock Closure -> Grain Rail Diversion -> Class I Railroad Revenue Long",
     "category": "G",
     "asset_class": "equities",
@@ -14258,11 +14258,11 @@
     }
   },
   {
-    "strategy_id": "PL764",
-    "idea_id": "PL764",
+    "strategy_id": "PL1190",
+    "idea_id": "PL1190",
     "created_at": "2026-05-27T17:56:44.857798+00:00",
     "status": "done",
-    "signal_id": "PL764_noaa_hurricane_above_normal_xop_long",
+    "signal_id": "PL1190_noaa_hurricane_above_normal_xop_long",
     "name": "NOAA Above-Normal Hurricane Season Outlook -> Long Oil E&P (XOP)",
     "category": "G",
     "asset_class": "equities",
@@ -18092,9 +18092,9 @@
     }
   },
   {
-    "strategy_id": "PL600",
-    "idea_id": "PL600",
-    "signal_id": "PL600_ppi_commodity_wps011",
+    "strategy_id": "PL1062",
+    "idea_id": "PL1062",
+    "signal_id": "PL1062_ppi_commodity_wps011",
     "name": "FRED WPS011 PPI: Farm Products -> Family Variant",
     "rule": "Load FRED WPS011 (PPI: Farm Products, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18126,9 +18126,9 @@
     }
   },
   {
-    "strategy_id": "PL601",
-    "idea_id": "PL601",
-    "signal_id": "PL601_ppi_commodity_wpu012",
+    "strategy_id": "PL1063",
+    "idea_id": "PL1063",
+    "signal_id": "PL1063_ppi_commodity_wpu012",
     "name": "FRED WPU012 PPI: Cereal/Bakery -> Family Variant",
     "rule": "Load FRED WPU012 (PPI: Cereal/Bakery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18163,9 +18163,9 @@
     "backtested_at": "2026-05-30T00:32:39.558390+00:00"
   },
   {
-    "strategy_id": "PL602",
-    "idea_id": "PL602",
-    "signal_id": "PL602_ppi_commodity_wpu013",
+    "strategy_id": "PL1064",
+    "idea_id": "PL1064",
+    "signal_id": "PL1064_ppi_commodity_wpu013",
     "name": "FRED WPU013 PPI: Fruits/Vegetables -> Family Variant",
     "rule": "Load FRED WPU013 (PPI: Fruits/Vegetables, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18200,9 +18200,9 @@
     }
   },
   {
-    "strategy_id": "PL603",
-    "idea_id": "PL603",
-    "signal_id": "PL603_ppi_commodity_wpu014",
+    "strategy_id": "PL1065",
+    "idea_id": "PL1065",
+    "signal_id": "PL1065_ppi_commodity_wpu014",
     "name": "FRED WPU014 PPI: Sugar -> Family Variant",
     "rule": "Load FRED WPU014 (PPI: Sugar, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18237,9 +18237,9 @@
     "backtested_at": "2026-05-30T00:32:40.391056+00:00"
   },
   {
-    "strategy_id": "PL604",
-    "idea_id": "PL604",
-    "signal_id": "PL604_ppi_commodity_wpu015",
+    "strategy_id": "PL1066",
+    "idea_id": "PL1066",
+    "signal_id": "PL1066_ppi_commodity_wpu015",
     "name": "FRED WPU015 PPI: Oilseeds -> Family Variant",
     "rule": "Load FRED WPU015 (PPI: Oilseeds, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18271,9 +18271,9 @@
     }
   },
   {
-    "strategy_id": "PL605",
-    "idea_id": "PL605",
-    "signal_id": "PL605_ppi_commodity_wpu016",
+    "strategy_id": "PL1067",
+    "idea_id": "PL1067",
+    "signal_id": "PL1067_ppi_commodity_wpu016",
     "name": "FRED WPU016 PPI: Hay/Seeds -> Family Variant",
     "rule": "Load FRED WPU016 (PPI: Hay/Seeds, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18305,9 +18305,9 @@
     }
   },
   {
-    "strategy_id": "PL606",
-    "idea_id": "PL606",
-    "signal_id": "PL606_ppi_commodity_wpu021",
+    "strategy_id": "PL1068",
+    "idea_id": "PL1068",
+    "signal_id": "PL1068_ppi_commodity_wpu021",
     "name": "FRED WPU021 PPI: Meats -> Family Variant",
     "rule": "Load FRED WPU021 (PPI: Meats, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18342,9 +18342,9 @@
     "backtested_at": "2026-05-30T00:32:42.761979+00:00"
   },
   {
-    "strategy_id": "PL607",
-    "idea_id": "PL607",
-    "signal_id": "PL607_ppi_commodity_wpu023",
+    "strategy_id": "PL1069",
+    "idea_id": "PL1069",
+    "signal_id": "PL1069_ppi_commodity_wpu023",
     "name": "FRED WPU023 PPI: Dairy Products -> Family Variant",
     "rule": "Load FRED WPU023 (PPI: Dairy Products, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18379,9 +18379,9 @@
     "backtested_at": "2026-05-30T00:32:43.159300+00:00"
   },
   {
-    "strategy_id": "PL608",
-    "idea_id": "PL608",
-    "signal_id": "PL608_ppi_commodity_wpu024",
+    "strategy_id": "PL1070",
+    "idea_id": "PL1070",
+    "signal_id": "PL1070_ppi_commodity_wpu024",
     "name": "FRED WPU024 PPI: Processed Fruits/Vegetables -> Family Variant",
     "rule": "Load FRED WPU024 (PPI: Processed Fruits/Vegetables, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18416,9 +18416,9 @@
     }
   },
   {
-    "strategy_id": "PL609",
-    "idea_id": "PL609",
-    "signal_id": "PL609_ppi_commodity_wpu026",
+    "strategy_id": "PL1071",
+    "idea_id": "PL1071",
+    "signal_id": "PL1071_ppi_commodity_wpu026",
     "name": "FRED WPU026 PPI: Beverages -> Family Variant",
     "rule": "Load FRED WPU026 (PPI: Beverages, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18450,9 +18450,9 @@
     "backtested_at": "2026-05-30T00:32:43.583796+00:00"
   },
   {
-    "strategy_id": "PL610",
-    "idea_id": "PL610",
-    "signal_id": "PL610_ppi_commodity_wpu031",
+    "strategy_id": "PL1072",
+    "idea_id": "PL1072",
+    "signal_id": "PL1072_ppi_commodity_wpu031",
     "name": "FRED WPU031 PPI: Synthetic Fibers -> Family Variant",
     "rule": "Load FRED WPU031 (PPI: Synthetic Fibers, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18487,9 +18487,9 @@
     }
   },
   {
-    "strategy_id": "PL611",
-    "idea_id": "PL611",
-    "signal_id": "PL611_ppi_commodity_wpu033",
+    "strategy_id": "PL1073",
+    "idea_id": "PL1073",
+    "signal_id": "PL1073_ppi_commodity_wpu033",
     "name": "FRED WPU033 PPI: Apparel -> Family Variant",
     "rule": "Load FRED WPU033 (PPI: Apparel, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18521,9 +18521,9 @@
     }
   },
   {
-    "strategy_id": "PL612",
-    "idea_id": "PL612",
-    "signal_id": "PL612_ppi_commodity_wpu041",
+    "strategy_id": "PL1074",
+    "idea_id": "PL1074",
+    "signal_id": "PL1074_ppi_commodity_wpu041",
     "name": "FRED WPU041 PPI: Hides/Leather -> Family Variant",
     "rule": "Load FRED WPU041 (PPI: Hides/Leather, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18558,9 +18558,9 @@
     "backtested_at": "2026-05-30T00:32:44.792206+00:00"
   },
   {
-    "strategy_id": "PL613",
-    "idea_id": "PL613",
-    "signal_id": "PL613_ppi_commodity_wpu051",
+    "strategy_id": "PL1075",
+    "idea_id": "PL1075",
+    "signal_id": "PL1075_ppi_commodity_wpu051",
     "name": "FRED WPU051 PPI: Coal -> Family Variant",
     "rule": "Load FRED WPU051 (PPI: Coal, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18595,9 +18595,9 @@
     }
   },
   {
-    "strategy_id": "PL614",
-    "idea_id": "PL614",
-    "signal_id": "PL614_ppi_commodity_wpu055",
+    "strategy_id": "PL1076",
+    "idea_id": "PL1076",
+    "signal_id": "PL1076_ppi_commodity_wpu055",
     "name": "FRED WPU055 PPI: Gas Fuels -> Family Variant",
     "rule": "Load FRED WPU055 (PPI: Gas Fuels, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18633,9 +18633,9 @@
     "backtested_at": "2026-05-30T00:32:45.621975+00:00"
   },
   {
-    "strategy_id": "PL615",
-    "idea_id": "PL615",
-    "signal_id": "PL615_ppi_commodity_wpu057",
+    "strategy_id": "PL1077",
+    "idea_id": "PL1077",
+    "signal_id": "PL1077_ppi_commodity_wpu057",
     "name": "FRED WPU057 PPI: Petroleum Products Refined -> Family Variant",
     "rule": "Load FRED WPU057 (PPI: Petroleum Products Refined, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18670,9 +18670,9 @@
     "backtested_at": "2026-05-30T00:32:46.018030+00:00"
   },
   {
-    "strategy_id": "PL616",
-    "idea_id": "PL616",
-    "signal_id": "PL616_ppi_commodity_wpu061",
+    "strategy_id": "PL1078",
+    "idea_id": "PL1078",
+    "signal_id": "PL1078_ppi_commodity_wpu061",
     "name": "FRED WPU061 PPI: Industrial Chemicals -> Family Variant",
     "rule": "Load FRED WPU061 (PPI: Industrial Chemicals, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18704,9 +18704,9 @@
     }
   },
   {
-    "strategy_id": "PL617",
-    "idea_id": "PL617",
-    "signal_id": "PL617_ppi_commodity_wpu063",
+    "strategy_id": "PL1079",
+    "idea_id": "PL1079",
+    "signal_id": "PL1079_ppi_commodity_wpu063",
     "name": "FRED WPU063 PPI: Drugs/Pharmaceuticals -> Family Variant",
     "rule": "Load FRED WPU063 (PPI: Drugs/Pharmaceuticals, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18741,9 +18741,9 @@
     "backtested_at": "2026-05-30T00:32:46.818554+00:00"
   },
   {
-    "strategy_id": "PL618",
-    "idea_id": "PL618",
-    "signal_id": "PL618_ppi_commodity_wpu065",
+    "strategy_id": "PL1080",
+    "idea_id": "PL1080",
+    "signal_id": "PL1080_ppi_commodity_wpu065",
     "name": "FRED WPU065 PPI: Plastic Resins -> Family Variant",
     "rule": "Load FRED WPU065 (PPI: Plastic Resins, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18778,9 +18778,9 @@
     }
   },
   {
-    "strategy_id": "PL619",
-    "idea_id": "PL619",
-    "signal_id": "PL619_ppi_commodity_wpu071",
+    "strategy_id": "PL1081",
+    "idea_id": "PL1081",
+    "signal_id": "PL1081_ppi_commodity_wpu071",
     "name": "FRED WPU071 PPI: Rubber/Plastic Products -> Family Variant",
     "rule": "Load FRED WPU071 (PPI: Rubber/Plastic Products, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18815,9 +18815,9 @@
     "backtested_at": "2026-05-30T00:32:47.663833+00:00"
   },
   {
-    "strategy_id": "PL620",
-    "idea_id": "PL620",
-    "signal_id": "PL620_ppi_commodity_wpu081",
+    "strategy_id": "PL1082",
+    "idea_id": "PL1082",
+    "signal_id": "PL1082_ppi_commodity_wpu081",
     "name": "FRED WPU081 PPI: Lumber -> Family Variant",
     "rule": "Load FRED WPU081 (PPI: Lumber, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18849,9 +18849,9 @@
     }
   },
   {
-    "strategy_id": "PL621",
-    "idea_id": "PL621",
-    "signal_id": "PL621_ppi_commodity_wpu082",
+    "strategy_id": "PL1083",
+    "idea_id": "PL1083",
+    "signal_id": "PL1083_ppi_commodity_wpu082",
     "name": "FRED WPU082 PPI: Millwork -> Family Variant",
     "rule": "Load FRED WPU082 (PPI: Millwork, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18883,9 +18883,9 @@
     "backtested_at": "2026-05-30T00:32:49.071035+00:00"
   },
   {
-    "strategy_id": "PL622",
-    "idea_id": "PL622",
-    "signal_id": "PL622_ppi_commodity_wpu083",
+    "strategy_id": "PL1084",
+    "idea_id": "PL1084",
+    "signal_id": "PL1084_ppi_commodity_wpu083",
     "name": "FRED WPU083 PPI: Plywood -> Family Variant",
     "rule": "Load FRED WPU083 (PPI: Plywood, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18920,9 +18920,9 @@
     }
   },
   {
-    "strategy_id": "PL623",
-    "idea_id": "PL623",
-    "signal_id": "PL623_ppi_commodity_wpu0912",
+    "strategy_id": "PL1085",
+    "idea_id": "PL1085",
+    "signal_id": "PL1085_ppi_commodity_wpu0912",
     "name": "FRED WPU0912 PPI: Paper -> Family Variant",
     "rule": "Load FRED WPU0912 (PPI: Paper, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18954,9 +18954,9 @@
     "backtested_at": "2026-05-30T00:32:49.880318+00:00"
   },
   {
-    "strategy_id": "PL624",
-    "idea_id": "PL624",
-    "signal_id": "PL624_ppi_commodity_wpu0913",
+    "strategy_id": "PL1086",
+    "idea_id": "PL1086",
+    "signal_id": "PL1086_ppi_commodity_wpu0913",
     "name": "FRED WPU0913 PPI: Paperboard -> Family Variant",
     "rule": "Load FRED WPU0913 (PPI: Paperboard, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -18991,9 +18991,9 @@
     "backtested_at": "2026-05-30T00:32:50.277639+00:00"
   },
   {
-    "strategy_id": "PL625",
-    "idea_id": "PL625",
-    "signal_id": "PL625_ppi_commodity_wpu101",
+    "strategy_id": "PL1087",
+    "idea_id": "PL1087",
+    "signal_id": "PL1087_ppi_commodity_wpu101",
     "name": "FRED WPU101 PPI: Iron/Steel -> Family Variant",
     "rule": "Load FRED WPU101 (PPI: Iron/Steel, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19025,9 +19025,9 @@
     }
   },
   {
-    "strategy_id": "PL626",
-    "idea_id": "PL626",
-    "signal_id": "PL626_ppi_commodity_wpu1017",
+    "strategy_id": "PL1088",
+    "idea_id": "PL1088",
+    "signal_id": "PL1088_ppi_commodity_wpu1017",
     "name": "FRED WPU1017 PPI: Steel Mill Products -> Family Variant",
     "rule": "Load FRED WPU1017 (PPI: Steel Mill Products, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19062,9 +19062,9 @@
     "backtested_at": "2026-05-30T00:32:51.063793+00:00"
   },
   {
-    "strategy_id": "PL627",
-    "idea_id": "PL627",
-    "signal_id": "PL627_ppi_commodity_wpu102",
+    "strategy_id": "PL1089",
+    "idea_id": "PL1089",
+    "signal_id": "PL1089_ppi_commodity_wpu102",
     "name": "FRED WPU102 PPI: Nonferrous Metals -> Family Variant",
     "rule": "Load FRED WPU102 (PPI: Nonferrous Metals, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19099,9 +19099,9 @@
     }
   },
   {
-    "strategy_id": "PL628",
-    "idea_id": "PL628",
-    "signal_id": "PL628_ppi_commodity_wpu1025",
+    "strategy_id": "PL1090",
+    "idea_id": "PL1090",
+    "signal_id": "PL1090_ppi_commodity_wpu1025",
     "name": "FRED WPU1025 PPI: Copper -> Family Variant",
     "rule": "Load FRED WPU1025 (PPI: Copper, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19136,9 +19136,9 @@
     "backtested_at": "2026-05-30T00:32:51.844694+00:00"
   },
   {
-    "strategy_id": "PL629",
-    "idea_id": "PL629",
-    "signal_id": "PL629_ppi_commodity_wpu1026",
+    "strategy_id": "PL1091",
+    "idea_id": "PL1091",
+    "signal_id": "PL1091_ppi_commodity_wpu1026",
     "name": "FRED WPU1026 PPI: Aluminum -> Family Variant",
     "rule": "Load FRED WPU1026 (PPI: Aluminum, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19173,9 +19173,9 @@
     }
   },
   {
-    "strategy_id": "PL630",
-    "idea_id": "PL630",
-    "signal_id": "PL630_ppi_commodity_wpu111",
+    "strategy_id": "PL1092",
+    "idea_id": "PL1092",
+    "signal_id": "PL1092_ppi_commodity_wpu111",
     "name": "FRED WPU111 PPI: Agricultural Machinery -> Family Variant",
     "rule": "Load FRED WPU111 (PPI: Agricultural Machinery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19210,9 +19210,9 @@
     "backtested_at": "2026-05-30T00:32:52.646199+00:00"
   },
   {
-    "strategy_id": "PL631",
-    "idea_id": "PL631",
-    "signal_id": "PL631_ppi_commodity_wpu112",
+    "strategy_id": "PL1093",
+    "idea_id": "PL1093",
+    "signal_id": "PL1093_ppi_commodity_wpu112",
     "name": "FRED WPU112 PPI: Construction Machinery -> Family Variant",
     "rule": "Load FRED WPU112 (PPI: Construction Machinery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19247,9 +19247,9 @@
     }
   },
   {
-    "strategy_id": "PL632",
-    "idea_id": "PL632",
-    "signal_id": "PL632_ppi_commodity_wpu114",
+    "strategy_id": "PL1094",
+    "idea_id": "PL1094",
+    "signal_id": "PL1094_ppi_commodity_wpu114",
     "name": "FRED WPU114 PPI: General Purpose Machinery -> Family Variant",
     "rule": "Load FRED WPU114 (PPI: General Purpose Machinery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19281,9 +19281,9 @@
     "backtested_at": "2026-05-30T00:32:53.463834+00:00"
   },
   {
-    "strategy_id": "PL633",
-    "idea_id": "PL633",
-    "signal_id": "PL633_ppi_commodity_wpu116",
+    "strategy_id": "PL1095",
+    "idea_id": "PL1095",
+    "signal_id": "PL1095_ppi_commodity_wpu116",
     "name": "FRED WPU116 PPI: Special Industry Machinery -> Family Variant",
     "rule": "Load FRED WPU116 (PPI: Special Industry Machinery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19318,9 +19318,9 @@
     "backtested_at": "2026-05-30T00:32:53.865743+00:00"
   },
   {
-    "strategy_id": "PL634",
-    "idea_id": "PL634",
-    "signal_id": "PL634_ppi_commodity_wpu117",
+    "strategy_id": "PL1096",
+    "idea_id": "PL1096",
+    "signal_id": "PL1096_ppi_commodity_wpu117",
     "name": "FRED WPU117 PPI: Electrical Machinery -> Family Variant",
     "rule": "Load FRED WPU117 (PPI: Electrical Machinery, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19355,9 +19355,9 @@
     }
   },
   {
-    "strategy_id": "PL635",
-    "idea_id": "PL635",
-    "signal_id": "PL635_ppi_commodity_wpu121",
+    "strategy_id": "PL1097",
+    "idea_id": "PL1097",
+    "signal_id": "PL1097_ppi_commodity_wpu121",
     "name": "FRED WPU121 PPI: Household Furniture -> Family Variant",
     "rule": "Load FRED WPU121 (PPI: Household Furniture, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19389,9 +19389,9 @@
     "backtested_at": "2026-05-30T00:34:19.609689+00:00"
   },
   {
-    "strategy_id": "PL636",
-    "idea_id": "PL636",
-    "signal_id": "PL636_ppi_commodity_wpu122",
+    "strategy_id": "PL1098",
+    "idea_id": "PL1098",
+    "signal_id": "PL1098_ppi_commodity_wpu122",
     "name": "FRED WPU122 PPI: Commercial Furniture -> Family Variant",
     "rule": "Load FRED WPU122 (PPI: Commercial Furniture, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19426,9 +19426,9 @@
     }
   },
   {
-    "strategy_id": "PL637",
-    "idea_id": "PL637",
-    "signal_id": "PL637_ppi_commodity_wpu124",
+    "strategy_id": "PL1099",
+    "idea_id": "PL1099",
+    "signal_id": "PL1099_ppi_commodity_wpu124",
     "name": "FRED WPU124 PPI: Household Appliances -> Family Variant",
     "rule": "Load FRED WPU124 (PPI: Household Appliances, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19463,9 +19463,9 @@
     "backtested_at": "2026-05-30T00:34:19.632102+00:00"
   },
   {
-    "strategy_id": "PL638",
-    "idea_id": "PL638",
-    "signal_id": "PL638_ppi_commodity_wpu132",
+    "strategy_id": "PL1100",
+    "idea_id": "PL1100",
+    "signal_id": "PL1100_ppi_commodity_wpu132",
     "name": "FRED WPU132 PPI: Concrete -> Family Variant",
     "rule": "Load FRED WPU132 (PPI: Concrete, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19539,9 +19539,9 @@
     }
   },
   {
-    "strategy_id": "PL640",
-    "idea_id": "PL640",
-    "signal_id": "PL640_ppi_commodity_wpu134",
+    "strategy_id": "PL1101",
+    "idea_id": "PL1101",
+    "signal_id": "PL1101_ppi_commodity_wpu134",
     "name": "FRED WPU134 PPI: Glass -> Family Variant",
     "rule": "Load FRED WPU134 (PPI: Glass, monthly). When 3-month change inflects positive after 6+ months of decline (trough recovery), long XLB+XLI+IYM for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19796,9 +19796,9 @@
     }
   },
   {
-    "strategy_id": "PL647",
-    "idea_id": "PL647",
-    "signal_id": "PL647_cpi_subindex_cusr0000saf113",
+    "strategy_id": "PL1102",
+    "idea_id": "PL1102",
+    "signal_id": "PL1102_cpi_subindex_cusr0000saf113",
     "name": "FRED CUSR0000SAF113 CPI: Dairy -> Family Variant",
     "rule": "Load FRED CUSR0000SAF113 (CPI: Dairy, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19832,9 +19832,9 @@
     "backtested_at": "2026-05-30T00:32:59.306953+00:00"
   },
   {
-    "strategy_id": "PL648",
-    "idea_id": "PL648",
-    "signal_id": "PL648_cpi_subindex_cusr0000saf114",
+    "strategy_id": "PL1103",
+    "idea_id": "PL1103",
+    "signal_id": "PL1103_cpi_subindex_cusr0000saf114",
     "name": "FRED CUSR0000SAF114 CPI: Fruits/Vegetables -> Family Variant",
     "rule": "Load FRED CUSR0000SAF114 (CPI: Fruits/Vegetables, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19868,9 +19868,9 @@
     }
   },
   {
-    "strategy_id": "PL649",
-    "idea_id": "PL649",
-    "signal_id": "PL649_cpi_subindex_cusr0000saf115",
+    "strategy_id": "PL1104",
+    "idea_id": "PL1104",
+    "signal_id": "PL1104_cpi_subindex_cusr0000saf115",
     "name": "FRED CUSR0000SAF115 CPI: Nonalcoholic Beverages -> Family Variant",
     "rule": "Load FRED CUSR0000SAF115 (CPI: Nonalcoholic Beverages, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19904,9 +19904,9 @@
     "backtested_at": "2026-05-30T00:33:00.507854+00:00"
   },
   {
-    "strategy_id": "PL650",
-    "idea_id": "PL650",
-    "signal_id": "PL650_cpi_subindex_cusr0000saf116",
+    "strategy_id": "PL1105",
+    "idea_id": "PL1105",
+    "signal_id": "PL1105_cpi_subindex_cusr0000saf116",
     "name": "FRED CUSR0000SAF116 CPI: Other Food at Home -> Family Variant",
     "rule": "Load FRED CUSR0000SAF116 (CPI: Other Food at Home, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19940,9 +19940,9 @@
     }
   },
   {
-    "strategy_id": "PL651",
-    "idea_id": "PL651",
-    "signal_id": "PL651_cpi_subindex_cusr0000sah1",
+    "strategy_id": "PL1106",
+    "idea_id": "PL1106",
+    "signal_id": "PL1106_cpi_subindex_cusr0000sah1",
     "name": "FRED CUSR0000SAH1 CPI: Shelter -> Family Variant",
     "rule": "Load FRED CUSR0000SAH1 (CPI: Shelter, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -19976,9 +19976,9 @@
     }
   },
   {
-    "strategy_id": "PL652",
-    "idea_id": "PL652",
-    "signal_id": "PL652_cpi_subindex_cusr0000sah21",
+    "strategy_id": "PL1107",
+    "idea_id": "PL1107",
+    "signal_id": "PL1107_cpi_subindex_cusr0000sah21",
     "name": "FRED CUSR0000SAH21 CPI: Household Energy -> Family Variant",
     "rule": "Load FRED CUSR0000SAH21 (CPI: Household Energy, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20012,9 +20012,9 @@
     "backtested_at": "2026-05-30T00:33:01.836307+00:00"
   },
   {
-    "strategy_id": "PL653",
-    "idea_id": "PL653",
-    "signal_id": "PL653_cpi_subindex_cusr0000sah3",
+    "strategy_id": "PL1108",
+    "idea_id": "PL1108",
+    "signal_id": "PL1108_cpi_subindex_cusr0000sah3",
     "name": "FRED CUSR0000SAH3 CPI: Household Furnishings -> Family Variant",
     "rule": "Load FRED CUSR0000SAH3 (CPI: Household Furnishings, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20048,9 +20048,9 @@
     }
   },
   {
-    "strategy_id": "PL654",
-    "idea_id": "PL654",
-    "signal_id": "PL654_cpi_subindex_cusr0000sam1",
+    "strategy_id": "PL1109",
+    "idea_id": "PL1109",
+    "signal_id": "PL1109_cpi_subindex_cusr0000sam1",
     "name": "FRED CUSR0000SAM1 CPI: Medical Care Commodities -> Family Variant",
     "rule": "Load FRED CUSR0000SAM1 (CPI: Medical Care Commodities, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20084,45 +20084,9 @@
     "backtested_at": "2026-05-30T00:34:19.736033+00:00"
   },
   {
-    "strategy_id": "PL655",
-    "idea_id": "PL655",
-    "signal_id": "PL655_cpi_subindex_cusr0000sas2",
-    "name": "FRED CUSR0000SAS2 CPI: Shelter (Services) -> Family Variant",
-    "rule": "Load FRED CUSR0000SAS2 (CPI: Shelter (Services), monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SAS2"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633541+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:05.161743+00:00",
-    "backtested_at": "2026-05-31T16:46:34.733144+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.2645,
-      "cagr": -0.0425,
-      "max_dd": -0.16107,
-      "t_stat": -0.3651
-    }
-  },
-  {
-    "strategy_id": "PL656",
-    "idea_id": "PL656",
-    "signal_id": "PL656_cpi_subindex_cusr0000setb01",
+    "strategy_id": "PL1110",
+    "idea_id": "PL1110",
+    "signal_id": "PL1110_cpi_subindex_cusr0000setb01",
     "name": "FRED CUSR0000SETB01 CPI: Gasoline -> Family Variant",
     "rule": "Load FRED CUSR0000SETB01 (CPI: Gasoline, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20156,9 +20120,9 @@
     }
   },
   {
-    "strategy_id": "PL657",
-    "idea_id": "PL657",
-    "signal_id": "PL657_cpi_subindex_cusr0000setd",
+    "strategy_id": "PL1111",
+    "idea_id": "PL1111",
+    "signal_id": "PL1111_cpi_subindex_cusr0000setd",
     "name": "FRED CUSR0000SETD CPI: Motor Vehicle Maintenance/Repair -> Family Variant",
     "rule": "Load FRED CUSR0000SETD (CPI: Motor Vehicle Maintenance/Repair, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20192,81 +20156,9 @@
     "backtested_at": "2026-05-31T17:02:10.402806+00:00"
   },
   {
-    "strategy_id": "PL658",
-    "idea_id": "PL658",
-    "signal_id": "PL658_cpi_subindex_cusr0000sete",
-    "name": "FRED CUSR0000SETE CPI: Motor Vehicle Insurance -> Family Variant",
-    "rule": "Load FRED CUSR0000SETE (CPI: Motor Vehicle Insurance, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SETE"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633549+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:06.233408+00:00",
-    "backtested_at": "2026-05-31T17:02:48.975645+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.4423841410385473,
-      "cagr": -0.05260638003647122,
-      "max_dd": -0.3474703215018543,
-      "t_stat": -1.1178339647666307
-    }
-  },
-  {
-    "strategy_id": "PL659",
-    "idea_id": "PL659",
-    "signal_id": "PL659_cpi_subindex_cusr0000setg02",
-    "name": "FRED CUSR0000SETG02 CPI: Other Intercity Transportation -> Family Variant",
-    "rule": "Load FRED CUSR0000SETG02 (CPI: Other Intercity Transportation, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SETG02"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633551+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:06.438622+00:00",
-    "backtested_at": "2026-05-31T17:03:27.730603+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.42938997040437904,
-      "cagr": -0.048044389740263704,
-      "max_dd": -0.38993345825970216,
-      "t_stat": -0.9960507582992253
-    }
-  },
-  {
-    "strategy_id": "PL660",
-    "idea_id": "PL660",
-    "signal_id": "PL660_cpi_subindex_cusr0000seea",
+    "strategy_id": "PL1112",
+    "idea_id": "PL1112",
+    "signal_id": "PL1112_cpi_subindex_cusr0000seea",
     "name": "FRED CUSR0000SEEA CPI: Education -> Family Variant",
     "rule": "Load FRED CUSR0000SEEA (CPI: Education, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20300,9 +20192,9 @@
     "backtested_at": "2026-05-31T17:04:09.671052+00:00"
   },
   {
-    "strategy_id": "PL661",
-    "idea_id": "PL661",
-    "signal_id": "PL661_cpi_subindex_cusr0000seeb",
+    "strategy_id": "PL1113",
+    "idea_id": "PL1113",
+    "signal_id": "PL1113_cpi_subindex_cusr0000seeb",
     "name": "FRED CUSR0000SEEB CPI: Communication -> Family Variant",
     "rule": "Load FRED CUSR0000SEEB (CPI: Communication, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20336,153 +20228,9 @@
     }
   },
   {
-    "strategy_id": "PL662",
-    "idea_id": "PL662",
-    "signal_id": "PL662_cpi_subindex_cusr0000seaa",
-    "name": "FRED CUSR0000SEAA CPI: Video Audio -> Family Variant",
-    "rule": "Load FRED CUSR0000SEAA (CPI: Video Audio, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SEAA"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633558+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:07.303702+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.747,
-      "cagr": 0.048,
-      "max_dd": -0.045,
-      "t_stat": 0.729
-    },
-    "backtested_at": "2026-05-31T17:05:14.976656+00:00"
-  },
-  {
-    "strategy_id": "PL663",
-    "idea_id": "PL663",
-    "signal_id": "PL663_cpi_subindex_cusr0000seab",
-    "name": "FRED CUSR0000SEAB CPI: Pets/Pet Products -> Family Variant",
-    "rule": "Load FRED CUSR0000SEAB (CPI: Pets/Pet Products, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SEAB"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633560+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:07.493831+00:00",
-    "backtested_at": "2026-05-31T17:04:41.918669+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -3.93,
-      "cagr": -0.71,
-      "max_dd": -0.375,
-      "t_stat": -2.21
-    }
-  },
-  {
-    "strategy_id": "PL664",
-    "idea_id": "PL664",
-    "signal_id": "PL664_cpi_subindex_cusr0000seac",
-    "name": "FRED CUSR0000SEAC CPI: Sporting Goods -> Family Variant",
-    "rule": "Load FRED CUSR0000SEAC (CPI: Sporting Goods, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SEAC"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633563+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:07.520602+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.2669122265551056,
-      "cagr": 0.029375694230338256,
-      "max_dd": -0.20369961215994947,
-      "t_stat": 0.13023983068299147
-    },
-    "backtested_at": "2026-05-31T17:05:17.297739+00:00"
-  },
-  {
-    "strategy_id": "PL665",
-    "idea_id": "PL665",
-    "signal_id": "PL665_cpi_subindex_cusr0000sead",
-    "name": "FRED CUSR0000SEAD CPI: Photo Equipment -> Family Variant",
-    "rule": "Load FRED CUSR0000SEAD (CPI: Photo Equipment, monthly). When YoY change troughs after 2+ months of deflation, long XLY+XLP for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLY",
-      "XLP",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLY, XLP, SPY",
-      "fundamental": "FRED CUSR0000SEAD"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in CPI subindex (CUSR0000). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633566+00:00",
-    "_family_enum": true,
-    "_source_family": "CPI subindex (CUSR0000)",
-    "claimed_at": "2026-05-29T05:43:07.778257+00:00",
-    "backtested_at": "2026-05-31T17:05:19.180961+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 2.28,
-      "cagr": 1.5,
-      "max_dd": -0.194,
-      "t_stat": 1.43
-    }
-  },
-  {
-    "strategy_id": "PL666",
-    "idea_id": "PL666",
-    "signal_id": "PL666_jolts_by_industry_jts1000jol",
+    "strategy_id": "PL1114",
+    "idea_id": "PL1114",
+    "signal_id": "PL1114_jolts_by_industry_jts1000jol",
     "name": "FRED JTS1000JOL JOLTS: Total Nonfarm Openings -> Family Variant",
     "rule": "Load FRED JTS1000JOL (JOLTS: Total Nonfarm Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20518,9 +20266,9 @@
     "backtested_at": "2026-05-31T17:05:39.519124+00:00"
   },
   {
-    "strategy_id": "PL667",
-    "idea_id": "PL667",
-    "signal_id": "PL667_jolts_by_industry_jts2300jol",
+    "strategy_id": "PL1115",
+    "idea_id": "PL1115",
+    "signal_id": "PL1115_jolts_by_industry_jts2300jol",
     "name": "FRED JTS2300JOL JOLTS: Construction Openings -> Family Variant",
     "rule": "Load FRED JTS2300JOL (JOLTS: Construction Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20556,9 +20304,9 @@
     }
   },
   {
-    "strategy_id": "PL668",
-    "idea_id": "PL668",
-    "signal_id": "PL668_jolts_by_industry_jts3000jol",
+    "strategy_id": "PL1116",
+    "idea_id": "PL1116",
+    "signal_id": "PL1116_jolts_by_industry_jts3000jol",
     "name": "FRED JTS3000JOL JOLTS: Manufacturing Openings -> Family Variant",
     "rule": "Load FRED JTS3000JOL (JOLTS: Manufacturing Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20594,47 +20342,9 @@
     "backtested_at": "2026-05-31T17:05:57.200662+00:00"
   },
   {
-    "strategy_id": "PL669",
-    "idea_id": "PL669",
-    "signal_id": "PL669_jolts_by_industry_jts3300jol",
-    "name": "FRED JTS3300JOL JOLTS: Durable Goods Mfg Openings -> Family Variant",
-    "rule": "Load FRED JTS3300JOL (JOLTS: Durable Goods Mfg Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS3300JOL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633579+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:09.525765+00:00",
-    "backtested_at": "2026-05-31T17:06:17.981014+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.2,
-      "cagr": 0.017,
-      "max_dd": -0.131,
-      "t_stat": 0.16
-    }
-  },
-  {
-    "strategy_id": "PL670",
-    "idea_id": "PL670",
-    "signal_id": "PL670_jolts_by_industry_jts4000jol",
+    "strategy_id": "PL1117",
+    "idea_id": "PL1117",
+    "signal_id": "PL1117_jolts_by_industry_jts4000jol",
     "name": "FRED JTS4000JOL JOLTS: Trade/Trans/Util Openings -> Family Variant",
     "rule": "Load FRED JTS4000JOL (JOLTS: Trade/Trans/Util Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20670,9 +20380,9 @@
     }
   },
   {
-    "strategy_id": "PL671",
-    "idea_id": "PL671",
-    "signal_id": "PL671_jolts_by_industry_jts4400jol",
+    "strategy_id": "PL1118",
+    "idea_id": "PL1118",
+    "signal_id": "PL1118_jolts_by_industry_jts4400jol",
     "name": "FRED JTS4400JOL JOLTS: Retail Trade Openings -> Family Variant",
     "rule": "Load FRED JTS4400JOL (JOLTS: Retail Trade Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20708,123 +20418,9 @@
     "backtested_at": "2026-05-31T17:06:47.617013+00:00"
   },
   {
-    "strategy_id": "PL672",
-    "idea_id": "PL672",
-    "signal_id": "PL672_jolts_by_industry_jts4500jol",
-    "name": "FRED JTS4500JOL JOLTS: Wholesale Trade Openings -> Family Variant",
-    "rule": "Load FRED JTS4500JOL (JOLTS: Wholesale Trade Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS4500JOL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633587+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:10.385381+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 2.9215168735463104,
-      "cagr": 0.8043767075208754,
-      "max_dd": -0.0642883765487926,
-      "t_stat": 2.0160381754718606
-    },
-    "backtested_at": "2026-05-31T17:06:36.395450+00:00"
-  },
-  {
-    "strategy_id": "PL673",
-    "idea_id": "PL673",
-    "signal_id": "PL673_jolts_by_industry_jts5100jol",
-    "name": "FRED JTS5100JOL JOLTS: Information Openings -> Family Variant",
-    "rule": "Load FRED JTS5100JOL (JOLTS: Information Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS5100JOL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633590+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:10.495632+00:00",
-    "backtested_at": "2026-05-31T17:06:48.447074+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.84,
-      "cagr": -0.09,
-      "max_dd": -0.125,
-      "t_stat": -0.67
-    }
-  },
-  {
-    "strategy_id": "PL674",
-    "idea_id": "PL674",
-    "signal_id": "PL674_jolts_by_industry_jts5500jol",
-    "name": "FRED JTS5500JOL JOLTS: Finance/Insurance Openings -> Family Variant",
-    "rule": "Load FRED JTS5500JOL (JOLTS: Finance/Insurance Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS5500JOL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633593+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:10.661746+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.21995281828419788,
-      "cagr": -0.013330223230211824,
-      "max_dd": -0.512676966340555,
-      "t_stat": 0.41126070421198907
-    },
-    "backtested_at": "2026-05-31T17:07:18.005319+00:00"
-  },
-  {
-    "strategy_id": "PL675",
-    "idea_id": "PL675",
-    "signal_id": "PL675_jolts_by_industry_jts6000jol",
+    "strategy_id": "PL1119",
+    "idea_id": "PL1119",
+    "signal_id": "PL1119_jolts_by_industry_jts6000jol",
     "name": "FRED JTS6000JOL JOLTS: Education Services Openings -> Family Variant",
     "rule": "Load FRED JTS6000JOL (JOLTS: Education Services Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20860,47 +20456,9 @@
     }
   },
   {
-    "strategy_id": "PL676",
-    "idea_id": "PL676",
-    "signal_id": "PL676_jolts_by_industry_jts6500jol",
-    "name": "FRED JTS6500JOL JOLTS: Health Care Openings -> Family Variant",
-    "rule": "Load FRED JTS6500JOL (JOLTS: Health Care Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS6500JOL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633599+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:10.865039+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.87,
-      "cagr": 0.16,
-      "max_dd": -0.113,
-      "t_stat": 0.85
-    },
-    "backtested_at": "2026-05-31T17:07:25.628768+00:00"
-  },
-  {
-    "strategy_id": "PL677",
-    "idea_id": "PL677",
-    "signal_id": "PL677_jolts_by_industry_jts7000jol",
+    "strategy_id": "PL1120",
+    "idea_id": "PL1120",
+    "signal_id": "PL1120_jolts_by_industry_jts7000jol",
     "name": "FRED JTS7000JOL JOLTS: Leisure/Hospitality Openings -> Family Variant",
     "rule": "Load FRED JTS7000JOL (JOLTS: Leisure/Hospitality Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20936,9 +20494,9 @@
     "backtested_at": "2026-05-31T17:07:42.232868+00:00"
   },
   {
-    "strategy_id": "PL678",
-    "idea_id": "PL678",
-    "signal_id": "PL678_jolts_by_industry_jts7200jol",
+    "strategy_id": "PL1121",
+    "idea_id": "PL1121",
+    "signal_id": "PL1121_jolts_by_industry_jts7200jol",
     "name": "FRED JTS7200JOL JOLTS: Accommodation/Food Openings -> Family Variant",
     "rule": "Load FRED JTS7200JOL (JOLTS: Accommodation/Food Openings, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -20974,9 +20532,9 @@
     "backtested_at": "2026-05-31T17:07:59.443344+00:00"
   },
   {
-    "strategy_id": "PL679",
-    "idea_id": "PL679",
-    "signal_id": "PL679_jolts_by_industry_jts1000qur",
+    "strategy_id": "PL1122",
+    "idea_id": "PL1122",
+    "signal_id": "PL1122_jolts_by_industry_jts1000qur",
     "name": "FRED JTS1000QUR JOLTS: Total Quits Rate -> Family Variant",
     "rule": "Load FRED JTS1000QUR (JOLTS: Total Quits Rate, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21012,9 +20570,9 @@
     }
   },
   {
-    "strategy_id": "PL680",
-    "idea_id": "PL680",
-    "signal_id": "PL680_jolts_by_industry_jts3000qur",
+    "strategy_id": "PL1123",
+    "idea_id": "PL1123",
+    "signal_id": "PL1123_jolts_by_industry_jts3000qur",
     "name": "FRED JTS3000QUR JOLTS: Manufacturing Quits Rate -> Family Variant",
     "rule": "Load FRED JTS3000QUR (JOLTS: Manufacturing Quits Rate, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21050,9 +20608,9 @@
     "backtested_at": "2026-05-31T17:08:58.100825+00:00"
   },
   {
-    "strategy_id": "PL681",
-    "idea_id": "PL681",
-    "signal_id": "PL681_jolts_by_industry_jts4400qur",
+    "strategy_id": "PL1124",
+    "idea_id": "PL1124",
+    "signal_id": "PL1124_jolts_by_industry_jts4400qur",
     "name": "FRED JTS4400QUR JOLTS: Retail Quits Rate -> Family Variant",
     "rule": "Load FRED JTS4400QUR (JOLTS: Retail Quits Rate, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21088,47 +20646,9 @@
     }
   },
   {
-    "strategy_id": "PL682",
-    "idea_id": "PL682",
-    "signal_id": "PL682_jolts_by_industry_jts6500qur",
-    "name": "FRED JTS6500QUR JOLTS: Health Care Quits Rate -> Family Variant",
-    "rule": "Load FRED JTS6500QUR (JOLTS: Health Care Quits Rate, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS6500QUR"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633614+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:12.586781+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.184,
-      "cagr": 0.0164,
-      "max_dd": -0.366,
-      "t_stat": 0.3
-    },
-    "backtested_at": "2026-05-31T17:09:40.178111+00:00"
-  },
-  {
-    "strategy_id": "PL683",
-    "idea_id": "PL683",
-    "signal_id": "PL683_jolts_by_industry_jts1000ldl",
+    "strategy_id": "PL1125",
+    "idea_id": "PL1125",
+    "signal_id": "PL1125_jolts_by_industry_jts1000ldl",
     "name": "FRED JTS1000LDL JOLTS: Total Layoffs/Discharges -> Family Variant",
     "rule": "Load FRED JTS1000LDL (JOLTS: Total Layoffs/Discharges, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21164,85 +20684,9 @@
     }
   },
   {
-    "strategy_id": "PL684",
-    "idea_id": "PL684",
-    "signal_id": "PL684_jolts_by_industry_jts3000ldl",
-    "name": "FRED JTS3000LDL JOLTS: Manufacturing Layoffs -> Family Variant",
-    "rule": "Load FRED JTS3000LDL (JOLTS: Manufacturing Layoffs, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS3000LDL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633624+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:12.793029+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": -0.11,
-      "cagr": -0.0764,
-      "max_dd": -0.493,
-      "t_stat": -0.22
-    },
-    "backtested_at": "2026-05-31T17:11:07.050951+00:00"
-  },
-  {
-    "strategy_id": "PL685",
-    "idea_id": "PL685",
-    "signal_id": "PL685_jolts_by_industry_jts5100ldl",
-    "name": "FRED JTS5100LDL JOLTS: Information Layoffs -> Family Variant",
-    "rule": "Load FRED JTS5100LDL (JOLTS: Information Layoffs, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "XLY",
-      "XLV",
-      "XLF",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, XLY, XLV, XLF, SPY",
-      "fundamental": "FRED JTS5100LDL"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in JOLTS by industry. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633627+00:00",
-    "_family_enum": true,
-    "_source_family": "JOLTS by industry",
-    "claimed_at": "2026-05-29T05:43:13.032749+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 1.046,
-      "cagr": 0.611,
-      "max_dd": -0.405,
-      "t_stat": 0.625
-    },
-    "backtested_at": "2026-05-31T17:11:00.395229+00:00"
-  },
-  {
-    "strategy_id": "PL686",
-    "idea_id": "PL686",
-    "signal_id": "PL686_jolts_by_industry_jts1000hil",
+    "strategy_id": "PL1126",
+    "idea_id": "PL1126",
+    "signal_id": "PL1126_jolts_by_industry_jts1000hil",
     "name": "FRED JTS1000HIL JOLTS: Total Hires -> Family Variant",
     "rule": "Load FRED JTS1000HIL (JOLTS: Total Hires, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21278,9 +20722,9 @@
     "backtested_at": "2026-05-31T17:11:49.264299+00:00"
   },
   {
-    "strategy_id": "PL687",
-    "idea_id": "PL687",
-    "signal_id": "PL687_jolts_by_industry_jts3000hil",
+    "strategy_id": "PL1127",
+    "idea_id": "PL1127",
+    "signal_id": "PL1127_jolts_by_industry_jts3000hil",
     "name": "FRED JTS3000HIL JOLTS: Manufacturing Hires -> Family Variant",
     "rule": "Load FRED JTS3000HIL (JOLTS: Manufacturing Hires, monthly). When YoY change exceeds +20% vs overall JOLTS flat or declining, long XLI+XLY+XLV+XLF for 60 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21316,9 +20760,9 @@
     }
   },
   {
-    "strategy_id": "PL688",
-    "idea_id": "PL688",
-    "signal_id": "PL688_manufacturers_orders_a36sno",
+    "strategy_id": "PL1128",
+    "idea_id": "PL1128",
+    "signal_id": "PL1128_manufacturers_orders_a36sno",
     "name": "FRED A36SNO Mfg: Electrical Equip New Orders -> Family Variant",
     "rule": "Load FRED A36SNO (Mfg: Electrical Equip New Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21353,9 +20797,9 @@
     "backtested_at": "2026-05-31T17:14:13.878777+00:00"
   },
   {
-    "strategy_id": "PL689",
-    "idea_id": "PL689",
-    "signal_id": "PL689_manufacturers_orders_a37sno",
+    "strategy_id": "PL1129",
+    "idea_id": "PL1129",
+    "signal_id": "PL1129_manufacturers_orders_a37sno",
     "name": "FRED A37SNO Mfg: Transportation Equipment New Orders -> Family Variant",
     "rule": "Load FRED A37SNO (Mfg: Transportation Equipment New Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21390,46 +20834,9 @@
     }
   },
   {
-    "strategy_id": "PL690",
-    "idea_id": "PL690",
-    "signal_id": "PL690_manufacturers_orders_a37bno",
-    "name": "FRED A37BNO Mfg: Motor Vehicles New Orders -> Family Variant",
-    "rule": "Load FRED A37BNO (Mfg: Motor Vehicles New Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "ITA",
-      "XLB",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, ITA, XLB, SPY",
-      "fundamental": "FRED A37BNO"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Manufacturers orders. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "done",
-    "created_at": "2026-05-29T03:29:38.633641+00:00",
-    "_family_enum": true,
-    "_source_family": "Manufacturers orders",
-    "claimed_at": "2026-05-29T05:43:14.899514+00:00",
-    "backtest_result": {
-      "status": "ok",
-      "sharpe": 0.56,
-      "cagr": 0.1713,
-      "max_dd": -0.703,
-      "t_stat": 1.35
-    },
-    "backtested_at": "2026-05-31T17:15:11.994292+00:00"
-  },
-  {
-    "strategy_id": "PL691",
-    "idea_id": "PL691",
-    "signal_id": "PL691_manufacturers_orders_a33suo",
+    "strategy_id": "PL1130",
+    "idea_id": "PL1130",
+    "signal_id": "PL1130_manufacturers_orders_a33suo",
     "name": "FRED A33SUO Mfg: Primary Metals Unfilled Orders -> Family Variant",
     "rule": "Load FRED A33SUO (Mfg: Primary Metals Unfilled Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21464,9 +20871,9 @@
     }
   },
   {
-    "strategy_id": "PL692",
-    "idea_id": "PL692",
-    "signal_id": "PL692_manufacturers_orders_a34suo",
+    "strategy_id": "PL1131",
+    "idea_id": "PL1131",
+    "signal_id": "PL1131_manufacturers_orders_a34suo",
     "name": "FRED A34SUO Mfg: Machinery Unfilled Orders -> Family Variant",
     "rule": "Load FRED A34SUO (Mfg: Machinery Unfilled Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21502,9 +20909,9 @@
     "backtested_at": "2026-05-29T05:43:15.424319+00:00"
   },
   {
-    "strategy_id": "PL693",
-    "idea_id": "PL693",
-    "signal_id": "PL693_manufacturers_orders_a36suo",
+    "strategy_id": "PL1132",
+    "idea_id": "PL1132",
+    "signal_id": "PL1132_manufacturers_orders_a36suo",
     "name": "FRED A36SUO Mfg: Electrical Equip Unfilled Orders -> Family Variant",
     "rule": "Load FRED A36SUO (Mfg: Electrical Equip Unfilled Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21541,9 +20948,9 @@
     }
   },
   {
-    "strategy_id": "PL694",
-    "idea_id": "PL694",
-    "signal_id": "PL694_manufacturers_orders_a37suo",
+    "strategy_id": "PL1133",
+    "idea_id": "PL1133",
+    "signal_id": "PL1133_manufacturers_orders_a37suo",
     "name": "FRED A37SUO Mfg: Transportation Equipment Unfilled Orders -> Family Variant",
     "rule": "Load FRED A37SUO (Mfg: Transportation Equipment Unfilled Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21579,9 +20986,9 @@
     "backtested_at": "2026-05-29T05:43:16.298449+00:00"
   },
   {
-    "strategy_id": "PL695",
-    "idea_id": "PL695",
-    "signal_id": "PL695_manufacturers_orders_amtmno",
+    "strategy_id": "PL1134",
+    "idea_id": "PL1134",
+    "signal_id": "PL1134_manufacturers_orders_amtmno",
     "name": "FRED AMTMNO Total Manufacturing New Orders -> Family Variant",
     "rule": "Load FRED AMTMNO (Total Manufacturing New Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21618,9 +21025,9 @@
     }
   },
   {
-    "strategy_id": "PL696",
-    "idea_id": "PL696",
-    "signal_id": "PL696_manufacturers_orders_amtmuo",
+    "strategy_id": "PL1135",
+    "idea_id": "PL1135",
+    "signal_id": "PL1135_manufacturers_orders_amtmuo",
     "name": "FRED AMTMUO Total Manufacturing Unfilled Orders -> Family Variant",
     "rule": "Load FRED AMTMUO (Total Manufacturing Unfilled Orders, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21656,9 +21063,9 @@
     "backtested_at": "2026-05-29T05:43:16.621773+00:00"
   },
   {
-    "strategy_id": "PL697",
-    "idea_id": "PL697",
-    "signal_id": "PL697_manufacturers_orders_amtmvs",
+    "strategy_id": "PL1136",
+    "idea_id": "PL1136",
+    "signal_id": "PL1136_manufacturers_orders_amtmvs",
     "name": "FRED AMTMVS Total Manufacturing Shipments -> Family Variant",
     "rule": "Load FRED AMTMVS (Total Manufacturing Shipments, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21695,43 +21102,9 @@
     }
   },
   {
-    "strategy_id": "PL698",
-    "idea_id": "PL698",
-    "signal_id": "PL698_manufacturers_orders_a311svs",
-    "name": "FRED A311SVS Mfg: Food Shipments -> Family Variant",
-    "rule": "Load FRED A311SVS (Mfg: Food Shipments, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLI",
-      "ITA",
-      "XLB",
-      "SPY"
-    ],
-    "horizon": "4-8 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLI, ITA, XLB, SPY",
-      "fundamental": "FRED A311SVS"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Manufacturers orders. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633663+00:00",
-    "_family_enum": true,
-    "_source_family": "Manufacturers orders",
-    "claimed_at": "2026-05-29T05:43:17.205559+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED A311SVS load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:17.429504+00:00"
-  },
-  {
-    "strategy_id": "PL699",
-    "idea_id": "PL699",
-    "signal_id": "PL699_manufacturers_orders_a31svs",
+    "strategy_id": "PL1137",
+    "idea_id": "PL1137",
+    "signal_id": "PL1137_manufacturers_orders_a31svs",
     "name": "FRED A31SVS Mfg: Wood Shipments -> Family Variant",
     "rule": "Load FRED A31SVS (Mfg: Wood Shipments, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21768,9 +21141,9 @@
     }
   },
   {
-    "strategy_id": "PL700",
-    "idea_id": "PL700",
-    "signal_id": "PL700_manufacturers_orders_a34svs",
+    "strategy_id": "PL1138",
+    "idea_id": "PL1138",
+    "signal_id": "PL1138_manufacturers_orders_a34svs",
     "name": "FRED A34SVS Mfg: Machinery Shipments -> Family Variant",
     "rule": "Load FRED A34SVS (Mfg: Machinery Shipments, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21845,9 +21218,9 @@
     }
   },
   {
-    "strategy_id": "PL702",
-    "idea_id": "PL702",
-    "signal_id": "PL702_manufacturers_orders_anxavs",
+    "strategy_id": "PL1139",
+    "idea_id": "PL1139",
+    "signal_id": "PL1139_manufacturers_orders_anxavs",
     "name": "FRED ANXAVS Nondefense Ex-Aircraft Capital Goods Shipments -> Family Variant",
     "rule": "Load FRED ANXAVS (Nondefense Ex-Aircraft Capital Goods Shipments, monthly). When value surges >2 standard deviations above 12-month rolling mean, long XLI+ITA+XLB for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21884,9 +21257,9 @@
     }
   },
   {
-    "strategy_id": "PL703",
-    "idea_id": "PL703",
-    "signal_id": "PL703_commodity_prices_pricenpqusdm",
+    "strategy_id": "PL1140",
+    "idea_id": "PL1140",
+    "signal_id": "PL1140_commodity_prices_pricenpqusdm",
     "name": "FRED PRICENPQUSDM Global Rice Price -> Family Variant",
     "rule": "Load FRED PRICENPQUSDM (Global Rice Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21922,43 +21295,9 @@
     "backtested_at": "2026-05-29T05:43:18.994226+00:00"
   },
   {
-    "strategy_id": "PL704",
-    "idea_id": "PL704",
-    "signal_id": "PL704_commodity_prices_poatsusdm",
-    "name": "FRED POATSUSDM Global Oats Price -> Family Variant",
-    "rule": "Load FRED POATSUSDM (Global Oats Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED POATSUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633680+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:18.362271+00:00",
-    "backtested_at": "2026-05-29T05:43:19.046415+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED POATSUSDM load: Bad Request.  The series does not exist."
-    }
-  },
-  {
-    "strategy_id": "PL705",
-    "idea_id": "PL705",
-    "signal_id": "PL705_commodity_prices_pcoppusdm",
+    "strategy_id": "PL1141",
+    "idea_id": "PL1141",
+    "signal_id": "PL1141_commodity_prices_pcoppusdm",
     "name": "FRED PCOPPUSDM Global Copper Price -> Family Variant",
     "rule": "Load FRED PCOPPUSDM (Global Copper Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -21995,9 +21334,9 @@
     }
   },
   {
-    "strategy_id": "PL706",
-    "idea_id": "PL706",
-    "signal_id": "PL706_commodity_prices_pleadusdm",
+    "strategy_id": "PL1142",
+    "idea_id": "PL1142",
+    "signal_id": "PL1142_commodity_prices_pleadusdm",
     "name": "FRED PLEADUSDM Global Lead Price -> Family Variant",
     "rule": "Load FRED PLEADUSDM (Global Lead Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22034,9 +21373,9 @@
     }
   },
   {
-    "strategy_id": "PL707",
-    "idea_id": "PL707",
-    "signal_id": "PL707_commodity_prices_palumusdm",
+    "strategy_id": "PL1143",
+    "idea_id": "PL1143",
+    "signal_id": "PL1143_commodity_prices_palumusdm",
     "name": "FRED PALUMUSDM Global Aluminum Price -> Family Variant",
     "rule": "Load FRED PALUMUSDM (Global Aluminum Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22072,9 +21411,9 @@
     "backtested_at": "2026-05-29T05:43:19.756220+00:00"
   },
   {
-    "strategy_id": "PL708",
-    "idea_id": "PL708",
-    "signal_id": "PL708_commodity_prices_ptinusdm",
+    "strategy_id": "PL1144",
+    "idea_id": "PL1144",
+    "signal_id": "PL1144_commodity_prices_ptinusdm",
     "name": "FRED PTINUSDM Global Tin Price -> Family Variant",
     "rule": "Load FRED PTINUSDM (Global Tin Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22111,9 +21450,9 @@
     }
   },
   {
-    "strategy_id": "PL709",
-    "idea_id": "PL709",
-    "signal_id": "PL709_commodity_prices_puranusdm",
+    "strategy_id": "PL1145",
+    "idea_id": "PL1145",
+    "signal_id": "PL1145_commodity_prices_puranusdm",
     "name": "FRED PURANUSDM Global Uranium Price -> Family Variant",
     "rule": "Load FRED PURANUSDM (Global Uranium Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22149,9 +21488,9 @@
     "backtested_at": "2026-05-29T05:43:20.084706+00:00"
   },
   {
-    "strategy_id": "PL710",
-    "idea_id": "PL710",
-    "signal_id": "PL710_commodity_prices_polvoilusdm",
+    "strategy_id": "PL1146",
+    "idea_id": "PL1146",
+    "signal_id": "PL1146_commodity_prices_polvoilusdm",
     "name": "FRED POLVOILUSDM Global Olive Oil Price -> Family Variant",
     "rule": "Load FRED POLVOILUSDM (Global Olive Oil Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22188,43 +21527,9 @@
     }
   },
   {
-    "strategy_id": "PL711",
-    "idea_id": "PL711",
-    "signal_id": "PL711_commodity_prices_ppalmusdm",
-    "name": "FRED PPALMUSDM Global Palm Oil Price -> Family Variant",
-    "rule": "Load FRED PPALMUSDM (Global Palm Oil Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED PPALMUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633699+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:20.110186+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED PPALMUSDM load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:20.309108+00:00"
-  },
-  {
-    "strategy_id": "PL712",
-    "idea_id": "PL712",
-    "signal_id": "PL712_commodity_prices_psunousdm",
+    "strategy_id": "PL1147",
+    "idea_id": "PL1147",
+    "signal_id": "PL1147_commodity_prices_psunousdm",
     "name": "FRED PSUNOUSDM Global Sunflower Oil Price -> Family Variant",
     "rule": "Load FRED PSUNOUSDM (Global Sunflower Oil Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22260,43 +21565,9 @@
     "backtested_at": "2026-05-29T05:43:20.628584+00:00"
   },
   {
-    "strategy_id": "PL713",
-    "idea_id": "PL713",
-    "signal_id": "PL713_commodity_prices_prawmusdm",
-    "name": "FRED PRAWMUSDM Global Raw Materials Price -> Family Variant",
-    "rule": "Load FRED PRAWMUSDM (Global Raw Materials Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED PRAWMUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633704+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:20.361817+00:00",
-    "backtested_at": "2026-05-29T05:43:20.556320+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED PRAWMUSDM load: Bad Request.  The series does not exist."
-    }
-  },
-  {
-    "strategy_id": "PL714",
-    "idea_id": "PL714",
-    "signal_id": "PL714_commodity_prices_prubbusdm",
+    "strategy_id": "PL1148",
+    "idea_id": "PL1148",
+    "signal_id": "PL1148_commodity_prices_prubbusdm",
     "name": "FRED PRUBBUSDM Global Rubber Price -> Family Variant",
     "rule": "Load FRED PRUBBUSDM (Global Rubber Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22333,9 +21604,9 @@
     }
   },
   {
-    "strategy_id": "PL715",
-    "idea_id": "PL715",
-    "signal_id": "PL715_commodity_prices_pwoolcusdm",
+    "strategy_id": "PL1149",
+    "idea_id": "PL1149",
+    "signal_id": "PL1149_commodity_prices_pwoolcusdm",
     "name": "FRED PWOOLCUSDM Global Coarse Wool Price -> Family Variant",
     "rule": "Load FRED PWOOLCUSDM (Global Coarse Wool Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22371,77 +21642,9 @@
     "backtested_at": "2026-05-29T05:43:20.946164+00:00"
   },
   {
-    "strategy_id": "PL716",
-    "idea_id": "PL716",
-    "signal_id": "PL716_commodity_prices_porangeusdm",
-    "name": "FRED PORANGEUSDM Global Orange Price -> Family Variant",
-    "rule": "Load FRED PORANGEUSDM (Global Orange Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED PORANGEUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633712+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:20.962467+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED PORANGEUSDM load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:21.173374+00:00"
-  },
-  {
-    "strategy_id": "PL717",
-    "idea_id": "PL717",
-    "signal_id": "PL717_commodity_prices_pcocoausdm",
-    "name": "FRED PCOCOAUSDM Global Cocoa Price -> Family Variant",
-    "rule": "Load FRED PCOCOAUSDM (Global Cocoa Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED PCOCOAUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633715+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:21.196657+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED PCOCOAUSDM load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:21.378378+00:00"
-  },
-  {
-    "strategy_id": "PL718",
-    "idea_id": "PL718",
-    "signal_id": "PL718_commodity_prices_pteausdm",
+    "strategy_id": "PL1150",
+    "idea_id": "PL1150",
+    "signal_id": "PL1150_commodity_prices_pteausdm",
     "name": "FRED PTEAUSDM Global Tea Price -> Family Variant",
     "rule": "Load FRED PTEAUSDM (Global Tea Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22478,9 +21681,9 @@
     }
   },
   {
-    "strategy_id": "PL719",
-    "idea_id": "PL719",
-    "signal_id": "PL719_commodity_prices_pngasususdm",
+    "strategy_id": "PL1151",
+    "idea_id": "PL1151",
+    "signal_id": "PL1151_commodity_prices_pngasususdm",
     "name": "FRED PNGASUSUSDM US Natural Gas Price -> Family Variant",
     "rule": "Load FRED PNGASUSUSDM (US Natural Gas Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22516,9 +21719,9 @@
     "backtested_at": "2026-05-29T05:43:21.670791+00:00"
   },
   {
-    "strategy_id": "PL720",
-    "idea_id": "PL720",
-    "signal_id": "PL720_commodity_prices_pngaseuusdm",
+    "strategy_id": "PL1152",
+    "idea_id": "PL1152",
+    "signal_id": "PL1152_commodity_prices_pngaseuusdm",
     "name": "FRED PNGASEUUSDM EU Natural Gas Price -> Family Variant",
     "rule": "Load FRED PNGASEUUSDM (EU Natural Gas Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22554,9 +21757,9 @@
     "backtested_at": "2026-05-29T05:43:21.980603+00:00"
   },
   {
-    "strategy_id": "PL721",
-    "idea_id": "PL721",
-    "signal_id": "PL721_commodity_prices_pngasjpusdm",
+    "strategy_id": "PL1153",
+    "idea_id": "PL1153",
+    "signal_id": "PL1153_commodity_prices_pngasjpusdm",
     "name": "FRED PNGASJPUSDM Japan Natural Gas Price -> Family Variant",
     "rule": "Load FRED PNGASJPUSDM (Japan Natural Gas Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22592,9 +21795,9 @@
     "backtested_at": "2026-05-29T05:43:22.289596+00:00"
   },
   {
-    "strategy_id": "PL722",
-    "idea_id": "PL722",
-    "signal_id": "PL722_commodity_prices_poilbreusdm",
+    "strategy_id": "PL1154",
+    "idea_id": "PL1154",
+    "signal_id": "PL1154_commodity_prices_poilbreusdm",
     "name": "FRED POILBREUSDM Brent Crude Price -> Family Variant",
     "rule": "Load FRED POILBREUSDM (Brent Crude Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22631,9 +21834,9 @@
     }
   },
   {
-    "strategy_id": "PL723",
-    "idea_id": "PL723",
-    "signal_id": "PL723_commodity_prices_poildubusdm",
+    "strategy_id": "PL1155",
+    "idea_id": "PL1155",
+    "signal_id": "PL1155_commodity_prices_poildubusdm",
     "name": "FRED POILDUBUSDM Dubai Crude Price -> Family Variant",
     "rule": "Load FRED POILDUBUSDM (Dubai Crude Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22669,9 +21872,9 @@
     "backtested_at": "2026-05-29T05:43:22.623906+00:00"
   },
   {
-    "strategy_id": "PL724",
-    "idea_id": "PL724",
-    "signal_id": "PL724_commodity_prices_poilwtiusdm",
+    "strategy_id": "PL1156",
+    "idea_id": "PL1156",
+    "signal_id": "PL1156_commodity_prices_poilwtiusdm",
     "name": "FRED POILWTIUSDM WTI Crude Price -> Family Variant",
     "rule": "Load FRED POILWTIUSDM (WTI Crude Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22708,9 +21911,9 @@
     }
   },
   {
-    "strategy_id": "PL725",
-    "idea_id": "PL725",
-    "signal_id": "PL725_commodity_prices_pcoalauusdm",
+    "strategy_id": "PL1157",
+    "idea_id": "PL1157",
+    "signal_id": "PL1157_commodity_prices_pcoalauusdm",
     "name": "FRED PCOALAUUSDM Australian Coal Price -> Family Variant",
     "rule": "Load FRED PCOALAUUSDM (Australian Coal Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22746,43 +21949,9 @@
     "backtested_at": "2026-05-29T05:43:23.515606+00:00"
   },
   {
-    "strategy_id": "PL726",
-    "idea_id": "PL726",
-    "signal_id": "PL726_commodity_prices_pcoalsausdm",
-    "name": "FRED PCOALSAUSDM South African Coal Price -> Family Variant",
-    "rule": "Load FRED PCOALSAUSDM (South African Coal Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
-    "tickers": [
-      "XLE",
-      "XLB",
-      "DBA",
-      "SPY"
-    ],
-    "horizon": "4-12 weeks",
-    "category": "B",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance XLE, XLB, DBA, SPY",
-      "fundamental": "FRED PCOALSAUSDM"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Commodity prices (monthly). Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633749+00:00",
-    "_family_enum": true,
-    "_source_family": "Commodity prices (monthly)",
-    "claimed_at": "2026-05-29T05:43:23.234902+00:00",
-    "backtested_at": "2026-05-29T05:43:23.433230+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED PCOALSAUSDM load: Bad Request.  The series does not exist."
-    }
-  },
-  {
-    "strategy_id": "PL727",
-    "idea_id": "PL727",
-    "signal_id": "PL727_commodity_prices_psalmusdm",
+    "strategy_id": "PL1158",
+    "idea_id": "PL1158",
+    "signal_id": "PL1158_commodity_prices_psalmusdm",
     "name": "FRED PSALMUSDM Global Salmon Price -> Family Variant",
     "rule": "Load FRED PSALMUSDM (Global Salmon Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22819,9 +21988,9 @@
     }
   },
   {
-    "strategy_id": "PL728",
-    "idea_id": "PL728",
-    "signal_id": "PL728_commodity_prices_psugaisausdm",
+    "strategy_id": "PL1159",
+    "idea_id": "PL1159",
+    "signal_id": "PL1159_commodity_prices_psugaisausdm",
     "name": "FRED PSUGAISAUSDM Sugar (ISA) Price -> Family Variant",
     "rule": "Load FRED PSUGAISAUSDM (Sugar (ISA) Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22858,9 +22027,9 @@
     }
   },
   {
-    "strategy_id": "PL729",
-    "idea_id": "PL729",
-    "signal_id": "PL729_commodity_prices_psugausausdm",
+    "strategy_id": "PL1160",
+    "idea_id": "PL1160",
+    "signal_id": "PL1160_commodity_prices_psugausausdm",
     "name": "FRED PSUGAUSAUSDM Sugar (USA) Price -> Family Variant",
     "rule": "Load FRED PSUGAUSAUSDM (Sugar (USA) Price, monthly). When 3-month return exceeds +30% (commodity spike), wait 10 trading days, then long XLE+XLB+DBA for 42 trading days. Benchmark vs SPY.",
     "tickers": [
@@ -22896,9 +22065,9 @@
     "backtested_at": "2026-05-29T05:43:24.262319+00:00"
   },
   {
-    "strategy_id": "PL730",
-    "idea_id": "PL730",
-    "signal_id": "PL730_bank_credit_delinquency_drblacbs",
+    "strategy_id": "PL1161",
+    "idea_id": "PL1161",
+    "signal_id": "PL1161_bank_credit_delinquency_drblacbs",
     "name": "FRED DRBLACBS Delinquency Rate: Business Loans -> Family Variant",
     "rule": "Load FRED DRBLACBS (Delinquency Rate: Business Loans, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -22935,9 +22104,9 @@
     }
   },
   {
-    "strategy_id": "PL731",
-    "idea_id": "PL731",
-    "signal_id": "PL731_bank_credit_delinquency_drtscis",
+    "strategy_id": "PL1162",
+    "idea_id": "PL1162",
+    "signal_id": "PL1162_bank_credit_delinquency_drtscis",
     "name": "FRED DRTSCIS SLOOS: Tightening Standards C&I Small Firms -> Family Variant",
     "rule": "Load FRED DRTSCIS (SLOOS: Tightening Standards C&I Small Firms, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -22973,179 +22142,9 @@
     "backtested_at": "2026-05-29T05:43:24.999269+00:00"
   },
   {
-    "strategy_id": "PL732",
-    "idea_id": "PL732",
-    "signal_id": "PL732_bank_credit_delinquency_drtscibs",
-    "name": "FRED DRTSCIBS SLOOS: Tightening Standards Consumer Credit Card -> Family Variant",
-    "rule": "Load FRED DRTSCIBS (SLOOS: Tightening Standards Consumer Credit Card, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
-    "tickers": [
-      "KRE",
-      "XLF",
-      "KBE",
-      "SPY"
-    ],
-    "horizon": "3-6 months",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance KRE, XLF, KBE, SPY",
-      "fundamental": "FRED DRTSCIBS"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Bank credit/delinquency. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633765+00:00",
-    "_family_enum": true,
-    "_source_family": "Bank credit/delinquency",
-    "claimed_at": "2026-05-29T05:43:25.023324+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED DRTSCIBS load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:25.240436+00:00"
-  },
-  {
-    "strategy_id": "PL733",
-    "idea_id": "PL733",
-    "signal_id": "PL733_bank_credit_delinquency_sublpdcisc",
-    "name": "FRED SUBLPDCISC SLOOS: Demand C&I Loans Small Firms -> Family Variant",
-    "rule": "Load FRED SUBLPDCISC (SLOOS: Demand C&I Loans Small Firms, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
-    "tickers": [
-      "KRE",
-      "XLF",
-      "KBE",
-      "SPY"
-    ],
-    "horizon": "3-6 months",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance KRE, XLF, KBE, SPY",
-      "fundamental": "FRED SUBLPDCISC"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Bank credit/delinquency. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633768+00:00",
-    "_family_enum": true,
-    "_source_family": "Bank credit/delinquency",
-    "claimed_at": "2026-05-29T05:43:25.257200+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED SUBLPDCISC load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:25.480396+00:00"
-  },
-  {
-    "strategy_id": "PL734",
-    "idea_id": "PL734",
-    "signal_id": "PL734_bank_credit_delinquency_sublpdcnsc",
-    "name": "FRED SUBLPDCNSC SLOOS: Demand Consumer Loans -> Family Variant",
-    "rule": "Load FRED SUBLPDCNSC (SLOOS: Demand Consumer Loans, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
-    "tickers": [
-      "KRE",
-      "XLF",
-      "KBE",
-      "SPY"
-    ],
-    "horizon": "3-6 months",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance KRE, XLF, KBE, SPY",
-      "fundamental": "FRED SUBLPDCNSC"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Bank credit/delinquency. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633770+00:00",
-    "_family_enum": true,
-    "_source_family": "Bank credit/delinquency",
-    "claimed_at": "2026-05-29T05:43:25.314028+00:00",
-    "backtested_at": "2026-05-29T05:43:25.518870+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED SUBLPDCNSC load: Bad Request.  The series does not exist."
-    }
-  },
-  {
-    "strategy_id": "PL735",
-    "idea_id": "PL735",
-    "signal_id": "PL735_bank_credit_delinquency_driscflcc",
-    "name": "FRED DRISCFLCC SLOOS: Stronger Demand Consumer Credit Card -> Family Variant",
-    "rule": "Load FRED DRISCFLCC (SLOOS: Stronger Demand Consumer Credit Card, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
-    "tickers": [
-      "KRE",
-      "XLF",
-      "KBE",
-      "SPY"
-    ],
-    "horizon": "3-6 months",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance KRE, XLF, KBE, SPY",
-      "fundamental": "FRED DRISCFLCC"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Bank credit/delinquency. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633774+00:00",
-    "_family_enum": true,
-    "_source_family": "Bank credit/delinquency",
-    "claimed_at": "2026-05-29T05:43:25.498810+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED DRISCFLCC load: Bad Request.  The series does not exist."
-    },
-    "backtested_at": "2026-05-29T05:43:25.753058+00:00"
-  },
-  {
-    "strategy_id": "PL736",
-    "idea_id": "PL736",
-    "signal_id": "PL736_bank_credit_delinquency_driscflcons",
-    "name": "FRED DRISCFLCONS SLOOS: Stronger Demand Consumer Loans -> Family Variant",
-    "rule": "Load FRED DRISCFLCONS (SLOOS: Stronger Demand Consumer Loans, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
-    "tickers": [
-      "KRE",
-      "XLF",
-      "KBE",
-      "SPY"
-    ],
-    "horizon": "3-6 months",
-    "category": "C",
-    "asset_class": "equities",
-    "originality": 6,
-    "bt_feasibility": 7,
-    "data_sources_concrete": {
-      "prices": "yfinance KRE, XLF, KBE, SPY",
-      "fundamental": "FRED DRISCFLCONS"
-    },
-    "backtest_approach": "Family enumeration variant: sibling of winners in Bank credit/delinquency. Uses generic z-score-based trigger.",
-    "implementation_notes": "Auto-generated from family-mining round. Multiple-comparisons risk applies \u2014 require IS+OOS Sharpe > 0.5 to count as a real winner.",
-    "status": "failed",
-    "created_at": "2026-05-29T03:29:38.633776+00:00",
-    "_family_enum": true,
-    "_source_family": "Bank credit/delinquency",
-    "claimed_at": "2026-05-29T05:43:25.534689+00:00",
-    "backtested_at": "2026-05-29T05:43:25.753435+00:00",
-    "backtest_result": {
-      "status": "fail",
-      "reason": "FRED DRISCFLCONS load: Bad Request.  The series does not exist."
-    }
-  },
-  {
-    "strategy_id": "PL737",
-    "idea_id": "PL737",
-    "signal_id": "PL737_bank_credit_delinquency_loans",
+    "strategy_id": "PL1163",
+    "idea_id": "PL1163",
+    "signal_id": "PL1163_bank_credit_delinquency_loans",
     "name": "FRED LOANS Loans/Leases All Commercial Banks -> Family Variant",
     "rule": "Load FRED LOANS (Loans/Leases All Commercial Banks, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -23181,9 +22180,9 @@
     "backtested_at": "2026-05-29T05:43:26.713357+00:00"
   },
   {
-    "strategy_id": "PL738",
-    "idea_id": "PL738",
-    "signal_id": "PL738_bank_credit_delinquency_realln",
+    "strategy_id": "PL1164",
+    "idea_id": "PL1164",
+    "signal_id": "PL1164_bank_credit_delinquency_realln",
     "name": "FRED REALLN Real Estate Loans -> Family Variant",
     "rule": "Load FRED REALLN (Real Estate Loans, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -23220,9 +22219,9 @@
     }
   },
   {
-    "strategy_id": "PL739",
-    "idea_id": "PL739",
-    "signal_id": "PL739_bank_credit_delinquency_consumer",
+    "strategy_id": "PL1165",
+    "idea_id": "PL1165",
+    "signal_id": "PL1165_bank_credit_delinquency_consumer",
     "name": "FRED CONSUMER Consumer Loans Commercial Banks -> Family Variant",
     "rule": "Load FRED CONSUMER (Consumer Loans Commercial Banks, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -23259,9 +22258,9 @@
     }
   },
   {
-    "strategy_id": "PL740",
-    "idea_id": "PL740",
-    "signal_id": "PL740_bank_credit_delinquency_cclacbm027sbog",
+    "strategy_id": "PL1166",
+    "idea_id": "PL1166",
+    "signal_id": "PL1166_bank_credit_delinquency_cclacbm027sbog",
     "name": "FRED CCLACBM027SBOG Consumer Loans: Credit Cards -> Family Variant",
     "rule": "Load FRED CCLACBM027SBOG (Consumer Loans: Credit Cards, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -23297,9 +22296,9 @@
     "backtested_at": "2026-05-29T05:43:27.211098+00:00"
   },
   {
-    "strategy_id": "PL741",
-    "idea_id": "PL741",
-    "signal_id": "PL741_bank_credit_delinquency_nonrevsl",
+    "strategy_id": "PL1167",
+    "idea_id": "PL1167",
+    "signal_id": "PL1167_bank_credit_delinquency_nonrevsl",
     "name": "FRED NONREVSL Total Nonrevolving Credit -> Family Variant",
     "rule": "Load FRED NONREVSL (Total Nonrevolving Credit, monthly). When metric peaks (local maximum) after 2+ quarters of rising, long KRE+XLF+KBE for 126 trading days as credit cycle inflects. Benchmark vs SPY.",
     "tickers": [
@@ -39164,11 +38163,11 @@
     "backtested_at": "2026-05-31T17:44:30.458711+00:00"
   },
   {
-    "strategy_id": "PL777",
-    "idea_id": "PL777",
+    "strategy_id": "PL1191",
+    "idea_id": "PL1191",
     "created_at": "2026-05-31T17:07:29.520765+00:00",
     "status": "done",
-    "signal_id": "PL774_sofr_strip_cut_jump_gdx",
+    "signal_id": "PL1191_sofr_strip_cut_jump_gdx",
     "name": "SOFR Strip Repricing (>=2 Cuts in 5d) -> Long GDX Gold Miners",
     "category": "B",
     "asset_class": "commodities",
@@ -39323,11 +38322,11 @@
     "backtested_at": "2026-05-31T17:45:25.816763+00:00"
   },
   {
-    "strategy_id": "PL785",
-    "idea_id": "PL785",
+    "strategy_id": "PL1192",
+    "idea_id": "PL1192",
     "created_at": "2026-05-31T17:08:43.966861+00:00",
     "status": "done",
-    "signal_id": "PL775_ercot_pjm_strip_soften_ipp_short",
+    "signal_id": "PL1192_ercot_pjm_strip_soften_ipp_short",
     "name": "ERCOT/PJM Forward 2027-28 Power Strip Softening -> Short VST/CEG/TLN Counter-Signal",
     "category": "B",
     "asset_class": "single_name_equity",
@@ -51430,5 +50429,308 @@
       "t_stat": -0.648356270340316
     },
     "backtested_at": "2026-06-01T01:29:32.925235+00:00"
+  },
+  {
+    "strategy_id": "PL1058",
+    "idea_id": "PL1058",
+    "created_at": "2026-06-12T20:09:03.402336+00:00",
+    "status": "done",
+    "signal_id": "PL1058_potato_stocks_lw_fry_squeeze",
+    "name": "USDA Dec 1 Potato Stocks Glut -> Lamb Weston (LW) Frozen-Fry Margin Squeeze",
+    "category": "C",
+    "asset_class": "single_name_equity",
+    "horizon": "1-2 quarters",
+    "rule": "Each December, take the USDA NASS Potato Stocks report (Dec 1 reference date, released mid-December). Compute YoY % change in US national Dec 1 potato stocks. If YoY > +4% (glut), SHORT LW; if YoY < -4% (short crop), LONG LW; otherwise flat. Enter at the close of the first trading day on/after Dec 21 (conservative lag past the release). Hold 126 trading days (~2 quarters / through LW's Jan and Apr earnings), then exit at close. One signal per year; unit notional, optionally scaled by min(2, |YoY%|/4).",
+    "tickers": [
+      "LW",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USDA NASS Dec 1 national potato stocks YoY change > +4% -> enter SHORT LW at close of first trading day on/after Dec 21",
+      "USDA NASS Dec 1 national potato stocks YoY change < -4% -> enter LONG LW at close of first trading day on/after Dec 21",
+      "|YoY change| <= 4% -> no position that year"
+    ],
+    "exit_conditions": [
+      "Exit at close 126 trading days after entry (time stop, ~2 quarters)",
+      "No intermediate stop; one round-trip per year (next Dec signal cannot overlap since hold ends by late June)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: LW (primary, history from 2016-11-10), SPY (benchmark/hedge)",
+      "fundamental": "USDA NASS Quick Stats API (free key, instant signup at quickstats.nass.usda.gov/api): source_desc=SURVEY, sector_desc=CROPS, commodity_desc=POTATOES, statisticcat_desc=STOCKS, agg_level_desc=NATIONAL, reference_period_desc=FIRST OF DEC, unit_desc=CWT. Fallback/confirmation (no key needed): FRED WPU011306 (PPI Farm Products: Potatoes, monthly, 2011-present) \u2014 December YoY < -10% is a glut proxy (price collapse => short LW), December YoY > +15% is a short-crop proxy (long LW)."
+    },
+    "backtest_approach": "Annual event study, ~9-10 events (Dec 2016 through Dec 2025; LW IPO 2016-11-10 so every December is usable \u2014 NASS provides full prior-year stocks history for the YoY base). For each December: compute signal from Dec 1 stocks YoY, enter signed LW position at close of first trading day on/after Dec 21, hold 126 trading days, compute raw PnL and SPY-beta-hedged excess return (beta from trailing 252d OLS). Aggregate into a daily PnL series across years for Sharpe/CAGR; also report per-event hit rate and mean excess return. Sanity anchors: Dec 2021 (heat-dome short crop => long, LW rallied through 2022-23) and Dec 2023 (record crop => short, preceded LW's FY2024-25 guidance cuts and share collapse).",
+    "known_events": [
+      "2021-12 short crop after PNW heat dome (expect LONG signal)",
+      "2023-12 record 2023 crop / elevated stocks (expect SHORT signal; LW collapsed in 2024)",
+      "2024-12 continued oversupply, LW FQ2-2025 guidance cut Dec 2024 citing raw potato oversupply"
+    ],
+    "implementation_notes": "NASS Quick Stats API key is free and instant but required (anonymous probe returns 'unauthorized'); if the backtester has no key, use the documented FRED WPU011306 fallback thresholds \u2014 verified live (monthly, current through May 2026; note May 2026 print of 67.6 vs ~83 in early 2026 implies an ongoing potato price collapse). Do NOT use the Dec 1 reference date as the trade date \u2014 the report is released mid-December (typically Dec 17-19); the Dec 21 entry rule avoids lookahead. Only ~9-10 events, so report per-event stats alongside aggregate Sharpe; do not over-tune the 4% threshold (check 2%/6% for robustness, not optimization). LW is the dominant pure-play NA fry processor (McCain and Simplot are private), so no basket dilution needed \u2014 single name is the correct target per the causal chain.",
+    "originality": 8,
+    "bt_feasibility": 3,
+    "claimed_at": "2026-06-12T20:11:15.489604+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.48069912270204257,
+      "cagr": 0.11370172395471534,
+      "max_dd": -0.5159810797714561,
+      "t_stat": 1.0070490465478983
+    },
+    "backtested_at": "2026-06-12T20:13:18.095644+00:00"
+  },
+  {
+    "strategy_id": "PL1056",
+    "idea_id": "PL1056",
+    "status": "done",
+    "signal_id": "PL1056_irs_refund_pace_dollar_stores",
+    "name": "IRS Daily Treasury Statement Refund Pace YoY -> Dollar Store Q1 Comps (DG/DLTR/FIVE)",
+    "category": "I",
+    "asset_class": "single_name_equity",
+    "horizon": "2-10 weeks",
+    "rule": "Each year, sum daily individual income-tax refund disbursements from the Daily Treasury Statement (income_tax_refunds_issued table, all rows whose tax_refund_type contains 'Individual') from Feb 1 through the last business day of February, and compute the YoY gap vs the same Feb 1-28/29 window of the prior year. If cumulative refunds are running >= +5% ahead of prior year, go LONG an equal-weight basket of DG/DLTR/FIVE (whichever are listed that year) at the open of the first trading day of March; if running <= -5% behind, go SHORT the basket; otherwise stay flat. Hold the position, beta-hedged with SPY (hedge ratio = trailing 252d basket beta), until the close of the last trading day of May (captures Q1 earnings reactions in late May).",
+    "tickers": [
+      "DG",
+      "DLTR",
+      "FIVE",
+      "OLLI",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Compute CUM_t = sum of DTS 'tax_refund_today_amt' for all tax_refund_type rows containing 'Individual' (case-insensitive), Feb 1 through last business day of February of year t",
+      "GAP_t = CUM_t / CUM_{t-1} - 1",
+      "GAP_t >= +0.05 -> enter LONG equal-weight DG/DLTR/FIVE at open of first trading day of March",
+      "GAP_t <= -0.05 -> enter SHORT equal-weight DG/DLTR/FIVE at open of first trading day of March",
+      "-0.05 < GAP_t < +0.05 -> no position that year",
+      "Beta-hedge with SPY: opposite SPY position sized at trailing 252-day basket beta"
+    ],
+    "exit_conditions": [
+      "Close all legs at the close of the last trading day of May of year t",
+      "No intra-period stop; this is an annual seasonal event trade"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: DG (from 2009-11), DLTR (full), FIVE (from 2012-07), OLLI (optional, from 2015-07), SPY",
+      "fundamental": "Treasury Fiscal Data API v1/accounting/dts/income_tax_refunds_issued (daily since 2005-10-03, amounts in $MM); no FRED series needed"
+    },
+    "backtest_approach": "Annual event study, one observation per year 2007-2026 (first YoY comparison needs Feb 2006 vs Feb 2007). For each year compute the Feb cumulative individual-refund YoY gap, take the signed basket-vs-SPY position Mar 1 -> May 31, and record beta-hedged excess return. Basket membership is point-in-time: DLTR only pre-2010, DG added 2010 (allow ~3 months post-IPO seasoning so DG enters 2010), FIVE added 2013. Daily PnL within each Mar-May window; aggregate to per-year event returns plus a stitched daily equity curve (flat outside windows). Compare hit rate and mean event return vs unconditional Mar-May basket drift.",
+    "known_events": [
+      "2017: PATH Act first year - EITC/ACTC refunds held until Feb 15, cumulative Feb refunds ran far behind 2016; DG and DLTR both cited refund delays for Q1 FY2017 comp weakness",
+      "2019: post-TCJA withholding-table confusion depressed early-season average refunds",
+      "2020: COVID filing-deadline extension (Mar-May window contaminated by pandemic crash - flag in results)",
+      "2022: IRS backlog processing distortions"
+    ],
+    "implementation_notes": "DTS category labels change across vintages: early years use 'Individual'/'Individual (EFT)', later 'IRS Tax Refunds Individual (EFT)', current vintage 'Taxes - IRS Tax Refunds Individual (EFT)' and '(Checks)'. Match with case-insensitive substring 'individual' on tax_refund_type and sum ALL matching rows (checks + EFT) to stay consistent across regimes. Use tax_refund_today_amt (daily flow, $ millions), NOT mtd/fytd columns. API verified live: https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/dts/income_tax_refunds_issued?filter=record_date:gte:YYYY-02-01,record_date:lte:YYYY-02-28&page[size]=900 (18,776 total rows as of 2026-06). Compare identical calendar windows (Feb 1-28; include Feb 29 in leap years or truncate both years at day 28 for symmetry - truncating at 28 is cleaner). Signal is fully known by Feb 28 so the Mar 1 open entry has no lookahead. The +/-5pct threshold is on cumulative dollars, robust to single-day EFT batch timing. 2020 Mar-May window overlaps the COVID crash; report results with and without 2020. SPY is benchmark/hedge only - primary targets are the specific dollar-store names per causal chain.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "created_at": "2026-06-12T20:09:51.584178+00:00",
+    "claimed_at": "2026-06-12T20:11:21.558565+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.20085510506399787,
+      "cagr": 0.017578628987549916,
+      "max_dd": -0.41446774968977307,
+      "t_stat": 0.37448519875447056,
+      "oos_sharpe": 0.043087737413735616,
+      "n_days": 876,
+      "n_events": 14
+    },
+    "backtested_at": "2026-06-12T20:13:48.842206+00:00"
+  },
+  {
+    "strategy_id": "PL1057",
+    "idea_id": "PL1057",
+    "status": "done",
+    "signal_id": "PL1057_cftc_btc_cot_extreme_fade",
+    "name": "CFTC TFF Bitcoin Asset-Manager Net-Long Extreme -> Short BTC/IBIT (counter long_BTC)",
+    "category": "E",
+    "asset_class": "crypto",
+    "horizon": "2-6 weeks",
+    "rule": "Each Tuesday-dated CFTC Traders in Financial Futures report (released Friday ~3:30pm ET) for CME Bitcoin futures (contract code 133741), compute institutional net-long share NL = (Asset_Mgr_Positions_Long_All - Asset_Mgr_Positions_Short_All + Lev_Money_Positions_Long_All - Lev_Money_Positions_Short_All) / Open_Interest_All. Compute the percentile rank of NL within a trailing 104-week window (expanding, minimum 52 observations). When the percentile rank exceeds 0.90, go SHORT BTC at the next Monday open (BTC-USD spot as backtest proxy; IBIT for live trading post-2024). Hold until NL percentile falls below 0.50 or 6 weeks elapse, whichever comes first; then return to flat.",
+    "tickers": [
+      "BTC-USD",
+      "IBIT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "Weekly TFF futures-only report for CFTC contract code 133741 (BITCOIN - CHICAGO MERCANTILE EXCHANGE)",
+      "NL = (AssetMgr_Long - AssetMgr_Short + LevMoney_Long - LevMoney_Short) / Open_Interest_All",
+      "Percentile rank of NL over trailing 104 weekly reports (expanding window, min 52) > 0.90",
+      "Enter SHORT BTC-USD at the open of the first Monday following the Friday report release (3-business-day publication lag respected: Tuesday data -> Friday release -> Monday execution)"
+    ],
+    "exit_conditions": [
+      "NL percentile rank drops below 0.50 (positioning normalized) -> cover at next Monday open",
+      "OR 6 weeks (30 trading days) elapsed since entry -> cover",
+      "Flat otherwise; no leverage, single unit short"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: BTC-USD (daily, from 2014; trades 7d/week - align to report calendar), IBIT (from 2024-01-11, live-trading vehicle), SPY (benchmark)",
+      "fundamental": "CFTC TFF futures-only yearly archives https://www.cftc.gov/files/dea/history/fut_fin_txt_YYYY.zip (file FinFutYY.txt inside), 2018-2026; columns Asset_Mgr_Positions_Long_All/Short_All, Lev_Money_Positions_Long_All/Short_All, Open_Interest_All, Report_Date_as_YYYY-MM-DD; filter CFTC_Contract_Market_Code == 133741. No FRED series."
+    },
+    "backtest_approach": "Weekly-rebalanced daily-PnL backtest. Build the weekly NL series from TFF reports Dec 2017-present (~440 weekly obs); with 52-week burn-in, tradable signal starts ~Dec 2018. Position state machine: flat -> short on entry trigger, short -> flat on exit trigger; daily short BTC-USD returns while active (use close-to-close on calendar days, or restrict to weekdays to match equity comparison - document choice). Report total/annualized return, Sharpe, max drawdown, exposure fraction, and per-episode table. Also report the counter-signal overlay variant: long BTC baseline that goes to CASH (not short) when signal is active, vs buy-and-hold BTC - this matches the counters:long_BTC intent.",
+    "known_events": [
+      "2021-04 (Q1 2021 local top ~64k then -50%)",
+      "2021-11 (all-time-high ~69k then 2022 bear)",
+      "2024-03 (post-ETF-launch ~73k local top, crowded basis trade)"
+    ],
+    "implementation_notes": "Use FUTURES-ONLY TFF files (fut_fin_txt_YYYY.zip), not futures+options, for the full Dec-2017 history. CME Micro Bitcoin (separate contract code) must NOT be summed in - use 133741 only; contract unit 5 BTC but NL is a ratio so units cancel. Combining AssetMgr+LevMoney net-long captures both the institutional bid and the crowded leveraged long; an AssetMgr-only variant is a reasonable robustness check (LevMoney is typically the basis-trade short leg, so the combined measure partly nets carry crowding - report both if cheap). Some 2017-2018 weeks may have thin OI - guard against div-by-zero. BTC-USD trades weekends: enter/exit at Monday 00:00 UTC bar open from yfinance daily data. IBIT history too short to backtest (2024-01 start) - backtest on BTC-USD, note IBIT as the live instrument. Counter-signal: short/cash on broad BTC is the intended target per counters:long_BTC, so the broad-crypto target is correct here.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "created_at": "2026-06-12T20:09:51.584718+00:00",
+    "claimed_at": "2026-06-12T20:11:28.444872+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.30964871354885676,
+      "cagr": 0.048599981538690384,
+      "max_dd": -0.5365788316232813,
+      "t_stat": 0.8444108459753746,
+      "oos_sharpe": -0.7389183104866508,
+      "n_days": 1874,
+      "n_events": 12
+    },
+    "backtested_at": "2026-06-12T20:15:11.446753+00:00"
+  },
+  {
+    "strategy_id": "PL1059",
+    "idea_id": "PL1059",
+    "status": "done",
+    "signal_id": "PL1059_fed_ebp_rising_spy_high_short",
+    "name": "Fed Excess Bond Premium Positive & Rising With SPY Near Highs -> Short SPY / Long IEF (counter long_SPY)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Monthly, using the Fed FEDS Notes EBP CSV (column 'ebp'): if month-t EBP >= +0.20 AND EBP(t) > EBP(t-3) (3-month slope positive) AND SPY's month-t-end close is within 3% of its trailing 252-trading-day high, then enter equal-notional short SPY / long IEF at the close of the 5th trading day of month t+1 (publication lag buffer). Exit at the close of the 5th trading day of the month after EBP(t) <= EBP(t-3) (slope turns non-positive), OR intramonth if SPY closes 10% below its value on the entry date, whichever comes first. Re-enter whenever conditions re-trigger. Flat otherwise.",
+    "tickers": [
+      "SPY",
+      "IEF"
+    ],
+    "entry_conditions": [
+      "EBP level for month t >= +0.20 (Fed FEDS Notes ebp_csv.csv, column 'ebp')",
+      "EBP(t) > EBP(t-3): positive 3-month slope",
+      "SPY month-end close within 3% of its rolling 252-trading-day closing high",
+      "Execute at close of the 5th trading day of month t+1 (data publication lag)"
+    ],
+    "exit_conditions": [
+      "EBP(t) <= EBP(t-3): 3-month slope turns non-positive (exit at close of 5th trading day of month t+1)",
+      "Hard stop: SPY closes 10% below its entry-date close (exit next close)"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: SPY, IEF (IEF inception 2002-07; backtest window 2003-01 onward)",
+      "fundamental": "Fed EBP monthly CSV: https://www.federalreserve.gov/econres/notes/feds-notes/ebp_csv.csv (columns date, gz_spread, ebp, est_prob; 1973-01 through 2026-05, verified live 2026-06-12). FRED BAMLH0A0HYM2 optional for validation only."
+    },
+    "backtest_approach": "Daily PnL long/short overlay: position is -1.0x SPY +1.0x IEF (equal notional, rebalanced at entry) when signal active, else flat; signal state machine evaluated monthly with execution lagged to the 5th trading day of the following month to respect EBP publication timing; compute Sharpe/CAGR/maxDD vs SPY buy-and-hold benchmark over 2003-present; report per-episode stats (2007-08, 2011, 2015-16, 2018, 2020, 2022 are the likely active windows).",
+    "known_events": [],
+    "implementation_notes": "COUNTER-SIGNAL (counters long_SPY) so SPY as primary short target is correct per spec. EBP CSV is monthly and updated early the following month -- the 5-trading-day execution lag is mandatory to avoid lookahead; do NOT use month-t prices on month-t EBP. CSV has no API key, plain HTTPS GET. The historical EBP vintage is revised (full-history re-estimation each update); treat results as in-sample-revised and note this in the report. If federalreserve.gov blocks the fetch, cache /tmp/ebp_csv.csv or use FRED gz-spread proxies only for validation, not the signal.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "created_at": "2026-06-13T00:44:37.799402+00:00",
+    "claimed_at": "2026-06-13T00:51:46.428810+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.00415470273175771,
+      "cagr": -0.0008738514510778783,
+      "max_dd": -0.16223875022419731,
+      "t_stat": -0.020099815420768996,
+      "oos_sharpe": -0.0008230608277772049,
+      "n_days": 5898,
+      "n_events": 3
+    },
+    "backtested_at": "2026-06-13T00:53:37.636701+00:00"
+  },
+  {
+    "strategy_id": "PL1060",
+    "idea_id": "PL1060",
+    "status": "done",
+    "signal_id": "PL1060_broiler_chicks_placed_ppc_long",
+    "name": "USDA Broiler Hatchery Chicks-Placed YoY Contraction -> 9-Week Supply Cliff -> Long PPC",
+    "category": "J",
+    "asset_class": "single_name_equity",
+    "horizon": "6-12 weeks",
+    "rule": "Weekly, using USDA NASS Broiler Hatchery chicks placed (19-state, head): compute the 4-week moving average and its YoY change vs the same 4-week window a year earlier. When YoY change of the 4-week average is negative for 4 or more consecutive weekly reports, go long PPC at the next Thursday close (report is released Wednesday ~3pm ET). Hold until the 4-week-average YoY turns positive (exit next Thursday close) OR a maximum of 60 trading days (~12 weeks), whichever comes first. Re-entry allowed after exit if the condition re-establishes (4 fresh consecutive negative weeks).",
+    "tickers": [
+      "PPC",
+      "TSN",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "4-week MA of weekly chicks placed (head, 19-state total) YoY < 0 for >= 4 consecutive weekly reports",
+      "Enter long PPC at the first Thursday close following the 4th qualifying Wednesday report"
+    ],
+    "exit_conditions": [
+      "4-week MA YoY turns positive: exit at next Thursday close",
+      "Time stop: 60 trading days after entry"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance: PPC (history 1987-12 to present, verified), TSN (secondary/comparison), SPY (benchmark)",
+      "fundamental": "USDA NASS QuickStats API, https://quickstats.nass.usda.gov/api/api_GET/ -- short_desc='CHICKENS, BROILERS - PLACEMENTS, MEASURED IN HEAD', freq_desc='WEEKLY', agg_level_desc='NATIONAL' (or 19-state program total). REQUIRES FREE API KEY (instant email registration at quickstats.nass.usda.gov/api). Verified 2026-06-12 that keyless requests return {'error':['unauthorized']}. Fallback: USDA ESMIS/Cornell archive of Broiler Hatchery releases, or event-study seeding from known_events below."
+    },
+    "backtest_approach": "Primary: daily PnL of the long-PPC state machine driven by the weekly placements series (signal lagged to Thursday close after each Wednesday release), 2010-present; Sharpe/CAGR/maxDD vs SPY and vs PPC buy-and-hold. Fallback if NASS key unavailable: event study on known placement-contraction episodes (see known_events) measuring PPC forward 6/9/12-week returns vs SPY and TSN.",
+    "known_events": [
+      "2011-11 to 2012-07: industry-wide placement cutbacks after 2011 margin collapse (cleanest episode)",
+      "2022-01 to 2022-06: hatchability shortfall (Ross breeder male fertility problem) contracting placements",
+      "2008-10 to 2009-06: recession/feed-cost cutbacks -- EXCLUDE or flag: PPC was in Chapter 11 (filed 2008-12) with delisting/dilution; price series not representative"
+    ],
+    "implementation_notes": "PPC equity caveats: Chapter 11 Dec-2008 to Dec-2009 reorganization (JBS took control) -- restrict the backtest window to 2010-01 onward to avoid the discontinuity. JBS owns ~80%+ of PPC float, so the stock is thin; use closes only, no intraday assumptions. NASS QuickStats key is free but must be obtained by the backtester (env var NASS_API_KEY suggested); if blocked, run the event-study fallback rather than skipping. Placements are biology-fixed ~9 weeks ahead of slaughter, so the 6-12 week hold matches the supply-trough timing. Watch for HPAI headline weeks: avian-flu-driven placement drops can coincide with demand scares that hit PPC despite the supply mechanism -- note any 2022 anomalies in the report.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "created_at": "2026-06-13T00:44:37.799601+00:00",
+    "claimed_at": "2026-06-13T00:51:47.799141+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.30240947623214537,
+      "cagr": 0.042983665165803764,
+      "max_dd": -0.4611926399637072,
+      "t_stat": 1.2249909565385768
+    },
+    "backtested_at": "2026-06-13T01:02:47.261967+00:00"
+  },
+  {
+    "strategy_id": "PL1061",
+    "idea_id": "PL1061",
+    "created_at": "2026-06-13T00:51:11.907890+00:00",
+    "status": "done",
+    "signal_id": "PL1061_banxico_remittance_decel_mxn",
+    "name": "Banxico Remittance YoY Deceleration -> Short EWW / Long USDMXN",
+    "category": "G",
+    "asset_class": "fx",
+    "horizon": "1-3 months",
+    "rule": "Each month, compute YoY % growth of Banxico monthly family remittances (SE27803, USD mm) and its 3-month moving average. ENTER short EWW (and notionally long USD/MXN) when the 3m-avg YoY crosses below 0% from above AND the 3m-avg was >= +5% at some point in the prior 6 months (regime-break filter). Position taken at the close of the first trading day on or after the 1st of month M+2 relative to data month M (publication lag). EXIT (go flat) when the 3m-avg YoY recovers above +2%, same M+2 timing. Benchmark: SPY buy-and-hold.",
+    "tickers": [
+      "EWW",
+      "MXN=X",
+      "UUP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "3-month moving average of remittance YoY growth (SE27803) crosses below 0% from above",
+      "3m-avg YoY was >= +5% at least once in the prior 6 monthly observations (ensures it is a deceleration regime break, not chronic stagnation)",
+      "Execute at close of first trading day on or after the 1st of month M+2 (data month M is published ~5 weeks later; M+2 timing is conservative and look-ahead-safe)"
+    ],
+    "exit_conditions": [
+      "3m-avg remittance YoY growth recovers above +2% (evaluated with the same M+2 publication-lag timing)",
+      "No stop-loss; signal is regime-based and monthly-evaluated"
+    ],
+    "data_sources_concrete": {
+      "prices": "EWW (yfinance, history from 1996-03), MXN=X (yfinance, from 2003-12, secondary FX leg), UUP (from 2007, optional), SPY (benchmark)",
+      "fundamental": "Banxico SIE series SE27803 (total family remittances, monthly, USD millions, from 1995-01) via token-free endpoint: https://www.banxico.org.mx/SieInternet/consultasieiqy?series=SE27803&locale=en&formatoCSV.x=1&anoInicial=1995&anoFinal=2026 -- returns HTML, parse with pd.read_html(StringIO(r.text))[-1]; first row is header ['DATE','SE27803'], column 0 = 'M/YYYY' strings, column 1 = USD mm. FRED DEXMXUS (daily USD/MXN spot from 1995) for the FX-leg PnL with pre-2003 coverage."
+    },
+    "backtest_approach": "Regime-based daily PnL. Build the monthly signal series from SE27803 YoY 3mma, shift availability by 2 months (data month M tradable at first business day of M+2). While in-regime: primary PnL = -1x EWW daily total return; secondary/robustness leg = +1x daily USD/MXN return from FRED DEXMXUS (long USD). Report primary (short EWW) as headline, and a 50/50 short-EWW + long-USDMXN combo as variant. Flat (zero return) out of regime. Costs: 10 bps round-trip on position changes via compute_metrics(positions=...). Window: 1996-2026 (EWW inception caps start).",
+    "known_events": [
+      "2008-11 to 2009-12: GFC remittance contraction (YoY deeply negative; peso fell ~50% vs USD; EWW drew down hard)",
+      "2020-04: COVID one-month remittance dip (rebounded within 2 months -- 3mma filter likely never confirms; good false-positive test)",
+      "2025-H1: remittance YoY turned negative (Banxico data shows 2025 monthly prints flat-to-down vs 2024; most recent live regime)"
+    ],
+    "implementation_notes": "VERIFIED 2026-06-12: Banxico token-free endpoint returns full SE27803 history 1995-01..2026-04 (377 rows incl header) and parses with pd.read_html; do NOT use the SIE REST API (requires Bmx-Token). Cache the fetch to data/ like other loaders. Remittance publication lag is ~5 weeks (Apr-2026 was live in early Jun-2026), so M+2 first-business-day execution is conservative; do not use M+1. EWW is the primary target (unhedged peso + equity exposure compounds the move); MXN=X only starts 2003-12 so use FRED DEXMXUS for any pre-2003 FX leg. Remittances have strong seasonality (May/Oct peaks, Jan/Feb troughs) -- YoY transform removes it; do NOT use MoM. SE27803 confirmed as total family remittances in USD mm (e.g. Apr-2026 = 4978.05).",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "claimed_at": "2026-06-13T00:51:55.362020+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.26459161645284535,
+      "cagr": -0.0176734542926954,
+      "max_dd": -0.4889402677248256,
+      "t_stat": -1.453725863934082,
+      "oos_sharpe": -0.3741918431920688,
+      "n_days": 7607,
+      "n_events": 2
+    },
+    "backtested_at": "2026-06-13T00:53:52.433271+00:00"
   }
 ]

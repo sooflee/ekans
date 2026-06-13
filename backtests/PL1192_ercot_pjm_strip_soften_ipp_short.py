@@ -1,4 +1,4 @@
-"""PL775_ercot_pjm_strip_soften_ipp_short -- ERCOT/PJM Forward Strip Softening -> Short VST/CEG/TLN
+"""PL1192_ercot_pjm_strip_soften_ipp_short -- ERCOT/PJM Forward Strip Softening -> Short VST/CEG/TLN
 
 Counter-signal: short IPP basket (VST+CEG+TLN) vs long XLU hedge on power forward strip softening.
 ERCOT/PJM forward strip data not available via FRED/yfinance.
@@ -37,7 +37,7 @@ KNOWN_EVENTS = [
 
 
 def main():
-    sid = "PL775_ercot_pjm_strip_soften_ipp_short"
+    sid = "PL1192_ercot_pjm_strip_soften_ipp_short"
 
     # Load prices
     try:

@@ -1,4 +1,4 @@
-"""PL750_cftc_cot_copper_contrarian_long — CFTC COT Managed Money Net Short Extreme in Copper -> Contrarian Long COPX/FCX
+"""PL1176_cftc_cot_copper_contrarian_long — CFTC COT Managed Money Net Short Extreme in Copper -> Contrarian Long COPX/FCX
 Without direct CFTC COT API parsing, use a proxy: copper price drawdown from 52-week high > 25%
 as a proxy for extreme speculative bearishness. When HG=F (copper futures) drops > 25% from
 52-week high, long COPX+FCX+SCCO for 20 trading days.
@@ -13,7 +13,7 @@ from harness import load_prices, compute_metrics, save_result, mark_failed, dail
 
 
 def main():
-    sid = "PL750_cftc_cot_copper_contrarian_long"
+    sid = "PL1176_cftc_cot_copper_contrarian_long"
     try:
         px = load_prices(["COPX", "FCX", "SCCO", "SPY", "HG=F"], start="2006-01-01")
     except Exception as e:

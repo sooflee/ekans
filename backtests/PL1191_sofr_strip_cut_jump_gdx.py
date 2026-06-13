@@ -1,4 +1,4 @@
-"""PL774_sofr_strip_cut_jump_gdx
+"""PL1191_sofr_strip_cut_jump_gdx
 SOFR Strip Repricing (>=2 Cuts in 5d) -> Long GDX Gold Miners
 
 Signal: 5-day change in ZQ=F implied rate (100 - price) drops >= 50 bps
@@ -20,7 +20,7 @@ from harness import (load_prices, load_fred, compute_metrics,
 
 
 def main():
-    sid = "PL774_sofr_strip_cut_jump_gdx"
+    sid = "PL1191_sofr_strip_cut_jump_gdx"
     tickers = ["GDX", "GLD", "SPY"]
     sofr_ticker = "ZQ=F"
 

@@ -1062,7 +1062,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; OOS Sharpe <code>-0.06</code> &le; 0.</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-C">P12</span><h3>★ Steno Multi-CB Liquidity Flip → Long SPY + BTC</h3></div>
     <div class="right">cross-asset · 8-week hold</div>
@@ -3151,7 +3151,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 <article class="card demoted">
   <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness).</div>
     <div class="card-head">
-    <div class="left"><span class="badge cat-F">PL742_core_capex_orders_automation</span><h3>Core Capex A34SNO Turn → Long ROK+ETN+AME</h3></div>
+    <div class="left"><span class="badge cat-F">PL1168_core_capex_orders_automation</span><h3>Core Capex A34SNO Turn → Long ROK+ETN+AME</h3></div>
     <div class="right">capital goods equities · 3-month hold · 8 events</div>
   </div>
   <div class="metrics">
@@ -3168,7 +3168,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
     <h4>Caveats</h4>
     <div class="caveat">N=8 events. In-position CAGR — portfolio contribution depends on trigger frequency. Significant drawdown (28%) during adverse regimes. Underperforms benchmark on risk-adjusted basis in this sample window.</div>
   </div>
-  <div class="card-foot"><span>Source: FRED A34SNO; yfinance</span><span><code>backtests/PL742_core_capex_orders_automation.py</code></span></div>
+  <div class="card-foot"><span>Source: FRED A34SNO; yfinance</span><span><code>backtests/PL1168_core_capex_orders_automation.py</code></span></div>
 </article>
 
 <article class="card demoted">
@@ -4941,7 +4941,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
     <h4>Caveats</h4>
     <div class="caveat">N=6 events, win rate 6/6. Events span 2010-2023 covering post-GFC and post-COVID tourism recoveries. BEA data releases with ~75-day lag. MaxDD only -17%. Excess CAGR +25.6% vs SPY is strong but needs more events for statistical confidence.</div>
   </div>
-  <div class="card-foot"><span>Source: FRED BEA travel receipts + yfinance</span><span><code>backtests/PL751_bea_travel_receipts_hotel_long.py</code></span></div>
+  <div class="card-foot"><span>Source: FRED BEA travel receipts + yfinance</span><span><code>backtests/PL1177_bea_travel_receipts_hotel_long.py</code></span></div>
 </article>
 
 <article class="card demoted">
@@ -5133,7 +5133,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
     <h4>Caveats</h4>
     <div class="caveat"><strong>Heavy caveats:</strong> N=5 only. Curated drought years introduce hindsight bias. NRG is a diversified power company, so Columbia River hydro is just one driver. The 2023-2024 NRG rally was driven primarily by the AI/data center power demand narrative, not hydro shortfall. t-stat 0.92 is not statistically significant. MaxDD -18% is moderate.</div>
   </div>
-  <div class="card-foot"><span>Source: USGS NWIS (proxy via curated drought years) + yfinance</span><span><code>backtests/PL759_usgs_columbia_low_flow_thermal_ipp_long.py</code></span></div>
+  <div class="card-foot"><span>Source: USGS NWIS (proxy via curated drought years) + yfinance</span><span><code>backtests/PL1185_usgs_columbia_low_flow_thermal_ipp_long.py</code></span></div>
 </article>
 
 <article class="card demoted">
@@ -5281,7 +5281,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; sample too small: n_days=<code>251</code>, n_events=<code>6</code>.</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> status=<code>fail</code>; Sharpe missing; CAGR missing; fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; no OOS Sharpe computed (rerun via shared harness); sample too small: n_days=<code>0</code>, n_events=<code>0</code>.</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-G">PL478</span><h3>&#9733; JOLTS Industry Openings Divergence &#8594; Sector Rotation (XHB/XLI)</h3></div>
     <div class="right">equities (XHB, XLI) &middot; ~42-day hold &middot; 6 events</div>
@@ -5422,7 +5422,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
     <h4>Caveats</h4>
     <div class="caveat">This is a family-enumeration variant of the CPI-subindex pattern — many sibling CPI subseries were tested. BH correction passed, but the underlying mechanism is auto-generated rather than hand-derived, so the causal story for "Communication CPI" specifically is weaker than for the broader pattern. Sample is 29 events over ~7 years — meaningful but not deep. Strategy is fully in / fully out; portfolio-level CAGR including cash periods is lower than the in-position figure.</div>
   </div>
-  <div class="card-foot"><span>Source: FRED CUSR0000SEEB; family enumeration of CPI subindex variants</span><span><code>backtests/PL661_cpi_subindex_cusr0000seeb.py</code></span></div>
+  <div class="card-foot"><span>Source: FRED CUSR0000SEEB; family enumeration of CPI subindex variants</span><span><code>backtests/PL1113_cpi_subindex_cusr0000seeb.py</code></span></div>
 </article>
 
 <article class="card">
@@ -5447,7 +5447,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
     <h4>Caveats</h4>
     <div class="caveat">Same family-enumeration caveat as PL661 — the Shelter subindex variant survived BH but the broader mechanism is auto-generated rather than hand-derived. Shelter CPI has a known 6-18 month lag vs real rent prints; the YoY-trough signal can therefore mis-time relative to the actual rent regime change. Sample is 20 events over ~5 years.</div>
   </div>
-  <div class="card-foot"><span>Source: FRED CUSR0000SAH1; family enumeration of CPI subindex variants</span><span><code>backtests/PL651_cpi_subindex_cusr0000sah1.py</code></span></div>
+  <div class="card-foot"><span>Source: FRED CUSR0000SAH1; family enumeration of CPI subindex variants</span><span><code>backtests/PL1106_cpi_subindex_cusr0000sah1.py</code></span></div>
 </article>
 
 <!-- ================== APPENDIX ================== -->
@@ -7312,8 +7312,8 @@ var META = {
   'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 703.6 > 200d SMA 678.7
   'A16':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // Jun prior-10y avg +0.093%/day -> long [auto 2026-06-07]
   'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, ~17 days away
-  'A06':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},            // Week 5 of FOMC cycle since Apr 29 (odd = flat)
-  'F08':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // RSI(2)=8 [auto 2026-06-09]
+  'A06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},            // week 6 of FOMC cycle since 2026-04-29 [auto 2026-06-12]
+  'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2)=51 [auto 2026-06-12]
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
   'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // VIX/VIX3M=0.91 [auto 2026-06-09]
   'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
@@ -7496,7 +7496,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-06-09';
+var CUR_VER = '2026-06-12';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }

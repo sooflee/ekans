@@ -1,4 +1,4 @@
-"""PL751_bea_travel_receipts_hotel_long — BEA International Travel Receipts Surge -> Hotel REITs Long
+"""PL1177_bea_travel_receipts_hotel_long — BEA International Travel Receipts Surge -> Hotel REITs Long
 Using FRED series for travel service exports (BOPTEXP or B0230RC1Q027SBEA).
 When quarterly YoY growth > 15%, long HST+PK+MAR for 30 trading days.
 """
@@ -12,7 +12,7 @@ from harness import load_prices, load_fred, compute_metrics, save_result, mark_f
 
 
 def main():
-    sid = "PL751_bea_travel_receipts_hotel_long"
+    sid = "PL1177_bea_travel_receipts_hotel_long"
     try:
         px = load_prices(["HST", "PK", "MAR", "SPY"], start="1999-01-01")
     except Exception as e:

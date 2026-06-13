@@ -1,4 +1,4 @@
-"""PL749_eia_refinery_util_low_driving_season_refiner_long — EIA Refinery Utilization Drop During Driving Season -> Long Refiner Basket
+"""PL1175_eia_refinery_util_low_driving_season_refiner_long — EIA Refinery Utilization Drop During Driving Season -> Long Refiner Basket
 When EIA weekly refinery utilization drops below 85% during May-Sep for 2+ consecutive weeks,
 long VLO+MPC equal-weight for 21 trading days.
 """
@@ -12,7 +12,7 @@ from harness import load_prices, load_fred, compute_metrics, save_result, mark_f
 
 
 def main():
-    sid = "PL749_eia_refinery_util_low_driving_season_refiner_long"
+    sid = "PL1175_eia_refinery_util_low_driving_season_refiner_long"
     try:
         px = load_prices(["VLO", "MPC", "SPY"], start="1997-01-01")
     except Exception as e:

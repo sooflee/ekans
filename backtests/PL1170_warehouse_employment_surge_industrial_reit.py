@@ -1,4 +1,4 @@
-"""PL744_warehouse_employment_surge_industrial_reit — FRED Warehouse Employment YoY Surge → Long Industrial REITs
+"""PL1170_warehouse_employment_surge_industrial_reit — FRED Warehouse Employment YoY Surge → Long Industrial REITs
 Uses FRED CES4349300001 (warehouse employment). When YoY growth >5% for 3 consecutive months,
 long STAG+PLD+REXR for 30 trading days.
 """
@@ -12,7 +12,7 @@ from harness import load_prices, load_fred, compute_metrics, save_result, mark_f
 
 
 def main():
-    sid = "PL744_warehouse_employment_surge_industrial_reit"
+    sid = "PL1170_warehouse_employment_surge_industrial_reit"
     try:
         px = load_prices(["STAG", "PLD", "REXR", "SPY"], start="2011-01-01")
     except Exception as e:
