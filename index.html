@@ -7695,7 +7695,7 @@ var META = {
   'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
   'C07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // EEM now top 12m mom (+42%) vs SPY +25% — SPY no longer rank-1, relative-mom long off (2026-06-07)
   'C14':      {t:[['SPY','long'],['TLT','long'],['GLD','long']], s:'active', oos:'2024-12-31'}, // All 6 assets positive 12m
-  'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 4/5 above 10mo SMA; IEF below
+  'C05':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 3/5 above 10mo SMA: SPY,EFA,EEM [auto 2026-07-10]
   'C06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // Equity-on: SPY 12m +29.7%, ACWX +32.1% (intl narrowly leads); both > T-bills
   'C08 / C09':{t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // 10Y-2Y ≈ +0.5%, normal (not inverted)
   'C01':      {t:[['SPY','long']], td:[['TLT','long']], s:'defensive', oos:'2024-12-31'}, // Gold >> lumber → long TLT
@@ -7750,9 +7750,9 @@ var PLMETA = {
   'PL48': {t:[['Alt Managers','long']], oos:'2025-12-31'},
   'PL49': {t:[['Soybeans','long']], oos:'2025-12-31'},
   'PL59': {t:[['XLI','long']], oos:'2025-12-31'},
-  'PL76': {t:[['XLI','long'],['XLF','long']], oos:'2025-12-31'},
+  'PL76': {s:'inactive', t:[['XLI','long'],['XLF','long']], oos:'2025-12-31'}, // T10Y2Y feed unavailable this run [auto 2026-07-10]
   'PL75': {t:[['XLI','long']], oos:'2025-12-31'},
-  'PL38': {t:[['SPY','long']], oos:'2025-12-31'},
+  'PL38': {s:'inactive', t:[['SPY','long']], oos:'2025-12-31'}, // RRP feed unavailable this run [auto 2026-07-10]
   'PL35': {t:[['Water Infra','long']], oos:'2025-12-31'},
   'PL87': {t:[['Exporters','long']], s:'inactive', oos:'2025-12-31'},          // USD rallied back to highs: UUP only -0.8% from 52wk peak — weak-dollar condition no longer met
   'PL10': {t:[['Trucks','long']], oos:'2025-12-31'},

@@ -298,12 +298,37 @@ def run_scout_loop():
     existing_keys = sorted({i.get("dedup_key", "") for i in ideas if i.get("dedup_key")})
     backtests_list = "\n".join(sorted(p.name for p in BACKTESTS.glob("*.py")))
 
+    # Anti-repetition: show the model the MOST RECENT ideas explicitly (the ones
+    # it is most likely to echo) and the categories already crowded, then force
+    # each new idea into a distinct, under-used lane. Weak models otherwise anchor
+    # on a few salient recent themes and regurgitate variants of them.
+    recent = sorted(ideas, key=lambda i: i.get("created_at", ""), reverse=True)[:15]
+    recent_names = "\n".join(f"  - {i.get('name','?')} [{i.get('category','?')}]" for i in recent)
+    from collections import Counter as _Counter
+    cat_counts = _Counter(i.get("category", "?") for i in ideas)
+    crowded = ", ".join(f"{c}:{n}" for c, n in cat_counts.most_common(6))
+
     prompt = f"""{instructions}
 
 Current ideas_queue.json has {len(ideas)} items. Existing dedup_keys: {existing_keys}
 
 Existing backtest files:
 {backtests_list}
+
+The 15 MOST RECENTLY added ideas (DO NOT propose variants of these themes —
+different tickers or framings of the same causal chain still count as duplicates):
+{recent_names}
+
+Category counts (most crowded first) — AVOID these, mine under-represented lanes: {crowded}
+
+DIVERSITY MANDATE (hard requirements):
+  1. Each of the 2-3 ideas MUST be in a DIFFERENT category from the others.
+  2. None may share a causal mechanism or trigger family with the 15 recent ideas
+     above (no more skew/credit-divergence, waterway-grain, or FDA-AdComm reruns).
+  3. Prefer a data source NOT dominant in the recent list (rotate: NOAA/EIA/Census/
+     BLS/EDGAR/FHWA/FEMA/USDA/on-chain), and name it in data_sources.
+  4. State the specific tradable instrument the causal chain implicates (a named
+     company/commodity/ETF), not a broad index proxy.
 
 Generate 2-3 new ideas and return ONLY the JSON array of new idea objects (no markdown, no explanation).
 DO NOT set idea_id on the returned objects — it is assigned inside the queue lock by `append_ideas`."""

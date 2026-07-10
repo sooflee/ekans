@@ -13,8 +13,10 @@ writes any changes back to:
   - pipeline/signals_history.json       today's change list (prepend / replace)
   - pipeline/signals_last_update.json   fresh summary counts + timestamp
 
-Only the 15 programmatically-checkable signals are evaluated. On-chain / event /
-monthly-macro signals have no live feed and are left untouched.
+Only the programmatically-checkable signals are evaluated (currently 17: price/
+calendar via yfinance + a few FRED-event signals whose live state is "inside the
+post-trigger hold window"). On-chain / discrete-event / non-FRED-macro signals
+have no live feed and are left untouched.
 
 This replaces the old copy-a-script-per-day workflow: there is no hand-maintained
 STORED dict — it is parsed from index.html, so META is the only place a status
@@ -203,6 +205,51 @@ def chk_PL87(m, today):
     return ("active" if off < -0.02 else "inactive", f"UUP {off*100:+.1f}% from 52wk peak")
 
 
+def chk_PL76(m, today):
+    """Curve un-inversion -> long cyclicals, 252-trading-day hold. Live state =
+    are we still inside the hold window after the last qualified un-inversion
+    (T10Y2Y crossing >=0 following ~12+ months mostly inverted)?"""
+    s = fred_series("T10Y2Y")
+    if s is None or len(s) < 300:
+        return (None, "T10Y2Y feed unavailable this run")
+    inverted = s < 0
+    cross = (s.shift(1) < 0) & (s >= 0)
+    last_trig = None
+    for i in range(252, len(s)):
+        if bool(cross.iloc[i]) and inverted.iloc[i - 252:i].mean() > 0.6:
+            last_trig = s.index[i]
+    if last_trig is None:
+        return ("inactive", "no qualified un-inversion on record")
+    days_since = int(s.loc[last_trig:].shape[0] - 1)
+    return ("active" if days_since <= 252 else "inactive",
+            f"un-inverted {last_trig.date()}, {days_since}td ago (252td hold)")
+
+
+def chk_PL38(m, today):
+    """RRP drain -> long SPY, 252-trading-day hold (or draining >$100B/mo). Live
+    state = inside the hold window after RRP first fell <$500B (having been >$1T),
+    or RRP currently draining >$100B over the last ~month."""
+    s = fred_series("RRPONTSYD")  # $ billions, daily
+    if s is None or len(s) < 300:
+        return (None, "RRP feed unavailable this run")
+    cross = (s.shift(1) >= 500) & (s < 500)
+    last_trig = None
+    for i in range(1, len(s)):
+        if bool(cross.iloc[i]) and bool((s.iloc[:i] > 1000).any()):
+            last_trig = s.index[i]
+    active, bits = False, []
+    if last_trig is not None:
+        days_since = int(s.loc[last_trig:].shape[0] - 1)
+        active = active or days_since <= 252
+        bits.append(f"<500B since {last_trig.date()} ({days_since}td)")
+    if len(s) > 21:
+        chg = float(s.iloc[-1] - s.iloc[-21])
+        active = active or chg < -100
+        bits.append(f"~1mo {chg:+.0f}B")
+    bits.append(f"RRP ${s.iloc[-1]:.0f}B")
+    return ("active" if active else "inactive", "; ".join(bits))
+
+
 def chk_H11(m, today):
     pd = m.pd
     cbn = corr60(pd, m.get("BTC-USD"), m.get("QQQ"))
@@ -258,7 +305,8 @@ CHECKS = [
     ("C05", "META", chk_C05), ("C06", "META", chk_C06), ("C07", "META", chk_C07),
     ("D02", "META", chk_D02), ("H11", "META", chk_H11), ("A16", "META", chk_A16),
     ("A07", "META", chk_A07), ("A06", "META", chk_A06),
-    ("PL87", "PLMETA", chk_PL87),
+    ("PL87", "PLMETA", chk_PL87), ("PL76", "PLMETA", chk_PL76),
+    ("PL38", "PLMETA", chk_PL38),
 ]
 
 # How wide a window each check needs (calendar-day lookback for the download).
@@ -380,6 +428,33 @@ def fred_latest(series_id, timeout=15):
                 return d, float(v)
     except Exception:
         return None
+    return None
+
+
+def fred_series(series_id, timeout=20, attempts=3):
+    """Full history for a FRED series as a date-indexed pandas Series via the
+    keyless CSV endpoint (no API key, so no rate-limit path). Retries transient
+    failures; returns None only if every attempt fails."""
+    import time
+    import urllib.request
+    import pandas as pd
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as r:
+                rows = [ln for ln in r.read().decode().splitlines() if ln]
+            dates, vals = [], []
+            for ln in rows[1:]:  # skip header
+                d, _, v = ln.partition(",")
+                if v not in ("", "."):
+                    dates.append(d)
+                    vals.append(float(v))
+            if dates:
+                return pd.Series(vals, index=pd.to_datetime(dates)).sort_index()
+            return None
+        except Exception:
+            if attempt < attempts - 1:
+                time.sleep(2 * (attempt + 1))
     return None
 
 

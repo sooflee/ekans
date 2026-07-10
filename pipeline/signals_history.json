@@ -11,6 +11,16 @@
         "id": "A06",
         "from": "active",
         "to": "inactive"
+      },
+      {
+        "id": "PL76",
+        "from": "inactive",
+        "to": "unknown"
+      },
+      {
+        "id": "PL38",
+        "from": "inactive",
+        "to": "unknown"
       }
     ]
   },
