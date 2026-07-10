@@ -695,13 +695,14 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
   <button data-tab="live" id="tabbtn-live" role="tab" aria-selected="false" aria-controls="tab-live" tabindex="-1">Live<span class="tab-count" id="tab-sig-count">0</span></button>
   <button data-tab="construction" id="tabbtn-construction" role="tab" aria-selected="false" aria-controls="tab-construction" tabindex="-1">Construction</button>
   <button data-tab="pipeline" id="tabbtn-pipeline" role="tab" aria-selected="false" aria-controls="tab-pipeline" tabindex="-1">Pipeline</button>
-  <button data-tab="watchlist" id="tabbtn-watchlist" role="tab" aria-selected="false" aria-controls="tab-watchlist" tabindex="-1">Watchlist<span class="tab-count" id="tab-watch-count">10</span></button>
+  <button data-tab="sleepers" id="tabbtn-sleepers" role="tab" aria-selected="false" aria-controls="tab-sleepers" tabindex="-1">Sleepers<span class="tab-count" id="tab-sleepers-count">14</span></button>
+  <button data-tab="watchlist" id="tabbtn-watchlist" role="tab" aria-selected="false" aria-controls="tab-watchlist" tabindex="-1">Watchlist<span class="tab-count" id="tab-watch-count">11</span></button>
   <button data-tab="feedback" id="tabbtn-feedback" role="tab" aria-selected="false" aria-controls="tab-feedback" tabindex="-1">Feedback Loops<span class="tab-count" id="tab-fbl-count">31</span></button>
 </nav>
 
 <div id="tab-strategies" class="tab-panel active" role="tabpanel" aria-labelledby="tabbtn-strategies">
 <div class="sub-tabs" data-subtabs-for="strategies" role="tablist" aria-label="Strategy views">
-  <button data-subtab="highreturn" class="active" id="subbtn-strategies-highreturn" role="tab" aria-selected="true" aria-controls="subpanel-strategies-highreturn" tabindex="0">High Return<span class="tab-count" id="tab-strat-count">29</span></button>
+  <button data-subtab="highreturn" class="active" id="subbtn-strategies-highreturn" role="tab" aria-selected="true" aria-controls="subpanel-strategies-highreturn" tabindex="0">High Return<span class="tab-count" id="tab-strat-count">31</span></button>
   <button data-subtab="catalog" id="subbtn-strategies-catalog" role="tab" aria-selected="false" aria-controls="tab-catalog" tabindex="-1">Full Catalog<span class="tab-count" id="tab-catalog-count">—</span></button>
 </div>
 <div class="sub-panel active" data-subpanel="highreturn" id="subpanel-strategies-highreturn" role="tabpanel" aria-labelledby="subbtn-strategies-highreturn">
@@ -732,6 +733,52 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 
 
 <!-- All trading signals, sorted by CAGR descending by default -->
+
+<article class="card" data-sharpe="0.76" data-cagr="15.5">
+    <div class="card-head">
+    <div class="left"><span class="badge cat-F">PL1083</span><h3>★ Semis Relative Weakness → Risk-Off (SOXX vs SPY)</h3></div>
+    <div class="right">index equity (long/cash) · daily · counter-signal</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.76</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">15.5%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.9%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.48</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">0.99</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Semiconductors lead the tech/growth cycle, so their <em>relative</em> strength versus the broad market is an early tell on risk appetite. This is a counter to the crowded long-semis trade: when SOXX starts losing ground to SPY, the growth engine is rolling over and the smart move is to step aside rather than ride the drawdown. Holding SOXX only while it is out-leading SPY captures the up-cycle and parks in cash through the rollovers.</p>
+    <h4>Rule</h4>
+    <div class="rule">Hold SOXX while the SOXX/SPY ratio's trailing 63-day momentum is ≥ 0; when that momentum turns negative, move to cash (0% return) until it recovers. Regime shifted one day so today's position uses only past data.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>High turnover, single-complex, cash-parking:</strong> 5,342 days, t-stat 3.48, OOS Sharpe 0.99, and it clears the full winner gate (BH-significant at FDR=0.05, +4.3% CAGR over SPY). But turnover is ~14.9×/yr — after 10bps round-trip costs the net CAGR falls to 13.8% and net Sharpe to 0.69. It is concentrated in a single sector (semis) and rode the 2005–2026 semiconductor supercycle; much of the "edge" is avoiding semi drawdowns by sitting in cash. Uninvested ~40% of days. Size for regime concentration and the frequent flips.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance SOXX / SPY; project queue spec (counter-signal to long_semis)</span><span><code>backtests/PL1083_semis_relative_weakness_riskoff.py</code></span></div>
+</article>
+
+<article class="card" data-sharpe="0.82" data-cagr="13.9">
+    <div class="card-head">
+    <div class="left"><span class="badge cat-C">PL1062</span><h3>★ Stock-Bond Correlation Flip → Defensive Gold (SPY / TLT / GLD)</h3></div>
+    <div class="right">multi-asset · daily · counter-signal</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.82</div><div class="ml">Sharpe</div></div>
+    <div class="m"><div class="mv pos">13.9%</div><div class="ml">CAGR</div></div>
+    <div class="m"><div class="mv neg">-33.7%</div><div class="ml">MaxDD</div></div>
+    <div class="m"><div class="mv">3.29</div><div class="ml">t-stat</div></div>
+    <div class="m"><div class="mv pos">0.87</div><div class="ml">OOS Sharpe</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>When the rolling 60-day correlation of SPY and TLT daily returns turns positive, bonds have stopped hedging equities — the rate/inflation-vol regime (2022-style) where the 60/40 hedge breaks and everything de-grosses together. Rotating into gold exactly when the stock-bond hedge fails sidesteps the rate-driven drawdowns a naive long-equity signal rides straight down.</p>
+    <h4>Rule</h4>
+    <div class="rule">Hold SPY normally; when the trailing 60-day correlation of SPY and TLT daily returns is &gt; 0, hold GLD instead. Regime shifted one day so today's position uses only past data.</div>
+    <h4>Caveats</h4>
+    <div class="caveat"><strong>Matches SPY on return, wins on regime robustness:</strong> 4,079 days, t-stat 3.29, OOS Sharpe 0.87; clears the full winner gate (BH-significant at FDR=0.05, positive OOS). But excess CAGR vs SPY is ≈0 (−0.1%) — the pitch is <em>not</em> higher absolute return, it's matching SPY while rotating defensively in the ~23% of days the hedge breaks. Gold's own 2010s regime carries the defensive leg; a period where gold also falls with stocks would break it. Low turnover (~3×/yr), net Sharpe 0.80.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance SPY / TLT / GLD; diversification-breakdown literature (counter-signal to long_SPY)</span><span><code>backtests/PL1062_spy_tlt_corr_flip_defensive.py</code></span></div>
+</article>
 
 <article class="card" data-sharpe="0.88" data-cagr="35.8">
     <div class="card-head">
@@ -1062,7 +1109,7 @@ article.card.watch .watch-val { color: var(--fg); line-height: 1.55; }
 </article>
 
 <article class="card demoted">
-  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05; OOS Sharpe <code>-0.06</code> &le; 0.</div>
+  <div class="demoted-banner"><strong>Demoted:</strong> no longer passes the tightened winner gate. <em>Failed:</em> fails Benjamini-Hochberg multiple-testing correction at FDR=0.05.</div>
     <div class="card-head">
     <div class="left"><span class="badge cat-C">P12</span><h3>★ Steno Multi-CB Liquidity Flip → Long SPY + BTC</h3></div>
     <div class="right">cross-asset · 8-week hold</div>
@@ -5783,6 +5830,322 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div>
 </div><!-- end tab-pipeline -->
 
+<div id="tab-sleepers" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-sleepers">
+<div class="container">
+<h2 class="tier">Sleepers <span class="tier-count">Strong payoff when they fire, but dormant most of the time — surfaced by the conditional gate, not the blended winner gate</span></h2>
+<p style="color:var(--fg-dim);max-width:760px;line-height:1.5;">These signals <em>fail</em> the standard winner gate: their blended Sharpe is diluted below 0.5 by long flat stretches. But scored <strong>only over the days they hold a position</strong>, they show real, out-of-sample-persistent edges — the "doesn't yield now, yields a lot later" profile (rare triggers, tail/regime trades, counter-signals). Ranked by <code>sleeper_score</code> = cond.Sharpe × √episodes × avg-episode-return. Generated by <code>pipeline/find_sleepers.py</code> over <code>sleeper_gate.py</code>.</p>
+<article class="card" data-sharpe="1.69" data-cagr="185.0">
+  <div class="card-head">
+    <div class="left"><span class="badge">M3_steth_discount</span><h3>M3 stETH/ETH &lt; 0.985 → long ETH 90d</h3></div>
+    <div class="right">fires 27% of days · 6 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.69</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.10</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">6</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+53.5%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">27%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>stETH depeg events historically mark forced-seller capitulation in ETH (Jun 2022 Celsius/3AC).</p>
+    <h4>Rule</h4>
+    <div class="rule">Long ETH-USD when STETH-USD / ETH-USD closes &lt; 0.985 (first crossing, 90d cooldown). Hold 90 days.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.87 / CAGR 32.6% over the full sample look mediocre because the signal is flat 73% of the time — but conditional on firing it runs Sharpe 1.69 (OOS 1.10) across 6 episodes at +53.5% each. Fails winner_gate on: not BH-significant, blended OOS ≤ 0. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance STETH-USD, ETH-USD.</span><span><code>backtests/M3_steth_discount.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.82" data-cagr="324.1">
+  <div class="card-head">
+    <div class="left"><span class="badge">O5_btc_difficulty_drop</span><h3>O5 BTC difficulty drop -&gt; long miners 14d</h3></div>
+    <div class="right">fires 19% of days · 28 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.82</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.95</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">28</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+14.5%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">19%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Difficulty drops follow hash-rate capitulation -&gt; survivors capture constant rewards, profitability per TH spikes.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BTC network difficulty 14-day change &lt; -3% (one adjustment epoch), long {MARA,RIOT,CLSK} equal-weight for 14 sessions.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.80 / CAGR 32.3% over the full sample look mediocre because the signal is flat 81% of the time — but conditional on firing it runs Sharpe 1.82 (OOS 1.95) across 28 episodes at +14.5% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: blockchain.info /charts/difficulty (free, full history)</span><span><code>backtests/O5_btc_difficulty_drop.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.02" data-cagr="71.9">
+  <div class="card-head">
+    <div class="left"><span class="badge">O4_btc_mempool</span><h3>O4 BTC mempool&gt;90p -&gt; long miners 20d</h3></div>
+    <div class="right">fires 53% of days · 34 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.02</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.84</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">34</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+18.6%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">53%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Mempool congestion -&gt; fee revenue spike -&gt; miner equity rally.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BTC mempool size &gt; 90th percentile of trailing 90-day, long {MARA,RIOT,CLSK} equal-weight 20 sessions (extended from spec 10d).</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.74 / CAGR 32.9% over the full sample look mediocre because the signal is flat 47% of the time — but conditional on firing it runs Sharpe 1.02 (OOS 0.84) across 34 episodes at +18.6% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: blockchain.info /charts/mempool-size (since 2016).</span><span><code>backtests/O4_btc_mempool.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.98" data-cagr="308.8">
+  <div class="card-head">
+    <div class="left"><span class="badge">U15_china_antimony_licenses</span><h3>U15 China Sb licence backlog -&gt; long PPTA+UAMY 30d</h3></div>
+    <div class="right">fires 44% of days · 6 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.98</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.87</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">6</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+18.6%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">44%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>China = ~50% of mined antimony + &gt; 80% refined; MOFCOM&#x27;s Sept 2024 license regime created a sustained backlog. Sub-30% months directly tighten non-Chinese availability and lift Western antimony NAV.</p>
+    <h4>Rule</h4>
+    <div class="rule">When China MOFCOM monthly antimony export throughput is &lt; 30% of 2023 baseline (per customs releases), long an equal-weight basket of PPTA + UAMY for 30 trading days; non-overlapping.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 1.30 / CAGR 84.7% over the full sample look mediocre because the signal is flat 56% of the time — but conditional on firing it runs Sharpe 1.98 (OOS 1.87) across 6 episodes at +18.6% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: Curated MOFCOM customs months; PPTA + UAMY via yfinance.</span><span><code>backtests/U15_china_antimony_licenses.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.01" data-cagr="46.4">
+  <div class="card-head">
+    <div class="left"><span class="badge">H05_hash_ribbons</span><h3>H05 Hash Ribbons</h3></div>
+    <div class="right">fires 49% of days · 37 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.01</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.33</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">37</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+12.2%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">49%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p></p>
+    <h4>Rule</h4>
+    <div class="rule">After 30d SMA(hashrate) crosses BELOW 60d (capitulation), buy BTC on the cross BACK ABOVE 60d. Exit on next capitulation or at +50% gain.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.71 / CAGR 20.7% over the full sample look mediocre because the signal is flat 51% of the time — but conditional on firing it runs Sharpe 1.01 (OOS 0.33) across 37 episodes at +12.2% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: </span><span><code>backtests/H05_hash_ribbons.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.05" data-cagr="39.4">
+  <div class="card-head">
+    <div class="left"><span class="badge">R-N5_tsmc_revenue</span><h3>TSMC YoY-beat &gt; 8pp long semi-basket ~1q</h3></div>
+    <div class="right">fires 36% of days · 13 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.05</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.62</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">13</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+15.3%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">36%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>TSMC is the bellwether foundry; revenue surprises lead semi customer/supplier basket performance via demand pull-through.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long equal-weighted NVDA/AVGO/AMD/ASML basket ~63 sessions when TSMC quarterly YoY exceeds trailing 3q YoY mean by &gt;= 8pp.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.63 / CAGR 12.7% over the full sample look mediocre because the signal is flat 64% of the time — but conditional on firing it runs Sharpe 1.05 (OOS 0.62) across 13 episodes at +15.3% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: Macrotrends TSM quarterly revenue (scrape); yfinance prices.</span><span><code>backtests/R-N5_tsmc_revenue.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.32" data-cagr="180.9">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL638_miner_pair_long_clsk_riot_short_mara</span><h3>BTC Miner Power-Cost Proxy -&gt; Long CLSK+RIOT / Short MARA</h3></div>
+    <div class="right">fires 16% of days · 149 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.32</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.14</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">149</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+3.1%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">16%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Approximate ERCOT-PJM power-price divergence with stock-relative-strength proxy among publicly traded miners. ENTER long pair (long equal-weight CLSK+RIOT / short MARA) when (a) (CLSK+RIOT 30-day average return) - MARA 30-day return &gt;= +0.05 (TX-heavy miners outperforming MARA, consistent with ERCOT</p>
+    <h4>Rule</h4>
+    <div class="rule">Approximate ERCOT-PJM power-price divergence with stock-relative-strength proxy among publicly traded miners. ENTER long pair (long equal-weight CLSK+RIOT / short MARA) when (a) (CLSK+RIOT 30-day aver</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.44 / CAGR 11.7% over the full sample look mediocre because the signal is flat 84% of the time — but conditional on firing it runs Sharpe 1.32 (OOS 1.14) across 149 episodes at +3.1% each. Fails winner_gate on: blended Sharpe ≤ 0.5, not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance prices; project queue spec</span><span><code>backtests/PL638_miner_pair_long_clsk_riot_short_mara.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.27" data-cagr="71.6">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL654_pjm_bra_long_vst_nrg_ceg</span><h3>PJM BRA Auction Calendar Anchor -&gt; Long VST+NRG+CEG IPP Basket</h3></div>
+    <div class="right">fires 22% of days · 20 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.27</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.88</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">20</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+6.4%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">22%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Use a calendar-based event anchor for the PJM Base Residual Auction. PJM BRA results typically post in late July of each year. Backtestable approximation: ENTER long equal-weight basket (VST, NRG, CEG) on the first trading day on/after July 28 each year IF (a) FRED ELECPRIIDXM (electricity producer </p>
+    <h4>Rule</h4>
+    <div class="rule">Use a calendar-based event anchor for the PJM Base Residual Auction. PJM BRA results typically post in late July of each year. Backtestable approximation: ENTER long equal-weight basket (VST, NRG, CEG</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.57 / CAGR 12.1% over the full sample look mediocre because the signal is flat 78% of the time — but conditional on firing it runs Sharpe 1.27 (OOS 1.88) across 20 episodes at +6.4% each. Fails winner_gate on: not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance prices; project queue spec</span><span><code>backtests/PL654_pjm_bra_long_vst_nrg_ceg.py</code></span></div>
+</article>
+<article class="card" data-sharpe="2.87" data-cagr="510.5">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL1046_btc_mvrv_exchange_reserve_short_coin_mstr</span><h3>BTC MVRV Short COIN/MSTR</h3></div>
+    <div class="right">fires 3% of days · 16 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">2.87</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.37</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">16</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+3.0%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">3%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>At BTC MVRV &gt;3sigma tops, MSTR mNAV premium (historically ~2x book) compresses 20-40% as spot BTC corrects. COIN trading volumes collapse in drawdowns. Low exchange reserves confirm supply-side tightness at cycle peak, making the top more severe. Equal-weight short of both crypto-equity proxies captures premium compression beyond BTC spot decline.</p>
+    <h4>Rule</h4>
+    <div class="rule">When BTC MVRV Z-Score crosses above +3.0 sigma AND BTC exchange reserves are at or below 12-month rolling minimum, enter equal-weight short COIN + short MSTR. Hold up to 30 trading days. Exit on BTC -25% from entry or max hold.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.50 / CAGR 5.8% over the full sample look mediocre because the signal is flat 97% of the time — but conditional on firing it runs Sharpe 2.87 (OOS 1.37) across 16 episodes at +3.0% each. Fails winner_gate on: blended CAGR ≤ 10%, not BH-significant, blended OOS ≤ 0. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: LookIntoBitcoin MVRV Z-Score (https://www.lookintobitcoin.com/bitcoin-charts/mvrv-zscore/); CryptoQuant BTC Exchange Reserves; yfinance adjusted closes for COIN/MSTR/SPY</span><span><code>backtests/PL1046_btc_mvrv_exchange_reserve_short_coin_mstr.py</code></span></div>
+</article>
+<article class="card" data-sharpe="3.16" data-cagr="45.8">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL962_idf_demobilization_eis_long_rnr_axs_short</span><h3>IDF Demob EIS Long / RNR AXS Short</h3></div>
+    <div class="right">fires 3% of days · 5 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">3.16</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">4.38</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">5</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+4.6%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">3%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>IDF stand-down reduces war-risk premium in Israeli equities (EIS rerate higher) while reinsurers&#x27; conflict exposure pricing reverts down</p>
+    <h4>Rule</h4>
+    <div class="rule">Long EIS / Short RNR+AXS for 30 trading days on IDF major demobilization or ceasefire announcement</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.58 / CAGR 1.3% over the full sample look mediocre because the signal is flat 97% of the time — but conditional on firing it runs Sharpe 3.16 (OOS 4.38) across 5 episodes at +4.6% each. Fails winner_gate on: blended CAGR ≤ 10%, not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: Known ceasefire/demobilization dates: Nov 2024 Lebanon, May 2021 Gaza, Aug 2014 Gaza, Nov 2012 Gaza, Jan 2009 Gaza</span><span><code>backtests/PL962_idf_demobilization_eis_long_rnr_axs_short.py</code></span></div>
+</article>
+<article class="card" data-sharpe="0.99" data-cagr="36.0">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL651_datacenter_constraint_long_eqix_dlr</span><h3>Data-Center Capacity Constraint Proxy -&gt; Long EQIX/DLR vs XLRE</h3></div>
+    <div class="right">fires 23% of days · 50 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.99</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.53</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">50</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+3.4%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">23%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Approximate the PJM/ERCOT interconnection-queue withdrawal signal with NVDA-led AI capex proxy + utility-stock relative strength. ENTER long pair (long equal-weight EQIX+DLR / short XLRE) when (a) NVDA 90-day return &gt;= +15% (AI capex cycle still pulling power demand) AND (b) regional utilities expos</p>
+    <h4>Rule</h4>
+    <div class="rule">Approximate the PJM/ERCOT interconnection-queue withdrawal signal with NVDA-led AI capex proxy + utility-stock relative strength. ENTER long pair (long equal-weight EQIX+DLR / short XLRE) when (a) NVD</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.54 / CAGR 9.0% over the full sample look mediocre because the signal is flat 77% of the time — but conditional on firing it runs Sharpe 0.99 (OOS 0.53) across 50 episodes at +3.4% each. Fails winner_gate on: blended CAGR ≤ 10%, not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance prices; project queue spec</span><span><code>backtests/PL651_datacenter_constraint_long_eqix_dlr.py</code></span></div>
+</article>
+<article class="card" data-sharpe="0.89" data-cagr="35.2">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL744_cdc_vsp_short_ccl_nclh</span><h3>CDC VSP Cluster Short CCL/NCLH</h3></div>
+    <div class="right">fires 16% of days · 18 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.89</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.99</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">18</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+4.8%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">16%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Sanitation failure clusters at the CDC VSP typically precede negative press coverage, booking cancellations, and short-term demand headwinds for the major cruise operators. The short captures the equity repricing in the 4-6 weeks following health-risk headline clusters.</p>
+    <h4>Rule</h4>
+    <div class="rule">When CDC VSP logs &gt;=3 cruise inspection failures or outbreak notifications in a rolling 30-day window, short equal-weight CCL + NCLH for 25 trading days.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.35 / CAGR 4.8% over the full sample look mediocre because the signal is flat 84% of the time — but conditional on firing it runs Sharpe 0.89 (OOS 0.99) across 18 episodes at +4.8% each. Fails winner_gate on: blended Sharpe ≤ 0.5, blended CAGR ≤ 10%, not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: CDC Vessel Sanitation Program outbreak/inspection archive (hand-coded 2015-2025)</span><span><code>backtests/PL744_cdc_vsp_short_ccl_nclh.py</code></span></div>
+</article>
+<article class="card" data-sharpe="1.02" data-cagr="28.9">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL631_faa_ad_cluster_long_hei_tdg</span><h3>BA underperform vs HEI/TDG -&gt; Long HEI/TDG (80d basket)</h3></div>
+    <div class="right">fires 27% of days · 62 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">1.02</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">0.82</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">62</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+2.0%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">27%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Sustained Boeing relative underperformance vs HEI/TDG over 60d signals an active FAA AD cluster / aircraft-grounding regime (e.g., 2019 MAX grounding, 2024 door-plug AD). HEI (PMA spares) and TDG (proprietary components) benefit from the resulting unscheduled MRO surge. The HEI-not-chasing condition avoids late-cycle entries.</p>
+    <h4>Rule</h4>
+    <div class="rule">Go long equal-weight (0.5*HEI + 0.5*TDG) basket at next-day close when HEI 60d return - BA 60d return &gt;= +10% AND TDG 60d return - BA 60d return &gt;= +10% AND HEI close &lt;= 1.15 * HEI 50d SMA (not chasing). Hold up to 80 trading days; exit on +12% basket (profit), -8% basket (stop), or BA 20d return - avg(HEI 20d, TDG 20d) &gt;= +5% (regime exit).</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject:</strong> blended Sharpe 0.53 / CAGR 7.9% over the full sample look mediocre because the signal is flat 73% of the time — but conditional on firing it runs Sharpe 1.02 (OOS 0.82) across 62 episodes at +2.0% each. Fails winner_gate on: blended CAGR ≤ 10%, not BH-significant. Conditional metrics are exact (positions-based), not the pnl≠0 proxy. Size for the long flat stretches and regime concentration.</div>
+  </div>
+  <div class="card-foot"><span>Source: PL631 idea catalog; yfinance</span><span><code>backtests/PL631_faa_ad_cluster_long_hei_tdg.py</code></span></div>
+</article>
+<article class="card" data-sharpe="0.91" data-cagr="15.8">
+  <div class="card-head">
+    <div class="left"><span class="badge">PL1074_gold_vs_falling_real_yields</span><h3>PL1074 Falling 10y real yield → long GLD</h3></div>
+    <div class="right">fires 51% of days · 290 episodes</div>
+  </div>
+  <div class="metrics">
+    <div class="m"><div class="mv pos">0.91</div><div class="ml">Cond. Sharpe</div></div>
+    <div class="m"><div class="mv pos">1.04</div><div class="ml">Cond. OOS</div></div>
+    <div class="m"><div class="mv">290</div><div class="ml">Episodes</div></div>
+    <div class="m"><div class="mv pos">+0.6%</div><div class="ml">Avg / episode</div></div>
+    <div class="m"><div class="mv">51%</div><div class="ml">Active days</div></div>
+  </div>
+  <div class="section">
+    <h4>Mechanism</h4>
+    <p>Gold's opportunity cost is the real yield. When the 10-year real yield (FRED DFII10) is falling, the carry headwind on a zero-coupon asset reverses and gold trends higher; when it rises, gold is dead money.</p>
+    <h4>Rule</h4>
+    <div class="rule">Long GLD when the 10y real yield (DFII10) 21-day change is &lt; 0 (real yields falling); otherwise flat. Position shifted one day.</div>
+    <h4>Why it's hidden</h4>
+    <div class="caveat"><strong>Dormant winner-gate reject — but a noisy one:</strong> blended Sharpe 0.65 / CAGR 7.8% miss the winner bar (CAGR &lt; 10% and not BH-significant), yet conditional on the real-yield-falling regime it runs Sharpe 0.91 (OOS 1.04) over 290 episodes. Caveat honestly: this is a frequently-flipping timer, not a rare-trigger sleeper — active 51% of days and turnover ~27×/yr, so after 10bps costs the net Sharpe drops to 0.44 and the +0.6%-per-episode edge is largely eaten by trading. Treat as a real-yield regime tilt on gold, not a standalone edge. Conditional metrics are exact (positions-based).</div>
+  </div>
+  <div class="card-foot"><span>Source: yfinance GLD; FRED DFII10.</span><span><code>backtests/PL1074_gold_vs_falling_real_yields.py</code></span></div>
+</article>
+<!-- SLEEPERS-INSERT: backtester loop appends new sleeper <article class="card"> blocks directly above this line; bump #tab-sleepers-count -->
+</div>
+</div>
+
 <div id="tab-watchlist" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-watchlist">
 <div class="layout" style="padding-top:24px;">
 <aside class="sidebar">
@@ -5806,6 +6169,19 @@ Past performance is not predictive. Backtests don't include slippage, borrow, or
 </div>
 
 <div id="watchlist-grid">
+
+<article class="card watch" data-theme="macro">
+  <div class="card-head">
+    <div class="left"><span class="badge cat-Q">PL1086</span><h3>USACE Major Grain-Waterway Lock Failure → Long Corn/Soy Futures (ZC=F / ZS=F)</h3></div>
+    <div class="right">macro · supply-chain · forward</div>
+  </div>
+  <div class="watch-block">
+    <div class="watch-row"><span class="watch-label">Trigger</span><span class="watch-val">USACE Notices to Navigation / Lock Performance Monitoring System flags a major, extended failure or closure of a lock or dam on a core grain-transport waterway (esp. the Mississippi/Illinois system) during or just before harvest (Aug–Nov). Corroborate with USDA Weekly Barge Freight / Grain Basis reports showing interior basis collapsing.</span></div>
+    <div class="watch-row"><span class="watch-label">Trade</span><span class="watch-val">Long CBOT corn (ZC=F) and/or soybeans (ZS=F); optionally pair long futures vs the collapsing local cash basis. Size small — event-tail.</span></div>
+    <div class="watch-row"><span class="watch-label">Mechanism</span><span class="watch-val">A physical barge bottleneck strands interior supply (local cash basis collapses at origin) while export-hub and global futures spike on rerouting cost and perceived shortfall — a sharp basis-vs-futures divergence in an inelastic, harvest-timed market.</span></div>
+    <div class="watch-row"><span class="watch-label">Why untestable</span><span class="watch-val">No catastrophic, extended failure of a major grain lock has occurred in the modern futures-data era. Brief closures (2021 Ida barge halt, 2022–23 low-water drafts) are not comparable seeds, so there is no usable historical date set for an event study. Gemini-scouted 2026-07-10; routed to Watchlist by design.</span></div>
+  </div>
+</article>
 
 <article class="card watch" data-theme="geopolitical">
   <div class="card-head">
@@ -7308,12 +7684,12 @@ if (firstLink) showOnly(firstLink.dataset.cardId);
 var META = {
   'V3':       {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY +38.7% → full 100% SPY (bullish state)
   'F03':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // YoY margin debt +38.7% > 0% bullish
-  'C02':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // SPY 4wk +5.3% >> XLU -5.2% → long SPY
+  'C02':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},             // SPY 4wk +2.3% vs XLU +3.3% [auto 2026-07-10]
   'F09':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // 50d SMA 703.6 > 200d SMA 678.7
   'A16':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // Jun prior-10y avg +0.093%/day -> long [auto 2026-06-07]
   'A07':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // Next FOMC Jun 16-17, ~17 days away
-  'A06':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},            // week 6 of FOMC cycle since 2026-04-29 [auto 2026-06-12]
-  'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2)=51 [auto 2026-06-12]
+  'A06':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},            // week 3 of FOMC cycle since 2026-06-17 [auto 2026-07-10]
+  'F08':      {t:[['SPY','long']], s:'inactive', oos:'2024-12-31'},           // RSI(2)=45 [auto 2026-06-21]
   'A04':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},             // First 5 days of Jan 2026 positive
   'B01':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},           // VIX/VIX3M=0.91 [auto 2026-06-09]
   'C11':      {t:[['SPY','long']], s:'active', oos:'2024-12-31'},               // MOVE/VIX = 4.58 (< 6 trigger) → default long
@@ -7496,7 +7872,7 @@ signals.sort(function(a,b) { return b.cagr - a.cagr; });
 // State persistence (version key forces refresh when defaults change)
 var STORE = 'ekans-sig-status';
 var STORE_VER = 'ekans-sig-ver';
-var CUR_VER = '2026-06-12';
+var CUR_VER = '2026-07-10';
 var state = {};
 try { state = JSON.parse(localStorage.getItem(STORE)) || {}; } catch(e) { state = {}; }
 if (localStorage.getItem(STORE_VER) !== CUR_VER) { state = {}; localStorage.setItem(STORE_VER, CUR_VER); }

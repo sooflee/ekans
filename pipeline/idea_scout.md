@@ -124,6 +124,36 @@ Counter-signal ideas MUST include two extra fields in the queue JSON:
 
 A counter-signal idea still needs originality >= 6, bt_feasibility >= 3, a concrete causal chain, free data sources, and a real `source_reference`. Lower the bar on nothing — just bias your domain hunt toward defensive/short mechanisms.
 
+## Convex sleepers (bias toward these — they feed the Sleeper gate)
+
+The pipeline now has a second promotion path beside the winner gate: the **Sleeper
+gate** (`pipeline/sleeper_gate.py`). It rewards signals that are *flat most of the
+time but pay off hard when they fire* — measured by conditional metrics (Sharpe
+GIVEN the position is on, number of episodes, payoff per episode). The winner gate
+structurally rejects these because their blended Sharpe is diluted by the dormancy;
+the sleeper gate is how the project captures "doesn't yield now, yields a lot later"
+trades. Most of the catalog skews toward always-on, steadily-yielding signals, so
+these are under-supplied.
+
+When generating ideas, bias toward mechanisms with a **convex / rare-trigger**
+payoff shape — they don't replace your counter-signal and diversification quotas,
+they overlap with them. Good sources:
+- **Dated secular inflections** — debt-maturity / refinancing walls, policy sunset
+  dates (USMCA review, tax-cut expiries), demographic cliffs, resource-depletion
+  thresholds. The trigger is knowable in advance and *must* eventually fire.
+- **Compressed-then-released conditions** — vol risk premium at multi-year lows,
+  stock-bond correlation regime flips, credit spreads at cycle tights, funding-rate
+  extremes. They sit dormant, then snap.
+- **Tail / capitulation triggers** — depeg events, hash-rate capitulation, forced
+  de-grossing, ceasefire/event re-rates. Rare, large, mean-reverting.
+
+A sleeper idea still needs a concrete causal chain, free data, and a real trigger
+definition. The key difference from a normal idea: the trigger should be **off most
+of the time** (low expected `active_frac`) with a large conditional payoff when on.
+Flag these with `"sleeper_candidate": true` in the queue JSON so the developer and
+backtester know to preserve the dormant trigger logic rather than smoothing it into
+an always-on overlay.
+
 ## Asset-target diversification (EVERY iteration)
 
 The catalog skews heavily toward signals that predict SPY, QQQ, or BTC. Those are the lazy default — they're easy to find data for, easy to backtest, and feel "macro" enough that any cross-domain causal chain ends up pointed at them. The result is a portfolio that's mostly broad-index exposure under different names. This rule fixes it.

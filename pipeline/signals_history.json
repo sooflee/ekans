@@ -1,5 +1,59 @@
 [
   {
+    "date": "2026-07-10",
+    "changes": [
+      {
+        "id": "C02",
+        "from": "active",
+        "to": "inactive"
+      },
+      {
+        "id": "A06",
+        "from": "active",
+        "to": "inactive"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
+    "changes": [
+      {
+        "id": "F08",
+        "from": "active",
+        "to": "inactive"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-18",
+    "changes": [
+      {
+        "id": "C02",
+        "from": "inactive",
+        "to": "active"
+      },
+      {
+        "id": "F08",
+        "from": "inactive",
+        "to": "active"
+      }
+    ]
+  },
+  {
+    "date": "2026-06-15",
+    "changes": []
+  },
+  {
+    "date": "2026-06-14",
+    "changes": [
+      {
+        "id": "C02",
+        "from": "active",
+        "to": "inactive"
+      }
+    ]
+  },
+  {
     "date": "2026-06-12",
     "changes": [
       {

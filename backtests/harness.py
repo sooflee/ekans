@@ -196,6 +196,66 @@ def compute_metrics(pnl, benchmark=None, name="Strategy", positions=None, cost_b
             out[f"{label}_start"] = str(chunk.index[0].date())
             out[f"{label}_end"] = str(chunk.index[-1].date())
 
+    # --- Conditional ("when active") metrics ---
+    # A "sleeper" signal is flat most of the time and pays off in rare episodes.
+    # Blended Sharpe/CAGR dilute those episodes into noise; these fields measure
+    # the payoff *given the signal is on*, so winner_gate's dormant-rejection bias
+    # can be bypassed by the parallel sleeper_gate. Active days are taken from
+    # `positions` (pos != 0) when supplied, else from non-zero pnl as a proxy.
+    if positions is not None:
+        active_mask = positions.reindex(pnl.index).fillna(0) != 0
+    else:
+        active_mask = pnl != 0
+    out.update(conditional_metrics(pnl, active_mask, ann_factor))
+
+    return out
+
+
+def conditional_metrics(pnl, active_mask, ann_factor=252):
+    """Metrics computed only over days the signal holds a position.
+
+    Returns a dict (all keys prefixed `cond_`/`active_`/episode_) describing the
+    payoff *conditional on the signal firing* — the lens that surfaces signals
+    which look dead on a blended basis but pay off hard in rare regimes.
+    """
+    pnl = pnl.dropna()
+    active_mask = active_mask.reindex(pnl.index).fillna(False).astype(bool)
+    active = pnl[active_mask]
+    n_active = int(len(active))
+    out = {
+        "active_frac": float(active_mask.mean()) if len(pnl) else 0.0,
+        "n_active_days": n_active,
+    }
+    if n_active < 30 or active.std() == 0:
+        out["cond_sharpe"] = None
+        out["cond_cagr"] = None
+        out["cond_hit_rate"] = None
+        out["cond_oos_sharpe"] = None
+        out["n_episodes"] = 0
+        out["mean_episode_ret"] = None
+        return out
+
+    out["cond_sharpe"] = float(active.mean() / active.std() * np.sqrt(ann_factor))
+    out["cond_cagr"] = float((1 + active).prod() ** (ann_factor / n_active) - 1)
+    out["cond_hit_rate"] = float((active > 0).mean())
+
+    # Conditional OOS: split active days in half by time, Sharpe on the 2nd half.
+    half = n_active // 2
+    if half >= 30:
+        oos = active.iloc[half:]
+        out["cond_oos_sharpe"] = float(oos.mean() / oos.std() * np.sqrt(ann_factor)) if oos.std() > 0 else 0.0
+    else:
+        out["cond_oos_sharpe"] = None
+
+    # Episodes = contiguous runs of active days; payoff per firing.
+    grp = (active_mask != active_mask.shift()).cumsum()
+    ep_rets = []
+    for _, idx in active_mask[active_mask].groupby(grp[active_mask]).groups.items():
+        chunk = pnl.loc[idx]
+        ep_rets.append((1 + chunk).prod() - 1)
+    out["n_episodes"] = int(len(ep_rets))
+    out["mean_episode_ret"] = float(np.mean(ep_rets)) if ep_rets else None
+    out["median_episode_ret"] = float(np.median(ep_rets)) if ep_rets else None
     return out
 
 

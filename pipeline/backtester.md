@@ -84,6 +84,42 @@ from queue_io import claim_ready_strategy, update_strategy_status, heartbeat
    which criterion failed (`winner_reasons(result, mt)` returns a per-criterion
    bool dict for diagnostics).
 
+6b. **Check if it's a sleeper** — a signal that fails the winner gate but has a
+   strong *conditional* edge (pays off hard in rare regimes, flat the rest of the
+   time: tail trades, counter-signals, secular inflections). The winner gate
+   rejects these because their blended Sharpe is diluted by long flat stretches.
+   Conditional metrics are written automatically by `compute_metrics`
+   (`cond_sharpe`, `cond_oos_sharpe`, `n_episodes`, `mean_episode_ret`,
+   `active_frac`), so no extra backtest work is needed — just gate on them:
+
+   ```python
+   import sys
+   sys.path.insert(0, "/Users/benson/Projects/ekans/pipeline")
+   from sleeper_gate import is_sleeper
+   from winner_gate import is_winner, load_mt_data
+
+   mt = load_mt_data()  # reuse from step 6
+   if is_sleeper(result) and not is_winner(result, mt):
+       # Hidden sleeper: promote to the Sleepers tab (NOT High Return).
+       ...
+   ```
+
+   **If it's a hidden sleeper** (passes `is_sleeper`, fails `is_winner`): add an
+   `<article class="card">` block to the **Sleepers tab** in `index.html`,
+   inserted directly above the `<!-- SLEEPERS-INSERT ... -->` marker comment, and
+   bump the `#tab-sleepers-count` badge. Mirror the existing sleeper cards: the
+   metrics row shows **Cond. Sharpe / Cond. OOS / Episodes / Avg-per-episode /
+   Active%** (NOT the blended winner metrics), and the caveat is a "Why it's
+   hidden" note that contrasts the diluted blended Sharpe against the conditional
+   edge and lists which `winner_reasons` it fails. Do NOT run `build_report.py`
+   or touch the High Return tab — sleepers are a separate surface. Print
+   `"SLEEPER FOUND: <signal_id> — cond.Sharpe <X>, OOS <Y>, <N> episodes, active <Z>%"`.
+   If a signal qualifies as BOTH a winner and a sleeper, treat it as a winner only
+   (step 6) — `is_hidden_sleeper` already excludes winners.
+
+   **If it's neither**: nothing to add. You can confirm the full picture with
+   `.venv/bin/python pipeline/find_sleepers.py`, which ranks all hidden sleepers.
+
 7. **If backtest errors**: Call `mark_failed(signal_id, reason)` from `harness`, then `update_strategy_status(..., "failed", backtest_result={...})`.
 
 8. **If no ready strategies**: handled in step 1.
@@ -113,12 +149,14 @@ def main():
     # ... signal logic: build a positions Series (1=long, -1=short, 0=flat) ...
     # ... compute pnl from positions * returns ...
 
-    m = compute_metrics(pnl, benchmark=spy_r, name="<Name>")
+    # Pass positions= so conditional/sleeper metrics are exact (active days =
+    # position != 0). Pass pnl= so the series is saved for find_sleepers backfill.
+    m = compute_metrics(pnl, benchmark=spy_r, name="<Name>", positions=positions)
     save_result(sid, m, extra={
         "rule": "<plain-English rule>",
         "mechanism": "<causal mechanism>",
         "source": "<citation>",
-    })
+    }, pnl=pnl)
 
 
 if __name__ == "__main__":
@@ -131,8 +169,8 @@ After each iteration, call `heartbeat("backtester")` from `queue_io`.
 ## Rules
 - Process at most 1 strategy per iteration (backtests can be slow)
 - Do NOT commit or push — user reviews first
-- Only modify: `backtests/<signal_id>.py` (create), `results/` (via harness), `pipeline/strategies_queue.json` (via `queue_io` only), `full_catalog.html` (via build_report.py for winners), `index.html` (add card for winners)
+- Only modify: `backtests/<signal_id>.py` (create), `results/` (via harness), `pipeline/strategies_queue.json` (via `queue_io` only), `full_catalog.html` (via build_report.py for winners), `index.html` (add card for winners in the High Return tab, OR for hidden sleepers in the Sleepers tab — see steps 6 / 6b)
 - Never modify existing backtest files
 - Never delete result files
-- Always use the shared harness
+- Always use the shared harness — and pass `positions=` to `compute_metrics` whenever you have a positions Series, so the conditional / sleeper metrics are exact (`positions`-based) rather than the `pnl != 0` proxy
 - Do NOT do raw `json.load` / `json.dump` on the queue files — always go through `queue_io` helpers

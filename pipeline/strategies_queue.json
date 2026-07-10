@@ -50732,5 +50732,990 @@
       "n_events": 2
     },
     "backtested_at": "2026-06-13T00:53:52.433271+00:00"
+  },
+  {
+    "strategy_id": "PL1062",
+    "idea_id": "PL1062",
+    "signal_id": "PL1062_spy_tlt_corr_flip_defensive",
+    "name": "Stock-bond correlation flip \u2192 defensive gold",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "2-8 weeks",
+    "rule": "Compute 60d rolling correlation of SPY and TLT daily returns. When corr > 0 (bonds no longer hedging), hold GLD; otherwise hold SPY. Counter-signal to long-SPY: it rotates to gold exactly when the diversification hedge breaks.",
+    "tickers": [
+      "SPY",
+      "TLT",
+      "GLD"
+    ],
+    "entry_conditions": [
+      "60d corr(SPY,TLT) > 0 \u2192 position = long GLD"
+    ],
+    "exit_conditions": [
+      "60d corr(SPY,TLT) <= 0 \u2192 position = long SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPY, TLT, GLD",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL: each day hold either GLD or SPY return based on prior-day 60d SPY-TLT corr sign (shift 1, no look-ahead). Benchmark SPY. positions series for cost calc (regime switches are infrequent).",
+    "known_events": [],
+    "implementation_notes": "Counter-signal (counters long_SPY). GLD is the defensive leg; switches are low-turnover so costs are minor. SPY in tickers as benchmark + the risk-on leg.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "status": "done",
+    "created_at": "2026-06-18T17:57:08.027869+00:00",
+    "claimed_at": "2026-06-18T17:57:14.767387+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.8171211219409268,
+      "cagr": 0.13931260133646162,
+      "max_dd": -0.33717253344371856,
+      "t_stat": 3.287479240681534
+    },
+    "backtested_at": "2026-06-18T17:58:19.078099+00:00"
+  },
+  {
+    "strategy_id": "PL1063",
+    "idea_id": "PL1063",
+    "signal_id": "PL1063_platinum_gold_ratio_reversion",
+    "name": "Platinum/gold ratio bottom-decile reversion",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "rule": "Compute PPLT/GLD price ratio. When the ratio is in its trailing 3y bottom 20th percentile AND its 21d momentum > 0 (turning up), go long PPLT; else flat.",
+    "tickers": [
+      "PPLT",
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "PPLT/GLD ratio <= 3y rolling 20th pct",
+      "ratio 21d change > 0 \u2192 long PPLT"
+    ],
+    "exit_conditions": [
+      "ratio rises above 3y rolling 50th pct OR 21d momentum <= 0 \u2192 flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance PPLT, GLD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = position(prior day) * PPLT daily return. Position 1 when in bottom-decile-and-turning-up regime, else 0. Benchmark SPY. Rolling 3y (756d) percentile, min_periods to allow warmup.",
+    "known_events": [],
+    "implementation_notes": "Long-only PPLT timing overlay. SPY benchmark only. Watch for the long flat stretches when ratio is mid-range \u2014 expect modest n of active days.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "status": "done",
+    "created_at": "2026-06-18T17:57:08.027876+00:00",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.09538483864069243,
+      "cagr": 0.004550720302102462,
+      "max_dd": -0.3642276726561363,
+      "t_stat": 0.410001612522627
+    },
+    "backtested_at": "2026-07-10T08:52:54.106840+00:00"
+  },
+  {
+    "strategy_id": "PL1064",
+    "idea_id": "PL1064",
+    "created_at": "2026-07-10T08:45:53.530869+00:00",
+    "status": "done",
+    "signal_id": "PL1064_gold_miner_leverage_momentum",
+    "name": "Gold-miner leverage momentum (GDX/GLD)",
+    "category": "D",
+    "asset_class": "equities/commodities",
+    "horizon": "1-3 months",
+    "rule": "Long GDX when GDX/GLD 63d momentum > 0 AND GLD > its 200d SMA; else flat.",
+    "tickers": [
+      "GDX",
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "GDX/GLD 63d return > 0",
+      "GLD close > 200d SMA -> long GDX"
+    ],
+    "exit_conditions": [
+      "GDX/GLD 63d return <= 0 OR GLD <= 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GDX, GLD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * GDX daily return. Position 1 in regime, else 0. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Long-only GDX timing overlay; miners are high-beta to gold.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.016669581108950327,
+      "cagr": -0.028600042991936525,
+      "max_dd": -0.7625928098526737,
+      "t_stat": -0.0757372601387452
+    },
+    "backtested_at": "2026-07-10T08:52:54.139363+00:00"
+  },
+  {
+    "strategy_id": "PL1065",
+    "idea_id": "PL1065",
+    "created_at": "2026-07-10T08:45:53.530881+00:00",
+    "status": "done",
+    "signal_id": "PL1065_reit_vs_real_yield",
+    "name": "REIT vs real-yield regime (VNQ)",
+    "category": "E",
+    "asset_class": "equities/rates",
+    "horizon": "1-3 months",
+    "rule": "Long VNQ when 10y real yield (FRED DFII10) is falling (21d change < 0) AND below its 200d average; else flat.",
+    "tickers": [
+      "VNQ",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "DFII10 21d change < 0",
+      "DFII10 < 200d avg -> long VNQ"
+    ],
+    "exit_conditions": [
+      "DFII10 rising OR above 200d avg -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance VNQ, SPY",
+      "fundamental": "FRED DFII10"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * VNQ return. Real-yield regime from DFII10 (ffill to daily). SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "REITs are long-duration; discount-rate tailwind when real yields fall.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.35635719644222436,
+      "cagr": 0.04758792805859313,
+      "max_dd": -0.358718985799358,
+      "t_stat": 1.6190879370548374
+    },
+    "backtested_at": "2026-07-10T08:52:54.167668+00:00"
+  },
+  {
+    "strategy_id": "PL1066",
+    "idea_id": "PL1066",
+    "created_at": "2026-07-10T08:45:53.610264+00:00",
+    "status": "done",
+    "signal_id": "PL1066_sphb_splv_momentum_defensive",
+    "name": "High-beta/low-vol rollover -> defensive (SPHB/SPLV)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "weeks",
+    "rule": "When SPHB/SPLV 63d momentum turns negative, hold SPLV (defensive); else hold SPHB. Counter to blind long-SPY.",
+    "tickers": [
+      "SPHB",
+      "SPLV",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SPHB/SPLV 63d return < 0 -> hold SPLV"
+    ],
+    "exit_conditions": [
+      "SPHB/SPLV 63d return >= 0 -> hold SPHB"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SPHB, SPLV, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Regime shifted 1d: defensive->SPLV return, else SPHB return. Position proxy = in-defensive 0/1. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Counter-signal: risk-appetite gauge; rotate defensive on negative momentum.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5328228365715955,
+      "cagr": 0.08027345611969872,
+      "max_dd": -0.39170270987039,
+      "t_stat": 2.4532087311217485
+    },
+    "backtested_at": "2026-07-10T08:52:54.194861+00:00"
+  },
+  {
+    "strategy_id": "PL1067",
+    "idea_id": "PL1067",
+    "created_at": "2026-07-10T08:45:53.610274+00:00",
+    "status": "done",
+    "signal_id": "PL1067_regional_banks_curve_steepening",
+    "name": "Regional banks vs curve steepening (KRE)",
+    "category": "E",
+    "asset_class": "equities/rates",
+    "horizon": "1-3 months",
+    "rule": "Long KRE when the 2s10s curve (FRED T10Y2Y) is steepening (21d change > 0) AND positive (> 0); else flat.",
+    "tickers": [
+      "KRE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "T10Y2Y 21d change > 0",
+      "T10Y2Y > 0 -> long KRE"
+    ],
+    "exit_conditions": [
+      "curve flattening OR inverted -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance KRE, SPY",
+      "fundamental": "FRED T10Y2Y"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * KRE return. Curve regime from T10Y2Y (ffill). SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Regional-bank NIM expands on steepening.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.22198792409237506,
+      "cagr": 0.024990203609839057,
+      "max_dd": -0.6317679329946853,
+      "t_stat": 1.0258903065285634
+    },
+    "backtested_at": "2026-07-10T08:52:54.221859+00:00"
+  },
+  {
+    "strategy_id": "PL1068",
+    "idea_id": "PL1068",
+    "created_at": "2026-07-10T08:45:53.685207+00:00",
+    "status": "done",
+    "signal_id": "PL1068_em_equity_dollar_downtrend",
+    "name": "EM equity vs dollar downtrend (EEM)",
+    "category": "G",
+    "asset_class": "equities/fx",
+    "horizon": "1-3 months",
+    "rule": "Long EEM when the dollar proxy UUP is below its 200d SMA; else flat.",
+    "tickers": [
+      "EEM",
+      "UUP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "UUP < 200d SMA -> long EEM"
+    ],
+    "exit_conditions": [
+      "UUP >= 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EEM, UUP, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * EEM return. Dollar regime from UUP 200d SMA. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "EM inversely geared to USD via funding + terms of trade.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.40100715758725536,
+      "cagr": 0.04765871168165936,
+      "max_dd": -0.3298139442282726,
+      "t_stat": 1.8219524061931993
+    },
+    "backtested_at": "2026-07-10T08:52:54.249085+00:00"
+  },
+  {
+    "strategy_id": "PL1069",
+    "idea_id": "PL1069",
+    "created_at": "2026-07-10T08:45:53.685215+00:00",
+    "status": "done",
+    "signal_id": "PL1069_defensive_sector_leadership_riskoff",
+    "name": "Defensive-sector leadership = risk-off (XLP+XLU+XLV)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "weeks",
+    "rule": "When equal-weight (XLP+XLU+XLV) outperforms SPY over 21d, go defensive (hold cash/0); else hold SPY.",
+    "tickers": [
+      "XLP",
+      "XLU",
+      "XLV",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "21d return of mean(XLP,XLU,XLV) > SPY 21d return -> flat/cash"
+    ],
+    "exit_conditions": [
+      "defensive basket underperforms -> hold SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLP, XLU, XLV, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Regime shifted 1d: defensive-leadership -> 0 return (cash), else SPY return. Position proxy = in-SPY 0/1. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Counter-signal: defensive leadership precedes drawdowns; sidestep by going to cash.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5591910639093802,
+      "cagr": 0.053280367697319475,
+      "max_dd": -0.2904330337794361,
+      "t_stat": 2.584233778965872
+    },
+    "backtested_at": "2026-07-10T08:52:54.276603+00:00"
+  },
+  {
+    "strategy_id": "PL1070",
+    "idea_id": "PL1070",
+    "created_at": "2026-07-10T08:45:53.761598+00:00",
+    "status": "done",
+    "signal_id": "PL1070_hyg_lqd_credit_rollover_defensive",
+    "name": "HYG/LQD credit rollover -> defensive",
+    "category": "F",
+    "asset_class": "credit/equities",
+    "horizon": "weeks",
+    "rule": "When HYG/LQD 63d momentum is negative (credit risk-appetite rolling over), hold cash/0; else hold SPY.",
+    "tickers": [
+      "HYG",
+      "LQD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "HYG/LQD 63d return < 0 -> flat/cash"
+    ],
+    "exit_conditions": [
+      "HYG/LQD 63d return >= 0 -> hold SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance HYG, LQD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Regime shifted 1d: credit-rollover -> 0 return (cash), else SPY return. Position proxy = in-SPY 0/1. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Counter-signal: HY underperforming IG is credit stress preceding equity drawdowns.",
+    "originality": 7,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.47123811445460156,
+      "cagr": 0.049684842285169895,
+      "max_dd": -0.4270934900073877,
+      "t_stat": 2.1696619916966347
+    },
+    "backtested_at": "2026-07-10T08:52:54.304151+00:00"
+  },
+  {
+    "strategy_id": "PL1071",
+    "idea_id": "PL1071",
+    "created_at": "2026-07-10T08:45:53.761605+00:00",
+    "status": "done",
+    "signal_id": "PL1071_oil_gold_reflation_energy",
+    "name": "Oil/gold reflation ratio -> energy (XLE)",
+    "category": "D",
+    "asset_class": "equities/commodities",
+    "horizon": "1-3 months",
+    "rule": "Long XLE when USO/GLD ratio is rising (21d change > 0) AND above its 200d SMA; else flat.",
+    "tickers": [
+      "XLE",
+      "USO",
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "USO/GLD 21d change > 0",
+      "USO/GLD > 200d SMA -> long XLE"
+    ],
+    "exit_conditions": [
+      "ratio falling OR below 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance XLE, USO, GLD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * XLE return. Reflation regime from USO/GLD ratio. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Rising oil/gold = reflationary growth regime favoring energy.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.2641252793425638,
+      "cagr": 0.025121973892280547,
+      "max_dd": -0.2707085705276677,
+      "t_stat": 1.2000376530185133
+    },
+    "backtested_at": "2026-07-10T08:52:54.331269+00:00"
+  },
+  {
+    "strategy_id": "PL1072",
+    "idea_id": "PL1072",
+    "created_at": "2026-07-10T08:45:53.839453+00:00",
+    "status": "done",
+    "signal_id": "PL1072_orange_juice_supply_squeeze",
+    "name": "Orange juice supply squeeze momentum (OJ=F)",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "weeks-months",
+    "rule": "Long OJ futures when 63d momentum > 0 AND price > 200d SMA (supply-shock breakout persistence); else flat.",
+    "tickers": [
+      "OJ=F",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "OJ=F 63d return > 0",
+      "OJ=F > 200d SMA -> long"
+    ],
+    "exit_conditions": [
+      "momentum <= 0 OR below 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance OJ=F, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * OJ=F return. Momentum-breakout overlay. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Thin inventories + inelastic demand make OJ breakouts persist. Futures continuous contract via yfinance.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.33390988996879634,
+      "cagr": 0.05152090211093263,
+      "max_dd": -0.4322466112430665,
+      "t_stat": 1.5175373156309446
+    },
+    "backtested_at": "2026-07-10T08:52:54.358719+00:00"
+  },
+  {
+    "strategy_id": "PL1073",
+    "idea_id": "PL1073",
+    "created_at": "2026-07-10T08:45:53.839458+00:00",
+    "status": "done",
+    "signal_id": "PL1073_treasury_duration_momentum",
+    "name": "Treasury duration momentum (TLT 12-1)",
+    "category": "B",
+    "asset_class": "rates",
+    "horizon": "months",
+    "rule": "Long TLT when its 12-1 month total return (252d return skipping the most recent 21d) is positive AND price > 200d SMA; else flat.",
+    "tickers": [
+      "TLT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "TLT 12-1 momentum > 0",
+      "TLT > 200d SMA -> long"
+    ],
+    "exit_conditions": [
+      "12-1 momentum <= 0 OR below 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance TLT, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * TLT return. 12-1 = px/px.shift(252) skipping last 21d. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Duration trends persist around rate-cycle turns.",
+    "originality": 5,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.14499164026456957,
+      "cagr": 0.009632775744419675,
+      "max_dd": -0.2808450990436253,
+      "t_stat": 0.655332885068484
+    },
+    "backtested_at": "2026-07-10T08:52:54.386284+00:00"
+  },
+  {
+    "strategy_id": "PL1074",
+    "idea_id": "PL1074",
+    "created_at": "2026-07-10T08:45:53.916997+00:00",
+    "status": "done",
+    "signal_id": "PL1074_gold_vs_falling_real_yields",
+    "name": "Gold vs falling real yields (GLD/DFII10)",
+    "category": "D",
+    "asset_class": "commodities/rates",
+    "horizon": "1-3 months",
+    "rule": "Long GLD when the 10y real yield (FRED DFII10) is falling (21d change < 0); else flat.",
+    "tickers": [
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "DFII10 21d change < 0 -> long GLD"
+    ],
+    "exit_conditions": [
+      "DFII10 21d change >= 0 -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GLD, SPY",
+      "fundamental": "FRED DFII10"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * GLD return. Real-yield direction from DFII10 (ffill). SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Gold's opportunity cost is the real yield; falling real yields = tailwind.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.652266036538774,
+      "cagr": 0.07797424270637765,
+      "max_dd": -0.31548054485786603,
+      "t_stat": 3.014368492785587
+    },
+    "backtested_at": "2026-07-10T08:52:54.413604+00:00"
+  },
+  {
+    "strategy_id": "PL1075",
+    "idea_id": "PL1075",
+    "created_at": "2026-07-10T08:45:53.917003+00:00",
+    "status": "done",
+    "signal_id": "PL1075_palladium_platinum_substitution",
+    "name": "Palladium/platinum substitution reversion",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "rule": "When PALL/PPLT ratio is in its trailing 3y top 20th percentile (stretched high), go long PPLT / short PALL (dollar-neutral); else flat.",
+    "tickers": [
+      "PALL",
+      "PPLT",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "PALL/PPLT >= 3y rolling 80th pct -> long PPLT, short PALL"
+    ],
+    "exit_conditions": [
+      "ratio falls below 3y 50th pct -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance PALL, PPLT, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day pos * (PPLT ret - PALL ret)/2 (dollar-neutral pair). Position 1 in stretched regime. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Autocatalyst substitution pulls a stretched ratio back toward platinum.",
+    "originality": 8,
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.2785372676408304,
+      "cagr": -0.026840899276555197,
+      "max_dd": -0.6183156431669712,
+      "t_stat": -1.197262903704986
+    },
+    "backtested_at": "2026-07-10T08:52:54.440383+00:00"
+  },
+  {
+    "strategy_id": "PL1076",
+    "idea_id": "PL1076",
+    "created_at": "2026-07-10T08:45:53.996133+00:00",
+    "status": "done",
+    "signal_id": "PL1076_junior_senior_gold_miner",
+    "name": "Junior/senior gold-miner risk appetite (GDXJ/GDX)",
+    "category": "D",
+    "asset_class": "equities/commodities",
+    "horizon": "1-3 months",
+    "rule": "Long GDXJ when GDXJ/GDX 63d momentum > 0 AND GLD > 200d SMA (risk appetite rising in a gold uptrend); else flat.",
+    "tickers": [
+      "GDXJ",
+      "GDX",
+      "GLD",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "GDXJ/GDX 63d return > 0",
+      "GLD > 200d SMA -> long GDXJ"
+    ],
+    "exit_conditions": [
+      "momentum <= 0 OR gold downtrend -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance GDXJ, GDX, GLD, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * GDXJ return. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Juniors higher-beta than seniors; ratio momentum = complex risk appetite.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.17582415998725123,
+      "cagr": -0.062070441169371215,
+      "max_dd": -0.8669853615921536,
+      "t_stat": -0.7988467170588265
+    },
+    "backtested_at": "2026-07-10T08:52:54.468226+00:00"
+  },
+  {
+    "strategy_id": "PL1077",
+    "idea_id": "PL1077",
+    "created_at": "2026-07-10T08:45:53.996139+00:00",
+    "status": "done",
+    "signal_id": "PL1077_copper_miner_operating_leverage",
+    "name": "Copper-miner operating leverage (COPX/CPER)",
+    "category": "D",
+    "asset_class": "equities/commodities",
+    "horizon": "1-3 months",
+    "rule": "Long COPX when CPER (copper) > its 200d SMA AND COPX/CPER 63d momentum > 0; else flat.",
+    "tickers": [
+      "COPX",
+      "CPER",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "CPER > 200d SMA",
+      "COPX/CPER 63d return > 0 -> long COPX"
+    ],
+    "exit_conditions": [
+      "copper downtrend OR momentum <= 0 -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance COPX, CPER, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * COPX return. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Copper miners re-rate non-linearly to the metal.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.35435511633190114,
+      "cagr": 0.044685225288284336,
+      "max_dd": -0.3560163321973464,
+      "t_stat": 1.6099916039710536
+    },
+    "backtested_at": "2026-07-10T08:52:54.495486+00:00"
+  },
+  {
+    "strategy_id": "PL1078",
+    "idea_id": "PL1078",
+    "created_at": "2026-07-10T08:45:54.073809+00:00",
+    "status": "done",
+    "signal_id": "PL1078_nucor_steel_spread_momentum",
+    "name": "Nucor steel-spread momentum (NUE)",
+    "category": "C",
+    "asset_class": "equities",
+    "horizon": "1-3 months",
+    "rule": "Long NUE on a 63d total-return breakout (63d return > 0) while price > 200d SMA; else flat.",
+    "tickers": [
+      "NUE",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NUE 63d return > 0",
+      "NUE > 200d SMA -> long"
+    ],
+    "exit_conditions": [
+      "momentum <= 0 OR below 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NUE, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * NUE return. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "NUE earnings track the steel metal spread; equity momentum proxy.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.1740815154925129,
+      "cagr": 0.013306898897891939,
+      "max_dd": -0.6960698253396165,
+      "t_stat": 0.7909291144169411
+    },
+    "backtested_at": "2026-07-10T08:52:54.522176+00:00"
+  },
+  {
+    "strategy_id": "PL1079",
+    "idea_id": "PL1079",
+    "created_at": "2026-07-10T08:45:54.073818+00:00",
+    "status": "done",
+    "signal_id": "PL1079_dividend_aristocrat_defensive",
+    "name": "Dividend-aristocrat defensive rotation (NOBL)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "weeks-months",
+    "rule": "When NOBL outperforms SPY over 63d (quality/defensive leadership), go defensive (hold NOBL); else hold SPY.",
+    "tickers": [
+      "NOBL",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "NOBL 63d return > SPY 63d return -> hold NOBL"
+    ],
+    "exit_conditions": [
+      "NOBL underperforms -> hold SPY"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance NOBL, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Regime shifted 1d: defensive-leadership -> NOBL return, else SPY return. Position proxy = in-NOBL 0/1. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Counter-signal: aristocrat leadership is a late-cycle risk-off tell.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.5983862216041711,
+      "cagr": 0.09775228428776428,
+      "max_dd": -0.5518942501307669,
+      "t_stat": 2.7550739245108447
+    },
+    "backtested_at": "2026-07-10T08:52:54.549421+00:00"
+  },
+  {
+    "strategy_id": "PL1080",
+    "idea_id": "PL1080",
+    "created_at": "2026-07-10T08:45:54.151471+00:00",
+    "status": "done",
+    "signal_id": "PL1080_mortgage_reit_curve_steepening",
+    "name": "Mortgage REITs vs curve steepening (REM)",
+    "category": "E",
+    "asset_class": "equities/rates",
+    "horizon": "1-3 months",
+    "rule": "Long REM when the 2s10s curve (FRED T10Y2Y) is steepening (21d change > 0); else flat.",
+    "tickers": [
+      "REM",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "T10Y2Y 21d change > 0 -> long REM"
+    ],
+    "exit_conditions": [
+      "curve flattening -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance REM, SPY",
+      "fundamental": "FRED T10Y2Y"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * REM return. Curve regime from T10Y2Y (ffill). SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "mREIT spread widens on steepening (long assets vs short funding).",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": -0.09003856978120703,
+      "cagr": -0.04359168131214852,
+      "max_dd": -0.8633397577342561,
+      "t_stat": -0.41610234579155964
+    },
+    "backtested_at": "2026-07-10T08:52:54.576886+00:00"
+  },
+  {
+    "strategy_id": "PL1081",
+    "idea_id": "PL1081",
+    "created_at": "2026-07-10T08:45:54.151478+00:00",
+    "status": "done",
+    "signal_id": "PL1081_silver_miner_leverage",
+    "name": "Silver-miner leverage to silver (SIL/SLV)",
+    "category": "D",
+    "asset_class": "equities/commodities",
+    "horizon": "1-3 months",
+    "rule": "Long SIL when SIL/SLV 63d momentum > 0 AND SLV > its 200d SMA; else flat.",
+    "tickers": [
+      "SIL",
+      "SLV",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SIL/SLV 63d return > 0",
+      "SLV > 200d SMA -> long SIL"
+    ],
+    "exit_conditions": [
+      "momentum <= 0 OR silver downtrend -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SIL, SLV, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * SIL return. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Silver miners high-beta to silver; miner leverage repricing.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.34397382312016495,
+      "cagr": 0.04686748039390798,
+      "max_dd": -0.48671906211627847,
+      "t_stat": 1.5628248095918176
+    },
+    "backtested_at": "2026-07-10T08:52:54.604545+00:00"
+  },
+  {
+    "strategy_id": "PL1082",
+    "idea_id": "PL1082",
+    "created_at": "2026-07-10T08:45:54.229532+00:00",
+    "status": "done",
+    "signal_id": "PL1082_em_sovereign_bonds_dollar",
+    "name": "EM sovereign bonds vs dollar (EMB)",
+    "category": "G",
+    "asset_class": "credit/fx",
+    "horizon": "1-3 months",
+    "rule": "Long EMB when the dollar proxy UUP is below its 200d SMA; else flat.",
+    "tickers": [
+      "EMB",
+      "UUP",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "UUP < 200d SMA -> long EMB"
+    ],
+    "exit_conditions": [
+      "UUP >= 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EMB, UUP, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * EMB return. Dollar regime from UUP 200d SMA. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "USD-denominated EM sovereigns rally on dollar weakness (lower FX/default premium).",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.4722283827305538,
+      "cagr": 0.02127261860677021,
+      "max_dd": -0.19554478413992038,
+      "t_stat": 2.145541848592679
+    },
+    "backtested_at": "2026-07-10T08:52:54.631567+00:00"
+  },
+  {
+    "strategy_id": "PL1083",
+    "idea_id": "PL1083",
+    "created_at": "2026-07-10T08:45:54.229543+00:00",
+    "status": "done",
+    "signal_id": "PL1083_semis_relative_weakness_riskoff",
+    "name": "Semis relative weakness -> risk-off (SOXX)",
+    "category": "F",
+    "asset_class": "equities",
+    "horizon": "weeks",
+    "rule": "When SOXX/SPY 63d momentum turns negative (semis leadership rolling over), go defensive (hold cash/0); else hold SOXX. Counter to crowded long-semis.",
+    "tickers": [
+      "SOXX",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "SOXX/SPY 63d return < 0 -> flat/cash"
+    ],
+    "exit_conditions": [
+      "SOXX/SPY 63d return >= 0 -> hold SOXX"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance SOXX, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Regime shifted 1d: semis-weakness -> 0 (cash), else SOXX return. Position proxy = in-SOXX 0/1. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Counter-signal (long_semis): semis lead the tech cycle; rollover = growth engine stalling.",
+    "originality": 6,
+    "bt_feasibility": 5,
+    "counter_signal": true,
+    "counters": "long_semis",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.7562777155331801,
+      "cagr": 0.155223039483676,
+      "max_dd": -0.3393001763527611,
+      "t_stat": 3.482033740964684
+    },
+    "backtested_at": "2026-07-10T08:52:54.658094+00:00"
+  },
+  {
+    "strategy_id": "PL1084",
+    "idea_id": "PL1084",
+    "created_at": "2026-07-10T08:45:54.308302+00:00",
+    "status": "done",
+    "signal_id": "PL1084_japan_equity_yen_weakness",
+    "name": "Japan equity on yen weakness (EWJ/FXY)",
+    "category": "G",
+    "asset_class": "equities/fx",
+    "horizon": "1-3 months",
+    "rule": "Long EWJ when the yen proxy FXY is below its 200d SMA (weak yen lifts exporter earnings); else flat.",
+    "tickers": [
+      "EWJ",
+      "FXY",
+      "SPY"
+    ],
+    "entry_conditions": [
+      "FXY < 200d SMA -> long EWJ"
+    ],
+    "exit_conditions": [
+      "FXY >= 200d SMA -> flat"
+    ],
+    "data_sources_concrete": {
+      "prices": "yfinance EWJ, FXY, SPY",
+      "fundamental": "none"
+    },
+    "backtest_approach": "Daily PnL = prior-day position * EWJ return. Yen regime from FXY 200d SMA. SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "Weak yen lifts translated exporter earnings.",
+    "originality": 6,
+    "bt_feasibility": 4,
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.09203033487595107,
+      "cagr": 0.0038173778115899726,
+      "max_dd": -0.4132029114700847,
+      "t_stat": 0.41813440707357075
+    },
+    "backtested_at": "2026-07-10T08:52:54.685318+00:00"
+  },
+  {
+    "strategy_id": "PL1085",
+    "idea_id": "PL1085",
+    "created_at": "2026-07-10T09:19:36.081223+00:00",
+    "status": "done",
+    "signal_id": "PL1085_spx_options_skew_hy_oas_diverg",
+    "name": "SPX Options Skew & HY OAS Divergence Short SPY",
+    "category": "F",
+    "asset_class": "multi_asset",
+    "horizon": "1-4 weeks",
+    "rule": "This strategy initiates a short position in SPY when SPX options skew indicates complacency while high-yield corporate bond spreads simultaneously signal increasing credit risk. Entry: Enter short SPY at the next day's market open if on the current day both of the following conditions are met: (1) The CBOE SKEW Index (^SKEW) closes below its 20-day Simple Moving Average AND closes below 120. (2) The ICE BofA US High Yield Index Option-Adjusted Spread (FRED: BAMLH0A0HYM2) closes above its 50-day Simple Moving Average AND increases by at least 5 basis points from the previous day's close. Exit: Exit the SPY position at the next day's market open if any of the following conditions are met: (1) SPY declines by 2% from the entry price (profit target). (2) SPY increases by 1% from the entry price (stop loss). (3) The trade has been open for 20 trading days (time stop). (4) The CBOE SKEW Index (^SKEW) closes above 125 OR the ICE BofA US High Yield Index Option-Adjusted Spread (FRED: BAMLH0A0HYM2) closes below its 50-day Simple Moving Average (reverse signal).",
+    "tickers": [
+      "SPY",
+      "^SKEW"
+    ],
+    "entry_conditions": [
+      "CBOE SKEW Index (^SKEW) closes below its 20-day Simple Moving Average AND closes below 120.",
+      "ICE BofA US High Yield Index Option-Adjusted Spread (FRED: BAMLH0A0HYM2) closes above its 50-day Simple Moving Average AND increases by at least 5 basis points from the previous day's close.",
+      "Both conditions must be met concurrently. Enter short SPY at the next day's market open."
+    ],
+    "exit_conditions": [
+      "SPY declines by 2% from entry price (profit target).",
+      "SPY increases by 1% from entry price (stop loss).",
+      "Trade has been open for 20 trading days (time stop).",
+      "CBOE SKEW Index (^SKEW) closes above 125 OR FRED: BAMLH0A0HYM2 closes below its 50-day Simple Moving Average (reverse signal).",
+      "Exit SPY position at the next day's market open after any exit condition is met."
+    ],
+    "data_sources_concrete": {
+      "prices": "SPY, ^SKEW (both via yfinance)",
+      "fundamental": "BAMLH0A0HYM2 (via FRED)"
+    },
+    "backtest_approach": "Simulate daily PnL by entering a short SPY position at the open of the day following an entry signal. Track position using daily close prices. Exit position at the open of the day following an exit signal. Calculate cumulative returns, max drawdown, Sharpe ratio, and other standard performance metrics for the strategy. Compare performance against a long SPY benchmark.",
+    "known_events": [],
+    "implementation_notes": "The CBOE SKEW Index (^SKEW) is used as a proxy for SPX options put/call skew, as direct skew data is not readily available via yfinance. This strategy targets SPY directly as it is explicitly defined as a counter-signal to 'long_SPY'.",
+    "originality": 7,
+    "bt_feasibility": 4,
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "backtest_result": {
+      "status": "ok",
+      "sharpe": 0.006162641855821469,
+      "cagr": -0.0005433222617090561,
+      "max_dd": -0.10629642339450496,
+      "t_stat": 0.024866657770068332
+    },
+    "backtested_at": "2026-07-10T09:25:19.013034+00:00"
   }
 ]

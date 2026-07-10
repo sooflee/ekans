@@ -1,0 +1,50 @@
+"""PL1064_gold_miner_leverage_momentum Gold-miner leverage momentum (GDX/GLD).
+
+Miners carry operating leverage to the metal; positive GDX/GLD momentum in a gold uptrend signals the leverage is re-rating higher.
+"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import numpy as np
+import pandas as pd
+from harness import (load_prices, load_fred, compute_metrics, save_result,
+                     mark_failed, daily_returns)
+
+
+def main():
+    sid = "PL1064_gold_miner_leverage_momentum"
+    try:
+        px = load_prices(['GDX', 'GLD', 'SPY'], start="2005-01-01")
+    except Exception as e:
+        return mark_failed(sid, f"data load: {e}")
+
+    px = px.dropna(how="all").sort_index()
+    rets = daily_returns(px)
+    spy_r = rets["SPY"]
+
+    # --- regime ---
+    ratio = px['GDX'] / px['GLD']
+    regime = (ratio.pct_change(63) > 0) & (px['GLD'] > px['GLD'].rolling(200).mean())
+
+    pos = regime.shift(1).fillna(False).astype(float)
+    asset_r = rets['GDX']
+    pnl = (pos * asset_r).reindex(px.index).fillna(0.0)
+
+    pnl = pnl.iloc[210:]
+    pos = pos.reindex(pnl.index).fillna(0.0)
+    if len(pnl.loc[lambda s: s != 0]) < 30 or len(pnl) < 252:
+        return mark_failed(sid, f"insufficient post-warmup/active data: {len(pnl)} days")
+
+    spy_bench = spy_r.reindex(pnl.index)
+    m = compute_metrics(pnl, benchmark=spy_bench, name='Gold-miner leverage momentum (GDX/GLD)', positions=pos)
+    save_result(sid, m, extra={
+        "rule": 'GDX/GLD 63d momentum > 0 AND GLD > 200d SMA -> long GDX, else flat.',
+        "mechanism": 'Miners carry operating leverage to the metal; positive GDX/GLD momentum in a gold uptrend signals the leverage is re-rating higher.',
+        "source": 'Gold-miner operating-leverage literature.',
+        "active_frac_check": float((pos != 0).mean()),
+    }, pnl=pnl)
+
+
+if __name__ == "__main__":
+    main()

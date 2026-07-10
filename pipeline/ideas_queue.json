@@ -31612,5 +31612,723 @@
     "status": "developed",
     "created_at": "2026-06-13T00:42:17.760583+00:00",
     "claimed_at": "2026-06-13T00:42:56.101158+00:00"
+  },
+  {
+    "name": "Stock-bond correlation regime flip \u2192 defensive",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "2-8 weeks",
+    "thesis": "When the rolling 60d correlation between SPY and TLT daily returns turns positive and rising, bonds stop hedging equities \u2014 the diversification breakdown that marks rate-driven / liquidity-stress regimes (2022, 1970s) where 60/40 fails. Rotate defensive (long gold, reduce SPY) precisely when trend signals say stay long.",
+    "causal_chain": [
+      "Inflation/rate-vol becomes the dominant macro driver",
+      "Bonds and equities start selling off together \u2192 60d SPY-TLT return correlation crosses from negative to positive",
+      "The standard 60/40 hedge stops working; risk-parity and vol-target funds de-gross both legs",
+      "Forced de-grossing amplifies equity drawdown that pure trend-following long signals miss",
+      "Long gold / cut SPY captures the regime the bull signals structurally cannot"
+    ],
+    "data_sources": [
+      "yfinance SPY",
+      "yfinance TLT",
+      "yfinance GLD"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Diversification breakdown literature; 2022 60/40 drawdown; AQR 'stock-bond correlation' notes",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "spy_tlt_correlation_flip_positive_defensive_gold",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1062",
+    "status": "developed",
+    "created_at": "2026-06-18T17:56:40.479575+00:00",
+    "claimed_at": "2026-06-18T17:57:08.006412+00:00"
+  },
+  {
+    "name": "Platinum-gold ratio extreme discount mean-reversion",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "Platinum has historically traded near or above gold but sits at a deep multi-decade discount. When the platinum/gold ratio is in its bottom decile and starts turning up, long platinum (PPLT) \u2014 substitution back into platinum auto-catalysts and South African supply deficits drive mean-reversion.",
+    "causal_chain": [
+      "Diesel pessimism + EV narrative push platinum to extreme discount vs gold (ratio bottom decile)",
+      "Palladium scarcity drives catalytic-converter substitution toward platinum",
+      "South African mine power constraints (Eskom) tighten platinum supply into deficit",
+      "Ratio mean-reverts; platinum outperforms gold over the next 1-3 months"
+    ],
+    "data_sources": [
+      "yfinance PPLT",
+      "yfinance GLD"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "WPIC platinum supply/demand balances; Pt/Au ratio history",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "platinum_gold_ratio_bottom_decile_reversion_pplt",
+    "idea_id": "PL1063",
+    "status": "developed",
+    "created_at": "2026-06-18T17:56:40.479939+00:00",
+    "claimed_at": "2026-06-18T17:57:08.006667+00:00"
+  },
+  {
+    "name": "Gold-miner leverage momentum (GDX/GLD)",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-2 months",
+    "thesis": "When gold miners (GDX) outperform the metal (GLD) over the trailing 63 days while gold is above its 200d SMA, the operating-leverage repricing tends to continue \u2014 miners lag the metal then re-rate violently. Long GDX on positive GDX/GLD momentum in a gold uptrend.",
+    "causal_chain": [
+      "Gold price rises and holds above its 200d SMA (durable uptrend)",
+      "Miner margins (gold price minus ~flat AISC) expand non-linearly \u2192 operating leverage",
+      "GDX/GLD ratio momentum turns positive as the market starts repricing miner earnings",
+      "Momentum persists 1-2 months as estimates are revised up; long GDX captures the catch-up"
+    ],
+    "data_sources": [
+      "yfinance GDX",
+      "yfinance GLD"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Gold-miner operating-leverage / AISC margin literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gdx_gld_ratio_momentum_gold_uptrend_long_gdx",
+    "idea_id": "PL1064",
+    "status": "developed",
+    "created_at": "2026-06-18T17:56:40.479956+00:00",
+    "claimed_at": "2026-07-10T08:45:53.514979+00:00"
+  },
+  {
+    "name": "REIT vs real-yield regime",
+    "category": "C",
+    "asset_class": "sector_etf",
+    "horizon": "1-3 months",
+    "thesis": "REITs are long-duration cash-flow assets; when the 10y real yield (FRED DFII10) is falling and below its 200d, the discount-rate tailwind drives VNQ outperformance.",
+    "causal_chain": [
+      "10y real yield (DFII10) falls and crosses below its 200d average",
+      "REIT cap-rate spreads widen vs falling discount rate -> NAVs re-rate up",
+      "VNQ outperforms as duration-sensitive cash flows are repriced"
+    ],
+    "data_sources": [
+      "FRED DFII10",
+      "yfinance VNQ",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "REIT duration / discount-rate sensitivity literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "vnq_real_yield_falling_long",
+    "idea_id": "PL1065",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438283+00:00",
+    "claimed_at": "2026-07-10T08:45:53.515124+00:00"
+  },
+  {
+    "name": "High-beta/low-vol momentum rollover -> defensive",
+    "category": "C",
+    "asset_class": "sector_etf",
+    "horizon": "2-6 weeks",
+    "thesis": "The SPHB/SPLV ratio measures risk appetite. When its 63d momentum turns negative, leadership rotates defensive ahead of broad drawdowns - rotate to SPLV when trend-long signals still say long.",
+    "causal_chain": [
+      "Risk appetite peaks; high-beta stops leading low-vol",
+      "SPHB/SPLV 63d momentum turns negative",
+      "Defensive leadership precedes index weakness",
+      "Hold SPLV (low-vol) to capture the rotation"
+    ],
+    "data_sources": [
+      "yfinance SPHB",
+      "yfinance SPLV",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Low-vol anomaly; defensive-rotation leadership studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sphb_splv_momentum_rollover_defensive",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1066",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438500+00:00",
+    "claimed_at": "2026-07-10T08:45:53.597089+00:00"
+  },
+  {
+    "name": "Regional banks vs curve steepening",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-3 months",
+    "thesis": "Regional-bank net interest margins expand when the 2s10s curve (FRED T10Y2Y) steepens. Long KRE when the curve is steepening and positive.",
+    "causal_chain": [
+      "2s10s (T10Y2Y) steepens and turns positive",
+      "NIM expands: banks fund short, lend long",
+      "Regional-bank earnings estimates revised up",
+      "KRE outperforms"
+    ],
+    "data_sources": [
+      "FRED T10Y2Y",
+      "yfinance KRE",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Bank NIM / yield-curve sensitivity",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "kre_yield_curve_steepening_long",
+    "idea_id": "PL1067",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438502+00:00",
+    "claimed_at": "2026-07-10T08:45:53.597093+00:00"
+  },
+  {
+    "name": "EM equity vs dollar downtrend",
+    "category": "C",
+    "asset_class": "fx",
+    "horizon": "1-3 months",
+    "thesis": "EM equities are inversely geared to the dollar via funding costs and commodity terms-of-trade. Long EEM when UUP (dollar proxy) is below its 200d.",
+    "causal_chain": [
+      "Dollar (UUP) downtrend: below 200d",
+      "EM funding costs ease; commodity exporters' terms-of-trade improve",
+      "Capital flows rotate into EM",
+      "EEM outperforms"
+    ],
+    "data_sources": [
+      "yfinance UUP",
+      "yfinance EEM",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Dollar-EM inverse relationship literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "eem_dollar_downtrend_long",
+    "idea_id": "PL1068",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438503+00:00",
+    "claimed_at": "2026-07-10T08:45:53.672377+00:00"
+  },
+  {
+    "name": "Defensive-sector leadership = risk-off tell",
+    "category": "C",
+    "asset_class": "multi-asset",
+    "horizon": "2-6 weeks",
+    "thesis": "When staples+utilities+healthcare (XLP+XLU+XLV) collectively outperform SPY over 21d, defensive leadership signals a risk-off regime the bull signals miss - rotate to cash/defensive.",
+    "causal_chain": [
+      "Late-cycle caution: defensives bid",
+      "(XLP+XLU+XLV)/SPY 21d relative return turns positive",
+      "Breadth deteriorates under the surface",
+      "Reduce SPY / hold defensives ahead of drawdown"
+    ],
+    "data_sources": [
+      "yfinance XLP",
+      "yfinance XLU",
+      "yfinance XLV",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Sector-rotation / defensive-leadership regime studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "defensive_sector_leadership_riskoff",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1069",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438505+00:00",
+    "claimed_at": "2026-07-10T08:45:53.672381+00:00"
+  },
+  {
+    "name": "HYG/LQD credit-quality rollover -> defensive",
+    "category": "C",
+    "asset_class": "rates_bonds",
+    "horizon": "2-8 weeks",
+    "thesis": "The HYG/LQD ratio is a pure credit-risk-appetite gauge. When it rolls over (63d momentum negative), high-yield is underperforming investment-grade - credit stress that precedes equity drawdowns. Go defensive.",
+    "causal_chain": [
+      "Credit investors de-risk: HY underperforms IG",
+      "HYG/LQD 63d momentum turns negative",
+      "Credit leads equity at regime turns",
+      "Reduce SPY / rotate to IG+cash"
+    ],
+    "data_sources": [
+      "yfinance HYG",
+      "yfinance LQD",
+      "yfinance SPY"
+    ],
+    "originality": 7,
+    "bt_feasibility": 5,
+    "source_reference": "Credit-leads-equity / HY-IG relative literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hyg_lqd_credit_quality_rollover_defensive",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1070",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438506+00:00",
+    "claimed_at": "2026-07-10T08:45:53.748378+00:00"
+  },
+  {
+    "name": "Oil/gold reflation ratio -> energy",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "A rising oil/gold ratio (USO/GLD) marks reflationary, growth-positive regimes that favor energy equities. Long XLE when the ratio is rising and above its 200d.",
+    "causal_chain": [
+      "Oil/gold ratio (USO/GLD) rises above 200d",
+      "Signals reflation / real-growth demand over safe-haven bid",
+      "Energy earnings leverage to crude expands",
+      "XLE outperforms"
+    ],
+    "data_sources": [
+      "yfinance USO",
+      "yfinance GLD",
+      "yfinance XLE",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Oil/gold ratio as reflation/growth proxy",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "oil_gold_ratio_reflation_long_xle",
+    "idea_id": "PL1071",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438507+00:00",
+    "claimed_at": "2026-07-10T08:45:53.748384+00:00"
+  },
+  {
+    "name": "Orange juice supply squeeze",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "OJ futures (OJ=F) spike on Florida/Brazil citrus-greening and hurricane supply shocks. Momentum breakouts in OJ persist as inventories are thin and demand is inelastic.",
+    "causal_chain": [
+      "Citrus greening + hurricane damage cut Florida/Brazil supply",
+      "Thin cold-storage inventories amplify the shock",
+      "OJ=F breaks out above its 50d high",
+      "Momentum persists 1-3 months as supply is slow to recover"
+    ],
+    "data_sources": [
+      "yfinance OJ=F",
+      "yfinance SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USDA citrus crop forecasts; FCOJ supply history",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "orange_juice_supply_squeeze_long",
+    "idea_id": "PL1072",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438508+00:00",
+    "claimed_at": "2026-07-10T08:45:53.825817+00:00"
+  },
+  {
+    "name": "Treasury duration momentum",
+    "category": "C",
+    "asset_class": "rates_bonds",
+    "horizon": "1-3 months",
+    "thesis": "Long-duration Treasuries trend persistently around rate-cycle turns. Long TLT when its 12-1 month total return (skip recent month) is positive and price is above 200d.",
+    "causal_chain": [
+      "Rate-cycle inflection establishes a directional trend in long yields",
+      "TLT 12-1 momentum positive and price above 200d",
+      "Trend persists as the cycle plays out",
+      "Long TLT captures the duration trend"
+    ],
+    "data_sources": [
+      "yfinance TLT",
+      "yfinance SPY"
+    ],
+    "originality": 5,
+    "bt_feasibility": 5,
+    "source_reference": "Time-series momentum (Moskowitz/Ooi/Pedersen) applied to bonds",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "tlt_duration_momentum_trend",
+    "idea_id": "PL1073",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438509+00:00",
+    "claimed_at": "2026-07-10T08:45:53.825821+00:00"
+  },
+  {
+    "name": "Gold vs falling real yields",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "Gold's opportunity cost is the real yield. When the 10y real yield (FRED DFII10) is falling, the carry headwind reverses and GLD trends higher.",
+    "causal_chain": [
+      "10y real yield (DFII10) falls (21d change negative)",
+      "Opportunity cost of holding non-yielding gold drops",
+      "ETF + central-bank demand picks up",
+      "GLD trends higher"
+    ],
+    "data_sources": [
+      "FRED DFII10",
+      "yfinance GLD",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Gold-real-yield inverse relationship",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gld_real_yield_falling_long",
+    "idea_id": "PL1074",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438510+00:00",
+    "claimed_at": "2026-07-10T08:45:53.903384+00:00"
+  },
+  {
+    "name": "Palladium/platinum substitution ratio",
+    "category": "D",
+    "asset_class": "commodities",
+    "horizon": "1-3 months",
+    "thesis": "When the palladium/platinum ratio (PALL/PPLT) is stretched high, autocatalyst substitution toward cheaper platinum pulls the ratio back - long PPLT / short PALL on extreme readings.",
+    "causal_chain": [
+      "Palladium trades at a large premium to platinum (ratio top decile)",
+      "Automakers substitute platinum for palladium in gasoline catalysts",
+      "Palladium demand softens; platinum tightens",
+      "Ratio mean-reverts: long PPLT vs PALL"
+    ],
+    "data_sources": [
+      "yfinance PALL",
+      "yfinance PPLT",
+      "yfinance SPY"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "WPIC/Johnson-Matthey PGM substitution reports",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "palladium_platinum_ratio_substitution",
+    "idea_id": "PL1075",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438511+00:00",
+    "claimed_at": "2026-07-10T08:45:53.903388+00:00"
+  },
+  {
+    "name": "Junior/senior gold-miner risk appetite",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-2 months",
+    "thesis": "Juniors (GDXJ) are higher-beta to gold than seniors (GDX). When GDXJ/GDX 63d momentum is positive in a gold uptrend, risk appetite in the complex is rising - long GDXJ.",
+    "causal_chain": [
+      "Gold above 200d (durable uptrend)",
+      "Risk appetite rotates down the quality curve into juniors",
+      "GDXJ/GDX 63d momentum turns positive",
+      "GDXJ outperforms as leverage is repriced"
+    ],
+    "data_sources": [
+      "yfinance GDXJ",
+      "yfinance GDX",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Mining beta / risk-appetite-within-sector studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "gdxj_gdx_risk_appetite_momentum",
+    "idea_id": "PL1076",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438512+00:00",
+    "claimed_at": "2026-07-10T08:45:53.982810+00:00"
+  },
+  {
+    "name": "Copper-miner operating leverage",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-2 months",
+    "thesis": "Copper miners (COPX) re-rate non-linearly to the copper price. Long COPX when copper (CPER) is above its 200d and COPX/CPER 63d momentum is positive.",
+    "causal_chain": [
+      "Copper (CPER) above 200d (durable uptrend)",
+      "Miner margins (price minus ~flat C1 cost) expand via operating leverage",
+      "COPX/CPER momentum positive as earnings repriced",
+      "COPX outperforms"
+    ],
+    "data_sources": [
+      "yfinance COPX",
+      "yfinance CPER",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Copper-miner operating-leverage / margin literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "copx_copper_leverage_momentum",
+    "idea_id": "PL1077",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438513+00:00",
+    "claimed_at": "2026-07-10T08:45:53.982814+00:00"
+  },
+  {
+    "name": "Nucor steel-spread momentum",
+    "category": "D",
+    "asset_class": "single_name_equity",
+    "horizon": "1-3 months",
+    "thesis": "Nucor's (NUE) earnings track the steel metal spread; the equity has momentum when steel-equity leadership turns up. Long NUE on a 63d total-return breakout while above 200d.",
+    "causal_chain": [
+      "HRC steel prices and metal spreads firm",
+      "Mini-mill margins expand (Nucor is low-cost EAF)",
+      "NUE 63d total return breaks out above 200d",
+      "Momentum persists as estimates revise up"
+    ],
+    "data_sources": [
+      "yfinance NUE",
+      "yfinance SLX",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Steel metal-spread / mini-mill margin economics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nucor_steel_spread_momentum_nue",
+    "idea_id": "PL1078",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438514+00:00",
+    "claimed_at": "2026-07-10T08:45:54.060273+00:00"
+  },
+  {
+    "name": "Dividend-aristocrat defensive rotation",
+    "category": "C",
+    "asset_class": "sector_etf",
+    "horizon": "2-8 weeks",
+    "thesis": "When dividend aristocrats (NOBL) outperform SPY over 63d, quality/defensive leadership is asserting itself - a late-cycle risk-off tell against broad long-SPY exposure.",
+    "causal_chain": [
+      "Quality/low-volatility factor bid late-cycle",
+      "NOBL/SPY 63d relative return turns positive",
+      "Defensive leadership precedes broad weakness",
+      "Tilt defensive / reduce SPY beta"
+    ],
+    "data_sources": [
+      "yfinance NOBL",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Quality-factor / dividend defensiveness studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "nobl_spy_defensive_rotation",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1079",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438515+00:00",
+    "claimed_at": "2026-07-10T08:45:54.060278+00:00"
+  },
+  {
+    "name": "Mortgage REITs vs curve steepening",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-3 months",
+    "thesis": "Mortgage REITs (REM) earn the spread between long mortgage assets and short funding; a steepening 2s10s (T10Y2Y) widens that spread. Long REM when the curve steepens.",
+    "causal_chain": [
+      "2s10s (T10Y2Y) steepens",
+      "mREIT net interest spread widens (borrow short, hold long MBS)",
+      "Book values stabilize; dividends covered",
+      "REM outperforms"
+    ],
+    "data_sources": [
+      "FRED T10Y2Y",
+      "yfinance REM",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "mREIT spread / curve sensitivity",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "rem_mortgage_reit_steepening",
+    "idea_id": "PL1080",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438519+00:00",
+    "claimed_at": "2026-07-10T08:45:54.137628+00:00"
+  },
+  {
+    "name": "Silver-miner leverage to silver",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "1-2 months",
+    "thesis": "Silver miners (SIL) are high-beta to silver (SLV). When SIL/SLV 63d momentum is positive while silver is above 200d, miner leverage is being repriced - long SIL.",
+    "causal_chain": [
+      "Silver (SLV) above 200d",
+      "Miner margins expand via operating leverage to silver price",
+      "SIL/SLV 63d momentum positive",
+      "SIL outperforms"
+    ],
+    "data_sources": [
+      "yfinance SIL",
+      "yfinance SLV",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Precious-metal miner beta literature",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "sil_slv_silver_miner_leverage",
+    "idea_id": "PL1081",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438520+00:00",
+    "claimed_at": "2026-07-10T08:45:54.137632+00:00"
+  },
+  {
+    "name": "EM sovereign bonds vs dollar",
+    "category": "C",
+    "asset_class": "rates_bonds",
+    "horizon": "1-3 months",
+    "thesis": "Dollar-denominated EM sovereign bonds (EMB) rally when the dollar weakens (lower default/FX risk premium). Long EMB when UUP is below its 200d.",
+    "causal_chain": [
+      "Dollar (UUP) downtrend below 200d",
+      "EM external-debt service eases; spreads compress",
+      "Carry + spread compression lift EMB total return",
+      "Long EMB"
+    ],
+    "data_sources": [
+      "yfinance UUP",
+      "yfinance EMB",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "EM sovereign spread / dollar sensitivity",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "emb_em_bond_dollar_downtrend",
+    "idea_id": "PL1082",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438521+00:00",
+    "claimed_at": "2026-07-10T08:45:54.215877+00:00"
+  },
+  {
+    "name": "Semis relative weakness -> risk-off",
+    "category": "D",
+    "asset_class": "sector_etf",
+    "horizon": "2-6 weeks",
+    "thesis": "Semiconductors lead the tech cycle. When SOXX/SPY 63d momentum turns negative, the market's growth engine is rolling over - reduce semis/risk. Counter to the crowded long-semis trade.",
+    "causal_chain": [
+      "Semi order/cycle momentum peaks",
+      "SOXX/SPY 63d relative momentum turns negative",
+      "Growth leadership deteriorates ahead of index",
+      "Reduce SOXX / risk exposure"
+    ],
+    "data_sources": [
+      "yfinance SOXX",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 5,
+    "source_reference": "Semis-as-cycle-bellwether / relative-strength studies",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "soxx_spy_relative_weakness_riskoff",
+    "counter_signal": true,
+    "counters": "long_semis",
+    "idea_id": "PL1083",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438522+00:00",
+    "claimed_at": "2026-07-10T08:45:54.215881+00:00"
+  },
+  {
+    "name": "Japan equity on yen weakness",
+    "category": "C",
+    "asset_class": "fx",
+    "horizon": "1-3 months",
+    "thesis": "A weakening yen lifts Japanese exporters' translated earnings. Long EWJ (USD-unhedged proxy via local strength) when the yen (FXY) is below its 200d.",
+    "causal_chain": [
+      "Yen (FXY) downtrend below 200d",
+      "Japanese exporter margins expand on FX translation",
+      "Nikkei earnings revised up; foreign inflows",
+      "EWJ local-currency strength outperforms"
+    ],
+    "data_sources": [
+      "yfinance FXY",
+      "yfinance EWJ",
+      "yfinance SPY"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "Yen-Nikkei inverse relationship",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "ewj_yen_weakness_long",
+    "idea_id": "PL1084",
+    "status": "developed",
+    "created_at": "2026-06-18T18:14:25.438523+00:00",
+    "claimed_at": "2026-07-10T08:45:54.294635+00:00"
+  },
+  {
+    "name": "SPX Options Skew & HY OAS Divergence",
+    "category": "F",
+    "asset_class": "multi_asset",
+    "horizon": "1-4 weeks",
+    "thesis": "A significant compression in SPX options put/call skew (downside protection becomes cheaper/less demanded) while high-yield corporate bond spreads (HY OAS) are simultaneously widening indicates growing market complacency coinciding with increasing underlying credit risk, a divergence often preceding equity drawdowns. This triggers a short SPY position or defensive rotation.",
+    "causal_chain": [
+      "SPX options put/call skew compresses significantly (signaling complacency and low demand for downside protection)",
+      "Concurrently, ICE BofA US High Yield Index Option-Adjusted Spread (HY OAS) begins to widen (signaling increasing credit risk)",
+      "This divergence suggests equity market overconfidence despite deteriorating credit fundamentals",
+      "Leads to increased vulnerability for broad market equities",
+      "Triggers a short position in SPY or a rotation into defensive assets (e.g., long TLT)."
+    ],
+    "data_sources": [
+      "CBOE (SPX options put/call skew data)",
+      "FRED (BAMLH0A0HYM2 - ICE BofA US High Yield Index Option-Adjusted Spread)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Market Divergence Signals (academic papers on equity/credit correlation)",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "spx_options_skew_hy_oas_divergence_spy_short",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "idea_id": "PL1085",
+    "status": "developed",
+    "created_at": "2026-07-10T09:19:36.081223+00:00",
+    "claimed_at": "2026-07-10T09:20:54.818548+00:00"
+  },
+  {
+    "name": "USACE Major Waterway Lock Failure Grain Futures Spike",
+    "category": "Q",
+    "asset_class": "commodity",
+    "horizon": "2-8 weeks",
+    "thesis": "A catastrophic and extended failure of a major inland waterway lock or dam within a key agricultural transport region (e.g., Mississippi River System) during or immediately pre-harvest will severely bottleneck grain shipments, causing a sharp divergence between local cash basis (collapsing) and futures prices (spiking) due to supply disruption and increased transportation costs. This creates a rare, high-impact long opportunity in affected grain futures.",
+    "causal_chain": [
+      "USACE issues 'Notices to Navigation' or 'Lock Performance Monitoring System' alerts indicating a major, extended lock/dam failure or closure in a critical grain transport waterway",
+      "Physical bottleneck prevents efficient shipment of agricultural commodities (e.g., corn, soybeans) from interior to export hubs",
+      "Local cash basis prices for affected commodities collapse due to oversupply at origin points",
+      "Futures prices for same commodities spike on global markets due to perceived supply disruption and increased rerouting costs",
+      "Triggers a long position in corn (ZC=F) or soybean (ZS=F) futures, potentially paired with a short local basis trade if available."
+    ],
+    "data_sources": [
+      "USACE (Notices to Navigation, Lock Performance Monitoring System)",
+      "USDA (Weekly Barge Freight Report, Grain Basis Reports)",
+      "CME Group (Corn and Soybean Futures Data)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 3,
+    "source_reference": "USACE Navigation Reports, Agricultural Commodity Market Dynamics",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "usace_major_lock_failure_grain_futures_spike",
+    "sleeper_candidate": true,
+    "idea_id": "PL1086",
+    "status": "watchlist",
+    "created_at": "2026-07-10T09:19:36.081233+00:00",
+    "watchlist_trigger": "USACE Notices to Navigation / Lock Performance Monitoring alert of a major, extended lock or dam failure on a core grain-transport waterway (esp. Mississippi/Illinois system) during or just before harvest (Aug-Nov).",
+    "watchlist_trade": "Long CBOT corn (ZC=F) and/or soybeans (ZS=F); optionally pair long futures vs collapsing local cash basis (USDA Grain Basis / Weekly Barge Freight). Size small.",
+    "watchlist_mechanism": "Physical barge bottleneck strands interior supply (local cash basis collapses) while export-hub/global futures spike on rerouting cost + perceived shortfall.",
+    "watchlist_no_analog_reason": "No catastrophic extended failure of a major grain-lock has occurred in the modern futures-data era; brief closures (2021 flood, drought low-water) are not comparable seeds, so there is no usable historical date set for an event study."
+  },
+  {
+    "name": "FDA AdComm Novel Drug Rejection Drawdown and Reversion",
+    "category": "K",
+    "asset_class": "single_name_equity",
+    "horizon": "2-12 weeks",
+    "thesis": "A negative vote by an FDA Advisory Committee against the approval of a novel drug for a large market indication typically leads to a significant, sharp sell-off in the sponsoring biotech or pharmaceutical company's stock. This creates a short opportunity into the event (if predicted) or a potential mean-reversion long opportunity for the stock in the weeks following the initial capitulation, especially if the drug still has a path forward or the market overreacts.",
+    "causal_chain": [
+      "FDA schedules an Advisory Committee (AdComm) meeting for a novel drug (NDA/BLA) in a high-value therapeutic area",
+      "AdComm panel votes decisively against the drug's approval or raises significant safety/efficacy concerns",
+      "Sponsor company's stock experiences an immediate and substantial drawdown post-AdComm outcome",
+      "The market often overshoots in its initial reaction to such binary events, creating a short-term oversold condition",
+      "Triggers a short position before a widely expected negative AdComm, or a long position for mean reversion after the initial, sharp decline, based on fundamental re-evaluation."
+    ],
+    "data_sources": [
+      "FDA (Advisory Committee calendar, meeting transcripts, voting results)",
+      "SEC EDGAR (8-K filings for AdComm outcomes, 10-K/Q for pipeline details)"
+    ],
+    "originality": 6,
+    "bt_feasibility": 4,
+    "source_reference": "FDA Advisory Committee historical outcomes, Event Study Methodology",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_adcomm_novel_drug_rejection_drawdown_reversion",
+    "sleeper_candidate": true,
+    "idea_id": "PL1087",
+    "status": "rejected",
+    "created_at": "2026-07-10T09:19:36.081235+00:00",
+    "reject_reason": "Backtest requires a hand-curated dataset of negative FDA AdComm vote dates mapped to sponsor tickers (entity resolution from FDA calendars/transcripts). No free structured feed exists; curating dates from memory would be unreliable and violate the honest-backtest standard. Valid future research target if a vetted AdComm-outcome date set is assembled."
   }
 ]
