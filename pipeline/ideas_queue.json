@@ -32330,5 +32330,94 @@
     "status": "rejected",
     "created_at": "2026-07-10T09:19:36.081235+00:00",
     "reject_reason": "Backtest requires a hand-curated dataset of negative FDA AdComm vote dates mapped to sponsor tickers (entity resolution from FDA calendars/transcripts). No free structured feed exists; curating dates from memory would be unreliable and violate the honest-backtest standard. Valid future research target if a vetted AdComm-outcome date set is assembled."
+  },
+  {
+    "name": "High-Yield Default Forecast Widening Amidst Equity Volatility Compression",
+    "category": "D",
+    "asset_class": "multi_asset",
+    "horizon": "3-6 months",
+    "thesis": "A significant rise in high-yield corporate default rate forecasts, diverging from continued compression in equity market volatility (VIX), signals increasing credit stress that the equity market is ignoring, leading to a defensive rotation or equity drawdown.",
+    "causal_chain": [
+      "Bloomberg or S&P/Moody's high-yield corporate default rate forecasts show a material increase (e.g., crossing a 5-year average + 1 standard deviation).",
+      "Simultaneously, the CBOE VIX index remains subdued or compresses further (e.g., below 18 for a sustained period or reaching multi-year lows).",
+      "This divergence indicates a growing disconnect between credit market health warnings and equity market complacency.",
+      "As this credit stress eventually manifests, it will trigger a broad equity market correction, benefiting defensive assets and short equity positions."
+    ],
+    "data_sources": [
+      "Bloomberg Terminal (HY Default Rate Forecasts)",
+      "S&P Global Ratings (Corporate Default Studies)",
+      "Moody's Investors Service (Default & Recovery Rates)",
+      "CBOE VIX Index (yfinance/FRED)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 4,
+    "source_reference": "Academic studies on credit-equity market divergence, e.g., Acharya et al. on financial fragility.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "hy_default_forecast_eq_vol_divergence",
+    "counter_signal": true,
+    "counters": "long_SPY",
+    "sleeper_candidate": true,
+    "idea_id": "PL1088",
+    "status": "rejected",
+    "created_at": "2026-07-10T09:38:40.401813+00:00",
+    "reject_reason": "Related-variant of PL1085 (skew/HY-OAS divergence -> short SPY), which backtested as a dud. Same complacency-vs-credit-widening thesis, different proxies; no distinct edge to test."
+  },
+  {
+    "name": "Mississippi River Low Water & Lock Maintenance Surge Impact on Grain Rail Freight",
+    "category": "P",
+    "asset_class": "multi_asset",
+    "horizon": "1-3 months",
+    "thesis": "Sustained critically low water levels on the Mississippi River system, compounded by clusters of scheduled major lock and dam maintenance closures, create severe bottlenecks for barge traffic, driving up rail freight costs for agricultural commodities and supporting grain futures prices.",
+    "causal_chain": [
+      "USGS streamflow data indicates prolonged 'severe drought' or 'critically low' conditions for the Mississippi River mainstem and key tributaries.",
+      "US Army Corps of Engineers (USACE) schedules coincide major lock and dam maintenance closures during this period of low water, severely restricting barge navigation.",
+      "Barge freight rates for grain (e.g., USDA daily barge rates) surge due to constrained capacity, forcing shippers to divert to rail.",
+      "Increased demand for rail transport for agricultural goods boosts revenues for major rail carriers and creates a localized supply shock for grain, supporting futures prices (corn, soybeans)."
+    ],
+    "data_sources": [
+      "USGS Water Resources (National Water Information System - Streamflow Data)",
+      "US Army Corps of Engineers (Lock & Dam Maintenance Schedules)",
+      "USDA Agricultural Marketing Service (Grain Transportation Reports, Barge Rates)",
+      "CME Group (Corn and Soybean Futures prices - ZC=F, ZS=F)",
+      "YFinance (UNP, CSX equity prices)"
+    ],
+    "originality": 8,
+    "bt_feasibility": 4,
+    "source_reference": "USACE annual reports, USDA agricultural outlook reports on transportation challenges.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "mississippi_low_water_lock_maint_rail_grain_premium",
+    "sleeper_candidate": true,
+    "idea_id": "PL1089",
+    "status": "rejected",
+    "created_at": "2026-07-10T09:38:40.401828+00:00",
+    "reject_reason": "Related-variant of watchlisted PL1086 (USACE grain-lock failure). Rail-freight substitution angle is not cleanly tradable (UNP/CSX too diversified to isolate) and low-water episodes overlap the PL1086 watchlist thesis."
+  },
+  {
+    "name": "FDA AdCom Negative Vote on Key Product for Revenue-Concentrated Biotech/MedTech",
+    "category": "H",
+    "asset_class": "single_name_equity",
+    "horizon": "1-4 weeks",
+    "thesis": "An unexpected negative advisory committee vote by the FDA (e.g., recommending against approval or for significant label restrictions) for a drug or device that represents a substantial portion of a biotech or medical device company's future revenue pipeline will lead to a sharp, sustained drawdown in that company's stock.",
+    "causal_chain": [
+      "A biotech or medtech company (identified via SEC filings for revenue concentration or pipeline updates) has a pivotal product undergoing FDA Advisory Committee review.",
+      "The FDA AdCom publicly announces an unexpected negative vote or recommendation that significantly impairs the commercial viability of the product (e.g., 'not approvable', 'requires more studies', 'severe label restrictions').",
+      "This negative outcome directly impacts a large percentage of the company's projected future revenue, leading to a re-rating of the stock.",
+      "The single-name equity experiences a significant and sustained price decline as market estimates are revised downward."
+    ],
+    "data_sources": [
+      "FDA Advisory Committee Meeting Calendar & Outcomes (FDA.gov)",
+      "SEC EDGAR (10-K, 10-Q filings for revenue concentration and pipeline disclosures)",
+      "ClinicalTrials.gov (Phase 3 trial progress/status)",
+      "YFinance (single-name equity prices)"
+    ],
+    "originality": 7,
+    "bt_feasibility": 3,
+    "source_reference": "FDA guidance documents, biotech industry research on AdCom impact.",
+    "research_phase": "pipeline_scout",
+    "dedup_key": "fda_adcomm_major_product_rejection_single_name_short",
+    "idea_id": "PL1090",
+    "status": "rejected",
+    "created_at": "2026-07-10T09:38:40.401832+00:00",
+    "reject_reason": "Duplicate of PL1087 (FDA AdComm negative vote drawdown). Same signal; still needs a hand-curated AdComm outcome date set with ticker entity resolution \u2014 no free structured feed."
   }
 ]
