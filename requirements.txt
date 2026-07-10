@@ -1,0 +1,15 @@
+# ekans pipeline dependencies. Install into a venv:
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# Backtesting / data (free public sources: yfinance, FRED, EDGAR)
+yfinance>=1.2.0
+pandas>=2.0
+numpy>=1.26
+scipy>=1.11
+pandas-datareader>=0.10
+pyarrow>=15
+fredapi>=0.5.1
+
+# Idea-scout / strategy-developer loops (runner.py). One LLM provider is enough:
+google-genai>=1.40        # Gemini  (set GOOGLE_API_KEY)
+# anthropic>=0.40         # Claude  (set ANTHROPIC_API_KEY) — uncomment to use

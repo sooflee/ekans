@@ -3,16 +3,19 @@ Pipeline runner — manages the 3-loop signal research pipeline.
 
 Usage:
   python pipeline/runner.py              # Run one cycle of all 3 loops
-  python pipeline/runner.py scout        # Run Loop 1 only (needs ANTHROPIC_API_KEY)
-  python pipeline/runner.py develop      # Run Loop 2 only (needs ANTHROPIC_API_KEY)
+  python pipeline/runner.py scout        # Run Loop 1 only (needs an LLM key)
+  python pipeline/runner.py develop      # Run Loop 2 only (needs an LLM key)
   python pipeline/runner.py backtest     # Run Loop 3 only (mechanical, no API needed)
   python pipeline/runner.py daemon       # Run all 3 in a loop (Ctrl+C to stop)
   python pipeline/runner.py status       # Print queue status
 
 Loop 3 (backtester) is fully mechanical — it reads strategy specs and runs
-existing backtest scripts. Loops 1 and 2 require ANTHROPIC_API_KEY to generate
-ideas and develop strategies via Claude API.
+existing backtest scripts. Loops 1 and 2 generate ideas / develop strategies via
+an LLM: set GOOGLE_API_KEY (Gemini) or ANTHROPIC_API_KEY (Claude) in the
+environment or in a gitignored repo-root .env (auto-loaded at startup). The key
+present picks the provider — see _llm(). pip install google-genai (or anthropic).
 """
+from __future__ import annotations
 
 import json
 import subprocess
@@ -197,21 +200,95 @@ def run_backtest_loop():
 
 
 CLAUDE_MODEL = "claude-sonnet-4-5"
+GEMINI_MODEL = "gemini-2.5-flash"
+
+
+def _load_dotenv():
+    """Load KEY=VALUE lines from a repo-root .env into os.environ (no override
+    of already-set vars, no external dependency). Called once at startup so the
+    gitignored .env holding GOOGLE_API_KEY / ANTHROPIC_API_KEY just works."""
+    import os
+    env_path = ROOT / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, val = line.partition("=")
+        key, val = key.strip(), val.strip().strip('"').strip("'")
+        os.environ.setdefault(key, val)
+
+
+def _llm(prompt: str, max_tokens: int = 8192, json_mode: bool = True) -> str | None:
+    """Send a single-turn prompt, return the model's text (or None on failure).
+
+    Provider is chosen by which key is set: GOOGLE_API_KEY -> Gemini,
+    else ANTHROPIC_API_KEY -> Claude. The callers only need JSON text back, so
+    the two providers are interchangeable here. When json_mode is set, Gemini is
+    put in native JSON mode (guaranteed-valid JSON, no code fences) since both
+    loops parse the reply as JSON.
+    """
+    import os
+    google_key = os.environ.get("GOOGLE_API_KEY")
+    anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
+
+    if google_key:
+        try:
+            from google import genai
+        except ImportError:
+            print("LLM: pip install google-genai to use the Gemini loops.")
+            return None
+        client = genai.Client(api_key=google_key)
+        model = os.environ.get("GEMINI_MODEL", GEMINI_MODEL)
+        cfg = {"max_output_tokens": max_tokens}
+        if json_mode:
+            cfg["response_mime_type"] = "application/json"
+        # Free-tier Gemini returns transient 429/503 under load; retry with backoff.
+        last_err = None
+        for attempt in range(5):
+            try:
+                resp = client.models.generate_content(model=model, contents=prompt, config=cfg)
+                return (resp.text or "").strip()
+            except Exception as e:  # noqa: BLE001
+                code = getattr(e, "code", None) or getattr(e, "status_code", None)
+                transient = code in (429, 503) or "UNAVAILABLE" in str(e) or "RESOURCE_EXHAUSTED" in str(e)
+                if not transient or attempt == 4:
+                    print(f"LLM (Gemini) error: {str(e)[:160]}")
+                    return None
+                wait = 3 * (2 ** attempt)
+                print(f"LLM (Gemini) transient {code or 'error'}; retry {attempt + 1}/4 in {wait}s")
+                last_err = e
+                time.sleep(wait)
+        print(f"LLM (Gemini) gave up: {str(last_err)[:160]}")
+        return None
+
+    if anthropic_key:
+        try:
+            import anthropic
+        except ImportError:
+            print("LLM: pip install anthropic to use the Claude loops.")
+            return None
+        client = anthropic.Anthropic(api_key=anthropic_key)
+        msg = client.messages.create(
+            model=CLAUDE_MODEL, max_tokens=max_tokens,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return msg.content[0].text.strip()
+
+    return None
+
+
+def _has_llm_key() -> bool:
+    import os
+    return bool(os.environ.get("GOOGLE_API_KEY") or os.environ.get("ANTHROPIC_API_KEY"))
 
 
 def run_scout_loop():
     """Loop 1 — needs Claude API. Generates ideas via append_ideas (which
     assigns idea_id under lock, so concurrent scouts don't collide)."""
-    try:
-        import anthropic
-    except ImportError:
-        print("Scout: pip install anthropic to use this loop, or run manually via Claude Code.")
-        return False
-
-    import os
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("Scout: Set ANTHROPIC_API_KEY env var, or run manually via Claude Code:")
+    if not _has_llm_key():
+        print("Scout: Set GOOGLE_API_KEY (or ANTHROPIC_API_KEY) env var / .env, or run manually via Claude Code:")
         print("  claude 'Read pipeline/idea_scout.md and follow its instructions exactly'")
         heartbeat("idea_scout", "needs_api_key")
         return False
@@ -231,15 +308,13 @@ Existing backtest files:
 Generate 2-3 new ideas and return ONLY the JSON array of new idea objects (no markdown, no explanation).
 DO NOT set idea_id on the returned objects — it is assigned inside the queue lock by `append_ideas`."""
 
-    client = anthropic.Anthropic(api_key=api_key)
-    msg = client.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=4096,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    text = _llm(prompt)
+    if text is None:
+        print("Scout: LLM call returned nothing.")
+        heartbeat("idea_scout")
+        return False
 
     try:
-        text = msg.content[0].text.strip()
         if text.startswith("```"):
             text = text.split("\n", 1)[1].rsplit("```", 1)[0]
         new_ideas = json.loads(text)
@@ -275,16 +350,8 @@ DO NOT set idea_id on the returned objects — it is assigned inside the queue l
 def run_develop_loop():
     """Loop 2 — needs Claude API. Develops strategies from ideas via the
     locking claim helper, so concurrent developers don't double-claim."""
-    try:
-        import anthropic
-    except ImportError:
-        print("Developer: pip install anthropic to use this loop, or run manually via Claude Code.")
-        return False
-
-    import os
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("Developer: Set ANTHROPIC_API_KEY env var, or run manually via Claude Code:")
+    if not _has_llm_key():
+        print("Developer: Set GOOGLE_API_KEY (or ANTHROPIC_API_KEY) env var / .env, or run manually via Claude Code:")
         print("  claude 'Read pipeline/strategy_developer.md and follow its instructions exactly'")
         heartbeat("strategy_developer", "needs_api_key")
         return False
@@ -305,15 +372,14 @@ Here is the idea to develop:
 Return ONLY the JSON object for the developed strategy (no markdown, no explanation).
 Use signal_id: PL{idea['idea_id'].replace('PL','')}_{ idea.get('dedup_key','unknown')[:30] }"""
 
-    client = anthropic.Anthropic(api_key=api_key)
-    msg = client.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=4096,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    text = _llm(prompt)
+    if text is None:
+        print("Developer: LLM call returned nothing; releasing claim.")
+        update_idea_status(idea["idea_id"], "new", claimed_at=None)
+        heartbeat("strategy_developer")
+        return False
 
     try:
-        text = msg.content[0].text.strip()
         if text.startswith("```"):
             text = text.split("\n", 1)[1].rsplit("```", 1)[0]
         strat = json.loads(text)
@@ -366,6 +432,7 @@ def daemon_loop(interval=300, stale_timeout=30):
 
 
 if __name__ == "__main__":
+    _load_dotenv()
     args = sys.argv[1:]
     cmd = args[0] if args else "all"
 

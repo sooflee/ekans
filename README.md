@@ -47,7 +47,8 @@ Full backtest table (all ~350 attempts, including duds): **https://sooflee.githu
 git clone https://github.com/sooflee/ekans.git
 cd ekans
 python3 -m venv .venv
-.venv/bin/pip install yfinance pandas numpy scipy pandas-datareader pyarrow
+.venv/bin/pip install -r requirements.txt
+# (or: pip install yfinance pandas numpy scipy pandas-datareader pyarrow fredapi google-genai)
 
 # Run any backtest (each is standalone)
 .venv/bin/python backtests/A14_btc_halving.py

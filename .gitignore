@@ -34,3 +34,7 @@ Thumbs.db
 # queue_io fcntl sidecar locks + tmp files (atomic write artifacts)
 pipeline/*.lock
 pipeline/*.tmp
+
+# Secrets — API keys (loaded by runner.py at startup; never commit)
+.env
+.env.local
